@@ -37,7 +37,7 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 | `laboratorio/` | I+D y bitácora de proyecto (`bitacora-mercedev.md`) |
 | `scripts/merci/` | Automatización Python (p. ej. `merci-audit.py`) |
 | `assets/` | Multimedia optimizado para producción |
-| `.assets-raw/` | Originales sin procesar |
+| `.assets-raw/` | Originales sin procesar **solo en tu disco**; Git ignora todo salvo `.gitkeep` (nada de PSD/RAW/vídeos en el remoto). |
 
 ## Directrices del proyecto
 

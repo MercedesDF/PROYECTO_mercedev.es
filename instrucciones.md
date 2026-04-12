@@ -37,7 +37,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 - `/biblioteca`: Repositorio de conocimiento organizado por estanterías temáticas.
 - `/laboratorio`: I+D, proyectos en fase de desarrollo, scripts experimentales y **bitácora de proyecto** (`bitacora-mercedev.md`).
 - `/scripts/merci`: Utilidades de automatización en Python.
-- `/.assets-raw`: Multimedia original sin procesar.
+- `/.assets-raw`: Área **local** para multimedia original sin procesar. Los originales **no se versionan** en Git (solo el marcador `.gitkeep` y la regla en `.gitignore`); el flujo previsto es generar salida en `/assets` (p. ej. con `merci-optimizer.py`).
 - `/assets`: Multimedia optimizado para producción.
 
 ## 4. Reglas de Interacción y Pedagogía

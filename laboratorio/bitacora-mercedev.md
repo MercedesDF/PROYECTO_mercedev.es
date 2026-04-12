@@ -75,6 +75,18 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** Seguir añadiendo entradas bajo «Registro cronológico» sin editar entradas previas salvo las excepciones acordadas.
 
+### 2026-04-12 — `.assets-raw`: solo local, sin originales en Git
+
+**Contexto:** Evitar que PSD, RAW, vídeos u otros brutos acaben en GitHub.
+
+**Hecho:** `.gitignore` pasa a ignorar `.assets-raw/*` con excepción de `.assets-raw/.gitkeep`. `instrucciones.md` y `README.md` describen que la carpeta es convención de trabajo local y que lo versionado en `/assets` es lo optimizado.
+
+**Detalle técnico:** Patrón en `.gitignore`: `!.assets-raw/.gitkeep` tras `.assets-raw/*`.
+
+**Motivo / criterio:** Repositorio ligero y reproducible; los originales viven fuera del remoto (disco, NAS, etc.).
+
+**Siguiente paso o deuda:** En Fase 3, documentar el flujo concreto `merci-optimizer.py` de `.assets-raw` → `assets/`.
+
 ---
 
 ## Cuando pases esto a la biblioteca
