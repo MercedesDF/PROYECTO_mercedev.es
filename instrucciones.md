@@ -35,7 +35,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 ## 3. Estructura de Directorios Aprobada
 - `/docs`: Estrategia y directrices.
 - `/biblioteca`: Repositorio de conocimiento organizado por estanterías temáticas.
-- `/laboratorio`: I+D, proyectos en fase de desarrollo y scripts experimentales.
+- `/laboratorio`: I+D, proyectos en fase de desarrollo, scripts experimentales y **bitácora de proyecto** (`bitacora-mercedev.md`).
 - `/scripts/merci`: Utilidades de automatización en Python.
 - `/.assets-raw`: Multimedia original sin procesar.
 - `/assets`: Multimedia optimizado para producción.
@@ -46,6 +46,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 3. **Control de Comprensión:** Validación de conceptos antes de proceder.
 4. **Seguridad Shift-Left:** Mitigación de vulnerabilidades desde la fase de diseño.
 5. **Manejo de Errores:** Todo código debe incluir gestión de excepciones para evitar colapsos.
+6. **Bitácora en laboratorio:** Mantener actualizado `laboratorio/bitacora-mercedev.md` con el contexto de cada sesión o tema cerrado (qué se hizo, por qué, comandos o rutas útiles). Sirve de memoria para el desarrollador y, al concluir el proyecto, de borrador curado para trasladar piezas definitivas a `biblioteca/`, usando la plantilla y los criterios descritos en ese archivo.
 
 ## 5. Fases de Implementación (Roadmap)
 - **Fase 1: Infraestructura y Automatización Base.** Zsh, directorios y `merci-audit.py`.
