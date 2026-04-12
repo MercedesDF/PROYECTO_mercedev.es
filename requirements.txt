@@ -1,0 +1,3 @@
+# merci-audit.py: solo biblioteca estándar (Python 3.10+).
+# merci-optimizer.py (Fase 3): descomenta cuando toque Pillow.
+# pillow>=10.0.0

@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+# Instalar (desde la raíz del repo):
+#   chmod +x scripts/merci/pre-commit
+#   ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
+set -eu
+ROOT=$(git rev-parse --show-toplevel)
+cd "$ROOT"
+exec python3 scripts/merci/merci-audit.py --git-staged
