@@ -11,9 +11,10 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Cómo mantenerlo (acuerdo simple)
 
-1. **Añadir entradas al final** de la sección “Registro cronológico”, con la plantilla de abajo.
+1. **Añadir entradas al final** de la sección “Registro cronológico”, con la plantilla de abajo. El registro es **acumulativo**: lo ya escrito forma parte del historial y **no se reemplaza** por nuevas sesiones (así no se pierde contexto ni fechas).
 2. **Una entrada por sesión o por tema cerrado** (lo que resulte más claro al escribir).
 3. Si algo fue un error o una vulnerabilidad evitada, opcionalmente usar los **tres átomos** del proyecto (Desafío → Maniobra → Aprendizaje/Deuda) en el cuerpo de la entrada.
+4. **Correcciones excepcionales** (typo, dato incorrecto, redacción de un solo párrafo, retirada de información sensible): editar solo el fragmento necesario o añadir una línea aclaratoria bajo la entrada; evitar reescribir todo el archivo o borrar entradas enteras sin motivo documentado.
 
 ### Plantilla para nuevas entradas
 
@@ -62,6 +63,18 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** Fase 2 — HTML semántico, JSON-LD e indexación; primer documento público o plantilla que pase el audit sin `--no-verify`.
 
+### 2026-04-12 — Registro cronológico acumulativo (no sustituir historial)
+
+**Contexto:** Asegurar que la bitácora no pierda contexto al añadir sesiones nuevas.
+
+**Hecho:** En `instrucciones.md` (regla 6) y en «Cómo mantenerlo» de este archivo quedó explícito: nuevas entradas **solo al final** del registro; no reemplazar ni borrar bloques ya escritos salvo corrección puntual o retirada de datos sensibles, con motivo claro.
+
+**Detalle técnico:** N/A.
+
+**Motivo / criterio:** El historial del laboratorio es activo de trazabilidad; sobrescribirlo rompería la línea temporal para el «yo futuro» y para el traslado a `biblioteca/`.
+
+**Siguiente paso o deuda:** Seguir añadiendo entradas bajo «Registro cronológico» sin editar entradas previas salvo las excepciones acordadas.
+
 ---
 
 ## Cuando pases esto a la biblioteca
@@ -73,4 +86,4 @@ Copia el bloque y rellénalo.
 
 ---
 
-*Última actualización de plantilla y primera entrada: 2026-04-12.*
+*Última revisión de la plantilla y del pie: 2026-04-12.*

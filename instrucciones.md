@@ -46,7 +46,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 3. **Control de Comprensión:** Validación de conceptos antes de proceder.
 4. **Seguridad Shift-Left:** Mitigación de vulnerabilidades desde la fase de diseño.
 5. **Manejo de Errores:** Todo código debe incluir gestión de excepciones para evitar colapsos.
-6. **Bitácora en laboratorio:** Mantener actualizado `laboratorio/bitacora-mercedev.md` con el contexto de cada sesión o tema cerrado (qué se hizo, por qué, comandos o rutas útiles). Sirve de memoria para el desarrollador y, al concluir el proyecto, de borrador curado para trasladar piezas definitivas a `biblioteca/`, usando la plantilla y los criterios descritos en ese archivo.
+6. **Bitácora en laboratorio:** Mantener actualizado `laboratorio/bitacora-mercedev.md` con el contexto de cada sesión o tema cerrado (qué se hizo, por qué, comandos o rutas útiles). Las entradas del **registro cronológico** se **añaden siempre al final**; no se sustituye ni se borra el texto ya archivado salvo corrección puntual (p. ej. dato erróneo o material sensible), dejando claro en la propia entrada el motivo. Sirve de memoria para el desarrollador y, al concluir el proyecto, de borrador curado para trasladar piezas definitivas a `biblioteca/`, usando la plantilla y los criterios descritos en ese archivo.
 
 ## 5. Fases de Implementación (Roadmap)
 - **Fase 1: Infraestructura y Automatización Base.** Zsh, directorios y `merci-audit.py`.
