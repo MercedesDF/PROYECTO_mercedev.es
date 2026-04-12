@@ -39,6 +39,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 - `/scripts/merci`: Utilidades de automatización en Python.
 - `/.assets-raw`: Área **local** para multimedia original sin procesar. Los originales **no se versionan** en Git (solo el marcador `.gitkeep` y la regla en `.gitignore`); el flujo previsto es generar salida en `/assets` (p. ej. con `merci-optimizer.py`).
 - `/assets`: Multimedia optimizado para producción.
+- `/public`: **Raíz del documento** del núcleo estático servido en producción (p. ej. `index.html`, `robots.txt`, `sitemap.xml` en la Fase 2). Las rutas a multimedia publicado apuntan a `/assets/`. Los sistemas dinámicos WordPress (`/blog`, `/tienda`) **no** viven bajo esta carpeta; se integran aparte en la Fase 4.
 
 ## 4. Reglas de Interacción y Pedagogía
 1. **Validación Lógica:** Explicación arquitectónica previa a cualquier bloque de código.

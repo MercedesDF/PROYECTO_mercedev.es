@@ -99,6 +99,18 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** Revisar futuros `docs/` públicos con el mismo criterio.
 
+### 2026-04-12 — Fase 2: carpeta `public/` como raíz del documento
+
+**Contexto:** Inicio de la Fase 2 por la estructura antes del primer HTML.
+
+**Hecho:** Directorio `public/` en el repo con `.gitkeep`; entrada en §3 de `instrucciones.md` y fila en `README.md`. Convención: aquí vive el núcleo estático servido como documento raíz; WP fuera hasta Fase 4.
+
+**Detalle técnico:** Nombre elegido: `public/` (convención habitual de “document root” en despliegues estáticos).
+
+**Motivo / criterio:** Separar claramente sitio servido, automatización, conocimiento y brutos locales.
+
+**Siguiente paso o deuda:** `public/index.html` semántico + JSON-LD + `robots.txt` / `sitemap.xml` en la misma raíz cuando toque.
+
 ---
 
 ## Cuando pases esto a la biblioteca
