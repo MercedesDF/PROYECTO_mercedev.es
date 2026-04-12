@@ -47,6 +47,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 4. **Seguridad Shift-Left:** Mitigación de vulnerabilidades desde la fase de diseño.
 5. **Manejo de Errores:** Todo código debe incluir gestión de excepciones para evitar colapsos.
 6. **Bitácora en laboratorio:** Mantener actualizado `laboratorio/bitacora-mercedev.md` con el contexto de cada sesión o tema cerrado (qué se hizo, por qué, comandos o rutas útiles). Las entradas del **registro cronológico** se **añaden siempre al final**; no se sustituye ni se borra el texto ya archivado salvo corrección puntual (p. ej. dato erróneo o material sensible), dejando claro en la propia entrada el motivo. Sirve de memoria para el desarrollador y, al concluir el proyecto, de borrador curado para trasladar piezas definitivas a `biblioteca/`, usando la plantilla y los criterios descritos en ese archivo.
+7. **Documentación versionada impersonal:** En archivos del repositorio visibles al público (`README.md`, `docs/` públicos, etc.) no deben figurar recordatorios en segunda persona ni “notas al autor” (p. ej. “cuando tengas tiempo añade…”). Ese tipo de seguimiento vive **fuera del repo** (agenda, notas privadas, issue tracker). El texto en Git debe leerse bien a un colaborador o visitante anónimo.
 
 ## 5. Fases de Implementación (Roadmap)
 - **Fase 1: Infraestructura y Automatización Base.** Zsh, directorios y `merci-audit.py`.

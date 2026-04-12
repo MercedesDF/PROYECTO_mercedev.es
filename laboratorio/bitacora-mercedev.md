@@ -87,6 +87,18 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** En Fase 3, documentar el flujo concreto `merci-optimizer.py` de `.assets-raw` → `assets/`.
 
+### 2026-04-12 — Documentación pública sin notas personales al mantenedor
+
+**Contexto:** Evitar frases tipo “cuando lo tengas claro añade LICENSE” en el README u otros textos versionados para GitHub.
+
+**Hecho:** `README.md` (Licencia y otras frases) redactado en tono neutro. Nueva regla 7 en `instrucciones.md`: recordatorios al autor fuera del repo; en Git, texto útil para visitantes o colaboradores.
+
+**Detalle técnico:** N/A.
+
+**Motivo / criterio:** El remoto es documentación de producto/proyecto, no la libreta personal.
+
+**Siguiente paso o deuda:** Revisar futuros `docs/` públicos con el mismo criterio.
+
 ---
 
 ## Cuando pases esto a la biblioteca
