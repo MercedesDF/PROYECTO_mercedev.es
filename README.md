@@ -51,24 +51,24 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 ### Fase 1 - Infraestructura y Automatización Base
 
 #### 1.1 Estructura base de repositorio y entorno
-- [ ] Verificar la estructura aprobada (`docs/`, `biblioteca/`, `laboratorio/`, `scripts/merci/`, `assets/`, `public/`, `.assets-raw/`).
-- [ ] Confirmar que `.assets-raw/` mantiene solo `.gitkeep` como contenido versionado.
-- [ ] Definir y documentar una convención estable de nombres de archivos y rutas.
+- [x] Verificar la estructura aprobada (`docs/`, `biblioteca/`, `laboratorio/`, `scripts/merci/`, `assets/`, `public/`, `.assets-raw/`).
+- [x] Confirmar que `.assets-raw/` mantiene solo `.gitkeep` como contenido versionado.
+- [x] Definir y documentar una convención estable de nombres de archivos y rutas.
 
 #### 1.2 Sistema Merci y auditoría inicial
-- [ ] Ejecutar `python3 scripts/merci/merci-audit.py` en local y registrar resultado base.
-- [ ] Ejecutar `python3 scripts/merci/merci-audit.py --git-staged` para validar el flujo staged.
-- [ ] Corregir advertencias críticas detectadas por `merci-audit.py` antes de nuevas fases.
+- [x] Ejecutar `python3 scripts/merci/merci-audit.py` en local y registrar resultado base.
+- [x] Ejecutar `python3 scripts/merci/merci-audit.py --git-staged` para validar el flujo staged.
+- [x] Corregir advertencias críticas detectadas por `merci-audit.py` antes de nuevas fases.
 
 #### 1.3 Integración de hook de pre-commit
-- [ ] Aplicar permisos de ejecución a `scripts/merci/pre-commit` y `scripts/merci/merci-audit.py`.
-- [ ] Enlazar hook local a `.git/hooks/pre-commit` y validar su ejecución en un commit de prueba.
-- [ ] Asegurar que los commits con fallos de auditoría se bloquean correctamente.
+- [x] Aplicar permisos de ejecución a `scripts/merci/pre-commit` y `scripts/merci/merci-audit.py`.
+- [x] Enlazar hook local a `.git/hooks/pre-commit` y validar su ejecución en un commit de prueba.
+- [x] Asegurar que los commits con fallos de auditoría se bloquean correctamente.
 
 #### 1.4 Gobernanza técnica mínima
-- [ ] Crear entrada de bitácora en `laboratorio/bitacora-mercedev.md` con contexto de arranque.
-- [ ] Registrar comandos estándar de trabajo para facilitar continuidad entre sesiones.
-- [ ] Confirmar que la documentación del repo no incluye notas personales ni recordatorios en segunda persona.
+- [x] Crear entrada de bitácora en `laboratorio/bitacora-mercedev.md` con contexto de arranque.
+- [x] Registrar comandos estándar de trabajo para facilitar continuidad entre sesiones.
+- [x] Confirmar que la documentación del repo no incluye notas personales ni recordatorios en segunda persona.
 
 ### Fase 2 - Arquitectura Semántica y SEO Técnico
 
@@ -83,9 +83,11 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Verificar sintaxis del JSON-LD y su coherencia con el contenido real de la página.
 
 #### 2.3 Indexación técnica
-- [ ] Crear `public/robots.txt` con reglas explícitas de rastreo.
-- [ ] Crear `public/sitemap.xml` con URLs canónicas previstas para producción.
-- [ ] Revisar consistencia entre `robots.txt`, `sitemap.xml` y canónicas.
+- [x] Crear `public/robots.txt` con reglas explícitas de rastreo.
+- [x] Crear `public/sitemap.xml` con URLs canónicas previstas para producción.
+- [x] Revisar consistencia entre `robots.txt`, `sitemap.xml` y canónicas.
+- [x] Automatizar actualización de `lastmod` mediante `merci-sitemap.py`.
+- [x] Integrar `merci-sitemap.py` en el hook de pre-commit para actualización automática.
 
 #### 2.4 Validación SEO y accesibilidad base
 - [x] Confirmar atributos `lang`, `charset` y semántica documental mínima.

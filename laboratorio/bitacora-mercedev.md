@@ -38,6 +38,51 @@ Copia el bloque y rellénalo.
 
 ## Registro cronológico
 
+### 2026-04-14 — Integración de merci-sitemap.py en el hook de pre-commit
+
+**Contexto:** Automatizar la actualización de la fecha `<lastmod>` en `sitemap.xml` cada vez que se realicen cambios en la carpeta `public/`.
+
+**Hecho:** Modificar `scripts/merci/pre-commit`.
+
+**Detalle técnico:**
+- Se añadió lógica para detectar archivos staged en `public/`.
+- Si se detectan cambios, se ejecuta `python3 scripts/merci/merci-sitemap.py`.
+- Se añade `public/sitemap.xml` al índice de Git (`git add public/sitemap.xml`) para incluir su modificación en el commit actual.
+
+**Motivo / criterio:** Asegurar que `sitemap.xml` refleje siempre la fecha de la última modificación de contenido relevante, mejorando la precisión del SEO técnico.
+
+**Siguiente paso o deuda:** Realizar un commit de prueba que incluya cambios en `public/` para validar el funcionamiento del hook.
+
+### 2026-04-14 — Automatización de metadatos de indexación (Sitemap)
+
+**Contexto:** Evitar la actualización manual de la fecha de última modificación en el sitemap.xml para mejorar el SEO técnico.
+
+**Hecho:** Crear script `scripts/merci/merci-sitemap.py` para la gestión automática de fechas en archivos XML.
+
+**Detalle técnico:**
+- Uso de la librería `datetime` para obtener la fecha del sistema.
+- Empleo de `re.sub` para manipular el contenido del XML sin necesidad de parsers pesados.
+
+**Motivo / criterio:** Mantener la consistencia entre los cambios reales y lo que se informa a los motores de búsqueda de forma automatizada.
+
+**Siguiente paso o deuda:** Integrar la ejecución de este script en el flujo de publicación o en un hook de post-commit.
+
+### 2026-04-14 — Cierre de Fase 1 y creación de activos de indexación (Fase 2.3)
+
+**Contexto:** Finalización formal de la infraestructura base y configuración de la visibilidad para buscadores del núcleo estático.
+
+**Hecho:** 
+- Actualizar `README.md` para reflejar la Fase 1 como completada.
+- Crear `public/robots.txt` y `public/sitemap.xml`.
+
+**Detalle técnico:** 
+- `robots.txt`: Configurado para permitir el rastreo total y apuntar al mapa del sitio.
+- `sitemap.xml`: Generado con la URL canónica raíz y prioridad máxima.
+
+**Motivo / criterio:** Cumplir con los estándares de **SEO** (Search Engine Optimization - Optimización para Motores de Búsqueda) técnico definidos en el roadmap.
+
+**Siguiente paso o deuda:** Validar la jerarquía de encabezados (Fase 2.1) para asegurar accesibilidad.
+
 ### 2026-04-14 — Validación de Fase 2 (HTML y SEO Técnico) con Merci Audit
 
 **Contexto:** Verificación del primer documento semántico del núcleo estático frente a las reglas de auditoría.
