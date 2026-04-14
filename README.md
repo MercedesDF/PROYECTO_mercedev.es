@@ -44,6 +44,164 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 
 Las reglas de arquitectura, pedagogía, roadmap y convenciones están en **`instrucciones.md`**. Quien colabore o retome el repo debería leerlo antes de cambiar el stack o las fases.
 
+## Roadmap
+
+Checklist de avance por fases y subfases. Cada hito está pensado para poder marcarse cuando la evidencia técnica exista en el repositorio o en la verificación local.
+
+### Fase 1 - Infraestructura y Automatización Base
+
+#### 1.1 Estructura base de repositorio y entorno
+- [ ] Verificar la estructura aprobada (`docs/`, `biblioteca/`, `laboratorio/`, `scripts/merci/`, `assets/`, `public/`, `.assets-raw/`).
+- [ ] Confirmar que `.assets-raw/` mantiene solo `.gitkeep` como contenido versionado.
+- [ ] Definir y documentar una convención estable de nombres de archivos y rutas.
+
+#### 1.2 Sistema Merci y auditoría inicial
+- [ ] Ejecutar `python3 scripts/merci/merci-audit.py` en local y registrar resultado base.
+- [ ] Ejecutar `python3 scripts/merci/merci-audit.py --git-staged` para validar el flujo staged.
+- [ ] Corregir advertencias críticas detectadas por `merci-audit.py` antes de nuevas fases.
+
+#### 1.3 Integración de hook de pre-commit
+- [ ] Aplicar permisos de ejecución a `scripts/merci/pre-commit` y `scripts/merci/merci-audit.py`.
+- [ ] Enlazar hook local a `.git/hooks/pre-commit` y validar su ejecución en un commit de prueba.
+- [ ] Asegurar que los commits con fallos de auditoría se bloquean correctamente.
+
+#### 1.4 Gobernanza técnica mínima
+- [ ] Crear entrada de bitácora en `laboratorio/bitacora-mercedev.md` con contexto de arranque.
+- [ ] Registrar comandos estándar de trabajo para facilitar continuidad entre sesiones.
+- [ ] Confirmar que la documentación del repo no incluye notas personales ni recordatorios en segunda persona.
+
+### Fase 2 - Arquitectura Semántica y SEO Técnico
+
+#### 2.1 Base semántica del núcleo estático
+- [ ] Estructurar `public/index.html` con semántica HTML5 estricta (`header`, `main`, `section`, `footer`).
+- [ ] Validar jerarquía de encabezados (`h1`-`h6`) sin saltos estructurales.
+- [ ] Incorporar landmarks accesibles para navegación asistida.
+
+#### 2.2 Metadatos y datos estructurados
+- [ ] Definir metadatos esenciales (`title`, `description`, `canonical`, `viewport`).
+- [ ] Insertar bloque JSON-LD mínimo alineado con el tipo de sitio.
+- [ ] Verificar sintaxis del JSON-LD y su coherencia con el contenido real de la página.
+
+#### 2.3 Indexación técnica
+- [ ] Crear `public/robots.txt` con reglas explícitas de rastreo.
+- [ ] Crear `public/sitemap.xml` con URLs canónicas previstas para producción.
+- [ ] Revisar consistencia entre `robots.txt`, `sitemap.xml` y canónicas.
+
+#### 2.4 Validación SEO y accesibilidad base
+- [ ] Confirmar atributos `lang`, `charset` y semántica documental mínima.
+- [ ] Verificar que imágenes críticas incluyen texto alternativo útil.
+- [ ] Registrar en bitácora los criterios de aceptación SEO para cierre de fase.
+
+### Fase 3 - Ingeniería de Estilos
+
+#### 3.1 Arquitectura SASS 7-1
+- [ ] Crear árbol SASS 7-1 y documentar responsabilidad de cada carpeta.
+- [ ] Definir un punto de entrada único de compilación hacia un solo CSS final.
+- [ ] Verificar orden de importación para evitar cascadas inesperadas.
+
+#### 3.2 Metodología BEM
+- [ ] Establecer convención BEM para bloques, elementos y modificadores.
+- [ ] Reflejar la convención BEM en los componentes HTML clave.
+- [ ] Revisar y eliminar clases ambiguas o no alineadas con BEM.
+
+#### 3.3 Estrategia mobile-first y rendimiento
+- [ ] Implementar estilos base para móvil antes de breakpoints superiores.
+- [ ] Definir breakpoints justificados por contenido, no por dispositivo.
+- [ ] Reducir reglas redundantes y validar peso final del CSS compilado.
+
+#### 3.4 Optimización multimedia con Merci
+- [ ] Implementar o consolidar `merci-optimizer.py` para generar WebP responsivo.
+- [ ] Definir tamaños objetivo y nomenclatura de salida en `assets/`.
+- [ ] Validar que los originales en `.assets-raw/` no pasan al remoto.
+
+### Fase 4 - Integración de Sistemas Dinámicos
+
+#### 4.1 Aislamiento de WordPress
+- [ ] Definir integración de WordPress en rutas aisladas (`/blog`, `/tienda`) sin invadir `public/`.
+- [ ] Documentar fronteras entre núcleo estático y capa dinámica.
+- [ ] Verificar que el routing previsto no rompe URLs canónicas del núcleo.
+
+#### 4.2 Child theme ultraligero
+- [ ] Crear child theme con sobrecarga mínima y sin lógica innecesaria.
+- [ ] Enlazar estilos compartidos de forma controlada para mantener coherencia visual.
+- [ ] Validar que no se introducen dependencias pesadas en frontend.
+
+#### 4.3 WooCommerce optimizado para catálogo
+- [ ] Configurar WooCommerce en modo catálogo según alcance funcional definido.
+- [ ] Limitar plugins y extensiones a los estrictamente necesarios.
+- [ ] Revisar impacto de scripts dinámicos en tiempos de carga.
+
+#### 4.4 Integración sin degradación del núcleo
+- [ ] Medir impacto de `/blog` y `/tienda` sobre Core Web Vitals del sitio principal.
+- [ ] Asegurar carga diferida o condicional de recursos dinámicos.
+- [ ] Registrar decisiones de integración y deuda técnica asociada en bitácora.
+
+### Fase 5 - Quality Assurance y Hardening
+
+#### 5.1 Política de seguridad frontend
+- [ ] Definir una política CSP progresiva con modo de validación inicial.
+- [ ] Ajustar orígenes permitidos para scripts, estilos, fuentes e imágenes.
+- [ ] Verificar que la CSP final no rompe funcionalidad crítica.
+
+#### 5.2 Hardening de WordPress
+- [ ] Aplicar endurecimiento básico de WP (superficie de ataque mínima).
+- [ ] Revisar permisos, usuarios administrativos y exposición de endpoints.
+- [ ] Comprobar desactivación de funcionalidades no necesarias.
+
+#### 5.3 Automatización de control de calidad
+- [ ] Ampliar checks de pre-commit para cubrir validaciones críticas recurrentes.
+- [ ] Estandarizar ejecución local de auditorías antes de merge.
+- [ ] Documentar criterios de fallo/bloqueo para que sean reproducibles.
+
+#### 5.4 Verificación de seguridad y consistencia
+- [ ] Ejecutar una pasada integral de auditoría estática y corregir hallazgos críticos.
+- [ ] Confirmar que no hay secretos ni credenciales en el árbol versionado.
+- [ ] Consolidar checklist de hardening completado en documentación interna.
+
+### Fase 6 - Despliegue y Auditoría Final
+
+#### 6.1 Preparación de release
+- [ ] Definir proceso de despliegue paso a paso para entorno de producción.
+- [ ] Verificar artefactos finales del núcleo estático antes del deploy.
+- [ ] Confirmar consistencia de rutas absolutas/relativas para entorno real.
+
+#### 6.2 Auditoría de rendimiento y accesibilidad
+- [ ] Ejecutar mediciones de Core Web Vitals con metodología reproducible.
+- [ ] Validar accesibilidad técnica base y corregir desviaciones críticas.
+- [ ] Comparar resultados frente a objetivos de la filosofía del proyecto.
+
+#### 6.3 Verificación SEO final
+- [ ] Revisar indexabilidad efectiva, canónicas y metadatos finales.
+- [ ] Validar `robots.txt` y `sitemap.xml` contra el estado real de URLs.
+- [ ] Confirmar coherencia entre contenido visible y datos estructurados.
+
+#### 6.4 Cierre documental de despliegue
+- [ ] Registrar evidencias del despliegue y resultados de auditoría.
+- [ ] Documentar incidencias y mitigaciones aplicadas durante la salida.
+- [ ] Dejar criterios explícitos de rollback y recuperación operativa.
+
+### Fase 7 - Automatización y Clasificación
+
+#### 7.1 Flujo de publicación automatizada
+- [ ] Diseñar flujo de publicación que minimice tareas manuales repetitivas.
+- [ ] Definir puntos de validación automática previos a publicación.
+- [ ] Documentar dependencias y responsabilidades del pipeline.
+
+#### 7.2 Plantillas de conocimiento para biblioteca
+- [ ] Definir plantillas estándar para documentos definitivos en `biblioteca/`.
+- [ ] Integrar la estructura de 3 átomos (desafío, maniobra, aprendizaje/deuda).
+- [ ] Validar consistencia editorial y técnica entre estanterías temáticas.
+
+#### 7.3 Flujo laboratorio -> biblioteca
+- [ ] Formalizar criterio para promover contenido desde `laboratorio/` a `biblioteca/`.
+- [ ] Añadir checklist de curación y revisión previa a promoción.
+- [ ] Registrar trazabilidad del origen de cada pieza publicada.
+
+#### 7.4 Mantenimiento y mejora continua
+- [ ] Definir cadencia de revisión del roadmap y actualización de hitos.
+- [ ] Revisar periódicamente deuda técnica acumulada por fase.
+- [ ] Mantener sincronía entre `README.md`, `instrucciones.md` y bitácora activa.
+
 ## Licencia
 
 En la raíz del repositorio no figura aún un archivo `LICENSE`; los términos de distribución y reutilización del código no están declarados en este árbol hasta que se publique dicho archivo.
