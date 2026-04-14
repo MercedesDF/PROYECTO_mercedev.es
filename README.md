@@ -73,14 +73,14 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 ### Fase 2 - Arquitectura Semántica y SEO Técnico
 
 #### 2.1 Base semántica del núcleo estático
-- [ ] Estructurar `public/index.html` con semántica HTML5 estricta (`header`, `main`, `section`, `footer`).
+- [x] Estructurar `public/index.html` con semántica HTML5 estricta (`header`, `main`, `section`, `footer`).
 - [ ] Validar jerarquía de encabezados (`h1`-`h6`) sin saltos estructurales.
 - [ ] Incorporar landmarks accesibles para navegación asistida.
 
 #### 2.2 Metadatos y datos estructurados
-- [ ] Definir metadatos esenciales (`title`, `description`, `canonical`, `viewport`).
-- [ ] Insertar bloque JSON-LD mínimo alineado con el tipo de sitio.
-- [ ] Verificar sintaxis del JSON-LD y su coherencia con el contenido real de la página.
+- [x] Definir metadatos esenciales (`title`, `description`, `canonical`, `viewport`).
+- [x] Insertar bloque JSON-LD mínimo alineado con el tipo de sitio.
+- [x] Verificar sintaxis del JSON-LD y su coherencia con el contenido real de la página.
 
 #### 2.3 Indexación técnica
 - [ ] Crear `public/robots.txt` con reglas explícitas de rastreo.
@@ -88,9 +88,9 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [ ] Revisar consistencia entre `robots.txt`, `sitemap.xml` y canónicas.
 
 #### 2.4 Validación SEO y accesibilidad base
-- [ ] Confirmar atributos `lang`, `charset` y semántica documental mínima.
+- [x] Confirmar atributos `lang`, `charset` y semántica documental mínima.
 - [ ] Verificar que imágenes críticas incluyen texto alternativo útil.
-- [ ] Registrar en bitácora los criterios de aceptación SEO para cierre de fase.
+- [x] Registrar en bitácora los criterios de aceptación SEO para cierre de fase.
 
 ### Fase 3 - Ingeniería de Estilos
 
@@ -127,7 +127,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [ ] Validar que no se introducen dependencias pesadas en frontend.
 
 #### 4.3 WooCommerce optimizado para catálogo
-- [ ] Configurar WooCommerce en modo catálogo según alcance funcional definido.
+- [ ] Configurar WooCommerce en modo catálogo para merchandising de Merci según alcance funcional definido.
 - [ ] Limitar plugins y extensiones a los estrictamente necesarios.
 - [ ] Revisar impacto de scripts dinámicos en tiempos de carga.
 
@@ -135,6 +135,11 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [ ] Medir impacto de `/blog` y `/tienda` sobre Core Web Vitals del sitio principal.
 - [ ] Asegurar carga diferida o condicional de recursos dinámicos.
 - [ ] Registrar decisiones de integración y deuda técnica asociada en bitácora.
+
+#### 4.5 Presencia pública de Merci (frontend controlado)
+- [ ] Definir rol de Merci en interfaz (acompañamiento, estados y límites de interacción).
+- [ ] Diseñar contrato técnico entre backend de Merci y capa visual sin acoplar al núcleo estático.
+- [ ] Validar que animación, voz o movimiento de Merci no degrada accesibilidad ni rendimiento.
 
 ### Fase 5 - Quality Assurance y Hardening
 
@@ -201,6 +206,12 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [ ] Definir cadencia de revisión del roadmap y actualización de hitos.
 - [ ] Revisar periódicamente deuda técnica acumulada por fase.
 - [ ] Mantener sincronía entre `README.md`, `instrucciones.md` y bitácora activa.
+
+#### 7.5 Producto Merci (cara pública + backend)
+- [ ] Planificar carpeta/proyecto dedicado para Merci con límites claros frente a `mercedev.es`.
+- [ ] Definir roadmap propio de Merci: avatar/estado visual, diálogo y comportamiento por contexto.
+- [ ] Establecer versión mínima de integración en `mercedev.es` antes de ampliar capacidades.
+- [ ] Documentar criterio de evolución de Merci para evitar desvíos fuera del orden de fases.
 
 ## Licencia
 

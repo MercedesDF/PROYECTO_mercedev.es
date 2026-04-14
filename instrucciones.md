@@ -31,7 +31,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 ### 2.3. Capa de Contenidos Dinámicos
 - **WordPress:** Aislado en subdirectorios (`/blog` y `/tienda`).
 - **Integración:** *Child Theme* ultraligero vinculado al CSS del núcleo estático.
-- **Comercio Electrónico:** WooCommerce optimizado para catálogo sin impacto en el rendimiento.
+- **Comercio Electrónico:** WooCommerce optimizado para catálogo de merchandising de **Merci** sin impacto en el rendimiento.
 
 ## 3. Estructura de Directorios Aprobada
 - `/docs`: Estrategia y directrices.
@@ -57,7 +57,40 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 - **Fase 1: Infraestructura y Automatización Base.** Zsh, directorios y `merci-audit.py`.
 - **Fase 2: Arquitectura Semántica y SEO Técnico.** HTML5, JSON-LD e indexación.
 - **Fase 3: Ingeniería de Estilos.** SASS 7-1, BEM, Mobile First y `merci-optimizer.py`.
-- **Fase 4: Integración de Sistemas Dinámicos.** WordPress, WooCommerce y Child Theme.
+- **Fase 4: Integración de Sistemas Dinámicos.** WordPress, WooCommerce (catálogo merchandising Merci) y Child Theme.
 - **Fase 5: Quality Assurance y Hardening.** CSP, endurecimiento de WP y Git Hooks.
 - **Fase 6: Despliegue y Auditoría Final.** Paso a producción, Web Vitals y documentación del proceso.
 - **Fase 7: Automatización y Clasificación.** Sistema de publicación automatizada y plantillas de libros.
+
+## 6. Guía de Voz Editorial (Merci)
+Objetivo: redactar textos claros, humanos y directos, manteniendo rigor técnico y evitando tono publicitario.
+
+### 6.1. Proporción de tono
+- Mantener referencia base **80/20**: 80% claridad técnica, 20% personalidad de marca (Merci y Art de Coté).
+- Priorizar utilidad, contexto y acción antes que adornos o frases motivacionales.
+
+### 6.2. Reglas de estilo
+1. **Escribir en directo:** usar frases cortas, verbos concretos y lenguaje comprensible.
+2. **Evitar humo comercial:** no usar fórmulas vacías tipo “pasión”, “innovación disruptiva” o similares.
+3. **Explicar intención y límite:** indicar qué hace cada sección y qué no hace.
+4. **Mantener precisión técnica:** cuando haya término técnico, explicarlo en lenguaje llano en la misma sección.
+5. **Usar tono impersonal y en infinitivo** en documentación técnica (`README.md`, `docs/`, `laboratorio/`).
+6. **Reservar voz de Merci** para UI y microcopys puntuales, sin invadir toda la página.
+
+### 6.3. Plantilla breve por bloque de contenido
+- **Qué es:** definir en una frase.
+- **Para qué sirve:** explicar el beneficio real en una frase.
+- **Cómo se usa o valida:** cerrar con acción verificable.
+
+### 6.4. Microcopys recomendados (ejemplos)
+- Botón principal: `Ver avance del roadmap`
+- Bloque técnico: `Mostrar criterio y decisiones`
+- Bloque Art de Coté: `Ver resultado colateral útil`
+- Mensaje de estado Merci: `Merci revisa el estado técnico`
+
+### 6.5. Checklist de revisión editorial
+- [ ] El texto se entendería en una primera lectura.
+- [ ] No contiene frases promocionales vacías.
+- [ ] Incluye utilidad concreta para quien empieza.
+- [ ] Mantiene coherencia con roadmap y fases activas.
+- [ ] Puede leerse como documentación pública profesional.

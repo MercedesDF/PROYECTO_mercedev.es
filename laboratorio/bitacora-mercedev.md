@@ -38,6 +38,46 @@ Copia el bloque y rellénalo.
 
 ## Registro cronológico
 
+### 2026-04-14 — Validación de Fase 2 (HTML y SEO Técnico) con Merci Audit
+
+**Contexto:** Verificación del primer documento semántico del núcleo estático frente a las reglas de auditoría.
+
+**Hecho:** Ejecutar `merci-audit.py --strict-json-ld` sobre `public/index.html`.
+
+**Detalle técnico:**
+- El archivo cumple con los requisitos de metadatos, charset y lenguaje.
+- Se valida el bloque JSON-LD (JavaScript Object Notation for Linked Data - Notación de Objetos JavaScript para Datos Enlazados) usando el esquema de `schema.org`.
+
+**Motivo / criterio:** Garantizar que el sitio es indexable y cumple con los estándares de rendimiento y SEO (Search Engine Optimization - Optimización para Motores de Búsqueda) desde la primera línea de código.
+
+**Siguiente paso o deuda:** Implementar navegación (Fase 2.1) y generar `robots.txt` / `sitemap.xml` (Fase 2.3).
+
+### 2026-04-14 — Creación de proyecto y obtención de API Key vía AI Studio
+
+**Contexto:** El error 404 inicial no era solo de configuración de software, sino de falta de infraestructura (proyecto) en el lado de Google.
+
+**Hecho:** Generar una API Key a través de Google AI Studio vinculada a un proyecto nuevo creado automáticamente por la plataforma.
+
+**Detalle técnico:** 
+- Acceso a `aistudio.google.com`.
+- Uso de la opción "Create API key in new project" para evitar la configuración manual en GCP (Google Cloud Platform - Plataforma en la Nube de Google) Console.
+
+**Motivo / criterio:** Vía más rápida para habilitar `gemini-1.5-pro` sin gestionar capas de facturación o cuotas complejas de Google Cloud de entrada.
+
+**Siguiente paso o deuda:** Probar la conexión en Continue una vez la API Key esté activa y propagada.
+
+### 2026-04-14 — Corrección de error 404 en Continue (Gemini 1.5 Pro)
+
+**Contexto:** Fallo en la conexión con la API de Google al usar gemini-1.5-pro en Continue, con un error 404.
+
+**Hecho:** Identificar que el `provider` en el archivo `/home/hildegahr/.continue/config.yaml` estaba configurado incorrectamente como `gemini`.
+
+**Detalle técnico:** Modificar el `provider` de `gemini` a `google-generative-ai` para el modelo `gemini-1.5-pro` en la configuración de Continue.
+
+**Motivo / criterio:** El `provider` `google-generative-ai` es el nombre correcto para interactuar con la API de Google Gemini a través de Continue.
+
+**Siguiente paso o deuda:** Crear el proyecto en Google Cloud / AI Studio.
+
 ### 2026-04-12 — Fase 1: infraestructura, Merci Audit y primer commit
 
 **Contexto:** Arranque del repositorio bajo las directrices de `instrucciones.md` (rendimiento, seguridad shift-left, pedagogía). Objetivo de la Fase 1: estructura de carpetas, script de auditoría local y base Git.
@@ -122,4 +162,4 @@ Copia el bloque y rellénalo.
 
 ---
 
-*Última revisión de la plantilla y del pie: 2026-04-12.*
+*Última revisión de la bitácora: 2026-04-14.*
