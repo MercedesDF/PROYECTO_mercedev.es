@@ -38,6 +38,58 @@ Copia el bloque y rellénalo.
 
 ## Registro cronológico
 
+### 2026-04-15 — Refactorización a Módulos SASS y Dart Sass Standalone (Fase 3)
+
+**Contexto:** Se identificó que la librería Python `libsass` no soportaba las directivas modulares (`@use`, `@forward`, `_index.scss`) que permiten una arquitectura de estilos moderna y desacoplada.
+
+**Hecho:**
+- Reconfiguración de `src/scss/` incluyendo archivos `_index.scss` que reexportan las partes.
+- `main.scss` simplificado a sólo incluir los índices de cada subcarpeta.
+- Eliminación de `libsass` de `requirements.txt`.
+- Modificación estructural de `scripts/merci/merci-styles.py`: ya no es un script de Python que importe librerías, sino un autómata que descarga la release oficial del binario _Dart Sass_ para Linux, extrae el compilador localmente sin impactar el sistema operativo host, y procesa los estilos.
+
+**Detalle técnico:**
+- Almacenaje de los binarios locales de SASS en `scripts/merci/bin/dart-sass/sass`.
+- Se llama al proceso aisladamente con `subprocess` de la librería estándar de Python.
+
+**Motivo / criterio:**
+- Dar soporte al mejor estilo posible de escritura SASS modular pero evadir a toda costa la necesidad de forzar la instalación global de Node.js o NPM para usar un compilador web, protegiendo así el Paradigma base de "0 dependencias externas host".
+
+**Siguiente paso o deuda:** Validar rendimiento continuo del compilador e iniciar implementación de hojas visuales para nuevos componentes.
+### 2026-04-15 — Implementación de la Fase 3: SASS, BEM y Merci Optimizer
+
+**Contexto:** Desplegar el sistema de estilos escalable (SASS) y preparar la automatización para multimedia.
+
+**Hecho:**
+- Creación de la arquitectura 7-1 en `src/scss/` con punto de entrada único (`main.scss`).
+- Refactorización de `public/index.html` asimilando la metodología BEM.
+- Creación de dos piezas fundamentales para Merci: `merci-styles.py` (compilador con libsass) y `merci-optimizer.py` (escalado WebP con Pillow).
+- `requirements.txt` ajustado para compilar localmente con Python.
+
+**Detalle técnico:**
+- `merci-styles.py` invoca a libsass asilando su función y ahorrando uso manual de consola.
+- `.assets-raw/` será escrutado por Merci procesando imágenes WebP hacia `assets/` a medidas predeterminadas.
+
+**Motivo / criterio:** Se eligió `libsass` de Python para unificar el DevSecOps de Merci sin depender de un entorno NodeJS global adicional en Ubuntu, en línea con la filosofía de austeridad tecnológica externa.
+
+**Siguiente paso o deuda:** Validar la instalación con pip y hacer un chequeo de `index.html` estéticamente en navegador.
+### 2026-04-14 — Validación de jerarquía de encabezados y landmarks (Fase 2.1)
+
+**Contexto:** Asegurar la accesibilidad y la estructura semántica correcta en la página de inicio.
+
+**Hecho:**
+- Añadir encabezado `<h2>` a la sección `#ecosistema` para evitar saltos de nivel.
+- Incorporar `aria-label` al elemento `<nav>`.
+- Actualizar hitos en `README.md`.
+
+**Detalle técnico:**
+- Se garantiza que el árbol de encabezados sea secuencial: `h1` > `h2` > `h3`.
+- El uso de **Landmarks** (Puntos de referencia) facilita la navegación a usuarios con tecnologías de asistencia.
+
+**Motivo / criterio:** Cumplir con los estándares de **WAI-ARIA** (Web Accessibility Initiative - Accessible Rich Internet Applications - Iniciativa de Accesibilidad Web - Aplicaciones de Internet Enriquecidas Accesibles) y SEO técnico.
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 (Ingeniería de Estilos).
+
 ### 2026-04-14 — Integración de merci-sitemap.py en el hook de pre-commit
 
 **Contexto:** Automatizar la actualización de la fecha `<lastmod>` en `sitemap.xml` cada vez que se realicen cambios en la carpeta `public/`.

@@ -1,0 +1,29 @@
+@use '../abstracts' as *;
+
+body {
+    font-family: $font-family-base;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    margin-bottom: $spacing-md;
+    font-weight: 700;
+}
+
+p {
+    margin-bottom: $spacing-md;
+}
+
+a {
+    color: $color-primary;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover,
+    &:focus {
+        color: scale-color($color-primary, $lightness: 20%);
+    }
+}

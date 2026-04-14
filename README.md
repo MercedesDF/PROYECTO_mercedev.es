@@ -74,8 +74,8 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 
 #### 2.1 Base semántica del núcleo estático
 - [x] Estructurar `public/index.html` con semántica HTML5 estricta (`header`, `main`, `section`, `footer`).
-- [ ] Validar jerarquía de encabezados (`h1`-`h6`) sin saltos estructurales.
-- [ ] Incorporar landmarks accesibles para navegación asistida.
+- [x] Validar jerarquía de encabezados (`h1`-`h6`) sin saltos estructurales.
+- [x] Incorporar landmarks accesibles para navegación asistida.
 
 #### 2.2 Metadatos y datos estructurados
 - [x] Definir metadatos esenciales (`title`, `description`, `canonical`, `viewport`).
@@ -97,24 +97,24 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 ### Fase 3 - Ingeniería de Estilos
 
 #### 3.1 Arquitectura SASS 7-1
-- [ ] Crear árbol SASS 7-1 y documentar responsabilidad de cada carpeta.
-- [ ] Definir un punto de entrada único de compilación hacia un solo CSS final.
-- [ ] Verificar orden de importación para evitar cascadas inesperadas.
+- [x] Crear árbol SASS 7-1 y documentar responsabilidad de cada carpeta.
+- [x] Definir un punto de entrada único de compilación hacia un solo CSS final.
+- [x] Verificar orden de importación para evitar cascadas inesperadas.
 
 #### 3.2 Metodología BEM
-- [ ] Establecer convención BEM para bloques, elementos y modificadores.
-- [ ] Reflejar la convención BEM en los componentes HTML clave.
-- [ ] Revisar y eliminar clases ambiguas o no alineadas con BEM.
+- [x] Establecer convención BEM para bloques, elementos y modificadores.
+- [x] Reflejar la convención BEM en los componentes HTML clave.
+- [x] Revisar y eliminar clases ambiguas o no alineadas con BEM.
 
 #### 3.3 Estrategia mobile-first y rendimiento
-- [ ] Implementar estilos base para móvil antes de breakpoints superiores.
-- [ ] Definir breakpoints justificados por contenido, no por dispositivo.
-- [ ] Reducir reglas redundantes y validar peso final del CSS compilado.
+- [x] Implementar estilos base para móvil antes de breakpoints superiores.
+- [x] Definir breakpoints justificados por contenido, no por dispositivo.
+- [x] Reducir reglas redundantes y validar peso final del CSS compilado.
 
 #### 3.4 Optimización multimedia con Merci
-- [ ] Implementar o consolidar `merci-optimizer.py` para generar WebP responsivo.
-- [ ] Definir tamaños objetivo y nomenclatura de salida en `assets/`.
-- [ ] Validar que los originales en `.assets-raw/` no pasan al remoto.
+- [x] Implementar o consolidar `merci-optimizer.py` para generar WebP responsivo.
+- [x] Definir tamaños objetivo y nomenclatura de salida en `assets/`.
+- [x] Validar que los originales en `.assets-raw/` no pasan al remoto.
 
 ### Fase 4 - Integración de Sistemas Dinámicos
 

@@ -1,0 +1,16 @@
+@use '../abstracts' as *;
+
+.header {
+    padding: $spacing-md $spacing-lg;
+    background-color: rgba($color-bg-dark, 0.95);
+    border-bottom: 1px solid rgba($color-text-light, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    &__nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
