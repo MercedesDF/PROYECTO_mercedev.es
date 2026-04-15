@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Validación local de Content Security Policy (CSP)
+
+**Contexto:** Verificar empíricamente que la política de seguridad estricta no interfiere con la carga de los recursos legítimos del núcleo estático.
+
+**Hecho:**
+- Desplegar servidor local de pruebas (`python3 -m http.server 8000 -d public/`).
+- Validar ausencia de bloqueos en la consola de herramientas para desarrolladores del navegador.
+
+**Detalle técnico:** Al no poseer dependencias de terceros (como tipografías externas o analíticas), la regla `default-src 'self'` permite cargar correctamente el documento HTML y su hoja de estilos unificada. No se registran errores de tipo "CSP violation".
+
+**Motivo / criterio:** En DevSecOps (Development, Security, and Operations - Desarrollo, Seguridad y Operaciones), la imposición de una política de seguridad siempre debe ir acompañada de una validación funcional para evitar degradación del servicio o bloqueos de UX (User Experience - Experiencia de Usuario).
+
+**Siguiente paso o deuda:** Comenzar el Hardening de WordPress (Fase 5.2).
+
 ### 2026-04-15 — Fase 5: Implementación de Content Security Policy (CSP)
 
 **Contexto:** Iniciar la fase de Hardening del núcleo estático protegiéndolo contra ataques de inyección de código.
