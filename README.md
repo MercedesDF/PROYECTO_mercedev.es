@@ -90,12 +90,13 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Integrar `merci-sitemap.py` en el hook de pre-commit para actualización automática.
 
 #### 2.4 Ingesta de Evidencias (Laboratorio)
-- [ ] Implementar `laboratorio/scripts_temporales/merci_ingestor.py` para escanear y mover archivos recientes a `.assets-raw/`.
-- [ ] Documentar rutas de escaneo configurables para `merci_ingestor.py`.
+- [x] Implementar `laboratorio/scripts_temporales/merci_ingestor.py` para escanear y mover archivos recientes a `.assets-raw/`.
+- [x] Documentar rutas de escaneo configurables para `merci_ingestor.py`.
+  > **Nota técnica:** Por defecto, el Ingestor escanea `~/Pictures`, `~/Videos` y `~/Desktop`. Para añadir carpetas personalizadas (como tu NAS local o carpeta de descargas), edita la variable `USER_CAPTURE_DIRS` en las primeras líneas de `laboratorio/scripts_temporales/merci_ingestor.py`.
 
 #### 2.4 Validación SEO y accesibilidad base
 - [x] Confirmar atributos `lang`, `charset` y semántica documental mínima.
-- [ ] Verificar que imágenes críticas incluyen texto alternativo útil.
+- [x] Verificar que imágenes críticas incluyen texto alternativo útil (actualmente sin dependencias visuales críticas).
 - [x] Registrar en bitácora los criterios de aceptación SEO para cierre de fase.
 
 ### Fase 3 - Ingeniería de Estilos
@@ -123,9 +124,9 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 ### Fase 4 - Integración de Sistemas Dinámicos
 
 #### 4.1 Aislamiento de WordPress
-- [ ] Definir integración de WordPress en rutas aisladas (`/blog`, `/tienda`) sin invadir `public/`.
-- [ ] Documentar fronteras entre núcleo estático y capa dinámica.
-- [ ] Verificar que el routing previsto no rompe URLs canónicas del núcleo.
+- [x] Definir integración de WordPress en rutas aisladas (`/blog`, `/tienda`) sin invadir `public/`.
+- [x] Documentar fronteras entre núcleo estático y capa dinámica (`docs/integracion-wordpress.md`).
+- [x] Verificar que el routing previsto no rompe URLs canónicas del núcleo.
 
 #### 4.2 Child theme ultraligero
 - [ ] Crear child theme con sobrecarga mínima y sin lógica innecesaria.
