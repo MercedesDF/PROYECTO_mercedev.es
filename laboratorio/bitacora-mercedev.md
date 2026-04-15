@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Soporte para commits menores manuales en merci-commit
+
+**Contexto:** Tareas menores de mantenimiento (como eliminación de duplicados) no ameritan entradas completas en la bitácora, pero la herramienta `merci-commit.py` bloqueaba la acción o duplicaba mensajes forzando una fricción innecesaria.
+
+**Hecho:**
+- Añadir comprobación `check_repo_changes` para abortar tempranamente si no hay modificaciones reales en Git.
+- Permitir el ingreso de un mensaje manual por terminal si hay cambios de código pero la bitácora está intacta.
+
+**Detalle técnico:** Se implementa `git status --porcelain` para comprobar el estado real de los archivos. Si existen cambios pero no en `bitacora-mercedev.md`, se solicita confirmación para un parche menor y se captura el título vía `input()` de Python, saltándose la extracción de la bitácora.
+
+**Motivo / criterio:** Equilibrio entre DevSecOps y usabilidad (DX). Ofrecer una válvula de escape estructurada para mantenimientos menores mantiene el historial limpio, no desincentiva el uso de la herramienta y agiliza al desarrollador.
+
+**Siguiente paso o deuda:** Validar este nuevo flujo mixto y auditar los permisos del servidor de WordPress (Fase 5.2).
+
 ### 2026-04-15 — Endurecimiento (Hardening) de WordPress mediante Child Theme
 
 **Contexto:** Reducir la superficie de ataque del CMS desactivando endpoints obsoletos y evitando fugas de información que faciliten intrusiones.
