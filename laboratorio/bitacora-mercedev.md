@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Incorporación de regla de sincronización del Roadmap
+
+**Contexto:** Evitar la desincronización entre el código implementado y el estado de las fases documentadas en el proyecto.
+
+**Hecho:**
+- Añadir la regla 12 en `instrucciones.md` que obliga a actualizar el `README.md` inmediatamente tras finalizar una tarea.
+
+**Detalle técnico:** Se formaliza la práctica de marcar con `- [x]` los hitos del `README.md` en la misma sesión de trabajo en la que se consigue el avance.
+
+**Motivo / criterio:** Mantener una única fuente de verdad (Single Source of Truth) del estado del proyecto. Al estar documentada, el asistente de IA asimila la directriz de proponer la actualización automáticamente.
+
+**Siguiente paso o deuda:** Finalizar sesión y retomar mañana con la Fase 5.2 (Permisos del servidor de WordPress).
+
 ### 2026-04-15 — Incorporación de Conventional Commits a las directrices
 
 **Contexto:** Necesidad de estandarizar la nomenclatura de los mensajes de commit (especialmente en parches manuales) para mantener un historial de Git semántico y fácil de auditar.
