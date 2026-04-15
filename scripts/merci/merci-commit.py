@@ -60,8 +60,9 @@ def main():
     commit_body = f"Contexto:\n{context}\n\nHecho:\n{hecho}"
 
     try:
-        # 1. Asegurar que la propia bitácora se incluye en el commit (Atomicidad)
-        subprocess.run(["git", "add", str(BITACORA_PATH)], check=True)
+        # 1. Añadir todos los archivos modificados/nuevos al stage (incluyendo la bitácora)
+        print("[Merci Git] Añadiendo archivos al stage (git add .)...")
+        subprocess.run(["git", "add", "."], cwd=REPO_ROOT, check=True)
 
         # 2. Ejecutar el commit con dos banderas -m (sujeto y cuerpo)
         print(f"[Merci Commit] Ejecutando: '{commit_subject}'")
