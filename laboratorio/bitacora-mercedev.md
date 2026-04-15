@@ -37,6 +37,34 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Refinamiento de la política de acrónimos (Linter y directrices)
+
+**Contexto:** La regla estricta de expandir siempre los acrónimos (Inglés - Español) resultaba tediosa para términos que ya estaban muy arraigados en el proyecto.
+
+**Hecho:**
+- Actualizar `instrucciones.md` eximiendo de expansión a los acrónimos que aparezcan más de 3 veces.
+- Implementar una función de conteo global (`get_global_acronym_count`) en `merci-audit.py`.
+
+**Detalle técnico:** El auditor ahora escanea todo el repositorio buscando archivos `.md`. Si localiza un acrónimo de la *watchlist* que no está expandido, verifica su conteo global. Si es mayor a 3, asume que es un término consolidado y omite la advertencia `WARN MD_ACRONYM`. Se emplea un caché (`GLOBAL_ACRONYM_COUNTS`) para evitar leer el disco repetidas veces.
+
+**Motivo / criterio:** Reducir la fricción y el tedio en el flujo DevSecOps. Se equilibra la necesidad de claridad técnica inicial con la fluidez una vez que un concepto ya es de dominio público en el repositorio.
+
+**Siguiente paso o deuda:** Comitear los cambios del linter y comenzar oficialmente la Fase 5: Quality Assurance y Hardening.
+
+### 2026-04-15 — Validación exitosa del linter de acrónimos
+
+**Contexto:** El nuevo linter de acrónimos detectó correctamente la falta de expansión de "CMS" durante la ejecución de un commit rutinario, validando su eficacia.
+
+**Hecho:**
+- Expandir el acrónimo CMS (Content Management System - Sistema de Gestión de Contenidos) en el registro histórico.
+- Confirmar el funcionamiento de la regla `WARN` en `merci-audit.py`.
+
+**Detalle técnico:** El auditor emitió la advertencia `WARN MD_ACRONYM` indicando la línea exacta sin bloquear la creación del commit atómico. Esto permitió mantener la fluidez del proceso informando simultáneamente sobre la deuda técnica de redacción.
+
+**Motivo / criterio:** Dejar constancia de que el sistema de vigilancia pasiva (Watchlist) cumple su función como corrector de estilo automatizado (DevSecOps) sin añadir fricción paralizante.
+
+**Siguiente paso o deuda:** Iniciar la Fase 5: Quality Assurance y Hardening.
+
 ### 2026-04-15 — Implementación de linter de acrónimos en Merci Audit
 
 **Contexto:** Automatizar la verificación de la regla de estilo que exige expandir los acrónimos técnicos en la bitácora y la documentación (Inglés - Español).
@@ -118,6 +146,7 @@ Copia el bloque y rellénalo.
 **Detalle técnico:** Se emplea `remove_action` para detener los scripts de emojis y `wp_dequeue_style` enganchado a la acción `wp_enqueue_scripts` (con prioridad 100) para bloquear `wp-block-library` y `global-styles`. Finalmente, se encola `/assets/main.css` apuntando a la ruta absoluta expuesta por Nginx.
 
 **Motivo / criterio:** Aislar la vista dinámica del CMS de sus dependencias heredadas pesadas. Si no se bloquea, WordPress inyecta múltiples llamadas de red y estilos en línea que degradarían la métrica de Core Web Vitals lograda en el núcleo estático.
+**Motivo / criterio:** Aislar la vista dinámica del CMS (Content Management System - Sistema de Gestión de Contenidos) de sus dependencias heredadas pesadas. Si no se bloquea, WordPress inyecta múltiples llamadas de red y estilos en línea que degradarían la métrica de Core Web Vitals lograda en el núcleo estático.
 
 **Siguiente paso o deuda:** Desarrollar `index.php` del tema para renderizar el esqueleto HTML5 alineado con la metodología BEM del proyecto.
 
