@@ -156,9 +156,9 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [ ] Verificar que la CSP final no rompe funcionalidad crítica.
 
 #### 5.2 Hardening de WordPress
-- [ ] Aplicar endurecimiento básico de WP (superficie de ataque mínima).
+- [x] Aplicar endurecimiento básico de WP (superficie de ataque mínima).
 - [ ] Revisar permisos, usuarios administrativos y exposición de endpoints.
-- [ ] Comprobar desactivación de funcionalidades no necesarias.
+- [x] Comprobar desactivación de funcionalidades no necesarias.
 
 #### 5.3 Automatización de control de calidad
 - [ ] Ampliar checks de pre-commit para cubrir validaciones críticas recurrentes.

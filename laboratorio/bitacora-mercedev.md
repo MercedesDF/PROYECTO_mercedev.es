@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Endurecimiento (Hardening) de WordPress mediante Child Theme
+
+**Contexto:** Reducir la superficie de ataque del CMS desactivando endpoints obsoletos y evitando fugas de información que faciliten intrusiones.
+
+**Hecho:**
+- Añadir reglas de seguridad (Fase 5.2) en `src/wp-theme/merci-theme/functions.php`.
+- Actualizar checklist del `README.md`.
+
+**Detalle técnico:** Se usa `remove_action` para eliminar el metadato generador de versión, `wlwmanifest` y `rsd_link`. Se desactiva completamente la API (Application Programming Interface - Interfaz de Programación de Aplicaciones) XML-RPC mediante el filtro `xmlrpc_enabled` para prevenir ataques de fuerza bruta. Se ofuscan los errores de autenticación con `login_errors`.
+
+**Motivo / criterio:** Principio de mínima exposición. XML-RPC es un vector común para ataques DDoS (Distributed Denial of Service - Ataque Distribuido de Denegación de Servicio). Ocultar la versión exacta de WP dificulta el escaneo automatizado de vulnerabilidades conocidas.
+
+**Siguiente paso o deuda:** Auditar la configuración de `wp-config.php` y los permisos del servidor para completar el hardening.
+
 ### 2026-04-15 — Resolución de 404 por favicon ausente (Higiene de logs)
 
 **Contexto:** Durante la prueba del servidor local, el registro mostró un error 404 persistente al intentar cargar `favicon.ico`.

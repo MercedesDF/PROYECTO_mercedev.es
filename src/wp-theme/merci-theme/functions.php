@@ -39,3 +39,23 @@ function merci_cargar_assets_estaticos() {
     wp_enqueue_style('merci-core-styles', '/assets/main.css', array(), '1.0.0', 'all');
 }
 add_action('wp_enqueue_scripts', 'merci_cargar_assets_estaticos');
+
+// =========================================================================
+// 4. HARDENING Y SEGURIDAD (Fase 5.2)
+// =========================================================================
+
+// Ocultar la versión exacta de WordPress (Security by Obscurity)
+remove_action('wp_head', 'wp_generator');
+
+// Eliminar enlaces a manifiestos no utilizados (Windows Live Writer y RSD)
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'rsd_link');
+
+// Desactivar la API XML-RPC (Cierra un vector crítico de ataques de fuerza bruta)
+add_filter('xmlrpc_enabled', '__return_false');
+
+// Ofuscar mensajes de error en el inicio de sesión (Evita enumeración de usuarios)
+function merci_ofuscar_errores_login() {
+    return 'Credenciales incorrectas.';
+}
+add_filter('login_errors', 'merci_ofuscar_errores_login');
