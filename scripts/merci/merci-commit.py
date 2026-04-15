@@ -16,6 +16,28 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 BITACORA_PATH = REPO_ROOT / "laboratorio" / "bitacora-mercedev.md"
 
+def check_bitacora_updated():
+    """
+    Verifica si la bitácora ha sido modificada desde el último commit.
+    Devuelve True si hay cambios, False si no.
+    """
+    # `git diff --quiet` devuelve 0 si no hay cambios, 1 si los hay.
+    # Usamos `HEAD` para comparar contra el último commit.
+    try:
+        result = subprocess.run(
+            ["git", "diff", "--quiet", "HEAD", "--", str(BITACORA_PATH)],
+            cwd=REPO_ROOT,
+            capture_output=True # Evitar que imprima errores si el archivo no existe aún
+        )
+        return result.returncode != 0
+    except FileNotFoundError:
+        # Git no está instalado, el script principal ya lo gestionará.
+        return True
+    except Exception:
+        # En caso de un repo vacío sin commits (sin HEAD), git diff falla.
+        # En ese caso, asumimos que hay cambios (es el primer commit).
+        return True
+
 def parse_latest_entry(content: str):
     """Analiza el texto de la bitácora y extrae los datos de la última entrada."""
     try:
@@ -48,6 +70,16 @@ def parse_latest_entry(content: str):
 def main():
     print("Merci revisa el estado técnico...")
     
+    # 1. Verificación de seguridad: ¿Se ha actualizado la bitácora?
+    if not check_bitacora_updated():
+        # Usamos códigos de color ANSI para la alerta. \033[93m es amarillo. \033[0m lo resetea.
+        print("\n\033[93m[Merci Alerta] La bitácora no ha sido actualizada desde el último commit.\033[0m")
+        print("Esto podría generar un commit duplicado o indicar un olvido.")
+        respuesta = input("¿Deseas continuar de todos modos? (s/N): ")
+        if respuesta.lower().strip() != 's':
+            print("\n[Merci Info] Operación cancelada. Por favor, actualiza la bitácora antes de continuar.")
+            sys.exit(0)
+    
     if not BITACORA_PATH.exists():
         print(f"[Merci Error] Archivo de bitácora no localizado en {BITACORA_PATH}")
         sys.exit(1)
@@ -60,11 +92,11 @@ def main():
     commit_body = f"Contexto:\n{context}\n\nHecho:\n{hecho}"
 
     try:
-        # 1. Añadir todos los archivos modificados/nuevos al stage (incluyendo la bitácora)
+        # 2. Añadir todos los archivos modificados/nuevos al stage (incluyendo la bitácora)
         print("[Merci Git] Añadiendo archivos al stage (git add .)...")
         subprocess.run(["git", "add", "."], cwd=REPO_ROOT, check=True)
 
-        # 2. Ejecutar el commit con dos banderas -m (sujeto y cuerpo)
+        # 3. Ejecutar el commit con dos banderas -m (sujeto y cuerpo)
         print(f"[Merci Commit] Ejecutando: '{commit_subject}'")
         subprocess.run(["git", "commit", "-m", commit_subject, "-m", commit_body], check=True)
         

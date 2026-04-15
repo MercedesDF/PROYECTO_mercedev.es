@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Añadir salvaguarda a merci-commit.py contra commits sin bitácora
+
+**Contexto:** Evitar la creación de commits duplicados o la omisión de la actualización de la bitácora, que son riesgos inherentes a un flujo de trabajo automatizado.
+
+**Hecho:**
+- Modificar `scripts/merci/merci-commit.py` para añadir una verificación previa.
+
+**Detalle técnico:**
+- El script ahora ejecuta `git diff --quiet HEAD -- <ruta_bitacora>` antes de proceder.
+- Si el comando devuelve un código de salida 0 (sin cambios), se emite una alerta en la terminal y se solicita confirmación explícita del usuario para continuar.
+
+**Motivo / criterio:** Reforzar la disciplina de "documentación primero" y prevenir el ruido en el historial de Git. La confirmación del usuario mantiene la flexibilidad para casos excepcionales sin sacrificar la seguridad del flujo por defecto.
+
+**Siguiente paso o deuda:** Retomar el desarrollo del `functions.php` del Child Theme (Fase 4.2).
+
 ### 2026-04-15 — Configuración de alias de terminal (zsh) para el Sistema Merci
 
 **Contexto:** Necesidad de optimizar la experiencia de desarrollo (DX) y reducir la fricción al invocar los scripts de automatización desde distintas ubicaciones del proyecto.
