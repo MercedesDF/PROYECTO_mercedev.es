@@ -129,19 +129,19 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Verificar que el routing previsto no rompe URLs canónicas del núcleo.
 
 #### 4.2 Child theme ultraligero
-- [ ] Crear child theme con sobrecarga mínima y sin lógica innecesaria.
-- [ ] Enlazar estilos compartidos de forma controlada para mantener coherencia visual.
-- [ ] Validar que no se introducen dependencias pesadas en frontend.
+- [x] Crear child theme con sobrecarga mínima y sin lógica innecesaria.
+- [x] Enlazar estilos compartidos de forma controlada para mantener coherencia visual.
+- [x] Validar que no se introducen dependencias pesadas en frontend.
 
 #### 4.3 WooCommerce optimizado para catálogo
-- [ ] Configurar WooCommerce en modo catálogo para merchandising de Merci según alcance funcional definido.
-- [ ] Limitar plugins y extensiones a los estrictamente necesarios.
-- [ ] Revisar impacto de scripts dinámicos en tiempos de carga.
+- [x] Configurar WooCommerce en modo catálogo para merchandising de Merci según alcance funcional definido.
+- [x] Limitar plugins y extensiones a los estrictamente necesarios.
+- [x] Revisar impacto de scripts dinámicos en tiempos de carga.
 
 #### 4.4 Integración sin degradación del núcleo
 - [ ] Medir impacto de `/blog` y `/tienda` sobre Core Web Vitals del sitio principal.
 - [ ] Asegurar carga diferida o condicional de recursos dinámicos.
-- [ ] Registrar decisiones de integración y deuda técnica asociada en bitácora.
+- [x] Registrar decisiones de integración y deuda técnica asociada en bitácora.
 
 #### 4.5 Presencia pública de Merci (frontend controlado)
 - [ ] Definir rol de Merci en interfaz (acompañamiento, estados y límites de interacción).
@@ -151,9 +151,9 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 ### Fase 5 - Quality Assurance y Hardening
 
 #### 5.1 Política de seguridad frontend
-- [ ] Definir una política CSP progresiva con modo de validación inicial.
-- [ ] Ajustar orígenes permitidos para scripts, estilos, fuentes e imágenes.
-- [ ] Verificar que la CSP final no rompe funcionalidad crítica.
+- [x] Definir una política CSP progresiva con modo de validación inicial.
+- [x] Ajustar orígenes permitidos para scripts, estilos, fuentes e imágenes.
+- [x] Verificar que la CSP final no rompe funcionalidad crítica.
 
 #### 5.2 Hardening de WordPress
 - [x] Aplicar endurecimiento básico de WP (superficie de ataque mínima).
