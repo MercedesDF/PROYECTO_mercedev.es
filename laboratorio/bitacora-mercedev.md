@@ -37,6 +37,33 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Configuración de alias de terminal (zsh) para el Sistema Merci
+
+**Contexto:** Necesidad de optimizar la experiencia de desarrollo (DX) y reducir la fricción al invocar los scripts de automatización desde distintas ubicaciones del proyecto.
+
+**Hecho:**
+- Recapitular y definir bloque de alias en `~/.zshrc` para las herramientas base: `merci-audit`, `merci-styles`, `merci-optimizer` y el nuevo `merci-commit`.
+
+**Detalle técnico:** Se emplea la variable estática `MERCI_ROOT` apuntando a `/home/hildegahr/Escritorio/PROYECTO_mercedev.es` para garantizar la resolución de rutas absolutas al invocar Python, sin importar el directorio de trabajo actual (`pwd`).
+
+**Motivo / criterio:** La carga cognitiva de recordar y tipear rutas relativas largas desincentiva el uso frecuente de herramientas críticas (como la auditoría o los commits atómicos). Abstraer esto en la terminal refuerza el flujo DevSecOps.
+
+**Siguiente paso o deuda:** Validar la usabilidad del flujo con `merci-commit` y arrancar el código del `functions.php` del Child Theme (Fase 4.2).
+
+### 2026-04-15 — Refactorización de merci-commit.py (Auto-Stage)
+
+**Contexto:** El script de automatización de commits no incluía los archivos modificados del código, limitándose a comitear únicamente la bitácora.
+
+**Hecho:**
+- Modificar `scripts/merci/merci-commit.py` para ejecutar `git add .` en la raíz del repositorio antes del commit.
+
+**Detalle técnico:**
+- Se utiliza el argumento `cwd=REPO_ROOT` en `subprocess.run` para asegurar que el comando `git add .` abarque todo el proyecto, independientemente de desde dónde se invoque el script.
+
+**Motivo / criterio:** Agilizar el flujo de trabajo. La seguridad y prevención de adición de código basura (secretos, archivos pesados) queda delegada a la red de seguridad del pre-commit (`merci-audit.py` y `.gitignore`), manteniendo la arquitectura "Shift-Left" intacta.
+
+**Siguiente paso o deuda:** Validar la automatización y retomar el `functions.php` del Child Theme (Fase 4.2).
+
 ### 2026-04-15 — Pausa de Fase 4.2 para automatización de commits (I+D)
 
 **Contexto:** Necesidad de vincular estrechamente la actualización de la bitácora con el historial de Git para evitar desincronización entre documentación y código.
