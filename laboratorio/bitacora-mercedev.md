@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Creación de index.php del Child Theme con metodología BEM
+
+**Contexto:** Proveer una plantilla base para que WordPress renderice contenido dinámico respetando el estándar HTML5 y las clases CSS del núcleo estático.
+
+**Hecho:**
+- Crear `src/wp-theme/merci-theme/index.php`.
+- Implementar "The Loop" de WordPress en una estructura unificada.
+
+**Detalle técnico:** Se prescinde de la fragmentación tradicional (`get_header()`, `get_footer()`) para concentrar el marcado en un solo archivo. Se incluyen `wp_head()` y `wp_footer()` para permitir la inyección de nuestros assets estáticos controlados. Se aplican clases BEM (`article`, `article__title`, `article__content`).
+
+**Motivo / criterio:** Minimalismo extremo y reducción de carga de procesamiento I/O de PHP. Al escribir el HTML directamente, se evita que WordPress genere contenedores `<div>` basura o estructuras que rompan el diseño semántico del núcleo.
+
+**Siguiente paso o deuda:** Validar la vista dinámica y proceder con la configuración de WooCommerce en modo catálogo (Fase 4.3).
+
 ### 2026-04-15 — Creación de functions.php como escudo de rendimiento
 
 **Contexto:** Necesidad de bloquear la inyección de código basura por defecto de WordPress (scripts de emojis, estilos globales, CSS de Gutenberg) para proteger el rendimiento del frontend.
