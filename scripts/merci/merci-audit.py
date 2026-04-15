@@ -295,6 +295,36 @@ def audit_js_smells(state: AuditState, path: Path, text: str) -> None:
                 )
             )
 
+def audit_md_acronyms(state: AuditState, path: Path, text: str) -> None:
+    """
+    Vigila que los acrónimos clave del proyecto incluyan su expansión explicativa.
+    Lanza advertencia (warn) para no bloquear el commit por falsos positivos.
+    """
+    if path.suffix.lower() != ".md":
+        return
+        
+    # Lista de vigilancia de acrónimos críticos (Watchlist)
+    watchlist = ["AJAX", "PHP", "CPU", "TTFB", "INP", "JSON-LD", "SEO", "DOM", "BEM", "CMS"]
+    
+    for acronym in watchlist:
+        # Si el acrónimo existe en el texto como palabra exacta...
+        if re.search(rf"\b{re.escape(acronym)}\b", text):
+            # ...buscamos si está expandido en formato: ACRONIMO (Explicación)
+            # Se permite que haya espacios, y buscamos paréntesis de apertura y cierre.
+            expansion_pattern = rf"\b{re.escape(acronym)}\s*\([^)]+\)"
+            
+            if not re.search(expansion_pattern, text):
+                # Localizamos la primera línea donde aparece para el reporte
+                for i, line in enumerate(text.splitlines(), start=1):
+                    if re.search(rf"\b{re.escape(acronym)}\b", line):
+                        state.add(
+                            Finding(
+                                path, i, "warn", "MD_ACRONYM",
+                                f"El acrónimo '{acronym}' no parece estar expandido. Regla: {acronym} (Inglés - Español)."
+                            )
+                        )
+                        break
+
 
 class SeoHTMLParser(HTMLParser):
     """
@@ -500,6 +530,7 @@ def run_on_files(paths: Iterable[Path], strict_json_ld: bool) -> AuditState:
         audit_js_smells(state, path, text)
         audit_json(state, path, text)
         audit_html_seo(state, path, text, strict_json_ld)
+        audit_md_acronyms(state, path, text)
     return state
 
 
