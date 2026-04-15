@@ -37,9 +37,22 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Análisis de impacto de wc-cart-fragments (Deuda de conocimiento)
+
+**Contexto:** Comprensión arquitectónica de los motivos por los que el script `wc-cart-fragments` de WooCommerce degrada el rendimiento web estándar.
+
+**Hecho:**
+- Documentar el comportamiento del script AJAX (Asynchronous JavaScript and XML - JavaScript Asíncrono y XML) de fragmentos de carrito.
+
+**Detalle técnico:** El script invoca una petición `POST` a `/?wc-ajax=get_refreshed_fragments` en cada carga de página. Al ser un `POST` que verifica sesiones y bases de datos mediante PHP (Hypertext Preprocessor - Preprocesador de Hipertexto), esquiva las capas de caché estáticas (Varnish, Redis, Nginx FastCGI) elevando drásticamente el consumo de CPU (Central Processing Unit - Unidad Central de Procesamiento) y el TTFB (Time to First Byte - Tiempo hasta el Primer Byte).
+
+**Motivo / criterio:** Dejar constancia del motivo de su desencolado en la Fase 4.3. En arquitecturas en Modo Catálogo, este script aporta 0 funcionalidad a costa de sacrificar métricas críticas de Core Web Vitals como el INP (Interaction to Next Paint - Interacción hasta el Siguiente Pintado).
+
+**Siguiente paso o deuda:** Consolidar el documento en Git e iniciar la Fase 5: Quality Assurance y Hardening.
+
 ### 2026-04-15 — Fase 4.3: Configuración de WooCommerce en modo catálogo
 
-**Contexto:** Integrar WooCommerce para mostrar el merchandising de Merci sin el impacto de rendimiento que supone una tienda completa con pasarelas de pago y scripts de carrito (AJAX).
+**Contexto:** Integrar WooCommerce para mostrar el merchandising de Merci sin el impacto de rendimiento que supone una tienda completa con pasarelas de pago y scripts de carrito AJAX (Asynchronous JavaScript and XML - JavaScript Asíncrono y XML).
 
 **Hecho:**
 - Añadir soporte de WooCommerce al `functions.php` del Child Theme.
@@ -48,7 +61,7 @@ Copia el bloque y rellénalo.
 
 **Detalle técnico:** Se usa `add_theme_support('woocommerce')` para habilitar las plantillas base. Se bloquea la generación de botones de compra anulando `woocommerce_template_loop_add_to_cart` y `woocommerce_template_single_add_to_cart`. El script de fragmentos de carrito se desencola con prioridad 100.
 
-**Motivo / criterio:** Rendimiento puro. WooCommerce inyecta JS pesado por defecto para gestionar el carrito en tiempo real en todas las páginas. Al funcionar como mero catálogo, prescindimos de esta carga protegiendo el Web Vitals score.
+**Motivo / criterio:** Rendimiento puro. WooCommerce inyecta JS (JavaScript) pesado por defecto para gestionar el carrito en tiempo real en todas las páginas. Al funcionar como mero catálogo, prescindimos de esta carga protegiendo el Web Vitals score.
 
 **Siguiente paso o deuda:** Validar la visualización del catálogo e iniciar la fase de endurecimiento y QA (Fase 5).
 
