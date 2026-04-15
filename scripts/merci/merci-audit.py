@@ -262,6 +262,26 @@ def audit_python_syntax(state: AuditState, path: Path, text: str) -> None:
             )
         )
 
+GLOBAL_ACRONYM_COUNTS: dict[str, int] = {}
+
+def get_global_acronym_count(acronym: str) -> int:
+    """Cuenta las apariciones de un acrónimo en todos los archivos .md del repositorio."""
+    if acronym in GLOBAL_ACRONYM_COUNTS:
+        return GLOBAL_ACRONYM_COUNTS[acronym]
+        
+    count = 0
+    pattern = re.compile(rf"\b{re.escape(acronym)}\b")
+    for path in REPO_ROOT.rglob("*.md"):
+        if any(part in SKIP_DIR_NAMES for part in path.parts):
+            continue
+        try:
+            content = path.read_text(encoding="utf-8", errors="replace")
+            count += len(pattern.findall(content))
+        except Exception:
+            continue
+            
+    GLOBAL_ACRONYM_COUNTS[acronym] = count
+    return count
 
 def audit_js_smells(state: AuditState, path: Path, text: str) -> None:
     """
@@ -310,20 +330,24 @@ def audit_md_acronyms(state: AuditState, path: Path, text: str) -> None:
         # Si el acrónimo existe en el texto como palabra exacta...
         if re.search(rf"\b{re.escape(acronym)}\b", text):
             # ...buscamos si está expandido en formato: ACRONIMO (Explicación)
-            # Se permite que haya espacios, y buscamos paréntesis de apertura y cierre.
             expansion_pattern = rf"\b{re.escape(acronym)}\s*\([^)]+\)"
-            
-            if not re.search(expansion_pattern, text):
-                # Localizamos la primera línea donde aparece para el reporte
-                for i, line in enumerate(text.splitlines(), start=1):
-                    if re.search(rf"\b{re.escape(acronym)}\b", line):
-                        state.add(
-                            Finding(
-                                path, i, "warn", "MD_ACRONYM",
-                                f"El acrónimo '{acronym}' no parece estar expandido. Regla: {acronym} (Inglés - Español)."
-                            )
+            if re.search(expansion_pattern, text):
+                continue
+                
+            # Si no está expandido, verificamos si es un término consolidado (> 3 apariciones globales)
+            if get_global_acronym_count(acronym) > 3:
+                continue
+                
+            # Localizamos la primera línea donde aparece para lanzar la advertencia
+            for i, line in enumerate(text.splitlines(), start=1):
+                if re.search(rf"\b{re.escape(acronym)}\b", line):
+                    state.add(
+                        Finding(
+                            path, i, "warn", "MD_ACRONYM",
+                            f"El acrónimo '{acronym}' no está expandido y no está consolidado (aparece 3 veces o menos). Regla: {acronym} (Inglés - Español)."
                         )
-                        break
+                    )
+                    break
 
 
 class SeoHTMLParser(HTMLParser):
