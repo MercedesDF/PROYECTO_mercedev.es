@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Fase 5: Implementación de Content Security Policy (CSP)
+
+**Contexto:** Iniciar la fase de Hardening del núcleo estático protegiéndolo contra ataques de inyección de código.
+
+**Hecho:**
+- Añadir directiva CSP (Content Security Policy - Política de Seguridad de Contenidos) en el `<head>` de `public/index.html`.
+
+**Detalle técnico:** Se establece una política estricta mediante etiqueta `<meta>`: `default-src 'self'` restringe todos los recursos al dominio actual. Se bloquean plugins (`object-src 'none'`) y la inyección de bases (`base-uri 'self'`).
+
+**Motivo / criterio:** Aplicación del principio de seguridad "Shift-Left". Una CSP estricta mitiga el riesgo de vulnerabilidades XSS (Cross-Site Scripting - Secuencias de Comandos en Sitios Cruzados) prohibiendo scripts externos o en línea no autorizados.
+
+**Siguiente paso o deuda:** Validar la carga de la portada en el navegador local para confirmar que la política no bloquea assets legítimos y avanzar con el Hardening de WordPress.
+
 ### 2026-04-15 — Refinamiento de la política de acrónimos (Linter y directrices)
 
 **Contexto:** La regla estricta de expandir siempre los acrónimos (Inglés - Español) resultaba tediosa para términos que ya estaban muy arraigados en el proyecto.
