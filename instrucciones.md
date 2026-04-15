@@ -37,7 +37,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 - `/docs`: Estrategia y directrices.
 - `/biblioteca`: Repositorio de conocimiento organizado por estanterías temáticas.
 - `/laboratorio`: I+D, proyectos en fase de desarrollo, scripts experimentales y **bitácora de proyecto** (`bitacora-mercedev.md`).
-- `/scripts/merci`: Utilidades de automatización en Python.
+- /scripts/merci: Utilidades de automatización en Python.
 - `/.assets-raw`: Área **local** para multimedia original sin procesar. Los originales **no se versionan** en Git (solo el marcador `.gitkeep` y la regla en `.gitignore`); el flujo previsto es generar salida en `/assets` (p. ej. con `merci-optimizer.py`).
 - `/assets`: Multimedia optimizado para producción.
 - `/public`: **Raíz del documento** del núcleo estático servido en producción (p. ej. `index.html`, `robots.txt`, `sitemap.xml` en la Fase 2). Las rutas a multimedia publicado apuntan a `/assets/`. Los sistemas dinámicos WordPress (`/blog`, `/tienda`) **no** viven bajo esta carpeta; se integran aparte en la Fase 4.

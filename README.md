@@ -89,6 +89,10 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Automatizar actualización de `lastmod` mediante `merci-sitemap.py`.
 - [x] Integrar `merci-sitemap.py` en el hook de pre-commit para actualización automática.
 
+#### 2.4 Ingesta de Evidencias (Laboratorio)
+- [ ] Implementar `laboratorio/scripts_temporales/merci_ingestor.py` para escanear y mover archivos recientes a `.assets-raw/`.
+- [ ] Documentar rutas de escaneo configurables para `merci_ingestor.py`.
+
 #### 2.4 Validación SEO y accesibilidad base
 - [x] Confirmar atributos `lang`, `charset` y semántica documental mínima.
 - [ ] Verificar que imágenes críticas incluyen texto alternativo útil.
