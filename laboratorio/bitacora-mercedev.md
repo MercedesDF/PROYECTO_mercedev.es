@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Incorporación de Conventional Commits a las directrices
+
+**Contexto:** Necesidad de estandarizar la nomenclatura de los mensajes de commit (especialmente en parches manuales) para mantener un historial de Git semántico y fácil de auditar.
+
+**Hecho:**
+- Añadir la regla 11 sobre la convención de prefijos en `instrucciones.md`.
+
+**Detalle técnico:** Se definen los prefijos estándar de la industria (`feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `perf:`, `test:`, `style:`) como parte inmutable de las directrices del repositorio.
+
+**Motivo / criterio:** La claridad en el control de versiones permite comprender el propósito de cualquier cambio de un solo vistazo. Es un paso clave de madurez DevSecOps que facilitará escalar o retomar el código en el futuro sin fricción.
+
+**Siguiente paso o deuda:** Iniciar la auditoría de permisos del servidor para WordPress (Fase 5.2).
+
 ### 2026-04-15 — Soporte para commits menores manuales en merci-commit
 
 **Contexto:** Tareas menores de mantenimiento (como eliminación de duplicados) no ameritan entradas completas en la bitácora, pero la herramienta `merci-commit.py` bloqueaba la acción o duplicaba mensajes forzando una fricción innecesaria.
