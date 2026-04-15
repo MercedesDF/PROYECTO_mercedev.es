@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Resolución de 404 por favicon ausente (Higiene de logs)
+
+**Contexto:** Durante la prueba del servidor local, el registro mostró un error 404 persistente al intentar cargar `favicon.ico`.
+
+**Hecho:**
+- Añadir `<link rel="icon" href="data:,">` en el `<head>` de `public/index.html`.
+
+**Detalle técnico:** Los navegadores solicitan automáticamente `/favicon.ico` a la raíz del servidor web. Al no existir el archivo, se genera una petición HTTP (Hypertext Transfer Protocol - Protocolo de Transferencia de Hipertexto) fallida. Se inyecta un URI (Uniform Resource Identifier - Identificador de Recursos Uniforme) de datos vacío para cancelar la petición de red en origen.
+
+**Motivo / criterio:** Rendimiento e higiene del servidor. Un error 404 consume procesamiento innecesario. Un Data URI vacío silencia el comportamiento automático del navegador manteniendo la política de cero dependencias externas.
+
+**Siguiente paso o deuda:** Diseñar el isotipo definitivo para el favicon en fases posteriores. Continuar con el Hardening de WordPress (Fase 5.2).
+
 ### 2026-04-15 — Validación local de Content Security Policy (CSP)
 
 **Contexto:** Verificar empíricamente que la política de seguridad estricta no interfiere con la carga de los recursos legítimos del núcleo estático.
