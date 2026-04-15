@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Creación de functions.php como escudo de rendimiento
+
+**Contexto:** Necesidad de bloquear la inyección de código basura por defecto de WordPress (scripts de emojis, estilos globales, CSS de Gutenberg) para proteger el rendimiento del frontend.
+
+**Hecho:**
+- Crear `src/wp-theme/merci-theme/functions.php`.
+- Implementar reglas de limpieza y desencolado (`dequeue`).
+
+**Detalle técnico:** Se emplea `remove_action` para detener los scripts de emojis y `wp_dequeue_style` enganchado a la acción `wp_enqueue_scripts` (con prioridad 100) para bloquear `wp-block-library` y `global-styles`. Finalmente, se encola `/assets/main.css` apuntando a la ruta absoluta expuesta por Nginx.
+
+**Motivo / criterio:** Aislar la vista dinámica del CMS de sus dependencias heredadas pesadas. Si no se bloquea, WordPress inyecta múltiples llamadas de red y estilos en línea que degradarían la métrica de Core Web Vitals lograda en el núcleo estático.
+
+**Siguiente paso o deuda:** Desarrollar `index.php` del tema para renderizar el esqueleto HTML5 alineado con la metodología BEM del proyecto.
+
 ### 2026-04-15 — Añadir salvaguarda a merci-commit.py contra commits sin bitácora
 
 **Contexto:** Evitar la creación de commits duplicados o la omisión de la actualización de la bitácora, que son riesgos inherentes a un flujo de trabajo automatizado.
