@@ -39,23 +39,3 @@ function merci_cargar_assets_estaticos() {
     wp_enqueue_style('merci-core-styles', '/assets/main.css', array(), '1.0.0', 'all');
 }
 add_action('wp_enqueue_scripts', 'merci_cargar_assets_estaticos');
-
-// =========================================================================
-// 3. WOOCOMMERCE EN MODO CATÁLOGO (Fase 4.3)
-// =========================================================================
-
-// Declarar soporte básico para evitar que WP/WooCommerce lance errores
-function merci_woocommerce_support() {
-    add_theme_support('woocommerce');
-}
-add_action('after_setup_theme', 'merci_woocommerce_support');
-
-// Escudo de rendimiento: Eliminar botones de "Añadir al carrito"
-remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
-remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
-
-// Desencolar scripts pesados del carrito (AJAX) que WC inyecta globalmente
-function merci_limpiar_scripts_wc() {
-    wp_dequeue_script('wc-cart-fragments');
-}
-add_action('wp_enqueue_scripts', 'merci_limpiar_scripts_wc', 100);
