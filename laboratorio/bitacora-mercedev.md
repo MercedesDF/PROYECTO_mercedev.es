@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Implementación de linter de acrónimos en Merci Audit
+
+**Contexto:** Automatizar la verificación de la regla de estilo que exige expandir los acrónimos técnicos en la bitácora y la documentación (Inglés - Español).
+
+**Hecho:**
+- Crear la función `audit_md_acronyms` en `scripts/merci/merci-audit.py`.
+- Definir una lista de vigilancia (*watchlist*) para los acrónimos más críticos.
+
+**Detalle técnico:** La función utiliza expresiones regulares para detectar si un acrónimo de la lista está presente en archivos `.md`. Si lo encuentra, verifica que exista al menos una instancia con el patrón `ACRÓNIMO (...)` en el documento. Se clasifica como `warn` para no bloquear commits por falsos positivos.
+
+**Motivo / criterio:** Reducir la carga cognitiva de revisión manual. La automatización parcial mediante *watchlist* es más fiable que una expresión regular genérica para mayúsculas, la cual generaría excesivos falsos positivos.
+
+**Siguiente paso o deuda:** Validar el comportamiento del auditor con un commit y avanzar a la Fase 5: Quality Assurance y Hardening.
+
 ### 2026-04-15 — Análisis de impacto de wc-cart-fragments (Deuda de conocimiento)
 
 **Contexto:** Comprensión arquitectónica de los motivos por los que el script `wc-cart-fragments` de WooCommerce degrada el rendimiento web estándar.
