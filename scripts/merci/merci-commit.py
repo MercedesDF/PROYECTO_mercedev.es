@@ -16,6 +16,11 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 BITACORA_PATH = REPO_ROOT / "laboratorio" / "bitacora-mercedev.md"
 
+def check_repo_changes():
+    """Verifica si hay algún cambio en el repositorio (staged, unstaged o untracked)."""
+    result = subprocess.run(["git", "status", "--porcelain"], cwd=REPO_ROOT, capture_output=True, text=True)
+    return len(result.stdout.strip()) > 0
+
 def check_bitacora_updated():
     """
     Verifica si la bitácora ha sido modificada desde el último commit.
@@ -70,26 +75,39 @@ def parse_latest_entry(content: str):
 def main():
     print("Merci revisa el estado técnico...")
     
+    # 0. ¿Hay algo que comitear realmente?
+    if not check_repo_changes():
+        print("\n[Merci Info] El repositorio está limpio. No hay archivos modificados para comitear.")
+        sys.exit(0)
+
     # 1. Verificación de seguridad: ¿Se ha actualizado la bitácora?
     if not check_bitacora_updated():
         # Usamos códigos de color ANSI para la alerta. \033[93m es amarillo. \033[0m lo resetea.
         print("\n\033[93m[Merci Alerta] La bitácora no ha sido actualizada desde el último commit.\033[0m")
-        print("Esto podría generar un commit duplicado o indicar un olvido.")
-        respuesta = input("¿Deseas continuar de todos modos? (s/N): ")
+        print("Se han detectado archivos modificados, pero falta la justificación técnica.")
+        respuesta = input("¿Deseas registrar esto como un parche menor/manual sin bitácora? (s/N): ")
         if respuesta.lower().strip() != 's':
             print("\n[Merci Info] Operación cancelada. Por favor, actualiza la bitácora antes de continuar.")
             sys.exit(0)
-    
-    if not BITACORA_PATH.exists():
-        print(f"[Merci Error] Archivo de bitácora no localizado en {BITACORA_PATH}")
-        sys.exit(1)
+            
+        custom_subject = input("\nIntroduce el título corto del commit (ej. chore: limpieza de archivos): ").strip()
+        if not custom_subject:
+            print("[Merci Error] Título vacío. Cancelando operación.")
+            sys.exit(1)
+            
+        commit_subject = custom_subject
+        commit_body = "Mantenimiento o parche menor sin entrada en bitácora."
+    else:
+        if not BITACORA_PATH.exists():
+            print(f"[Merci Error] Archivo de bitácora no localizado en {BITACORA_PATH}")
+            sys.exit(1)
 
-    content = BITACORA_PATH.read_text(encoding="utf-8")
-    title, context, hecho = parse_latest_entry(content)
+        content = BITACORA_PATH.read_text(encoding="utf-8")
+        title, context, hecho = parse_latest_entry(content)
 
-    # Formateo del mensaje para Git
-    commit_subject = title
-    commit_body = f"Contexto:\n{context}\n\nHecho:\n{hecho}"
+        # Formateo del mensaje para Git
+        commit_subject = title
+        commit_body = f"Contexto:\n{context}\n\nHecho:\n{hecho}"
 
     try:
         # 2. Añadir todos los archivos modificados/nuevos al stage (incluyendo la bitácora)
