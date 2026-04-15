@@ -35,8 +35,73 @@ Copia el bloque y rellénalo.
 ```
 
 ---
-
 ## Registro cronológico
+
+### 2026-04-15 — Pausa de Fase 4.2 para automatización de commits (I+D)
+
+**Contexto:** Necesidad de vincular estrechamente la actualización de la bitácora con el historial de Git para evitar desincronización entre documentación y código.
+
+**Hecho:**
+- Pausar temporalmente el desarrollo del `functions.php` del Child Theme.
+- Diseñar conceptualmente una herramienta de automatización para commits impulsados por la bitácora.
+
+**Detalle técnico:** Se descarta el "auto-commit al guardar" (file watcher) por generar ruido (commit spam) y romper la atomicidad de Git. Se opta por crear un extractor que utilice la última entrada redactada como mensaje estructurado del commit.
+
+**Motivo / criterio:** Mantener un historial de Git semántico, asegurando que el código modificado y su justificación (bitácora) viajen siempre juntos en un único commit atómico.
+
+**Siguiente paso o deuda:** Desarrollar `scripts/merci/merci-commit.py` e integrarlo en el flujo de trabajo local.
+
+### 2026-04-15 — Iniciar Fase 4.2 y creación base del Child Theme
+
+**Contexto:** Iniciar el desarrollo del tema hijo ultraligero para WordPress (Fase 4.2), asegurando cero dependencias externas y preparando el enlace con el núcleo estático.
+
+**Hecho:**
+- Crear directorio `src/wp-theme/merci-theme/`.
+- Crear archivo manifiesto `style.css`.
+
+**Detalle técnico:** El archivo `style.css` contiene exclusivamente la cabecera de comentarios (`Theme Name`, `Version`, etc.) requerida por WP para reconocer el tema en el panel de administración. No incluye directivas de diseño.
+
+**Motivo / criterio:** Evitar la duplicidad de renderizado y el código basura de los temas por defecto. El diseño real se delegará al `main.css` del núcleo estático para proteger la métrica de rendimiento (Core Web Vitals).
+
+**Siguiente paso o deuda:** Crear el archivo `functions.php` como escudo para bloquear los scripts y estilos inyectados por defecto por WordPress.
+
+### 2026-04-15 — Definir Arquitectura de Aislamiento de WordPress (Fase 4.1)
+
+**Contexto:** Integrar WordPress para `/blog` y `/tienda` sin comprometer la seguridad, inmutabilidad y rendimiento puro originado en el núcleo estático de la carpeta `public/`.
+
+**Hecho:**
+- Crear el documento técnico `docs/integracion-wordpress.md`.
+- Definir el enrutamiento proxy inverso mediante **Nginx**.
+- Configurar de forma teórica la preservación de canónicas (`siteurl` bloqueado a su subdirectorio) y `sitemap_index.xml`.
+
+**Detalle técnico:**
+- Plantear una estructura de "Common root": `public/` alberga estáticos, mientras que el CMS reside en otra ruta del sistema anfitrión (ej. `/var/www/wordpress/`). Unir ambos mundos transparentemente usando la directiva `location ^~ /blog`.
+- Restringir estrictamente permisos: el proceso PHP de WordPress nunca podrá escribir en `public/`.
+
+**Motivo / criterio:** Aislar vectores de ataque del CMS. Si el CMS es vulnerado (plugins desactualizados), el Frontend estático queda ileso. Además, se evita degradar el Web Vitals score de la portada sirviendo estáticos directamente con el web server.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4.2 que consiste en desarrollar el "Child Theme ultraligero" para el ecosistema de WordPress aislado.
+
+
+### 2026-04-15 — Refactorización para resolver descoordinación de archivos
+
+**Contexto:** Conflicto de convenciones de nombres y pérdida de coordinación de los scripts locales (`merci_sitemap.py` vs `merci-sitemap.py`) y pérdida de la compilación CSS (`main.scss`).
+
+**Hecho:**
+- Restaurar explícitamente `@use 'index';` en `src/scss/main.scss` garantizando compilación exitosa a `public/css/main.css`.
+- Traspasar duplicidades experimentales (`merci_ingestor.py`, `merci_sitemap.py`, `pre-commit.sh`) a `laboratorio/scripts_temporales/` para mantener limpio el entorno y respetar la no eliminación de código.
+- Restaurar el script `scripts/merci/pre-commit` con la llamada correcta a `merci-sitemap.py`.
+- Actualizar el `README.md` para asentar todos los apuntes con las rutas veraces.
+
+**Detalle técnico:**
+- Se confirma visualmente la reaparición de `main.css`.
+- Se limpia la carpeta `scripts/merci/` manteniéndola con `-` en lugar de `_` como convención primaria.
+- Movimiento realizado: `mv scripts/merci/merci_ingestor.py scripts/merci/merci_sitemap.py scripts/merci/pre-commit.sh laboratorio/scripts_temporales/`
+
+**Motivo / criterio:** Consistencia y correspondencia con "lo que existe". Todo el proyecto ya está nuevamente compilando y acoplado.
+
+**Siguiente paso o deuda:** Ninguno, el lío de archivos quedó resuelto.
+
 
 ### 2026-04-15 — Restauración integral de archivos y estabilización modular
 
@@ -507,27 +572,6 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** Separar claramente sitio servido, automatización, conocimiento y brutos locales.
 
 **Siguiente paso o deuda:** `public/index.html` semántico + JSON-LD + `robots.txt` / `sitemap.xml` en la misma raíz cuando toque.
-
----
-
-### 2026-04-15 — Refactorización para resolver descoordinación de archivos
-
-**Contexto:** Conflicto de convenciones de nombres y pérdida de coordinación de los scripts locales (`merci_sitemap.py` vs `merci-sitemap.py`) y pérdida de la compilación CSS (`main.scss`).
-
-**Hecho:**
-- Restaurar explícitamente `@use 'index';` en `src/scss/main.scss` garantizando compilación exitosa a `public/css/main.css`.
-- Traspasar duplicidades experimentales (`merci_ingestor.py`, `merci_sitemap.py`, `pre-commit.sh`) a `laboratorio/scripts_temporales/` para mantener limpio el entorno y respetar la no eliminación de código.
-- Restaurar el script `scripts/merci/pre-commit` con la llamada correcta a `merci-sitemap.py`.
-- Actualizar el `README.md` para asentar todos los apuntes con las rutas veraces.
-
-**Detalle técnico:**
-- Se confirma visualmente la reaparición de `main.css`.
-- Se limpia la carpeta `scripts/merci/` manteniéndola con `-` en lugar de `_` como convención primaria.
-- Movimiento realizado: `mv scripts/merci/merci_ingestor.py scripts/merci/merci_sitemap.py scripts/merci/pre-commit.sh laboratorio/scripts_temporales/`
-
-**Motivo / criterio:** Consistencia y correspondencia con "lo que existe". Todo el proyecto ya está nuevamente compilando y acoplado.
-
-**Siguiente paso o deuda:** Ninguno, el lío de archivos quedó resuelto.
 
 ---
 
