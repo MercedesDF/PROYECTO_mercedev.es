@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Corrección de importación en pruebas (test_sitemap.py)
+
+**Contexto:** El archivo de pruebas `test_sitemap.py` quedó roto tras estandarizar el nombre del script principal a `merci-sitemap.py` (con guion medio). Python no permite importar módulos con guiones usando la sintaxis estándar de `import`.
+
+**Hecho:**
+- Refactorizar `scripts/merci/tests/test_sitemap.py`.
+- Implementar carga dinámica de módulos con `importlib.util`.
+
+**Detalle técnico:** Se reemplazó el `sys.path.append` por `spec_from_file_location` y `module_from_spec` de `importlib.util`. Esto permite cargar el archivo `merci-sitemap.py` asociándolo al namespace interno seguro `merci_sitemap` para el parcheo con `unittest.mock`.
+
+**Motivo / criterio:** Mantener la convención de nombres de archivos con guiones en el sistema (ej. `merci-audit.py`, `merci-sitemap.py`) sin sacrificar la cobertura de las pruebas unitarias.
+
+**Siguiente paso o deuda:** Ejecutar los tests para validar el fix y consolidar los cambios con `merci-commit`.
+
 ### 2026-04-15 — Creación de index.php del Child Theme con metodología BEM
 
 **Contexto:** Proveer una plantilla base para que WordPress renderice contenido dinámico respetando el estándar HTML5 y las clases CSS del núcleo estático.
