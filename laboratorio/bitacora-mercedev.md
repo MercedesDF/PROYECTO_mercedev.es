@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-15 — Fase 4.3: Configuración de WooCommerce en modo catálogo
+
+**Contexto:** Integrar WooCommerce para mostrar el merchandising de Merci sin el impacto de rendimiento que supone una tienda completa con pasarelas de pago y scripts de carrito (AJAX).
+
+**Hecho:**
+- Añadir soporte de WooCommerce al `functions.php` del Child Theme.
+- Eliminar las acciones de añadir al carrito (`remove_action`).
+- Desencolar el script `wc-cart-fragments`.
+
+**Detalle técnico:** Se usa `add_theme_support('woocommerce')` para habilitar las plantillas base. Se bloquea la generación de botones de compra anulando `woocommerce_template_loop_add_to_cart` y `woocommerce_template_single_add_to_cart`. El script de fragmentos de carrito se desencola con prioridad 100.
+
+**Motivo / criterio:** Rendimiento puro. WooCommerce inyecta JS pesado por defecto para gestionar el carrito en tiempo real en todas las páginas. Al funcionar como mero catálogo, prescindimos de esta carga protegiendo el Web Vitals score.
+
+**Siguiente paso o deuda:** Validar la visualización del catálogo e iniciar la fase de endurecimiento y QA (Fase 5).
+
 ### 2026-04-15 — Corrección de importación en pruebas (test_sitemap.py)
 
 **Contexto:** El archivo de pruebas `test_sitemap.py` quedó roto tras estandarizar el nombre del script principal a `merci-sitemap.py` (con guion medio). Python no permite importar módulos con guiones usando la sintaxis estándar de `import`.
