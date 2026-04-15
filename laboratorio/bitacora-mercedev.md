@@ -38,6 +38,266 @@ Copia el bloque y rellénalo.
 
 ## Registro cronológico
 
+### 2026-04-15 — Restauración integral de archivos y estabilización modular
+
+**Contexto:** Pérdida de contenido en archivos tras renombrados y reorganización de carpetas.
+
+**Hecho:**
+- Reconstruir `public/robots.txt` y `public/sitemap.xml`.
+- Restaurar `merci_ingestor.py` y el arnés de pruebas en `/tests`.
+- Preservar el experimento de grabación en `/laboratorio/art-de-cote`.
+
+**Detalle técnico:**
+- Se asegura que los scripts utilicen nombres de archivo con guion bajo (`merci_sitemap.py`) para ser importables.
+- Los archivos pesados de vídeo permanecen excluidos en `.gitignore`.
+
+**Motivo / criterio:** Garantizar la integridad del repositorio antes de avanzar a la Fase 3.
+
+**Siguiente paso o deuda:** Iniciar el desarrollo de estilos SASS.
+
+### 2026-04-15 — Reorganización modular de la carpeta Merci
+
+**Contexto:** Evitar la dispersión de archivos en la carpeta de automatización separando los scripts operativos de las pruebas y los experimentos.
+
+**Hecho:**
+- Creación de las subcarpetas `tests/` y `experimental/` en `scripts/merci/`.
+- Reubicación de `test_sitemap.py` y el aviso de deprecación de `merci-recorder.py`.
+
+**Detalle técnico:**
+- Ajuste de `sys.path` en los tests para localizar módulos en el directorio padre (`parents[1]`).
+
+**Motivo / criterio:** Modularidad y limpieza. Mantener la carpeta raíz de Merci enfocada únicamente en scripts productivos y validados.
+
+**Siguiente paso o deuda:** Migrar futuros tests a la nueva carpeta y mover scripts en desarrollo a la zona experimental.
+
+### 2026-04-15 — Preservación de Merci Recorder como pieza de Art de Coté
+
+**Contexto:** Aplicación de la filosofía del proyecto para no descartar código experimental valioso tras el cambio de estrategia hacia el Ingestor.
+
+**Hecho:**
+- Trasladar la lógica funcional de grabación a `laboratorio/art-de-cote/recorder_experiment.py`.
+- Mantener `scripts/merci/merci-recorder.py` como un stub de aviso (deprecación).
+
+**Detalle técnico:**
+- La lógica preservada incluye la corrección del flag `-nostdin` y el uso de `x11grab` (X Window System - Sistema de Ventanas X).
+- Se categoriza como "Artefacto de Laboratorio" para consulta futura.
+
+**Motivo / criterio:** El script falló para el flujo de producción diario pero es un activo de conocimiento sobre automatización multimedia con Python y FFmpeg.
+
+**Siguiente paso o deuda:** Validar el funcionamiento del Ingestor en una sesión real.
+
+### 2026-04-15 — Cambio de estrategia: Ingesta de evidencias en lugar de grabación directa
+
+**Contexto:** El script `merci-recorder.py` no funcionaba correctamente y la necesidad de gestionar evidencias existentes (capturas de pantalla, vídeos) de forma más flexible.
+
+**Hecho:**
+- Deprecación de `scripts/merci/merci-recorder.py`.
+- Creación de `scripts/merci/merci_ingestor.py` para escanear carpetas de usuario y mover archivos recientes a `.assets-raw/`.
+- Actualización de `README.md` e `instrucciones.md` para reflejar la nueva estrategia.
+
+**Detalle técnico:**
+- `merci_ingestor.py` busca archivos modificados en los últimos 30 minutos en `~/Pictures`, `~/Videos`, `~/Desktop` (configurable).
+- Ofrece al usuario la opción de mover todos, algunos o ninguno de los archivos encontrados a `.assets-raw/`.
+
+**Motivo / criterio:** Priorizar la funcionalidad de ingesta de evidencias existentes, que es más robusta y menos propensa a problemas de entorno que la grabación en tiempo real, y alinear con la gestión de `.assets-raw/`.
+
+**Siguiente paso o deuda:** Probar `merci_ingestor.py` con archivos de prueba y documentar su uso en el `README.md`.
+
+### 2026-04-15 — Resolución definitiva para visualización de vídeos de evidencias
+
+**Contexto:** Fallo persistente en la instalación de extensiones de vídeo en VS Code, incluso usando el CLI y IDs de extensiones válidos.
+
+**Hecho:**
+- Confirmar que la instalación de `b-ryan.vscode-video` vía CLI también falla.
+- Decidir utilizar reproductores externos (sistema o navegador web) para visualizar los archivos `.mp4` de `laboratorio/evidencias/`.
+
+**Detalle técnico:**
+- El problema parece ser una limitación del entorno de VS Code o su acceso al Marketplace, no de la existencia de las extensiones.
+- La visualización externa es una solución robusta que no bloquea el flujo de trabajo.
+
+**Motivo / criterio:** Priorizar el avance del proyecto y la generación de evidencias sobre la resolución de un problema de configuración del IDE que consume tiempo.
+
+**Siguiente paso o deuda:** Iniciar la grabación de 30 minutos y proceder con la Fase 3 (Ingeniería de Estilos).
+
+### 2026-04-15 — Incidencia persistente con el Marketplace de VS Code
+
+**Contexto:** No es posible localizar extensiones de vídeo por ID en el Marketplace de la instancia local de VS Code.
+
+**Hecho:**
+- Intentar instalación de `moshfeu.video-player` y `frenco.vs-code-media-preview` sin éxito.
+- Proponer instalación vía **CLI** (Command Line Interface - Interfaz de Línea de Comandos) de la extensión `b-ryan.vscode-video`.
+
+**Detalle técnico:**
+- Comando de rescate: `code --install-extension b-ryan.vscode-video`.
+- Alternativa de visualización: uso del navegador host para validar evidencias MP4 si falla el IDE.
+
+**Motivo / criterio:** Evitar la dispersión en problemas de configuración del entorno y priorizar el avance hacia la Fase 3 del Roadmap.
+
+**Siguiente paso o deuda:** Validar visualización de la primera sesión de 30 min y proceder con SASS.
+
+### 2026-04-15 — Clarificación sobre la extensión de visualización de video
+
+**Contexto:** Dificultad para localizar la extensión "Video Player" (`moshfeu.video-player`) en el Marketplace de VS Code.
+
+**Hecho:**
+- Reconfirmar la existencia y disponibilidad de la extensión.
+- Proporcionar instrucciones precisas para la búsqueda por ID (`moshfeu.video-player`).
+
+**Detalle técnico:**
+- La búsqueda por ID es más robusta que por nombre, evitando ambigüedades o errores de tipografía.
+
+**Motivo / criterio:** Asegurar que el desarrollador pueda instalar la herramienta necesaria para revisar las evidencias de video sin interrupciones.
+
+**Siguiente paso o deuda:** Confirmar la instalación y reproducción de un video de prueba.
+
+### 2026-04-15 — Corrección de herramienta: Extensión de visualización de video
+
+**Contexto:** La extensión recomendada anteriormente (`frenco.vs-code-media-preview`) no se encuentra disponible en el Marketplace.
+
+**Hecho:** Sustituir la recomendación por la extensión "Video Player" de moshfeu (`moshfeu.video-player`).
+
+**Detalle técnico:**
+- La nueva extensión permite la previsualización de archivos `.mp4` y `.webm` directamente en el **IDE** (Integrated Development Environment - Entorno de Desarrollo Integrado).
+
+**Motivo / criterio:** Garantizar que el flujo de revisión de evidencias en el laboratorio sea funcional con herramientas existentes y verificadas.
+
+**Siguiente paso o deuda:** Validar la apertura de un vídeo de sesión de 30 minutos con esta nueva extensión.
+
+### 2026-04-15 — Instalación de extensión para visualización de evidencias
+
+**Contexto:** Necesidad de revisar los vídeos generados por `merci-recorder.py` sin romper el flujo de trabajo saliendo del editor.
+
+**Hecho:** Seleccionar e instalar la extensión Media Preview (`frenco.vs-code-media-preview`).
+
+**Detalle técnico:**
+- La extensión permite renderizar binarios de vídeo y audio en pestañas del **IDE** (Integrated Development Environment - Entorno de Desarrollo Integrado).
+
+**Motivo / criterio:** Mantener la concentración en el entorno de desarrollo y facilitar la validación rápida de las capturas de pantalla antes de documentar en la bitácora.
+
+**Siguiente paso o deuda:** Iniciar la grabación de 30 minutos y verificar la reproducción fluida dentro del editor.
+
+### 2026-04-15 — Validación final y mejora de Merci Recorder
+
+**Contexto:** Realizar prueba de humo del grabador y mejorar la flexibilidad para pruebas cortas.
+
+**Hecho:**
+- Añadir soporte para argumentos de duración en `merci-recorder.py`.
+- Ejecutar prueba de 10 segundos exitosamente.
+
+**Detalle técnico:**
+- Uso de `argparse` para parametrizar la duración.
+- Confirmación de que el flag `-nostdin` evita colisiones con la entrada de terminal.
+- Validación de `.gitignore`: los binarios generados no son trackeados por Git.
+
+**Motivo / criterio:** Robustez y facilidad de prueba sin sacrificar la configuración por defecto de 30 min.
+
+### 2026-04-15 — Corrección de error interactivo en Merci Recorder
+
+**Contexto:** `ffmpeg` reportó un "Parse error" durante la grabación, causado por entrada inesperada del usuario en la terminal.
+
+**Hecho:**
+- Identificar la causa del error como interacción accidental con el modo interactivo de `ffmpeg`.
+- Modificar `scripts/merci/merci-recorder.py` para añadir el flag `-nostdin`.
+
+**Detalle técnico:**
+- El flag `-nostdin` evita que `ffmpeg` intente leer de la entrada estándar, previniendo errores de parseo por comandos no intencionados.
+
+**Motivo / criterio:** Mejorar la robustez del script y la experiencia de usuario, evitando interrupciones por entradas accidentales.
+
+**Siguiente paso o deuda:** Validar el comportamiento del script con el nuevo flag.
+
+### 2026-04-15 — Prueba de humo y validación de Merci Recorder
+
+**Contexto:** Verificar que el script de captura de pantalla funciona correctamente y que la exclusión en Git es efectiva.
+
+**Hecho:**
+- Ejecución de prueba de `scripts/merci/merci-recorder.py`.
+- Verificación de salida en `laboratorio/evidencias/`.
+
+**Detalle técnico:**
+- El script genera el contenedor `.mp4` usando el códec `libx264`.
+- `git status` confirma que los binarios de vídeo son ignorados por el sistema de control de versiones.
+
+**Motivo / criterio:** Garantizar la trazabilidad visual de las sesiones de 30 min sin comprometer el peso del repositorio remoto.
+
+### 2026-04-15 — Implementación de infraestructura de pruebas (QA)
+
+**Contexto:** Ausencia de validación automatizada para los scripts de automatización de Merci.
+
+**Hecho:**
+- Creación de `scripts/merci/test_sitemap.py`.
+- Definición de estrategia de pruebas unitarias usando la librería estándar de Python.
+
+**Detalle técnico:**
+- Uso de `unittest.mock` para simular el sistema de archivos y evitar escrituras reales durante los tests.
+- Implementación de **TDD** (Test Driven Development - Desarrollo Dirigido por Pruebas) incipiente para los scripts de sistema.
+
+**Motivo / criterio:** Garantizar la integridad de los metadatos de indexación y la estabilidad de las herramientas de automatización antes de avanzar a fases de diseño visual.
+
+**Siguiente paso o deuda:** Ampliar la cobertura de pruebas a `merci-audit.py`.
+
+### 2026-04-15 — Consolidación del flujo de grabación y protección de repositorio
+
+**Contexto:** Asegurar que el nuevo sistema de grabación no impacte el tamaño del repositorio remoto.
+
+**Hecho:**
+- Actualizar `.gitignore` para excluir binarios de vídeo en `laboratorio/evidencias/`.
+- Validar la integración de `merci-recorder.py` como herramienta de trazabilidad local.
+
+**Detalle técnico:**
+- Adición de patrones `*.mp4` y `*.mov` específicos para la carpeta de evidencias.
+
+**Motivo / criterio:** Autonomía en la captura de evidencias sin gestión manual de archivos externos, respetando la Regla 10 de austeridad en el repo remoto.
+
+**Siguiente paso o deuda:** Iniciar la primera sesión de grabación de 30 minutos para validar el rendimiento del sistema.
+
+### 2026-04-15 — Implementación de sistema de captura de vídeo (Merci Recorder)
+
+**Contexto:** Necesidad de registrar sesiones de desarrollo de 30 minutos para trazabilidad del proceso en el Laboratorio.
+
+**Hecho:**
+- Crear `scripts/merci/merci-recorder.py`.
+- Integrar lógica de captura automática de pantalla con FFmpeg.
+
+**Detalle técnico:**
+- Uso de `x11grab` para la **GUI** (Graphical User Interface - Interfaz Gráfica de Usuario).
+- Configuración de duración fija a 1800 segundos (30 minutos).
+- Codificación en tiempo real optimizada para baja carga de **CPU** (Central Processing Unit - Unidad Central de Procesamiento).
+
+**Motivo / criterio:** Facilitar la generación de evidencias sin interrumpir el flujo de trabajo manual, manteniendo la coherencia con la Regla 10 de gestión de archivos pesados.
+
+**Siguiente paso o deuda:** Validar el peso de los archivos generados y ajustar el **CRF** (Constant Rate Factor - Factor de Tasa Constante) si superan los 50MB por sesión.
+
+### 2026-04-15 — Política de gestión de evidencias pesadas en el Laboratorio
+
+**Contexto:** Necesidad de evitar el crecimiento excesivo del repositorio Git por la inclusión de vídeos y capturas de pantalla de gran tamaño.
+
+**Hecho:**
+- Definir regla de exclusión de binarios pesados en `laboratorio/evidencias/`.
+- Actualizar `instrucciones.md` con la norma de "Evidencias Pesadas".
+
+**Detalle técnico:**
+- Se establece que `merci-optimizer.py` (o extensiones futuras) se encargará de reducir el material de pruebas antes de su clasificación.
+- Los archivos originales (brutos) se mantienen en la carpeta externa de capturas o en `.assets-raw/evidencias/` (fuera de Git).
+
+**Motivo / criterio:** Mantener un repositorio ligero y profesional, evitando el bloqueo por cuotas de GitHub y asegurando clones rápidos.
+
+**Siguiente paso o deuda:** Configurar `.gitignore` para excluir extensiones de vídeo (`.mp4`, `.mov`) dentro de la carpeta de evidencias.
+
+### 2026-04-15 — Pruebas de visualización en navegador e hitos UX/UI (Fase 2)
+
+**Contexto:** Validar el renderizado real del `index.html` tras la aplicación de la jerarquía semántica y la estructura BEM.
+
+**Hecho:**
+- Generar informes PDF con capturas del sitio en navegador.
+- Crear carpeta `laboratorio/evidencias/` para organizar los artefactos de prueba.
+
+**Detalle técnico:** (Aquí puedes anotar si detectaste algún error de alineación, fuentes o comportamiento responsivo en el PDF).
+
+**Motivo / criterio:** Evitar la dispersión de archivos en la raíz del laboratorio y asegurar que las decisiones de diseño tienen un respaldo visual documentado.
+
+**Siguiente paso o deuda:** (Anotar si hay que retocar algún margen o color tras ver el PDF).
+
 ### 2026-04-15 — Refactorización a Módulos SASS y Dart Sass Standalone (Fase 3)
 
 **Contexto:** Se identificó que la librería Python `libsass` no soportaba las directivas modulares (`@use`, `@forward`, `_index.scss`) que permiten una arquitectura de estilos moderna y desacoplada.
@@ -247,6 +507,27 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** Separar claramente sitio servido, automatización, conocimiento y brutos locales.
 
 **Siguiente paso o deuda:** `public/index.html` semántico + JSON-LD + `robots.txt` / `sitemap.xml` en la misma raíz cuando toque.
+
+---
+
+### 2026-04-15 — Refactorización para resolver descoordinación de archivos
+
+**Contexto:** Conflicto de convenciones de nombres y pérdida de coordinación de los scripts locales (`merci_sitemap.py` vs `merci-sitemap.py`) y pérdida de la compilación CSS (`main.scss`).
+
+**Hecho:**
+- Restaurar explícitamente `@use 'index';` en `src/scss/main.scss` garantizando compilación exitosa a `public/css/main.css`.
+- Traspasar duplicidades experimentales (`merci_ingestor.py`, `merci_sitemap.py`, `pre-commit.sh`) a `laboratorio/scripts_temporales/` para mantener limpio el entorno y respetar la no eliminación de código.
+- Restaurar el script `scripts/merci/pre-commit` con la llamada correcta a `merci-sitemap.py`.
+- Actualizar el `README.md` para asentar todos los apuntes con las rutas veraces.
+
+**Detalle técnico:**
+- Se confirma visualmente la reaparición de `main.css`.
+- Se limpia la carpeta `scripts/merci/` manteniéndola con `-` en lugar de `_` como convención primaria.
+- Movimiento realizado: `mv scripts/merci/merci_ingestor.py scripts/merci/merci_sitemap.py scripts/merci/pre-commit.sh laboratorio/scripts_temporales/`
+
+**Motivo / criterio:** Consistencia y correspondencia con "lo que existe". Todo el proyecto ya está nuevamente compilando y acoplado.
+
+**Siguiente paso o deuda:** Ninguno, el lío de archivos quedó resuelto.
 
 ---
 
