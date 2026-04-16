@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Fase 4.2: Corrección de enrutamiento de assets estáticos en WordPress
+
+**Contexto:** El "escudo de rendimiento" limpiaba correctamente el HTML, pero la hoja de estilos devolvía un error 404. WordPress prefijaba la ruta del CSS con `/blog/`, rompiendo el proxy de Nginx que sirve los assets desde la raíz estática.
+
+**Hecho:**
+- Se refactorizó la llamada `wp_enqueue_style` en `functions.php`.
+- Se implementó la construcción dinámica de la URL absoluta usando `$_SERVER['HTTP_HOST']`.
+
+**Detalle técnico:** WordPress interpreta las rutas como `/assets/main.css` como relativas a su `siteurl`. Se cambió a `$domain_root = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];` para forzar la petición a `http://localhost/assets/main.css` (directo al bloque Nginx).
+
+**Motivo / criterio:** Aislar el CMS (Content Management System) significa que este no debe gobernar cómo se sirven los estáticos. Al forzar la petición a la raíz del dominio, Nginx intercepta la llamada y la sirve con máxima velocidad (caché), protegiendo las métricas de rendimiento.
+
+**Siguiente paso o deuda:** Recargar el frontend para validar la carga del CSS sin errores 404 y verificar la estructura generada por el `index.php` del Child Theme.
+
 ### 2026-04-16 — Fase 4.2: Resolución de permisos para enlaces simbólicos (Child Theme)
 
 **Contexto:** WordPress no detectaba el "Merci Theme" enlazado simbólicamente porque el usuario del servidor web (`www-data`) no tenía permisos para atravesar el directorio personal del usuario local.

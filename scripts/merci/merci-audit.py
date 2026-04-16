@@ -55,6 +55,7 @@ SKIP_DIR_NAMES = frozenset(
         ".ruff_cache",
         "node_modules",
         ".assets-raw",
+        "evidencias",
     }
 )
 
@@ -195,6 +196,14 @@ def git_staged_paths(root: Path) -> list[Path]:
         path = (root / line).resolve()
         if not path.is_file():
             continue
+            
+        try:
+            relative = path.relative_to(root)
+        except ValueError:
+            continue
+        if any(part in SKIP_DIR_NAMES for part in relative.parts):
+            continue
+            
         suffix_ok = path.suffix.lower() in TEXT_SUFFIXES
         dotenv_ok = path.name in {".env", ".env.local"}
         if not suffix_ok and not dotenv_ok:
