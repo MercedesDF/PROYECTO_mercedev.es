@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Lección de Flujo: Reparación de historial Git y parcheo manual
+
+**Contexto (Desafío):** Tras un commit exitoso, se intentó corregir una advertencia del linter (`WARN MD_ACRONYM`) con un commit manual. El comando `git add` falló por un error de ruta relativa y un posterior `merci-commit` generó un commit duplicado con un mensaje incorrecto.
+
+**Hecho (Maniobra):**
+- Se ha reparado el historial de Git fusionando los dos últimos commits con `git rebase -i HEAD~2`.
+- Se ha definido el flujo correcto para parches menores: navegar a la raíz del proyecto y usar `git add <archivo>` y `git commit -m "prefijo: mensaje"` manualmente.
+
+**Detalle técnico:** El error de `git add` se debió a ejecutarlo desde una subcarpeta. El commit duplicado ocurrió porque `merci-commit` re-leyó la última entrada de la bitácora. La solución `fixup` en el rebase interactivo fusiona los cambios y descarta el mensaje del commit secundario.
+
+**Motivo / criterio (Aprendizaje):** Las herramientas de automatización como `merci-commit` son para hitos principales justificados por la bitácora. Los parches de documentación o correcciones menores deben gestionarse con comandos manuales de Git desde la raíz del proyecto para mantener un historial limpio y semántico.
+
+**Siguiente paso o deuda:** Retomar la elección de la siguiente fase del roadmap (Fase 3 o 5.3).
+
 ### 2026-04-16 — Fase 4.4: Erradicación de CSS en línea y carga diferida (Defer)
 
 **Contexto:** El análisis del código fuente reveló que WordPress 6.x seguía inyectando bloques `<style>` en línea (como `global-styles` y `classic-theme-styles`), saltándose el `wp_dequeue_style` estándar. Además, faltaba garantizar que futuros scripts no bloquearan el renderizado.
