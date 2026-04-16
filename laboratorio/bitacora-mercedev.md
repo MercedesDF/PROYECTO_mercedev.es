@@ -37,6 +37,34 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Reajuste de entorno: De servidor a PC local y actualización de directrices
+
+**Contexto:** Confusión entre el entorno de producción (droplet de DigitalOcean) y el entorno de desarrollo (PC local con Ubuntu). Se intentaba configurar bases de datos para el despliegue final cuando el entorno local aún no disponía de la pila tecnológica necesaria para probar la arquitectura aislada.
+
+**Hecho:**
+- Se ha añadido la regla 13 a `instrucciones.md` para forzar la verificación de dependencias de entorno antes de avanzar en la configuración.
+- Se ha introducido la subfase 4.0 en el `README.md` para formalizar la preparación del entorno local LEMP.
+
+**Detalle técnico:** La configuración local requiere replicar el ecosistema de producción (Linux, Nginx, MariaDB, PHP-FPM) nativamente en el sistema operativo anfitrión (`~/Escritorio/`) para validar el enrutamiento inverso de Nginx sin depender de herramientas aisladas como LocalWP que ofuscan la configuración del servidor.
+
+**Motivo / criterio:** DevSecOps y "Shift-Left" requieren que el entorno de desarrollo local sea una réplica fiel de la arquitectura de producción. No se puede auditar ni endurecer un CMS localmente sin las herramientas nativas.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4.0 instalando Nginx, MariaDB y PHP nativos en el Ubuntu local.
+
+### 2026-04-16 — Fase 5.2: Instalación de la infraestructura de base de datos (MariaDB)
+
+**Contexto:** Al intentar crear la base de datos para WordPress, se detectó que no había ningún servidor de bases de datos instalado en el droplet (error `mysql: orden no encontrada`).
+
+**Hecho:**
+- Se ha instalado el servidor de bases de datos MariaDB, el sustituto directo y recomendado de MySQL en Ubuntu.
+- Se ha ejecutado el script `mysql_secure_installation` para aplicar un endurecimiento de seguridad inicial.
+
+**Detalle técnico:** Se utilizaron los comandos `sudo apt update`, `sudo apt install mariadb-server` y `sudo mysql_secure_installation`. Se configuró la autenticación `unix_socket` para el usuario root y se eliminaron las configuraciones inseguras por defecto.
+
+**Motivo / criterio:** WordPress requiere una base de datos para funcionar. MariaDB es el estándar de la industria para este stack tecnológico. Asegurar la instalación desde el inicio es un paso fundamental de la filosofía "Shift-Left Security".
+
+**Siguiente paso o deuda:** Proceder con la creación de la base de datos y el usuario específicos para la instancia de WordPress.
+
 ### 2026-04-15 — Incorporación de regla de sincronización del Roadmap
 
 **Contexto:** Evitar la desincronización entre el código implementado y el estado de las fases documentadas en el proyecto.
