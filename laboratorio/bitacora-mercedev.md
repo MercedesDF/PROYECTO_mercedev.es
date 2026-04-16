@@ -37,6 +37,22 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Fase 4.0: Configuración de Nginx para entorno local
+
+**Contexto:** Configurar el servidor web Nginx en el entorno de desarrollo local para replicar la arquitectura de enrutamiento inverso (reverse proxy) definida en `docs/integracion-wordpress.md`.
+
+**Hecho:**
+- Se ha creado un nuevo archivo de configuración de sitio en `/etc/nginx/sites-available/mercedev-local`.
+- Se ha adaptado la configuración para el entorno local, apuntando la raíz estática a la carpeta del proyecto y manteniendo el alias para WordPress.
+- Se ha añadido un bloque `location /assets` con una directiva `alias` para servir correctamente los recursos compartidos (CSS).
+- Se ha activado el nuevo sitio y desactivado el sitio por defecto de Nginx.
+
+**Detalle técnico:** Se creó el archivo `/etc/nginx/sites-available/mercedev-local` y se enlazó simbólicamente a `/etc/nginx/sites-enabled/`. Se verificó la sintaxis con `sudo nginx -t` y se recargó el servicio con `sudo systemctl reload nginx`. Se instruyó sobre cómo verificar la versión del socket de PHP-FPM en `/run/php/`.
+
+**Motivo / criterio:** Es imprescindible que el entorno de desarrollo local simule fielmente la configuración de producción. La configuración de Nginx es el componente clave que une el núcleo estático y el CMS dinámico, permitiendo probar y validar la arquitectura de aislamiento antes del despliegue.
+
+**Siguiente paso o deuda:** Configurar el archivo `wp-config.php` de WordPress y ejecutar el instalador web para finalizar la instalación.
+
 ### 2026-04-16 — Fase 4.0: Creación de base de datos y usuario para WordPress local
 
 **Contexto:** Crear el esquema de base de datos y el usuario dedicado para la instancia local de WordPress, aislando sus datos del resto del sistema.
