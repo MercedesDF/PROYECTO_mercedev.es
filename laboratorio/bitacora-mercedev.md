@@ -37,6 +37,22 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Fase 4.0: Configuración de wp-config.php y despliegue final
+
+**Contexto:** Conectar la instancia aislada de WordPress con su base de datos dedicada local y asegurar sus permisos de servidor post-instalación.
+
+**Hecho:**
+- Se ha creado y configurado `wp-config.php` con credenciales de base de datos (`wp_mercedev_local`) y claves de seguridad generadas.
+- Se ha ejecutado el instalador de WordPress a través del proxy inverso de Nginx (`http://localhost/blog`).
+- Se ha aplicado el *hardening* de permisos (`chown` y `chmod`) al directorio `/var/www/wordpress/`.
+- Se da por finalizada la Fase 4.0 del Roadmap.
+
+**Detalle técnico:** Se aplicó el principio de mínimo privilegio tras la instalación: directorios a `755`, archivos a `644` y un estricto `600` para `wp-config.php`, asignando la propiedad completa a `www-data:www-data`.
+
+**Motivo / criterio:** La instalación local no exime de aplicar prácticas de seguridad de producción. Blindar `wp-config.php` y los permisos del CMS desde el minuto uno garantiza que la arquitectura probada localmente es segura para su posterior migración al servidor de producción.
+
+**Siguiente paso o deuda:** Validar la visualización del Child Theme (Fase 4.2) ahora que existe un WordPress real donde activarlo.
+
 ### 2026-04-16 — Fase 4.0: Configuración de Nginx para entorno local
 
 **Contexto:** Configurar el servidor web Nginx en el entorno de desarrollo local para replicar la arquitectura de enrutamiento inverso (reverse proxy) definida en `docs/integracion-wordpress.md`.
