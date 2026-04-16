@@ -35,9 +35,11 @@ add_action('wp_enqueue_scripts', 'merci_limpiar_estilos_por_defecto', 100);
 // =========================================================================
 
 function merci_cargar_assets_estaticos() {
-    // La ruta es /css/main.css porque el compilador SASS lo deja en public/css/main.css.
-    // Al usar una ruta que empieza con '/', WordPress la hace relativa a la raíz del dominio.
-    wp_enqueue_style('merci-core-styles', '/css/main.css', array(), '1.0.0', 'all');
+    // WordPress es obstinado: si le damos una ruta que empieza por '/', le concatena 
+    // el directorio del blog por defecto (ej. /blog/css/...).
+    // Para forzar la salida a la raíz estática absoluta, construimos el esquema + host:
+    $domain_root = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
+    wp_enqueue_style('merci-core-styles', $domain_root . '/css/main.css', array(), '1.0.0', 'all');
 }
 add_action('wp_enqueue_scripts', 'merci_cargar_assets_estaticos');
 

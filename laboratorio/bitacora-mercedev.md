@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Parche: Forzar URL absoluta para CSS estático
+
+**Contexto:** El CSS unificado devolvía 404. WordPress interceptaba el prefijo `/css/main.css` y lo reescribía automáticamente a `http://localhost/blog/css/main.css` en la función `wp_enqueue_style`.
+
+**Hecho:**
+- Restaurada la construcción de `$domain_root` dinámico en `functions.php`.
+- Forzado el parámetro de URL a una ruta absoluta como `http://[host]/css/main.css`.
+
+**Detalle técnico:** Se implementó `$domain_root = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];` concatenado explícitamente con `/css/main.css`.
+
+**Motivo / criterio:** Aislar el CMS exige forzar la ruta mediante HTTP absoluto para que Nginx la despache directamente desde `public/css/main.css` sin que el motor interno de WordPress manipule el segmento de red.
+
+**Siguiente paso o deuda:** Validar la carga de estilos e iniciar la Fase 4.4.
+
 ### 2026-04-16 — Fase 4.2: Corrección de enrutamiento de assets estáticos en WordPress
 
 **Contexto:** El "escudo de rendimiento" limpiaba correctamente el HTML, pero la hoja de estilos devolvía un error 404. WordPress prefijaba la ruta del CSS con `/blog/`, rompiendo el proxy de Nginx que sirve los assets desde la raíz estática.

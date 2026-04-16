@@ -162,7 +162,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 
 #### 5.2 Hardening de WordPress
 - [x] Aplicar endurecimiento básico de WP (superficie de ataque mínima).
-- [ ] Revisar permisos, usuarios administrativos y exposición de endpoints.
+- [x] Revisar permisos, usuarios administrativos y exposición de endpoints.
 - [x] Comprobar desactivación de funcionalidades no necesarias.
 
 #### 5.3 Automatización de control de calidad
