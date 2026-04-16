@@ -35,8 +35,9 @@ add_action('wp_enqueue_scripts', 'merci_limpiar_estilos_por_defecto', 100);
 // =========================================================================
 
 function merci_cargar_assets_estaticos() {
-    // Enlazamos nuestro CSS compilado usando la ruta absoluta generada por Nginx
-    wp_enqueue_style('merci-core-styles', '/assets/main.css', array(), '1.0.0', 'all');
+    // La ruta es /css/main.css porque el compilador SASS lo deja en public/css/main.css.
+    // Al usar una ruta que empieza con '/', WordPress la hace relativa a la raíz del dominio.
+    wp_enqueue_style('merci-core-styles', '/css/main.css', array(), '1.0.0', 'all');
 }
 add_action('wp_enqueue_scripts', 'merci_cargar_assets_estaticos');
 
