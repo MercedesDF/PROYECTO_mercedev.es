@@ -359,6 +359,33 @@ def audit_md_acronyms(state: AuditState, path: Path, text: str) -> None:
                     break
 
 
+def audit_php_smells(state: AuditState, path: Path, text: str) -> None:
+    """
+    Busca funciones PHP peligrosas que son vectores comunes de RCE.
+    Lanza una advertencia para que se revise manualmente el contexto.
+    """
+    if path.suffix.lower() != ".php":
+        return
+
+    dangerous_functions = [
+        "eval", "exec", "shell_exec", "system", "passthru", "popen", "proc_open"
+    ]
+    pattern = re.compile(rf"\b({'|'.join(dangerous_functions)})\s*\(")
+
+    lines = text.splitlines()
+    for line_number, line in enumerate(lines, start=1):
+        if "merci-audit:silence-php" in line:
+            continue
+        match = pattern.search(line)
+        if match:
+            state.add(
+                Finding(
+                    path, line_number, "warn", "PHP_DANGEROUS_FUNC",
+                    f"Uso de función peligrosa '{match.group(1)}()'. Revisar para posible RCE."
+                )
+            )
+
+
 class SeoHTMLParser(HTMLParser):
     """
     Acumula datos mientras el analizador HTML de la librería estándar recorre el documento.
@@ -564,6 +591,7 @@ def run_on_files(paths: Iterable[Path], strict_json_ld: bool) -> AuditState:
         audit_json(state, path, text)
         audit_html_seo(state, path, text, strict_json_ld)
         audit_md_acronyms(state, path, text)
+        audit_php_smells(state, path, text)
     return state
 
 
