@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Cierre de Fase 5: Consolidación del Documento de Hardening
+
+**Contexto:** Finalizar la Fase 5 (Quality Assurance y Hardening) dejando un registro auditable de todas las medidas de seguridad implementadas en las diferentes capas del proyecto.
+
+**Hecho:**
+- Se ha creado el documento `docs/checklist-hardening.md`.
+- Se ha marcado el último hito de la Fase 5.4 como completado en el `README.md`.
+
+**Detalle técnico:** El documento recopila las directivas CSP, los hooks de bloqueo en WordPress (XML-RPC, generadores), la política estricta de permisos de servidor (`chmod 600` para `wp-config.php`) y las reglas bloqueantes del auditor DevSecOps.
+
+**Motivo / criterio:** La seguridad no es un estado, es un proceso. Documentar estas medidas en forma de *checklist* garantiza que no se pierda conocimiento arquitectónico y proporciona una herramienta de validación vital para futuros despliegues a producción (Fase 6).
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 (Ingeniería de Estilos) para aplicar SASS y BEM al diseño visual.
+
 ### 2026-04-16 — Fase 5.4: Auditoría integral exitosa sin hallazgos
 
 **Contexto:** Tras lanzar la ejecución en todo el repositorio de `merci-audit.py --strict-json-ld`, era necesario confirmar el estado del código base.
