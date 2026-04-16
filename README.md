@@ -144,8 +144,8 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Revisar impacto de scripts dinámicos en tiempos de carga.
 
 #### 4.4 Integración sin degradación del núcleo
-- [ ] Medir impacto de `/blog` y `/tienda` sobre Core Web Vitals del sitio principal.
-- [ ] Asegurar carga diferida o condicional de recursos dinámicos.
+- [x] Medir impacto de `/blog` y `/tienda` sobre Core Web Vitals del sitio principal.
+- [x] Asegurar carga diferida o condicional de recursos dinámicos.
 - [x] Registrar decisiones de integración y deuda técnica asociada en bitácora.
 
 #### 4.5 Presencia pública de Merci (frontend controlado)

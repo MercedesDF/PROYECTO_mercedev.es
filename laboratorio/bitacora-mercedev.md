@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Fase 4.4: Erradicación de CSS en línea y carga diferida (Defer)
+
+**Contexto:** El análisis del código fuente reveló que WordPress 6.x seguía inyectando bloques `<style>` en línea (como `global-styles` y `classic-theme-styles`), saltándose el `wp_dequeue_style` estándar. Además, faltaba garantizar que futuros scripts no bloquearan el renderizado.
+
+**Hecho:**
+- Se añadieron reglas `remove_action` para `wp_enqueue_global_styles`.
+- Se desencoló `classic-theme-styles`.
+- Se implementó un filtro global (`merci_defer_js_frontend`) para inyectar `defer` en etiquetas `<script>`.
+
+**Detalle técnico:** La función `wp_enqueue_global_styles` se vincula a los hooks `wp_enqueue_scripts` y `wp_body_open`. Eliminar la acción ataja la raíz del problema. El filtro `script_loader_tag` busca ` src` y lo reemplaza por ` defer src` condicionado por `!is_admin()`.
+
+**Motivo / criterio:** Rendimiento puro (Core Web Vitals). El CSS en línea masivo rompe la limpieza del DOM (Document Object Model - Modelo de Objetos del Documento) y retrasa el TTFB (Time to First Byte - Tiempo hasta el Primer Byte). El uso de `defer` asegura que el parseo HTML nunca sea interrumpido por JS, garantizando un LCP (Largest Contentful Paint - Despliegue del Contenido Más Extenso) inmediato.
+
+**Siguiente paso o deuda:** Dar por finalizada la configuración dinámica y decidir el siguiente paso entre diseño frontend (Fase 3 / 4.5) o QA y Seguridad (Fase 5.3).
+
 ### 2026-04-16 — Parche: Forzar URL absoluta para CSS estático
 
 **Contexto:** El CSS unificado devolvía 404. WordPress interceptaba el prefijo `/css/main.css` y lo reescribía automáticamente a `http://localhost/blog/css/main.css` en la función `wp_enqueue_style`.

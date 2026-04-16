@@ -25,10 +25,16 @@ function merci_limpiar_estilos_por_defecto() {
     wp_dequeue_style('wp-block-library-theme');
     // Elimina el CSS de variables globales (theme.json inyectado en línea)
     wp_dequeue_style('global-styles');
+    // Elimina estilos clásicos residuales
+    wp_dequeue_style('classic-theme-styles');
 }
 // Enganchamos nuestra función de limpieza al momento exacto en que WP carga estilos, 
 // dándole una prioridad de '100' para asegurarnos de que se ejecute al final y pise a los demás.
 add_action('wp_enqueue_scripts', 'merci_limpiar_estilos_por_defecto', 100);
+
+// Eliminar la inyección forzada del motor de global-styles en línea
+remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
+remove_action('wp_body_open', 'wp_enqueue_global_styles');
 
 // =========================================================================
 // 2. ENLACE CON EL NÚCLEO ESTÁTICO
@@ -42,6 +48,21 @@ function merci_cargar_assets_estaticos() {
     wp_enqueue_style('merci-core-styles', $domain_root . '/css/main.css', array(), '1.0.0', 'all');
 }
 add_action('wp_enqueue_scripts', 'merci_cargar_assets_estaticos');
+
+// =========================================================================
+// 2.5 RENDIMIENTO: CARGA DIFERIDA DE SCRIPTS (Fase 4.4)
+// =========================================================================
+
+// Forzar atributo 'defer' en todos los scripts del frontend para no bloquear el renderizado
+function merci_defer_js_frontend($tag, $handle) {
+    // No tocar los scripts si estamos en el panel de administración
+    if (is_admin() || strpos($tag, ' defer') !== false) {
+        return $tag;
+    }
+    // Reemplazar ' src' por ' defer src'
+    return str_replace(' src', ' defer src', $tag);
+}
+add_filter('script_loader_tag', 'merci_defer_js_frontend', 10, 2);
 
 // =========================================================================
 // 3. WOOCOMMERCE EN MODO CATÁLOGO (Fase 4.3)
