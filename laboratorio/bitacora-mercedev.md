@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Fase 5.3: Ampliación de auditoría de seguridad para PHP
+
+**Contexto:** Con la introducción de WordPress, es necesario que el auditor `merci-audit.py` pueda detectar patrones de código PHP peligrosos que son vectores comunes para vulnerabilidades de Ejecución Remota de Código (RCE).
+
+**Hecho:**
+- Se ha implementado la función `audit_php_smells` en `merci-audit.py`.
+- Se ha actualizado el Roadmap para reflejar el avance en la Fase 5.3.
+
+**Detalle técnico:** La nueva función utiliza una expresión regular para buscar en archivos `.php` el uso de funciones de alto riesgo como `eval()`, `exec()`, `shell_exec()`, `system()`, etc. Emite una advertencia (`WARN`) para que el desarrollador revise el contexto manualmente.
+
+**Motivo / criterio:** Seguridad "Shift-Left". Al detectar el uso de estas funciones antes de que el código llegue al repositorio, se reduce drásticamente la probabilidad de introducir una puerta trasera accidentalmente, especialmente a través de código de terceros (plugins o temas).
+
+**Siguiente paso o deuda:** Probar el auditor contra el `functions.php` y decidir la siguiente regla de QA a implementar.
+
 ### 2026-04-16 — Lección de Flujo: Reparación de historial Git y parcheo manual
 
 **Contexto (Desafío):** Tras un commit exitoso, se intentó corregir una advertencia del linter (`WARN MD_ACRONYM`) con un commit manual. El comando `git add` falló por un error de ruta relativa y un posterior `merci-commit` generó un commit duplicado con un mensaje incorrecto.
