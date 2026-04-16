@@ -37,6 +37,39 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Fase 4.0: Creación de base de datos y usuario para WordPress local
+
+**Contexto:** Crear el esquema de base de datos y el usuario dedicado para la instancia local de WordPress, aislando sus datos del resto del sistema.
+
+**Hecho:**
+- Se ha accedido a MariaDB con `sudo mysql`.
+- Se ha creado la base de datos `wp_mercedev_local` y el usuario `wp_user_local`.
+
+**Detalle técnico:** Se ejecutaron las siguientes sentencias SQL:
+```sql
+CREATE DATABASE wp_mercedev_local;
+CREATE USER 'wp_user_local'@'localhost' IDENTIFIED BY 'tu_contraseña_elegida';
+GRANT ALL PRIVILEGES ON wp_mercedev_local.* TO 'wp_user_local'@'localhost';
+FLUSH PRIVILEGES;
+```
+**Motivo / criterio:** El uso de una base de datos y un usuario específicos para cada aplicación es una práctica de seguridad fundamental (principio de mínimo privilegio), incluso en un entorno de desarrollo local.
+
+**Siguiente paso o deuda:** Configurar el bloque de servidor de Nginx para el enrutamiento del núcleo estático y el proxy inverso hacia WordPress.
+
+### 2026-04-16 — Fase 4.0: Instalación de pila LEMP y configuración base de datos local
+
+**Contexto:** Preparación del entorno de desarrollo local anfitrión con Nginx, MariaDB y PHP para albergar la instancia aislada de WordPress, replicando la arquitectura de producción de forma nativa.
+
+**Hecho:**
+- Se han instalado los paquetes de la pila LEMP (`nginx`, `mariadb-server`, `php-fpm`, `php-mysql`).
+- Se ha asegurado la instalación local de MariaDB estableciendo contraseña root y eliminando usuarios anónimos.
+
+**Detalle técnico:** Se utilizó `sudo apt install` para la provisión de dependencias y `sudo mysql_secure_installation` con autenticación `unix_socket` activada para endurecer el motor de base de datos local.
+
+**Motivo / criterio:** La dependencia de herramientas preempaquetadas (como LocalWP) ofusca la configuración del servidor web, impidiendo auditar y replicar la estrategia de enrutamiento inverso (reverse proxy) de Nginx definida en la Fase 4.1.
+
+**Siguiente paso o deuda:** Crear la base de datos específica para WordPress local, descargar el CMS y configurar el bloque de servidor en Nginx.
+
 ### 2026-04-16 — Reajuste de entorno: De servidor a PC local y actualización de directrices
 
 **Contexto:** Confusión entre el entorno de producción (droplet de DigitalOcean) y el entorno de desarrollo (PC local con Ubuntu). Se intentaba configurar bases de datos para el despliegue final cuando el entorno local aún no disponía de la pila tecnológica necesaria para probar la arquitectura aislada.
