@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Fase 4.2: Resolución de permisos para enlaces simbólicos (Child Theme)
+
+**Contexto:** WordPress no detectaba el "Merci Theme" enlazado simbólicamente porque el usuario del servidor web (`www-data`) no tenía permisos para atravesar el directorio personal del usuario local.
+
+**Hecho:**
+- Se otorgaron permisos de ejecución/paso a la ruta del repositorio anfitrión.
+- Se validó la aparición y activación del tema en el panel de administración de WordPress.
+
+**Detalle técnico:** Se aplicó `chmod +x` a las carpetas `/home/hildegahr/`, `Escritorio/` y `PROYECTO_mercedev.es/`. Esto resuelve el "Permiso denegado" permitiendo a `www-data` resolver el enlace simbólico hacia `style.css` e `index.php`.
+
+**Motivo / criterio:** En entornos LEMP locales, es un desafío común la colisión de permisos entre el usuario de escritorio y el demonio web. Dar permiso de ejecución (`+x`) a los directorios anfitriones permite la lectura a través del symlink sin comprometer la política estricta de permisos de los archivos finales.
+
+**Siguiente paso o deuda:** Validar en el frontend (`http://localhost/blog`) que el "escudo de rendimiento" limpia el código fuente inyectado por defecto.
+
 ### 2026-04-16 — Fase 4.0: Configuración de wp-config.php y despliegue final
 
 **Contexto:** Conectar la instancia aislada de WordPress con su base de datos dedicada local y asegurar sus permisos de servidor post-instalación.
