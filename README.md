@@ -124,8 +124,8 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 ### Fase 4 - Integración de Sistemas Dinámicos
 
 #### 4.0 Entorno LEMP local y base de datos
-- [ ] Verificar instalación de pila LEMP (Nginx, MariaDB, PHP) en PC local.
-- [ ] Crear base de datos local y usuario para el entorno de WordPress.
+- [x] Verificar instalación de pila LEMP (Nginx, MariaDB, PHP) en PC local.
+- [x] Crear base de datos local y usuario para el entorno de WordPress.
 - [ ] Desplegar WordPress en directorio de desarrollo local replicando la estructura de producción.
 
 #### 4.1 Aislamiento de WordPress
