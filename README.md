@@ -1,6 +1,10 @@
 # mercedev.es
 
-Repositorio del sitio **mercedev.es**: núcleo estático minimalista, biblioteca de conocimiento y automatización local (**Merci**).
+Proyecto de Mercedes — transición desde entorno técnico no-dev 
+al desarrollo web. Construido con criterio, documentado por fases.
+
+Repositorio del sitio **mercedev.es**: núcleo estático minimalista,
+biblioteca de conocimiento y automatización local (**Merci**).
 
 ## Requisitos
 
