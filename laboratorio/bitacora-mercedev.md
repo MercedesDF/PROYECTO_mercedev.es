@@ -37,6 +37,49 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Fase 5.4: Auditoría integral exitosa sin hallazgos
+
+**Contexto:** Tras lanzar la ejecución en todo el repositorio de `merci-audit.py --strict-json-ld`, era necesario confirmar el estado del código base.
+
+**Hecho:**
+- Se superó la auditoría estricta sin `ERROR` ni `WARN`.
+- Se actualizaron los hitos de la Fase 5.4 en el `README.md` (pasada integral y verificación de ausencia de secretos).
+
+**Detalle técnico:** El script verificó sintaxis, secretos, funciones peligrosas de PHP y SEO técnico en HTML, devolviendo un código de salida `0`.
+
+**Motivo / criterio:** Una validación en verde a este nivel de exigencia confirma que las prácticas de seguridad y calidad (Shift-Left) se han mantenido desde la Fase 1.
+
+**Siguiente paso o deuda:** Consolidar el checklist de hardening para dar por cerrada definitivamente la Fase 5.
+
+### 2026-04-16 — Fase 5.4: Verificación integral de seguridad y consistencia
+
+**Contexto:** Iniciar la última fase de aseguramiento de la calidad antes del despliegue, ejecutando una auditoría completa sobre todo el repositorio para detectar inconsistencias o errores residuales.
+
+**Hecho:**
+- Se ha ejecutado el comando de auditoría estandarizado sobre todo el proyecto.
+- Se ha actualizado el `README.md` para reflejar el avance.
+
+**Detalle técnico:** Se utilizó el comando `python3 scripts/merci/merci-audit.py --strict-json-ld` para forzar la revisión de todos los archivos con el máximo nivel de exigencia, incluyendo la validación estricta de JSON-LD.
+
+**Motivo / criterio:** Garantizar que no quedan cabos sueltos. Una pasada final sobre el estado completo del repositorio es crucial para validar que las integraciones parciales no han introducido regresiones o vulnerabilidades en otras áreas del proyecto.
+
+**Siguiente paso o deuda:** Corregir los hallazgos críticos que reporte el auditor, si los hubiera.
+
+### 2026-04-16 — Fase 5.3: Documentación de criterios de fallo del auditor
+
+**Contexto:** Abordar el último hito de la Fase 5.3, que consiste en documentar explícitamente la diferencia entre los hallazgos bloqueantes y no bloqueantes del sistema de auditoría.
+
+**Hecho:**
+- Se ha añadido un párrafo en la sección "Flujo de Contribución y Validación" del `README.md`.
+- Se ha clarificado que los `ERROR` bloquean los commits, mientras que las `WARN` solo informan.
+- Se ha marcado la Fase 5.3 como completada en el Roadmap.
+
+**Detalle técnico:** La distinción se basa en el código de salida de `merci-audit.py`. Un `ERROR` provoca un código de salida `1`, que es interpretado por el hook de `pre-commit` de Git como un fallo que debe detener la operación.
+
+**Motivo / criterio:** Claridad y predictibilidad para el desarrollador. Es fundamental que el equipo sepa qué tipo de hallazgos detendrán su trabajo y cuáles son meras sugerencias, optimizando así la experiencia de desarrollo (DX).
+
+**Siguiente paso o deuda:** Iniciar la Fase 5.4 (Verificación de seguridad y consistencia) o retomar la Fase 3 (Ingeniería de Estilos).
+
 ### 2026-04-16 — Fase 5.3: Estandarización del flujo de auditoría local
 
 **Contexto:** Se clarificó que la Fase 5 no estaba completa. El siguiente paso pendiente era estandarizar la ejecución de auditorías para garantizar la consistencia en el control de calidad antes de cualquier integración de código.

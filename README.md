@@ -183,8 +183,8 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Documentar criterios de fallo/bloqueo para que sean reproducibles.
 
 #### 5.4 Verificación de seguridad y consistencia
-- [ ] Ejecutar una pasada integral de auditoría estática y corregir hallazgos críticos.
-- [ ] Confirmar que no hay secretos ni credenciales en el árbol versionado.
+- [x] Ejecutar una pasada integral de auditoría estática y corregir hallazgos críticos.
+- [x] Confirmar que no hay secretos ni credenciales en el árbol versionado.
 - [ ] Consolidar checklist de hardening completado en documentación interna.
 
 ### Fase 6 - Despliegue y Auditoría Final
