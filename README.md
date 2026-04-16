@@ -44,6 +44,18 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 
 Las reglas de arquitectura, pedagogía, roadmap y convenciones están en **`instrucciones.md`**. Quien colabore o retome el repo debería leerlo antes de cambiar el stack o las fases.
 
+## Flujo de Contribución y Validación
+
+Antes de cada commit atómico (`merci-commit`), el hook de `pre-commit` ejecuta una auditoría básica sobre los archivos en el *stage*.
+
+Sin embargo, antes de proponer la integración de una rama de funcionalidad (ej. un *Pull Request*), se debe ejecutar la **auditoría completa y estandarizada** sobre todo el proyecto para asegurar la máxima calidad.
+
+**Comando de Auditoría Completa Estandarizada:**
+```bash
+# Desde la raíz del repositorio
+python3 scripts/merci/merci-audit.py --strict-json-ld
+```
+
 ## Roadmap
 
 Checklist de avance por fases y subfases. Cada hito está pensado para poder marcarse cuando la evidencia técnica exista en el repositorio o en la verificación local.
@@ -167,7 +179,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 
 #### 5.3 Automatización de control de calidad
 - [x] Ampliar checks de pre-commit para cubrir validaciones críticas recurrentes.
-- [ ] Estandarizar ejecución local de auditorías antes de merge.
+- [x] Estandarizar ejecución local de auditorías antes de merge.
 - [ ] Documentar criterios de fallo/bloqueo para que sean reproducibles.
 
 #### 5.4 Verificación de seguridad y consistencia

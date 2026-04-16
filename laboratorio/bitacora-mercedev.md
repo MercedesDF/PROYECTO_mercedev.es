@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Fase 5.3: Estandarización del flujo de auditoría local
+
+**Contexto:** Se clarificó que la Fase 5 no estaba completa. El siguiente paso pendiente era estandarizar la ejecución de auditorías para garantizar la consistencia en el control de calidad antes de cualquier integración de código.
+
+**Hecho:**
+- Se ha añadido una sección "Flujo de Contribución y Validación" en el `README.md`.
+- Se ha definido el comando `python3 scripts/merci/merci-audit.py --strict-json-ld` como la auditoría completa oficial.
+
+**Detalle técnico:** La estandarización se logra mediante documentación. Al fijar un comando único y oficial, se elimina la ambigüedad y se asegura que todos los desarrolladores validen el código con el mismo nivel de rigurosidad (incluyendo la validación estricta de JSON-LD).
+
+**Motivo / criterio:** Reproducibilidad y fiabilidad. Un flujo de validación estandarizado es fundamental en DevSecOps para que la calidad no dependa de la memoria o disciplina individual, sino del proceso documentado.
+
+**Siguiente paso o deuda:** Abordar el último punto de la Fase 5.3: "Documentar criterios de fallo/bloqueo".
+
 ### 2026-04-16 — Fase 5.3: Ampliación de auditoría de seguridad para PHP
 
 **Contexto:** Con la introducción de WordPress, es necesario que el auditor `merci-audit.py` pueda detectar patrones de código PHP peligrosos que son vectores comunes para vulnerabilidades de Ejecución Remota de Código (RCE).
