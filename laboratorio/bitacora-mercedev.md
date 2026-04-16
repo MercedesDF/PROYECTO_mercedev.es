@@ -37,6 +37,48 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Definición de tipología de contenidos (Biblioteca y Art de Coté)
+
+**Contexto:** Antes de aplicar diseño visual (Fase 3) o desplegar (Fase 6), es necesario definir cómo se estructurarán los contenidos para que el diseño responda a necesidades reales del producto.
+
+**Hecho:**
+- Se ha conceptualizado el formato "Libro/Ficha Técnica" para proyectos mayores (ej. este mismo repositorio).
+- Se ha conceptualizado el formato "Cuadernillo" para Art de Coté, basado en la estructura de 3 átomos (Desafío, Maniobra, Aprendizaje).
+
+**Detalle técnico:** Esta arquitectura de información requerirá el uso de categorías en WordPress y la creación de la plantilla `single.php` en el Child Theme. Dicha plantilla debe usar clases BEM específicas (`.booklet__challenge`, `.booklet__maneuver`) para soportar el diseño en SASS.
+
+**Motivo / criterio:** El diseño (CSS) sigue a la función (Semántica). No se puede diseñar la interfaz de un proyecto sin saber qué datos contiene. Esta definición adelanta requisitos de la Fase 7 integrándolos coherentemente en la fase actual de diseño.
+
+**Siguiente paso o deuda:** Crear las plantillas HTML/PHP base para estos tipos de contenido y comenzar su diseño SASS.
+
+### 2026-04-16 — Pivote estratégico: Diseño visual de rutas dinámicas (Catálogo y Blog)
+
+**Contexto:** Se constató que, aunque la infraestructura del catálogo (WooCommerce) y el blog está integrada y asegurada, visualmente carecen de diseño ("no hay web en condiciones"). Esto se debe a la eliminación deliberada de los estilos por defecto para proteger el rendimiento.
+
+**Hecho:**
+- Pausa de la entrada a la Fase 6 (Despliegue).
+- Retorno al espacio de Ingeniería de Estilos (Fase 3) aplicado a la capa dinámica.
+
+**Detalle técnico:** WooCommerce y WordPress renderizan marcado HTML crudo al haber desencolado `global-styles` y los estilos por defecto. Es necesario construir los componentes SASS (`_card.scss`, `_grid.scss`) y adaptar las plantillas de PHP a la metodología BEM del núcleo estático.
+
+**Motivo / criterio:** Una arquitectura perfecta no cumple su propósito si la interfaz de usuario (UX/UI) parece rota o inacabada. Hay que vestir el chasis dinámico con el sistema de diseño propio antes de presentar el proyecto públicamente como un producto maduro.
+
+**Siguiente paso o deuda:** Diseñar e implementar los componentes SASS para las tarjetas de productos y estructurar la vista del catálogo.
+
+### 2026-04-16 — Conexión del núcleo estático con rutas dinámicas
+
+**Contexto:** La página de inicio (`public/index.html`) carecía de enlaces hacia los sistemas dinámicos recién integrados (`/blog` y `/tienda`), manteniendo un `TODO` pendiente de la Fase 2.
+
+**Hecho:**
+- Se ha reemplazado el comentario `TODO` en `public/index.html` por enlaces funcionales.
+- Se ha alineado la estructura del `<header>` estático con la del *Child Theme* de WordPress para mantener coherencia semántica.
+
+**Detalle técnico:** Se han añadido etiquetas `<a>` con las clases BEM `header__brand` y `nav__link` apuntando a las rutas que gestiona Nginx como proxy inverso (`/blog` y `/tienda`).
+
+**Motivo / criterio:** Una vez que las rutas dinámicas están aseguradas, aisladas y operativas a nivel de servidor (Fases 4 y 5), es seguro exponerlas en el frontend público para permitir la navegación del usuario final.
+
+**Siguiente paso o deuda:** Iniciar la Fase 6 (Despliegue y Auditoría Final).
+
 ### 2026-04-16 — Apertura del repositorio: Licencia y reenfoque arquitectónico
 
 **Contexto:** Preparativos finales para hacer público el repositorio en GitHub. Se requería una licencia formal y ajustar el *copy* de la página de inicio para reflejar la verdadera naturaleza técnica del proyecto.
