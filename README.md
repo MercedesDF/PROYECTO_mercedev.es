@@ -180,7 +180,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 #### 5.3 Automatización de control de calidad
 - [x] Ampliar checks de pre-commit para cubrir validaciones críticas recurrentes.
 - [x] Estandarizar ejecución local de auditorías antes de merge.
-- [ ] Documentar criterios de fallo/bloqueo para que sean reproducibles.
+- [x] Documentar criterios de fallo/bloqueo para que sean reproducibles.
 
 #### 5.4 Verificación de seguridad y consistencia
 - [ ] Ejecutar una pasada integral de auditoría estática y corregir hallazgos críticos.
