@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Apertura del repositorio: Licencia y reenfoque arquitectónico
+
+**Contexto:** Preparativos finales para hacer público el repositorio en GitHub. Se requería una licencia formal y ajustar el *copy* de la página de inicio para reflejar la verdadera naturaleza técnica del proyecto.
+
+**Hecho:**
+- Añadido archivo `LICENSE` (MIT).
+- Actualizado apartado de Licencia en `README.md`.
+- Refactorizado texto de `public/index.html` para enfocarlo en Arquitectura de Software y DevSecOps.
+
+**Detalle técnico:** Se implementó la Licencia MIT por ser el estándar para compartir herramientas de código abierto (como el ecosistema de scripts Merci). El HTML se adaptó para destacar conceptos como "Shift-Left", "Aislamiento de sistemas" y "Trazabilidad".
+
+**Motivo / criterio:** Un repositorio público es la carta de presentación técnica. El proyecto no es una web estándar, sino una infraestructura automatizada; el lenguaje empleado debe transmitir esa madurez ingenieril a cualquier visitante o reclutador técnico.
+
+**Siguiente paso o deuda:** Iniciar la Fase 6 (Despliegue y Auditoría Final).
+
 ### 2026-04-16 — Cierre de Fase 5: Consolidación del Documento de Hardening
 
 **Contexto:** Finalizar la Fase 5 (Quality Assurance y Hardening) dejando un registro auditable de todas las medidas de seguridad implementadas en las diferentes capas del proyecto.

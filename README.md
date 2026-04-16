@@ -239,4 +239,4 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 
 ## Licencia
 
-En la raíz del repositorio no figura aún un archivo `LICENSE`; los términos de distribución y reutilización del código no están declarados en este árbol hasta que se publique dicho archivo.
+Este proyecto se distribuye bajo los términos de la **Licencia MIT**. Consulta el archivo `LICENSE` para más detalles. El contenido narrativo de la biblioteca y bitácora es propiedad intelectual de su autora.
