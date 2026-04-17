@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Fix: Enlace de Tienda en Child Theme
+
+**Contexto:** El rastreador `merci-linkcheck.py` detectó un único enlace roto restante (`/tienda`) originado desde las páginas servidas por WordPress (`/blog`).
+
+**Hecho:**
+- Se actualizó el `href` en `src/wp-theme/merci-theme/index.php` de `/tienda` a `/blog/tienda`.
+
+**Detalle técnico:** Las páginas estáticas se actualizaron previamente, pero la plantilla dinámica conservaba la ruta obsoleta. La corrección alinea el 100% de los menús de navegación con la ruta real bajo el proxy inverso de Nginx.
+
+**Motivo / criterio:** Coherencia absoluta en la navegación. La experiencia de usuario debe ser transparente sin importar si el visitante se encuentra en la capa estática o dinámica.
+
+**Siguiente paso o deuda:** Validar el script de enlaces a 0 errores e iniciar la Fase 6 de Preparación de Release.
 
 ### 2026-04-16 — Reestructuración de enrutamiento Nginx y resolución de API REST WP
 
