@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-17 — Restauración del compilador SASS (merci-styles.py)
+
+**Contexto:** Se detectó la ausencia del script compilador `merci-styles.py` tras las maniobras de limpieza y fusión de ramas de diseño, amenazando la mantenibilidad de la arquitectura CSS de la plantilla.
+
+**Hecho:**
+- Se ha restaurado y refactorizado el script `scripts/merci/merci-styles.py`.
+
+**Detalle técnico:** El script recupera su lógica autónoma: descarga automáticamente el binario standalone de Dart Sass en `scripts/merci/bin/` (ignorando Node/NPM host) y compila `src/scss/main.scss` a `public/css/main.css`.
+
+**Motivo / criterio:** Resiliencia. Un boilerplate debe contener todas las herramientas necesarias para su propia construcción de forma intrínseca. Si una pieza de infraestructura se pierde (debido a exclusiones o fallos en el trackeo de Git), se debe restituir inmediatamente antes de avanzar a producción.
+
+**Siguiente paso o deuda:** Validar la compilación con `merci-watcher.py` e iniciar la Fase 6 de despliegue con garantías.
+
 ### 2026-04-17 — Corrección de URLs canónicas en vistas estáticas
 
 **Contexto:** La auditoría integral previa al despliegue (`merci-audit.py`) detectó dos advertencias no bloqueantes (`WARN SEO_CANONICAL`) por la falta de la etiqueta canónica en las nuevas páginas de la plantilla.

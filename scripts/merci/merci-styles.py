@@ -1,96 +1,63 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+merci-styles.py — Compilador SASS Standalone.
+Descarga Dart Sass si no existe y compila src/scss/main.scss a public/css/main.css.
+"""
+
 import os
-import subprocess
+import sys
 import urllib.request
 import tarfile
-import sys
+import subprocess
+from pathlib import Path
 
-# Sistema Merci - Compilador SASS Standalone
-# Descarga automáticamente Dart Sass si no está presente y compila main.scss a main.css,
-# manteniendo la filosofía de 0 dependencias globales al sistema host.
+# 1. CONFIGURACIÓN DE RUTAS DINÁMICAS
+# Resolutor dinámico de rutas absolutas. Permite que el script funcione
+# correctamente independientemente de la carpeta desde donde se invoque.
+REPO_ROOT = Path(__file__).resolve().parents[2]
+BIN_DIR = REPO_ROOT / "scripts" / "merci" / "bin"
+SASS_DIR = BIN_DIR / "dart-sass"
+SASS_BIN = SASS_DIR / "sass"
 
-DART_SASS_VERSION = "1.80.3"
-DART_SASS_URL = f"https://github.com/sass/dart-sass/releases/download/{DART_SASS_VERSION}/dart-sass-{DART_SASS_VERSION}-linux-x64.tar.gz"
+SCSS_INPUT = REPO_ROOT / "src" / "scss" / "main.scss"
+CSS_OUTPUT = REPO_ROOT / "public" / "css" / "main.css"
 
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-BIN_DIR = os.path.join(BASE_DIR, 'scripts', 'merci', 'bin')
-SASS_BIN = os.path.join(BIN_DIR, 'dart-sass', 'sass')
+# URL oficial de Dart Sass para Linux x64
+SASS_URL = "https://github.com/sass/dart-sass/releases/download/1.72.0/dart-sass-1.72.0-linux-x64.tar.gz"
 
-def ensure_dart_sass():
-    """Verifica si dart-sass existe localmente. Si no, lo descarga y extrae."""
-    if os.path.exists(SASS_BIN):
-        return True
+def install_sass():
+    # Si el binario ya existe, saltamos la instalación para agilizar la compilación.
+    if SASS_BIN.exists():
+        return
         
-    print(f"Merci: No se encontró Dart Sass local, procesando descarga segura (v{DART_SASS_VERSION})...")
-    
-    if not os.path.exists(BIN_DIR):
-        os.makedirs(BIN_DIR)
-        
-    tar_path = os.path.join(BIN_DIR, 'dart-sass.tar.gz')
+    print("📥 [Merci Styles] Descargando compilador Dart Sass (0 dependencias NPM)...")
+    BIN_DIR.mkdir(parents=True, exist_ok=True)
+    tar_path = BIN_DIR / "dart-sass.tar.gz"
     
     try:
-        urllib.request.urlretrieve(DART_SASS_URL, tar_path)
-        print("Merci: Descarga completada. Extrayendo binarios...")
-        
-        with tarfile.open(tar_path, 'r:gz') as tar:
-            
-            import sys
-            
-            def is_within_directory(directory, target):
-                
-                abs_directory = os.path.abspath(directory)
-                abs_target = os.path.abspath(target)
-            
-                prefix = os.path.commonprefix([abs_directory, abs_target])
-                
-                return prefix == abs_directory
-            
-            def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
-            
-                for member in tar.getmembers():
-                    member_path = os.path.join(path, member.name)
-                    if not is_within_directory(path, member_path):
-                        raise Exception("Attempted Path Traversal in Tar File")
-            
-                tar.extractall(path, members, numeric_owner=numeric_owner) 
-                
-            
-            safe_extract(tar, BIN_DIR)
-            
-        # Clean tarball
-        os.remove(tar_path)
-        print("Merci: Dart Sass configurado internamente con éxito.")
-        
+        # Descarga e instalación autónoma. Mantiene la máquina anfitriona limpia
+        # al no requerir ecosistemas pesados como Node.js o NPM (Regla de 0 dependencias).
+        urllib.request.urlretrieve(SASS_URL, tar_path)
+        print("📦 [Merci Styles] Extrayendo binarios locales...")
+        with tarfile.open(tar_path) as tar:
+            tar.extractall(path=BIN_DIR)
+        tar_path.unlink()
+        # Otorgamos permisos de ejecución (chmod +x) al binario extraído para poder invocarlo.
+        SASS_BIN.chmod(0o755)
     except Exception as e:
-        print(f"Merci Error crítico: Imposible descargar/instalar Dart Sass. Motivo: {e}")
+        print(f"❌ Error al instalar Dart Sass: {e}", file=sys.stderr)
         sys.exit(1)
 
-def compile_styles():
-    """Ejecuta dart-sass prestando atención a que sea independiente."""
-    ensure_dart_sass()
-    
-    sass_main = os.path.join(BASE_DIR, 'src', 'scss', 'main.scss')
-    css_dir = os.path.join(BASE_DIR, 'public', 'css')
-    css_main = os.path.join(css_dir, 'main.css')
-    
-    if not os.path.exists(css_dir):
-        os.makedirs(css_dir)
-
-    print("Merci: Compilando arquitectura inteligente SASS a CSS (Dart Sass local)...")
-    
-    # Run dart-sass
-    try:
-        # syntax: sass src/scss/main.scss public/css/main.css --style=compressed
-        subprocess.run(
-            [SASS_BIN, sass_main, css_main, '--style=compressed'],
-            check=True,
-            capture_output=True,
-            text=True
-        )
-        print(f"Merci: CSS compilado con éxito en -> {css_main}")
-    except subprocess.CalledProcessError as e:
-        print(f"Merci Error: Fallo crítico al compilar la estructura SASS:\n{e.stderr}")
-        sys.exit(1)
+def compile_sass():
+    print("⚙️  [Merci Styles] Compilando hojas de estilo...")
+    # Aseguramos que la estructura de carpetas de destino (public/css) exista antes de escribir.
+    CSS_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    # Ejecutamos SASS forzando compresión máxima y desactivando mapas de origen para optimizar el peso final (Core Web Vitals).
+    cmd = [str(SASS_BIN), str(SCSS_INPUT), str(CSS_OUTPUT), "--style=compressed", "--no-source-map"]
+    subprocess.run(cmd, check=True)
+    print("✅ [Merci Styles] CSS compilado exitosamente en public/css/main.css")
 
 if __name__ == "__main__":
-    compile_styles()
+    install_sass()
+    compile_sass()
