@@ -21,7 +21,7 @@
             <a href="/biblioteca" class="nav__link">Biblioteca</a>
             <a href="/blog" class="nav__link">Blog</a>
             <a href="/blog/category/art-de-cote" class="nav__link">Art de Coté</a>
-            <a href="/tienda" class="nav__link">Tienda</a>
+            <a href="/blog/tienda" class="nav__link">Tienda</a>
             <a href="/contacto" class="nav__link">Contacto</a>
         </nav>
     </header>
