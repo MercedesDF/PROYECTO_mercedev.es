@@ -37,6 +37,34 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-17 — Corrección de URLs canónicas en vistas estáticas
+
+**Contexto:** La auditoría integral previa al despliegue (`merci-audit.py`) detectó dos advertencias no bloqueantes (`WARN SEO_CANONICAL`) por la falta de la etiqueta canónica en las nuevas páginas de la plantilla.
+
+**Hecho:**
+- Añadida etiqueta `<link rel="canonical">` a `public/biblioteca/index.html` y `public/contacto/index.html`.
+
+**Detalle técnico:** Se implementaron explícitamente las rutas absolutas (`https://mercedev.es/biblioteca` y `https://mercedev.es/contacto`) utilizando la etiqueta `<link rel="canonical">`, que actúa como la declaración oficial de la "fuente de la verdad" para cada documento.
+
+**Motivo / criterio:** Rigor técnico y SEO "Shift-Left". Los motores de búsqueda (como Google) penalizan el contenido duplicado, algo que ocurre accidentalmente si un usuario accede a la web con `www`, sin `www`, o mediante enlaces con parámetros de rastreo (ej. `?utm_source=twitter`). La etiqueta canónica consolida toda la autoridad SEO de esas variantes en una única URL oficial. Solventar esta advertencia garantiza el estándar de calidad (100/100) del Boilerplate.
+
+**Siguiente paso o deuda:** Confirmar auditoría a 0 advertencias e iniciar definitivamente la Fase 6 (Preparación de Release).
+
+### 2026-04-16 — Auditoría integral pre-despliegue (Sanity Check)
+
+**Contexto:** Antes de iniciar oficialmente la Fase 6 (Preparación de release), se requiere una validación cruzada de todos los sistemas locales para certificar la estabilidad de la plantilla "Merci Boilerplate".
+
+**Hecho:**
+- Se ejecutó la batería de pruebas unitarias (`unittest`).
+- Se ejecutó la auditoría estática estricta (`merci-audit.py --strict-json-ld`).
+- Se ejecutó el rastreador dinámico HTTP (`merci-linkcheck.py`).
+
+**Detalle técnico:** La validación abarca lógica algorítmica (tests), análisis estático de código/SEO/seguridad y verificación dinámica de enrutamiento a través del proxy Nginx.
+
+**Motivo / criterio:** Rigor DevSecOps (Pre-flight check). Un pase a producción debe estar precedido por la confirmación empírica (sin errores ni advertencias) de todas las herramientas de aseguramiento de calidad (QA) implementadas en las fases anteriores.
+
+**Siguiente paso o deuda:** Iniciar la Fase 6 (Despliegue y Auditoría Final) tras confirmar el éxito (código de salida 0) de todos los scripts.
+
 ### 2026-04-16 — Fix: Enlace de Tienda en Child Theme
 
 **Contexto:** El rastreador `merci-linkcheck.py` detectó un único enlace roto restante (`/tienda`) originado desde las páginas servidas por WordPress (`/blog`).
