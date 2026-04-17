@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Creación de herramienta de rastreo dinámico (Merci LinkCheck)
+
+**Contexto:** La auditoría estática (`merci-audit.py`) no puede validar el enrutamiento real generado por Nginx y WordPress. Se requería una herramienta para asegurar la ausencia de enlaces rotos (404) a nivel de infraestructura HTTP antes del despliegue.
+
+**Hecho:**
+- Se implementó `scripts/merci/merci-linkcheck.py`.
+
+**Detalle técnico:** El script es un *crawler* construido con la librería estándar (`urllib` y `html.parser`). Recorre el dominio local iterativamente resolviendo anclas (`<a>`), hojas de estilo (`<link>`) e imágenes (`<img>`), verificando que devuelvan códigos HTTP válidos (200 OK). Mantiene un registro de rutas procesadas y la fuente del enlace roto para facilitar la depuración.
+
+**Motivo / criterio:** Robustez de la arquitectura híbrida. Comprobar dinámicamente el proyecto es la única forma empírica de certificar que el CMS y el núcleo estático están comunicándose y resolviendo las URLs correctamente (Shift-Right testing ejecutado en Shift-Left).
+
+**Siguiente paso o deuda:** Ejecutar el rastreador localmente (`python3 scripts/merci/merci-linkcheck.py`) para certificar que el Boilerplate no tiene enlaces rotos antes de iniciar el despliegue de la Fase 6.
+
 ### 2026-04-16 — Purga manual y definitiva del bucle de enlaces (Symlink Loop)
 
 **Contexto (Desafío):** Al utilizar `git restore` para recuperar la carpeta `merci-theme`, el bucle infinito reapareció, revelando que el enlace simbólico erróneo había quedado registrado en un commit anterior en el historial de Git.
