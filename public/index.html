@@ -2,11 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Biblioteca de conocimiento de mercedev">
+    <meta name="description" content="Laboratorio de ingeniería de software y DevSecOps.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="mercedev">
-    <meta name="keywords" content="mercedev, biblioteca, conocimiento">
-    <meta name="robots" content="index, follow">
     <!-- <meta name="googlebot" content="index, follow">
     <meta name="google" content="notranslate">
     <meta name="google" content="notranslate"> -->
@@ -17,17 +14,15 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="canonical" href="https://mercedev.es">
     
-    <!-- Política de Seguridad de Contenidos estricta: solo permite recursos del propio dominio -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self';">
+    <!-- JSON-LD Mínimo Fase 2 -->
     <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "url": "https://mercedev.es/",
-          "name": "mercedev.es"
-        }
-        </script>
-
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "mercedev.es",
+      "url": "https://mercedev.es"
+    }
+    </script>
 </head>
 <body class="page">
     <header class="header">
@@ -38,7 +33,7 @@
             <a href="/biblioteca" class="nav__link">Biblioteca</a>
             <a href="/blog" class="nav__link">Blog</a>
             <a href="/blog/category/art-de-cote" class="nav__link">Art de Coté</a>
-            <a href="/tienda" class="nav__link">Tienda</a>
+            <a href="/blog/tienda" class="nav__link">Tienda</a>
             <a href="/contacto" class="nav__link">Contacto</a>
         </nav>
     </header>
@@ -66,7 +61,7 @@
                 </article>
                 <article class="home-card" id="demo-dynamic">
                     <h3 class="home-card__title">Capa Dinámica (WP)</h3>
-                    <p class="home-card__text">Explora el menú superior para navegar a las secciones gestionadas por el CMS. Consumen los mismos estilos SASS de forma transparente.</p>
+                    <p class="home-card__text">El menú superior define las rutas que serán gestionadas por el CMS. Una vez configuradas las categorías en WordPress, consumirán los estilos SASS nativamente.</p>
                 </article>
             </div>
         </section>

@@ -37,19 +37,61 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
-### 2026-04-16 — Alineación de plantillas y clarificación de enrutamiento (Nginx vs Python)
+### 2026-04-16 — Purga manual y definitiva del bucle de enlaces (Symlink Loop)
 
-**Contexto:** Al probar la navegación del nuevo boilerplate, los enlaces dinámicos (`/blog`, `/tienda`) arrojaban error 404 al utilizar el servidor de desarrollo de Python (`http.server`). Además, la plantilla PHP necesitaba alinearse con el nuevo menú unificado.
+**Contexto (Desafío):** Al utilizar `git restore` para recuperar la carpeta `merci-theme`, el bucle infinito reapareció, revelando que el enlace simbólico erróneo había quedado registrado en un commit anterior en el historial de Git.
+
+**Hecho (Maniobra):**
+- Se extrajeron temporalmente los archivos críticos (`index.php`, `functions.php`, `style.css`).
+- Se eliminó y recreó manualmente el directorio `src/wp-theme/merci-theme/`.
+- Se devolvieron los archivos a la carpeta limpia para forzar la actualización del índice.
+
+**Detalle técnico:** La secuencia de comandos `mv`, `rm -rf` y `mkdir` permitió destruir físicamente el enlace recursivo a nivel de sistema operativo. Al realizar el commit posterior, se sobrescribe el estado del árbol en Git, purgando permanentemente la referencia al enlace simbólico fantasma.
+
+**Motivo / criterio (Aprendizaje):** `git restore` recupera fielmente el historial, incluyendo los errores. La cirugía manual de directorios es la intervención más segura y pragmática para romper dependencias circulares (filesystem loops) antes de conciliar el estado limpio con el control de versiones.
+
+**Siguiente paso o deuda:** Finalizar el commit atómico y arrancar con la Fase 6 (Despliegue y Auditoría Final).
+
+### 2026-04-16 — Resolución de bucle infinito (Symlink Loop) en Child Theme
+
+**Contexto (Desafío):** El directorio `src/wp-theme/merci-theme/` mostraba una recursividad de subcarpetas aparentemente infinitas, provocando confusión y amenazando con bloquear el escaneo del editor de código o de Git.
+
+**Hecho (Maniobra):**
+- Se ha identificado la presencia de un bucle de enlaces simbólicos (symlink loop).
+- Se han eliminado las subcarpetas/enlaces erróneos dentro del directorio del tema mediante los comandos `rm -rf src/wp-theme/merci-theme/*/` y `find -type l -delete`.
+
+**Detalle técnico:** Este fenómeno óptico del sistema de archivos ocurre cuando un enlace simbólico se crea accidentalmente dentro de la misma ruta a la que apunta (o a su padre), creando una referencia circular. El tamaño real en disco es cero, pero los indexadores (como VS Code o Git) pueden colgarse intentando seguir el "pasillo infinito".
+
+**Motivo / criterio (Aprendizaje):** Mantener el aislamiento absoluto de los componentes. El directorio `merci-theme` solo debe albergar la tríada de archivos planos (`index.php`, `functions.php`, `style.css`). Cualquier directorio anidado ahí dentro es, por definición de esta arquitectura, un residuo que debe ser purgado.
+
+**Siguiente paso o deuda:** Comprobar la estabilidad del árbol de directorios y avanzar hacia la Fase 6 de despliegue.
+
+### 2026-04-16 — Eliminación de archivo fantasma en el Child Theme
+
+**Contexto:** Un archivo `index.html` residual (con el contenido temporal de la página de Contacto) persistía dentro del directorio del tema de WordPress (`src/wp-theme/merci-theme/`), ensuciando la arquitectura del CMS.
 
 **Hecho:**
-- Se actualizó `index.php` en el Child Theme para reflejar la navegación definitiva y restaurar la lógica de cuadrícula (`grid`/`card`).
-- Se aclaró la limitación del servidor estático de Python frente al proxy inverso de Nginx.
+- Eliminado `src/wp-theme/merci-theme/index.html` mediante `git rm`.
 
-**Detalle técnico:** El módulo `http.server` de Python carece de capacidad para procesar reglas de proxy inverso o FastCGI. Las rutas gestionadas por el CMS (Content Management System) dependen exclusivamente de Nginx (puerto 80).
+**Detalle técnico:** La existencia de archivos `.html` estáticos dentro de un tema de WordPress no afecta al motor de renderizado PHP por defecto, pero vulnera los principios de limpieza estructural (Clean Code) y causa confusión.
 
-**Motivo / criterio:** Arquitectura de aislamiento. Para probar el ecosistema híbrido completo, el desarrollador debe consumir la web a través de Nginx (`http://localhost`), que orquesta el tráfico hacia el núcleo estático o el backend PHP según la ruta.
+**Motivo / criterio:** Higiene del código y rigor. La plantilla de WordPress solo debe contener los archivos estrictamente necesarios para su funcionamiento e integración dinámica (`index.php`, `style.css`, `functions.php`).
 
-**Siguiente paso o deuda:** Crear páginas de prueba (estáticas o en WP) para las rutas vacías (`/contacto`, `/biblioteca`) y validar la navegación integral en Nginx.
+**Siguiente paso o deuda:** Confirmar la limpieza del repositorio e iniciar por fin la Fase 6 de Preparación de Release.
+
+### 2026-04-16 — Corrección de fronteras Nginx y reubicación de página Contacto
+
+**Contexto:** Al validar la navegación híbrida, los enlaces hacia Tienda y Contacto devolvían error. Se constató un fallo en la generación de archivos y una violación de las fronteras de enrutamiento definidas para el CMS.
+
+**Hecho:**
+- Se reubicó el archivo `index.html` de Contacto a su ruta estática correcta (`public/contacto/index.html`).
+- Se corrigieron los enlaces de navegación de la Tienda de `/tienda` a `/blog/tienda` en todas las cabeceras.
+
+**Detalle técnico:** El archivo de contacto se había generado erróneamente en el Child Theme. Respecto a la Tienda (WooCommerce), al estar WordPress encapsulado bajo Nginx en la ruta `/blog`, cualquier página dinámica que genere (incluyendo el catálogo) hereda el prefijo de esa ruta base.
+
+**Motivo / criterio:** Arquitectura de aislamiento. Nginx actúa como muro: lo estático vive en la raíz (`/`) y lo dinámico en `/blog`. Intentar acceder a `/tienda` provoca que Nginx busque un archivo estático inexistente, reforzando la necesidad de que los enlaces respeten las fronteras de infraestructura.
+
+**Siguiente paso o deuda:** Validar la navegación estática y dinámica de todo el menú principal.
 
 ### 2026-04-16 — Adecuación de la vista pública (Demo Boilerplate)
 
