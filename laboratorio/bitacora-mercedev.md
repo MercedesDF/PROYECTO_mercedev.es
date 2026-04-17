@@ -37,6 +37,22 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+
+### 2026-04-16 — Reestructuración de enrutamiento Nginx y resolución de API REST WP
+
+**Contexto (Desafío):** Persistían errores 404 en rutas dinámicas y la API de WordPress (`wp-json`), impidiendo guardar páginas en el editor de bloques ("La respuesta no es una respuesta JSON válida"). El origen era un conflicto al combinar la directiva `alias` con el motor PHP en Nginx.
+
+**Hecho (Maniobra):**
+- Se sustituyó la directiva `alias` por un enlace simbólico físico (`ln -s /var/www/wordpress public/blog`).
+- Se simplificó drásticamente el bloque `location` en el Virtual Host de Nginx (`mercedev-local`).
+- Se forzó el reseteo de los Enlaces Permanentes en WP.
+
+**Detalle técnico:** El bloque `location /blog` pasó de usar `alias` a confiar en la resolución natural del `root` a través del symlink en `public/blog`. Esto repara variables globales vitales para el enrutamiento interno de WP (como `$_SERVER['REQUEST_URI']`). Tras recargar Nginx (`sudo systemctl reload nginx`) y guardar permalinks, la API REST volvió a operar con normalidad.
+
+**Motivo / criterio (Aprendizaje):** Robustez de infraestructura. Los alias en Nginx con PHP generan "bugs" históricos de enrutamiento. Un enlace simbólico es una solución nativa del sistema operativo, completamente transparente para el servidor web, resolviendo la raíz arquitectónica del problema en lugar de aplicar parches en el código.
+
+**Siguiente paso o deuda:** Corregir el último enlace roto (`/tienda`) en el Child Theme detectado por el rastreador local.
+
 ### 2026-04-16 — Creación de herramienta de rastreo dinámico (Merci LinkCheck)
 
 **Contexto:** La auditoría estática (`merci-audit.py`) no puede validar el enrutamiento real generado por Nginx y WordPress. Se requería una herramienta para asegurar la ausencia de enlaces rotos (404) a nivel de infraestructura HTTP antes del despliegue.
