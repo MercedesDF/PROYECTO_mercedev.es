@@ -37,6 +37,219 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Integración y limpieza de rama de diseño
+
+**Contexto:** La rama `feat/fase-3-diseno` cumplió su objetivo de aislar el desarrollo del sistema SASS (Grid/Cards) y el optimizador de imágenes.
+
+**Hecho:**
+- Se ha fusionado (merge) la rama `feat/fase-3-diseno` hacia `main`.
+- Se ha eliminado la rama de desarrollo.
+
+**Detalle técnico:** Se utilizaron los comandos `git checkout main`, `git merge feat/fase-3-diseno` y `git branch -d feat/fase-3-diseno`.
+
+**Motivo / criterio:** Higiene de control de versiones. Las ramas de funcionalidad deben tener ciclos de vida cortos y eliminarse inmediatamente tras su integración para prevenir repositorios inflados con ramas "zombis" y mantener el árbol de Git limpio y legible.
+
+**Siguiente paso o deuda:** Limpiar los textos e imágenes del `index.html` para reflejar la vista demo del nuevo "Merci Boilerplate".
+
+### 2026-04-16 — Pivote Estratégico: Transición a "Merci Boilerplate"
+
+**Contexto:** Se identificó que el valor real de la arquitectura desarrollada no reside en una página web personal específica, sino en la infraestructura híbrida, de seguridad y automatización subyacente.
+
+**Hecho:**
+- Pivote del proyecto de web personal (`mercedev.es`) a plantilla de desarrollo (`Merci Boilerplate`).
+- Actualización de `README.md` e `instrucciones.md` para reflejar la nueva misión del repositorio.
+
+**Detalle técnico:** Se preserva toda la integración dinámica (WordPress aislado, Nginx proxy) y la automatización DevSecOps (`merci-audit.py`, `merci-optimizer.py`). El objetivo del código ahora es servir como base "clonable" para futuros proyectos web.
+
+**Motivo / criterio:** Separación de responsabilidades a nivel macro (Arquitectura vs. Producto final). Construir un boilerplate permite abstraer y reutilizar las estrictas medidas de seguridad (Shift-Left) y rendimiento en múltiples webs futuras, maximizando el retorno del tiempo de ingeniería invertido.
+
+**Siguiente paso o deuda:** Limpiar el HTML del núcleo estático (`index.html`) para adaptarlo a un formato de plantilla genérica de demostración.
+
+### 2026-04-16 — Integración de componentes SASS (Grid/Cards) en plantillas dinámicas
+
+**Contexto:** Era necesario aplicar el nuevo diseño visual a la capa de WordPress para que los listados de la Biblioteca y el Blog utilizaran la cuadrícula y las tarjetas BEM recién creadas.
+
+**Hecho:**
+- Modificado `index.php` en `merci-theme` introduciendo una bifurcación de renderizado mediante `is_singular()`.
+- Inyectadas las clases `.grid` y `.card` para los listados (archivos).
+- Implementada lógica condicional en PHP para alternar entre `.card--book` y `.card--booklet`.
+
+**Detalle técnico:** Se usa `has_category('fichas')` para determinar el contexto temático e inyectar el modificador BEM correspondiente en la etiqueta `<article>`. En la vista de lista se llama a `the_excerpt()` para mejorar la maquetación, reservando `the_content()` solo para lecturas individuales.
+
+**Motivo / criterio:** Rendimiento y mantenimiento. Concentrar el enrutamiento visual en un único archivo `index.php` inteligente evita la proliferación de plantillas (template hierarchy clutter). Reutilizar el CSS del núcleo estático avala la arquitectura de UI unificada.
+
+**Siguiente paso o deuda:** Validar la visualización creando entradas de prueba en las diferentes categorías de WordPress.
+
+### 2026-04-16 — Unificación de conceptos y navegación principal
+
+**Contexto:** La nomenclatura utilizada en la navegación ("Fichas Técnicas", "Catálogo") resultaba ambigua y se requería establecer los términos definitivos que representarán la arquitectura de la información de cara al usuario.
+
+**Hecho:**
+- Se ha unificado la taxonomía principal: Biblioteca, Blog, Art de Coté, Tienda y Contacto.
+- Se han actualizado los enlaces de navegación en el núcleo estático (`index.html`) y en la capa dinámica (`index.php` del Child Theme).
+
+**Detalle técnico:** Se reemplazaron las anclas en los elementos `<nav>`. Las rutas proyectadas son `/biblioteca`, `/blog`, `/blog/category/art-de-cote`, `/tienda` y `/contacto`. El término "Catálogo" se reserva exclusivamente como definición técnica del funcionamiento interno de WooCommerce.
+
+**Motivo / criterio:** Claridad cognitiva (UX). Estandarizar los nombres de las secciones principales empleando terminología web universal evita fricción cognitiva en los visitantes y asienta la convención de negocio.
+
+**Siguiente paso o deuda:** Inyectar las clases SASS (`.grid`, `.card`) diseñadas en los archivos PHP de WordPress para renderizar el contenido dinámico con el nuevo diseño unificado.
+
+### 2026-04-16 — Desacoplamiento visual de la Portada y redefinición de navegación
+
+**Contexto:** Se detectó que usar los componentes genéricos (`.grid`, `.card`) en la página de inicio limitaba la capacidad de tener un diseño de "Landing Page" diferenciado de las vistas de lectura (Blog/Biblioteca). Además, la nomenclatura de navegación ("Blog", "Tienda") resultaba ambigua para el propósito del proyecto.
+
+**Hecho:**
+- Renombrados los enlaces de navegación a "Fichas Técnicas", "Art de Coté" y "Catálogo" en `index.html` e `index.php`.
+- Refactorizado `index.html` para usar clases BEM exclusivas (`.home-grid`, `.home-card`).
+- Creado el archivo SASS `src/scss/pages/_home.scss` para aislar los estilos de la portada.
+
+**Detalle técnico:** Las rutas de navegación ahora apuntan directamente a las taxonomías de WordPress (`/blog/category/fichas` y `/blog/category/art-de-cote`), estableciendo una arquitectura de la información clara. La portada ahora consume estilos independientes, permitiendo que `_card.scss` evolucione específicamente para el contenido dinámico.
+
+**Motivo / criterio:** Separación de responsabilidades a nivel de Interfaz de Usuario (UI). Una Landing Page tiene objetivos de marketing y presentación distintos a los de un archivo documental. Desacoplar sus clases CSS previene regresiones visuales (efectos cascada no deseados) al escalar el diseño del CMS.
+
+**Siguiente paso o deuda:** Crear las categorías correspondientes en el panel de administración de WordPress y diseñar el interior de los artículos (`single.php`).
+
+### 2026-04-16 — Fix: Restauración de colores del Header y composición de portada
+
+**Contexto:** La portada (`index.html`) sufrió una alteración visual no deseada tras compilar los nuevos componentes SASS. El header tomó un color claro rompiendo el modo oscuro, y las tarjetas perdieron su cuadrícula original.
+
+**Hecho:**
+- Corregido `background-color` a oscuro (`rgba(15, 23, 42, 0.95)`) en `_header.scss`.
+- Sustituida clase heredada `grid-cols-1-2` por el nuevo componente `.grid` en `index.html`.
+
+**Detalle técnico:** En SASS, la reescritura de un componente base como `.card` afecta a todo el DOM (Document Object Model - Modelo de Objetos del Documento) que lo invoque. Al crear el componente `_grid.scss`, era imperativo actualizar el HTML estático para que las tarjetas de la portada heredasen el nuevo layout responsivo (CSS Grid) unificado.
+
+**Motivo / criterio:** Mantenimiento de la cohesión del diseño (UI). El núcleo estático debe consumir los mismos componentes (Grid, Cards) que la capa dinámica para justificar la arquitectura de estilos SASS unificada.
+
+**Siguiente paso o deuda:** Aplicar las nuevas clases BEM a las plantillas dinámicas de WordPress.
+
+### 2026-04-16 — Arquitectura de Información: Separación visual de Blog y Biblioteca
+
+**Contexto:** Necesidad de alinear el diseño visual (SASS) con la estructura conceptual del proyecto, diferenciando la "Biblioteca" (libros técnicos, atemporales, temáticos) del "Blog / Art de Coté" (cuadernillos divulgativos, cronológicos).
+
+**Hecho:**
+- Creación de los componentes `_grid.scss` y `_card.scss` en la arquitectura SASS.
+- Implementación de modificadores BEM `.card--book` y `.card--booklet`.
+
+**Detalle técnico:** Se ha evitado crear componentes HTML separados, optando por el estándar BEM. `.card--booklet` utiliza acentos azules para el contenido fluido, mientras que `.card--book` utiliza acentos verdes para denotar documentación técnica consolidada. El `_grid.scss` proporciona una cuadrícula responsiva genérica.
+
+**Motivo / criterio:** Separar el diseño visual permite que WordPress (cuyo comportamiento por defecto es cronológico) pueda renderizar distintos tipos de contenido usando la misma estructura HTML base, modificando únicamente la clase CSS según la categoría o el tipo de post.
+
+**Siguiente paso o deuda:** Aplicar estas clases HTML en las plantillas PHP (`index.php` o `archive.php`) del Child Theme para que WordPress escupa el contenido con este nuevo diseño.
+
+### 2026-04-16 — Ajuste de estilos estructurales del header (BEM)
+
+**Contexto:** Tras la inclusión del logotipo y el menú de navegación, el componente `.header` presentaba desalineación visual y dependía de estilos en línea temporales.
+
+**Hecho:**
+- Se limpiaron los estilos en línea del `<nav>` en `public/index.html`.
+- Se actualizaron las reglas SASS para `.header`, usando Flexbox para alinear `.header__brand` y `.header__nav`.
+
+**Detalle técnico:** Se aplicó `display: flex; justify-content: space-between; align-items: center;` al contenedor principal `.header`. Se definió un `gap: 1.5rem` explícito en `.header__nav` de acuerdo con la metodología BEM.
+
+**Motivo / criterio:** Separación estricta de responsabilidades (Separation of Concerns). Los estilos en línea son un antipatrón en una arquitectura escalable. Toda la lógica visual debe residir en los archivos SASS correspondientes.
+
+**Siguiente paso o deuda:** Diseñar las tarjetas dinámicas (`_card.scss`) y la cuadrícula (`_grid.scss`) para la Biblioteca y el Catálogo.
+
+### 2026-04-16 — Ajuste en auditoría para excepción de Favicon
+
+**Contexto (Desafío):** Se detectó que la nueva regla de auditoría `IMG_FORMAT` bloquearía incorrectamente el commit del archivo `public/favicon.png`, que debe permanecer en formato no optimizado por razones de compatibilidad.
+
+**Hecho (Maniobra):**
+- Se ha modificado la función `audit_image_path` en `merci-audit.py`.
+
+**Detalle técnico:** Se ha añadido una condición de salida temprana (`return`) que ignora la validación si el archivo se llama `favicon.png` y reside directamente en la carpeta `public/`.
+
+**Motivo / criterio:** El favicon es un archivo de sistema con requisitos de compatibilidad que priman sobre la optimización general de assets de contenido. El sistema de auditoría debe ser lo suficientemente inteligente para gestionar estas excepciones arquitectónicas.
+
+**Siguiente paso o deuda:** Realizar el commit de todos los cambios acumulados en la rama `feat/fase-3-diseno`.
+
+### 2026-04-16 — Validación final del optimizador y flujo de assets
+
+**Contexto:** Tras los parches y la creación de tests, se procedió a la prueba de fuego del flujo de optimización con los assets reales del proyecto (`logo.png` y `favicon.png`).
+
+**Hecho:**
+- Se ha colocado `favicon.png` en `public/`.
+- Se ha colocado `logo.png` en `.assets-raw/`.
+- Se ha ejecutado `merci-optimizer.py` con éxito, generando `assets/logo.webp` y las variantes responsivas correspondientes.
+
+**Detalle técnico:** El script ha validado su lógica de no-escalado, omitiendo la generación de imágenes más grandes que el original. Se ha confirmado que el `favicon.png` se sirve correctamente desde la raíz y el `logo.webp` desde `/assets`.
+
+**Motivo / criterio:** El flujo de gestión de assets está completo y validado. La infraestructura de optimización está lista para soportar el futuro contenido visual del blog y el catálogo.
+
+**Siguiente paso o deuda:** Ajustar el CSS del componente `.header` para alinear y estilizar correctamente el nuevo logotipo.
+
+### 2026-04-16 — Integración de identidad visual (Favicon y Logo) y fix en optimizador
+
+**Contexto:** Al proceder a integrar los primeros assets visuales (logo y favicon), se detectó que `merci-optimizer.py` omitiría imágenes con dimensiones inferiores al target mínimo (400px), dejando fuera los logotipos estándar.
+
+**Hecho:**
+- Se ha parcheado `merci-optimizer.py` para generar siempre una versión `.webp` base del tamaño original, además de las versiones escaladas.
+- Se actualizó `test_optimizer.py` para cubrir el nuevo comportamiento.
+- Se implementaron etiquetas `<img>` para el logo y `<link rel="icon">` para el favicon en `index.html` e `index.php`.
+
+**Detalle técnico:** Se diferenció la arquitectura de assets: el `favicon.png` reside sin procesar en `public/` por compatibilidad nativa de navegadores antiguos y crawlers, mientras que el logo viaja por el pipeline de optimización (`.assets-raw/` a `assets/logo.webp`). Se añadieron los atributos `width` y `height` en el HTML para mitigar el Cumulative Layout Shift (CLS).
+
+**Motivo / criterio:** Las automatizaciones no deben convertirse en bloqueadores del diseño. Generar siempre la copia base asegura compatibilidad con cualquier asset visual independientemente de su tamaño. Las medidas en el tag `img` son obligatorias para mantener el Core Web Vitals en verde.
+
+**Siguiente paso o deuda:** Proveer físicamente las imágenes, compilar y revisar en el navegador.
+
+### 2026-04-16 — Lección de TDD: Corrección de `AttributeError` en `unittest.mock`
+
+**Contexto (Desafío):** Al ejecutar el test para `merci-optimizer.py`, se produjo un `AttributeError: 'PosixPath' object attribute 'glob' is read-only`, bloqueando la validación.
+
+**Hecho (Maniobra):**
+- Se ha refactorizado `scripts/merci/tests/test_optimizer.py` para corregir el objetivo de los decoradores `@patch`.
+
+**Detalle técnico:** El error se debía a que se intentaba parchear un método (`.glob`, `.mkdir`) en una *instancia* de un objeto `Path` (`SOURCE_DIR`), lo cual no está permitido. La solución correcta es parchear el método en la *clase* `Path` dentro del espacio de nombres del módulo que se está probando. Los decoradores se cambiaron a `@patch("merci_optimizer.Path.glob")` y `@patch("merci_optimizer.Path.mkdir")`.
+
+**Motivo / criterio (Aprendizaje):** Lección fundamental de `unittest.mock`: se debe parchear el objeto "donde se busca" (`where it's looked up`), no "donde se define". Al parchear la clase, cualquier instancia creada dentro del test usará la versión simulada del método, respetando la inmutabilidad de los objetos `pathlib`.
+
+**Siguiente paso o deuda:** Re-ejecutar el test para confirmar el éxito y proceder con la optimización de assets.
+
+### 2026-04-16 — Pruebas unitarias de optimizador y auditoría de extensiones
+
+**Contexto:** Antes de utilizar operativamente `merci-optimizer.py`, era imperativo aplicar la regla de TDD (crear su test) y asegurar que el hook de pre-commit bloqueara la adición accidental de formatos no optimizados.
+
+**Hecho:**
+- Añadida función `audit_image_path` en `merci-audit.py` para bloquear archivos `.png`, `.jpg`, `.jpeg`.
+- Creado el test unitario `scripts/merci/tests/test_optimizer.py`.
+
+**Detalle técnico:** El test utiliza `unittest.mock` para interceptar llamadas a `Pillow` y el sistema de archivos (`Path.glob`, `Image.open`), validando que la lógica de iteración sobre `TARGET_WIDTHS` se cumple sin grabar archivos reales. El auditor ahora filtra extensiones de imagen sin leerlas como texto UTF-8.
+
+**Motivo / criterio:** Rigor DevSecOps. Se previene proactivamente la degradación del rendimiento por despistes humanos (subir un `.png` directo a producción) y se garantiza que la herramienta de optimización está cubierta por test antes de integrarla en el flujo.
+
+**Siguiente paso o deuda:** Ejecutar los tests, confirmar su éxito y pasar a la inclusión del logotipo y favicon en formato optimizado.
+
+### 2026-04-16 — Fase 3.4: Implementación del optimizador de imágenes
+
+**Contexto:** Dentro de la rama `feat/fase-3-diseno`, se aborda el hito 3.4 para automatizar la creación de imágenes responsivas y optimizadas para la web.
+
+**Hecho:**
+- Se ha creado el archivo `requirements.txt` para gestionar las dependencias de Python, añadiendo `Pillow`.
+- Se ha implementado el script `scripts/merci/merci-optimizer.py`.
+- Se ha marcado el hito 3.4 como completado en el `README.md`.
+
+**Detalle técnico:** El script escanea `.assets-raw/` en busca de imágenes, y para cada una, genera múltiples versiones `.webp` en la carpeta `assets/` con diferentes anchos (1920, 1280, 800, 400px), manteniendo la relación de aspecto.
+
+**Motivo / criterio:** Rendimiento (Core Web Vitals). Servir imágenes en formato WebP y con el tamaño adecuado para cada dispositivo (responsive) reduce drásticamente el peso de la página y acelera los tiempos de carga, lo cual es un pilar de la filosofía del proyecto.
+
+**Siguiente paso o deuda:** Instalar las dependencias (`pip install -r requirements.txt`), probar el script con una imagen de ejemplo y proceder con el diseño SASS de las plantillas dinámicas.
+
+### 2026-04-16 — Creación de rama de desarrollo para diseño y optimización
+
+**Contexto:** Iniciar el desarrollo visual (SASS/BEM) y la optimización de multimedia aislando el trabajo para proteger la estabilidad del núcleo ya validado en la rama `main`.
+
+**Hecho:**
+- Se aprueba la creación de la rama `feat/fase-3-diseno`.
+- Se define el *sprint* de tareas: favicon, logotipo, script `merci-optimizer.py` (Fase 3.4) y plantillas dinámicas (`single.php`).
+
+**Detalle técnico:** El trabajo se desarrollará fuera de `main` usando `git checkout -b feat/fase-3-diseno`. Una vez auditado y finalizado, se integrará (merge) de vuelta.
+
+**Motivo / criterio:** Práctica estándar de Git y DevSecOps. Proteger la rama principal garantiza que siempre exista una versión estable y desplegable del proyecto si el trabajo de diseño experimental sufre regresiones.
+
+**Siguiente paso o deuda:** Crear la rama, implementar `merci-optimizer.py` y añadir los assets estáticos base.
+
 ### 2026-04-16 — Definición de tipología de contenidos (Biblioteca y Art de Coté)
 
 **Contexto:** Antes de aplicar diseño visual (Fase 3) o desplegar (Fase 6), es necesario definir cómo se estructurarán los contenidos para que el diseño responda a necesidades reales del producto.
