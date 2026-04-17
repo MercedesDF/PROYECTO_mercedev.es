@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Adecuación de la vista pública (Demo Boilerplate)
+
+**Contexto:** Tras el pivote estratégico para convertir el proyecto en "Merci Boilerplate", el archivo estático `index.html` aún contenía textos (copy) específicos de una web personal.
+
+**Hecho:**
+- Se refactorizaron los textos del `index.html` para transformarlo en una página de presentación técnica del Boilerplate.
+- Se mantuvo la marca de autora (`mercedev.es`) incrustada por diseño en el footer, header y metadatos.
+
+**Detalle técnico:** Se reemplazaron las tarjetas de "Art de Coté" y "Merci" por explicaciones de la "Capa Dinámica" y el "Núcleo Estático". Se actualizó la etiqueta `<title>` para reflejar el nombre de la plantilla.
+
+**Motivo / criterio:** Coherencia de producto. Alguien que clone este repositorio debe encontrar una "Landing Page" que le explique qué acaba de instalar y cómo está estructurado, sirviendo a su vez como demostración visual de los componentes SASS (`.home-grid`, `.home-card`).
+
+**Siguiente paso o deuda:** Iniciar formalmente la Fase 6 (Preparación de Release y Auditoría de Rendimiento).
+
 ### 2026-04-16 — Integración y limpieza de rama de diseño
 
 **Contexto:** La rama `feat/fase-3-diseno` cumplió su objetivo de aislar el desarrollo del sistema SASS (Grid/Cards) y el optimizador de imágenes.
