@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-16 — Alineación de plantillas y clarificación de enrutamiento (Nginx vs Python)
+
+**Contexto:** Al probar la navegación del nuevo boilerplate, los enlaces dinámicos (`/blog`, `/tienda`) arrojaban error 404 al utilizar el servidor de desarrollo de Python (`http.server`). Además, la plantilla PHP necesitaba alinearse con el nuevo menú unificado.
+
+**Hecho:**
+- Se actualizó `index.php` en el Child Theme para reflejar la navegación definitiva y restaurar la lógica de cuadrícula (`grid`/`card`).
+- Se aclaró la limitación del servidor estático de Python frente al proxy inverso de Nginx.
+
+**Detalle técnico:** El módulo `http.server` de Python carece de capacidad para procesar reglas de proxy inverso o FastCGI. Las rutas gestionadas por el CMS (Content Management System) dependen exclusivamente de Nginx (puerto 80).
+
+**Motivo / criterio:** Arquitectura de aislamiento. Para probar el ecosistema híbrido completo, el desarrollador debe consumir la web a través de Nginx (`http://localhost`), que orquesta el tráfico hacia el núcleo estático o el backend PHP según la ruta.
+
+**Siguiente paso o deuda:** Crear páginas de prueba (estáticas o en WP) para las rutas vacías (`/contacto`, `/biblioteca`) y validar la navegación integral en Nginx.
+
 ### 2026-04-16 — Adecuación de la vista pública (Demo Boilerplate)
 
 **Contexto:** Tras el pivote estratégico para convertir el proyecto en "Merci Boilerplate", el archivo estático `index.html` aún contenía textos (copy) específicos de una web personal.
