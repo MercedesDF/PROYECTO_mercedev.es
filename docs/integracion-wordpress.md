@@ -2,9 +2,12 @@
 
 Este documento define la arquitectura técnica y operativa para la **Fase 4.1**. El objetivo es implementar espacios dinámicos administrables (`/blog`, `/tienda`) sin que el componente dinámico (WordPress) vulnere ni contamine la arquitectura estricta del núcleo servido desde `public/`.
 
-## Estrategia de Enrutamiento Inverso (Nginx)
+## Estrategia de Enrutamiento (Nginx + Symlink)
 
-Se prescribe el uso de **Nginx** como *reverse proxy* e interceptador maestro. En el servidor huésped (Ubuntu), el entorno estático y el entorno dinámico vivirán en directorios padre separados (directorios hermanos), con Nginx encargándose de ensamblarlos en la misma URL transparente para el usuario final.
+Se prescribe el uso de **Nginx** como interceptador maestro. En el servidor huésped (Ubuntu), el entorno estático y el entorno dinámico vivirán en directorios separados (`/var/www/mercedev` y `/var/www/wordpress`). 
+
+**Nota de Arquitectura Crítica:** Para evitar bugs históricos de Nginx con la directiva `alias` y la API REST de WordPress (errores de JSON inválido al guardar), la unión de ambos mundos se realiza mediante un **Enlace Simbólico físico** a nivel de sistema operativo:
+`ln -s /var/www/wordpress /var/www/mercedev/public/blog`
 
 ### Reglas de Configuración (Virtual Host Base)
 
@@ -15,23 +18,28 @@ server {
 
     # 1. El Core Estático (Frontera inmutable)
     root /var/www/mercedev/public;
-    index index.html;
+    index index.html index.php;
 
     location / {
         try_files $uri $uri/ =404;
     }
 
-    # 2. El Core Dinámico (Aislamiento de WordPress)
-    location ^~ /blog {
-        alias /var/www/wordpress/;
-        index index.php;
-        try_files $uri $uri/ /blog/index.php?$args;
+    # 2. Assets compartidos
+    location /assets {
+        alias /var/www/mercedev/assets;
+        expires -1;
+    }
 
-        location ~ \.php$ {
-            include fastcgi_params;
-            fastcgi_pass unix:/run/php/php8.2-fpm.sock;
-            fastcgi_param SCRIPT_FILENAME $request_filename;
-        }
+    # 3. El Core Dinámico (Resuelto a través del Symlink)
+    location /blog {
+        try_files $uri $uri/ /blog/index.php?$args;
+    }
+
+    # 4. Motor PHP Seguro
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass unix:/run/php/php-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $request_filename;
     }
 }
 ```
