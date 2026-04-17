@@ -10,10 +10,10 @@
     <!-- <meta name="googlebot" content="index, follow">
     <meta name="google" content="notranslate">
     <meta name="google" content="notranslate"> -->
-    <title>mercedev.es — Arquitectura, DevSecOps y Memoria Técnica</title>
+    <title>Merci Boilerplate — Entorno Híbrido by mercedev.es</title>
     
-    <!-- Prevención de error 404 para favicon inexistente (Rendimiento) -->
-    <link rel="icon" href="data:,">
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.png" type="image/png">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="canonical" href="https://mercedev.es">
     
@@ -31,43 +31,48 @@
 </head>
 <body class="page">
     <header class="header">
-        <a href="/" class="header__brand">mercedev.es</a>
-        <nav class="header__nav nav" aria-label="Navegación principal" style="gap: 1.5rem; display: flex;">
-            <a href="/blog" class="nav__link">Biblioteca</a>
-            <a href="/tienda" class="nav__link">Catálogo</a>
+        <a href="/" class="header__brand">
+            <img src="/assets/logo.webp" alt="mercedev.es" class="header__logo" width="150" height="auto">
+        </a>
+        <nav class="header__nav nav" aria-label="Navegación principal">
+            <a href="/biblioteca" class="nav__link">Biblioteca</a>
+            <a href="/blog" class="nav__link">Blog</a>
+            <a href="/blog/category/art-de-cote" class="nav__link">Art de Coté</a>
+            <a href="/tienda" class="nav__link">Tienda</a>
+            <a href="/contacto" class="nav__link">Contacto</a>
         </nav>
     </header>
     <main class="main">
         <section class="hero" id="hero">
-            <h1 class="hero__title">Arquitectura con criterio. Proceso con memoria.</h1>
-            <p class="hero__subtitle">Laboratorio de ingeniería de software y DevSecOps. Construyendo sistemas web híbridos, seguros desde el diseño (Shift-Left) y documentando cada decisión estructural.</p>
+            <h1 class="hero__title">Bienvenido a Merci Boilerplate.</h1>
+            <p class="hero__subtitle">Tu nueva base de operaciones. Un entorno web híbrido, seguro desde el diseño (Shift-Left) y ultrarrápido, creado con criterio arquitectónico por <strong>mercedev.es</strong>.</p>
         </section>
 
         <section class="section section-methodology" id="metodo">
-            <h2 class="section-methodology__title">Principios Arquitectónicos</h2>
+            <h2 class="section-methodology__title">Características del Motor</h2>
             <ul class="section-methodology__list">
-                <li class="section-methodology__item"><strong>Seguridad por Diseño:</strong> Auditoría estática automatizada previa a cada integración.</li>
-                <li class="section-methodology__item"><strong>Aislamiento de Sistemas:</strong> Entornos dinámicos (CMS) en cuarentena sobre un núcleo inmutable de alto rendimiento.</li>
-                <li class="section-methodology__item"><strong>Trazabilidad del Conocimiento:</strong> El error documentado (Desafío, Maniobra, Aprendizaje) es el mayor activo técnico.</li>
+                <li class="section-methodology__item"><strong>Seguridad Activa:</strong> Auditoría estática automatizada (Merci Audit) previa a cada commit.</li>
+                <li class="section-methodology__item"><strong>Aislamiento Dinámico:</strong> WordPress encapsulado e invulnerable, sirviendo datos sin ensuciar la raíz.</li>
+                <li class="section-methodology__item"><strong>Rendimiento Puro:</strong> CSS compilado desde SASS 7-1, metodología BEM y 0 dependencias innecesarias.</li>
             </ul>
         </section>
 
         <section class="section section-ecosystem" id="ecosistema">
-            <h2 class="section-ecosystem__title">Ecosistema y Herramientas</h2>
-            <div class="grid-cols-1-2">
-                <article class="card card--ecosystem" id="art-de-cote">
-                    <h3 class="card__title">Art de Coté</h3>
-                    <p class="card__text">Repositorio de hallazgos y herramientas colaterales. I+D puro convertido en activos técnicos reutilizables.</p>
+            <h2 class="section-ecosystem__title">Demostración de Arquitectura</h2>
+            <div class="home-grid">
+                <article class="home-card" id="demo-static">
+                    <h3 class="home-card__title">Núcleo Estático</h3>
+                    <p class="home-card__text">Estás viendo el núcleo estático. Servido directamente por Nginx, es indestructible y garantiza una puntuación perfecta en Core Web Vitals.</p>
                 </article>
-                <article class="card card--ecosystem" id="merci">
-                    <h3 class="card__title">Merci</h3>
-                    <p class="card__text">Motor DevSecOps local. Automatización en Python que audita código, previene vulnerabilidades y vela por el SEO técnico en cada commit.</p>
+                <article class="home-card" id="demo-dynamic">
+                    <h3 class="home-card__title">Capa Dinámica (WP)</h3>
+                    <p class="home-card__text">Explora el menú superior para navegar a las secciones gestionadas por el CMS. Consumen los mismos estilos SASS de forma transparente.</p>
                 </article>
             </div>
         </section>
     </main>
     <footer class="footer">
-        <p class="footer__text">&copy; 2026 mercedev.es — Hecho con rigor técnico y Art de Coté.</p>
+        <p class="footer__text">&copy; 2026 <strong>mercedev.es</strong> — Base de código abierto bajo Licencia MIT.</p>
     </footer>
 </body>
 </html>
