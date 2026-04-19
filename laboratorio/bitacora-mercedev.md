@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-17 — Auditoría arquitectónica externa y fijación de dependencias
+
+**Contexto:** Se sometió el repositorio a un análisis externo automatizado (GitHub Copilot) para evaluar su madurez (readiness) antes del paso a producción (Fase 6).
+
+**Hecho:**
+- Se revisó el documento `docs/Analisi-exhaustivo-antes-de-produccion-copilot-github.md`.
+- Se modificó `requirements.txt` cambiando `Pillow>=10.0.0` por el anclaje estricto `Pillow==10.2.1`.
+
+**Detalle técnico:** El análisis validó la arquitectura híbrida, la seguridad (CSP) y el aislamiento DevSecOps otorgándole la máxima calificación. Identificó correctamente la carencia de políticas de Backup/Rollback (esperadas en la inminente Fase 6) y alertó sobre el riesgo de mutación de dependencias no ancladas en Python.
+
+**Motivo / criterio:** Reproducibilidad absoluta. En DevOps, usar operadores `>=` en gestores de paquetes expone el despliegue a rupturas (breaking changes) si se publica una actualización mayor de la librería. Fijar versiones con `==` garantiza que el entorno de producción instalará exactamente los mismos binarios que se auditaron en local. Se descartaron recomendaciones de sobreingeniería (Redis, AWS) por violar la premisa de austeridad del proyecto.
+
+**Siguiente paso o deuda:** Diseñar el "Deployment Playbook" (Backups, Rollback, Deploy) como primer hito de la Fase 6.1.
+
 ### 2026-04-17 — Restauración del compilador SASS (merci-styles.py)
 
 **Contexto:** Se detectó la ausencia del script compilador `merci-styles.py` tras las maniobras de limpieza y fusión de ramas de diseño, amenazando la mantenibilidad de la arquitectura CSS de la plantilla.

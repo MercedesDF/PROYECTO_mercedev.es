@@ -1,3 +1,1 @@
-# merci-audit.py: solo biblioteca estándar (Python 3.10+).
-# merci-optimizer.py (Fase 3): requiere Pillow.
-pillow>=10.0.0
+Pillow==10.2.1
