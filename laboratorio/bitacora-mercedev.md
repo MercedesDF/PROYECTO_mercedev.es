@@ -37,6 +37,32 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-17 — Fix: Inclusión de enlace Home en núcleo estático principal
+
+**Contexto:** Se omitió añadir el enlace "Home" en el archivo `public/index.html` durante la estandarización previa del menú de navegación.
+
+**Hecho:**
+- Añadido `<a href="/" class="nav__link">Home</a>` al menú de `public/index.html`.
+
+**Detalle técnico:** Se iguala la estructura del `<nav>` de la portada con la de las páginas interiores y la vista dinámica de WordPress.
+
+**Motivo / criterio:** Consistencia y accesibilidad. Todas las páginas deben compartir exactamente la misma estructura de navegación. Respecto a la duplicación de código (Header/Footer), se asume temporalmente en el núcleo estático para evitar la introducción de motores de plantillas (SSG) o procesamiento de servidor (PHP), respetando la filosofía de máximo rendimiento y 0 dependencias para el Frontend.
+
+**Siguiente paso o deuda:** Considerar un inyector de plantillas en Python si el número de páginas estáticas crece en el futuro. Proceder al despliegue.
+
+### 2026-04-17 — Mejora de UX: Inclusión de enlace explícito a Home
+
+**Contexto (Desafío):** A pesar de que el logotipo actúa convencionalmente como enlace a la página de inicio, la ausencia de un enlace explícito "Home" en el menú de navegación principal generaba fricción cognitiva y confusión en la navegación.
+
+**Hecho (Maniobra):**
+- Se añadió el ancla `<a href="/" class="nav__link">Home</a>` como primer elemento del `<nav>` en todas las vistas (Biblioteca, Contacto e `index.php`).
+
+**Detalle técnico:** Se replicó la clase `.nav__link` para que el nuevo enlace herede automáticamente la tipografía, el espaciado y el efecto de transición (hover naranja) definidos en el SASS.
+
+**Motivo / criterio:** Usabilidad (UX) y Accesibilidad. No todos los usuarios asumen que el logotipo es un área interactiva que retorna a la raíz del sitio. Proveer rutas de navegación explícitas reduce la carga cognitiva y mejora la orientación espacial dentro de la arquitectura de la información del Boilerplate.
+
+**Siguiente paso o deuda:** Validar la aparición del enlace en el menú y proceder al paso a producción en CloudPanel.
+
 ### 2026-04-17 — Estandarización del layout de cabeceras (Hero component)
 
 **Contexto (Desafío):** Las páginas interiores (Biblioteca, Contacto, Blog, Tienda) renderizaban sus títulos pegados al margen izquierdo y superior debido a que heredaban la estructura de la cuadrícula de tarjetas (`home-grid`), rompiendo la coherencia visual con el encabezado centrado de la portada.
