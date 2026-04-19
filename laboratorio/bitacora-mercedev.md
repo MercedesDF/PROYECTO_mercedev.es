@@ -37,6 +37,75 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-17 — Inclusión de la Fase 0 (DNS e Infraestructura) en manual de despliegue
+
+**Contexto:** El manual de despliegue (`deployment-playbook.md`) asumía infraestructura preexistente. Al tratarse de un "Boilerplate", se requería explicar el proceso conceptual desde la compra del dominio para guiar a usuarios desde cero.
+
+**Hecho:**
+- Se refactorizó `docs/deployment-playbook.md` incluyendo la nueva "Fase 0: Fundamentos y Preparación de Infraestructura".
+- Se reescribió el documento completo utilizando voz impersonal y verbos en infinitivo.
+
+**Detalle técnico:** Se incluyeron las instrucciones explícitas para separar el Registro del Dominio del proveedor IaaS (Infrastructure as a Service), junto con la directriz de modificar el registro DNS tipo 'A'. Se expandieron acrónimos clave (VPS, SSL, SSH) en su primera aparición.
+
+**Motivo / criterio:** Completitud pedagógica, alineada a las `instrucciones.md`. Un Boilerplate no solo provee código, sino conocimiento operativo. Guiar sobre los DNS (Domain Name System) desmitifica el proceso de paso a producción y previene confusiones habituales de enrutamiento temprano.
+
+**Siguiente paso o deuda:** Ejecutar los pasos documentados del manual sobre el entorno de producción.
+
+### 2026-04-17 — Adopción de CloudPanel para la administración de producción
+
+**Contexto:** Se requiere simplificar la administración a largo plazo del servidor de producción (certificados SSL, bases de datos, versiones de PHP) sin sacrificar la arquitectura LEMP de alto rendimiento diseñada en local.
+
+**Hecho:**
+- Se actualizó el `docs/deployment-playbook.md` para reemplazar el aprovisionamiento manual por la instalación de CloudPanel.
+
+**Detalle técnico:** CloudPanel es un panel de control server-level optimizado para Nginx, PHP-FPM y MariaDB. Dado que instala su propia pila hiper-optimizada, requiere un sistema operativo Ubuntu completamente limpio. La configuración de enrutamiento inverso (WordPress aislado) se aplicará a través de la interfaz VHost nativa del panel.
+
+**Motivo / criterio:** Eficiencia operativa (DevOps). Automatizar la gestión del servidor reduce la fricción de mantenimiento. CloudPanel se alinea perfectamente con la arquitectura del Boilerplate al utilizar Nginx de forma nativa, permitiendo inyectar reglas de proxy inverso y enlaces simbólicos sin bloqueos.
+
+**Siguiente paso o deuda:** Destruir y recrear el Droplet (para garantizar un sistema 100% limpio) e iniciar la instalación del panel.
+
+### 2026-04-17 — Diagnóstico de enrutamiento DNS y evaluación de proveedores IaaS
+
+**Contexto (Desafío):** Pérdida de conectividad con el dominio `mercedev.es` tras el reaprovisionamiento del servidor, sumado al deseo de explorar alternativas a DigitalOcean para el alojamiento del entorno de producción.
+
+**Hecho (Maniobra):**
+- Se diagnosticó una desincronización en la Zona DNS: el Registro 'A' del dominio apuntaba a la IP del Droplet destruido (Singapur) en lugar del nuevo nodo europeo.
+- Se propusieron proveedores IaaS (Infrastructure as a Service) alternativos (Hetzner, Linode, Vultr) compatibles con el `deployment-playbook.md`.
+
+**Detalle técnico:** Al destruir y recrear máquinas virtuales, la dirección IPv4 pública cambia. Es imperativo actualizar el registro 'A' (y 'AAAA' si se usa IPv6) en el registrador del dominio y esperar el tiempo de propagación (TTL). La arquitectura basada en Ubuntu + LEMP nativo garantiza cero *vendor lock-in*.
+
+**Motivo / criterio (Aprendizaje):** Separación entre Dominio (Registrador) e Infraestructura (Hosting). La resolución DNS es independiente del estado del servidor. Elegir un proveedor IaaS "Bare Metal" o VPS puro (como Hetzner) permite aplicar la Fase 6.1 de despliegue de forma estandarizada y universal.
+
+**Siguiente paso o deuda:** Actualizar la IP en los registros DNS, elegir el proveedor VPS definitivo y ejecutar el aprovisionamiento LEMP de la Fase 6.
+
+### 2026-04-17 — Diagnóstico de latencia y reaprovisionamiento de infraestructura
+
+**Contexto (Desafío):** Al iniciar la conexión al servidor de producción (Droplet), se detectó una latencia inaceptable y constante de ~290 ms mediante un test de `ping`, lo que imposibilitaba un trabajo fluido por SSH y amenazaba el rendimiento final del sitio.
+
+**Hecho (Maniobra):**
+- Se diagnosticó un error en la elección geográfica del Datacenter durante la creación del Droplet (posiblemente ubicado en Asia/Oceanía).
+- Se decidió destruir la máquina virtual actual y reaprovisionar una nueva en una región europea cercana (Frankfurt/Ámsterdam).
+
+**Detalle técnico:** Latencias sostenidas cercanas a los 300ms sin pérdida de paquetes (packet loss) son un síntoma inequívoco de distancia transcontinental debido a las limitaciones físicas de la fibra óptica, no de saturación de red local.
+
+**Motivo / criterio (Aprendizaje):** Física de redes y Core Web Vitals. Por mucho que se optimice el código (Shift-Left) y el tamaño de los assets (WebP), la ubicación física del servidor dicta el TTFB (Time to First Byte) base. Seleccionar la región Edge adecuada es el primer paso innegociable de un despliegue.
+
+**Siguiente paso o deuda:** Recrear el Droplet, obtener la nueva IP, validar la latencia y proceder con la Fase 1 del Deployment Playbook.
+
+### 2026-04-17 — Inicio de Fase 6 y creación del Deployment Playbook
+
+**Contexto:** Con la auditoría local en verde y el Boilerplate consolidado, es momento de transicionar el proyecto desde el entorno de desarrollo (localhost) hacia la infraestructura de producción (DigitalOcean Droplet).
+
+**Hecho:**
+- Se ha redactado el manual de operaciones `docs/deployment-playbook.md`.
+- Se ha marcado el primer hito de la Fase 6.1 en el `README.md`.
+
+**Detalle técnico:** El Playbook divide el despliegue en 5 fases operativas: Aprovisionamiento LEMP, Clonación vía Git, Aislamiento WP (Symlink), Enrutamiento Nginx+SSL y Verificación final.
+
+**Motivo / criterio:** Reducción de riesgo y estrés operativo. Documentar el paso a paso ("Runbook" o "Playbook") antes de tocar el servidor de producción previene errores por omisión, asegura que se replican las políticas de seguridad estrictas (Shift-Left) y convierte el despliegue en una tarea rutinaria y auditable.
+
+**Siguiente paso o deuda:** Conectar vía SSH al servidor de producción y ejecutar la Fase 1 del Playbook (Aprovisionamiento LEMP).
+
 ### 2026-04-17 — Auditoría arquitectónica externa y fijación de dependencias
 
 **Contexto:** Se sometió el repositorio a un análisis externo automatizado (GitHub Copilot) para evaluar su madurez (readiness) antes del paso a producción (Fase 6).
