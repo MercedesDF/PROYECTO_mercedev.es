@@ -1,0 +1,39 @@
+@use '../abstracts' as *;
+
+// Tarjeta base
+.card {
+  background-color: transparent;
+  border: 1px solid rgba($color-text-base, 0.1);
+  border-radius: 8px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: $color-primary;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    color: $color-text-base;
+    margin-bottom: 0;
+  }
+
+  &__meta {
+    font-size: 0.875rem;
+    color: #64748b; // Un gris pizarra para el modo claro
+  }
+
+  // Modificador BEM para Cuadernillos (Blog cronológico)
+  &--booklet {
+    border-top: 3px solid $color-primary; // Acento naranja
+  }
+
+  // Modificador BEM para Libros (Biblioteca técnica temática)
+  &--book {
+    border-top: 3px solid #10b981; // Acento verde (técnico/validado)
+  }
+}

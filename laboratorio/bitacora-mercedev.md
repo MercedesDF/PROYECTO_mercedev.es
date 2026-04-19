@@ -37,6 +37,103 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-17 — Actualización de paleta de colores (Naranja oscuro)
+
+**Contexto:** Se decidió reemplazar el color de acento primario (azul) por un naranja oscuro en todo el Boilerplate para ajustarse mejor a la identidad visual deseada.
+
+**Hecho:**
+- Se modificó la variable `$color-primary` a `#ea580c` en `_variables.scss`.
+- Se reemplazaron los valores hexadecimales `hardcoded` azules por la variable `$color-primary` en los componentes `_card.scss` y `_home.scss`.
+- Se actualizaron los estilos en línea de los títulos en `public/biblioteca/index.html`, `public/contacto/index.html` y `src/wp-theme/merci-theme/index.php`.
+
+**Detalle técnico:** Al utilizar la variable `$color-primary`, el compilador SASS propaga automáticamente el nuevo color naranja a todos los enlaces (`a:hover`), bordes de tarjetas y efectos visuales, asegurando cohesión en el diseño. Se refactorizaron estilos fijos para mejorar la escalabilidad del Boilerplate.
+
+**Motivo / criterio:** Consistencia y escalabilidad UI. Mantener colores "quemados" (hardcoded) en HTML o en módulos SASS específicos dificulta el mantenimiento. Centralizar el color de acento en una variable global respeta la arquitectura SASS 7-1.
+
+**Siguiente paso o deuda:** Compilar los estilos con `merci-watch`, verificar la consistencia visual en el navegador y continuar con el despliegue en producción.
+
+### 2026-04-17 — Eliminación automática de contenido por defecto de WP (IaC)
+
+**Contexto:** Las instalaciones limpias de WordPress inyectan contenido de relleno ("¡Hola, mundo!" y "Página de ejemplo") en la base de datos, lo cual restaba profesionalidad a la presentación visual del Boilerplate recién desplegado.
+
+**Hecho:**
+- Se amplió la función `merci_boilerplate_auto_setup` en `functions.php`.
+
+**Detalle técnico:** Se utilizaron las funciones `get_post()` y `wp_delete_post(id, true)` para buscar los IDs 1 y 2. Si sus *slugs* coinciden con los predeterminados (en español o inglés), se fuerza su borrado permanente (bypass de la papelera) directamente desde el código.
+
+**Motivo / criterio:** Infraestructura como Código (IaC - Infrastructure as Code). Un Boilerplate verdaderamente automatizado debe autolimpiarse tras su despliegue inicial. Obligar al desarrollador a acceder al CMS para borrar contenido basura manualmente rompe la filosofía de automatización y 0 fricción.
+
+**Siguiente paso o deuda:** Comprobar la desaparición del artículo en el frontend local, realizar el commit final e iniciar la Fase 6.
+
+### 2026-04-17 — Unificación tipográfica y maquetación de vistas dinámicas
+
+**Contexto:** Existía una ligera discrepancia visual entre las páginas estáticas (Biblioteca, Contacto) y las páginas dinámicas de WordPress (Art de Coté, Tienda) en cuanto a márgenes, fondos de tarjeta y coloración de enlaces.
+
+**Hecho:**
+- Se actualizó `<main>` en `index.php` para igualar el padding de las vistas estáticas (`4rem 2rem`).
+- Se alinearon las propiedades de `_card.scss` para ser idénticas a `_home.scss` (fondo transparente, padding ampliado, hover azul).
+- Se forzó el color oscuro (`$color-text-base`) en encabezados globales y enlaces de menú (`.nav__link`).
+
+**Detalle técnico:** Se utilizó `color: inherit` dentro de las etiquetas de encabezado (`h1-h6`) en `_typography.scss` para asegurar que los enlaces dinámicos de título generados por WordPress (`<a href="...">`) sobreescriban el azul por defecto y adopten el negro base.
+
+**Motivo / criterio:** Coherencia de Interfaz (UI). Un Boilerplate profesional no debe presentar saltos de diseño entre sus distintas vistas. Homogeneizar contenedores y tipografía garantiza una experiencia de usuario (UX) fluida, independientemente de si la ruta es resuelta por Nginx directo o por el motor de PHP.
+
+**Siguiente paso o deuda:** Confirmar la estética general en el navegador, ejecutar el commit y proceder con el despliegue al entorno de producción (Fase 6).
+
+### 2026-04-17 — Fix: Variables obsoletas en CSS Reset
+
+**Contexto (Desafío):** Al compilar el SASS tras la migración al Light Mode, el compilador devolvía un error de variables no definidas en `_reset.scss`, deteniendo la ejecución de `merci-watcher.py`.
+
+**Hecho (Maniobra):**
+- Se actualizaron las variables en `src/scss/base/_reset.scss` a `$color-bg-base` y `$color-text-base`.
+
+**Detalle técnico:** Se sustituyeron las antiguas variables del modo oscuro que habían quedado huérfanas tras la refactorización de `_variables.scss` en la sesión anterior.
+
+**Motivo / criterio (Aprendizaje):** En refactorizaciones globales de sistemas de diseño (Design Systems), es común que algún archivo base mantenga dependencias obsoletas. El compilador SASS actúa de forma estricta, protegiendo la integridad del CSS final e impidiendo que llegue código roto a producción.
+
+**Siguiente paso o deuda:** Verificar que el compilador finalice con éxito y volver al enfoque de despliegue en producción (Fase 6).
+
+### 2026-04-17 — Unificación de UI a "Light Mode" (Modo Claro)
+
+**Contexto:** La paleta de colores oscura limitaba la versatilidad de la plantilla. Se requería unificar la estética de las 5 páginas principales bajo un esquema "Light Mode" limpio y profesional.
+
+**Hecho:**
+- Se refactorizaron las variables en `_variables.scss` renombrando referencias de Dark a Base (`$color-bg-base: #ffffff`).
+- Se eliminaron los colores quemados (hardcoded) en componentes como `_card.scss`, `_hero.scss` y `_home.scss` sustituyéndolos por variables dinámicas.
+- Se ajustó la estructura flex en `_header.scss` para alinear el logotipo a la izquierda y el menú a la derecha.
+
+**Detalle técnico:** El uso de módulos `@use '../abstracts' as *` permitió inyectar el nuevo esquema a lo largo de toda la arquitectura SASS 7-1. Los bordes divisorios se mantuvieron utilizando funciones de canal alfa (`rgba`) sobre el nuevo texto oscuro, asegurando contraste accesible.
+
+**Motivo / criterio:** Escalabilidad de diseño. Un Boilerplate debe proveer un lienzo neutral y altamente legible por defecto. Las variables semánticas (`-base` en lugar de `-dark/-light`) permiten que futuros usuarios de la plantilla cambien todo el aspecto de la web modificando solo dos líneas de código SASS.
+
+**Siguiente paso o deuda:** Validar la nueva interfaz en el navegador y ejecutar el commit.
+
+### 2026-04-17 — Configuración de alias de terminal para Merci Watcher
+
+**Contexto:** Para mantener la agilidad del flujo de trabajo local y seguir la convención del resto de herramientas del sistema Merci, se requería un comando rápido para invocar el vigilante de SASS.
+
+**Hecho:**
+- Se añadió el alias `merci-watch` a la configuración de la terminal (`~/.zshrc`).
+
+**Detalle técnico:** El alias ejecuta `python3 $MERCI_ROOT/scripts/merci/merci-watcher.py`, aprovechando la variable de entorno global del proyecto definida en configuraciones anteriores para que funcione desde cualquier directorio.
+
+**Motivo / criterio:** Consistencia operativa y reducción de fricción (DX). Abstraer la ruta del script en un comando corto fomenta el uso constante del compilador en tiempo real durante las sesiones de diseño visual.
+
+**Siguiente paso o deuda:** Validar el alias en la terminal, realizar el commit atómico y proceder con el ajuste de variables (Light Mode) en SASS.
+
+### 2026-04-17 — Restauración del vigilante SASS (merci-watcher.py)
+
+**Contexto:** Al igual que ocurrió con el compilador, el script `merci-watcher.py` no sobrevivió a la limpieza y eliminación de la rama de diseño, perdiéndose la automatización de la compilación en tiempo real.
+
+**Hecho:**
+- Se ha restaurado el script `scripts/merci/merci-watcher.py`.
+
+**Detalle técnico:** El script se ha recreado con su lógica original utilizando `path.stat().st_mtime` para monitorizar la carpeta `src/scss/` e invocar a `merci-styles.py` mediante `subprocess.run()`.
+
+**Motivo / criterio:** Resiliencia de la infraestructura local. Recuperar las herramientas de DX (Developer Experience - Experiencia del Desarrollador) es imperativo para mantener la agilidad del Boilerplate. Si una herramienta se pierde en el control de versiones por falta de trackeo, la documentación debe permitir su reconstrucción inmediata.
+
+**Siguiente paso o deuda:** Reanudar la refactorización de variables a modo claro (Light Mode) en el SASS.
+
 ### 2026-04-17 — Fix: Resolución de advertencias de deprecación en Dart Sass
 
 **Contexto (Desafío):** Al compilar los estilos SASS, el compilador emitía advertencias (Deprecation Warnings) indicando que las funciones globales de color (`scale-color`) serán eliminadas en Dart Sass 3.0.0.

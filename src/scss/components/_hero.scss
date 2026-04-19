@@ -4,20 +4,17 @@
 .hero {
     padding: $spacing-xl $spacing-lg;
     text-align: center;
-    background: linear-gradient(135deg, rgba($color-primary, 0.1) 0%, rgba($color-bg-dark, 0) 100%);
+    background: linear-gradient(135deg, rgba($color-primary, 0.1) 0%, rgba($color-bg-base, 0) 100%);
 
     &__title {
         font-size: clamp(2rem, 5vw, 4rem);
         margin-bottom: $spacing-md;
-        background: linear-gradient(to right, $color-text-light, $color-secondary);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: $color-text-base;
     }
 
     &__subtitle {
         font-size: 1.25rem;
-        color: color.scale($color-text-light, $lightness: -20%);
+        color: color.scale($color-text-base, $lightness: 30%);
         max-width: 60ch;
         margin: 0 auto $spacing-lg;
     }
@@ -36,15 +33,15 @@
 }
 
 .card {
-    background-color: color.scale($color-bg-dark, $lightness: 5%);
+    background-color: color.scale($color-bg-base, $lightness: -2%);
     border-radius: 8px;
     padding: $spacing-lg;
-    border: 1px solid rgba($color-text-light, 0.05);
+    border: 1px solid rgba($color-text-base, 0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 
     &:hover {
         transform: translateY(-4px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
     }
     
     &__title {

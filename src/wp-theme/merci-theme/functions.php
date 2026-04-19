@@ -103,3 +103,37 @@ function merci_ofuscar_errores_login() {
     return 'Credenciales incorrectas.';
 }
 add_filter('login_errors', 'merci_ofuscar_errores_login');
+
+// =========================================================================
+// 5. AUTO-CONFIGURACIÓN DEL BOILERPLATE (Infraestructura como Código)
+// =========================================================================
+
+function merci_boilerplate_auto_setup() {
+    // 1. Configurar Enlaces Permanentes (Permalinks) a "Nombre de la entrada"
+    if (get_option('permalink_structure') !== '/%postname%/') {
+        global $wp_rewrite;
+        update_option('permalink_structure', '/%postname%/');
+        $wp_rewrite->set_permalink_structure('/%postname%/');
+        $wp_rewrite->flush_rules();
+    }
+
+    // 2. Autocrear las categorías requeridas por el enrutamiento del menú
+    if (!term_exists('fichas', 'category')) {
+        wp_insert_term('Fichas Técnicas', 'category', array('slug' => 'fichas'));
+    }
+    if (!term_exists('art-de-cote', 'category')) {
+        wp_insert_term('Art de Coté', 'category', array('slug' => 'art-de-cote'));
+    }
+
+    // 3. Purgar contenido basura por defecto ("¡Hola, mundo!" y "Página de ejemplo")
+    // Localizamos los posts por su ID habitual en instalaciones nuevas y validamos su slug
+    $default_post = get_post(1);
+    if ($default_post && in_array($default_post->post_name, array('hola-mundo', 'hello-world'))) {
+        wp_delete_post(1, true); // true = forzar borrado sin pasar por la papelera
+    }
+    $default_page = get_post(2);
+    if ($default_page && in_array($default_page->post_name, array('pagina-ejemplo', 'pagina-de-ejemplo', 'sample-page'))) {
+        wp_delete_post(2, true);
+    }
+}
+add_action('init', 'merci_boilerplate_auto_setup');

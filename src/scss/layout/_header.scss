@@ -1,16 +1,39 @@
 @use '../abstracts' as *;
 
 .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: $spacing-md $spacing-lg;
-    background-color: rgba($color-bg-dark, 0.95);
-    border-bottom: 1px solid rgba($color-text-light, 0.1);
+    background-color: rgba($color-bg-base, 0.95);
+    border-bottom: 1px solid rgba($color-text-base, 0.1);
     position: sticky;
     top: 0;
     z-index: 100;
 
+    &__brand {
+        display: flex;
+        align-items: center;
+    }
+
+    &__logo {
+        display: block;
+        max-width: 150px;
+        height: auto;
+    }
+
     &__nav {
         display: flex;
-        justify-content: space-between;
+        gap: 1.5rem;
         align-items: center;
+    }
+
+    .nav__link {
+        color: $color-text-base;
+        font-weight: 500;
+        transition: color 0.2s ease;
+        &:hover {
+            color: $color-primary;
+        }
     }
 }
