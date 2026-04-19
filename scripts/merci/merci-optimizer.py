@@ -1,71 +1,86 @@
 #!/usr/bin/env python3
-import os
-import glob
-from PIL import Image
+# -*- coding: utf-8 -*-
+"""
+merci-optimizer.py — Automatización de optimización de imágenes (Fase 3.4).
 
-# Sistema Merci - Optimizador Multimedia (Fase 3)
-# Busca imágenes en bruto (.assets-raw/) y las optimiza proporcionando
-# un formato moderno WebP a menor tamaño y mayor rendimiento hacia /assets
+Escanea `.assets-raw/` en busca de imágenes originales (PNG, JPG) y genera
+versiones WebP responsivas y optimizadas en `assets/`.
+"""
 
-RAW_DIR = os.path.join(os.path.dirname(__file__), '..', '..', '.assets-raw')
-OUT_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'assets')
+import sys
+from pathlib import Path
 
-# Definimos los breakpoints en los que exportar. sm para móviles (Fase Mobile-First), lg para escritorio
-SIZES = {
-    'sm': 640,
-    'lg': 1920
-}
+try:
+    from PIL import Image
+except ImportError:
+    print("[Merci Optimizer] Error: La librería Pillow no está instalada.", file=sys.stderr)
+    print("Por favor, ejecuta: pip install -r requirements.txt", file=sys.stderr)
+    sys.exit(1)
 
-def resize_and_convert():
-    """Busca imágenes en formatos base y las transiciona al formato final WebP"""
-    # Verifica y crea directorio si no lo hay
-    if not os.path.exists(OUT_DIR):
-        os.makedirs(OUT_DIR)
-        
-    print("Merci: Evaluando imágenes crudas (RAW) en el directorio .assets-raw...")
+# --- Configuración ---
+REPO_ROOT = Path(__file__).resolve().parents[2]
+SOURCE_DIR = REPO_ROOT / ".assets-raw"
+DEST_DIR = REPO_ROOT / "assets"
+
+# Tamaños objetivo en píxeles de ancho. El alto se calculará manteniendo la proporción.
+TARGET_WIDTHS = [1920, 1280, 800, 400]
+WEBP_QUALITY = 80  # Calidad del 0 al 100. 80 es un buen equilibrio.
+
+def optimize_images():
+    """
+    Busca imágenes en el directorio fuente, las convierte a WebP en varios
+    tamaños y las guarda en el directorio de destino.
+    """
+    print(f"🔎 Escaneando {SOURCE_DIR} en busca de imágenes...")
     
-    # Recoge todos los medios gráficos base jpg y png admitidos
-    raw_images = glob.glob(os.path.join(RAW_DIR, '*.jpg')) + glob.glob(os.path.join(RAW_DIR, '*.png'))
-    
-    # Prevenir si está vacío el directorio origen (-raw solo tiene .gitkeep temporal)
-    if not raw_images:
-        print("Merci: No se encontraron originales multimedia para procesar.")
+    # Asegurarse de que el directorio de destino exista
+    DEST_DIR.mkdir(exist_ok=True)
+
+    image_files = list(SOURCE_DIR.glob("*.png")) + \
+                  list(SOURCE_DIR.glob("*.jpg")) + \
+                  list(SOURCE_DIR.glob("*.jpeg"))
+
+    if not image_files:
+        print("✅ No se encontraron nuevas imágenes para optimizar.")
         return
 
-    # Procesa cada imagen detectada
-    for img_path in raw_images:
-        filename_ext = os.path.basename(img_path)
-        base_name, _ = os.path.splitext(filename_ext)
-        
+    for image_path in image_files:
         try:
-            # Abrir el objeto en memoria utilizando el módulo Pillow Image
-            img = Image.open(img_path)
-            
-            # Algunos PNG tienen un canal alfa transparente temporal, se quitan transiciones a RGB
-            if img.mode in ("RGBA", "P"):
-                img = img.convert("RGB")
-            
-            # Por cada medida parametrizada, hacer los recortes y salvar en disco duro
-            for size_label, target_width in SIZES.items():
+            with Image.open(image_path) as img:
+                print(f"⚙️  Procesando: {image_path.name}")
                 
-                # Asegura no escalar una imagen pequeña al revés si mide menos que nuestro corte
-                ratio = target_width / float(img.size[0])
-                if ratio < 1:  
-                    # Determina alto proporcional en base a ancho deseado
-                    target_height = int((float(img.size[1]) * float(ratio)))
-                    resized_img = img.resize((target_width, target_height), Image.Resampling.LANCZOS)
-                else: # Si el origen ya es chico
-                    resized_img = img
-                
-                # Define el enrutamiento con el sufijo (ej: imagen1-sm.webp)
-                out_path = os.path.join(OUT_DIR, f"{base_name}-{size_label}.webp")
-                
-                # Codificar en modo 'webp' con calidad 85 (el mejor equilibrio rendimiento-visual)
-                resized_img.save(out_path, 'webp', quality=85)
-                print(f"Merci: Procesamiento finalizado, imagen volcada -> {out_path}")
-                
+                # Preservar transparencia (canal Alpha) al convertir a WebP
+                if img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info):
+                    img = img.convert('RGBA')
+                elif img.mode != 'RGB':
+                    img = img.convert('RGB')
+
+                # Siempre generar una versión base optimizada al tamaño original
+                base_output = DEST_DIR / f"{image_path.stem}.webp"
+                img.save(base_output, "WEBP", quality=WEBP_QUALITY)
+                print(f"   ✨ Generado base: {base_output.name}")
+
+                for width in TARGET_WIDTHS:
+                    # Solo generar tamaños más pequeños que el original
+                    if width >= img.width:
+                        continue
+
+                    # Calcular el nuevo alto manteniendo la proporción
+                    aspect_ratio = img.height / img.width
+                    new_height = int(width * aspect_ratio)
+                    
+                    resized_img = img.resize((width, new_height), Image.Resampling.LANCZOS)
+                    
+                    # Construir el nombre del archivo de salida
+                    output_filename = f"{image_path.stem}-{width}w.webp"
+                    output_path = DEST_DIR / output_filename
+                    
+                    resized_img.save(output_path, "WEBP", quality=WEBP_QUALITY)
+                    print(f"   ✨ Generado: {output_path.name}")
+
         except Exception as e:
-            print(f"Merci Error: Imposible procesar la fotografía {filename_ext}. Motivo de Python: {e}")
+            print(f"❌ Error procesando {image_path.name}: {e}", file=sys.stderr)
 
 if __name__ == "__main__":
-    resize_and_convert()
+    optimize_images()
+    print("\n[Merci Optimizer] Proceso completado.")
