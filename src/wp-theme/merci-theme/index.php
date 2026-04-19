@@ -26,8 +26,35 @@
         </nav>
     </header>
 
-    <main class="main-content">
+    <main class="main" style="padding: 4rem 2rem;">
         <?php 
+        // 1. Inyección de Cabeceras Estilo "Boilerplate" para Vistas Dinámicas
+        $header_title = '';
+        $header_desc = '';
+
+        if ( is_category('art-de-cote') ) {
+            $header_title = 'Art de Coté';
+            $header_desc = 'Repositorio de hallazgos y herramientas colaterales. I+D puro convertido en activos técnicos reutilizables.';
+        } elseif ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
+            $header_title = 'Tienda';
+            $header_desc = 'Catálogo de recursos, herramientas y merchandising oficial del entorno Merci Boilerplate.';
+        } elseif ( is_home() || is_archive() ) {
+            $header_title = 'Blog';
+            $header_desc = 'Bitácora cronológica, diario de desarrollo y artículos generales del ecosistema.';
+        }
+
+        if ( $header_title ) : 
+        ?>
+            <div class="home-grid" style="margin-bottom: 3rem;">
+                <article class="home-card">
+                    <h1 class="home-card__title" style="color: #ea580c;"><?php echo $header_title; ?></h1>
+                    <p class="home-card__text"><?php echo $header_desc; ?></p>
+                </article>
+            </div>
+        <?php endif; ?>
+
+        <?php 
+        // 2. Bucle principal de contenido (The Loop)
         if ( have_posts() ) :
         ?>
             
@@ -35,7 +62,9 @@
                 <!-- VISTA DE LECTURA (Artículo individual) -->
                 <?php while ( have_posts() ) : the_post(); ?>
                     <article class="article">
-                        <h1 class="article__title"><?php the_title(); ?></h1>
+                        <?php if ( ! $header_title ) : ?>
+                            <h1 class="article__title"><?php the_title(); ?></h1>
+                        <?php endif; ?>
                         <div class="article__content">
                             <?php the_content(); ?>
                         </div>
@@ -67,6 +96,10 @@
         // Fin de "The Loop"
         ?>
     </main>
+
+    <footer class="footer">
+        <p class="footer__text">&copy; 2026 <strong>mercedev.es</strong> — Base de código abierto bajo Licencia MIT.</p>
+    </footer>
 
     <!-- wp_footer() es obligatorio para scripts de cierre y barra de administración (si estás logueada) -->
     <?php wp_footer(); ?>
