@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-17 — Fix: Refactorización de lista a cuadrícula en portada
+
+**Contexto (Desafío):** La lista HTML (`<ul>`) en la sección "Características del Motor" de la portada generaba un desbordamiento visual de las viñetas (bullets) que rompía la maquetación y la estética general del Boxed Layout.
+
+**Hecho (Maniobra):**
+- Se refactorizó la lista en `public/index.html` transformándola en una cuadrícula (`.home-grid`).
+- Se convirtieron los elementos de la lista en tarjetas (`<article class="home-card">`), igualando la estructura de la sección "Demostración de Arquitectura".
+
+**Detalle técnico:** Se eliminaron las etiquetas `<ul>` y `<li>` y las clases `.section-methodology__list`, reemplazándolas por la estructura de componentes SASS preexistente (`.home-grid`, `.home-card`, `.home-card__title`, `.home-card__text`).
+
+**Motivo / criterio (Aprendizaje):** Coherencia de Interfaz (UI) y reutilización de componentes. Emplear el mismo patrón visual (tarjetas en cuadrícula) para listar características agiliza la lectura, mantiene la armonía estética de la Landing Page y evita los problemas de alineación nativos de las listas HTML sin resetear.
+
+**Siguiente paso o deuda:** Continuar con el despliegue en producción (Fase 6).
+
 ### 2026-04-17 — Fix: Inclusión de enlace Home en núcleo estático principal
 
 **Contexto:** Se omitió añadir el enlace "Home" en el archivo `public/index.html` durante la estandarización previa del menú de navegación.
