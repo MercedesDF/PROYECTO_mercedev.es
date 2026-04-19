@@ -37,6 +37,34 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-17 — Erradicación total de estilos en línea (Inline CSS)
+
+**Contexto:** Se detectaron estilos en línea residuales (`style="padding: 4rem 2rem;"` y `style="margin-bottom: 3rem;"`) en las vistas estáticas (Biblioteca, Contacto) y en la plantilla dinámica de WordPress, lo cual vulneraba la metodología BEM y la filosofía atómica del proyecto.
+
+**Hecho:**
+- Se crearon los modificadores BEM `.main--padded` y `.home-grid--spaced` en `src/scss/pages/_home.scss`.
+- Se eliminaron todos los atributos `style` residuales de `public/biblioteca/index.html`, `public/contacto/index.html` y `src/wp-theme/merci-theme/index.php`.
+
+**Detalle técnico:** Se estandarizó la aplicación del espaciado interno asignando la clase `.main--padded` al contenedor principal `<main>` para garantizar consistencia estructural entre las vistas estáticas servidas por Nginx y las vistas dinámicas servidas por WordPress. Las variables globales `$spacing-xl` y `$spacing-lg` asumen el control de la separación.
+
+**Motivo / criterio:** Arquitectura limpia y escalabilidad. La purga de atributos `style` asegura que cualquier modificación futura en los márgenes de la interfaz se resuelva editando un único archivo SASS, respetando la filosofía "Single Source of Truth" (Única Fuente de Verdad).
+
+**Siguiente paso o deuda:** Compilar, verificar visualmente el diseño y ejecutar el paso final de la Fase 6 (Despliegue en CloudPanel).
+
+### 2026-04-17 — Refactorización atómica: Eliminación de estilos en línea (Inline CSS)
+
+**Contexto:** Las cabeceras de presentación en las páginas estáticas y dinámicas (Biblioteca, Contacto, Tienda, Blog) usaban el atributo `style="color: #ea580c;"` inyectado directamente en el HTML, violando la separación de responsabilidades y la metodología BEM.
+
+**Hecho:**
+- Se creó el modificador BEM `.home-card__title--highlight` en `src/scss/pages/_home.scss` vinculado a `$color-primary`.
+- Se eliminaron todos los atributos `style` en línea de `index.html` (Biblioteca, Contacto) y de `index.php` (Child Theme).
+
+**Detalle técnico:** Al añadir un modificador BEM, se delega el control absoluto de la interfaz a la capa SASS. Cualquier cambio futuro en `$color-primary` (ubicado en `_variables.scss`) se propagará ahora correctamente sin necesidad de buscar código HTML "hardcoded" a lo largo de los archivos.
+
+**Motivo / criterio:** Arquitectura limpia (Clean Code). Los estilos en línea son un antipatrón perjudicial para el mantenimiento a escala. La filosofía atómica y BEM exige que las variaciones visuales se gestionen estrictamente mediante modificadores CSS en el sistema de diseño central.
+
+**Siguiente paso o deuda:** Compilar los estilos y proceder con la Fase 6.
+
 ### 2026-04-17 — Actualización de paleta de colores (Naranja oscuro)
 
 **Contexto:** Se decidió reemplazar el color de acento primario (azul) por un naranja oscuro en todo el Boilerplate para ajustarse mejor a la identidad visual deseada.

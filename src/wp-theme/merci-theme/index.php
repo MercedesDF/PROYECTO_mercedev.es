@@ -26,7 +26,7 @@
         </nav>
     </header>
 
-    <main class="main" style="padding: 4rem 2rem;">
+    <main class="main main--padded">
         <?php 
         // 1. Inyección de Cabeceras Estilo "Boilerplate" para Vistas Dinámicas
         $header_title = '';
@@ -45,9 +45,9 @@
 
         if ( $header_title ) : 
         ?>
-            <div class="home-grid" style="margin-bottom: 3rem;">
+            <div class="home-grid home-grid--spaced">
                 <article class="home-card">
-                    <h1 class="home-card__title" style="color: #ea580c;"><?php echo $header_title; ?></h1>
+                    <h1 class="home-card__title home-card__title--highlight"><?php echo $header_title; ?></h1>
                     <p class="home-card__text"><?php echo $header_desc; ?></p>
                 </article>
             </div>
