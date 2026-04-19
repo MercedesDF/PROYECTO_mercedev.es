@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-17 — Fix: Preservación de transparencia (Canal Alpha) en Merci Optimizer
+
+**Contexto (Desafío):** Al procesar imágenes originales con fondos transparentes (ej. logos en formato PNG), la salida WebP resultante inyectaba un fondo opaco, rompiendo el diseño de la UI en el Frontend.
+
+**Hecho (Maniobra):**
+- Se añadió una validación del espacio de color (`img.mode`) en `merci-optimizer.py` antes del proceso de guardado y redimensionado.
+- Se actualizó el archivo de pruebas `test_optimizer.py` para mockear el objeto resultante de la conversión.
+
+**Detalle técnico:** Las imágenes guardadas en paleta indexada (Modo `P`) o con alpha explícito (`RGBA`, `LA`) pierden sus propiedades de transparencia al ser procesadas directamente a WebP por Pillow si no se convierten antes a un modo compatible. El bloque `img = img.convert('RGBA')` soluciona esto en memoria, preservando el canal de opacidad para el binario final.
+
+**Motivo / criterio (Aprendizaje):** Fiabilidad de la herramienta local. Una herramienta de optimización multimedia no puede degradar el aspecto visual (UX/UI) a expensas del tamaño. Gestionar los modos de color garantiza que las imágenes transparentes se empaqueten correctamente en WebP.
+
+**Siguiente paso o deuda:** Re-ejecutar el optimizador para recuperar el logotipo sin fondo y continuar el despliegue con CloudPanel.
+
 ### 2026-04-17 — Inclusión de la Fase 0 (DNS e Infraestructura) en manual de despliegue
 
 **Contexto:** El manual de despliegue (`deployment-playbook.md`) asumía infraestructura preexistente. Al tratarse de un "Boilerplate", se requería explicar el proceso conceptual desde la compra del dominio para guiar a usuarios desde cero.
