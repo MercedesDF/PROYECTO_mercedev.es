@@ -37,6 +37,35 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-17 — Estandarización del layout de cabeceras (Hero component)
+
+**Contexto (Desafío):** Las páginas interiores (Biblioteca, Contacto, Blog, Tienda) renderizaban sus títulos pegados al margen izquierdo y superior debido a que heredaban la estructura de la cuadrícula de tarjetas (`home-grid`), rompiendo la coherencia visual con el encabezado centrado de la portada.
+
+**Hecho (Maniobra):**
+- Se reemplazó el contenedor `.home-grid` > `.home-card` por el componente semántico `.hero` en las páginas estáticas y dinámicas.
+- Se reorganizó la clase `.main--padded` en el Child Theme de WordPress para encapsular únicamente la cuadrícula de contenido, permitiendo a la cabecera abarcar el ancho completo.
+
+**Detalle técnico:** El componente `.hero` (diseñado con `text-align: center` y padding vertical amplio) es el estándar arquitectónico idóneo para las presentaciones de sección (Page Headers). Reutilizarlo unifica el diseño, elimina la necesidad de modificadores BEM redundantes (`--highlight`) y garantiza una maquetación impecable.
+
+**Motivo / criterio:** Consistencia de UI/UX (Clean UI). Un Boilerplate debe ofrecer un patrón de diseño unificado. Forzar una tarjeta de cuadrícula (`card`) para actuar como cabecera de página era semánticamente incorrecto y visualmente deficiente.
+
+**Siguiente paso o deuda:** Comprobar el centrado de los textos en todas las rutas y continuar con el despliegue final en CloudPanel.
+
+### 2026-04-17 — Refinamiento final de UI: Boxed Layout y alineación
+
+**Contexto:** Era necesario pulir los detalles visuales finales antes de dar por cerrado el diseño: alinear el menú y el logotipo por su base inferior, separar los títulos del header y limitar el ancho de la web para evitar que el contenido desbordara los márgenes del menú en pantallas ultrapanorámicas.
+
+**Hecho:**
+- Se ajustó `.header` con `align-items: flex-end` en `_header.scss`.
+- Se aplicó `max-width: 1200px` y `margin: 0 auto` directamente a la etiqueta `body` en `_reset.scss`.
+- Se aumentó el valor de la variable `$spacing-xl` a `6rem` en `_variables.scss` para dar más respiro vertical a las cabeceras.
+
+**Detalle técnico:** Limitar el ancho máximo en el `body` (Boxed Layout) es la estrategia más limpia para sincronizar los ejes verticales de `.header`, `.main` y `.footer` sin necesidad de envolver todo en contenedores `.container` adicionales, reduciendo drásticamente el peso del DOM.
+
+**Motivo / criterio:** Equilibrio visual. Alinear los elementos por su línea base (baseline/flex-end) y dar aire a las secciones respirables mejora la legibilidad y la jerarquía de la página. Se confirma formalmente que el uso de Vanilla JS para el menú móvil respeta íntegramente la norma de "Cero dependencias externas" de la arquitectura.
+
+**Siguiente paso o deuda:** Validar los ajustes estéticos y ejecutar el despliegue del Boilerplate a producción.
+
 ### 2026-04-17 — Erradicación total de estilos en línea (Inline CSS)
 
 **Contexto:** Se detectaron estilos en línea residuales (`style="padding: 4rem 2rem;"` y `style="margin-bottom: 3rem;"`) en las vistas estáticas (Biblioteca, Contacto) y en la plantilla dinámica de WordPress, lo cual vulneraba la metodología BEM y la filosofía atómica del proyecto.

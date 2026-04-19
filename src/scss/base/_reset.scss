@@ -19,6 +19,8 @@ body {
     color: $color-text-base;
     min-height: 100vh;
     overflow-x: hidden;
+    max-width: 1200px; // Encapsula la web
+    margin: 0 auto;    // Centra el contenedor en pantallas grandes
 }
 
 img,

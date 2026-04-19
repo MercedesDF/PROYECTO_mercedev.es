@@ -1,3 +1,5 @@
+@use '../abstracts' as *;
+
 // Layout específico para la página de inicio
 
 .home-grid {
@@ -11,7 +13,7 @@
 
 .home-card {
   background-color: transparent;
-  border: 1px solid rgba(248, 250, 252, 0.1);
+  border: 1px solid rgba($color-text-base, 0.1);
   border-radius: 8px;
   padding: 2rem;
   transition: border-color 0.3s ease;
@@ -22,7 +24,11 @@
 
   &__title {
     font-size: 1.5rem;
-    color: #f8fafc;
+    color: $color-text-base;
     margin-bottom: 0.75rem;
+
+    &--highlight {
+      color: $color-primary;
+    }
   }
 }

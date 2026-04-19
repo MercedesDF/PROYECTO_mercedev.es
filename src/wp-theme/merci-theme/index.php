@@ -17,7 +17,10 @@
         <a href="/" class="header__brand">
             <img src="/assets/logo.webp" alt="mercedev.es" class="header__logo" width="150" height="auto">
         </a>
-        <nav class="header__nav nav" aria-label="Navegación principal">
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
             <a href="/biblioteca" class="nav__link">Biblioteca</a>
             <a href="/blog" class="nav__link">Blog</a>
             <a href="/blog/category/art-de-cote" class="nav__link">Art de Coté</a>
@@ -26,7 +29,7 @@
         </nav>
     </header>
 
-    <main class="main main--padded">
+    <main class="main">
         <?php 
         // 1. Inyección de Cabeceras Estilo "Boilerplate" para Vistas Dinámicas
         $header_title = '';
@@ -45,14 +48,13 @@
 
         if ( $header_title ) : 
         ?>
-            <div class="home-grid home-grid--spaced">
-                <article class="home-card">
-                    <h1 class="home-card__title home-card__title--highlight"><?php echo $header_title; ?></h1>
-                    <p class="home-card__text"><?php echo $header_desc; ?></p>
-                </article>
-            </div>
+            <section class="hero">
+                <h1 class="hero__title"><?php echo $header_title; ?></h1>
+                <p class="hero__subtitle"><?php echo $header_desc; ?></p>
+            </section>
         <?php endif; ?>
 
+        <div class="main--padded">
         <?php 
         // 2. Bucle principal de contenido (The Loop)
         if ( have_posts() ) :
@@ -95,6 +97,7 @@
         endif; 
         // Fin de "The Loop"
         ?>
+        </div>
     </main>
 
     <footer class="footer">
