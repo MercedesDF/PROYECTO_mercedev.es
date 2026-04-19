@@ -1,0 +1,33 @@
+// Layout específico para la página de inicio
+
+.home-grid {
+  display: grid;
+  gap: 2rem;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &--spaced {
+    // Separación entre la cabecera dinámica de WordPress y el listado de tarjetas
+    margin-bottom: 3rem;
+  }
+}
+
+.home-card {
+  background-color: transparent;
+  border: 1px solid rgba(248, 250, 252, 0.1);
+  border-radius: 8px;
+  padding: 2rem;
+  transition: border-color 0.3s ease;
+
+  &:hover {
+    border-color: #3b82f6; // Ilumina el borde en azul al pasar el ratón
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    color: #f8fafc;
+    margin-bottom: 0.75rem;
+  }
+}
