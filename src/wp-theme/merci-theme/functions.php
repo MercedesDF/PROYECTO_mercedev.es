@@ -46,6 +46,8 @@ function merci_cargar_assets_estaticos() {
     // Para forzar la salida a la raíz estática absoluta, construimos el esquema + host:
     $domain_root = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
     wp_enqueue_style('merci-core-styles', $domain_root . '/css/main.css', array(), '1.0.0', 'all');
+    // Encolar el JavaScript unificado (el filtro de defer lo procesará automáticamente)
+    wp_enqueue_script('merci-core-js', $domain_root . '/js/main.js', array(), '1.0.0', true);
 }
 add_action('wp_enqueue_scripts', 'merci_cargar_assets_estaticos');
 

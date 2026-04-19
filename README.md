@@ -194,7 +194,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 ### Fase 6 - Despliegue y Auditoría Final
 
 #### 6.1 Preparación de release
-- [ ] Definir proceso de despliegue paso a paso para entorno de producción.
+- [x] Definir proceso de despliegue paso a paso para entorno de producción.
 - [ ] Verificar artefactos finales del núcleo estático antes del deploy.
 - [ ] Confirmar consistencia de rutas absolutas/relativas para entorno real.
 
