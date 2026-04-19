@@ -37,6 +37,47 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-17 — Fix: Resolución de advertencias de deprecación en Dart Sass
+
+**Contexto (Desafío):** Al compilar los estilos SASS, el compilador emitía advertencias (Deprecation Warnings) indicando que las funciones globales de color (`scale-color`) serán eliminadas en Dart Sass 3.0.0.
+
+**Hecho (Maniobra):**
+- Se migró el uso de `scale-color` al módulo moderno `color.scale`.
+- Se añadió la importación `@use 'sass:color';` en los archivos `_typography.scss`, `_footer.scss` y `_hero.scss`.
+
+**Detalle técnico:** Dart Sass está abandonando las funciones globales en favor de un sistema de módulos integrados (built-in modules). El uso de `color.scale()` previene que el compilador rompa la compilación en futuras actualizaciones del binario standalone de SASS.
+
+**Motivo / criterio (Aprendizaje):** Mantenibilidad a largo plazo. Un Boilerplate no debe generar advertencias (warnings) de compilación "out of the box". Atender las deprecaciones a tiempo es una práctica fundamental de higiene técnica.
+
+**Siguiente paso o deuda:** Migrar el esquema de colores a variables agnósticas (Light Mode) en los archivos `abstracts` y eliminar colores quemados (hardcoded).
+
+### 2026-04-17 — Corrección de usuario y ruta web en CloudPanel
+
+**Contexto (Desafío):** Al intentar acceder al directorio del sitio vía SSH para clonar el repositorio, la navegación fallaba debido a que la ruta teórica no coincidía con la generada por el panel de control.
+
+**Hecho (Maniobra):**
+- Se verificó la ruta absoluta real desde la interfaz web de CloudPanel, resultando ser `/home/mercedev-php/htdocs/mercedev.es`.
+- Se actualizaron las referencias en `docs/deployment-playbook.md` para utilizar rutas absolutas explícitas.
+
+**Detalle técnico:** CloudPanel genera automáticamente usuarios de sistema anexando sufijos (como `-php`) dependiendo del tipo de aplicación seleccionada (PHP Site) para evitar colisiones de nombres. La asunción de que el usuario del sitio era exactamente el ingresado en el formulario causó el error de navegación.
+
+**Motivo / criterio (Aprendizaje):** Verificación empírica. La interfaz de gestión (GUI) del panel expone la configuración final del servidor (Document Root absoluto). Es prioritario confiar en los datos de la plataforma IaaS o Panel de Control por encima de las asunciones teóricas al interactuar con el CLI.
+
+**Siguiente paso o deuda:** Iniciar sesión como `mercedev-php` y ejecutar `git clone` en la carpeta web correcta (Fase 2).
+
+### 2026-04-17 — Corrección de rutas absolutas a relativas (Home) en manual de despliegue
+
+**Contexto (Desafío):** Al intentar navegar y listar archivos (`ls`) en el servidor de producción bajo el usuario del sitio de CloudPanel, el sistema devolvía "Permission denied" debido a una confusión en las rutas documentadas en el manual.
+
+**Hecho (Maniobra):**
+- Se actualizaron las rutas en `docs/deployment-playbook.md` cambiando `/htdocs/...` por `~/htdocs/...`.
+
+**Detalle técnico:** CloudPanel aísla (chroot/jail) a los usuarios de los sitios. Intentar acceder a `/htdocs` desde la raíz absoluta del servidor de Ubuntu interfiere con los permisos de `root`. La ruta correcta del directorio web reside dentro del `$HOME` del usuario (`~` que se traduce en `/home/usuario/htdocs/dominio.com`).
+
+**Motivo / criterio (Aprendizaje):** Seguridad de sistema operativo (Linux). Los aislamientos en jaulas evitan que un sitio web comprometido acceda a los archivos de otro sitio en el mismo servidor. Respetar el uso del directorio `$HOME` (`~`) es vital en arquitecturas multi-tenant o paneles de control.
+
+**Siguiente paso o deuda:** Completar la clonación del repositorio en la carpeta del sitio.
+
 ### 2026-04-17 — Fix: Preservación de transparencia (Canal Alpha) en Merci Optimizer
 
 **Contexto (Desafío):** Al procesar imágenes originales con fondos transparentes (ej. logos en formato PNG), la salida WebP resultante inyectaba un fondo opaco, rompiendo el diseño de la UI en el Frontend.

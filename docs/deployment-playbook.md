@@ -24,14 +24,14 @@ Este documento define el proceso estandarizado para desplegar la arquitectura h�
 ## FASE 2: Despliegue de Código (Git)
 1. Generar clave SSH para el usuario del sitio en CloudPanel.
 2. Vincular la clave en GitHub (Deploy Key) para permitir acceso de lectura.
-3. Clonar el repositorio en la carpeta `htdocs` asignada por CloudPanel.
+3. Clonar el repositorio en el Document Root asignado (ej. `/home/usuario-php/htdocs/dominio.com`).
 
 ## FASE 3: Aislamiento del CMS (WordPress)
 1. Crear base de datos y usuario asociado desde la interfaz de CloudPanel.
-2. Descargar y extraer WordPress en una carpeta hermana a la raíz del sitio (ej. `/htdocs/wordpress`).
+2. Descargar y extraer WordPress en una carpeta hermana a la web (ej. `/home/usuario-php/htdocs/wordpress`).
 3. Configurar `wp-config.php` aplicando restricciones de seguridad y credenciales.
 4. Crear el enlace simbólico físico (Symlink) para orquestar la arquitectura híbrida:
-   `ln -s /htdocs/.../wordpress /htdocs/.../mercedev.es/public/blog`
+   `ln -s /home/usuario-php/htdocs/wordpress /home/usuario-php/htdocs/dominio.com/public/blog`
 
 ## FASE 4: Enrutamiento y SSL
 1. Emitir el Certificado SSL/TLS (Secure Sockets Layer / Transport Layer Security) gratuito (Let's Encrypt) directamente desde la pestaña SSL de CloudPanel.
