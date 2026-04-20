@@ -37,59 +37,49 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
-### 2026-04-17 — Fix: Refactorización de lista a cuadrícula en portada
+### 2026-04-20 — Fase 3 de Despliegue: Aislamiento y Hardening de WordPress en Producción
 
-**Contexto (Desafío):** La lista HTML (`<ul>`) en la sección "Características del Motor" de la portada generaba un desbordamiento visual de las viñetas (bullets) que rompía la maquetación y la estética general del Boxed Layout.
-
-**Hecho (Maniobra):**
-- Se refactorizó la lista en `public/index.html` transformándola en una cuadrícula (`.home-grid`).
-- Se convirtieron los elementos de la lista en tarjetas (`<article class="home-card">`), igualando la estructura de la sección "Demostración de Arquitectura".
-
-**Detalle técnico:** Se eliminaron las etiquetas `<ul>` y `<li>` y las clases `.section-methodology__list`, reemplazándolas por la estructura de componentes SASS preexistente (`.home-grid`, `.home-card`, `.home-card__title`, `.home-card__text`).
-
-**Motivo / criterio (Aprendizaje):** Coherencia de Interfaz (UI) y reutilización de componentes. Emplear el mismo patrón visual (tarjetas en cuadrícula) para listar características agiliza la lectura, mantiene la armonía estética de la Landing Page y evita los problemas de alineación nativos de las listas HTML sin resetear.
-
-**Siguiente paso o deuda:** Continuar con el despliegue en producción (Fase 6).
-
-### 2026-04-17 — Fix: Inclusión de enlace Home en núcleo estático principal
-
-**Contexto:** Se omitió añadir el enlace "Home" en el archivo `public/index.html` durante la estandarización previa del menú de navegación.
+**Contexto:** Era imperativo desplegar el CMS en producción sin vulnerar la integridad del núcleo estático recién clonado.
 
 **Hecho:**
-- Añadido `<a href="/" class="nav__link">Home</a>` al menú de `public/index.html`.
+- Se creó la base de datos `mercedev_wp_prod` aislada en CloudPanel.
+- Se descargó y extrajo la última versión de WordPress en un directorio hermano (`~/htdocs/wordpress`).
+- Se blindó el `wp-config.php` inyectando Salts criptográficos oficiales y aplicando permisos de solo lectura para el dueño (`chmod 600`).
+- Se estableció el puente lógico creando un enlace simbólico desde `~/htdocs/mercedev.es/public/blog` hacia el directorio aislado de WordPress.
 
-**Detalle técnico:** Se iguala la estructura del `<nav>` de la portada con la de las páginas interiores y la vista dinámica de WordPress.
+**Detalle técnico:** La configuración manual del `wp-config.php` y la restricción estricta de permisos de sistema operativo (CHOWN/CHMOD) evitan depender del instalador web de WordPress, bloqueando cualquier posible vector de ataque o ejecución no autorizada durante el provisionamiento (Shift-Left Security).
 
-**Motivo / criterio:** Consistencia y accesibilidad. Todas las páginas deben compartir exactamente la misma estructura de navegación. Respecto a la duplicación de código (Header/Footer), se asume temporalmente en el núcleo estático para evitar la introducción de motores de plantillas (SSG) o procesamiento de servidor (PHP), respetando la filosofía de máximo rendimiento y 0 dependencias para el Frontend.
+**Motivo / criterio:** Aislar los riesgos del entorno dinámico. Si WordPress sufre una vulnerabilidad de escalada a través de un plugin en el futuro, el atacante se encontrará encapsulado en un directorio externo sin permisos para modificar el código fuente inmutable (HTML/CSS/JS) de la landing principal (`mercedev.es/public`).
 
-**Siguiente paso o deuda:** Considerar un inyector de plantillas en Python si el número de páginas estáticas crece en el futuro. Proceder al despliegue.
+**Siguiente paso o deuda:** Configurar el VHost (Virtual Host) de Nginx en CloudPanel para orquestar el enrutamiento híbrido.
 
-### 2026-04-17 — Mejora de UX: Inclusión de enlace explícito a Home
+### 2026-04-17 — Verificación de artefactos estáticos y refactorización de portada
 
-**Contexto (Desafío):** A pesar de que el logotipo actúa convencionalmente como enlace a la página de inicio, la ausencia de un enlace explícito "Home" en el menú de navegación principal generaba fricción cognitiva y confusión en la navegación.
+**Contexto:** Era necesario cumplir con el hito del Roadmap "Verificar artefactos finales del núcleo estático antes del deploy". Durante la revisión, se identificó que la lista HTML de la sección de características rompía el diseño Boxed Layout.
+
+**Hecho:**
+- Se transformó la lista de características (`<ul>`) en una cuadrícula de tarjetas (`.home-grid` > `.home-card`) en `public/index.html`.
+- Se marcó el hito de verificación de artefactos como completado en `README.md`.
+
+**Detalle técnico:** Al homogeneizar la estructura de la portada utilizando los componentes BEM preexistentes, se erradican los problemas de desbordamiento por el `padding` nativo de las listas HTML y se consolida un diseño de "Landing Page" robusto.
+
+**Motivo / criterio:** Rigor técnico y UI coherente. Antes de subir el código al servidor remoto (CloudPanel), el núcleo estático debe estar visual y semánticamente impecable, garantizando que el diseño validado en local sea exactamente el que se despliega.
+
+**Siguiente paso o deuda:** Continuar con la configuración de la base de datos e instalación de WordPress en el entorno de producción.
+
+### 2026-04-17 — Fix: Regeneración de Deploy Key SSH para el usuario correcto
+
+**Contexto (Desafío):** Al ejecutar el `git clone` en el servidor de producción, GitHub devolvió un error `Permission denied (publickey)`, bloqueando la descarga del repositorio.
 
 **Hecho (Maniobra):**
-- Se añadió el ancla `<a href="/" class="nav__link">Home</a>` como primer elemento del `<nav>` en todas las vistas (Biblioteca, Contacto e `index.php`).
+- Se generó un nuevo par de claves SSH (`ssh-keygen -t ed25519`) bajo el usuario `mercedev-php`.
+- Se sustituyó la Deploy Key obsoleta en los ajustes del repositorio de GitHub por la nueva clave pública.
 
-**Detalle técnico:** Se replicó la clase `.nav__link` para que el nuevo enlace herede automáticamente la tipografía, el espaciado y el efecto de transición (hover naranja) definidos en el SASS.
+**Detalle técnico:** Las claves SSH están vinculadas estrictamente al directorio `$HOME/.ssh/` del usuario que las ejecuta. La clave generada inicialmente pertenecía al usuario incorrecto (`mercedev`), por lo que el proceso de Git bajo `mercedev-php` carecía de credenciales válidas para la autenticación criptográfica contra GitHub.
 
-**Motivo / criterio:** Usabilidad (UX) y Accesibilidad. No todos los usuarios asumen que el logotipo es un área interactiva que retorna a la raíz del sitio. Proveer rutas de navegación explícitas reduce la carga cognitiva y mejora la orientación espacial dentro de la arquitectura de la información del Boilerplate.
+**Motivo / criterio (Aprendizaje):** Autenticación estricta de Linux. En arquitecturas IaaS y paneles como CloudPanel, la identidad del proceso (quién ejecuta el comando) define qué anillo de claves se utiliza. Emparejar correctamente el usuario del sistema de archivos web con su propia clave SSH es vital para un despliegue CI/CD sin fricciones.
 
-**Siguiente paso o deuda:** Validar la aparición del enlace en el menú y proceder al paso a producción en CloudPanel.
-
-### 2026-04-17 — Estandarización del layout de cabeceras (Hero component)
-
-**Contexto (Desafío):** Las páginas interiores (Biblioteca, Contacto, Blog, Tienda) renderizaban sus títulos pegados al margen izquierdo y superior debido a que heredaban la estructura de la cuadrícula de tarjetas (`home-grid`), rompiendo la coherencia visual con el encabezado centrado de la portada.
-
-**Hecho (Maniobra):**
-- Se reemplazó el contenedor `.home-grid` > `.home-card` por el componente semántico `.hero` en las páginas estáticas y dinámicas.
-- Se reorganizó la clase `.main--padded` en el Child Theme de WordPress para encapsular únicamente la cuadrícula de contenido, permitiendo a la cabecera abarcar el ancho completo.
-
-**Detalle técnico:** El componente `.hero` (diseñado con `text-align: center` y padding vertical amplio) es el estándar arquitectónico idóneo para las presentaciones de sección (Page Headers). Reutilizarlo unifica el diseño, elimina la necesidad de modificadores BEM redundantes (`--highlight`) y garantiza una maquetación impecable.
-
-**Motivo / criterio:** Consistencia de UI/UX (Clean UI). Un Boilerplate debe ofrecer un patrón de diseño unificado. Forzar una tarjeta de cuadrícula (`card`) para actuar como cabecera de página era semánticamente incorrecto y visualmente deficiente.
-
-**Siguiente paso o deuda:** Comprobar el centrado de los textos en todas las rutas y continuar con el despliegue final en CloudPanel.
+**Siguiente paso o deuda:** Confirmar la clonación exitosa del código e iniciar la Fase 3 (Aislamiento de WordPress en CloudPanel).
 
 ### 2026-04-17 — Refinamiento final de UI: Boxed Layout y alineación
 
