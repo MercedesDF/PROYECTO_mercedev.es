@@ -195,8 +195,8 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 
 #### 6.1 Preparación de release
 - [x] Definir proceso de despliegue paso a paso para entorno de producción.
-- [ ] Verificar artefactos finales del núcleo estático antes del deploy.
-- [ ] Confirmar consistencia de rutas absolutas/relativas para entorno real.
+- [x] Verificar artefactos finales del núcleo estático antes del deploy.
+- [x] Confirmar consistencia de rutas absolutas/relativas para entorno real.
 
 #### 6.2 Auditoría de rendimiento y accesibilidad
 - [ ] Ejecutar mediciones de Core Web Vitals con metodología reproducible.
