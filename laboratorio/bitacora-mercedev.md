@@ -37,6 +37,23 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-20 — Fix: Adaptación de enrutamiento Nginx a plantillas de CloudPanel
+
+**Contexto (Desafío):** Al configurar el enrutamiento Nginx (VHost) para separar la capa estática de la dinámica, se detectó que CloudPanel utiliza un motor de plantillas (variable `{{root}}`). Reemplazar estas variables manualmente por rutas absolutas en el editor de texto amenazaba con romper la integración del panel.
+
+**Hecho (Maniobra):**
+- Se actualizó el *Document Root* desde la interfaz visual de CloudPanel (pestaña Settings) añadiendo `/public` al final, lo que propagó el cambio de forma segura a todas las variables `{{root}}`.
+- En la configuración VHost (pestaña VHost), dentro del bloque `server` del puerto 8080 (procesamiento interno de PHP), se eliminó la regla global `try_files` y se aislaron los tráficos usando dos bloques `location` dedicados (`/` y `/blog`).
+
+**Detalle técnico:**
+El bloque estático `location /` devuelve un error 404 de coste cero si el archivo no existe, protegiendo la raíz de ejecución de scripts no autorizados. El bloque dinámico `location /blog` atrapa el tráfico hacia el CMS aislado pasándolo por `/blog/index.php?$args`.
+
+**Motivo / criterio (Aprendizaje):**
+Respetar la capa de abstracción del proveedor (IaaS/Panel). Forzar modificaciones estáticas sobre un entorno gobernado por plantillas dinámicas genera deuda técnica y fragilidad ante actualizaciones del sistema. Separar el ajuste del "Document Root" (vía UI) del "Enrutador PHP" (vía VHost) es la práctica DevOps correcta.
+
+**Siguiente paso o deuda:**
+Validar en el navegador la carga de la página estática y la aparición de la instalación de WordPress en la ruta dinámica.
+
 ### 2026-04-20 — Fase 3 de Despliegue: Aislamiento y Hardening de WordPress en Producción
 
 **Contexto:** Era imperativo desplegar el CMS en producción sin vulnerar la integridad del núcleo estático recién clonado.
