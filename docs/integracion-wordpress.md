@@ -7,41 +7,37 @@ Este documento define la arquitectura técnica y operativa para la **Fase 4.1**.
 Se prescribe el uso de **Nginx** como interceptador maestro. En el servidor huésped (Ubuntu), el entorno estático y el entorno dinámico vivirán en directorios separados (`/var/www/mercedev` y `/var/www/wordpress`). 
 
 **Nota de Arquitectura Crítica:** Para evitar bugs históricos de Nginx con la directiva `alias` y la API REST de WordPress (errores de JSON inválido al guardar), la unión de ambos mundos se realiza mediante un **Enlace Simbólico físico** a nivel de sistema operativo:
-`ln -s /var/www/wordpress /var/www/mercedev/public/blog`
+`ln -s /home/mercedev-php/htdocs/wordpress /home/mercedev-php/htdocs/mercedev.es/public/blog`
 
-### Reglas de Configuración (Virtual Host Base)
+Para que el tema diseñado (Child Theme) esté disponible en el CMS, se traza un segundo enlace:
+`ln -s /home/mercedev-php/htdocs/mercedev.es/src/wp-theme/merci-theme /home/mercedev-php/htdocs/wordpress/wp-content/themes/merci-theme`
+
+### Reglas de Configuración (Virtual Host en CloudPanel)
+
+A diferencia de un entorno LEMP local, CloudPanel utiliza un motor de plantillas (`{{root}}`). La configuración se divide en dos maniobras para no romper la interfaz del IaaS (Infrastructure as a Service - Infraestructura como Servicio).
+
+#### 1. Definir la Frontera Estática
+Desde la interfaz de Settings del sitio en CloudPanel, se añade `/public` al campo *Document Root*:
+`Document Root: /home/mercedev-php/htdocs/mercedev.es/public`
+Esto propaga de forma segura la raíz a todas las variables de Nginx para el puerto 80 y 443.
+
+#### 2. Enrutador Híbrido (Procesamiento PHP - Puerto 8080)
+En la pestaña VHost, dentro del bloque `server` del puerto 8080, se elimina la regla genérica `try_files` y se inyecta el cortafuegos lógico:
 
 ```nginx
-server {
-    listen 80;
-    server_name mercedev.es www.mercedev.es;
+  # ---------------------------------------------------------
+  # MERCI BOILERPLATE: Enrutamiento Híbrido Estático/Dinámico
+  # ---------------------------------------------------------
+  
+  # 1. El núcleo estático: Se sirve directamente, si no existe, devuelve 404.
+  location / {
+      try_files $uri $uri/ =404;
+  }
 
-    # 1. El Core Estático (Frontera inmutable)
-    root /var/www/mercedev/public;
-    index index.html index.php;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-
-    # 2. Assets compartidos
-    location /assets {
-        alias /var/www/mercedev/assets;
-        expires -1;
-    }
-
-    # 3. El Core Dinámico (Resuelto a través del Symlink)
-    location /blog {
-        try_files $uri $uri/ /blog/index.php?$args;
-    }
-
-    # 4. Motor PHP Seguro
-    location ~ \.php$ {
-        include fastcgi_params;
-        fastcgi_pass unix:/run/php/php-fpm.sock;
-        fastcgi_param SCRIPT_FILENAME $request_filename;
-    }
-}
+  # 2. El motor aislado (WordPress): Redirige el tráfico de /blog al CMS.
+  location /blog {
+      try_files $uri $uri/ /blog/index.php?$args;
+  }
 ```
 
 ## Definición de Fronteras y Blindajes
