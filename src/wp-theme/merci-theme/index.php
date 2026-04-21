@@ -55,8 +55,8 @@
             </section>
         <?php endif; ?>
 
-        <!-- Reemplazamos el div por section para mejorar la semántica HTML5 y coherencia visual -->
-        <section class="main--padded">
+        <!-- Aplicamos la clase atómica 'section' para heredar los márgenes unificados -->
+        <section class="section">
         <?php 
         // 2. Bucle principal de contenido (The Loop)
         if ( have_posts() ) :
