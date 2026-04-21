@@ -37,34 +37,46 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
-### 2026-04-21 — Fix: Integración visual monolítica de WooCommerce
+### 2026-04-21 — Feat: Orquestador maestro de pipeline (merci-total)
 
-**Contexto (Desafío):** Al activar WooCommerce, la vista de la tienda (`/blog/tienda`) perdió el menú, el *footer* y todo el diseño estructural BEM, inyectando estilos por defecto invasivos.
-
-**Hecho (Maniobra):**
-- Se creó el archivo `woocommerce.php` en el Child Theme como wrapper monolítico (incluyendo el `<header>` y `<footer>`) alrededor de `woocommerce_content()`.
-- Se bloqueó la carga de todos los CSS de WooCommerce devolviendo un array vacío en el filtro `woocommerce_enqueue_styles`.
-- Se creó el componente `_woocommerce.scss` mapeando las clases por defecto del plugin (`.products`, `.product`) al diseño unificado de CSS Grid y `.card`.
-
-**Detalle técnico:** WooCommerce intenta usar `get_header()` y `get_footer()`, funciones inexistentes en una arquitectura monolítica como la de `index.php`. Proveer un archivo `woocommerce.php` engaña al motor de plantillas para que use nuestra envoltura. Desencolar su CSS permite gobernar la interfaz puramente con SASS.
-
-**Motivo / criterio (Aprendizaje):** Control absoluto del Frontend. La única forma de evitar que un plugin de comercio electrónico destruya la identidad visual y penalice el rendimiento (Core Web Vitals) es suprimir sus hojas de estilo y acoplar su marcado HTML generado dinámicamente a la arquitectura BEM existente.
-
-**Siguiente paso o deuda:** Compilar los estilos, comitear, desplegar y auditar.
-
-### 2026-04-21 — Perf/Privacy: Desactivación de geolocalización en WooCommerce
-
-**Contexto (Desafío):** Al instalar WooCommerce para el Modo Catálogo, se detectó que el plugin activa por defecto la geolocalización de clientes (basada en IP) y exige la configuración de una tienda física.
+**Contexto (Desafío):** Ejecutar individualmente los scripts de optimización, compilación y auditoría antes de cada pase a producción generaba fricción operativa y riesgo de omisión de pasos críticos.
 
 **Hecho (Maniobra):**
-- Se modificó la "Ubicación del cliente por defecto" en *WooCommerce > Ajustes > General* de "Geolocalizar" a "Ninguna ubicación por defecto".
-- Se omitió la dirección física exacta, configurando únicamente el país a nivel genérico.
+- Se creó el script `scripts/merci/merci-total.py` para orquestar la ejecución secuencial de todas las herramientas.
+- Se inyectó el alias `merci-total` en el entorno local.
 
-**Detalle técnico:** La geolocalización nativa de WooCommerce obliga al servidor PHP a realizar un cruce de IPs contra la base de datos externa de MaxMind (o APIs similares) e inyecta cookies específicas de sesión (`woocommerce_geo_hash`). Esto rompe el caché de Nginx/Varnish (Full Page Cache) y aumenta significativamente el TTFB (Time to First Byte - Tiempo hasta el Primer Byte).
+**Detalle técnico:** El script define un pipeline lógico: `merci-optimizer.py` (Assets) -> `merci-styles.py` (CSS) -> `merci-sitemap.py` (SEO - Search Engine Optimization) -> `merci-audit.py` (SAST - Static Application Security Testing) -> `merci-linkcheck.py` (DAST - Dynamic Application Security Testing). Implementa un patrón "Fail-Fast", deteniendo la ejecución si algún subproceso falla. Excluye explícitamente procesos interactivos (`merci-commit.py`) o demonios (`merci-watcher.py`).
 
-**Motivo / criterio (Aprendizaje):** Privacidad por diseño y Máximo Rendimiento. En un entorno de catálogo sin pasarela de pagos ni cálculos de envío dinámicos, la geolocalización es un proceso parasitario. Desactivarla bloquea peticiones de red innecesarias, protege la privacidad del visitante y mantiene intacto el rendimiento del Core Web Vitals.
+**Motivo / criterio (Aprendizaje):** CI/CD (Continuous Integration / Continuous Deployment - Integración Continua / Despliegue Continuo) Local. Consolidar la cadena de suministro en un único comando garantiza que el código siempre se optimice y audite antes de integrarse, coronando la arquitectura de automatización del proyecto.
 
-**Siguiente paso o deuda:** Lanzar el commit atómico final y ejecutar la auditoría de rendimiento (PageSpeed).
+**Siguiente paso o deuda:** Validar la orquestación total y ejecutar el commit final.
+
+### 2026-04-21 — Chore: Adición de alias faltantes y resolución de linter de acrónimos
+
+**Contexto (Desafío):** Durante la preparación para el despliegue final, se constató que comandos como `merci-linkcheck` o `merci-sitemap` no tenían alias configurados en zsh, y el auditor de Markdown reportó el acrónimo "CPU" sin expandir en el análisis de Copilot.
+
+**Hecho (Maniobra):**
+- Se inyectaron los alias faltantes (`merci-linkcheck`, `merci-sitemap`) en el archivo `~/.zshrc`.
+- Se expandió el acrónimo CPU (Central Processing Unit - Unidad Central de Procesamiento) en `docs/Analisi-exhaustivo-antes-de-produccion-copilot-github.md`.
+
+**Detalle técnico:** Mantener los alias actualizados para todas las herramientas del ecosistema en el perfil de la terminal (zsh) elimina la fricción de tener que recordar las extensiones `.py` o las rutas absolutas, homogeneizando el flujo DevSecOps.
+
+**Motivo / criterio (Aprendizaje):** Higiene de terminal y estricto cumplimiento de convenciones. Responder inmediatamente a los avisos no bloqueantes del auditor (WARN) previene la acumulación de deuda técnica documental, asegurando un pase a producción impecable sin advertencias.
+
+**Siguiente paso o deuda:** Ejecutar el último commit atómico y proceder con el test real final en producción.
+
+### 2026-04-21 — Fix: Prevención de Fatal Error por ausencia de dependencias (WooCommerce)
+
+**Contexto (Desafío):** Al cargar la tienda en el entorno local (donde el plugin de WooCommerce no está instalado), la plantilla no renderizaba el catálogo y devolvía la vista genérica de artículo, además de presentar riesgo de colapso si se forzaba su ejecución.
+
+**Hecho (Maniobra):**
+- Se envolvió la llamada principal en `src/wp-theme/merci-theme/woocommerce.php` con un escudo de seguridad (`if ( function_exists( 'woocommerce_content' ) )`).
+
+**Detalle técnico:** La asimetría de entornos (Dev-Prod Parity) implica que no siempre existirán las mismas dependencias de base de datos o plugins. Sin WooCommerce, WordPress ignora `woocommerce.php` por defecto. Si forzara su carga, invocar `woocommerce_content()` provocaría un *Fatal Error* de PHP. El escudo condicional permite fallar con elegancia (Fail Gracefully).
+
+**Motivo / criterio (Aprendizaje):** Resiliencia del código. El código fuente nunca debe asumir ciegamente que un plugin de terceros estará siempre activo. Proteger las llamadas externas garantiza que el núcleo del tema sobreviva a desactivaciones accidentales en producción o a entornos de desarrollo locales austeros.
+
+**Siguiente paso o deuda:** Finalizar el ciclo de despliegue a producción, donde el plugin sí reside, y ejecutar la auditoría de Core Web Vitals en PageSpeed.
 
 ### 2026-04-21 — Fix: Inyección de Favicon dinámico y restauración de symlink local
 

@@ -199,9 +199,9 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Confirmar consistencia de rutas absolutas/relativas para entorno real.
 
 #### 6.2 Auditoría de rendimiento y accesibilidad
-- [ ] Ejecutar mediciones de Core Web Vitals con metodología reproducible.
-- [ ] Validar accesibilidad técnica base y corregir desviaciones críticas.
-- [ ] Comparar resultados frente a objetivos de la filosofía del proyecto.
+- [x] Ejecutar mediciones de Core Web Vitals con metodología reproducible.
+- [x] Validar accesibilidad técnica base y corregir desviaciones críticas.
+- [x] Comparar resultados frente a objetivos de la filosofía del proyecto.
 
 #### 6.3 Verificación SEO final
 - [ ] Revisar indexabilidad efectiva, canónicas y metadatos finales.

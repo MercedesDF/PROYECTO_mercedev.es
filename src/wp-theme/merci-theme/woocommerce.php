@@ -33,8 +33,12 @@
 
         <section class="section">
             <?php 
-            // Esta es la función mágica: renderiza los productos, pero dentro de NUESTRA estructura.
-            woocommerce_content(); 
+            // Escudo de seguridad: Solo ejecutamos la tienda si el plugin está activo
+            if ( function_exists( 'woocommerce_content' ) ) {
+                woocommerce_content(); 
+            } else {
+                echo '<p>El motor del catálogo (WooCommerce) no está activo en este entorno.</p>';
+            }
             ?>
         </section>
     </main>

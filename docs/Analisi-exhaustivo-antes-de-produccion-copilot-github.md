@@ -206,7 +206,7 @@ pillow>=10.0.0  ← ¿Por qué >=10.0.0? Sin pinning exacto
 - [ ] Validar CSP con Firefox Dev Tools (sin bloques de recurso)
 - [ ] Auditoría de plugins WP con WPScan / Wordfence
 - [ ] Verificar backups automáticos (diarios a S3/GCS)
-- [ ] Configurar alertas (RAM, CPU, espacio disco)
+- [ ] Configurar alertas (RAM, CPU (Central Processing Unit - Unidad Central de Procesamiento), espacio disco)
 - [ ] Procedimiento de rollback documentado y testeado
 - [ ] DNS apuntando + certificado SSL/TLS válido (Let's Encrypt)
 - [ ] Monitoreo de errores 5xx (Sentry / LogRocket)
