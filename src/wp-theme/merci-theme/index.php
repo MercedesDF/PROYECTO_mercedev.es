@@ -55,7 +55,8 @@
             </section>
         <?php endif; ?>
 
-        <div class="main--padded">
+        <!-- Reemplazamos el div por section para mejorar la semántica HTML5 y coherencia visual -->
+        <section class="main--padded">
         <?php 
         // 2. Bucle principal de contenido (The Loop)
         if ( have_posts() ) :
@@ -98,7 +99,7 @@
         endif; 
         // Fin de "The Loop"
         ?>
-        </div>
+        </section>
     </main>
 
     <footer class="footer">
