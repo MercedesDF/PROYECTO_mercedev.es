@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-21 — Aprovisionamiento de base de datos y separación Código/Estado
+
+**Contexto (Desafío):** Tras configurar el enrutamiento Nginx, se requería inicializar el CMS en producción. Se constató la necesidad de clarificar por qué es obligatorio repetir la configuración web (creación de admin, etc.) que ya se hizo en local. Asimismo, se observó que el Child Theme "Merci" no estaba disponible para activación en el panel de WordPress.
+
+**Hecho (Maniobra):**
+- Se completó la instalación web (aprovisionamiento) alimentando la nueva base de datos `mercedev_wp_prod`.
+- Se sincronizó el enrutamiento configurando los Enlaces Permanentes a "Nombre de la entrada".
+- Se documentó la lección arquitectónica sobre la asimetría de Git: transporta código inmutable, no estado.
+
+**Detalle técnico:** Un CMS desplegado en una nueva infraestructura nace en blanco. La configuración de Permalinks (`/%postname%/`) es crítica para que el proxy inverso de Nginx (`/blog/index.php?$args`) interprete correctamente la URI dinámica. La ausencia del Child Theme se debe a que este reside en el repositorio inmutable (`src/wp-theme/merci-theme`) y requiere ser enlazado explícitamente a la instalación asilada del CMS.
+
+**Motivo / criterio (Aprendizaje):** Principio de Separación de Responsabilidades. La base de datos nunca se sube mediante control de versiones para evitar colisiones de URLs (`localhost` vs producción), credenciales débiles y fugas de seguridad (Shift-Left). Mantener ambas piezas separadas obliga a un aprovisionamiento seguro desde cero.
+
+**Siguiente paso o deuda:** Trazar el enlace simbólico del Child Theme desde el repositorio Git hacia el directorio `wp-content/themes/` del WordPress aislado y activarlo.
+
 ### 2026-04-20 — Fix: Adaptación de enrutamiento Nginx a plantillas de CloudPanel
 
 **Contexto (Desafío):** Al configurar el enrutamiento Nginx (VHost) para separar la capa estática de la dinámica, se detectó que CloudPanel utiliza un motor de plantillas (variable `{{root}}`). Reemplazar estas variables manualmente por rutas absolutas en el editor de texto amenazaba con romper la integración del panel.
