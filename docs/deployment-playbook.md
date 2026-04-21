@@ -33,6 +33,7 @@ Este documento define el proceso estandarizado para desplegar la arquitectura h�
 4. Crear los enlaces simbólicos físicos (Symlinks) para orquestar la arquitectura híbrida:
    - **Puente del CMS:** `ln -s /home/mercedev-php/htdocs/wordpress /home/mercedev-php/htdocs/mercedev.es/public/blog`
    - **Puente del Tema:** `ln -s /home/mercedev-php/htdocs/mercedev.es/src/wp-theme/merci-theme /home/mercedev-php/htdocs/wordpress/wp-content/themes/merci-theme`
+   - **Puente de Assets:** `ln -s /home/mercedev-php/htdocs/mercedev.es/assets /home/mercedev-php/htdocs/mercedev.es/public/assets`
 
 ## FASE 4: Enrutamiento y SSL (CloudPanel)
 1. Emitir el Certificado SSL/TLS (Secure Sockets Layer / Transport Layer Security) gratuito (Let's Encrypt) desde la pestaña SSL de CloudPanel.
