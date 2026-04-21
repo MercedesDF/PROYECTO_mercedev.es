@@ -37,32 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
-### 2026-04-21 — Fix: Restauración de enlace simbólico en entorno local
+### 2026-04-21 — Fix: Inyección de Favicon dinámico y restauración de symlink local
 
-**Contexto (Desafío):** Al aplicar el *cache busting* (`?v=2`) a los assets, se detectó que los cambios en el archivo `index.php` del Child Theme no se reflejaban en el WordPress local (`http://localhost/blog`), mientras que los archivos HTML estáticos sí lo hacían de inmediato.
-
-**Hecho (Maniobra):**
-- Se identificó que la carpeta del tema en `/var/www/wordpress/wp-content/themes/merci-theme` era una copia estática y no un enlace simbólico.
-- Se eliminó la copia obsoleta y se restauró el `symlink` local apuntando directamente a `src/wp-theme/merci-theme` en el repositorio.
-
-**Detalle técnico:** Las maniobras previas de resolución de bucles de enlaces (Symlink Loop del 16 de abril) habían destruido el puente lógico en el entorno de desarrollo. Esto generaba un "falso negativo" donde el código estaba correcto en Git pero WordPress consumía una versión en caché físico.
-
-**Motivo / criterio (Aprendizaje):** Sincronización de entornos (Dev-Prod Parity). El entorno de desarrollo local debe mantener exactamente la misma arquitectura de enlaces simbólicos que el entorno de producción. De lo contrario, la experiencia de desarrollo (DX) se degrada por falsos errores de renderizado.
-
-**Siguiente paso o deuda:** Validar la visualización del logotipo en el localhost y ejecutar el despliegue final a producción.
-
-### 2026-04-21 — Fix: Cache Busting unificado para isotipos (Logotipo)
-
-**Contexto (Desafío):** Tras modificar la imagen física del logotipo en el servidor, las vistas dinámicas y secundarias seguían renderizando la versión antigua debido a la estricta política de caché de los navegadores para archivos de imagen. Además, surgió el debate sobre la repetición de código HTML en cabeceras.
+**Contexto (Desafío):** El `favicon.ico` no se mostraba en las páginas de WordPress (`/blog`), y los cambios en los archivos `.php` locales no tenían efecto en el navegador, evidenciando una desconexión del entorno de desarrollo.
 
 **Hecho (Maniobra):**
-- Se inyectó el parámetro de *cache-busting* (`?v=2`) a la ruta de la imagen `/assets/logo.webp` en `public/index.html`, `public/biblioteca/index.html` y `src/wp-theme/merci-theme/index.php`.
+- Se inyectó explícitamente la etiqueta `<link rel="icon" href="/favicon.ico?v=3" type="image/x-icon">` en el `<head>` de `src/wp-theme/merci-theme/index.php`.
+- Se eliminó la copia huérfana en `/var/www/wordpress/wp-content/themes/merci-theme` y se restauró el enlace simbólico local (`ln -s`) apuntando al repositorio.
 
-**Detalle técnico:** Se ha reafirmado la decisión arquitectónica de mantener código HTML duplicado para las cabeceras (`<header>`) en el núcleo estático. Evitar el uso de procesadores de plantillas, inyecciones vía JavaScript o PHP en la raíz garantiza un TTFB (Time to First Byte) inmejorable y un desacoplamiento de seguridad total frente al CMS.
+**Detalle técnico:** WordPress no emite un favicon por defecto a menos que se configure en su base de datos. Al inyectarlo directamente en el `index.php` del Child Theme, se garantiza que el CMS (Content Management System - Sistema de Gestión de Contenidos) utilice el mismo archivo físico de la raíz estática. La restauración del symlink soluciona el "falso negativo" del entorno local causado por purgas anteriores.
 
-**Motivo / criterio (Aprendizaje):** Principio de Trade-off (Compensación). En una arquitectura minimalista sin dependencias de compilación, la repetición manual de componentes estructurales es el coste asumible a cambio de lograr un Core Web Vitals de 100/100 y una inmutabilidad absoluta del sistema de archivos servido por Nginx.
+**Motivo / criterio (Aprendizaje):** Control estricto de la UI en entornos híbridos y paridad Dev-Prod. Confiar en que el CMS herede comportamientos visuales por defecto suele fallar. Además, el entorno de desarrollo local debe mantener exactamente la misma arquitectura de enlaces simbólicos que producción para asegurar que el código que se edita en el IDE es el que el servidor local ejecuta.
 
-**Siguiente paso o deuda:** Comitear los parches de caché, desplegar a producción y auditar el rendimiento.
+**Siguiente paso o deuda:** Comitear los cambios, desplegar a producción (push/pull) y ejecutar la auditoría de rendimiento final (PageSpeed).
 
 ### 2026-04-21 — Fix: Caché y MIME Type del Favicon
 
