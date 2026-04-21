@@ -37,6 +37,35 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-21 — Fix: Integración visual monolítica de WooCommerce
+
+**Contexto (Desafío):** Al activar WooCommerce, la vista de la tienda (`/blog/tienda`) perdió el menú, el *footer* y todo el diseño estructural BEM, inyectando estilos por defecto invasivos.
+
+**Hecho (Maniobra):**
+- Se creó el archivo `woocommerce.php` en el Child Theme como wrapper monolítico (incluyendo el `<header>` y `<footer>`) alrededor de `woocommerce_content()`.
+- Se bloqueó la carga de todos los CSS de WooCommerce devolviendo un array vacío en el filtro `woocommerce_enqueue_styles`.
+- Se creó el componente `_woocommerce.scss` mapeando las clases por defecto del plugin (`.products`, `.product`) al diseño unificado de CSS Grid y `.card`.
+
+**Detalle técnico:** WooCommerce intenta usar `get_header()` y `get_footer()`, funciones inexistentes en una arquitectura monolítica como la de `index.php`. Proveer un archivo `woocommerce.php` engaña al motor de plantillas para que use nuestra envoltura. Desencolar su CSS permite gobernar la interfaz puramente con SASS.
+
+**Motivo / criterio (Aprendizaje):** Control absoluto del Frontend. La única forma de evitar que un plugin de comercio electrónico destruya la identidad visual y penalice el rendimiento (Core Web Vitals) es suprimir sus hojas de estilo y acoplar su marcado HTML generado dinámicamente a la arquitectura BEM existente.
+
+**Siguiente paso o deuda:** Compilar los estilos, comitear, desplegar y auditar.
+
+### 2026-04-21 — Perf/Privacy: Desactivación de geolocalización en WooCommerce
+
+**Contexto (Desafío):** Al instalar WooCommerce para el Modo Catálogo, se detectó que el plugin activa por defecto la geolocalización de clientes (basada en IP) y exige la configuración de una tienda física.
+
+**Hecho (Maniobra):**
+- Se modificó la "Ubicación del cliente por defecto" en *WooCommerce > Ajustes > General* de "Geolocalizar" a "Ninguna ubicación por defecto".
+- Se omitió la dirección física exacta, configurando únicamente el país a nivel genérico.
+
+**Detalle técnico:** La geolocalización nativa de WooCommerce obliga al servidor PHP a realizar un cruce de IPs contra la base de datos externa de MaxMind (o APIs similares) e inyecta cookies específicas de sesión (`woocommerce_geo_hash`). Esto rompe el caché de Nginx/Varnish (Full Page Cache) y aumenta significativamente el TTFB (Time to First Byte - Tiempo hasta el Primer Byte).
+
+**Motivo / criterio (Aprendizaje):** Privacidad por diseño y Máximo Rendimiento. En un entorno de catálogo sin pasarela de pagos ni cálculos de envío dinámicos, la geolocalización es un proceso parasitario. Desactivarla bloquea peticiones de red innecesarias, protege la privacidad del visitante y mantiene intacto el rendimiento del Core Web Vitals.
+
+**Siguiente paso o deuda:** Lanzar el commit atómico final y ejecutar la auditoría de rendimiento (PageSpeed).
+
 ### 2026-04-21 — Fix: Inyección de Favicon dinámico y restauración de symlink local
 
 **Contexto (Desafío):** El `favicon.ico` no se mostraba en las páginas de WordPress (`/blog`), y los cambios en los archivos `.php` locales no tenían efecto en el navegador, evidenciando una desconexión del entorno de desarrollo. No se han realizado modificaciones sobre el logotipo.

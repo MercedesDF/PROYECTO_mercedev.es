@@ -86,6 +86,9 @@ function merci_limpiar_scripts_wc() {
 }
 add_action('wp_enqueue_scripts', 'merci_limpiar_scripts_wc', 100);
 
+// Desencolar ABSOLUTAMENTE TODO el CSS por defecto de WooCommerce
+add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
+
 // =========================================================================
 // 4. HARDENING Y SEGURIDAD (Fase 5.2)
 // =========================================================================
