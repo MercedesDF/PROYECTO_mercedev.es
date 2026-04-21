@@ -15,7 +15,7 @@
 
     <header class="header">
         <a href="/" class="header__brand">
-            <img src="/assets/logo.webp" alt="mercedev.es" class="header__logo" width="150" height="auto">
+            <img src="/assets/logo.webp?v=2" alt="mercedev.es" class="header__logo" width="150" height="auto">
         </a>
         <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
             <span class="header__toggle-icon"></span>
