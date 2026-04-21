@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-21 — Fix: Resolución de enrutamiento de assets en producción
+
+**Contexto (Desafío):** Tras el despliegue, los assets (como el logotipo) devolvían un error 404. La causa era que el `Document Root` de Nginx apuntaba a `/public`, pero la carpeta `/assets` residía fuera de ella, haciéndola inaccesible para el servidor web.
+
+**Hecho (Maniobra):**
+- Se ha creado un tercer enlace simbólico para proyectar la carpeta `/assets` dentro de `/public`.
+- Se ha actualizado el `deployment-playbook.md` para incluir este nuevo paso.
+
+**Detalle técnico:** El comando `ln -s /home/mercedev-php/htdocs/mercedev.es/assets /home/mercedev-php/htdocs/mercedev.es/public/assets` resuelve el problema de rutas sin necesidad de reestructurar el repositorio ni de añadir directivas `alias` complejas en la configuración de Nginx de CloudPanel.
+
+**Motivo / criterio (Aprendizaje):** Consistencia arquitectónica. El uso de enlaces simbólicos es la estrategia unificada de este proyecto para conectar componentes desacoplados. Cualquier recurso que deba ser servido por la web debe residir (o aparentar residir) bajo el `Document Root`.
+
+**Siguiente paso o deuda:** Validar la correcta visualización del logotipo en la portada y en el blog, y proceder con la auditoría de rendimiento de la Fase 6.2.
+
 ### 2026-04-21 — Docs: Actualización del Deployment Playbook para CloudPanel
 
 **Contexto (Desafío):** El manual de despliegue (`docs/deployment-playbook.md`) poseía instrucciones genéricas de enrutamiento y carecía del paso del puente del Child Theme. Era vital alinear el "Runbook" con la ejecución real realizada en el servidor de producción.
