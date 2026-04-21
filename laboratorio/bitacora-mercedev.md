@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-21 — Refactorización semántica en plantillas dinámicas (HTML5)
+
+**Contexto (Desafío):** Se detectó una inconsistencia semántica entre la portada estática y las vistas dinámicas de WordPress. Mientras la portada utiliza etiquetas `<section>` para agrupar bloques temáticos de contenido, el archivo `index.php` del CMS envolvía los listados de artículos en un `<div>` genérico (`<div class="main--padded">`).
+
+**Hecho (Maniobra):**
+- Se reemplazó el contenedor `<div>` por una etiqueta `<section>` en `src/wp-theme/merci-theme/index.php`.
+
+**Detalle técnico:** Las etiquetas `<section>` introducen un nuevo nodo en el "outline" (esquema) del documento HTML5, lo cual es interpretado correctamente por tecnologías de asistencia y crawlers (SEO) para identificar bloques de contenido autónomos (como el loop de posts o productos).
+
+**Motivo / criterio (Aprendizaje):** Coherencia arquitectónica y accesibilidad estricta. Un `<div>` carece de valor semántico. Envolver el contenido dinámico dentro de un `<section>` respeta la política de semántica HTML5 del proyecto y asegura que la calidad técnica no se degrade al transicionar del núcleo estático al dinámico.
+
+**Siguiente paso o deuda:** Desplegar la corrección estructural y continuar con la medición del rendimiento en producción.
+
 ### 2026-04-21 — Fix: Resolución de enrutamiento de assets en producción
 
 **Contexto (Desafío):** Tras el despliegue, los assets (como el logotipo) devolvían un error 404. La causa era que el `Document Root` de Nginx apuntaba a `/public`, pero la carpeta `/assets` residía fuera de ella, haciéndola inaccesible para el servidor web.
