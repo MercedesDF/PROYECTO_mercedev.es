@@ -28,15 +28,17 @@ Este documento define el proceso estandarizado para desplegar la arquitectura h�
 
 ## FASE 3: Aislamiento del CMS (WordPress)
 1. Crear base de datos y usuario asociado desde la interfaz de CloudPanel.
-2. Descargar y extraer WordPress en una carpeta hermana a la web (ej. `/home/usuario-php/htdocs/wordpress`).
-3. Configurar `wp-config.php` aplicando restricciones de seguridad y credenciales.
-4. Crear el enlace simbólico físico (Symlink) para orquestar la arquitectura híbrida:
-   `ln -s /home/usuario-php/htdocs/wordpress /home/usuario-php/htdocs/dominio.com/public/blog`
+2. Descargar y extraer WordPress en una carpeta hermana a la web (`/home/mercedev-php/htdocs/wordpress`).
+3. Configurar `wp-config.php` de forma manual, generando Salts criptográficos y aplicando restricciones de seguridad (`chmod 600`).
+4. Crear los enlaces simbólicos físicos (Symlinks) para orquestar la arquitectura híbrida:
+   - **Puente del CMS:** `ln -s /home/mercedev-php/htdocs/wordpress /home/mercedev-php/htdocs/mercedev.es/public/blog`
+   - **Puente del Tema:** `ln -s /home/mercedev-php/htdocs/mercedev.es/src/wp-theme/merci-theme /home/mercedev-php/htdocs/wordpress/wp-content/themes/merci-theme`
 
-## FASE 4: Enrutamiento y SSL
-1. Emitir el Certificado SSL/TLS (Secure Sockets Layer / Transport Layer Security) gratuito (Let's Encrypt) directamente desde la pestaña SSL de CloudPanel.
-2. Insertar la configuración maestra de Nginx (bloques `location /` y `location /blog`) en la pestaña **VHost** de CloudPanel, aplicando las reglas de `docs/integracion-wordpress.md`.
-3. Configurar el *Document Root* en CloudPanel para que apunte a la subcarpeta `public/`.
+## FASE 4: Enrutamiento y SSL (CloudPanel)
+1. Emitir el Certificado SSL/TLS (Secure Sockets Layer / Transport Layer Security) gratuito (Let's Encrypt) desde la pestaña SSL de CloudPanel.
+2. Configurar la frontera estática: En la pestaña **Settings**, modificar el *Document Root* añadiendo `/public` al final (`/home/mercedev-php/htdocs/mercedev.es/public`).
+3. Configurar el enrutador dinámico: En la pestaña **VHost**, localizar el bloque `server` del puerto **8080** (procesamiento PHP), eliminar la regla global `try_files` e inyectar los bloques lógicos (`location /` y `location /blog`) definidos en `docs/integracion-wordpress.md`.
+4. Acceder a la ruta `/blog` en el navegador, completar la instalación de WordPress, guardar los **Enlaces Permanentes** ("Nombre de la entrada") y activar el Child Theme.
 
 ## FASE 5: Verificación
 1. Ejecutar `merci-linkcheck.py` contra el dominio público para auditar la ausencia de enlaces rotos (404).

@@ -37,6 +37,63 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-21 — Docs: Actualización del Deployment Playbook para CloudPanel
+
+**Contexto (Desafío):** El manual de despliegue (`docs/deployment-playbook.md`) poseía instrucciones genéricas de enrutamiento y carecía del paso del puente del Child Theme. Era vital alinear el "Runbook" con la ejecución real realizada en el servidor de producción.
+
+**Hecho (Maniobra):**
+- Se precisaron las rutas absolutas (`mercedev-php`, `mercedev.es`) en la Fase 3 y se incluyó el comando del segundo enlace simbólico para el Child Theme.
+- Se refactorizó la Fase 4 para reflejar el proceso nativo de CloudPanel: modificación del *Document Root* vía UI, edición específica del VHost en el bloque del puerto 8080 y la activación de Enlaces Permanentes.
+
+**Detalle técnico:** Detallar que el enrutamiento de Nginx en CloudPanel se inyecta en el bloque `server` que escucha en el puerto `8080` (procesamiento PHP/Varnish) previene romper la configuración de los servidores públicos de los puertos 80 y 443.
+
+**Motivo / criterio (Aprendizaje):** Reproducibilidad. Un playbook debe ser un guión ejecutable sin ambigüedades. Incorporar el aprovisionamiento post-instalación (Enlaces permanentes) en el manual asegura que la base de datos y Nginx queden sincronizados en futuros despliegues o reconstrucciones de la infraestructura.
+
+**Siguiente paso o deuda:** Iniciar la Fase 6.2 (Auditoría de rendimiento y accesibilidad) con herramientas externas para validar los Web Vitals.
+
+### 2026-04-21 — Docs: Refactorización de documento de integración para CloudPanel
+
+**Contexto (Desafío):** El documento `docs/integracion-wordpress.md` reflejaba la configuración del entorno local (LEMP nativo en `/var/www/`). Tras el despliegue en producción, existía una deuda documental ("Drift" o deriva de configuración) respecto a la arquitectura real en CloudPanel.
+
+**Hecho (Maniobra):**
+- Se actualizaron las rutas absolutas a `/home/mercedev-php/htdocs/`.
+- Se incluyó el segundo enlace simbólico destinado al *Child Theme*.
+- Se reemplazó el Virtual Host completo por la metodología de CloudPanel (modificación de `Document Root` vía UI e inyección de reglas `location` en el bloque 8080).
+
+**Detalle técnico:** Adaptar la documentación a las variables `{{root}}` de CloudPanel es vital para que las reglas inyectadas en el VHost no entren en conflicto con el IaaS (Infrastructure as a Service - Infraestructura como Servicio).
+
+**Motivo / criterio (Aprendizaje):** Single Source of Truth (Única Fuente de Verdad). La documentación arquitectónica no puede ser un artefacto teórico fosilizado. Si la infraestructura en producción se adapta a un panel de control, los documentos del repositorio deben actualizarse para que cualquier réplica futura sea exacta.
+
+**Siguiente paso o deuda:** Iniciar la Fase 6.2 (Auditoría de rendimiento y accesibilidad) con herramientas externas para validar los Web Vitals del entorno real.
+
+### 2026-04-21 — Docs: Actualización de la arquitectura de integración de WordPress
+
+**Contexto (Desafío):** El documento `docs/integracion-wordpress.md` contenía el plan teórico de despliegue. Tras la implementación exitosa en producción (CloudPanel), era imperativo actualizar la documentación para que reflejara la arquitectura real y los comandos ejecutados.
+
+**Hecho (Maniobra):**
+- Se ha reescrito por completo el documento `docs/integracion-wordpress.md`.
+- La nueva versión detalla el proceso específico para un entorno gestionado con CloudPanel.
+
+**Detalle técnico:** El documento ahora incluye la arquitectura de "carpetas hermanas", la creación de los dos enlaces simbólicos (para `/blog` y para el `merci-theme`), y la configuración VHost adaptada al motor de plantillas de CloudPanel (modificación del Document Root vía UI y del enrutador PHP en el bloque del puerto 8080).
+
+**Motivo / criterio (Aprendizaje):** La documentación debe ser un reflejo fiel de la infraestructura en producción, no un artefacto teórico. Este documento actualizado sirve ahora como un "Runbook" fiable para futuras reinstalaciones o para la depuración de la arquitectura híbrida.
+
+**Siguiente paso o deuda:** Iniciar la Fase 6.2 (Auditoría de rendimiento y accesibilidad) para medir los Core Web Vitals en el entorno de producción real.
+
+### 2026-04-21 — Fase 4.2: Enlace simbólico del Child Theme en producción
+
+**Contexto (Desafío):** Tras inicializar la base de datos de producción, el "Merci Theme" no aparecía en el panel de WordPress porque el código reside en el repositorio Git inmutable (`mercedev.es/src/...`) y el CMS está enjaulado en un directorio hermano (`wordpress/`).
+
+**Hecho (Maniobra):**
+- Se trazó un enlace simbólico físico (`ln -s`) desde el código del tema en el repositorio hacia el directorio `wp-content/themes/merci-theme` de la instalación asilada de WordPress.
+- Se verificó y activó el tema en el panel de administración en producción.
+
+**Detalle técnico:** Este puente lógico bidireccional garantiza que cualquier actualización de diseño (CSS/PHP) que ingrese vía `git pull` se refleje inmediatamente en el CMS sin necesidad de mover o copiar archivos manualmente.
+
+**Motivo / criterio (Aprendizaje):** Aislamiento con automatización cero-fricción. El motor PHP de WordPress y los plugins de terceros viven fuera del control de versiones, pero nuestra capa visual a medida (Child Theme) permanece estrictamente gobernada por Git, respetando la filosofía "Single Source of Truth".
+
+**Siguiente paso o deuda:** Resolver la deuda técnica visual (rutas de assets y menú rotos en el frontend dinámico) derivada de la diferencia de la URI base entre la raíz estática y la subruta `/blog`.
+
 ### 2026-04-21 — Aprovisionamiento de base de datos y separación Código/Estado
 
 **Contexto (Desafío):** Tras configurar el enrutamiento Nginx, se requería inicializar el CMS en producción. Se constató la necesidad de clarificar por qué es obligatorio repetir la configuración web (creación de admin, etc.) que ya se hizo en local. Asimismo, se observó que el Child Theme "Merci" no estaba disponible para activación en el panel de WordPress.
