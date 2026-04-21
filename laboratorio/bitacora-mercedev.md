@@ -37,6 +37,62 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-21 — Fix: Restauración de enlace simbólico en entorno local
+
+**Contexto (Desafío):** Al aplicar el *cache busting* (`?v=2`) a los assets, se detectó que los cambios en el archivo `index.php` del Child Theme no se reflejaban en el WordPress local (`http://localhost/blog`), mientras que los archivos HTML estáticos sí lo hacían de inmediato.
+
+**Hecho (Maniobra):**
+- Se identificó que la carpeta del tema en `/var/www/wordpress/wp-content/themes/merci-theme` era una copia estática y no un enlace simbólico.
+- Se eliminó la copia obsoleta y se restauró el `symlink` local apuntando directamente a `src/wp-theme/merci-theme` en el repositorio.
+
+**Detalle técnico:** Las maniobras previas de resolución de bucles de enlaces (Symlink Loop del 16 de abril) habían destruido el puente lógico en el entorno de desarrollo. Esto generaba un "falso negativo" donde el código estaba correcto en Git pero WordPress consumía una versión en caché físico.
+
+**Motivo / criterio (Aprendizaje):** Sincronización de entornos (Dev-Prod Parity). El entorno de desarrollo local debe mantener exactamente la misma arquitectura de enlaces simbólicos que el entorno de producción. De lo contrario, la experiencia de desarrollo (DX) se degrada por falsos errores de renderizado.
+
+**Siguiente paso o deuda:** Validar la visualización del logotipo en el localhost y ejecutar el despliegue final a producción.
+
+### 2026-04-21 — Fix: Cache Busting unificado para isotipos (Logotipo)
+
+**Contexto (Desafío):** Tras modificar la imagen física del logotipo en el servidor, las vistas dinámicas y secundarias seguían renderizando la versión antigua debido a la estricta política de caché de los navegadores para archivos de imagen. Además, surgió el debate sobre la repetición de código HTML en cabeceras.
+
+**Hecho (Maniobra):**
+- Se inyectó el parámetro de *cache-busting* (`?v=2`) a la ruta de la imagen `/assets/logo.webp` en `public/index.html`, `public/biblioteca/index.html` y `src/wp-theme/merci-theme/index.php`.
+
+**Detalle técnico:** Se ha reafirmado la decisión arquitectónica de mantener código HTML duplicado para las cabeceras (`<header>`) en el núcleo estático. Evitar el uso de procesadores de plantillas, inyecciones vía JavaScript o PHP en la raíz garantiza un TTFB (Time to First Byte) inmejorable y un desacoplamiento de seguridad total frente al CMS.
+
+**Motivo / criterio (Aprendizaje):** Principio de Trade-off (Compensación). En una arquitectura minimalista sin dependencias de compilación, la repetición manual de componentes estructurales es el coste asumible a cambio de lograr un Core Web Vitals de 100/100 y una inmutabilidad absoluta del sistema de archivos servido por Nginx.
+
+**Siguiente paso o deuda:** Comitear los parches de caché, desplegar a producción y auditar el rendimiento.
+
+### 2026-04-21 — Fix: Caché y MIME Type del Favicon
+
+**Contexto (Desafío):** A pesar de haber estandarizado el formato a `.ico` y corregido las rutas, los navegadores se negaban a renderizar el nuevo favicon. Se diagnosticó un problema combinado de tipo MIME incorrecto y caché agresiva del navegador.
+
+**Hecho (Maniobra):**
+- Se corrigió el atributo `type` de `image/ico` a `image/x-icon` (el estándar oficial).
+- Se añadió la cadena de consulta `?v=2` (Cache Buster) a las referencias de `favicon.ico` en `public/index.html` y `public/biblioteca/index.html`.
+
+**Detalle técnico:** Los navegadores web aplican la caché más agresiva posible a los archivos `favicon.ico`. Añadir un parámetro de versión (`?v=2`) en la URL obliga al navegador a considerar la petición como un recurso nuevo, ignorando la caché local. Además, `image/x-icon` es el tipo MIME universalmente reconocido para este formato.
+
+**Motivo / criterio (Aprendizaje):** Control de Caché en Assets. Siempre que se sustituya un archivo estático crítico sin cambiar su nombre, se debe forzar la invalidación de la caché local del usuario (Cache Busting) para asegurar que los cambios visuales se propaguen inmediatamente a producción.
+
+**Siguiente paso o deuda:** Desplegar el parche, validar la aparición del icono y ejecutar la auditoría de rendimiento.
+
+### 2026-04-21 — Fix: Estandarización definitiva del Favicon a formato .ico
+
+**Contexto (Desafío):** Se había introducido manualmente el archivo físico `favicon.ico` en el servidor y actualizado la portada (`index.html`), pero sin registrar la maniobra en el repositorio. Esto generó desincronización con las rutas previas y confusión en el diagnóstico del error 404.
+
+**Hecho (Maniobra):**
+- Se oficializa el uso de `favicon.ico` como formato estándar para el icono del sitio.
+- Se actualizó la referencia en `public/biblioteca/index.html` para que coincida con la portada (`href="/favicon.ico"`).
+
+**Detalle técnico:** El formato `.ico` es el estándar histórico y es solicitado automáticamente por los navegadores en la raíz del dominio. Utilizar este formato físicamente en la raíz pública evita peticiones redundantes, errores 404 de rastreadores y la necesidad de mantener múltiples formatos base.
+
+**Motivo / criterio (Aprendizaje):** Trazabilidad de activos (Assets). Cualquier cambio manual en los archivos estáticos o en el servidor debe ser registrado en el control de versiones. Asentar el `.ico` como estándar simplifica la arquitectura y se alinea con la web clásica.
+
+**Siguiente paso o deuda:** Desplegar el HTML sincronizado y proceder a la auditoría de PageSpeed Insights.
+
+
 ### 2026-04-21 — Validación: Compilación SASS exitosa tras refactorización
 
 **Contexto (Desafío):** Tras una serie de intentos, los estilos de padding del componente `.section` seguían sin aplicarse, indicando un problema profundo en la cadena de compilación de SASS.
