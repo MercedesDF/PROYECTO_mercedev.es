@@ -37,6 +37,75 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-21 — Validación: Compilación SASS exitosa tras refactorización
+
+**Contexto (Desafío):** Tras una serie de intentos, los estilos de padding del componente `.section` seguían sin aplicarse, indicando un problema profundo en la cadena de compilación de SASS.
+
+**Hecho (Maniobra):**
+- Se confirmó que la causa raíz era una combinación de una regla `.section` duplicada y conflictiva en `_home.scss` y la omisión de la importación de la carpeta `components` en el `main.scss`.
+- Se eliminó la regla duplicada de `_home.scss`, se creó el componente atómico `_section.scss` y se aseguró que la cadena de importación (`@use`/`@forward`) estuviera completa.
+- Se recompiló el CSS con éxito, aplicando correctamente los márgenes en el navegador.
+
+**Detalle técnico:** La arquitectura SASS 7-1 depende de una cadena de importación sin ambigüedades. Un componente (`_section.scss`) debe ser reexportado por su índice local (`components/_index.scss`), y ese índice debe ser importado por el punto de entrada principal (`main.scss`).
+
+**Motivo / criterio (Aprendizaje):** La depuración de SASS requiere seguir la cadena de compilación desde el componente hasta el `main.scss`. Un estilo ausente en el CSS de salida casi siempre se debe a un `@forward` u `@use` omitido. La atomización de componentes previene estos conflictos.
+
+**Siguiente paso o deuda:** Con la integridad visual restaurada, proceder inmediatamente con la auditoría de Core Web Vitals (Fase 6.2) en el entorno de producción.
+
+### 2026-04-21 — Fix: Conexión de índice de componentes en SASS 7-1
+
+**Contexto (Desafío):** Tras la refactorización del componente `.section` a su propio archivo, los estilos de padding seguían sin aplicarse en el navegador. Un análisis del `main.css` compilado reveló la ausencia total de la regla.
+
+**Hecho (Maniobra):**
+- Se eliminó la regla `.section` duplicada que persistía en `_home.scss`.
+- Se verificó y aseguró que el archivo `main.scss` (punto de entrada) incluyera la directiva `@use 'components';` para importar el índice de la carpeta de componentes.
+
+**Detalle técnico:** La arquitectura SASS 7-1 es explícita. Si el archivo `main.scss` no importa el índice de un directorio (`components/_index.scss`), todos los componentes declarados en ese índice (`@forward 'section'`) son ignorados por el compilador.
+
+**Motivo / criterio (Aprendizaje):** Depuración de la cadena de compilación. Cuando un estilo no se aplica, el primer paso es verificar el CSS de salida. Si la regla no está presente, el fallo reside en la cadena de importación (`@use`/`@forward`) del preprocesador, no en el HTML o en la especificidad.
+
+**Siguiente paso o deuda:** Validar la correcta visualización de los márgenes en todas las páginas y proceder con la auditoría de rendimiento.
+
+### 2026-04-21 — Fix: Resolución de omisiones en índices de SASS 7-1
+
+**Contexto (Desafío):** Pese a refactorizar las clases en el HTML y el SASS, los estilos (como el padding de `.section` o el grid de `.home-card`) no se aplicaban en el navegador. Se diagnosticó que el archivo `src/scss/components/_index.scss` no estaba reexportando (`@forward`) los módulos recientes.
+
+**Hecho (Maniobra):**
+- Se actualizó el archivo `_index.scss` para incluir las directivas `@forward` de los componentes faltantes (`card`, `home` y `section`).
+
+**Detalle técnico:** En la arquitectura SASS 7-1, el archivo principal (`main.scss`) solo lee los índices de cada subdirectorio. Si un archivo parcial (ej. `_section.scss`) no está declarado explícitamente en su índice local, el compilador lo ignora silenciosamente y sus reglas CSS no se inyectan en el binario final.
+
+**Motivo / criterio (Aprendizaje):** Trazabilidad del compilador. Al crear un nuevo archivo `.scss` (especialmente tras aislar componentes BEM), el primer paso innegociable debe ser registrarlo en su índice correspondiente. Esto previene "fugas de estilos" o falsos positivos durante el desarrollo.
+
+**Siguiente paso o deuda:** Recompilar el CSS maestro, validar los márgenes en el navegador y proceder con la auditoría de los Core Web Vitals en producción.
+
+### 2026-04-21 — Fix: Desacoplamiento de padding y atomización de .section
+
+**Contexto (Desafío):** Al aplicar la etiqueta semántica `<section>` con la clase heredada `.main--padded`, los márgenes no se renderizaban en el navegador. Se diagnosticó que la clase SASS estaba fuertemente acoplada a su etiqueta original y no funcionaba como componente transversal.
+
+**Hecho (Maniobra):**
+- Se estableció definitivamente la clase atómica `.section` en la etiqueta `<section>` de `src/wp-theme/merci-theme/index.php`.
+- Se trasladó la responsabilidad del espaciado (`padding`) directamente a la clase `.section` en la arquitectura SASS, purgando el modificador obsoleto `.main--padded`.
+
+**Detalle técnico:** Desacoplar las clases CSS de las etiquetas HTML específicas permite que el diseño sobreviva a las refactorizaciones semánticas (cambio de divs a sections). Ahora `.section` actúa como un Layout universal.
+
+**Motivo / criterio (Aprendizaje):** Especificidad y modularidad SASS. Los modificadores BEM atados a contextos específicos rompen la reusabilidad. Al centralizar el padding en `.section`, se cumple el principio DRY (Don't Repeat Yourself) y se garantiza coherencia absoluta en todas las vistas, sean servidas por Nginx o por el motor de PHP.
+
+**Siguiente paso o deuda:** Validar los márgenes tras recompilar el SASS y proceder a la auditoría de los Core Web Vitals en producción.
+
+### 2026-04-21 — Fix: Restauración de modificador de padding en sección dinámica
+
+**Contexto (Desafío):** Al sustituir la clase `.main--padded` por `.section` en `index.php` para unificar estilos, se perdió el espaciado (padding) interno. En la arquitectura SASS actual, el padding de las vistas de contenido está explícitamente vinculado al modificador `.main--padded` y no a la clase estructural `.section`.
+
+**Hecho (Maniobra):**
+- Se restauró la clase `.main--padded` en la etiqueta `<section>` del archivo `src/wp-theme/merci-theme/index.php`.
+
+**Detalle técnico:** Se mantiene la mejora semántica de usar `<section>` (HTML5) introducida anteriormente, pero se le devuelve la clase CSS que controla físicamente los márgenes (`4rem 2rem`) en el diseño base, asegurando que se visualice correctamente en `localhost`.
+
+**Motivo / criterio (Aprendizaje):** Conocimiento del estado del SASS. Reemplazar clases asumiendo comportamientos genéricos (como que `.section` tiene padding universal) sin verificar las reglas compiladas genera regresiones visuales. El modificador `.main--padded` debe mantenerse hasta que se decida refactorizar el SASS globalmente.
+
+**Siguiente paso o deuda:** Validar la vista en local, comitear y auditar los Core Web Vitals en producción.
+
 ### 2026-04-21 — Atomización de estilos en secciones dinámicas
 
 **Contexto (Desafío):** Los textos de la capa dinámica (WordPress) aparecían pegados al borde izquierdo sin margen. Esto se debía a que las plantillas usaban la clase modificadora antigua `.main--padded` en lugar de heredar los estilos atómicos estructurales de la portada.
