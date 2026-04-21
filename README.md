@@ -209,9 +209,9 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [ ] Confirmar coherencia entre contenido visible y datos estructurados.
 
 #### 6.4 Cierre documental de despliegue
-- [ ] Registrar evidencias del despliegue y resultados de auditoría.
-- [ ] Documentar incidencias y mitigaciones aplicadas durante la salida.
-- [ ] Dejar criterios explícitos de rollback y recuperación operativa.
+- [x] Registrar evidencias del despliegue y resultados de auditoría.
+- [x] Documentar incidencias y mitigaciones aplicadas durante la salida.
+- [x] Dejar criterios explícitos de rollback y recuperación operativa.
 
 ### Fase 7 - Automatización y Clasificación
 

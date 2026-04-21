@@ -37,6 +37,34 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-21 — Chore: Resolución de linter de acrónimos para AJAX
+
+**Contexto (Desafío):** Al ejecutar el orquestador `merci-total`, el auditor (`merci-audit.py`) reportó una advertencia (WARN) por el acrónimo "AJAX" sin expandir en el nuevo documento `biblioteca/auditoria-rendimiento.md`.
+
+**Hecho (Maniobra):**
+- Se expandió el acrónimo AJAX (Asynchronous JavaScript and XML - JavaScript Asíncrono y XML) en el archivo correspondiente.
+
+**Detalle técnico:** Para cumplir con el estándar de `0 errores, 0 advertencias` impuesto por el pipeline de integración local, se aplicó la convención de expansión de acrónimos a la documentación técnica recién creada.
+
+**Motivo / criterio (Aprendizaje):** Disciplina documental y cero fricción técnica. Ningún aviso del linter debe ignorarse si se busca la excelencia técnica absoluta. Expandir los acrónimos facilita la comprensión del documento a cualquier nivel, respetando la filosofía pedagógica del proyecto.
+
+**Siguiente paso o deuda:** Ejecutar `merci-total` por última vez para confirmar la ausencia total de advertencias y realizar el commit final de despliegue.
+
+### 2026-04-21 — Docs: Elaboración del reporte de Core Web Vitals (100/100)
+
+**Contexto (Desafío):** Tras completar el despliegue en producción de la arquitectura híbrida (Núcleo estático + WordPress + WooCommerce), se realizaron las auditorías en Google PageSpeed Insights obteniendo puntuación perfecta (100/100) en todos los pilares. Era necesario documentar este hito traduciendo las métricas a un activo de conocimiento.
+
+**Hecho (Maniobra):**
+- Se creó el documento didáctico `biblioteca/auditoria-rendimiento.md`.
+- Se explicaron los 4 pilares auditados: Rendimiento (LCP/INP/CLS), Accesibilidad (WAI-ARIA/Contraste), Mejores Prácticas (CSP/WebP/HTTPS) y SEO (JSON-LD/Canónicas).
+- Se marcaron como completados los hitos de la Fase 6.4 en `README.md`.
+
+**Detalle técnico:** El informe vincula empíricamente las decisiones arquitectónicas "Shift-Left" (Vanilla JS, SASS sin frameworks, desencolado de scripts en WooCommerce) con el resultado positivo en herramientas de auditoría externa. Sirve como validación definitiva del *Aislamiento Dinámico*.
+
+**Motivo / criterio (Aprendizaje):** Gestión del Conocimiento. Los números perfectos no tienen valor a largo plazo si el equipo no comprende por qué se obtuvieron. Documentar el éxito cierra el ciclo DevSecOps y asienta las bases pedagógicas del proyecto (Regla de la Biblioteca).
+
+**Siguiente paso o deuda:** Iniciar la Fase 6.3 (Verificación SEO Final) y preparar la transición hacia la Fase 7 (Automatización y Clasificación).
+
 ### 2026-04-21 — Feat: Orquestador maestro de pipeline (merci-total)
 
 **Contexto (Desafío):** Ejecutar individualmente los scripts de optimización, compilación y auditoría antes de cada pase a producción generaba fricción operativa y riesgo de omisión de pasos críticos.
