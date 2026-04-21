@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-21 — Fix: Resolución de error NXDOMAIN en emisión de certificado SSL
+
+**Contexto (Desafío):** Al intentar emitir el certificado Let's Encrypt desde CloudPanel, el sistema devolvió un error de validación DNS (`NXDOMAIN`) para el subdominio `www.mercedev.es`.
+
+**Hecho (Maniobra):**
+- Se eliminó el subdominio `www.mercedev.es` de la lista de dominios solicitados (SANs) en la interfaz de CloudPanel.
+- Se emitió el certificado SSL/TLS exclusivamente para el dominio raíz (apex domain): `mercedev.es`.
+
+**Detalle técnico:** Let's Encrypt actúa como una Autoridad Certificadora estricta. Exige que absolutamente todos los nombres de dominio de la solicitud resuelvan hacia la IP del servidor. Al carecer la Zona DNS de un registro 'A' o 'CNAME' explícito para el `www`, el desafío HTTP-01 fracasa y bloquea toda la emisión.
+
+**Motivo / criterio (Aprendizaje):** Austeridad técnica y URLs canónicas. El prefijo `www` es un artefacto de la web clásica (legacy) que no aporta valor técnico en servidores únicos. Renunciar a él reduce la complejidad de la Zona DNS, evita futuras redirecciones 301 innecesarias y se alinea con la filosofía minimalista del "Merci Boilerplate".
+
+**Siguiente paso o deuda:** Comprobar la emisión exitosa del certificado para el dominio raíz y ejecutar la auditoría de rendimiento (PageSpeed).
+
 ### 2026-04-21 — Fix: Emisión de Certificado SSL nativo en CloudPanel
 
 **Contexto (Desafío):** El dominio en producción mostraba la advertencia de "Sitio no seguro" (HTTP). Se planteó la duda de si utilizar la herramienta tradicional `certbot` por terminal para instalar el certificado Let's Encrypt.
