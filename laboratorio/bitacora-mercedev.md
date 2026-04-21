@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-21 — Fix: Emisión de Certificado SSL nativo en CloudPanel
+
+**Contexto (Desafío):** El dominio en producción mostraba la advertencia de "Sitio no seguro" (HTTP). Se planteó la duda de si utilizar la herramienta tradicional `certbot` por terminal para instalar el certificado Let's Encrypt.
+
+**Hecho (Maniobra):**
+- Se descartó el uso manual de `certbot` vía CLI (Command Line Interface - Interfaz de Línea de Comandos).
+- Se emitió el certificado SSL/TLS (Secure Sockets Layer / Transport Layer Security) directamente desde la pestaña nativa de CloudPanel (Actions > New Let's Encrypt Certificate).
+
+**Detalle técnico:** CloudPanel gestiona sus propios bloques `server` en Nginx mediante plantillas. Emitir el certificado desde su GUI asegura que las directivas `listen 443 ssl` y las rutas a las llaves criptográficas se inyecten limpiamente sin sobreescribir nuestro enrutamiento híbrido personalizado (Fase 4 del Playbook).
+
+**Motivo / criterio (Aprendizaje):** Respeto por la abstracción del IaaS (Infrastructure as a Service). Mezclar herramientas de bajo nivel de sistema operativo con paneles de gestión genera conflictos de configuración (Configuration Drift). La integración nativa garantiza además la renovación automática del certificado sin necesidad de configurar *cronjobs* manuales.
+
+**Siguiente paso o deuda:** Comprobar que la web carga bajo el protocolo HTTPS y ejecutar, ahora sí, la auditoría final de rendimiento.
+
 ### 2026-04-21 — Fix: Sincronización de estado (Páginas y Taxonomías) en producción
 
 **Contexto (Desafío):** Tras el despliegue exitoso a producción, se detectó que el *hero* de la página "Tienda" no se renderizaba en el entorno público, a pesar de funcionar correctamente en local.
