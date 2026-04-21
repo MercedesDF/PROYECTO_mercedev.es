@@ -55,7 +55,7 @@
             </section>
         <?php endif; ?>
 
-        <!-- Aplicamos la clase atómica 'section' para heredar los márgenes unificados -->
+        <!-- Atomización definitiva: Usamos el componente estructural genérico -->
         <section class="section">
         <?php 
         // 2. Bucle principal de contenido (The Loop)
