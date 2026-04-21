@@ -37,6 +37,34 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-21 — Fix: Inyección de Favicon dinámico y restauración de symlink local
+
+**Contexto (Desafío):** El `favicon.ico` no se mostraba en las páginas de WordPress (`/blog`), y los cambios en los archivos `.php` locales no tenían efecto en el navegador, evidenciando una desconexión del entorno de desarrollo. No se han realizado modificaciones sobre el logotipo.
+
+**Hecho (Maniobra):**
+- Se inyectó explícitamente la etiqueta `<link rel="icon" href="/favicon.ico?v=3" type="image/x-icon">` en el `<head>` de `src/wp-theme/merci-theme/index.php`.
+- Se eliminó la copia huérfana en `/var/www/wordpress/wp-content/themes/merci-theme` y se restauró el enlace simbólico local (`ln -s`) apuntando al repositorio.
+
+**Detalle técnico:** WordPress no emite un favicon por defecto a menos que se configure en su base de datos. Al inyectarlo directamente en el `index.php` del Child Theme, se garantiza que el CMS utilice el mismo archivo físico de la raíz estática. La restauración del symlink soluciona el "falso negativo" del entorno local causado por purgas anteriores.
+
+**Motivo / criterio (Aprendizaje):** Control estricto de la UI en entornos híbridos y paridad Dev-Prod. Confiar en que el CMS herede comportamientos visuales por defecto suele fallar. Además, el entorno de desarrollo local debe mantener exactamente la misma arquitectura de enlaces simbólicos que producción.
+
+**Siguiente paso o deuda:** Comitear los cambios, desplegar a producción y ejecutar la auditoría de rendimiento final.
+
+### 2026-04-21 — Aprovisionamiento manual de dependencias del CMS (WooCommerce)
+
+**Contexto (Desafío):** Tras el despliegue del código y la configuración del entorno de producción, surgió la duda sobre el estado operativo de la "Tienda" y la presencia del motor de WooCommerce en el servidor.
+
+**Hecho (Maniobra):**
+- Se constató que el plugin de WooCommerce no viaja a través del control de versiones (Git).
+- Se instruyó la instalación y activación manual del plugin desde el panel de administración de WordPress en producción, omitiendo el asistente de configuración.
+
+**Detalle técnico:** En una arquitectura de aislamiento, el repositorio Git gobierna el código propietario y la configuración del proxy. Las carpetas de dependencias de terceros (`wp-content/plugins/`) quedan excluidas explícitamente. Las reglas de optimización inyectadas en `functions.php` permanecen latentes hasta que el plugin es activado.
+
+**Motivo / criterio (Aprendizaje):** Inmutabilidad selectiva. Permitir que los plugins se gestionen visualmente en producción mientras el tema se gestiona estrictamente por código garantiza la operabilidad sin romper el escudo de rendimiento.
+
+**Siguiente paso o deuda:** Auditar la ruta de la tienda (`/blog/tienda`) en PageSpeed Insights.
+
 ### 2026-04-21 — Fix: Resolución de error NXDOMAIN en emisión de certificado SSL
 
 **Contexto (Desafío):** Al intentar emitir el certificado Let's Encrypt desde CloudPanel, el sistema devolvió un error de validación DNS (`NXDOMAIN`) para el subdominio `www.mercedev.es`.
@@ -45,11 +73,11 @@ Copia el bloque y rellénalo.
 - Se eliminó el subdominio `www.mercedev.es` de la lista de dominios solicitados (SANs) en la interfaz de CloudPanel.
 - Se emitió el certificado SSL/TLS exclusivamente para el dominio raíz (apex domain): `mercedev.es`.
 
-**Detalle técnico:** Let's Encrypt actúa como una Autoridad Certificadora estricta. Exige que absolutamente todos los nombres de dominio de la solicitud resuelvan hacia la IP del servidor. Al carecer la Zona DNS de un registro 'A' o 'CNAME' explícito para el `www`, el desafío HTTP-01 fracasa y bloquea toda la emisión.
+**Detalle técnico:** Let's Encrypt exige que todos los nombres de dominio de la solicitud resuelvan hacia la IP del servidor. Al carecer la Zona DNS de un registro 'A' o 'CNAME' explícito para el `www`, el desafío HTTP-01 fracasa.
 
-**Motivo / criterio (Aprendizaje):** Austeridad técnica y URLs canónicas. El prefijo `www` es un artefacto de la web clásica (legacy) que no aporta valor técnico en servidores únicos. Renunciar a él reduce la complejidad de la Zona DNS, evita futuras redirecciones 301 innecesarias y se alinea con la filosofía minimalista del "Merci Boilerplate".
+**Motivo / criterio (Aprendizaje):** Austeridad técnica y URLs canónicas. El prefijo `www` es un artefacto de la web clásica. Renunciar a él reduce la complejidad de la Zona DNS y se alinea con la filosofía minimalista.
 
-**Siguiente paso o deuda:** Comprobar la emisión exitosa del certificado para el dominio raíz y ejecutar la auditoría de rendimiento (PageSpeed).
+**Siguiente paso o deuda:** Comprobar la emisión exitosa del certificado para el dominio raíz y ejecutar la auditoría de rendimiento.
 
 ### 2026-04-21 — Fix: Emisión de Certificado SSL nativo en CloudPanel
 
