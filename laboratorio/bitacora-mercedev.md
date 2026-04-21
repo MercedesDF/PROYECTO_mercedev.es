@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-21 — Fix: Sincronización de estado (Páginas y Taxonomías) en producción
+
+**Contexto (Desafío):** Tras el despliegue exitoso a producción, se detectó que el *hero* de la página "Tienda" no se renderizaba en el entorno público, a pesar de funcionar correctamente en local.
+
+**Hecho (Maniobra):**
+- Se diagnosticó una asimetría de estado en la base de datos: la condición lógica `is_page('tienda')` fallaba silenciosamente porque la página física aún no existía en el WordPress de producción.
+- Se instruyó la creación manual de las páginas base (Tienda) y categorías taxonómicas (Art de Coté) en el panel de administración de producción.
+
+**Detalle técnico:** El control de versiones (Git) transporta código inmutable y lógica condicional, pero no el estado de la base de datos. Las funciones de enrutamiento interno de WordPress (`is_page()`, `is_category()`) requieren que las entidades existan físicamente en las tablas `wp_posts` y `wp_terms` del entorno actual para que las sentencias `if` se resuelvan como verdaderas.
+
+**Motivo / criterio (Aprendizaje):** Paridad Dev-Prod (Código vs. Datos). En despliegues de arquitecturas CMS, inyectar la plantilla (Child Theme) es solo la primera mitad de la integración. Siempre se requiere un proceso de aprovisionamiento de datos (Data Seeding) en producción para recrear las anclas de contenido sobre las que pivota el diseño condicional.
+
+**Siguiente paso o deuda:** Validar la aparición del componente *hero* tras crear la página y proceder con la auditoría final de PageSpeed.
+
 ### 2026-04-21 — Fix: Inyección de Favicon dinámico y restauración de symlink local
 
 **Contexto (Desafío):** El `favicon.ico` no se mostraba en las páginas de WordPress (`/blog`), y los cambios en los archivos `.php` locales no tenían efecto en el navegador, evidenciando una desconexión del entorno de desarrollo.
