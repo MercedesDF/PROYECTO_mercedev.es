@@ -204,9 +204,9 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Comparar resultados frente a objetivos de la filosofía del proyecto.
 
 #### 6.3 Verificación SEO final
-- [ ] Revisar indexabilidad efectiva, canónicas y metadatos finales.
-- [ ] Validar `robots.txt` y `sitemap.xml` contra el estado real de URLs.
-- [ ] Confirmar coherencia entre contenido visible y datos estructurados.
+- [x] Revisar indexabilidad efectiva, canónicas y metadatos finales.
+- [x] Validar `robots.txt` y `sitemap.xml` contra el estado real de URLs.
+- [x] Confirmar coherencia entre contenido visible y datos estructurados.
 
 #### 6.4 Cierre documental de despliegue
 - [x] Registrar evidencias del despliegue y resultados de auditoría.

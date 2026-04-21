@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-21 — Feat: Hito de rendimiento 100/100 y cierre de Fase 6
+
+**Contexto (Desafío):** Tras completar el despliegue y certificar las herramientas SEO (Fase 6.3), era necesario confirmar el rendimiento final de la arquitectura en producción para dar por concluida la fase de despliegue.
+
+**Hecho (Maniobra):**
+- Se superó la auditoría de Google PageSpeed Insights con una puntuación perfecta (100/100 en Rendimiento, Accesibilidad, Mejores Prácticas y SEO) tanto en el núcleo estático como en la capa dinámica (WooCommerce).
+- Se marcaron como completados los hitos de la Fase 6.3 en el `README.md`.
+
+**Detalle técnico:** El rendimiento perfecto valida empíricamente la arquitectura "Shift-Left", la erradicación de dependencias JS innecesarias, la compilación de CSS modular y el enrutamiento aislado a través de Nginx. El escudo condicional en `functions.php` demostró su eficacia aislando la carga del catálogo.
+
+**Motivo / criterio (Aprendizaje):** Arquitectura validada. Se ha demostrado que es posible mantener métricas perfectas en ecosistemas mixtos si se aplican principios de ingeniería estrictos. A partir de aquí, el código base está listo para ser bifurcado hacia un repositorio de "Plantilla" (Boilerplate) independiente de la instancia web final.
+
+**Siguiente paso o deuda:** Iniciar la Fase 7 (Automatización y Clasificación) y planificar la extracción del Boilerplate a un repositorio genérico.
+
 ### 2026-04-21 — Chore: Resolución de linter de acrónimos para AJAX
 
 **Contexto (Desafío):** Al ejecutar el orquestador `merci-total`, el auditor (`merci-audit.py`) reportó una advertencia (WARN) por el acrónimo "AJAX" sin expandir en el nuevo documento `biblioteca/auditoria-rendimiento.md`.
