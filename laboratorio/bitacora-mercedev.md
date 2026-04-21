@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-21 — Atomización de estilos en secciones dinámicas
+
+**Contexto (Desafío):** Los textos de la capa dinámica (WordPress) aparecían pegados al borde izquierdo sin margen. Esto se debía a que las plantillas usaban la clase modificadora antigua `.main--padded` en lugar de heredar los estilos atómicos estructurales de la portada.
+
+**Hecho (Maniobra):**
+- Se reemplazó la clase `.main--padded` por la clase atómica `.section` en `src/wp-theme/merci-theme/index.php`.
+- (Nota: Esta misma convención atómica debe replicarse en las vistas estáticas como la Biblioteca).
+
+**Detalle técnico:** Al igual que se hizo con `.hero`, el uso de `.section` centraliza el padding responsivo y la alineación. Cualquier ajuste en SASS sobre el componente `_section.scss` se propagará automáticamente al contenido dinámico.
+
+**Motivo / criterio (Aprendizaje):** Principio DRY (Don't Repeat Yourself). La atomización evita incoherencias visuales (como saltos de márgenes entre páginas) y elimina la necesidad de mantener modificadores CSS redundantes para el mismo propósito estructural.
+
+**Siguiente paso o deuda:** Replicar esta clase `.section` en las páginas estáticas que lo requieran y validar los Core Web Vitals en producción.
+
 ### 2026-04-21 — Refactorización semántica en plantillas dinámicas (HTML5)
 
 **Contexto (Desafío):** Se detectó una inconsistencia semántica entre la portada estática y las vistas dinámicas de WordPress. Mientras la portada utiliza etiquetas `<section>` para agrupar bloques temáticos de contenido, el archivo `index.php` del CMS envolvía los listados de artículos en un `<div>` genérico (`<div class="main--padded">`).
