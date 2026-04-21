@@ -37,19 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
-### 2026-04-21 — Feat: Hito de rendimiento 100/100 y cierre de Fase 6
+### 2026-04-21 — Fix: Cache Busting global para hoja de estilos (CSS)
 
-**Contexto (Desafío):** Tras completar el despliegue y certificar las herramientas SEO (Fase 6.3), era necesario confirmar el rendimiento final de la arquitectura en producción para dar por concluida la fase de despliegue.
+**Contexto (Desafío):** Al visitar la tienda en dispositivos móviles, se visualizaba una estructura rota y elementos alienígenos de WooCommerce (migas de pan, selectores). El diagnóstico apuntó a la agresiva caché de los navegadores móviles, que retenían la versión anterior de `main.css` previa a la integración SASS del catálogo.
 
 **Hecho (Maniobra):**
-- Se superó la auditoría de Google PageSpeed Insights con una puntuación perfecta (100/100 en Rendimiento, Accesibilidad, Mejores Prácticas y SEO) tanto en el núcleo estático como en la capa dinámica (WooCommerce).
-- Se marcaron como completados los hitos de la Fase 6.3 en el `README.md`.
+- Se inyectó el parámetro `?v=2` en las etiquetas `<link>` de `public/index.html` y `public/biblioteca/index.html`.
+- Se actualizó el parámetro de versión de `'1.0.0'` a `'1.0.1'` en la función `wp_enqueue_style` dentro de `src/wp-theme/merci-theme/functions.php`.
 
-**Detalle técnico:** El rendimiento perfecto valida empíricamente la arquitectura "Shift-Left", la erradicación de dependencias JS innecesarias, la compilación de CSS modular y el enrutamiento aislado a través de Nginx. El escudo condicional en `functions.php` demostró su eficacia aislando la carga del catálogo.
+**Detalle técnico:** A diferencia del entorno de desarrollo de escritorio (donde el refresco forzado invalida la caché local), los dispositivos móviles carecen de mecanismos sencillos de *hard refresh*. Alterar la cadena de consulta (query string) de la URL del recurso estático obliga al navegador móvil a descartar la hoja de estilos obsoleta y descargar las nuevas reglas compiladas.
 
-**Motivo / criterio (Aprendizaje):** Arquitectura validada. Se ha demostrado que es posible mantener métricas perfectas en ecosistemas mixtos si se aplican principios de ingeniería estrictos. A partir de aquí, el código base está listo para ser bifurcado hacia un repositorio de "Plantilla" (Boilerplate) independiente de la instancia web final.
+**Motivo / criterio (Aprendizaje):** Control de Caché de Assets. En arquitecturas de alto rendimiento, los archivos estáticos se cachean fuertemente. Cualquier pase a producción que modifique el diseño visual estructural debe ir acompañado obligatoriamente de un incremento de versión en los enlaces de carga para garantizar la paridad visual inmediata en los clientes de los usuarios.
 
-**Siguiente paso o deuda:** Iniciar la Fase 7 (Automatización y Clasificación) y planificar la extracción del Boilerplate a un repositorio genérico.
+**Siguiente paso o deuda:** Ejecutar el despliegue del parche y confirmar el diseño en dispositivos móviles.
 
 ### 2026-04-21 — Chore: Resolución de linter de acrónimos para AJAX
 
