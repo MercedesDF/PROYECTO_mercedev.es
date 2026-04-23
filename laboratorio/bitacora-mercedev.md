@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — Fix: Refinamiento de HSTS y justificación de deuda en Trusted Types
+
+**Contexto:** Tras la migración de cabeceras de seguridad a Nginx, la auditoría reportó dos advertencias restantes: la ausencia de la directiva `preload` en el HSTS y la falta de `Trusted Types` en la CSP.
+
+**Hecho:**
+- Se añadió la directiva `preload` a la cabecera `Strict-Transport-Security` en CloudPanel.
+- Se desestimó explícitamente la implementación de `require-trusted-types-for` en la CSP.
+
+**Detalle técnico:** El uso de `preload` inscribe el dominio en las listas maestras de los navegadores para garantizar conexiones HTTPS desde la primera solicitud (mitigando el primer milisegundo de vulnerabilidad). Por otro lado, la directiva `Trusted Types` bloquea el uso de sumideros del DOM basados en cadenas de texto (como `innerHTML`); activar esta directiva fracturaría la operatividad de WordPress, sus plugins y el editor de bloques (Gutenberg), ya que su código base aún no es compatible de forma nativa con esta API estricta.
+
+**Motivo / criterio:** Pragmatismo arquitectónico. La seguridad extrema no debe destruir la funcionalidad core del producto. Aceptar la advertencia de `Trusted Types` se clasifica como una *Deuda Técnica conocida y asumida* derivada del uso de un CMS maduro como WordPress. Con esta acción se cierra formalmente la subfase 5.5.
+
+**Siguiente paso o deuda:** Iniciar el diseño del flujo de publicación automatizado en la Fase 7.
+
 ### 2026-04-23 — Feat: Hardening avanzado de cabeceras HTTP (CSP, HSTS, COOP)
 
 **Contexto:** La auditoría de Google PageSpeed Insights señaló la ausencia de cabeceras de seguridad críticas (HSTS, COOP) y una implementación débil de la Política de Seguridad de Contenido (CSP) mediante etiqueta `<meta>`, considerándola no efectiva contra ataques XSS.
