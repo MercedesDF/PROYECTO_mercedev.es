@@ -95,6 +95,9 @@ add_action('wp_enqueue_scripts', 'merci_limpiar_scripts_wc', 100);
 // Desencolar ABSOLUTAMENTE TODO el CSS por defecto de WooCommerce
 add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
+// Eliminar script inline de detección de JS de WooCommerce (Generador de violación CSP)
+remove_action('wp_head', 'wc_javascript_is_active', 0);
+
 // Eliminar las Speculation Rules de WP (inyectan bloques <script> bloqueados por la CSP)
 remove_action('wp_head', 'wp_print_speculation_rules');
 remove_action('wp_footer', 'wp_print_speculation_rules');
