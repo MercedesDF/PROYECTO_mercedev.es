@@ -33,7 +33,7 @@ Este documento consolida las medidas de seguridad aplicadas en la arquitectura h
   - El entorno dinámico (`/blog`) se sirve mediante un `alias` en Nginx desde un directorio físico separado (`/var/www/wordpress`).
   - WordPress no tiene permisos de escritura sobre la raíz estática (`/var/www/mercedev/public`).
 - [x] **Hardening de Cabeceras HTTP (VHost Nginx / CloudPanel):**
-  - **CSP (Content-Security-Policy):** Implementada como cabecera. Bloquea XSS definiendo orígenes permitidos.
+  - **CSP (Content-Security-Policy):** Implementada como cabecera. Bloquea XSS definiendo orígenes permitidos (incluye whitelist criptográfico mediante Hash SHA-256 para scripts benignos residuales de WP).
   - **HSTS (Strict-Transport-Security):** Fuerza comunicaciones exclusivamente por HTTPS (incluyendo directiva `preload` para precarga en navegadores) para mitigar ataques de intermediario (*Man-in-the-Middle*).
   - **COOP y COEP:** Aísla el documento de ventanas emergentes e incrustaciones para mitigar ataques de canal lateral de CPU (Spectre).
   - **X-Frame-Options (SAMEORIGIN):** Previene ataques de *Clickjacking* bloqueando incrustaciones de nuestra web en iframes no autorizados.
