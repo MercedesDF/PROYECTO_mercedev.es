@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — Fix: Sincronización del ciclo de vida de hooks (Race Condition)
+
+**Contexto:** El último script inline de WooCommerce (`wc_javascript_is_active`) seguía apareciendo en el reporte de PageSpeed a pesar de haber declarado su `remove_action` correspondiente en `functions.php`.
+
+**Hecho:**
+- Se refactorizaron las purgas de scripts inline (`wc_javascript_is_active`, *Speculation Rules*, y *Filtros SVG*) encapsulándolas dentro de la función `merci_purgar_inyecciones_inline`.
+- Se ancló dicha función globalmente al hook `init`.
+
+**Detalle técnico:** Ocurrió una condición de carrera (Race Condition) en el orden de carga del ciclo de vida de WordPress. Colocar `remove_action` suelto en el archivo provocaba que la orden de borrado se ejecutara en un momento donde el plugin a veces aún no había consolidado el hook, o el borrado era ignorado por la inusual prioridad `0` que WooCommerce utiliza para disparar antes del ciclo normal. Encapsular la purga dentro de `init` asegura que la orden se ejecute cuando todo el *core* y los plugins ya están cargados en memoria.
+
+**Motivo / criterio:** Conocimiento profundo del ciclo de ejecución (Lifecycle) del framework. Cuando las órdenes de anulación de código fallan silenciosamente, el problema casi siempre reside en el "cuándo" y no en el "qué". Envolver purgas de seguridad en hooks consolidados es la práctica definitiva de blindaje contra código de terceros.
+
+**Siguiente paso o deuda:** Validar la desaparición del hash en la consola e iniciar la Fase 7.
+
 ## 2026-04-23 — Fix: Aniquilación del último script inline de WooCommerce (CSP)
 
 **Contexto:** Tras la purga de *Speculation Rules* y filtros SVG, PageSpeed seguía detectando una única violación de la Política de Seguridad de Contenido (CSP) por un script en línea no identificado (hash `sha256-eHL...`).
