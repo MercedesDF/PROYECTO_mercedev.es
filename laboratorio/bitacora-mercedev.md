@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — Fix: Actualización mayor de Pillow a 12.2.0 (Dependabot)
+
+**Contexto:** Dependabot emitió nuevas alertas y forzó la actualización de su rama (pull request) indicando la necesidad de dar un salto mayor en la versión de `Pillow` hasta la `12.2.0` para mitigar vulnerabilidades encadenadas.
+
+**Hecho:**
+- Se actualizó la dependencia en `requirements.txt` de `Pillow==10.4.0` a `Pillow==12.2.0`.
+
+**Detalle técnico:** El salto a una versión mayor (de 10.x a 12.x) incluye importantes parches de seguridad. Dado que `merci-optimizer.py` solo utiliza funciones estándar y consolidadas de apertura, redimensionado y guardado en WebP, la actualización se considera segura y no introduce alteraciones lógicas (*breaking changes*) en la automatización del proyecto.
+
+**Motivo / criterio:** Mantenimiento proactivo y "Zero Trust". Las alertas de seguridad se persiguen hasta su erradicación total. Dar el salto a la última versión estable recomendada por GitHub blinda el entorno local y silencia el ruido operativo en el repositorio.
+
+**Siguiente paso o deuda:** Realizar el push para cerrar definitivamente los hilos de Dependabot e iniciar el diseño del flujo de la Fase 7.
+
 ### 2026-04-23 — Fix: Actualización crítica de Pillow a 10.4.0 (Dependabot)
 
 **Contexto:** Tras el último `git push`, GitHub Dependabot reportó dos nuevas vulnerabilidades de severidad alta. Dado que `requirements.txt` solo contiene la dependencia `Pillow`, se deduce que la versión 10.3.0 seguía expuesta a CVEs recientes.
