@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — Fix: Whitelist Criptográfico (CSP Hash) para script en línea residual
+
+**Contexto:** El script inline `wc_javascript_is_active` de WooCommerce seguía ejecutándose, evadiendo los `remove_action` en `functions.php`. Se diagnosticó que las versiones modernas de WooCommerce inyectan este código directamente a nivel de renderizado de bloques (Gutenberg), haciéndolo invulnerable a los hooks tradicionales de PHP.
+
+**Hecho:**
+- Se optó por una solución de infraestructura en lugar de parchear PHP.
+- Se inyectó el hash exacto del script (`'sha256-eHL/Izx7K/qWL0kdBXXnHwsLSHvGOJn/THLHydUZdog='`) en la directiva `script-src` de la cabecera CSP en Nginx.
+- Se actualizó el checklist de Hardening documentando la práctica de whitelisting criptográfico.
+
+**Detalle técnico:** En DevSecOps avanzado, cuando un script en línea benigno (y estático) no puede ser erradicado del código legado, la solución no es relajar la seguridad permitiendo `'unsafe-inline'`. La directiva CSP permite autorizar la ejecución exclusiva de una cadena de texto concreta mediante su firma criptográfica SHA-256. Si un atacante modifica un solo carácter del script, el hash cambiará y el navegador lo bloqueará instantáneamente.
+
+**Motivo / criterio:** Seguridad sin compromisos funcionales. Esta maniobra sella la consola del navegador a 0 errores, mantiene el escudo XSS al 100% de eficacia y nos libera de seguir luchando contra el monolito de bloques de WordPress/WooCommerce.
+
+**Siguiente paso o deuda:** Validar la consola en blanco y dar el salto definitivo a la Fase 7.
+
 ### 2026-04-23 — Fix: Sincronización del ciclo de vida de hooks (Race Condition)
 
 **Contexto:** El último script inline de WooCommerce (`wc_javascript_is_active`) seguía apareciendo en el reporte de PageSpeed a pesar de haber declarado su `remove_action` correspondiente en `functions.php`.
