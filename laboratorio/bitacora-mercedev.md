@@ -37,6 +37,34 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — Fix: Inyección de meta descripción dinámica en WordPress (SEO)
+
+**Contexto:** Se detectó que las páginas dinámicas generadas por WordPress (incluyendo la Tienda de WooCommerce) carecían de la etiqueta `<meta name="description">` en el `<head>`, lo que penaliza la auditoría SEO y afecta a la presentación en los motores de búsqueda. Las páginas del núcleo estático sí la tenían implementada manualmente.
+
+**Hecho:**
+- Se creó la función `merci_inyectar_metadatos_seo` en `src/wp-theme/merci-theme/functions.php`.
+- Se ancló la función al hook `wp_head`.
+
+**Detalle técnico:** WordPress no genera descripciones meta de forma nativa. La función implementada evalúa el contexto (`is_shop()`, `is_category()`, `is_singular()`) para extraer dinámicamente extractos de artículos o textos por defecto. Incluye una validación (`class_exists`) para apagarse automáticamente si en un futuro se instala un plugin de SEO especializado (como Yoast), evitando etiquetas duplicadas.
+
+**Motivo / criterio:** Mantener la máxima puntuación (100/100) en SEO técnico sin obligar a la instalación inmediata de plugins pesados de terceros. Esto respeta la filosofía de "0 dependencias externas" y el principio de austeridad tecnológica del Boilerplate.
+
+**Siguiente paso o deuda:** Verificar la aparición de la etiqueta en el código fuente de la tienda dinámica y dar por cerrada definitivamente la Fase 6 de despliegue.
+
+### 2026-04-23 — Validación: Core Web Vitals en rutas dinámicas (WooCommerce)
+
+**Contexto:** Tras resolver los conflictos con el proxy Varnish y desactivar el modo mantenimiento intrusivo, era imperativo auditar el rendimiento real de la tienda en producción (`/blog/tienda`) mediante Google PageSpeed Insights para confirmar la viabilidad de la arquitectura.
+
+**Hecho:**
+- Se analizaron los reportes de PageSpeed para las vistas móvil y de escritorio de la ruta dinámica de WooCommerce.
+- Se validó la retención de las métricas de excelencia logradas previamente en el entorno estático puro.
+
+**Detalle técnico:** Alcanzar la perfección en Core Web Vitals (LCP, INP, CLS) dentro de un ecosistema WooCommerce es atípico. Esto certifica que el "escudo de rendimiento" codificado en `functions.php` (desencolado del script `wc-cart-fragments`, bloqueo de `global-styles` y uso estricto del atributo `defer` en JS) funciona a la perfección. El proxy inverso de Nginx/CloudPanel despacha el HTML dinámico con una eficiencia comparable a un archivo plano.
+
+**Motivo / criterio:** Validación empírica del esfuerzo arquitectónico. La separación de responsabilidades y el enfoque "Shift-Left" en rendimiento demuestran que es posible utilizar un CMS pesado para gestión de datos sin sacrificar en absoluto la velocidad de carga ni la experiencia de usuario (UX).
+
+**Siguiente paso o deuda:** Dar por clausurada la Fase 6 de despliegue y auditoría, y comenzar la Fase 7 (Automatización y Clasificación).
+
 ### 2026-04-23 — Fix: Desactivación del modo "Coming Soon" de WooCommerce
 
 **Contexto:** Tras restaurar con éxito la carga de estilos, la web no mostraba el diseño del Child Theme, sino un mensaje genérico ("Tenemos grandes proyectos por anunciar..."). Se diagnosticó que se trataba de la pantalla de mantenimiento nativa de WooCommerce.
