@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+## 2026-04-23 — Fix: Aniquilación del último script inline de WooCommerce (CSP)
+
+**Contexto:** Tras la purga de *Speculation Rules* y filtros SVG, PageSpeed seguía detectando una única violación de la Política de Seguridad de Contenido (CSP) por un script en línea no identificado (hash `sha256-eHL...`).
+
+**Hecho:**
+- Se identificó la acción `wc_javascript_is_active` inyectada en el `wp_head` con prioridad 0.
+- Se implementó `remove_action('wp_head', 'wc_javascript_is_active', 0)` en `functions.php`.
+
+**Detalle técnico:** WooCommerce inyecta un minúsculo script `<script>document.body.className = ...</script>` al inicio de la cabecera para cambiar la clase `woocommerce-no-js` a `woocommerce-js`. Al no estar en un archivo `.js` externo, este bloque chocaba frontalmente con la directiva `script-src 'self'`. Al estar el sitio en Modo Catálogo y con los scripts de carrito desencolados, esta verificación de estado es código muerto.
+
+**Motivo / criterio:** Limpieza extrema y Zero Tolerance. Un solo script bloqueado es una advertencia en consola y una mancha en el reporte de rendimiento/seguridad. Localizar el *hook* exacto y neutralizarlo desde el backend (PHP) es la única vía para conciliar un CMS pesado con una arquitectura DevSecOps limpia y sin errores.
+
+**Siguiente paso o deuda:** Validar la consola del navegador limpia (0 errores) y cerrar definitivamente la Fase 6.
+
 ### 2026-04-23 — Fix: Erradicación definitiva de scripts en línea residuales (WP 6.x)
 
 **Contexto:** Aunque se purgó el grueso de scripts de WooCommerce, PageSpeed Insights reportó un 92/100 en Mejores Prácticas debido a dos bloques `<script>` en línea restantes que violaban la Política de Seguridad de Contenido (CSP): *Speculation Rules* y un script anónimo (filtros SVG de Gutenberg).
