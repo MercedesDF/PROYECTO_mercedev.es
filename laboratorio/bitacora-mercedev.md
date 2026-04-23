@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — Fix: Actualización crítica de Pillow a 10.4.0 (Dependabot)
+
+**Contexto:** Tras el último `git push`, GitHub Dependabot reportó dos nuevas vulnerabilidades de severidad alta. Dado que `requirements.txt` solo contiene la dependencia `Pillow`, se deduce que la versión 10.3.0 seguía expuesta a CVEs recientes.
+
+**Hecho:**
+- Se actualizó la dependencia en `requirements.txt` de `Pillow==10.3.0` a `Pillow==10.4.0`.
+- Se revisó la integridad y sincronización de toda la documentación del directorio `docs/` y el `README.md` confirmando el cierre inmaculado de la Fase 6.
+
+**Detalle técnico:** Las vulnerabilidades descubiertas en procesamiento de imágenes en las versiones anteriores a la 10.4.0 de Pillow pueden permitir ataques o denegación de servicio. Fijar la versión a `10.4.0` parchea estos vectores. La documentación arquitectónica (`docs/`) ha sido validada y refleja el estado exacto de producción (incluyendo el hash CSP y el enrutamiento).
+
+**Motivo / criterio:** La seguridad perimetral no es negociable. En DevSecOps, mantener las dependencias de Python actualizadas es obligatorio, incluso si el script que las usa (`merci-optimizer.py`) se ejecuta únicamente en el entorno local.
+
+**Siguiente paso o deuda:** Desplegar el cambio y comenzar el diseño del script de publicación automatizada (Fase 7.1).
+
 ### 2026-04-23 — Fix: Resolución de vulnerabilidad (Dependabot) y sincronización documental
 
 **Contexto:** Al realizar el `git push` de cierre de la Fase 6, GitHub Dependabot reportó una vulnerabilidad de severidad alta (CVE) en las dependencias del proyecto. Además, era necesario alinear los manuales de despliegue (`docs/`) con las últimas configuraciones de seguridad en Nginx (CSP, HSTS) antes de avanzar a la Fase 7.
