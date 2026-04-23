@@ -4,11 +4,9 @@ Este documento consolida las medidas de seguridad aplicadas en la arquitectura h
 
 ## 1. Capa Frontend (Núcleo Estático)
 
-- [x] **Content Security Policy (CSP):** Implementada en el `<head>` de `public/index.html`.
-  - `default-src 'self'`: Restringe la carga de recursos (scripts, estilos, imágenes) exclusivamente al dominio propio.
-  - `object-src 'none'`: Bloquea la carga de plugins (Flash, Java, etc.).
-  - `base-uri 'self'`: Impide la reescritura del origen de las rutas relativas.
-  - *Motivo:* Mitigación drástica de ataques XSS (Cross-Site Scripting) y exfiltración de datos.
+- [x] **Reducción de Superficie de Ataque DOM:**
+  - Eliminación de scripts/estilos en línea injustificados y delegación de la seguridad (CSP) a la capa de infraestructura (Nginx).
+  - *Motivo:* Las cabeceras HTTP son órdenes estrictas para el navegador, mientras que las etiquetas `<meta>` son vulnerables a ser ignoradas y no soportan todas las directivas de seguridad modernas.
 
 ## 2. Capa Backend (Aislamiento de WordPress)
 
@@ -34,6 +32,13 @@ Este documento consolida las medidas de seguridad aplicadas en la arquitectura h
 - [x] **Fronteras Inmutables (Nginx):**
   - El entorno dinámico (`/blog`) se sirve mediante un `alias` en Nginx desde un directorio físico separado (`/var/www/wordpress`).
   - WordPress no tiene permisos de escritura sobre la raíz estática (`/var/www/mercedev/public`).
+- [x] **Hardening de Cabeceras HTTP (VHost Nginx / CloudPanel):**
+  - **CSP (Content-Security-Policy):** Implementada como cabecera. Bloquea XSS definiendo orígenes permitidos.
+  - **HSTS (Strict-Transport-Security):** Fuerza comunicaciones exclusivamente por HTTPS para mitigar ataques de intermediario (*Man-in-the-Middle*).
+  - **COOP y COEP:** Aísla el documento de ventanas emergentes e incrustaciones para mitigar ataques de canal lateral de CPU (Spectre).
+  - **X-Frame-Options (SAMEORIGIN):** Previene ataques de *Clickjacking* bloqueando incrustaciones de nuestra web en iframes no autorizados.
+  - **X-Content-Type-Options (nosniff):** Previene ataques basados en confusión y suplantación de tipo MIME.
+  - **Referrer-Policy:** Protege la privacidad del usuario ocultando la URL de origen en las peticiones cruzadas.
 
 ## 4. Capa DevSecOps (Control de Calidad Local)
 
