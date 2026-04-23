@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — Fix: Resolución de micro-métricas de Core Web Vitals (CLS y Render-Blocking)
+
+**Contexto:** Un análisis exhaustivo de PageSpeed Insights alertó sobre un leve Cumulative Layout Shift (CLS de 0.022), recursos que bloquean el renderizado (`main.css`) y discrepancias en el tamaño del logotipo renderizado.
+
+**Hecho:**
+- Se corrigieron los atributos HTML del logotipo en todas las vistas, pasando de `width="150" height="auto"` a valores absolutos exactos (`width="263" height="65"`).
+- Se desestimó explícitamente la advertencia sobre el CSS bloqueante (`main.css`).
+
+**Detalle técnico:** El atributo `height="auto"` es inválido en HTML5 y provoca que el navegador no reserve espacio vertical previo a la carga de la imagen, causando el micro-salto (CLS). Al aplicar las dimensiones exactas reportadas por el DOM, el salto desaparece. Respecto al CSS bloqueante, al pesar solo 1.7 KiB y resolver en ~150ms, su externalización es preferible frente a inyectar CSS en línea, preservando la limpieza del HTML y la arquitectura SASS.
+
+**Motivo / criterio:** Pragmatismo frente a la automatización. No todas las advertencias de PageSpeed requieren reescribir la infraestructura. Optimizar un archivo de 15 KiB ahorrando 13 KiB o inyectar estilos críticos rompiendo el *Separation of Concerns* constituye sobreingeniería pura. La corrección semántica (atributos de imagen) es suficiente para garantizar el 100/100 real.
+
+**Siguiente paso o deuda:** Iniciar la Fase 7 y diseñar el pipeline de publicación automatizada.
+
 ### 2026-04-23 — QA: Auditoría Manual de Accesibilidad (Lighthouse)
 
 **Contexto:** Google PageSpeed Insights (Lighthouse) reporta 10 comprobaciones de accesibilidad que no pueden ser verificadas automáticamente (como el orden lógico de tabulación, trampas de foco y visibilidad de elementos fuera de pantalla). Era necesario certificar el cumplimiento de estos puntos para asegurar un proyecto verdaderamente inclusivo.
