@@ -142,3 +142,43 @@ function merci_boilerplate_auto_setup() {
     }
 }
 add_action('init', 'merci_boilerplate_auto_setup');
+
+// =========================================================================
+// 6. SEO BÁSICO Y METADATOS DINÁMICOS (Fase 6.3)
+// =========================================================================
+
+function merci_inyectar_metadatos_seo() {
+    // Prevenir inyección si en un futuro se usa un plugin de SEO
+    if ( class_exists( 'WPSEO_Frontend' ) || class_exists( 'RankMath' ) ) {
+        return;
+    }
+
+    $descripcion = '';
+
+    if ( function_exists('is_shop') && ( is_shop() || is_product_category() ) ) {
+        $descripcion = 'Catálogo oficial de merchandising y productos del ecosistema Merci Boilerplate.';
+    } elseif ( is_front_page() || is_home() ) {
+        $descripcion = get_bloginfo( 'description' );
+    } elseif ( is_category() || is_tag() ) {
+        $descripcion = strip_tags( term_description() );
+        if ( empty( $descripcion ) ) {
+            $descripcion = 'Publicaciones y artículos de la categoría ' . single_term_title( '', false );
+        }
+    } elseif ( is_singular() ) {
+        global $post;
+        $descripcion = wp_trim_words( $post->post_excerpt, 25, '' );
+        if ( empty( $descripcion ) ) {
+            $descripcion = wp_trim_words( $post->post_content, 25, '' );
+        }
+    }
+
+    // Limpieza básica de la cadena y fallback
+    $descripcion = trim( esc_attr( strip_tags( str_replace( array( "\r", "\n" ), ' ', $descripcion ) ) ) );
+
+    if ( empty( $descripcion ) ) {
+        $descripcion = 'Contenido dinámico gestionado por la arquitectura Merci Boilerplate.';
+    }
+
+    echo '<meta name="description" content="' . $descripcion . '">' . "\n";
+}
+add_action( 'wp_head', 'merci_inyectar_metadatos_seo', 5 );

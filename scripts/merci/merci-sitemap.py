@@ -38,11 +38,11 @@ def update_lastmod():
     new_content = re.sub(pattern, replacement, content)
     
     if content == new_content:
-        print("El sitemap ya está actualizado con la fecha de hoy.")
+        print("✅ El sitemap ya está actualizado con la fecha de hoy.")
     else:
         # Escribir los cambios de vuelta al archivo
         SITEMAP_PATH.write_text(new_content, encoding="utf-8")
-        print(f"Sitemap actualizado: <lastmod> establecido en {today}")
+        print(f"✅ Sitemap actualizado: <lastmod> establecido en {today}")
 
 if __name__ == "__main__":
     try:

@@ -670,7 +670,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     elif state.errors:
         print(f"\nResumen: {len(state.errors)} error(es).", file=sys.stderr)
     else:
-        print("Merci Audit: sin hallazgos bloqueantes.", file=sys.stderr)
+        print("✅ Merci Audit: sin hallazgos bloqueantes.", file=sys.stderr)
 
     return 1 if state.errors else 0
 
