@@ -83,11 +83,20 @@ remove_action('woocommerce_single_product_summary', 'woocommerce_template_single
 // Desencolar scripts pesados del carrito (AJAX) que WC inyecta globalmente
 function merci_limpiar_scripts_wc() {
     wp_dequeue_script('wc-cart-fragments');
+    wp_dequeue_script('wc-add-to-cart');
+    wp_dequeue_script('woocommerce');
+    wp_dequeue_script('wc-order-attribution');
+    
+    // Erradicar jQuery del frontend para mantener la regla de 0 dependencias
+    wp_deregister_script('jquery');
 }
 add_action('wp_enqueue_scripts', 'merci_limpiar_scripts_wc', 100);
 
 // Desencolar ABSOLUTAMENTE TODO el CSS por defecto de WooCommerce
 add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
+
+// Eliminar las Speculation Rules de WP (inyectan bloques <script> bloqueados por la CSP)
+remove_action('wp_head', 'wp_print_speculation_rules');
 
 // =========================================================================
 // 4. HARDENING Y SEGURIDAD (Fase 5.2)
