@@ -26,6 +26,17 @@ En la pestaña VHost, dentro del bloque `server` del puerto 8080, se elimina la 
 
 ```nginx
   # ---------------------------------------------------------
+  # MERCI BOILERPLATE: Hardening Avanzado de Cabeceras HTTP
+  # ---------------------------------------------------------
+  add_header X-Frame-Options "SAMEORIGIN" always;
+  add_header X-Content-Type-Options "nosniff" always;
+  add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+  add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+  add_header Cross-Origin-Opener-Policy "same-origin" always;
+  add_header Cross-Origin-Embedder-Policy "require-corp" always;
+  add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-eHL/Izx7K/qWL0kdBXXnHwsLSHvGOJn/THLHydUZdog='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';" always;
+
+  # ---------------------------------------------------------
   # MERCI BOILERPLATE: Enrutamiento Híbrido Estático/Dinámico
   # ---------------------------------------------------------
   
