@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — Fix: Erradicación definitiva de scripts en línea residuales (WP 6.x)
+
+**Contexto:** Aunque se purgó el grueso de scripts de WooCommerce, PageSpeed Insights reportó un 92/100 en Mejores Prácticas debido a dos bloques `<script>` en línea restantes que violaban la Política de Seguridad de Contenido (CSP): *Speculation Rules* y un script anónimo (filtros SVG de Gutenberg).
+
+**Hecho:**
+- Se amplió el bloqueo de `wp_print_speculation_rules` al hook `wp_footer`.
+- Se eliminó la acción `wp_global_styles_render_svg_filters` inyectada por el motor de bloques de WordPress en `wp_body_open` y `wp_footer`.
+
+**Detalle técnico:** WordPress 6.x y las versiones recientes de WooCommerce son sumamente obstinados inyectando código en línea. Las *Speculation Rules* intentan ejecutarse en el pie de página si son bloqueadas en la cabecera, y los filtros SVG (duotone) se inyectan directamente tras abrir el cuerpo del documento. Al estar bajo una CSP estricta (`script-src 'self'`), el navegador los interceptaba con éxito, marcando la violación en consola.
+
+**Motivo / criterio:** Tolerancia cero frente a la deuda técnica. Ignorar un 92/100 asumiéndolo como "suficientemente bueno" es el primer paso hacia la degradación estructural de un proyecto. Extirpar este código basura residual demuestra control absoluto sobre el motor de renderizado dinámico (CMS) y sella la perfección de la auditoría.
+
+**Siguiente paso o deuda:** Validar la puntuación perfecta final (100/100) en PageSpeed e iniciar la Fase 7.
+
 ### 2026-04-23 — Fix: Depuración estricta de scripts dinámicos y CSP en WooCommerce
 
 **Contexto:** La auditoría de PageSpeed Insights para la ruta `/blog/tienda/` reportó violaciones de la Política de Seguridad de Contenido (CSP), un `TypeError` en `order-attribution.min.js` y la carga innecesaria de jQuery.

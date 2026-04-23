@@ -97,6 +97,11 @@ add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
 // Eliminar las Speculation Rules de WP (inyectan bloques <script> bloqueados por la CSP)
 remove_action('wp_head', 'wp_print_speculation_rules');
+remove_action('wp_footer', 'wp_print_speculation_rules');
+
+// Eliminar filtros SVG de Gutenberg que se inyectan en línea en el body/footer
+remove_action('wp_body_open', 'wp_global_styles_render_svg_filters');
+remove_action('wp_footer', 'wp_global_styles_render_svg_filters');
 
 // =========================================================================
 // 4. HARDENING Y SEGURIDAD (Fase 5.2)
