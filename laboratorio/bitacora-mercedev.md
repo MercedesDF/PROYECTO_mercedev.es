@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — Fix: Desactivación del modo "Coming Soon" de WooCommerce
+
+**Contexto:** Tras restaurar con éxito la carga de estilos, la web no mostraba el diseño del Child Theme, sino un mensaje genérico ("Tenemos grandes proyectos por anunciar..."). Se diagnosticó que se trataba de la pantalla de mantenimiento nativa de WooCommerce.
+
+**Hecho:**
+- Se accedió al panel de administración de WordPress en producción.
+- Se desactivó el modo "Próximamente" (Coming Soon) en los ajustes de visibilidad de WooCommerce, cambiándolo a "Público" (Live).
+
+**Detalle técnico:** Las versiones modernas de WooCommerce (>= 9.0) activan por defecto una opción de visibilidad en la base de datos (`woocommerce_coming_soon`) tras su instalación. Este modo inyecta una plantilla predeterminada que secuestra el enrutamiento (`template_include`), ignorando por completo los archivos `index.php` o `woocommerce.php` de nuestro *Child Theme*. Los estilos sí cargaban correctamente porque WordPress sigue ejecutando el archivo `functions.php` en segundo plano.
+
+**Motivo / criterio:** Separación Código/Estado. Al igual que las páginas o taxonomías, el estado de los plugins reside en la base de datos y no viaja a través de Git. Conocer y documentar los comportamientos intrusivos de herramientas de terceros evita depurar código estructural que es válido pero está siendo ignorado por la configuración temporal del CMS.
+
+**Siguiente paso o deuda:** Recargar el frontend para validar que ahora sí se ejecuta la estructura HTML5 y BEM dinámica del Child Theme.
+
 ### 2026-04-23 — Fix: Resolución de inyección de puerto 8080 por Varnish
 
 **Contexto:** Tras el intento de usar URLs relativas al protocolo (`//`), la web seguía cargando sin estilos ("parecía otra página"). El diagnóstico revela que Varnish en CloudPanel no solo ofusca el protocolo, sino que inyecta su puerto interno (`8080`) en la variable `$_SERVER['HTTP_HOST']`. Esto generaba URLs inválidas como `//mercedev.es:8080/css/main.css`, las cuales eran bloqueadas por los navegadores (especialmente Firefox).
