@@ -37,19 +37,35 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
-### 2026-04-21 — Fix: Cache Busting global para hoja de estilos (CSS)
+### 2026-04-23 — Fix: Resolución de Mixed Content detrás de proxy Varnish
 
-**Contexto (Desafío):** Al visitar la tienda en dispositivos móviles, se visualizaba una estructura rota y elementos alienígenos de WooCommerce (migas de pan, selectores). El diagnóstico apuntó a la agresiva caché de los navegadores móviles, que retenían la versión anterior de `main.css` previa a la integración SASS del catálogo.
+**Contexto:** Tras purgar la caché de Varnish, la página web dejó de cargar los estilos (desconfiguración de diseño) tanto en PC como en móviles. Al estar detrás de un proxy inverso (Varnish/CloudPanel en el puerto 8080), la función `is_ssl()` de WordPress devolvía `false`. Esto provocaba que la web forzara la URL del CSS mediante `http://`, siendo bloqueada por los navegadores por políticas de *Mixed Content* en una web segura (HTTPS).
 
-**Hecho (Maniobra):**
+**Hecho:**
+- Se refactorizó la variable `$domain_root` en `src/wp-theme/merci-theme/functions.php`.
+- Se sustituyó el condicional `is_ssl()` por una URL relativa al protocolo (`//`).
+- Se unificaron y corrigieron las entradas malformadas previas en la bitácora que interrumpían el flujo de `merci-commit.py`.
+
+**Detalle técnico:** Una URL que empieza por `//` instruye al navegador a utilizar el mismo protocolo que la página actual. Esto sortea la "ceguera" de PHP frente al estado SSL cuando la terminación TLS se realiza en capas superiores (Nginx). Además, se corrigieron las etiquetas en el registro histórico para asegurar que las expresiones regulares (RegEx) de `merci-commit.py` encuentren exactamente los delimitadores de inicio (ej. `**Contexto:**` en lugar de `**Contexto (Desafío):**`).
+
+**Motivo / criterio:** Resiliencia arquitectónica en DevSecOps. Delegar la resolución del protocolo al cliente (navegador) es más seguro y eficiente que intentar adivinar la topología del servidor desde el backend. Mantener la estructura estricta en el Markdown es vital para la automatización atómica.
+
+**Siguiente paso o deuda:** Validar la restitución del diseño en producción y verificar que el orquestador de commits procesa correctamente la bitácora saneada.
+
+### 2026-04-21 — Fix: Cache Busting global y purga de Varnish en producción
+
+**Contexto:** Al visitar la tienda en dispositivos móviles y tras desplegar la nueva plantilla, se visualizaba una estructura rota. La agresiva caché de los navegadores y la retención del proxy apuntaban a versiones obsoletas del documento HTML y del archivo `main.css`.
+
+**Hecho:**
 - Se inyectó el parámetro `?v=2` en las etiquetas `<link>` de `public/index.html` y `public/biblioteca/index.html`.
 - Se actualizó el parámetro de versión de `'1.0.0'` a `'1.0.1'` en la función `wp_enqueue_style` dentro de `src/wp-theme/merci-theme/functions.php`.
+- Se purgó la caché del servidor (Clear Cache / Purge All) directamente desde la interfaz de CloudPanel.
 
-**Detalle técnico:** A diferencia del entorno de desarrollo de escritorio (donde el refresco forzado invalida la caché local), los dispositivos móviles carecen de mecanismos sencillos de *hard refresh*. Alterar la cadena de consulta (query string) de la URL del recurso estático obliga al navegador móvil a descartar la hoja de estilos obsoleta y descargar las nuevas reglas compiladas.
+**Detalle técnico:** CloudPanel enruta el tráfico PHP a través del puerto 8080 hacia Varnish. Alterar plantillas PHP no invalida automáticamente este snapshot. Además, los dispositivos carecen de *hard refresh*, por lo que alterar la cadena de consulta (query string) de la URL del recurso estático obliga al navegador a descargar las nuevas reglas compiladas.
 
-**Motivo / criterio (Aprendizaje):** Control de Caché de Assets. En arquitecturas de alto rendimiento, los archivos estáticos se cachean fuertemente. Cualquier pase a producción que modifique el diseño visual estructural debe ir acompañado obligatoriamente de un incremento de versión en los enlaces de carga para garantizar la paridad visual inmediata en los clientes de los usuarios.
+**Motivo / criterio:** Control de Caché en arquitecturas de alto rendimiento. Cualquier pase a producción que modifique el diseño visual debe incrementar versiones en los enlaces de carga y purgar la capa de Varnish para garantizar la paridad visual.
 
-**Siguiente paso o deuda:** Ejecutar el despliegue del parche y confirmar el diseño en dispositivos móviles.
+**Siguiente paso o deuda:** Validar la visualización final tras la purga de caché.
 
 ### 2026-04-21 — Chore: Resolución de linter de acrónimos para AJAX
 
