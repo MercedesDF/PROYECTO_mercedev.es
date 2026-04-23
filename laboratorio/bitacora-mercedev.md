@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — Milestone: Cierre definitivo de Fase 6 y validación 100/100
+
+**Contexto:** Tras una persistente batalla de depuración contra los scripts en línea residuales de WooCommerce, la estrategia final de utilizar un *whitelist* criptográfico (Hash SHA-256) en la cabecera CSP de Nginx fue implementada. Se requería una auditoría final para certificar la erradicación de errores en consola y el cierre de la fase de despliegue.
+
+**Hecho:**
+- Se ha validado una puntuación perfecta (100/100) en todas las categorías de Google PageSpeed Insights para la ruta dinámica `/blog/tienda/`.
+- Se ha confirmado la ausencia total de errores de CSP o JavaScript en la consola del navegador.
+- Se ha actualizado la fecha de revisión del `checklist-hardening.md` para reflejar la finalización de la Fase 6.
+
+**Detalle técnico:** La combinación de un "escudo de rendimiento" en `functions.php` (desencolado de scripts, bloqueo de hooks) y un "escudo de infraestructura" en Nginx (CSP con hash) ha demostrado ser la arquitectura definitiva para domar un CMS sin sacrificar seguridad ni velocidad.
+
+**Motivo / criterio:** La consecución de este hito valida empíricamente la tesis del proyecto: es posible construir una web híbrida que cumpla con los más altos estándares de la industria. Con esto, se da por concluida la etapa de construcción de infraestructura.
+
+**Siguiente paso o deuda:** Iniciar la Fase 7: Automatización y Clasificación.
+
 ### 2026-04-23 — Fix: Whitelist Criptográfico (CSP Hash) para script en línea residual
 
 **Contexto:** El script inline `wc_javascript_is_active` de WooCommerce seguía ejecutándose, evadiendo los `remove_action` en `functions.php`. Se diagnosticó que las versiones modernas de WooCommerce inyectan este código directamente a nivel de renderizado de bloques (Gutenberg), haciéndolo invulnerable a los hooks tradicionales de PHP.

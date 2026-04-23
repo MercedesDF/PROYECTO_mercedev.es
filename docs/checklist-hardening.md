@@ -52,4 +52,4 @@ Este documento consolida las medidas de seguridad aplicadas en la arquitectura h
   - Obligatoriedad de ejecutar `python3 scripts/merci/merci-audit.py --strict-json-ld` para garantizar la presencia de datos estructurados antes de pasar a producción.
 
 ---
-*Última revisión: Fase 5 Completada.*
+*Última revisión: Fase 6 Completada (Despliegue en Producción).*
