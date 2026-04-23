@@ -37,6 +37,22 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — Feat: Hardening avanzado de cabeceras HTTP (CSP, HSTS, COOP)
+
+**Contexto:** La auditoría de Google PageSpeed Insights señaló la ausencia de cabeceras de seguridad críticas (HSTS, COOP) y una implementación débil de la Política de Seguridad de Contenido (CSP) mediante etiqueta `<meta>`, considerándola no efectiva contra ataques XSS.
+
+**Hecho:**
+- Se ha definido un bloque de cabeceras de seguridad para Nginx.
+- Se ha migrado la CSP de la etiqueta `<meta>` a una cabecera `Content-Security-Policy` HTTP.
+- Se han añadido las cabeceras `Strict-Transport-Security` (HSTS), `Cross-Origin-Opener-Policy` (COOP), `Cross-Origin-Embedder-Policy` (COEP), `Referrer-Policy` y `X-Content-Type-Options`.
+- Se ha documentado el proceso de inyección en el VHost de CloudPanel.
+
+**Detalle técnico:** La implementación vía cabecera HTTP es el método de aplicación (enforcement) correcto. La CSP se ha ajustado con `style-src 'self' 'unsafe-inline'` como compromiso de compatibilidad con la barra de administración de WordPress. Se ha documentado la complejidad de `Trusted Types` como una mejora futura. Las cabeceras se inyectan en el bloque `server` del VHost de Nginx.
+
+**Motivo / criterio:** Elevar la postura de seguridad del Boilerplate al máximo nivel posible, mitigando vectores de ataque como XSS, Clickjacking, MIME-sniffing y ataques de canal lateral (Spectre), siguiendo las mejores prácticas de la industria recomendadas por Google.
+
+**Siguiente paso o deuda:** Aplicar las cabeceras en el VHost de producción, eliminar la etiqueta `<meta>` de los archivos HTML y re-auditar en PageSpeed Insights para validar la corrección.
+
 ### 2026-04-23 — Fix: Inyección de meta descripción dinámica en WordPress (SEO)
 
 **Contexto:** Se detectó que las páginas dinámicas generadas por WordPress (incluyendo la Tienda de WooCommerce) carecían de la etiqueta `<meta name="description">` en el `<head>`, lo que penaliza la auditoría SEO y afecta a la presentación en los motores de búsqueda. Las páginas del núcleo estático sí la tenían implementada manualmente.
