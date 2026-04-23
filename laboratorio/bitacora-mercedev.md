@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — Fix: Resolución de vulnerabilidad (Dependabot) y sincronización documental
+
+**Contexto:** Al realizar el `git push` de cierre de la Fase 6, GitHub Dependabot reportó una vulnerabilidad de severidad alta (CVE) en las dependencias del proyecto. Además, era necesario alinear los manuales de despliegue (`docs/`) con las últimas configuraciones de seguridad en Nginx (CSP, HSTS) antes de avanzar a la Fase 7.
+
+**Hecho:**
+- Se identificó que la librería `Pillow` anclada en `requirements.txt` poseía una vulnerabilidad conocida, por lo que se actualizó a la versión segura `10.3.0`.
+- Se actualizaron los manuales `docs/deployment-playbook.md` y `docs/integracion-wordpress.md` para incluir el bloque de Hardening de cabeceras HTTP inyectado en CloudPanel.
+
+**Detalle técnico:** En arquitecturas DevSecOps, las dependencias de Python (utilizadas por `merci-optimizer.py`) deben ser auditadas continuamente. Actualizar la versión estricta en `requirements.txt` soluciona la alerta de GitHub manteniendo la reproducibilidad. Por otro lado, la documentación arquitectónica se sincronizó para reflejar la inyección de la cabecera `Content-Security-Policy` con el *whitelist* criptográfico (Hash SHA-256) y el `preload` de HSTS en el VHost del puerto 8080.
+
+**Motivo / criterio:** Tolerancia cero frente a deuda técnica y brechas de seguridad. Una vulnerabilidad "High", aunque afecte solo al entorno local de automatización, rompe la confianza en el repositorio. Mantener la documentación sincronizada con la realidad del servidor garantiza la reproducibilidad (Infrastructure as Code).
+
+**Siguiente paso o deuda:** Iniciar la Fase 7: Automatización y Clasificación.
+
 ### 2026-04-23 — Milestone: Cierre definitivo de Fase 6 y validación 100/100
 
 **Contexto:** Tras una persistente batalla de depuración contra los scripts en línea residuales de WooCommerce, la estrategia final de utilizar un *whitelist* criptográfico (Hash SHA-256) en la cabecera CSP de Nginx fue implementada. Se requería una auditoría final para certificar la erradicación de errores en consola y el cierre de la fase de despliegue.

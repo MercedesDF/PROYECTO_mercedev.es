@@ -39,7 +39,8 @@ Este documento define el proceso estandarizado para desplegar la arquitectura h�
 1. Emitir el Certificado SSL/TLS (Secure Sockets Layer / Transport Layer Security) gratuito (Let's Encrypt) desde la pestaña SSL de CloudPanel.
 2. Configurar la frontera estática: En la pestaña **Settings**, modificar el *Document Root* añadiendo `/public` al final (`/home/mercedev-php/htdocs/mercedev.es/public`).
 3. Configurar el enrutador dinámico: En la pestaña **VHost**, localizar el bloque `server` del puerto **8080** (procesamiento PHP), eliminar la regla global `try_files` e inyectar los bloques lógicos (`location /` y `location /blog`) definidos en `docs/integracion-wordpress.md`.
-4. Acceder a la ruta `/blog` en el navegador, completar la instalación de WordPress, guardar los **Enlaces Permanentes** ("Nombre de la entrada") y activar el Child Theme.
+4. Inyectar el bloque de cabeceras HTTP de seguridad (CSP, HSTS, COOP, etc.) en el mismo bloque `server` del puerto 8080 para blindar el frontend contra ataques XSS y *Clickjacking*.
+5. Acceder a la ruta `/blog` en el navegador, completar la instalación de WordPress, guardar los **Enlaces Permanentes** ("Nombre de la entrada") y activar el Child Theme.
 
 ## FASE 5: Verificación
 1. Ejecutar `merci-linkcheck.py` contra el dominio público para auditar la ausencia de enlaces rotos (404).
