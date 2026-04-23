@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — Fix: Depuración estricta de scripts dinámicos y CSP en WooCommerce
+
+**Contexto:** La auditoría de PageSpeed Insights para la ruta `/blog/tienda/` reportó violaciones de la Política de Seguridad de Contenido (CSP), un `TypeError` en `order-attribution.min.js` y la carga innecesaria de jQuery.
+
+**Hecho:**
+- Se amplió la función `merci_limpiar_scripts_wc` en `functions.php` para desencolar `wc-order-attribution`, `wc-add-to-cart`, `woocommerce` y desregistrar `jquery` en el frontend.
+- Se eliminó la acción `wp_print_speculation_rules` para evitar la inyección de JSON/JS en línea por parte de WordPress.
+
+**Detalle técnico:** WooCommerce inyecta variables de configuración como scripts en línea (`<script>...</script>`). Al tener una cabecera HTTP CSP estricta (`script-src 'self'`), el navegador bloqueaba estos bloques en línea. Al cargar los scripts externos de WooCommerce, estos intentaban leer las variables bloqueadas, resultando en `undefined` y desencadenando el `TypeError`.
+
+**Motivo / criterio:** Resiliencia arquitectónica (Shift-Left). Frente al dilema de debilitar la seguridad de la CSP permitiendo `'unsafe-inline'` o eliminar los scripts conflictivos, se optó por lo segundo. Dado que la tienda opera en "Modo Catálogo", los scripts de atribución de pedidos y carritos AJAX son peso muerto. Erradicarlos protege la puntuación de rendimiento, elimina la dependencia de jQuery y preserva la máxima postura de seguridad contra XSS.
+
+**Siguiente paso o deuda:** Validar la resolución de los errores en la consola del navegador y cerrar la fase de auditoría dinámica.
+
 ### 2026-04-23 — Fix: Resolución de micro-métricas de Core Web Vitals (CLS y Render-Blocking)
 
 **Contexto:** Un análisis exhaustivo de PageSpeed Insights alertó sobre un leve Cumulative Layout Shift (CLS de 0.022), recursos que bloquean el renderizado (`main.css`) y discrepancias en el tamaño del logotipo renderizado.
