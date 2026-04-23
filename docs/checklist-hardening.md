@@ -34,7 +34,7 @@ Este documento consolida las medidas de seguridad aplicadas en la arquitectura h
   - WordPress no tiene permisos de escritura sobre la raíz estática (`/var/www/mercedev/public`).
 - [x] **Hardening de Cabeceras HTTP (VHost Nginx / CloudPanel):**
   - **CSP (Content-Security-Policy):** Implementada como cabecera. Bloquea XSS definiendo orígenes permitidos.
-  - **HSTS (Strict-Transport-Security):** Fuerza comunicaciones exclusivamente por HTTPS para mitigar ataques de intermediario (*Man-in-the-Middle*).
+  - **HSTS (Strict-Transport-Security):** Fuerza comunicaciones exclusivamente por HTTPS (incluyendo directiva `preload` para precarga en navegadores) para mitigar ataques de intermediario (*Man-in-the-Middle*).
   - **COOP y COEP:** Aísla el documento de ventanas emergentes e incrustaciones para mitigar ataques de canal lateral de CPU (Spectre).
   - **X-Frame-Options (SAMEORIGIN):** Previene ataques de *Clickjacking* bloqueando incrustaciones de nuestra web en iframes no autorizados.
   - **X-Content-Type-Options (nosniff):** Previene ataques basados en confusión y suplantación de tipo MIME.

@@ -192,9 +192,9 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Consolidar checklist de hardening completado en documentación interna.
 
 #### 5.5 Hardening avanzado de cabeceras HTTP
-- [ ] Implementar HSTS, COOP/COEP y políticas de Referrer/X-Content-Type.
-- [ ] Migrar la CSP desde la etiqueta `<meta>` a una cabecera HTTP robusta.
-- [ ] Validar la nueva configuración de seguridad con herramientas externas.
+- [x] Implementar HSTS, COOP/COEP y políticas de Referrer/X-Content-Type.
+- [x] Migrar la CSP desde la etiqueta `<meta>` a una cabecera HTTP robusta.
+- [x] Validar la nueva configuración de seguridad con herramientas externas.
 
 ### Fase 6 - Despliegue y Auditoría Final
 
