@@ -43,8 +43,9 @@ remove_action('wp_body_open', 'wp_enqueue_global_styles');
 function merci_cargar_assets_estaticos() {
     // WordPress es obstinado: si le damos una ruta que empieza por '/', le concatena 
     // el directorio del blog por defecto (ej. /blog/css/...).
-    // Para forzar la salida a la raíz estática absoluta, construimos el esquema + host:
-    $domain_root = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
+    // Para forzar la salida a la raíz estática absoluta evitando errores de "Mixed Content" 
+    // detrás del proxy inverso Varnish, delegamos el esquema mediante URL relativa al protocolo (//):
+    $domain_root = '//' . $_SERVER['HTTP_HOST'];
     wp_enqueue_style('merci-core-styles', $domain_root . '/css/main.css', array(), '1.0.1', 'all');
     // Encolar el JavaScript unificado (el filtro de defer lo procesará automáticamente)
     wp_enqueue_script('merci-core-js', $domain_root . '/js/main.js', array(), '1.0.0', true);
