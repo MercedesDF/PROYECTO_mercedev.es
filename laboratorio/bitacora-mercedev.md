@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — QA: Auditoría Manual de Accesibilidad (Lighthouse)
+
+**Contexto:** Google PageSpeed Insights (Lighthouse) reporta 10 comprobaciones de accesibilidad que no pueden ser verificadas automáticamente (como el orden lógico de tabulación, trampas de foco y visibilidad de elementos fuera de pantalla). Era necesario certificar el cumplimiento de estos puntos para asegurar un proyecto verdaderamente inclusivo.
+
+**Hecho:**
+- Se ejecutó una prueba exhaustiva de navegación exclusivamente por teclado (Tabulación).
+- Se verificaron los estados de foco, el flujo visual-vs-DOM y el comportamiento del menú fuera de pantalla.
+- Se revalidó la implementación de *Landmarks* semánticos y etiquetas `aria-label`.
+
+**Detalle técnico:** Se confirmó que el núcleo estático no contiene "trampas de foco" (focus traps) y que los elementos interactivos personalizados (`<button id="menu-toggle">`) están construidos sobre etiquetas nativas con atributos WAI-ARIA descriptivos, obviando la necesidad de inyectar `role="button"` artificialmente. Se comprobó que el anillo de foco (`outline`) nativo del navegador es claramente visible.
+
+**Motivo / criterio:** La automatización tiene límites. Un "100/100" en herramientas automatizadas es una ilusión si un usuario con tecnologías de asistencia no puede navegar lógicamente por la página. La auditoría manual cierra la brecha entre la métrica técnica y la empatía con el usuario final.
+
+**Siguiente paso o deuda:** Iniciar la Fase 7 y diseñar el pipeline de publicación automatizada.
+
 ### 2026-04-23 — Fix: Refinamiento de HSTS y justificación de deuda en Trusted Types
 
 **Contexto:** Tras la migración de cabeceras de seguridad a Nginx, la auditoría reportó dos advertencias restantes: la ausencia de la directiva `preload` en el HSTS y la falta de `Trusted Types` en la CSP.
