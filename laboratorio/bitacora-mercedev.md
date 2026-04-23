@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-23 — Fix: Resolución de inyección de puerto 8080 por Varnish
+
+**Contexto:** Tras el intento de usar URLs relativas al protocolo (`//`), la web seguía cargando sin estilos ("parecía otra página"). El diagnóstico revela que Varnish en CloudPanel no solo ofusca el protocolo, sino que inyecta su puerto interno (`8080`) en la variable `$_SERVER['HTTP_HOST']`. Esto generaba URLs inválidas como `//mercedev.es:8080/css/main.css`, las cuales eran bloqueadas por los navegadores (especialmente Firefox).
+
+**Hecho:**
+- Se refactorizó `$domain_root` en `src/wp-theme/merci-theme/functions.php`.
+- Se eliminó la dependencia absoluta de `$_SERVER['HTTP_HOST']`.
+- Se implementó la función nativa `home_url()` de WordPress, recortando el sufijo `/blog` mediante la expresión regular `preg_replace`.
+
+**Detalle técnico:** La función `home_url()` lee la ruta base configurada directamente en la base de datos (`https://mercedev.es/blog`), la cual ya es completamente segura y agnóstica a los puertos internos del proxy inverso. Al aplicar `preg_replace('#/blog/?$#', '', home_url())`, extraemos dinámicamente la raíz absoluta real (`https://mercedev.es` o `http://localhost`), garantizando que los estáticos se encolen correctamente independientemente de la topología del servidor.
+
+**Motivo / criterio:** Resiliencia arquitectónica extrema. Leer variables de servidor brutas (`$_SERVER`) detrás de un proxy de alto rendimiento (Nginx + Varnish) es un antipatrón propenso a fallos. Confiar en la abstracción nativa del framework (WP) que ya está sanitizada por la configuración es la solución definitiva (Single Source of Truth).
+
+**Siguiente paso o deuda:** Validar en producción la carga exitosa de estilos tanto en Chrome como en Firefox y avanzar con la auditoría de rendimiento.
+
 ### 2026-04-23 — Fix: Resolución de Mixed Content detrás de proxy Varnish
 
 **Contexto:** Tras purgar la caché de Varnish, la página web dejó de cargar los estilos (desconfiguración de diseño) tanto en PC como en móviles. Al estar detrás de un proxy inverso (Varnish/CloudPanel en el puerto 8080), la función `is_ssl()` de WordPress devolvía `false`. Esto provocaba que la web forzara la URL del CSS mediante `http://`, siendo bloqueada por los navegadores por políticas de *Mixed Content* en una web segura (HTTPS).
