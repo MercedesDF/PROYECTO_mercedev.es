@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Feat: Enlace de retroceso (UX) en publicaciones individuales
+
+**Contexto:** Las páginas individuales generadas por `merci-publish.py` carecían de un método rápido y contextual para regresar al índice temático de la Biblioteca, obligando al usuario a usar el botón "Atrás" del navegador o buscar en el menú principal.
+
+**Hecho:**
+- Se añadió la clase BEM `.card__back-link` en `src/scss/components/_card.scss`.
+- Se actualizó el orquestador `scripts/merci/merci-publish.py` para inyectar dinámicamente este enlace (`← Volver a la Biblioteca`) en la cabecera de cada artículo renderizado.
+
+**Motivo / criterio:** Experiencia de Usuario (UX) y navegabilidad. Proveer enlaces de retroceso contextuales reduce la fricción cognitiva, retiene al usuario en el flujo de la aplicación y fomenta la exploración de otras estanterías temáticas.
+
+**Siguiente paso o deuda:** Empaquetar el commit atómico y proceder con la investigación para la generación de los PDFs.
+
 ### 2026-04-24 — Fix: Resolución de advertencia SEO (JSON-LD) en el índice de la Biblioteca
 
 **Contexto:** El orquestador local (`merci-total`) reportó una advertencia (`WARN SEO_JSONLD`) indicando que el índice principal de la Biblioteca carecía de datos estructurados, lo cual penaliza el SEO técnico y rompe el estándar de la Fase 2.
