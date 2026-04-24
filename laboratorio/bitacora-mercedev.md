@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Fix: Exclusión de enlace simbólico del CMS en control de versiones
+
+**Contexto:** El enlace simbólico `public/blog` (que conecta el núcleo estático con la instalación aislada de WordPress) corría el riesgo de ser rastreado por Git. Versionar un enlace simbólico que apunta a una ruta absoluta del sistema anfitrión rompe la portabilidad del proyecto al clonarlo en entornos con topologías diferentes.
+
+**Hecho:**
+- Se añadió `public/blog` al archivo `.gitignore`.
+- Se definió la ejecución de `git rm --cached public/blog` para eliminar el rastro del índice de Git sin destruir el enlace físico en el servidor local.
+
+**Motivo / criterio:** Portabilidad y aislamiento (Shift-Left). El código fuente debe ser universal y agnóstico a la infraestructura. Los enlaces simbólicos son configuraciones exclusivas del servidor (estado) y, al igual que la base de datos o el archivo `wp-config.php`, nunca deben viajar a través del control de versiones.
+
+**Siguiente paso o deuda:** Ejecutar la limpieza del caché de Git, revisar el estado del árbol y realizar el commit de saneamiento mediante `merci-commit.py`.
+
 ### 2026-04-24 — Milestone: Bifurcación arquitectónica (Merci Boilerplate vs mercedev.es)
 
 **Contexto:** Tras alcanzar la madurez técnica absoluta (100/100) y purgar la deuda técnica al cierre de la Fase 6, se determinó que las Fases 1-6 conforman un motor de infraestructura agnóstico (DevSecOps, SASS, CSP, Híbrido WP), mientras que la Fase 7 (publicación automatizada, biblioteca) contiene la lógica de negocio específica del proyecto.
