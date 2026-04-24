@@ -1,2 +1,3 @@
 #comprobando
 Pillow==12.2.0
+weasyprint==63.0
