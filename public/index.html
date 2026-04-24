@@ -25,8 +25,9 @@
     }
     </script>
 </head>
-<body class="page">
+<body class="page" id="top">
     <header class="header">
+        <a href="#main" class="skip-link">Saltar al contenido principal</a>
         <a href="/" class="header__brand">
             <img src="/assets/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
         </a>
@@ -42,7 +43,7 @@
             <a href="/contacto" class="nav__link">Contacto</a>
         </nav>
     </header>
-    <main class="main">
+    <main class="main" id="main">
         <section class="hero" id="hero">
             <h1 class="hero__title">Laboratorio mercedev.</h1>
             <p class="hero__subtitle">Bienvenido a mi base de operaciones. Un entorno web híbrido diseñado bajo la filosofía DevSecOps para alojar mi <strong>Biblioteca</strong> técnica y los cuadernillos de <strong>Art de Coté</strong>.</p>
@@ -81,7 +82,10 @@
         </section>
     </main>
     <footer class="footer">
-        <p class="footer__text">&copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.</p>
+        <p class="footer__text">
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+            <span style="margin: 0 1rem;">|</span> <a href="#top" style="color: inherit; text-decoration: underline;">↑ Volver arriba</a>
+        </p>
     </footer>
 </body>
 </html>
