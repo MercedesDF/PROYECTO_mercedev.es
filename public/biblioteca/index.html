@@ -17,8 +17,9 @@
     }
     </script>
 </head>
-<body>
+<body id="top">
     <header class="header">
+        <a href="#main" class="skip-link">Saltar al contenido principal</a>
         <a href="/" class="header__brand">
             <img src="/assets/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
         </a>
@@ -34,7 +35,7 @@
             <a href="/contacto" class="nav__link">Contacto</a>
         </nav>
     </header>
-    <main class="main--padded section">
+    <main class="main--padded section" id="main">
         <header style="margin-bottom: 3rem;">
             <h1 class="home-card__title--highlight">La Biblioteca</h1>
             <p>Documentación técnica, cuadernillos DevSecOps y arquitectura de software.</p>
@@ -68,11 +69,23 @@
                         <p>Solución al problema de autodescubrimiento de rutas en Python al usar alias absolutos en la terminal (Fantasmas en RAM).</p>
                     </div>
                 </article>
+                <article class="card card--booklet">
+                    <header>
+                        <span class="card__meta">2026-04-24 — Cuadernillo</span>
+                        <h2 class="card__title"><a href="/biblioteca/cuadernillo-entorno-virtual-zsh.html">Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo resolver la activación de entornos virtuales de Python (.venv) cuando el editor lo hace mágicamente pero la terminal del sistema no.</p>
+                    </div>
+                </article>
             </div>
         </section>
     </main>
     <footer class="footer">
-        <p class="footer__text">&copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.</p>
+        <p class="footer__text">
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+            <span style="margin: 0 1rem;">|</span> <a href="#top" style="color: inherit; text-decoration: underline;">↑ Volver arriba</a>
+        </p>
     </footer>
 </body>
 </html>
