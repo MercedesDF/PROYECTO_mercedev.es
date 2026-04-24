@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — QA: Falsos positivos de accesibilidad por extensiones del navegador
+
+**Contexto:** Durante la auditoría manual de accesibilidad por teclado (tabulación), se detectó que el foco caía en un "agujero negro" de múltiples saltos (tabs fantasma) antes de retornar a la navegación de la web.
+
+**Hecho:**
+- Se inyectó un rastreador de eventos JS en la consola del navegador (`document.addEventListener('focusin', ...)`).
+- El registro (log) reveló que el foco estaba siendo secuestrado por el elemento `<chatgpt-sidebar>`, el cual es inyectado de forma invisible por una extensión instalada en el navegador del usuario.
+
+**Motivo / criterio:** Aislamiento del entorno de pruebas. Las extensiones del navegador inyectan Shadow DOM y elementos en el código fuente de las páginas visitadas, alterando el árbol de accesibilidad real. Las auditorías manuales (WAI-ARIA) y automáticas (Lighthouse) deben ejecutarse siempre en ventanas de Incógnito/InPrivate puras para evitar depurar "código fantasma" ajeno al proyecto.
+
+**Siguiente paso o deuda:** Realizar el commit atómico de este aprendizaje y avanzar a la Fase 7.2.
+
 ### 2026-04-24 — Fix: Purgado de "Tabs Fantasma" y botón de salto a contenido
 
 **Contexto:** Realizando pruebas de accesibilidad, se detectaron dos comportamientos indeseados durante la navegación por teclado: 1) el botón de accesibilidad "Saltar al contenido principal" resultaba redundante según los nuevos criterios, y 2) tras sobrepasar el footer con la tecla tabulador, el foco caía en unos 10 "tabs fantasma" antes de retornar al navegador web.
