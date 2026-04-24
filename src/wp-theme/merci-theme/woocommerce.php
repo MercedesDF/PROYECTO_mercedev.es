@@ -10,7 +10,7 @@
 <body <?php body_class('theme-body'); ?>>
     <header class="header">
         <a href="/" class="header__brand">
-            <img src="/assets/logo.webp?v=2" alt="mercedev.es" class="header__logo" width="150" height="auto">
+            <img src="/assets/logo.webp?v=2" alt="{{DOMINIO}}" class="header__logo" width="150" height="auto">
         </a>
         <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
             <span class="header__toggle-icon"></span>
@@ -44,7 +44,7 @@
     </main>
 
     <footer class="footer">
-        <p class="footer__text">&copy; 2026 <strong>mercedev.es</strong> — Base de código abierto bajo Licencia MIT.</p>
+        <p class="footer__text">&copy; 2026 <strong>{{DOMINIO}}</strong> — Base de código abierto bajo Licencia MIT.</p>
     </footer>
 
     <?php wp_footer(); ?>
