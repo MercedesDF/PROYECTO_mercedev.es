@@ -37,6 +37,30 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Fix: Resolución de incompatibilidad de WeasyPrint (Supply Chain)
+
+**Contexto:** Durante la generación del PDF en el orquestador de publicación (`merci-publish.py`), la ejecución colapsó con el error `AttributeError: 'super' object has no attribute 'transform'`. El diagnóstico reveló una incompatibilidad entre la versión anclada `weasyprint==62.1` y la actualización reciente de una de sus subdependencias internas (`pydyf`) en entornos con Python 3.12.
+
+**Hecho:**
+- Se actualizó la dependencia en `requirements.txt` de `weasyprint==62.1` a `weasyprint==63.0`.
+
+**Motivo / criterio:** Mantenimiento de la cadena de suministro de software (Supply Chain). En DevSecOps, cuando una subdependencia transitiva rompe la librería principal, la maniobra correcta es dar el salto a la siguiente *release* estable del paquete anfitrión que haya mitigado la incompatibilidad, en lugar de intentar parchear el código fuente o degradar módulos individuales.
+
+**Siguiente paso o deuda:** Re-instalar dependencias, validar la generación exitosa de los PDFs y dar por cerrada la funcionalidad.
+
+### 2026-04-24 — Feat: Generación automatizada de artefactos PDF (WeasyPrint)
+
+**Contexto:** Se requería dotar a la Biblioteca de la capacidad de generar y ofrecer versiones descargables en PDF de cada artículo para facilitar el consumo offline, la preservación del conocimiento y el formato de "libro/cuadernillo".
+
+**Hecho:**
+- Se integró la librería `weasyprint` en el pipeline de publicación.
+- Se actualizó `merci-publish.py` para compilar un diseño específico de impresión (con portada generada dinámicamente usando metadatos YAML y saltos de página).
+- Se inyectó un botón de descarga (`.card__download`) en las páginas HTML generadas apuntando a la nueva ruta `public/descargas/`.
+
+**Motivo / criterio:** SSG Avanzado y Cero Fricción. Generar el PDF en el mismo instante de la compilación asegura que la versión web y la descargable jamás estén desincronizadas. Se utilizó WeasyPrint por ser el estándar más robusto y moderno en Python para interpretar HTML/CSS hacia PDF nativo sin depender de binarios de navegadores pesados.
+
+**Siguiente paso o deuda:** Validar la visualización del PDF, actualizar la portada con los últimos artículos (si aplica) y dar por cerrada la Fase 7.1.
+
 ### 2026-04-24 — Refactor: Paridad WAI-ARIA en WP y corrección arquitectónica SASS 7-1
 
 **Contexto:** Tras implementar el patrón de accesibilidad (skip-link y anclas de retorno) en el núcleo estático, la capa dinámica (WordPress) quedó desincronizada. Además, se detectó que los estilos del bloque principal (`.header`) debían ubicarse estrictamente según el patrón SASS 7-1.

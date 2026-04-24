@@ -16,9 +16,16 @@ except ImportError:
     print("🛡️ [Merci Error] Falta la librería 'markdown'. Ejecuta: pip install markdown")
     sys.exit(1)
 
+try:
+    from weasyprint import HTML
+except ImportError:
+    print("🛡️ [Merci Error] Falta la librería 'weasyprint'. Ejecuta: pip install weasyprint")
+    sys.exit(1)
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 BIBLIOTECA_DIR = REPO_ROOT / "biblioteca"
 PUBLIC_BIBLIOTECA = REPO_ROOT / "public" / "biblioteca"
+PUBLIC_DESCARGAS = REPO_ROOT / "public" / "descargas"
 
 def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     print(f"📖 Leyendo: {filepath.name}...")
@@ -47,12 +54,47 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     print(f"  ⚙️  Procesando {tipo}: {titulo}")
     
     out_filename = filepath.stem + ".html"
+    out_pdf_filename = filepath.stem + ".pdf"
     canonical_url = f"https://mercedev.es/biblioteca/{out_filename}"
 
     # 3. Convertir Markdown a HTML (Soportando bloques de código)
     html_content = markdown.markdown(md_body, extensions=['fenced_code'])
     
-    # 4. Generar el HTML final inyectando las clases BEM estructurales
+    # 4. Generar PDF con WeasyPrint (Maquetación específica para impresión)
+    print("  📄 Generando edición en PDF...")
+    out_pdf_path = PUBLIC_DESCARGAS / out_pdf_filename
+    PUBLIC_DESCARGAS.mkdir(parents=True, exist_ok=True)
+    
+    pdf_html_content = f"""<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{titulo}</title>
+    <style>
+        @page {{ size: A4; margin: 2.5cm; }}
+        body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #334155; }}
+        .portada {{ text-align: center; page-break-after: always; padding-top: 30%; }}
+        .portada h1 {{ font-size: 2.5em; color: #ea580c; margin-bottom: 0.2em; }}
+        .portada p {{ font-size: 1.2em; color: #64748b; }}
+        h2 {{ color: #ea580c; margin-top: 2em; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5em; }}
+        pre {{ background: #f1f5f9; padding: 1em; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; font-size: 0.9em; }}
+        code {{ font-family: monospace; background: #f1f5f9; padding: 0.2em 0.4em; border-radius: 3px; font-size: 0.9em; }}
+    </style>
+</head>
+<body>
+    <div class="portada">
+        <h1>{titulo}</h1>
+        <p>{tipo.capitalize()} | Vol. {meta.get('volumen', 1)}</p>
+        <p><strong>mercedev.es</strong> — {meta.get('fecha', '')}</p>
+    </div>
+    <div class="contenido">
+        {html_content}
+    </div>
+</body>
+</html>"""
+    HTML(string=pdf_html_content).write_pdf(out_pdf_path)
+
+    # 5. Generar el HTML final inyectando las clases BEM estructurales
     clase_css = "card--booklet" if tipo == "cuadernillo" else "card--book"
     
     html_final = f"""<!DOCTYPE html>
@@ -81,6 +123,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
                 <h1 class="home-card__title--highlight">{titulo}</h1>
+                <a href="/descargas/{out_pdf_filename}" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
                 {html_content}
