@@ -37,6 +37,30 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Refactor: Reestructuración temática del índice de Biblioteca (Estanterías)
+
+**Contexto:** La generación del sitio estático para la Biblioteca (`merci-publish.py`) organizaba el contenido cronológicamente (como un blog). Esto violaba la filosofía fundacional de la "Biblioteca", que define el contenido como conocimiento inmutable ordenado por "estanterías" temáticas, delegando la presentación cronológica a la capa dinámica de WordPress (`/blog`).
+
+**Hecho:**
+- Se añadió el campo `tema` en el bloque de metadatos YAML de todas las publicaciones de la biblioteca.
+- Se refactorizó la función `generar_indice_biblioteca()` en `merci-publish.py` para agrupar los artículos por tema (diccionarios) y renderizarlos en secciones separadas (`<section>`).
+
+**Motivo / criterio:** Arquitectura de la Información y Gestión del Conocimiento. Separar la estructura mental del usuario. El Blog es un flujo temporal (novedades, anuncios); la Biblioteca es un índice de consulta directa agrupado semánticamente (Arquitectura, DevSecOps, SASS).
+
+**Siguiente paso o deuda:** Empaquetar el cambio en un commit atómico y proceder a la investigación para la generación de los PDFs.
+
+### 2026-04-24 — Feat: Auto-generación del índice de la Biblioteca (SSG)
+
+**Contexto:** Se generaban las publicaciones individuales en HTML, pero la página principal de la Biblioteca (`public/biblioteca/index.html`) no existía o no enlazaba dinámicamente el nuevo contenido, obligando a añadir los enlaces manualmente.
+
+**Hecho:**
+- Se refactorizó `scripts/merci/merci-publish.py` para recolectar los metadatos de las publicaciones procesadas.
+- Se implementó la función `generar_indice_biblioteca()` para compilar automáticamente el `index.html` con una cuadrícula de tarjetas ordenadas por fecha descendente.
+
+**Motivo / criterio:** Fricción Cero y SSG (Static Site Generation - Generación de Sitios Estáticos). Automatizar la creación del índice elimina la necesidad de editar HTML manualmente, protegiendo el diseño y evitando el error humano de publicar un artículo y olvidar enlazarlo.
+
+**Siguiente paso o deuda:** Empaquetar el commit atómico y proceder a la investigación sobre generación de PDFs.
+
 ### 2026-04-24 — Fix: Resolución de auditoría SEO en orquestador de publicación
 
 **Contexto:** El orquestador maestro (`merci-total`) abortó el pipeline al detectar que las páginas HTML generadas por `merci-publish.py` carecían de etiquetas SEO obligatorias (meta descripción, URL canónica y JSON-LD), lo cual habría provocado penalizaciones en buscadores.

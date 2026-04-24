@@ -2,6 +2,7 @@
 titulo: "Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps"
 descripcion: "Solución al problema de autodescubrimiento de rutas en Python al usar alias absolutos en la terminal (Fantasmas en RAM)."
 tipo: "cuadernillo"
+tema: "DevSecOps y Automatización"
 volumen: 1
 fecha: "2026-04-24"
 portada: "portada-auditoria.webp"
