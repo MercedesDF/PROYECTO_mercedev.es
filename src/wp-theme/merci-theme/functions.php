@@ -70,11 +70,12 @@ add_filter('script_loader_tag', 'merci_defer_js_frontend', 10, 2);
 // 3. WOOCOMMERCE EN MODO CATÁLOGO (Fase 4.3)
 // =========================================================================
 
-// Declarar soporte básico para evitar que WP/WooCommerce lance errores
-function merci_woocommerce_support() {
+// Declarar soporte básico para evitar que WP/WooCommerce lance errores y delegar <title>
+function merci_theme_setup() {
     add_theme_support('woocommerce');
+    add_theme_support('title-tag'); // Renderizado nativo del título (Fase 2 y limpieza de deprecaciones)
 }
-add_action('after_setup_theme', 'merci_woocommerce_support');
+add_action('after_setup_theme', 'merci_theme_setup');
 
 // Escudo de rendimiento: Eliminar botones de "Añadir al carrito"
 remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
@@ -163,7 +164,8 @@ function merci_boilerplate_auto_setup() {
         wp_delete_post(2, true);
     }
 }
-add_action('init', 'merci_boilerplate_auto_setup');
+// after_switch_theme asegura que la carga a base de datos ocurra solo 1 vez al activar el tema
+add_action('after_switch_theme', 'merci_boilerplate_auto_setup');
 
 // =========================================================================
 // 6. SEO BÁSICO Y METADATOS DINÁMICOS (Fase 6.3)
@@ -202,5 +204,14 @@ function merci_inyectar_metadatos_seo() {
     }
 
     echo '<meta name="description" content="' . $descripcion . '">' . "\n";
+
+    // Inyección de JSON-LD Mínimo para mantener paridad SEO con la raíz estática
+    $json_ld = array(
+        "@context" => "https://schema.org",
+        "@type"    => "WebSite",
+        "name"     => "mercedev.es",
+        "url"      => home_url()
+    );
+    echo '<script type="application/ld+json">' . wp_json_encode($json_ld) . '</script>' . "\n";
 }
 add_action( 'wp_head', 'merci_inyectar_metadatos_seo', 5 );
