@@ -37,6 +37,45 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Fix: Resolución de auditoría SEO en orquestador de publicación
+
+**Contexto:** El orquestador maestro (`merci-total`) abortó el pipeline al detectar que las páginas HTML generadas por `merci-publish.py` carecían de etiquetas SEO obligatorias (meta descripción, URL canónica y JSON-LD), lo cual habría provocado penalizaciones en buscadores.
+
+**Hecho:**
+- Se añadió el atributo `descripcion` en el YAML Frontmatter de los archivos Markdown de la biblioteca.
+- Se actualizó `scripts/merci/merci-publish.py` para leer dicha descripción y generar dinámicamente las etiquetas `<meta>`, `<link rel="canonical">` y el bloque `<script type="application/ld+json">`.
+- Se superó exitosamente la auditoría estricta de `merci-audit.py` logrando 0 errores y 0 advertencias.
+
+**Detalle técnico:** La inyección de metadatos se realiza directamente en el orquestador de Python usando *f-strings*. El esquema de datos estructurados (JSON-LD) se configura con el `@type` `Article`, nutriéndose de los mismos metadatos del YAML para evitar que el desarrollador introduzca información redundante de forma manual.
+
+**Motivo / criterio:** Shift-Left SEO y validación cruzada. El pipeline ha demostrado su valor al actuar como barrera protectora estricta. Solventar este error a nivel de orquestador asegura automáticamente las mejores prácticas de SEO para cualquier futuro artículo publicado.
+
+**Siguiente paso o deuda:** Empaquetar el commit atómico y proceder a la fase de generación automática de artefactos descargables (PDF).
+
+### 2026-04-24 — Fix: Retrocompatibilidad YAML y refinamiento tipográfico SASS
+
+**Contexto:** Durante la ejecución del orquestador de publicación (`merci-publish`), el archivo `auditoria-rendimiento.md` (heredado de la Fase 6) fue bloqueado por carecer de metadatos YAML. Además, el HTML generado a partir de Markdown presentaba una densidad visual alta, requiriendo mayor espaciado entre capítulos para mejorar la legibilidad.
+
+**Hecho:**
+- Se inyectó el bloque estandarizado YAML Frontmatter en `auditoria-rendimiento.md`.
+- Se añadieron reglas de espaciado (`margin-top`, `margin-bottom`) específicas para encabezados (`h2`, `h3`) y párrafos generados dinámicamente dentro de `.card__content` en la arquitectura SASS.
+- Se validó la generación e integración exitosa de ambas publicaciones en el núcleo estático.
+
+**Motivo / criterio:** La política de "Fail-Fast" del orquestador protege el entorno de producción al rechazar archivos malformados, obligando a actualizar la deuda técnica documental. La encapsulación de estilos de Markdown dentro de `.card__content` mantiene el SASS global limpio (Separation of Concerns).
+
+**Siguiente paso o deuda:** Empaquetar el commit atómico e investigar la generación automatizada de artefactos PDF para la biblioteca.
+
+### 2026-04-24 — Feat: Orquestador de publicación estática y abstracción de UI
+
+**Contexto:** Se necesitaba un sistema para transformar los documentos Markdown curados de la biblioteca en páginas HTML estáticas, pero sin duplicar el código del menú (header) y el pie de página (footer) de la web. Además, el script reportó un fallo al intentar procesar archivos heredados (`auditoria-rendimiento.md`) que carecían de metadatos.
+
+**Hecho:**
+- Se creó `scripts/merci/merci-publish.py` para parsear Markdown con YAML Frontmatter.
+- Se implementó un sistema de extracción dinámica mediante expresiones regulares que lee `public/index.html` para recortar y reutilizar las etiquetas `<header>` y `<footer>`.
+- Se validó el "fail-fast" del script frente a archivos sin YAML válido.
+
+**Motivo / criterio:** Single Source of Truth (Única Fuente de Verdad). En lugar de crear motores de plantillas complejos, el script extrae los componentes globales directamente del HTML compilado de la portada. Esto garantiza que cualquier cambio futuro en el menú de la web se propague automáticamente a las publicaciones sin tocar Python. El rechazo de archivos antiguos sin YAML protege el entorno de producción de documentos malformados.
+
 ### 2026-04-24 — Docs: Refactorización a MVP de cuadernillo con YAML Frontmatter
 
 **Contexto:** El borrador sobre el problema de los alias y el autodescubrimiento en Python contenía volcados de consola sin procesar. Se requería estructurarlo como un "Producto Mínimo Viable" (MVP) para la biblioteca y añadir el descubrimiento sobre la retención de alias fantasma en la memoria RAM de la terminal.
