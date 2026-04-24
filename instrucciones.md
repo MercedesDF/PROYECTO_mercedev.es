@@ -27,6 +27,9 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 - **Python (Sistema "Merci"):** Motor de auditoría y automatización.
   - `merci-audit.py`: Análisis estático, escaneo de secretos y validación de metadatos SEO (Git pre-commit).
   - `merci-optimizer.py`: Procesamiento de assets multimedia con `Pillow` (conversión WebP responsivo).
+  - `merci-sitemap.py`: Gestión y actualización automatizada de fechas en `sitemap.xml`.
+  - `merci-linkcheck.py`: Rastreador dinámico (DAST - Dynamic Application Security Testing) para auditar enlaces rotos HTTP.
+  - `merci-total.py`: Orquestador maestro que ejecuta el pipeline completo de validación local (Fail-Fast).
 
 ### 2.3. Capa de Contenidos Dinámicos
 - **WordPress:** Aislado en subdirectorios (`/blog` y `/tienda`).

@@ -1,19 +1,42 @@
 /**
  * main.js - Lógica del Frontend (Vanilla JS)
- * Control del menú hamburguesa y utilidades de UI.
+ * Paradigma POO (Programación Orientada a Objetos) y principios SOLID.
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.getElementById('menu-toggle');
-    const mainNav = document.getElementById('main-nav');
+class NavigationController {
+    /**
+     * Inicializa el controlador del menú de navegación.
+     * @param {string} toggleId - ID del botón hamburguesa.
+     * @param {string} navId - ID del contenedor de navegación.
+     */
+    constructor(toggleId, navId) {
+        this.menuToggle = document.getElementById(toggleId);
+        this.mainNav = document.getElementById(navId);
 
-    if (menuToggle && mainNav) {
-        menuToggle.addEventListener('click', () => {
-            // Alternar estado de accesibilidad y clases BEM
-            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-            menuToggle.setAttribute('aria-expanded', !isExpanded);
-            menuToggle.classList.toggle('is-active');
-            mainNav.classList.toggle('is-active');
-        });
+        this.init();
     }
+
+    /**
+     * Vincula los eventos si los elementos requeridos existen en el DOM (Document Object Model - Modelo de Objetos del Documento).
+     */
+    init() {
+        if (this.menuToggle && this.mainNav) {
+            this.menuToggle.addEventListener('click', () => this.toggleMenu());
+        }
+    }
+
+    /**
+     * Alterna los estados de accesibilidad (WAI-ARIA) y las clases visuales BEM.
+     */
+    toggleMenu() {
+        const isExpanded = this.menuToggle.getAttribute('aria-expanded') === 'true';
+        this.menuToggle.setAttribute('aria-expanded', !isExpanded);
+        this.menuToggle.classList.toggle('is-active');
+        this.mainNav.classList.toggle('is-active');
+    }
+}
+
+// Instanciación controlada al cargar el árbol de nodos
+document.addEventListener('DOMContentLoaded', () => {
+    new NavigationController('menu-toggle', 'main-nav');
 });

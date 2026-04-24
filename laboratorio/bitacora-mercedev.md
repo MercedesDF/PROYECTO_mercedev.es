@@ -11,7 +11,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Cómo mantenerlo (acuerdo simple)
 
-1. **Añadir entradas al final** de la sección “Registro cronológico”, con la plantilla de abajo. El registro es **acumulativo**: lo ya escrito forma parte del historial y **no se reemplaza** por nuevas sesiones (así no se pierde contexto ni fechas).
+1. **Añadir entradas al principio** de la sección “Registro cronológico”, con la plantilla de abajo. El registro es **acumulativo**: lo ya escrito forma parte del historial y **no se reemplaza** por nuevas sesiones (así no se pierde contexto ni fechas).
 2. **Una entrada por sesión o por tema cerrado** (lo que resulte más claro al escribir).
 3. Si algo fue un error o una vulnerabilidad evitada, opcionalmente usar los **tres átomos** del proyecto (Desafío → Maniobra → Aprendizaje/Deuda) en el cuerpo de la entrada.
 4. **Correcciones excepcionales** (typo, dato incorrecto, redacción de un solo párrafo, retirada de información sensible): editar solo el fragmento necesario o añadir una línea aclaratoria bajo la entrada; evitar reescribir todo el archivo o borrar entradas enteras sin motivo documentado.
@@ -36,6 +36,22 @@ Copia el bloque y rellénalo.
 
 ---
 ## Registro cronológico
+
+### 2026-04-24 — Refactor: Auditoría arquitectónica externa y purga de deuda técnica
+
+**Contexto:** Una auditoría externa de código mediante inteligencia artificial detectó cuatro deudas técnicas críticas en el ecosistema: un antipatrón de rendimiento en WordPress, uso de código heredado (legacy), inconsistencia SEO entre frontales y la violación del paradigma de programación orientada a objetos en JavaScript.
+
+**Hecho:**
+- Se modificó el hook de aprovisionamiento de base de datos de `init` a `after_switch_theme` en `functions.php`.
+- Se eliminó la etiqueta `<title>` deprecada explícita en `index.php` y se activó `add_theme_support('title-tag')`.
+- Se inyectó un bloque mínimo de metadatos estructurados (JSON-LD) en el ecosistema dinámico de WordPress.
+- Se refactorizó `public/js/main.js` encapsulando la lógica procedimental en la clase `NavigationController`.
+
+**Detalle técnico:** El hook `init` provocaba consultas inútiles a la base de datos en cada petición HTTP (N+1 query problem). La función `wp_title()` está deprecada desde WP 4.4; delegar el título al núcleo limpia el archivo HTML y cumple el estándar moderno. La refactorización a Vanilla JS con paradigma POO (Programación Orientada a Objetos) aísla el comportamiento del menú cumpliendo el Principio de Responsabilidad Única (SOLID).
+
+**Motivo / criterio:** Prácticas estrictas de *Quality Assurance* (QA - Aseguramiento de Calidad) y validación cruzada. El código no solo debe funcionar, sino que debe alinearse perfectamente con la filosofía fundacional del proyecto (rendimiento, arquitectura y cero deuda técnica), sin admitir tolerancias al código "suficientemente bueno".
+
+**Siguiente paso o deuda:** Ejecutar el orquestador de validación y comprometer el código para iniciar la Fase 7.1 (Automatización de publicación).
 
 ### 2026-04-23 — Fix: Actualización mayor de Pillow a 12.2.0 (Dependabot)
 

@@ -3,7 +3,6 @@
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php wp_title('|', true, 'right'); ?></title>
     
     <!-- Favicon explícito para la capa dinámica -->
     <link rel="icon" href="/favicon.ico?v=3" type="image/x-icon">
