@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Feat: Estandarización de plantillas de conocimiento (Fase 7.2)
+
+**Contexto:** Para agilizar el flujo de creación de contenido y asegurar que todas las futuras publicaciones de la Biblioteca cumplan con los requisitos del orquestador (`merci-publish.py`), era necesario establecer una plantilla reutilizable.
+
+**Hecho:**
+- Se creó el archivo `docs/plantilla-cuadernillo.md`.
+- Se consolidó la estructura obligatoria de metadatos (YAML Frontmatter) y la arquitectura de la información basada en 5 átomos (Contexto, Hecho, Detalle técnico, Motivo, Fuentes).
+
+**Motivo / criterio:** Fricción Cero y Consistencia Editorial. Extraer el formato a una plantilla estática en el directorio de documentación evita que el autor dependa de la memoria o tenga que copiar archivos antiguos, garantizando que el pipeline SSG (Static Site Generation) y la inyección SEO no fallen por atributos omitidos.
+
+**Siguiente paso o deuda:** Empaquetar el commit atómico, definir el flujo de movimiento Laboratorio -> Biblioteca (Fase 7.3) y continuar el roadmap.
+
 ### 2026-04-24 — QA: Falsos positivos de accesibilidad por extensiones del navegador
 
 **Contexto:** Durante la auditoría manual de accesibilidad por teclado (tabulación), se detectó que el foco caía en un "agujero negro" de múltiples saltos (tabs fantasma) antes de retornar a la navegación de la web.
