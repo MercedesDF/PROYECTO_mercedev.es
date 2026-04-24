@@ -37,6 +37,31 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Refactor: Paridad WAI-ARIA en WP y corrección arquitectónica SASS 7-1
+
+**Contexto:** Tras implementar el patrón de accesibilidad (skip-link y anclas de retorno) en el núcleo estático, la capa dinámica (WordPress) quedó desincronizada. Además, se detectó que los estilos del bloque principal (`.header`) debían ubicarse estrictamente según el patrón SASS 7-1.
+
+**Hecho:**
+- Se ubicó la regla `.skip-link` y los estilos de cabecera en `src/scss/layout/_header.scss` (reafirmando la arquitectura 7-1).
+- Se inyectaron los identificadores `#top`, `#main` y el enlace de retroceso (`↑ Volver arriba`) en `src/wp-theme/merci-theme/index.php`.
+
+**Motivo / criterio:** Paridad Dev-Prod y Arquitectura Estricta. En SASS 7-1, los contenedores estructurales (`header`, `footer`) pertenecen al directorio `layout/`, reservando `components/` para widgets reusables (`cards`, `buttons`). Mantener la accesibilidad sincronizada entre Nginx y PHP garantiza una experiencia unificada.
+
+**Siguiente paso o deuda:** Validar la capa dinámica, empaquetar el commit atómico y comenzar la generación de artefactos PDF (Fase 7.1).
+
+### 2026-04-24 — Feat: Patrones de accesibilidad WAI-ARIA (Skip-link y Volver arriba)
+
+**Contexto:** Al auditar la navegación por teclado (Tab), se detectó que tras interactuar con la última publicación (segunda entrada), el foco escapaba a la interfaz del navegador, requiriendo unas 10 pulsaciones para dar la vuelta y reingresar a la web. Además, se forzaba al usuario a tabular por todo el menú principal en cada carga de página.
+
+**Hecho:**
+- Se inyectó un enlace oculto `.skip-link` (`Saltar al contenido principal`) al inicio del `<header>`, que se hace visible al recibir el foco.
+- Se implementó un enlace de ancla (`↑ Volver arriba`) en el footer.
+- Se actualizaron las etiquetas `<body>` y `<main>` en `public/index.html` y `merci-publish.py` añadiendo los anclajes de ID (`#top`, `#main`).
+
+**Motivo / criterio:** WAI-ARIA y Experiencia de Usuario (UX) inclusiva. Un usuario de teclado no debe caer en un "bucle ciego" al llegar al final de la página, ni verse obligado a recorrer menús repetitivos para leer el contenido.
+
+**Siguiente paso o deuda:** Compilar, verificar el funcionamiento con el tabulador, empaquetar el commit atómico y proceder con los PDFs.
+
 ### 2026-04-24 — Feat: Enlace de retroceso (UX) en publicaciones individuales
 
 **Contexto:** Las páginas individuales generadas por `merci-publish.py` carecían de un método rápido y contextual para regresar al índice temático de la Biblioteca, obligando al usuario a usar el botón "Atrás" del navegador o buscar en el menú principal.
