@@ -17,8 +17,9 @@
     }
     </script>
 </head>
-<body>
+<body id="top">
     <header class="header">
+        <a href="#main" class="skip-link">Saltar al contenido principal</a>
         <a href="/" class="header__brand">
             <img src="/assets/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
         </a>
@@ -34,11 +35,12 @@
             <a href="/contacto" class="nav__link">Contacto</a>
         </nav>
     </header>
-    <main class="main--padded section">
+    <main class="main--padded section" id="main">
         <article class="card card--book">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
                 <h1 class="home-card__title--highlight">Auditoría de Rendimiento y Core Web Vitals</h1>
+                <a href="/descargas/auditoria-rendimiento.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
                 <p>Este documento explica el significado de las métricas de Google PageSpeed Insights y cómo la arquitectura del "Merci Boilerplate" logra una puntuación perfecta de <strong>100/100</strong> en todas las categorías.</p>
@@ -96,7 +98,10 @@
         </article>
     </main>
     <footer class="footer">
-        <p class="footer__text">&copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.</p>
+        <p class="footer__text">
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+            <span style="margin: 0 1rem;">|</span> <a href="#top" style="color: inherit; text-decoration: underline;">↑ Volver arriba</a>
+        </p>
     </footer>
 </body>
 </html>

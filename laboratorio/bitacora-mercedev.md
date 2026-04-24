@@ -37,6 +37,17 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Fix: Resolución de conflicto de dependencias (Pillow 12 vs WeasyPrint)
+
+**Contexto:** Al intentar instalar `weasyprint==63.0`, el gestor de paquetes `pip` arrojó un error de resolución imposible (`ResolutionImpossible`). Se diagnosticó que la versión `63.0` de WeasyPrint limitaba estrictamente su compatibilidad a `Pillow < 11`, colisionando frontalmente con `Pillow==12.2.0` (actualizado recientemente por motivos de seguridad).
+
+**Hecho:**
+- Se actualizó el anclaje en `requirements.txt` de `weasyprint==63.0` a la versión moderna `weasyprint==68.1`.
+
+**Motivo / criterio:** Supply Chain Security. En ecosistemas DevSecOps, retroceder una librería base (Pillow) a una versión antigua con vulnerabilidades conocidas (CVE) para satisfacer a una herramienta de exportación secundaria es un antipatrón inaceptable. La solución arquitectónica correcta es avanzar la herramienta secundaria (WeasyPrint) hasta la versión (`68.1`) que dé soporte oficial a la librería parcheada.
+
+**Siguiente paso o deuda:** Ejecutar la instalación de dependencias, validar la generación del PDF y dar por concluida la Fase 7.1.
+
 ### 2026-04-24 — Fix: Resolución de incompatibilidad de WeasyPrint (Supply Chain)
 
 **Contexto:** Durante la generación del PDF en el orquestador de publicación (`merci-publish.py`), la ejecución colapsó con el error `AttributeError: 'super' object has no attribute 'transform'`. El diagnóstico reveló una incompatibilidad entre la versión anclada `weasyprint==62.1` y la actualización reciente de una de sus subdependencias internas (`pydyf`) en entornos con Python 3.12.
