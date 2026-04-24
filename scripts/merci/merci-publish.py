@@ -78,6 +78,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     {header_html}
     <main class="main--padded section">
         <article class="card {clase_css}">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
                 <h1 class="home-card__title--highlight">{titulo}</h1>
             </header>
