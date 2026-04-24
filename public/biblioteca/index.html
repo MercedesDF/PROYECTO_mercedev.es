@@ -2,25 +2,16 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Biblioteca técnica del Boilerplate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca — Merci Boilerplate</title>
-    <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon">
-    <link rel="stylesheet" href="/css/main.css?v=2">
-    <script src="/js/main.js" defer></script>
-    <link rel="canonical" href="https://mercedev.es/biblioteca">
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "Biblioteca - Merci Boilerplate"
-    }
-    </script>
+    <title>Biblioteca — mercedev.es</title>
+    <meta name="description" content="Índice de publicaciones técnicas y cuadernillos de la Biblioteca.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/">
+    <link rel="stylesheet" href="/css/main.css">
 </head>
-<body class="page">
+<body>
     <header class="header">
         <a href="/" class="header__brand">
-            <img src="/assets/logo.webp?v=2" alt="mercedev.es" class="header__logo" width="263" height="65">
+            <img src="/assets/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
         </a>
         <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
             <span class="header__toggle-icon"></span>
@@ -34,14 +25,45 @@
             <a href="/contacto" class="nav__link">Contacto</a>
         </nav>
     </header>
-    <main class="main">
-        <section class="hero">
-            <h1 class="hero__title">Biblioteca</h1>
-            <p class="hero__subtitle">Sección estática reservada para la documentación técnica, guías de arquitectura y activos de conocimiento inmutables del proyecto.</p>
+    <main class="main--padded section">
+        <header style="margin-bottom: 3rem;">
+            <h1 class="home-card__title--highlight">La Biblioteca</h1>
+            <p>Documentación técnica, cuadernillos DevSecOps y arquitectura de software.</p>
+        </header>
+        
+        <section class="biblioteca-tema" style="margin-bottom: 4rem;">
+            <h2 class="home-card__title--highlight" style="margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">Arquitectura y Rendimiento</h2>
+            <div class="home-grid">
+                
+                <article class="card card--book">
+                    <header>
+                        <span class="card__meta">2026-04-21 — Bitácora</span>
+                        <h2 class="card__title"><a href="/biblioteca/auditoria-rendimiento.html">Auditoría de Rendimiento y Core Web Vitals</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Análisis de las métricas de Google PageSpeed Insights y cómo la arquitectura del Merci Boilerplate logra una puntuación de 100/100.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="biblioteca-tema" style="margin-bottom: 4rem;">
+            <h2 class="home-card__title--highlight" style="margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">DevSecOps y Automatización</h2>
+            <div class="home-grid">
+                
+                <article class="card card--booklet">
+                    <header>
+                        <span class="card__meta">2026-04-24 — Cuadernillo</span>
+                        <h2 class="card__title"><a href="/biblioteca/cuadernillo-alias-absolutos.html">Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Solución al problema de autodescubrimiento de rutas en Python al usar alias absolutos en la terminal (Fantasmas en RAM).</p>
+                    </div>
+                </article>
+            </div>
         </section>
     </main>
     <footer class="footer">
-        <p class="footer__text">&copy; 2026 <strong>mercedev.es</strong> — Base de código abierto bajo Licencia MIT.</p>
+        <p class="footer__text">&copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.</p>
     </footer>
 </body>
 </html>

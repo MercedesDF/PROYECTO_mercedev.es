@@ -2,6 +2,7 @@
 titulo: "Auditoría de Rendimiento y Core Web Vitals"
 descripcion: "Análisis de las métricas de Google PageSpeed Insights y cómo la arquitectura del Merci Boilerplate logra una puntuación de 100/100."
 tipo: "bitacora"
+tema: "Arquitectura y Rendimiento"
 volumen: 1
 fecha: "2026-04-21"
 portada: "portada-auditoria.webp"

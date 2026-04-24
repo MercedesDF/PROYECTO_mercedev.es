@@ -42,6 +42,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     titulo = meta.get("titulo", "Documento sin título")
     tipo = meta.get("tipo", "cuadernillo")
     descripcion = meta.get("descripcion", f"Documento técnico: {titulo}")
+    tema = meta.get("tema", "Estantería General")
     
     print(f"  ⚙️  Procesando {tipo}: {titulo}")
     
@@ -95,7 +96,85 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     
     out_path.write_text(html_final, encoding="utf-8")
     print(f"  ✅ Publicado con éxito: public/biblioteca/{out_filename}")
-    return True
+    
+    # Devolvemos los metadatos para construir el índice
+    return {
+        "titulo": titulo,
+        "descripcion": descripcion,
+        "url": f"/biblioteca/{out_filename}",
+        "tipo": tipo,
+        "fecha": meta.get("fecha", "1970-01-01"),
+        "tema": tema
+    }
+
+def generar_indice_biblioteca(publicaciones, header_html, footer_html):
+    print("📖 Generando índice temático de la Biblioteca...")
+    
+    # Agrupar publicaciones por tema (Estanterías)
+    estanterias = {}
+    for pub in publicaciones:
+        tema = pub["tema"]
+        if tema not in estanterias:
+            estanterias[tema] = []
+        estanterias[tema].append(pub)
+        
+    secciones_html = ""
+    
+    # Ordenar temas alfabéticamente y procesar sus publicaciones
+    for tema in sorted(estanterias.keys()):
+        # Ordenamos los artículos dentro de un mismo tema del más nuevo al más antiguo
+        pubs_tema = sorted(estanterias[tema], key=lambda x: x["fecha"], reverse=True)
+        
+        cards_html = ""
+        for pub in pubs_tema:
+            clase_css = "card--booklet" if pub["tipo"] == "cuadernillo" else "card--book"
+            badge = "Cuadernillo" if pub["tipo"] == "cuadernillo" else "Bitácora"
+            
+            cards_html += f"""
+                <article class="card {clase_css}">
+                    <header>
+                        <span class="card__meta">{pub["fecha"]} — {badge}</span>
+                        <h2 class="card__title"><a href="{pub["url"]}">{pub["titulo"]}</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>{pub["descripcion"]}</p>
+                    </div>
+                </article>"""
+                
+        secciones_html += f"""
+        <section class="biblioteca-tema" style="margin-bottom: 4rem;">
+            <h2 class="home-card__title--highlight" style="margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">{tema}</h2>
+            <div class="home-grid">
+                {cards_html}
+            </div>
+        </section>"""
+                
+    html_final = f"""<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca — mercedev.es</title>
+    <meta name="description" content="Índice de publicaciones técnicas y cuadernillos de la Biblioteca.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    {header_html}
+    <main class="main--padded section">
+        <header style="margin-bottom: 3rem;">
+            <h1 class="home-card__title--highlight">La Biblioteca</h1>
+            <p>Documentación técnica, cuadernillos DevSecOps y arquitectura de software.</p>
+        </header>
+        {secciones_html}
+    </main>
+    {footer_html}
+</body>
+</html>"""
+
+    out_path = PUBLIC_BIBLIOTECA / "index.html"
+    out_path.write_text(html_final, encoding="utf-8")
+    print("  ✅ Índice generado con éxito: public/biblioteca/index.html")
 
 def main():
     print("🚀 [Merci Publish] Iniciando orquestador de publicación...")
@@ -110,9 +189,15 @@ def main():
         header_html = h_match.group(1) if h_match else ""
         footer_html = f_match.group(1) if f_match else ""
 
+    publicaciones_procesadas = []
+
     # Por ahora, compilamos todos los archivos .md que existan en la biblioteca
     for md_file in BIBLIOTECA_DIR.glob("*.md"):
-        procesar_archivo(md_file, header_html, footer_html)
+        meta = procesar_archivo(md_file, header_html, footer_html)
+        if meta:
+            publicaciones_procesadas.append(meta)
+            
+    generar_indice_biblioteca(publicaciones_procesadas, header_html, footer_html)
             
     print("🚀 [Merci Publish] Pipeline de conversión finalizado.")
 
