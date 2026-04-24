@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Fix: Resolución de conflicto de enlace simbólico en producción
+
+**Contexto:** Al ejecutar `git pull` en el servidor de producción (CloudPanel), Git abortó la sincronización alertando que los cambios locales en `public/blog` serían sobrescritos. Esto ocurrió porque el enlace simbólico había sido eliminado del índice del repositorio (`git rm --cached`) en una sesión anterior para aislarlo del control de versiones.
+
+**Hecho:**
+- Se eliminó temporalmente el enlace simbólico físico en el servidor de producción.
+- Se ejecutó la actualización del repositorio (`git pull`) integrando el nuevo `.gitignore`.
+- Se reconstruyó manualmente el enlace simbólico (`ln -s`) apuntando al directorio aislado de WordPress.
+
+**Detalle técnico:** Comandos ejecutados secuencialmente en el servidor: `rm public/blog`, seguido de `git pull`, y finalmente `ln -s /home/mercedev-php/htdocs/wordpress /home/mercedev-php/htdocs/mercedev.es/public/blog`.
+
+**Motivo / criterio:** Git implementa mecanismos de seguridad (Fail-Safe) para no destruir archivos locales sin seguimiento que colisionan con el árbol entrante. Destruir y recrear este puente de infraestructura tras aplicar el `.gitignore` actualizado vuelve a Git "ciego" ante el enlace, garantizando que los futuros despliegues fluyan con cero fricción.
+
+**Siguiente paso o deuda:** Iniciar el diseño del flujo de promoción de contenidos (Fase 7.3).
+
 ### 2026-04-24 — Feat: Estandarización de plantillas de conocimiento (Fase 7.2)
 
 **Contexto:** Para agilizar el flujo de creación de contenido y asegurar que todas las futuras publicaciones de la Biblioteca cumplan con los requisitos del orquestador (`merci-publish.py`), era necesario establecer una plantilla reutilizable.
