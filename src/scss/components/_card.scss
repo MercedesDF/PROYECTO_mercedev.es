@@ -2,6 +2,7 @@
 
 // Tarjeta base
 .card {
+  position: relative;
   background-color: transparent;
   border: 1px solid rgba($color-text-base, 0.1);
   border-radius: 8px;
@@ -14,12 +15,31 @@
   &:hover {
     transform: translateY(-4px);
     border-color: $color-primary;
+
+    // Al hacer hover sobre cualquier parte de la tarjeta, el título se ilumina
+    .card__title a {
+      color: $color-primary;
+    }
   }
 
   &__title {
     font-size: 1.5rem;
     color: $color-text-base;
     margin-bottom: 0;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s ease;
+
+      /* Patrón Stretched Link: Expande el área clicable a toda la tarjeta */
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+      }
+    }
   }
 
   &__meta {
