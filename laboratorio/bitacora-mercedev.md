@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Fix: Purgado de "Tabs Fantasma" y botón de salto a contenido
+
+**Contexto:** Realizando pruebas de accesibilidad, se detectaron dos comportamientos indeseados durante la navegación por teclado: 1) el botón de accesibilidad "Saltar al contenido principal" resultaba redundante según los nuevos criterios, y 2) tras sobrepasar el footer con la tecla tabulador, el foco caía en unos 10 "tabs fantasma" antes de retornar al navegador web.
+
+**Hecho:**
+- Se eliminó completamente la etiqueta `<a href="#main" class="skip-link">` de la portada estática (`public/index.html`) y de la plantilla dinámica de WordPress (`src/wp-theme/merci-theme/index.php`).
+- Se purgó el bloque CSS `.skip-link` de la arquitectura SASS (`_header.scss`) y se retiró el `tabindex="-1"` del contenedor `<main>`.
+- Se añadió el filtro `add_filter('show_admin_bar', '__return_false');` en `functions.php`.
+- Se ejecutó el pipeline completo de validación y compilación (`merci-total.py`).
+
+**Motivo / criterio:** Los "tabs fantasma" en la ruta dinámica (`/blog`) eran provocados por los enlaces ocultos de la *Admin Bar* inyectada por WordPress mediante `wp_footer()` para usuarios logueados. Dado que el frontend está desacoplado (estilo Headless/Boilerplate), mantener la barra generaba conflictos de foco. Ocultarla purga estos enlaces invisibles del DOM y restaura la paridad entre las capas estática y dinámica.
+
+**Siguiente paso o deuda:** Validar la limpieza de la navegación con tabulador sin los enlaces fantasma.
+
 ### 2026-04-24 — Fix: Refactorización arquitectónica de foco WAI-ARIA (Eliminación de tabindex en body)
 
 **Contexto:** Se detectó que inyectar `tabindex="-1"` en la etiqueta `<body>` constituía un anti-patrón de accesibilidad. Hacer que el contenedor global del DOM fuera enfocable causaba que los lectores de pantalla reiniciaran la lectura desde el principio al activar el enlace "Volver arriba", abría vectores de "secuestro de foco" por clics inadvertidos y provocaba bugs visuales (Tap Highlight) en navegadores WebKit como iOS Safari.

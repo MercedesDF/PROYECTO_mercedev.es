@@ -132,6 +132,9 @@ function merci_ofuscar_errores_login() {
 }
 add_filter('login_errors', 'merci_ofuscar_errores_login');
 
+// Desactivar la barra de administración en el frontend para evitar inyecciones ocultas ("Tabs Fantasma")
+add_filter('show_admin_bar', '__return_false');
+
 // =========================================================================
 // 5. AUTO-CONFIGURACIÓN DEL BOILERPLATE (Infraestructura como Código)
 // =========================================================================
