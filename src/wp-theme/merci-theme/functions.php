@@ -41,7 +41,7 @@ remove_action('wp_body_open', 'wp_enqueue_global_styles');
 // =========================================================================
 
 function merci_cargar_assets_estaticos() {
-    // Obtenemos la URL oficial y segura de WordPress (ej. https://mercedev.es/blog o http://localhost/blog).
+    // Obtenemos la URL oficial y segura de WordPress (ej. https://{{DOMINIO}}/blog o http://localhost/blog).
     // Al usar home_url(), esquivamos la inyección del puerto interno 8080 que Varnish hace en $_SERVER['HTTP_HOST'].
     // Luego, eliminamos el sufijo '/blog' para apuntar a la raíz estática pública.
     $domain_root = preg_replace('#/blog/?$#', '', home_url());
@@ -209,7 +209,7 @@ function merci_inyectar_metadatos_seo() {
     $domain_root = preg_replace('#/blog/?$#', '', home_url());
     $json_ld = array(
         "@context" => "https://schema.org",
-        "name"     => "mercedev.es"
+        "name"     => "{{DOMINIO}}"
     );
 
     // Si es un artículo individual, usamos el esquema de Artículo
