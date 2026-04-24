@@ -37,6 +37,32 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Fix: Refactorización arquitectónica de foco WAI-ARIA (Eliminación de tabindex en body)
+
+**Contexto:** Se detectó que inyectar `tabindex="-1"` en la etiqueta `<body>` constituía un anti-patrón de accesibilidad. Hacer que el contenedor global del DOM fuera enfocable causaba que los lectores de pantalla reiniciaran la lectura desde el principio al activar el enlace "Volver arriba", abría vectores de "secuestro de foco" por clics inadvertidos y provocaba bugs visuales (Tap Highlight) en navegadores WebKit como iOS Safari.
+
+**Hecho:**
+- Se eliminó el atributo `tabindex="-1"` de la etiqueta `<body>` en `public/index.html`, `src/wp-theme/merci-theme/index.php` y `scripts/merci/merci-publish.py`.
+- Se trasladó el identificador `id="top"` y su respectivo `tabindex="-1"` al elemento `<header>`, siendo este el primer bloque lógico y semántico de la estructura.
+- Se recompilaron los activos estáticos de la biblioteca mediante `.venv/bin/python scripts/merci/merci-publish.py`.
+
+**Motivo / criterio:** WAI-ARIA estricto y Focus Management. El foco de teclado nunca debe viajar al elemento raíz del documento (`<body>`). Al delegar la recepción del foco al `<header>`, el usuario que activa "Volver arriba" queda correctamente posicionado al inicio del contenido semántico, listo para interactuar con la navegación principal sin efectos colaterales indeseados.
+
+**Siguiente paso o deuda:** Validar la restitución del comportamiento esperado del tabulador y proceder a empaquetar el commit atómico.
+
+### 2026-04-24 — Fix: Resolución de foco en enlaces ancla WAI-ARIA (Tabindex)
+
+**Contexto:** Tras implementar los enlaces de accesibilidad ("Saltar al contenido" y "Volver arriba"), se reportó que la navegación por teclado (Tabulador) seguía desfasada. Al hacer clic en los enlaces ancla, el navegador desplazaba la pantalla, pero el foco interno del teclado no viajaba al destino, obligando al usuario a tabular múltiples veces por la interfaz del navegador.
+
+**Hecho:**
+- Se inyectó el atributo `tabindex="-1"` en los contenedores destino (`<main id="main">` y `<body id="top">`) en todos los archivos estructurales (`index.html`, `merci-publish.py`, `index.php`).
+- Se añadió la regla CSS `[tabindex="-1"]:focus { outline: none; }` en `_header.scss` para prevenir bordes de foco antiestéticos al activarse.
+- Se aprovecharon los cambios para inyectar las anclas faltantes en la capa dinámica (`index.php`) que habían sido omitidas.
+
+**Motivo / criterio:** Gestión estricta del foco (Focus Management). Los navegadores modernos no mueven automáticamente el cursor de tabulación a elementos semánticos (como `<main>` o `<body>`) al resolver un enlace ancla a menos que se declaren explícitamente como enfocables mediante `tabindex="-1"`. Este atributo permite recibir foco vía enlace sin alterar el orden natural de tabulación.
+
+**Siguiente paso o deuda:** Validar la experiencia de tabulación, ejecutar un commit atómico y continuar con la Fase 7.2.
+
 ### 2026-04-24 — Fix: Resolución de conflicto de dependencias (Pillow 12 vs WeasyPrint)
 
 **Contexto:** Al intentar instalar `weasyprint==63.0`, el gestor de paquetes `pip` arrojó un error de resolución imposible (`ResolutionImpossible`). Se diagnosticó que la versión `63.0` de WeasyPrint limitaba estrictamente su compatibilidad a `Pillow < 11`, colisionando frontalmente con `Pillow==12.2.0` (actualizado recientemente por motivos de seguridad).

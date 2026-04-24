@@ -15,7 +15,8 @@
 </head>
 <body <?php body_class('theme-body'); ?>>
 
-    <header class="header">
+    <header class="header" id="top" tabindex="-1">
+        <a href="#main" class="skip-link">Saltar al contenido principal</a>
         <a href="/" class="header__brand">
             <img src="/assets/logo.webp?v=2" alt="{{DOMINIO}}" class="header__logo" width="263" height="65">
         </a>
@@ -32,7 +33,7 @@
         </nav>
     </header>
 
-    <main class="main">
+    <main class="main" id="main" tabindex="-1">
         <?php 
         // 1. Inyección de Cabeceras Estilo "Boilerplate" para Vistas Dinámicas
         $header_title = '';
@@ -105,7 +106,10 @@
     </main>
 
     <footer class="footer">
-        <p class="footer__text">&copy; 2026 <strong>{{DOMINIO}}</strong> — Base de código abierto bajo Licencia MIT.</p>
+        <p class="footer__text">
+            &copy; 2026 <strong>{{DOMINIO}}</strong> — Base de código abierto bajo Licencia MIT.
+            <span style="margin: 0 1rem;">|</span> <a href="#top" style="color: inherit; text-decoration: underline;">↑ Volver arriba</a>
+        </p>
     </footer>
 
     <!-- wp_footer() es obligatorio para scripts de cierre y barra de administración (si estás logueada) -->
