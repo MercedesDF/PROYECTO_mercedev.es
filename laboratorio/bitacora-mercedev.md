@@ -37,6 +37,31 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Fix: Resolución de advertencia SEO (JSON-LD) en el índice de la Biblioteca
+
+**Contexto:** El orquestador local (`merci-total`) reportó una advertencia (`WARN SEO_JSONLD`) indicando que el índice principal de la Biblioteca carecía de datos estructurados, lo cual penaliza el SEO técnico y rompe el estándar de la Fase 2.
+
+**Hecho:**
+- Se actualizó la función `generar_indice_biblioteca()` en `scripts/merci/merci-publish.py`.
+- Se inyectó dinámicamente un bloque `<script type="application/ld+json">` utilizando el esquema `@type: CollectionPage`.
+
+**Motivo / criterio:** Al migrar la página principal de la Biblioteca a un modelo auto-generado (SSG - Static Site Generation), el archivo HTML perdió sus metadatos estáticos originales. Reintegrar la generación del JSON-LD en el orquestador asegura el cumplimiento de la política estricta de SEO y silencia la advertencia del linter local de manera definitiva.
+
+**Siguiente paso o deuda:** Empaquetar el commit atómico y proceder con la investigación para la generación de los PDFs.
+
+### 2026-04-24 — Feat: Patrón "Stretched Link" en tarjetas de Biblioteca
+
+**Contexto:** En el índice autogenerado de la Biblioteca, solo el texto del título era interactivo. Se requería que toda la superficie de la tarjeta (`.card`) fuera clicable para mejorar la experiencia de usuario (UX) sin ensuciar la semántica HTML5.
+
+**Hecho:**
+- Se añadió `position: relative;` al bloque base `.card` en `src/scss/components/_card.scss`.
+- Se implementó el pseudoelemento `::after` con `inset: 0;` en el enlace del título (`.card__title a`).
+- Se vinculó el cambio de color (`:hover`) del título al estado hover de la tarjeta completa.
+
+**Motivo / criterio:** Semántica y Accesibilidad. Envolver bloques enteros (`<article>`, `<header>`, `<p>`) dentro de una etiqueta `<a>` es válido en HTML5, pero entorpece a los lectores de pantalla. El patrón *Stretched Link* (Enlace Estirado) expande el área clicable del título principal mediante CSS para cubrir su contenedor, manteniendo un DOM limpio, ligero y 100% accesible.
+
+**Siguiente paso o deuda:** Empaquetar el commit atómico y proceder a la investigación para la generación de los PDFs.
+
 ### 2026-04-24 — Refactor: Reestructuración temática del índice de Biblioteca (Estanterías)
 
 **Contexto:** La generación del sitio estático para la Biblioteca (`merci-publish.py`) organizaba el contenido cronológicamente (como un blog). Esto violaba la filosofía fundacional de la "Biblioteca", que define el contenido como conocimiento inmutable ordenado por "estanterías" temáticas, delegando la presentación cronológica a la capa dinámica de WordPress (`/blog`).

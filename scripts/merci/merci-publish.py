@@ -158,6 +158,15 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html):
     <meta name="description" content="Índice de publicaciones técnicas y cuadernillos de la Biblioteca.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/">
     <link rel="stylesheet" href="/css/main.css">
+    <script type="application/ld+json">
+    {{
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "La Biblioteca - mercedev.es",
+      "description": "Índice de publicaciones técnicas y cuadernillos de la Biblioteca.",
+      "url": "https://mercedev.es/biblioteca/"
+    }}
+    </script>
 </head>
 <body>
     {header_html}
