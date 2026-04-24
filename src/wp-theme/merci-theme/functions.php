@@ -205,13 +205,23 @@ function merci_inyectar_metadatos_seo() {
 
     echo '<meta name="description" content="' . $descripcion . '">' . "\n";
 
-    // Inyección de JSON-LD Mínimo para mantener paridad SEO con la raíz estática
+    // Inyección de JSON-LD Dinámico y Contextual (SEO Avanzado)
+    $domain_root = preg_replace('#/blog/?$#', '', home_url());
     $json_ld = array(
         "@context" => "https://schema.org",
-        "@type"    => "WebSite",
-        "name"     => "mercedev.es",
-        "url"      => home_url()
+        "name"     => "mercedev.es"
     );
+
+    // Si es un artículo individual, usamos el esquema de Artículo
+    if ( is_singular() ) {
+        $json_ld["@type"] = "Article";
+        $json_ld["url"] = get_permalink();
+        $json_ld["headline"] = get_the_title();
+    } else {
+        $json_ld["@type"] = "WebSite";
+        $json_ld["url"] = $domain_root;
+    }
+    
     echo '<script type="application/ld+json">' . wp_json_encode($json_ld) . '</script>' . "\n";
 }
 add_action( 'wp_head', 'merci_inyectar_metadatos_seo', 5 );
