@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Docs: Refactorización a MVP de cuadernillo con YAML Frontmatter
+
+**Contexto:** El borrador sobre el problema de los alias y el autodescubrimiento en Python contenía volcados de consola sin procesar. Se requería estructurarlo como un "Producto Mínimo Viable" (MVP) para la biblioteca y añadir el descubrimiento sobre la retención de alias fantasma en la memoria RAM de la terminal.
+
+**Hecho:**
+- Se refactorizó `biblioteca/cuadernillo-alias-absolutos.md` eliminando el historial de consola residual.
+- Se inyectaron metadatos estructurales (YAML Frontmatter) y se consolidó el contenido bajo el formato de 5 átomos (Contexto, Hecho, Detalle técnico, Motivo, Fuentes).
+- Se añadió la nota de depuración sobre purga de RAM mediante `unalias`.
+
+**Motivo / criterio:** Estandarización de la información. Para que el futuro orquestador de publicación (Fase 7.1) automatice la maquetación a HTML/PDF sin fricción, los archivos Markdown deben poseer una estructura de metadatos estricta y predecible.
+
+**Siguiente paso o deuda:** Diseñar e implementar el script maestro de publicación automatizada (`merci-publish.py`).
+
 ### 2026-04-24 — Fix: Exclusión de enlace simbólico del CMS en control de versiones
 
 **Contexto:** El enlace simbólico `public/blog` (que conecta el núcleo estático con la instalación aislada de WordPress) corría el riesgo de ser rastreado por Git. Versionar un enlace simbólico que apunta a una ruta absoluta del sistema anfitrión rompe la portabilidad del proyecto al clonarlo en entornos con topologías diferentes.
