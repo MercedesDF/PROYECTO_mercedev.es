@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Milestone: Bifurcación arquitectónica (Merci Boilerplate vs mercedev.es)
+
+**Contexto:** Tras alcanzar la madurez técnica absoluta (100/100) y purgar la deuda técnica al cierre de la Fase 6, se determinó que las Fases 1-6 conforman un motor de infraestructura agnóstico (DevSecOps, SASS, CSP, Híbrido WP), mientras que la Fase 7 (publicación automatizada, biblioteca) contiene la lógica de negocio específica del proyecto.
+
+**Hecho:**
+- Se aprueba la bifurcación (Fork) del proyecto actual en dos entidades separadas.
+- Se decide extraer el estado actual del código hacia un nuevo repositorio plantilla (`merci-boilerplate`) abstrayendo los datos personales.
+- El repositorio actual (`PROYECTO_mercedev.es`) transiciona oficialmente para convertirse en el primer producto real derivado de dicha plantilla.
+
+**Detalle técnico:** La extracción al nuevo Boilerplate implicará limpiar el `index.html` de textos específicos, establecer un logotipo neutral y sustituir las rutas absolutas por variables (`{{DOMINIO}}`). El repositorio actual mantendrá el historial completo de Git y avanzará hacia la Fase 7 asumiendo su rol de "instancia cliente".
+
+**Motivo / criterio:** Principio de Separación de Responsabilidades (Separation of Concerns). Un *boilerplate* o *framework* no debe contener reglas de negocio ni contenido específico de una marca. Congelar el motor base ahora protege su reusabilidad para futuros proyectos, aislando el desarrollo de la Fase 7 exclusivamente en el producto final.
+
+**Siguiente paso o deuda:** Ejecutar manualmente la copia y abstracción de la carpeta hacia el nuevo repositorio "Merci Boilerplate" e iniciar el diseño de la Fase 7 en el repositorio actual.
+
 ### 2026-04-24 — Refactor: Micro-optimización de SEO Técnico (JSON-LD Contextual)
 
 **Contexto:** Una auditoría SEO de "hilado fino" detectó que el esquema JSON-LD inyectado dinámicamente marcaba todas las rutas de WordPress como `@type: WebSite` y usaba `home_url()` (que resuelve a `/blog`), lo cual generaba riesgo de fragmentación de la autoridad de dominio en los motores de búsqueda.
