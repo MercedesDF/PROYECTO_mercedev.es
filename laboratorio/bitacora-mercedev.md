@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-24 — Refactor: Micro-optimización de SEO Técnico (JSON-LD Contextual)
+
+**Contexto:** Una auditoría SEO de "hilado fino" detectó que el esquema JSON-LD inyectado dinámicamente marcaba todas las rutas de WordPress como `@type: WebSite` y usaba `home_url()` (que resuelve a `/blog`), lo cual generaba riesgo de fragmentación de la autoridad de dominio en los motores de búsqueda.
+
+**Hecho:**
+- Se refactorizó la matriz `$json_ld` dentro de la función `merci_inyectar_metadatos_seo` en `functions.php`.
+- Se implementó condicionalidad semántica (`is_singular()`) para emitir `@type: Article` en páginas de lectura.
+- Se forzó el uso de la raíz absoluta del dominio para el esquema `WebSite`.
+
+**Detalle técnico:** Se extrajo la variable `$domain_root` usando la misma expresión regular (`preg_replace`) que en el enlazador de assets. Dependiendo del contexto de la vista, el JSON-LD ahora escupe los datos específicos del post actual (`get_permalink()`, `get_the_title()`) o los datos base del índice, cumpliendo con la especificación estricta de `schema.org`.
+
+**Motivo / criterio:** Consultoría SEO Avanzada. Evitar la canibalización de entidades (que Google interprete `/blog` como un sitio web independiente a la portada). Etiquetar correctamente los posts como "Artículos" habilita la aparición en fragmentos enriquecidos (Rich Snippets).
+
+**Siguiente paso o deuda:** Iniciar el diseño del flujo de la Fase 7.1 (Automatización de publicación).
+
 ### 2026-04-24 — Refactor: Auditoría arquitectónica externa y purga de deuda técnica
 
 **Contexto:** Una auditoría externa de código mediante inteligencia artificial detectó cuatro deudas técnicas críticas en el ecosistema: un antipatrón de rendimiento en WordPress, uso de código heredado (legacy), inconsistencia SEO entre frontales y la violación del paradigma de programación orientada a objetos en JavaScript.
