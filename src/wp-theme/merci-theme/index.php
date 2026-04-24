@@ -16,7 +16,6 @@
 <body <?php body_class('theme-body'); ?>>
 
     <header class="header" id="top" tabindex="-1">
-        <a href="#main" class="skip-link">Saltar al contenido principal</a>
         <a href="/" class="header__brand">
             <img src="/assets/logo.webp?v=2" alt="{{DOMINIO}}" class="header__logo" width="263" height="65">
         </a>
@@ -33,7 +32,7 @@
         </nav>
     </header>
 
-    <main class="main" id="main" tabindex="-1">
+    <main class="main" id="main">
         <?php 
         // 1. Inyección de Cabeceras Estilo "Boilerplate" para Vistas Dinámicas
         $header_title = '';

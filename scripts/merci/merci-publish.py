@@ -118,7 +118,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
 </head>
 <body>
     {header_html}
-    <main class="main--padded section" id="main" tabindex="-1">
+    <main class="main--padded section" id="main">
         <article class="card {clase_css}">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
@@ -214,7 +214,7 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html):
 </head>
 <body>
     {header_html}
-    <main class="main--padded section" id="main" tabindex="-1">
+    <main class="main--padded section" id="main">
         <header style="margin-bottom: 3rem;">
             <h1 class="home-card__title--highlight">La Biblioteca</h1>
             <p>Documentación técnica, cuadernillos DevSecOps y arquitectura de software.</p>
