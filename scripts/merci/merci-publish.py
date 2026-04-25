@@ -87,7 +87,13 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     )
 
     # 3. Convertir Markdown a HTML (Soportando bloques de código)
-    html_content = markdown.markdown(md_body, extensions=['fenced_code'])
+    # QUÉ HACE: Bloque try-except para atrapar errores de sintaxis en el conversor Markdown
+    # POR QUÉ: Evita el colapso total del pipeline si un solo documento contiene caracteres o sintaxis corrupta.
+    try:
+        html_content = markdown.markdown(md_body, extensions=['fenced_code'])
+    except Exception as e:
+        print(f"  ❌ Error al compilar Markdown en {filepath.name}: {e}")
+        return False
     
     # 4. Generar PDF con WeasyPrint (Maquetación específica para impresión)
     print("  📄 Generando edición en PDF...")
@@ -128,7 +134,13 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     # QUÉ HACE: Renderiza el PDF inyectando el base_url hacia la carpeta public/.
     # POR QUÉ: Sin el base_url, WeasyPrint no puede resolver rutas absolutas como /assets/images/... 
     # y las imágenes del Markdown aparecerían rotas o invisibles en el PDF descargable.
-    HTML(string=pdf_html_content, base_url=str(REPO_ROOT / "public")).write_pdf(out_pdf_path)
+    # CONTROL DE ERRORES: WeasyPrint es propenso a fallar si las imágenes anidadas están corruptas.
+    try:
+        HTML(string=pdf_html_content, base_url=str(REPO_ROOT / "public")).write_pdf(out_pdf_path)
+    except Exception as e:
+        print(f"  ❌ Error crítico al generar PDF para {filepath.name}. Comprueba las imágenes: {e}")
+        # Continuamos con el proceso aunque falle el PDF para no dejar a la web sin HTML
+        pass
 
     # 5. Generar el HTML final inyectando las clases BEM estructurales
     # [REFAC]: Todo documento de la biblioteca estática hereda el diseño de Libro/Proyecto
@@ -177,8 +189,13 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     out_path = PUBLIC_BIBLIOTECA / out_filename
     PUBLIC_BIBLIOTECA.mkdir(parents=True, exist_ok=True)
     
-    out_path.write_text(html_final, encoding="utf-8")
-    print(f"  ✅ Publicado con éxito: public/biblioteca/{out_filename}")
+    # CONTROL DE ERRORES: Escritura final en disco (riesgo de permisos I/O)
+    try:
+        out_path.write_text(html_final, encoding="utf-8")
+        print(f"  ✅ Publicado con éxito: public/biblioteca/{out_filename}")
+    except IOError as e:
+        print(f"  ❌ Error de permisos al guardar el HTML {out_filename}: {e}")
+        return False
     
     # Devolvemos los metadatos para construir el índice
     return {
