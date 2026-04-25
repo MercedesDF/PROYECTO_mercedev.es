@@ -37,6 +37,33 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-26 — Feat: Script de instanciación del Boilerplate (Fase 10)
+
+**Contexto:** Para convertir el repositorio en un producto reutilizable (Boilerplate Release 1.0.0), se necesitaba un mecanismo automatizado que permitiera a un usuario clonar el proyecto, limpiar todas las referencias personales (dominio, nombre) y purgar el historial documental sin tener que hacerlo archivo por archivo.
+
+**Hecho:**
+- Se creó el script destructivo `scripts/merci/merci-init.py`.
+- Se implementó la purga automática de los directorios `biblioteca/`, `laboratorio/` y `public/biblioteca/`.
+- Se implementó el reemplazo recursivo de la identidad (`mercedev.es`, `mercedev`, `Mercedes`) en todos los archivos de configuración y código fuente.
+- Se marcó la Fase 10 como completada en el Roadmap.
+
+**Motivo / criterio:** *Automation & Reusability*. Un boilerplate debe ser un lienzo en blanco para el nuevo desarrollador. Automatizar la inicialización cierra el ciclo de vida del proyecto, convirtiéndolo formalmente en la versión 1.0.0 lista para ser distribuida.
+
+**Siguiente paso o deuda:** Dar por finalizado el roadmap fundacional, hacer el *push* definitivo y descansar.
+
+### 2026-04-25 — Fix: Refuerzo de segregación de entornos (Zero Drafts in Library)
+
+**Contexto:** Se detectó una violación de las reglas arquitectónicas: archivos con `estado: "borrador"`, tests huérfanos (`test-borrador.md`) o documentos con marcadores `TODO` pendientes estaban residiendo físicamente en el directorio fuente `biblioteca/`.
+
+**Hecho:**
+- Se ejecutó una purga manual moviendo el contenido crudo (`bitacora-merci-boilerplate.md`) de vuelta a `laboratorio/` y eliminando los archivos de test (`test-borrador.md`).
+- Se eliminaron los HTML y PDF residuales generados por error en el entorno `public/`.
+- Se asienta la regla estricta: El directorio `biblioteca/` en el código fuente es sagrado y solo puede alojar activos de conocimiento 100% curados y terminados.
+
+**Motivo / criterio:** *Environment Segregation* (Segregación de Entornos). Mezclar contenido en incubación con contenido curado en el mismo directorio de origen destruye la confianza en el repositorio y genera fugas de información hacia el entorno de producción al compilar el SSG.
+
+**Siguiente paso o deuda:** Modificar `merci-audit.py` en el futuro para que bloquee atómicamente los commits si detecta YAMLs con `estado: "borrador"` dentro de la carpeta `biblioteca/`.
+
 ### 2026-04-25 — Feat: Migración histórica y publicación del Volumen I (Fase 8.2)
 
 **Contexto:** Tras perfeccionar el orquestador SSG (Static Site Generation - Generación de Sitios Estáticos) y el asistente de promoción, era el momento de validar el flujo completo vaciando la deuda documental del laboratorio y trasladando el historial fundacional (Volumen I) a la Biblioteca.

@@ -5,14 +5,196 @@ tipo: "bitacora"
 tema: "Arquitectura y Rendimiento"
 volumen: "1"
 fecha: "2026-04-25"
-estado: "borrador"
+estado: "publicado"
 portada: "portada-auditoria.webp"
 alt_portada: "Puntuación de 100/100 en la auditoría de rendimiento de Lighthouse."
 ---
 
-## Prólogo: La Construcción del Motor DevSecOps
+> Cómo se construyó una infraestructura web híbrida con seguridad, automatización y rendimiento perfectos — desde cero.
 
-> **TODO (Fase 7.4):** Redactar el prólogo del Volumen I. Un resumen atractivo y didáctico que explique qué es el Merci Boilerplate, qué problema resuelve y cómo se estructuran las 6 fases fundacionales, antes de exponer el registro técnico crudo.
+---
+
+## ¿Qué es esto?
+
+El **Merci Boilerplate** es una plantilla de infraestructura web reutilizable creada por `mercedev.es`. Combina un núcleo estático ultrarrápido con WordPress/WooCommerce aislados, gobernado todo por un ecosistema de scripts de automatización denominado **Sistema Merci**. El objetivo final: que cualquier proyecto web futuro pueda arrancar con seguridad, rendimiento y buenas prácticas ya integradas desde el minuto uno.
+
+La filosofía que guía cada decisión es el **DevSecOps** y el principio **Shift-Left** — es decir, detectar y resolver problemas de seguridad, calidad y rendimiento lo antes posible, antes de que lleguen a producción.
+
+---
+
+## Fase 1 — Los cimientos (12 de abril de 2026)
+
+Todo empieza con la pregunta correcta: ¿cómo se organiza un proyecto para que sea auditable, seguro y reproducible desde el día uno?
+
+Se diseña la **estructura de carpetas** del repositorio: `public/` para el sitio web, `docs/` para documentación técnica, `scripts/merci/` para las herramientas de automatización, `laboratorio/` para experimentos y `.assets-raw/` para archivos multimedia sin optimizar (excluidos de Git para mantener el repositorio ligero).
+
+El primer artefacto importante es **`merci-audit.py`**, un script de auditoría escrito en Python puro — sin dependencias externas — que analiza el código en busca de secretos expuestos, errores de sintaxis, malas prácticas de JavaScript y fallos de SEO técnico. Este script se conecta al hook `pre-commit` de Git, lo que significa que **ningún código pasa al repositorio sin pasar antes por esta revisión automática**.
+
+> 🛡️ **Hito DevSecOps:** Primer escudo de seguridad activo. El auditor bloquea commits con errores (`ERROR`) y advierte sobre mejoras (`WARN`), diferenciando entre lo crítico y lo recomendable.
+
+---
+
+## Fase 2 — El núcleo estático y el SEO técnico (14 de abril de 2026)
+
+Con la infraestructura lista, se construye el primer documento HTML público siguiendo estándares de **semántica HTML5**, **WAI-ARIA** (accesibilidad) y **JSON-LD** (datos estructurados para buscadores).
+
+Se añaden `robots.txt` y `sitemap.xml` para la indexación en buscadores, y se crea **`merci-sitemap.py`**, un script que actualiza automáticamente la fecha de modificación del sitemap cada vez que se cambia contenido en `public/`. Este script se integra en el hook de `pre-commit` para que nunca haya desincronización entre el código y los metadatos.
+
+También se añade un **linter de acrónimos** al auditor: si un término técnico en inglés aparece sin su expansión (ej. «CSP» sin «Content Security Policy»), el sistema emite un aviso. El objetivo es que la documentación sea comprensible para cualquier nivel.
+
+> 📌 **Hito:** El primer `index.html` supera la auditoría sin errores ni advertencias. El proyecto nace ya en verde.
+
+---
+
+## Fase 3 — Sistema de diseño SASS y optimizador de imágenes (15–16 de abril de 2026)
+
+### El sistema de estilos
+
+Se construye una arquitectura de estilos modular siguiendo la metodología **SASS 7-1** y la nomenclatura **BEM** (Block, Element, Modifier). Esto significa que todos los estilos están organizados en módulos reutilizables, y los componentes HTML tienen nombres de clase predecibles y estructurados.
+
+Para compilar SASS sin instalar Node.js globalmente (en línea con la filosofía de «cero dependencias externas»), se crea **`merci-styles.py`**: un script que descarga automáticamente el compilador **Dart Sass** como binario independiente y lo ejecuta en local. Después, se añade **`merci-watcher.py`**, que vigila los archivos SASS y recompila en tiempo real mientras se trabaja.
+
+### El optimizador de imágenes
+
+Se crea **`merci-optimizer.py`**, que procesa imágenes desde `.assets-raw/` y genera versiones optimizadas en formato **WebP** con múltiples resoluciones para dispositivos distintos. Incluye una corrección importante: si la imagen tiene fondo transparente (como un logo PNG), se preserva correctamente el canal alpha al convertir a WebP.
+
+### La arquitectura de información
+
+Se define la tipología de contenidos: una **Biblioteca** para documentación técnica atemporsal, y **Art de Coté** para artículos divulgativos con la estructura de tres átomos: Desafío → Maniobra → Aprendizaje (el mismo formato de esta bitácora).
+
+> 🛡️ **Hito DevSecOps:** Se añaden pruebas unitarias (`unittest`) para los scripts del Sistema Merci usando `unittest.mock`. El código de automatización se prueba antes de usarse — TDD aplicado a las propias herramientas.
+
+---
+
+## Pivote estratégico — De web personal a Boilerplate (16 de abril de 2026)
+
+A mitad del desarrollo se toma una decisión importante: el valor real de lo construido no es una web personal concreta, sino la **infraestructura reutilizable** en sí misma. Se pivota formalmente el proyecto de `mercedev.es` a **Merci Boilerplate**.
+
+Se actualiza el `README.md` y el `index.html` para que reflejen este nuevo propósito: quien clone el repositorio encontrará una plantilla lista para usar, con toda la arquitectura DevSecOps ya integrada.
+
+---
+
+## Fase 4 — Integración de WordPress con aislamiento total (15–16 de abril de 2026)
+
+### El problema
+
+Añadir WordPress a un proyecto estático de alto rendimiento es un reto. WordPress, por defecto, inyecta decenas de scripts, estilos en línea y dependencias que degradan el rendimiento. La solución no es evitar WordPress, sino **aislarlo**.
+
+### La arquitectura de aislamiento
+
+Se diseña un sistema donde:
+
+- El **núcleo estático** vive en `public/` y es servido directamente por **Nginx** (sin pasar por PHP).
+- **WordPress** reside en un directorio hermano completamente separado (`/var/www/wordpress/`).
+- Nginx actúa como **proxy inverso**: las rutas que empiezan por `/blog` se redirigen a WordPress; el resto se sirven como archivos estáticos planos.
+- Un **enlace simbólico** (`ln -s`) conecta el Child Theme del repositorio Git con el directorio de temas de WordPress, de modo que `git pull` actualiza el diseño automáticamente.
+
+### El Child Theme ultraligero
+
+Se crea el **Merci Theme**, un tema hijo de WordPress con solo tres archivos. El `functions.php` actúa como «escudo de rendimiento»: desencola los scripts y estilos por defecto de WordPress (emojis, bloques Gutenberg, scripts globales), bloquea endpoints de seguridad obsoletos (XML-RPC, versión de WP, etc.) y encola únicamente el CSS del núcleo estático.
+
+El `index.php` implementa el bucle de WordPress con semántica HTML5 y clases BEM, reutilizando los mismos componentes visuales que el núcleo estático.
+
+### WooCommerce en modo catálogo
+
+Se integra WooCommerce pero en **modo catálogo** (sin carrito AJAX ni scripts de pago), lo que elimina el script `wc-cart-fragments` — responsable de una petición HTTP innecesaria en cada carga de página que saltaba por encima de todas las capas de caché.
+
+> 🛡️ **Hito DevSecOps:** `wp-config.php` se configura con claves criptográficas oficiales y permisos `chmod 600` (solo lectura para el propietario). El CMS se instala con el principio de mínimo privilegio desde el primer momento.
+
+---
+
+## Fase 5 — Quality Assurance y Hardening (15–16 de abril de 2026)
+
+### Content Security Policy (CSP)
+
+Se implementa una **Política de Seguridad de Contenidos** estricta mediante cabecera HTTP: `default-src 'self'` restringe todos los recursos al dominio propio, bloqueando cualquier script externo o inyección de código (vectores de ataque XSS).
+
+Se valida que la CSP no bloquea ningún recurso legítimo del sitio estático antes de activarla en producción.
+
+### Auditoría PHP para WordPress
+
+El auditor `merci-audit.py` se amplía con una función que detecta funciones PHP peligrosas (`eval()`, `exec()`, `shell_exec()`) que son vectores comunes de ejecución de código remoto (RCE). Si aparecen en el código, se emite una advertencia para revisión manual.
+
+### Automatización de commits
+
+Se crea **`merci-commit.py`**: un script que extrae automáticamente la última entrada de la bitácora y la convierte en el mensaje del commit de Git. Esto garantiza que el código y su justificación siempre viajan juntos en un commit atómico. Incluye salvaguardas: avisa si no hay cambios reales en Git, o si la bitácora no ha sido actualizada.
+
+### Checklist de Hardening
+
+Se genera el documento `docs/checklist-hardening.md` con todas las medidas de seguridad implementadas: directivas CSP, hooks de bloqueo de WordPress, política de permisos del servidor y reglas del auditor. Este documento sirve como guía de validación para futuros despliegues.
+
+> 📌 **Hito:** La auditoría integral con `merci-audit.py --strict-json-ld` sobre todo el repositorio devuelve **cero errores y cero advertencias**. La Fase 5 se cierra formalmente.
+
+---
+
+## Fase 6 — Despliegue a producción y 100/100 en PageSpeed (17–23 de abril de 2026)
+
+### Preparativos pre-despliegue
+
+Se redacta el **Deployment Playbook** (`docs/deployment-playbook.md`), un manual operativo paso a paso para desplegar el proyecto en un servidor real. Se parte de cero: desde la compra del dominio y la configuración DNS, hasta el enrutamiento final de Nginx.
+
+Se realiza una **auditoría externa** del repositorio (mediante GitHub Copilot) que valida la arquitectura híbrida, la seguridad y el aislamiento DevSecOps con la máxima calificación. Se fijan las versiones de dependencias Python con `==` en lugar de `>=` para garantizar reproducibilidad absoluta.
+
+### Los primeros obstáculos en producción
+
+El despliegue real descubre varios problemas que no eran visibles en local:
+
+1. **Latencia de 290ms** por haber elegido un datacenter en Asia. Se destruye y recrea el servidor en Europa.
+2. **Error DNS NXDOMAIN** al emitir el certificado SSL porque el subdominio `www` no tenía registro A. Se emite el certificado solo para el dominio raíz.
+3. **Mixed Content**: WordPress devolvía URLs `http://` porque la función `is_ssl()` de PHP no detectaba correctamente el protocolo detrás del proxy Varnish. Se resuelve usando `home_url()` de WordPress (que lee la configuración de la base de datos) en lugar de variables de servidor crudas.
+4. **Puerto 8080 inyectado por Varnish**: el proxy interno añadía el puerto interno a las URLs, generando rutas inválidas. Se corrige con `preg_replace` para extraer la raíz del dominio limpia.
+5. **WooCommerce en modo «Coming Soon»**: las versiones modernas de WooCommerce activan una pantalla de mantenimiento por defecto en la base de datos que ignoraba completamente el Child Theme.
+
+Cada problema se documenta en la bitácora con su causa técnica exacta y la lección aprendida.
+
+### CloudPanel y el Deployment Playbook real
+
+Se adopta **CloudPanel** como panel de administración del servidor. Esto introduce una capa de abstracción (plantillas `{{root}}` en el VHost de Nginx) que hay que respetar: no se pueden modificar variables del panel directamente o las actualizaciones del sistema romperían la configuración. Se aprende a separar qué se configura por la interfaz visual y qué se inyecta directamente en el bloque VHost.
+
+### Depuración CSP avanzada en WooCommerce
+
+WooCommerce inyecta varios scripts en línea que violan la CSP estricta (`script-src 'self'`):
+
+- **Speculation Rules**: un script JSON que WordPress añade al footer para precargar páginas. Se bloquea en ambos hooks (`wp_head` y `wp_footer`).
+- **Filtros SVG de Gutenberg**: bloques de filtros visuales que se inyectan tras el `<body>`. Se elimina la acción correspondiente.
+- **`wc_javascript_is_active`**: un script mínimo de WooCommerce que detecta si JavaScript está activo. Las versiones modernas lo inyectan a nivel de renderizado de bloques (Gutenberg), esquivando los `remove_action` tradicionales.
+
+Para el último script, se descubre una **condición de carrera (Race Condition)**: el `remove_action` se ejecutaba antes de que WooCommerce registrara su hook porque no estaba envuelto en el hook `init`. Al encapsularlo en `init`, el orden de ejecución queda garantizado.
+
+Cuando incluso eso falla (WooCommerce usa prioridad 0), se aplica la solución definitiva: **whitelist criptográfico SHA-256**. En lugar de eliminar el script, se calcula su hash exacto y se autoriza solo ese hash específico en la cabecera CSP de Nginx. Si un atacante modifica un solo carácter del script, el hash no coincide y el navegador lo bloquea.
+
+> 🛡️ **Hito DevSecOps:** Esta es la técnica más sofisticada del proyecto. Permite convivir con código legado de terceros que no se puede eliminar, sin relajar ni un milímetro la postura de seguridad.
+
+### El orquestador total
+
+Se crea **`merci-total.py`**: un script maestro que ejecuta secuencialmente toda la cadena de herramientas antes de cada pase a producción:
+
+```
+merci-optimizer → merci-styles → merci-sitemap → merci-audit (SAST) → merci-linkcheck (DAST)
+```
+
+Implementa un patrón **Fail-Fast**: si cualquier paso falla, la ejecución se detiene. Es el equivalente local de un pipeline de CI/CD.
+
+### La puntuación perfecta
+
+Después de todos estos ajustes — el escudo de rendimiento en `functions.php`, las cabeceras de seguridad en Nginx, la depuración extrema de scripts en línea y las micro-correcciones de Core Web Vitals (como especificar dimensiones exactas en el logo para evitar el Cumulative Layout Shift) —, se realiza la auditoría final en **Google PageSpeed Insights**:
+
+| Categoría | Puntuación |
+|---|---|
+| Rendimiento (LCP, INP, CLS) | ✅ 100/100 |
+| Accesibilidad (WAI-ARIA) | ✅ 100/100 |
+| Mejores Prácticas (CSP, WebP, HTTPS) | ✅ 100/100 |
+| SEO Técnico (JSON-LD, canónicas) | ✅ 100/100 |
+
+Esto se valida tanto en la ruta estática como en la dinámica `/blog/tienda/` de WooCommerce. Conseguir 100/100 en un ecosistema WooCommerce es atípico.
+
+Se complementa con una **auditoría manual de accesibilidad**: navegación completa solo con teclado, verificación de trampas de foco, landmarks semánticos y estados de foco visibles. La automatización tiene límites; la empatía con el usuario final no.
+
+> 📌 **Hito final del Volumen I:** La Fase 6 se cierra. La construcción de la infraestructura está completa y validada empíricamente.
+
+---
+
+## El Registro Diario (La Caja Negra)
 
 ---
 

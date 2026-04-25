@@ -1,10 +1,11 @@
 ---
-titulo: "Historia del Proyecto: Merci Boilerplate"
-descripcion: "Registro técnico estructurado y cronológico de la construcción del motor híbrido DevSecOps."
+titulo: "Bitácora mercedev (Vol. I): El nacimiento del Boilerplate"
+descripcion: "Volumen I de la saga. Registro cronológico inmutable de la construcción del motor híbrido DevSecOps, desde el primer commit hasta la validación 100/100."
 tipo: "bitacora"
 tema: "Arquitectura y Rendimiento"
+volumen: "1"
 fecha: "2026-04-25"
-estado: "publicado"
+estado: "borrador"
 portada: "logo.webp"
 alt_portada: "Logotipo del proyecto utilizado como portada representativa para el registro histórico."
 ---
