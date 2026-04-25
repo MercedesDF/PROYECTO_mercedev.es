@@ -40,17 +40,9 @@ class NavigationController {
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Inicializamos el menú de navegación (tu código original)
     new NavigationController('menu-toggle', 'main-nav');
-});
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    // ... tu código existente ...
-    const merci = new MerciController('merci-ui');
     
     // 2. Inicializamos a Merci solo si su script se ha cargado correctamente
     if (typeof MerciController !== 'undefined') {
         new MerciController('merci-ui');
     }
 });
-
-

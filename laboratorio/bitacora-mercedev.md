@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-25 — Feat: Migración histórica y publicación del Volumen I (Fase 8.2)
+
+**Contexto:** Tras perfeccionar el orquestador SSG (Static Site Generation - Generación de Sitios Estáticos) y el asistente de promoción, era el momento de validar el flujo completo vaciando la deuda documental del laboratorio y trasladando el historial fundacional (Volumen I) a la Biblioteca.
+
+**Hecho:**
+- Se promovió el archivo histórico a la `biblioteca/` mediante el asistente interactivo `merci-promote.py`.
+- Se compiló el sitio estático y el PDF descargable con `merci-publish.py`.
+- Se aprovechó para refactorizar y limpiar un evento duplicado (`DOMContentLoaded`) en `public/js/main.js` que había quedado como residuo de pruebas anteriores.
+
+**Motivo / criterio:** *Content Lifecycle Management* (Gestión del Ciclo de Vida del Contenido). El flujo SOP (Standard Operating Procedure) diseñado demuestra su eficacia: redacción libre en laboratorio -> curación estricta con promote -> compilación automatizada con publish.
+
+**Siguiente paso o deuda:** Marcar la Fase 8.2 como completada en el Roadmap y comenzar la investigación para dotar a Merci de capacidades avanzadas (Fase 9).
+
 ### 2026-04-25 — Fix: Control de errores (Fail Gracefully) en orquestador SSG
 
 **Contexto:** El orquestador de publicación (`merci-publish.py`) carecía de manejo de excepciones en sus procesos críticos. Cualquier error puntual (un Markdown malformado, un fallo de WeasyPrint al enlazar imágenes o un error de permisos I/O) provocaría un colapso total del script (Fatal Error), deteniendo el pipeline e impidiendo la publicación del resto de documentos válidos.

@@ -3,7 +3,7 @@ titulo: "Bitácora mercedev (Vol. I): El nacimiento del Boilerplate"
 descripcion: "Volumen I de la saga. Registro cronológico inmutable de la construcción del motor híbrido DevSecOps, desde el primer commit hasta la validación 100/100."
 tipo: "bitacora"
 tema: "Arquitectura y Rendimiento"
-volumen: 1
+volumen: "1"
 fecha: "2026-04-25"
 estado: "borrador"
 portada: "portada-auditoria.webp"
