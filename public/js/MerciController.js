@@ -18,15 +18,9 @@ class MerciController {
         this.messageBox = this.container.querySelector('.merci-ui__message-box');
         this.messageText = this.container.querySelector('.merci-ui__message-text');
 
-        // Matriz de conocimientos/saludos (Heredada del diseño original)
-        this.messages = [
-            '¡Hola! 👋',
-            'Todo funcionando al 100/100 🚀',
-            'Mi código es Vanilla JS puro 💻',
-            'Soy Merci 🤖',
-            'Protegida por DevSecOps 🛡️',
-            '¿Qué tal el día? 💫'
-        ];
+        // QUÉ HACE: Carga el "cerebro" específico basándose en la URL actual.
+        // POR QUÉ: Permite respuestas contextuales sin consultas pesadas al servidor.
+        this.messages = this._loadKnowledgeBase();
 
         this.state = 'idle'; 
         this.timeoutId = null; // Guarda la referencia del temporizador para no superponer mensajes
@@ -42,6 +36,54 @@ class MerciController {
             this.trigger.addEventListener('click', () => this.handleInteraction());
         }
         console.log('[Merci] Controlador inicializado correctamente.');
+    }
+
+    /**
+     * QUÉ HACE: Analiza la ruta del navegador y devuelve el diccionario adecuado.
+     * POR QUÉ: Principio de Responsabilidad Única. Aísla los textos de la lógica de la UI.
+     * Al usar .includes(), nos aseguramos de atrapar también las subrutas (ej. un artículo específico).
+     */
+    _loadKnowledgeBase() {
+        const path = window.location.pathname;
+
+        if (path === '/' || path === '/index.html') {
+            return [
+                '¡Hola! Estás en la portada 👋',
+                'Aquí nace el Merci Boilerplate 🚀',
+                'Todo operando a 100/100 en Web Vitals ⚡'
+            ];
+        } else if (path.includes('/biblioteca')) {
+            return [
+                'Bienvenida a la Biblioteca 📚',
+                'Aquí guardamos el conocimiento inmutable.',
+                'Recuerda que puedes descargar los artículos en PDF 📄'
+            ];
+        } else if (path.includes('/art-de-cote')) {
+            return [
+                'Estás en Art de Coté 🎨',
+                'I+D, experimentos y hallazgos colaterales 🧪',
+                'Esta zona la sirve WordPress de forma aislada 🛡️'
+            ];
+        } else if (path.includes('/blog')) {
+            return [
+                'Estás en el Blog ✍️',
+                'Nuestra bitácora dinámica impulsada por PHP.',
+                'Nginx actúa como proxy inverso aquí 🔄'
+            ];
+        } else if (path.includes('/contacto')) {
+            return [
+                '¿Quieres hablar con Mercedes? 📨',
+                'Estás en la zona de contacto.',
+                'Yo soy solo un asistente, pero ella te leerá 😊'
+            ];
+        }
+
+        // Matriz por defecto de contingencia
+        return [
+            '¡Hola! 👋',
+            'Soy Merci, tu asistente DevSecOps 🤖',
+            'Mi código es Vanilla JS puro 💻'
+        ];
     }
 
     handleInteraction() {

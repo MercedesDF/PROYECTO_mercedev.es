@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-25 — Feat: Soporte multimedia avanzado en SSG (Vídeos y PDFs)
+
+**Contexto:** El motor SSG (`merci-publish.py`) parseaba correctamente el texto, pero el formato Markdown no soporta la etiqueta `<video>` nativamente, convirtiendo los archivos `.mp4` en etiquetas `<img>` rotas. Además, el generador de PDFs (WeasyPrint) no lograba renderizar las imágenes porque no lograba resolver las rutas estáticas (`/assets/`).
+
+**Hecho:**
+- Se implementó un pre-procesador *Regex* en Python que intercepta la sintaxis `!alt` y la transforma en un `<video>` HTML5 accesible.
+- Se añadió el parámetro `base_url` a WeasyPrint apuntando a la raíz `/public`.
+- Se implementó un patrón "Fallback" en SASS (`.video-fallback`) que oculta un mensaje de advertencia en la web, pero lo muestra en el PDF para indicar que hay un vídeo no imprimible.
+
+**Motivo / criterio:** Robustez del ciclo de contenidos. Al resolver el `base_url`, los PDFs descargables ahora contendrán todas las capturas y esquemas integrados por el autor. Al usar Expresiones Regulares para el vídeo, ampliamos las capacidades de Markdown manteniendo las "0 dependencias" sin usar plugins externos que ralenticen la compilación.
+
+**Siguiente paso o deuda:** Iniciar el ciclo de migración con la herramienta `merci-promote` (Fase 8.2) probando a publicar el primer Volumen que contendrá estos assets.
+
 ### 2026-04-25 — Feat: Enrutamiento por contexto para el cerebro de Merci (Fase 8.1)
 
 **Contexto:** Tras integrar a Merci en todas las vistas (Fase 7.5), el asistente requería "conciencia de contexto" (saber en qué página está el usuario) para ofrecer respuestas útiles, sin sacrificar la velocidad ni requerir conexiones a una base de datos en tiempo real.

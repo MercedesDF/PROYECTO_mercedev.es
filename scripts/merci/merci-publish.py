@@ -76,6 +76,16 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     print(f"  ⚙️  Procesando {tipo}: {titulo}")
     canonical_url = f"https://mercedev.es/biblioteca/{out_filename}"
 
+    # QUÉ HACE: Pre-procesador de multimedia. Busca sintaxis de imagen que apunte a un vídeo.
+    # POR QUÉ: Markdown nativo no soporta la etiqueta <video>. Usamos expresiones regulares para transformar 
+    # ![alt](video.mp4) en un reproductor HTML5 accesible y creamos un texto de respaldo para el PDF.
+    md_body = re.sub(
+        r'!\[(.*?)\]\((.*?\.(?:mp4|webm|ogg))\)',
+        r'<video controls width="100%" preload="metadata" aria-label="\1" class="multimedia-video"><source src="\2">Tu navegador no soporta video.</video><div class="video-fallback">[Vídeo: \1] <em>(Disponible en la versión web)</em></div>',
+        md_body,
+        flags=re.IGNORECASE
+    )
+
     # 3. Convertir Markdown a HTML (Soportando bloques de código)
     html_content = markdown.markdown(md_body, extensions=['fenced_code'])
     
@@ -98,6 +108,9 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
         h2 {{ color: #ea580c; margin-top: 2em; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5em; }}
         pre {{ background: #f1f5f9; padding: 1em; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; font-size: 0.9em; }}
         code {{ font-family: monospace; background: #f1f5f9; padding: 0.2em 0.4em; border-radius: 3px; font-size: 0.9em; }}
+        img {{ max-width: 100%; height: auto; border-radius: 4px; }}
+        video.multimedia-video {{ display: none !important; }} /* Los vídeos no se pueden imprimir en papel */
+        div.video-fallback {{ display: block !important; padding: 1rem; background: #f8fafc; border: 1px dashed #cbd5e1; text-align: center; color: #64748b; font-size: 0.9em; margin-bottom: 1.5rem; }}
     </style>
 </head>
 <body>
@@ -111,7 +124,11 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     </div>
 </body>
 </html>"""
-    HTML(string=pdf_html_content).write_pdf(out_pdf_path)
+
+    # QUÉ HACE: Renderiza el PDF inyectando el base_url hacia la carpeta public/.
+    # POR QUÉ: Sin el base_url, WeasyPrint no puede resolver rutas absolutas como /assets/images/... 
+    # y las imágenes del Markdown aparecerían rotas o invisibles en el PDF descargable.
+    HTML(string=pdf_html_content, base_url=str(REPO_ROOT / "public")).write_pdf(out_pdf_path)
 
     # 5. Generar el HTML final inyectando las clases BEM estructurales
     # [REFAC]: Todo documento de la biblioteca estática hereda el diseño de Libro/Proyecto

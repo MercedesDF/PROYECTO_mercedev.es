@@ -69,6 +69,8 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 - **Fase 6: Despliegue y Auditoría Final.** Paso a producción, Web Vitals y documentación del proceso.
 - **Fase 7: Automatización y Clasificación.** Sistema de publicación automatizada, plantillas de libros y Producto Merci (Fase 7.5).
 - **Fase 8: Expansión de Contenido y Contexto Inteligente.** Enrutamiento por contexto de Merci y ciclo de migración de la bitácora.
+- **Fase 9: Inteligencia y Autonomía.** Expansión de las capacidades de Merci mediante integración con modelos de IA (segura y con degradación elegante).
+- **Fase 10: Empaquetado y Ecosistema.** Creación de scripts de instanciación para nuevos proyectos y release 1.0.0 del Boilerplate.
 
 ## 6. Guía de Voz Editorial (Merci)
 Objetivo: redactar textos claros, humanos y directos, manteniendo rigor técnico y evitando tono publicitario.

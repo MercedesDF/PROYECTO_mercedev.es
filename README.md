@@ -254,6 +254,18 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 
 #### 8.2 Ciclo de Migración de Contenidos
 - [ ] Emplear `merci-promote` para trasladar cuadernillos históricos a la Biblioteca.
+
+### Fase 9 - Inteligencia y Autonomía (Merci Avanzado)
+
+#### 9.1 Conexión Dinámica (Opcional)
+- [ ] Evaluar integración segura con APIs de LLM o modelos locales para respuestas dinámicas.
+- [ ] Garantizar que la IA no rompe la política de 0 dependencias bloqueantes (Graceful Degradation).
+
+### Fase 10 - Empaquetado y Ecosistema (Release 1.0.0)
+
+#### 10.1 Preparación del Boilerplate
+- [ ] Crear script de instanciación (`merci-init.sh`) para limpiar datos base y arrancar proyectos nuevos.
+- [ ] Revisión final de documentación pública y lanzamiento de la versión 1.0.0.
 ## Licencia
 
 Este proyecto se distribuye bajo los términos de la **Licencia MIT**. Consulta el archivo `LICENSE` para más detalles. El contenido narrativo de la biblioteca y bitácora es propiedad intelectual de su autora.
