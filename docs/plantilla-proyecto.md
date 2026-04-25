@@ -1,7 +1,7 @@
 ---
 titulo: "Título descriptivo del artículo"
 descripcion: "Breve descripción de 1 o 2 líneas para el SEO y el índice."
-tipo: "cuadernillo" # Cambiar a "bitacora" si es un proyecto principal
+tipo: "proyecto" # Valores recomendados: "proyecto", "libro" o "bitacora"
 tema: "DevSecOps y Automatización" # Estantería donde se agrupará en el índice
 volumen: 1
 fecha: "2026-MM-DD"

@@ -47,7 +47,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
             meta[key.strip()] = val.strip().strip('"\'')
             
     titulo = meta.get("titulo", "Documento sin título")
-    tipo = meta.get("tipo", "cuadernillo")
+    tipo = meta.get("tipo", "proyecto")
     descripcion = meta.get("descripcion", f"Documento técnico: {titulo}")
     tema = meta.get("tema", "Estantería General")
     estado = meta.get("estado", "borrador").lower()
@@ -114,7 +114,8 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     HTML(string=pdf_html_content).write_pdf(out_pdf_path)
 
     # 5. Generar el HTML final inyectando las clases BEM estructurales
-    clase_css = "card--booklet" if tipo == "cuadernillo" else "card--book"
+    # [REFAC]: Todo documento de la biblioteca estática hereda el diseño de Libro/Proyecto
+    clase_css = "card--book"
     
     html_final = f"""<!DOCTYPE html>
 <html lang="es">
@@ -125,6 +126,8 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     <meta name="description" content="{descripcion}">
     <link rel="canonical" href="{canonical_url}">
     <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/MerciController.js" defer></script>
+    <script src="/js/main.js" defer></script>
     <script type="application/ld+json">
     {{
       "@context": "https://schema.org",
@@ -190,8 +193,8 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html):
         
         cards_html = ""
         for pub in pubs_tema:
-            clase_css = "card--booklet" if pub["tipo"] == "cuadernillo" else "card--book"
-            badge = "Cuadernillo" if pub["tipo"] == "cuadernillo" else "Bitácora"
+            clase_css = "card--book"
+            badge = pub["tipo"].capitalize()
             
             cards_html += f"""
                 <article class="card {clase_css}">
@@ -218,15 +221,17 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca — mercedev.es</title>
-    <meta name="description" content="Índice de publicaciones técnicas y cuadernillos de la Biblioteca.">
+    <meta name="description" content="Índice de publicaciones técnicas y proyectos de la Biblioteca.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/">
     <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/MerciController.js" defer></script>
+    <script src="/js/main.js" defer></script>
     <script type="application/ld+json">
     {{
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": "La Biblioteca - mercedev.es",
-      "description": "Índice de publicaciones técnicas y cuadernillos de la Biblioteca.",
+      "description": "Índice de publicaciones técnicas y proyectos de la Biblioteca.",
       "url": "https://mercedev.es/biblioteca/"
     }}
     </script>
@@ -236,7 +241,7 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html):
     <main class="main--padded section" id="main">
         <header style="margin-bottom: 3rem;">
             <h1 class="home-card__title--highlight">La Biblioteca</h1>
-            <p>Documentación técnica, cuadernillos DevSecOps y arquitectura de software.</p>
+            <p>Documentación técnica, proyectos DevSecOps y arquitectura de software.</p>
         </header>
         {secciones_html}
     </main>
@@ -258,8 +263,13 @@ def main():
         index_content = index_path.read_text(encoding="utf-8")
         h_match = re.search(r"(<header.*?</header>)", index_content, re.DOTALL | re.IGNORECASE)
         f_match = re.search(r"(<footer.*?</footer>)", index_content, re.DOTALL | re.IGNORECASE)
+        m_match = re.search(r"(<!-- Asistente Merci -->.*?</aside>)", index_content, re.DOTALL | re.IGNORECASE)
         header_html = h_match.group(1) if h_match else ""
         footer_html = f_match.group(1) if f_match else ""
+        
+        # QUÉ HACE: Añade el bloque de Merci al footer extraído para inyectarlo en todas las páginas generadas
+        if m_match:
+            footer_html += f"\n\n    {m_match.group(1)}"
 
     publicaciones_procesadas = []
 

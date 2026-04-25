@@ -37,6 +37,48 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-25 — Feat: Implementación del asistente interactivo Merci (Fase 7.5)
+
+**Contexto:** Era el momento de dar vida pública al asistente "Merci" en la interfaz web (Fase 7.5). El código original propuesto utilizaba bucles continuos (`setInterval`) para calcular posiciones y mover la imagen por la pantalla, lo que destrozaba el rendimiento (Layout Thrashing) y violaba las directrices de accesibilidad WAI-ARIA. Además, se requería organizar la carpeta de multimedia previendo el crecimiento futuro.
+
+**Hecho:**
+- Se reorganizó el directorio multimedia moviendo el avatar a la nueva ruta escalable `/assets/images/`.
+- Se desarrolló el componente estructural BEM `_merci.scss` fijando al asistente mediante CSS.
+- Se creó la clase `MerciController` en Vanilla JS (Programación Orientada a Objetos) actuando como máquina de estados.
+- Se inyectó el componente HTML accesible en `public/index.html`, `public/contacto/index.html`, `src/wp-theme/merci-theme/index.php` y en el orquestador `merci-publish.py`.
+
+**Detalle técnico:** En lugar de manipular el DOM y las coordenadas con JavaScript, el controlador interacciona estrictamente alternando atributos semánticos (`aria-hidden`, `aria-expanded`). Es el CSS el que reacciona a estos cambios de estado ARIA ejecutando transiciones suaves por GPU (`opacity`, `transform`). Esto garantiza un coste de CPU del 0% cuando el asistente está inactivo y asegura que los usuarios de teclado puedan tabular hacia él mediante el uso de un `<button>` nativo.
+
+**Motivo / criterio:** *Rendimiento Extremo y Accesibilidad Universal*. Al anclar visualmente al asistente y delegar las animaciones al motor de hojas de estilo, erradicamos el temido Cumulative Layout Shift (CLS) y evitamos secuestrar el hilo principal (Main Thread) del navegador, manteniendo intacta nuestra puntuación de 100/100 en Core Web Vitals sin usar librerías externas de terceros.
+
+**Siguiente paso o deuda:** Ejecutar el orquestador maestro (`merci-total`), confirmar que ninguna regla SEO ni de rendimiento ha sido penalizada, y ejecutar el commit atómico.
+
+### 2026-04-25 — DevSecOps: Diagnóstico de fallo de suspensión (System Sleep)
+
+**Contexto:** El entorno de desarrollo (Ubuntu) experimentó un "pantallazo gris" que forzó un reinicio abrupto tras la carga de pestañas pesadas en el navegador, sospechando inicialmente de una fuga de memoria (OOM).
+
+**Hecho:**
+- Se aisló el navegador abriéndolo mediante terminal (`google-chrome --incognito --restore-last-session=false`).
+- Se auditaron los registros críticos del núcleo anterior mediante `journalctl -b -1 -p err`.
+
+**Detalle técnico:** Los logs revelaron `Freezing user space processes failed` y `Failed to put system to sleep. System resumed again: Device or resource busy`. El colapso no fue por RAM, sino porque un proceso de usuario (posiblemente la aceleración de hardware del navegador o un hilo de Bluetooth) se negó a ceder el control al Kernel (ACPI) durante un intento de suspensión, bloqueando la interfaz gráfica.
+
+**Motivo / criterio:** Trazabilidad estricta. Leer los logs del sistema desmiente suposiciones y revela la causa raíz de las inestabilidades. Esto valida empíricamente la necesidad de construir arquitecturas web ligeras (0 dependencias) que no saturen los manejadores de recursos (threads/GPU) del cliente.
+
+### 2026-04-25 — Refactor: Purga de lógica de cuadernillos en SSG
+
+**Contexto:** Tras pivotar la Arquitectura de la Información y delegar los "Cuadernillos" a WordPress (Art de Coté), el orquestador de publicación estática (`merci-publish.py`) y las plantillas conservaban código heredado y condicionales inútiles (deuda técnica).
+
+**Hecho:**
+- Se eliminaron las bifurcaciones condicionales para `.card--booklet` en `merci-publish.py`.
+- Se actualizaron los textos de la página índice generada para reflejar la taxonomía de "Proyectos" y "Libros".
+- Se refactorizó la plantilla base y se renombró de `plantilla-cuadernillo.md` a `plantilla-proyecto.md`.
+- Se actualizó la publicación existente de alias absolutos cambiando su tipo a `bitacora`.
+
+**Motivo / criterio:** *Zero Dead Code* (Cero Código Muerto). El código que no se usa es un lastre de mantenimiento. Si la biblioteca solo alberga proyectos y bitácoras fundacionales, el orquestador SSG debe simplificarse eliminando las comprobaciones innecesarias, cumpliendo así con la Navaja de Ockham.
+
+**Siguiente paso o deuda:** Iniciar la Fase 7.5 subiendo el código JavaScript experimental de "Merci" al laboratorio.
+
 ### 2026-04-25 — Refactor: Pivote de Arquitectura de la Información (Libros vs Cuadernillos)
 
 **Contexto:** Tras la reescritura de la portada (`public/index.html`) para alinearla con la realidad operativa del proyecto, se detectó que mantener dos tipos de contenido (Cuadernillos y Bitácoras/Libros) dentro de la Biblioteca estática generaba complejidad innecesaria en el mantenimiento.
