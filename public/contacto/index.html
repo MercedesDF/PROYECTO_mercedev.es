@@ -4,23 +4,24 @@
     <meta charset="UTF-8">
     <meta name="description" content="Contacto - Merci Boilerplate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto — Merci Boilerplate</title>
+    <title>Contacto — mercedev.es</title>
     <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon">
     <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/MerciController.js" defer></script>
     <script src="/js/main.js" defer></script>
     <link rel="canonical" href="https://mercedev.es/contacto">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ContactPage",
-      "name": "Contacto - Merci Boilerplate"
+      "name": "Contacto - mercedev.es"
     }
     </script>
 </head>
 <body class="page">
     <header class="header">
         <a href="/" class="header__brand">
-            <img src="/assets/logo.webp" alt="mercedev.es" class="header__logo" width="150" height="auto">
+            <img src="/assets/images/logo.webp" alt="mercedev.es" class="header__logo" width="150" height="auto">
         </a>
         <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
             <span class="header__toggle-icon"></span>
@@ -43,5 +44,18 @@
     <footer class="footer">
         <p class="footer__text">&copy; 2026 <strong>mercedev.es</strong> — Base de código abierto bajo Licencia MIT.</p>
     </footer>
+
+     <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+
 </body>
 </html>

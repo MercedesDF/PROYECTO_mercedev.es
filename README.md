@@ -236,7 +236,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Registrar trazabilidad del origen de cada pieza publicada.
 
 #### 7.4 Mantenimiento y mejora continua
-- [ ] Definir cadencia de revisión del roadmap y actualización de hitos.
+- [x] Definir cadencia de revisión del roadmap y actualización de hitos.
 - [x] Revisar periódicamente deuda técnica acumulada por fase.
 - [x] Mantener sincronía entre `README.md`, `instrucciones.md` y bitácora activa.
 

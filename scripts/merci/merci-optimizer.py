@@ -20,7 +20,7 @@ except ImportError:
 # --- Configuración ---
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SOURCE_DIR = REPO_ROOT / ".assets-raw"
-DEST_DIR = REPO_ROOT / "assets"
+DEST_DIR = REPO_ROOT / "assets/images"
 
 # Tamaños objetivo en píxeles de ancho. El alto se calculará manteniendo la proporción.
 TARGET_WIDTHS = [1920, 1280, 800, 400]

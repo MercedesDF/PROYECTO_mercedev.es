@@ -67,7 +67,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 - **Fase 4: Integración de Sistemas Dinámicos.** WordPress, WooCommerce (catálogo merchandising Merci) y Child Theme.
 - **Fase 5: Quality Assurance y Hardening.** CSP, endurecimiento de WP y Git Hooks.
 - **Fase 6: Despliegue y Auditoría Final.** Paso a producción, Web Vitals y documentación del proceso.
-- **Fase 7: Automatización y Clasificación.** Sistema de publicación automatizada y plantillas de libros.
+- **Fase 7: Automatización y Clasificación.** Sistema de publicación automatizada, plantillas de libros y Producto Merci (Fase 7.5).
 
 ## 6. Guía de Voz Editorial (Merci)
 Objetivo: redactar textos claros, humanos y directos, manteniendo rigor técnico y evitando tono publicitario.

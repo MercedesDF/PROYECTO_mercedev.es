@@ -4,8 +4,9 @@
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Favicon explícito para la capa dinámica -->
+    <!-- Favicon explícito para la capa dinámica y Mercí -->
     <link rel="icon" href="/favicon.ico?v=3" type="image/x-icon">
+    <script src="/js/MerciController.js" defer></script>
 
     <?php 
     // wp_head() es el anclaje obligatorio. 
@@ -17,7 +18,7 @@
 
     <header class="header" id="top" tabindex="-1">
         <a href="/" class="header__brand">
-            <img src="/assets/logo.webp?v=2" alt="{{DOMINIO}}" class="header__logo" width="263" height="65">
+            <img src="/assets/images/logo.webp?v=2" alt="{{DOMINIO}}" class="header__logo" width="263" height="65">
         </a>
         <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
             <span class="header__toggle-icon"></span>
@@ -110,6 +111,16 @@
             <span style="margin: 0 1rem;">|</span> <a href="#top" style="color: inherit; text-decoration: underline;">↑ Volver arriba</a>
         </p>
     </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
 
     <!-- wp_footer() es obligatorio para scripts de cierre y barra de administración (si estás logueada) -->
     <?php wp_footer(); ?>

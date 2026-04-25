@@ -9,9 +9,10 @@
     <meta name="google" content="notranslate"> -->
     <title>mercedev — Ingeniería y DevSecOps</title>
     
-    <!-- Favicon -->
+    <!-- Favicon y Mercí-->
     <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon">
     <link rel="stylesheet" href="/css/main.css?v=2">
+    <script src="/js/MerciController.js" defer></script>
     <script src="/js/main.js" defer></script>
     <link rel="canonical" href="https://mercedev.es">
     
@@ -28,7 +29,7 @@
 <body class="page">
     <header class="header" id="top" tabindex="-1">
         <a href="/" class="header__brand">
-            <img src="/assets/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
         </a>
         <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
             <span class="header__toggle-icon"></span>
@@ -86,5 +87,17 @@
             <span style="margin: 0 1rem;">|</span> <a href="#top" style="color: inherit; text-decoration: underline;">↑ Volver arriba</a>
         </p>
     </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
 </body>
 </html>
