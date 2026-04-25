@@ -221,14 +221,14 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 ### Fase 7 - Automatización y Clasificación
 
 #### 7.1 Flujo de publicación automatizada
-- [ ] Diseñar flujo de publicación que minimice tareas manuales repetitivas.
-- [ ] Definir puntos de validación automática previos a publicación.
-- [ ] Documentar dependencias y responsabilidades del pipeline.
+- [x] Diseñar flujo de publicación que minimice tareas manuales repetitivas.
+- [x] Definir puntos de validación automática previos a publicación.
+- [x] Documentar dependencias y responsabilidades del pipeline.
 
 #### 7.2 Plantillas de conocimiento para biblioteca
-- [ ] Definir plantillas estándar para documentos definitivos en `biblioteca/`.
-- [ ] Integrar la estructura de 3 átomos (desafío, maniobra, aprendizaje/deuda).
-- [ ] Validar consistencia editorial y técnica entre estanterías temáticas.
+- [x] Definir plantillas estándar para documentos definitivos en `biblioteca/`.
+- [x] Integrar la estructura de 3 átomos (desafío, maniobra, aprendizaje/deuda).
+- [x] Validar consistencia editorial y técnica entre estanterías temáticas.
 
 #### 7.3 Flujo laboratorio -> biblioteca
 - [ ] Formalizar criterio para promover contenido desde `laboratorio/` a `biblioteca/`.

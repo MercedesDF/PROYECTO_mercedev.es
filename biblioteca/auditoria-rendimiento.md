@@ -5,7 +5,9 @@ tipo: "bitacora"
 tema: "Arquitectura y Rendimiento"
 volumen: 1
 fecha: "2026-04-21"
+estado: "publicado"
 portada: "portada-auditoria.webp"
+alt_portada: "Gráfico de puntuación 100 sobre 100 en todas las métricas de Google PageSpeed Insights."
 ---
 
 Este documento explica el significado de las métricas de Google PageSpeed Insights y cómo la arquitectura del "Merci Boilerplate" logra una puntuación perfecta de **100/100** en todas las categorías.

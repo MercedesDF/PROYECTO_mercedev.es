@@ -5,7 +5,9 @@ tipo: "cuadernillo" # Cambiar a "bitacora" si es un proyecto principal
 tema: "DevSecOps y Automatización" # Estantería donde se agrupará en el índice
 volumen: 1
 fecha: "2026-MM-DD"
+estado: "borrador" # Valores permitidos: "borrador" | "publicado"
 portada: "portada-generica.webp"
+alt_portada: "Descripción visual de la imagen para accesibilidad estricta WAI-ARIA."
 ---
 
 **Contexto:**

@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-25 — Refactor: Optimización de metadatos YAML para accesibilidad y pipeline
+
+**Contexto:** Antes de diseñar el script de promoción de contenidos (Fase 7.3), era imperativo auditar la estructura de datos YAML para asegurar que soportara los requisitos de accesibilidad estricta (Core Web Vitals) y el control de flujo del orquestador.
+
+**Hecho:**
+- Se añadieron los campos `estado` y `alt_portada` a `docs/plantilla-cuadernillo.md`.
+- Se refactorizó retroactivamente `biblioteca/auditoria-rendimiento.md` para cumplir con el nuevo esquema.
+
+**Motivo / criterio:** *Shift-Left Data Design*. Añadir `alt_portada` garantiza desde el origen que el SSG (Static Site Generation) genere etiquetas `<img>` 100% compatibles con WAI-ARIA, evitando penalizaciones de Lighthouse. El campo `estado` (`borrador` vs `publicado`) dota al orquestador de una máquina de estados sencilla para filtrar documentos incompletos durante el proceso de compilación, protegiendo el entorno de producción.
+
+**Siguiente paso o deuda:** Diseñar el flujo operativo y el script de Python para la promoción automatizada de contenidos (Fase 7.3).
+
 ### 2026-04-24 — Fix: Resolución de conflicto de enlace simbólico en producción
 
 **Contexto:** Al ejecutar `git pull` en el servidor de producción (CloudPanel), Git abortó la sincronización alertando que los cambios locales en `public/blog` serían sobrescritos. Esto ocurrió porque el enlace simbólico había sido eliminado del índice del repositorio (`git rm --cached`) en una sesión anterior para aislarlo del control de versiones.
