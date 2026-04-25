@@ -231,9 +231,9 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Validar consistencia editorial y técnica entre estanterías temáticas.
 
 #### 7.3 Flujo laboratorio -> biblioteca
-- [ ] Formalizar criterio para promover contenido desde `laboratorio/` a `biblioteca/`.
-- [ ] Añadir checklist de curación y revisión previa a promoción.
-- [ ] Registrar trazabilidad del origen de cada pieza publicada.
+- [x] Formalizar criterio para promover contenido desde `laboratorio/` a `biblioteca/`.
+- [x] Añadir checklist de curación y revisión previa a promoción.
+- [x] Registrar trazabilidad del origen de cada pieza publicada.
 
 #### 7.4 Mantenimiento y mejora continua
 - [ ] Definir cadencia de revisión del roadmap y actualización de hitos.

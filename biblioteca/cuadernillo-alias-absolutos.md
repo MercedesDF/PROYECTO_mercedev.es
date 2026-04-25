@@ -5,7 +5,9 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Automatización"
 volumen: 1
 fecha: "2026-04-24"
+estado: "publicado"
 portada: "portada-auditoria.webp"
+alt_portada: "Captura de pantalla de la terminal mostrando la configuración de funciones alias en Zsh."
 ---
 
 **Contexto:**
