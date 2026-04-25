@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-25 — Fix: Despublicación activa de artefactos huérfanos en SSG
+
+**Contexto:** Se detectó una fisura en el ciclo de vida del dato. Al cambiar manualmente un documento en `biblioteca/` de estado `publicado` a `borrador`, el orquestador lo saltaba y lo excluía del índice, pero los archivos HTML y PDF generados previamente quedaban huérfanos en `public/`, permaneciendo accesibles mediante su URL directa (fuga de información).
+
+**Hecho:**
+- Se refactorizó la máquina de estados en `scripts/merci/merci-publish.py`.
+- Se implementó una lógica de "Despublicación Activa" (Kill-Switch).
+
+**Detalle técnico:** Antes de abortar el procesamiento de un archivo que no sea `publicado`, el script resuelve las rutas de salida (`html_target.exists()`) y ejecuta un `unlink()` para purgar físicamente los activos del servidor si existen, emitiendo una alerta `🗑️ Despublicando` por consola.
+
+**Motivo / criterio:** *State Synchronization* (Sincronización de Estado). El estado `borrador` no debe ser solo una omisión de compilación, sino una orden destructiva en el entorno de producción que garantice que el frontend refleje exactamente la intención actual del origen de datos, previniendo artefactos zombis.
+
+**Siguiente paso o deuda:** Iniciar la planificación de la Fase 7.4 (Mantenimiento y mejora continua).
+
 ### 2026-04-25 — Feat: Asistente interactivo de promoción (merci-promote.py)
 
 **Contexto:** Existía un hueco operativo (Fase 7.3) entre la redacción de un borrador en el `laboratorio/` y su publicación en la `biblioteca/`. Hacer este traslado manualmente era propenso a errores (olvidos de metadatos, fechas incorrectas o estados inconsistentes).

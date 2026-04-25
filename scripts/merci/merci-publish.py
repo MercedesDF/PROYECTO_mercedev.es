@@ -53,9 +53,19 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     estado = meta.get("estado", "borrador").lower()
     alt_portada = meta.get("alt_portada", "")
     
-    # [REGLA DE NEGOCIO]: Máquina de estados (Feature Toggle). Aisla borradores de producción.
+    out_filename = filepath.stem + ".html"
+    out_pdf_filename = filepath.stem + ".pdf"
+    html_target = PUBLIC_BIBLIOTECA / out_filename
+    pdf_target = PUBLIC_DESCARGAS / out_pdf_filename
+
+    # [REGLA DE NEGOCIO]: Máquina de estados (Kill-Switch). Aisla o destruye borradores en producción.
     if estado != "publicado":
-        print(f"  ⏭️  Saltando (Estado: {estado}): {filepath.name}")
+        if html_target.exists() or pdf_target.exists():
+            print(f"  🗑️  Despublicando (Estado: {estado}): Eliminando artefactos de {filepath.name}")
+            if html_target.exists(): html_target.unlink()
+            if pdf_target.exists(): pdf_target.unlink()
+        else:
+            print(f"  ⏭️  Saltando (Estado: {estado}): {filepath.name}")
         return False
         
     # [QA ACCESIBILIDAD]: WAI-ARIA estricto. Bloquea si falta la descripción visual de la portada.
@@ -64,9 +74,6 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
         return False
     
     print(f"  ⚙️  Procesando {tipo}: {titulo}")
-    
-    out_filename = filepath.stem + ".html"
-    out_pdf_filename = filepath.stem + ".pdf"
     canonical_url = f"https://mercedev.es/biblioteca/{out_filename}"
 
     # 3. Convertir Markdown a HTML (Soportando bloques de código)
