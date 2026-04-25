@@ -165,9 +165,9 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Registrar decisiones de integración y deuda técnica asociada en bitácora.
 
 #### 4.5 Presencia pública de Merci (frontend controlado)
-- [ ] Definir rol de Merci en interfaz (acompañamiento, estados y límites de interacción).
-- [ ] Diseñar contrato técnico entre backend de Merci y capa visual sin acoplar al núcleo estático.
-- [ ] Validar que animación, voz o movimiento de Merci no degrada accesibilidad ni rendimiento.
+- [x] Definir rol de Merci en interfaz (acompañamiento, estados y límites de interacción).
+- [x] Diseñar contrato técnico entre backend de Merci y capa visual sin acoplar al núcleo estático.
+- [x] Validar que animación, voz o movimiento de Merci no degrada accesibilidad ni rendimiento.
 
 ### Fase 5 - Quality Assurance y Hardening
 
@@ -241,11 +241,19 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Mantener sincronía entre `README.md`, `instrucciones.md` y bitácora activa.
 
 #### 7.5 Producto Merci (cara pública + backend)
-- [ ] Planificar carpeta/proyecto dedicado para Merci con límites claros frente a `mercedev.es`.
-- [ ] Definir roadmap propio de Merci: avatar/estado visual, diálogo y comportamiento por contexto.
-- [ ] Establecer versión mínima de integración en `mercedev.es` antes de ampliar capacidades.
-- [ ] Documentar criterio de evolución de Merci para evitar desvíos fuera del orden de fases.
+- [x] Planificar carpeta/proyecto dedicado para Merci con límites claros frente a `mercedev.es`.
+- [x] Definir roadmap propio de Merci: avatar/estado visual, diálogo y comportamiento por contexto.
+- [x] Establecer versión mínima de integración en `mercedev.es` antes de ampliar capacidades.
+- [x] Documentar criterio de evolución de Merci para evitar desvíos fuera del orden de fases.
 
+### Fase 8 - Expansión de Contenido y Contexto Inteligente
+
+#### 8.1 El Cerebro de Merci (Context Routing)
+- [x] Implementar respuestas contextuales basadas en la ruta (`window.location.pathname`).
+- [x] Mantener 0 latencia y 0 dependencias (evitar consultas a base de datos en frontend).
+
+#### 8.2 Ciclo de Migración de Contenidos
+- [ ] Emplear `merci-promote` para trasladar cuadernillos históricos a la Biblioteca.
 ## Licencia
 
 Este proyecto se distribuye bajo los términos de la **Licencia MIT**. Consulta el archivo `LICENSE` para más detalles. El contenido narrativo de la biblioteca y bitácora es propiedad intelectual de su autora.
