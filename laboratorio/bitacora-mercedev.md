@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-25 — Refactor: Escaneo dual y prevención de borradores zombis (merci-promote)
+
+**Contexto:** Los documentos en `biblioteca/` que eran despublicados manualmente (pasando a `estado: "borrador"`) se convertían en "Dark Data" (datos invisibles), ya que el asistente de promoción solo escaneaba el `laboratorio/`. Esto forzaba a la edición manual del YAML para republicarlos, rompiendo el flujo.
+
+**Hecho:**
+- Se refactorizó `merci-promote.py` para realizar un escaneo dual (Laboratorio + Biblioteca).
+- Se añadió el campo interactivo de `fecha` para permitir mantener la fecha original de publicación.
+- Se dividió la lógica final para soportar traslados físicos (`unlink()`) y actualizaciones *in-place*.
+
+**Motivo / criterio:** *Content Lifecycle Management* (Gestión del Ciclo de Vida del Contenido). Centralizar en una única herramienta CLI la transición de cualquier estado inmaduro o despublicado hacia la publicación definitiva elimina la fricción técnica. Pre-rellenar los inputs interactivos con los metadatos preexistentes maximiza la velocidad de republicación sin comprometer las validaciones de calidad estricta.
+
+**Siguiente paso o deuda:** Con el ciclo de contenidos perfeccionado, abordar formalmente la planificación de la Fase 7.4 (Mantenimiento y Mejora Continua).
+
 ### 2026-04-25 — Fix: Despublicación activa de artefactos huérfanos en SSG
 
 **Contexto:** Se detectó una fisura en el ciclo de vida del dato. Al cambiar manualmente un documento en `biblioteca/` de estado `publicado` a `borrador`, el orquestador lo saltaba y lo excluía del índice, pero los archivos HTML y PDF generados previamente quedaban huérfanos en `public/`, permaneciendo accesibles mediante su URL directa (fuga de información).
