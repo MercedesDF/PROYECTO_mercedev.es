@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-25 — QA: Auditoría de Deuda Técnica y cierre de Fase 7.4
+
+**Contexto:** Como parte del ciclo de mantenimiento y mejora continua (Fase 7.4), se procedió a escanear el repositorio en busca de marcadores `TODO` y deuda técnica acumulada en código o infraestructura.
+
+**Hecho:**
+- Se constató la ausencia de deuda técnica bloqueante en el código fuente (Python, SASS, JS).
+- El único `TODO` restante es de carácter literario (Prólogo del Vol. I) y se encuentra correctamente aislado en el `laboratorio/`.
+- Se verificó la sincronía total entre `README.md`, `instrucciones.md` y el `flujo-publicacion-sop.md`.
+- Se marcó la Fase 7.4 como oficialmente completada.
+
+**Motivo / criterio:** *Shift-Left Quality*. La ausencia de deuda técnica es el resultado directo de no haber tolerado integraciones a medias durante el desarrollo. Al solucionar la accesibilidad WAI-ARIA, los enlaces rotos y los artefactos huérfanos de forma inmediata, la fase de auditoría se convierte en una simple verificación de higiene.
+
+**Siguiente paso o deuda:** Iniciar la Fase 7.5 (Producto Merci) para abordar la vida pública y la lógica de backend del asistente.
+
 ### 2026-04-25 — Docs: Estandarización del Runbook de Publicación (SOP)
 
 **Contexto:** Al iniciar la Fase 7.4 y ante la proliferación de herramientas de consola creadas para el sistema Merci, la bitácora recogía un resumen escueto del orden de ejecución del pipeline, insuficiente para un proyecto de esta envergadura. Existía el riesgo de fricción cognitiva o fallos en cadena (ej. actualizar sitemap antes de compilar HTML).

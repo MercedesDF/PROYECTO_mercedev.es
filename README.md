@@ -237,8 +237,8 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 
 #### 7.4 Mantenimiento y mejora continua
 - [ ] Definir cadencia de revisión del roadmap y actualización de hitos.
-- [ ] Revisar periódicamente deuda técnica acumulada por fase.
-- [ ] Mantener sincronía entre `README.md`, `instrucciones.md` y bitácora activa.
+- [x] Revisar periódicamente deuda técnica acumulada por fase.
+- [x] Mantener sincronía entre `README.md`, `instrucciones.md` y bitácora activa.
 
 #### 7.5 Producto Merci (cara pública + backend)
 - [ ] Planificar carpeta/proyecto dedicado para Merci con límites claros frente a `mercedev.es`.
