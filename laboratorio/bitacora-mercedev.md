@@ -37,6 +37,48 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-25 — Feat: Asistente interactivo de promoción (merci-promote.py)
+
+**Contexto:** Existía un hueco operativo (Fase 7.3) entre la redacción de un borrador en el `laboratorio/` y su publicación en la `biblioteca/`. Hacer este traslado manualmente era propenso a errores (olvidos de metadatos, fechas incorrectas o estados inconsistentes).
+
+**Hecho:**
+- Se creó el script interactivo CLI `scripts/merci/merci-promote.py`.
+- Se marcaron los hitos de la Fase 7.3 como completados en el `README.md`.
+- Se validó la promoción del primer borrador de prueba (`test-borrador.md`).
+
+**Detalle técnico:** El script escanea el directorio efímero, parsea el YAML sin dependencias externas (`re` y manipulación de cadenas), solicita la curación interactiva de campos críticos (bloqueando si falta el `alt_portada` para WAI-ARIA), sella la fecha actual, cambia el `estado` a `publicado` y mueve físicamente el archivo al directorio definitivo.
+
+**Motivo / criterio:** *Fricción Cero y Shift-Left Data Quality*. Proveer una herramienta de consola (CLI) para "curar" el documento antes de moverlo previene que archivos incompletos contaminen el entorno de producción. La interactividad actúa como un *checklist* guiado que garantiza el cumplimiento estricto de la accesibilidad y el SEO estructural.
+
+**Siguiente paso o deuda:** Comenzar la planificación de la Fase 7.4 (Mantenimiento y mejora continua) y Fase 7.5, aprovechando que el ejecutor inteligente `merci promote` ya lo reconoce automáticamente.
+
+### 2026-04-25 — Fix: Retrocompatibilidad YAML y validación WAI-ARIA
+
+**Contexto:** Al implementar la máquina de estados y la validación WAI-ARIA estricta en el orquestador (`merci-publish.py`), el documento heredado `cuadernillo-alias-absolutos.md` fue bloqueado y excluido de la compilación por carecer de los campos obligatorios `estado` y `alt_portada`.
+
+**Hecho:**
+- Se parcheó manualmente `biblioteca/cuadernillo-alias-absolutos.md` inyectando `estado: "publicado"` y una descripción detallada en `alt_portada`.
+- Se ejecutó `merci-publish.py`, confirmando que el orquestador compila el documento y genera el PDF correctamente.
+
+**Motivo / criterio:** Principio "Fail-Fast" y cero tolerancia a la deuda técnica. Que el orquestador bloquee un archivo antiguo demuestra que el escudo de accesibilidad funciona empíricamente. Parchear el origen de datos (el Markdown) es la única vía permitida para integrarlo, garantizando que el HTML resultante mantenga la puntuación 100/100 en Core Web Vitals (Accesibilidad).
+
+**Siguiente paso o deuda:** Diseñar e implementar la herramienta de promoción interactiva (`merci-promote.py`) para la Fase 7.3.
+
+### 2026-04-25 — Feat: Máquina de estados y validación de accesibilidad en orquestador
+
+**Contexto:** Se requería que el orquestador de publicación (`merci-publish.py`) discriminara entre borradores y documentos definitivos listos para compilar, además de blindar la accesibilidad exigiendo la presencia del atributo `alt_portada`. Paralelamente, surgió el dilema de si optimizar el motor introduciendo un sistema de caché basado en hashes de archivos.
+
+**Hecho:**
+- Se implementó una máquina de estados (Feature Toggle) basada en la clave YAML `estado` en `merci-publish.py`.
+- Se introdujo una aserción estricta WAI-ARIA que bloquea el parseo si el YAML carece de `alt_portada`.
+- Se descartó deliberadamente la implementación de caché por hashes.
+
+**Detalle técnico:** El script ahora realiza retornos tempranos (`return False`) de forma silenciosa para archivos que no posean explícitamente `estado: "publicado"`. Asimismo, si el campo `alt_portada` está vacío, aborta la compilación de ese archivo lanzando un error en consola.
+
+**Motivo / criterio:** *Premature Optimization* (Optimización Prematura). Procesar Markdown a HTML en Python es extremadamente rápido. Introducir una caché estática impediría que los artículos antiguos heredaran instantáneamente los cambios en el menú o el pie de página globales (Single Source of Truth) extraídos de la portada, provocando inconsistencia visual. Además, la aserción de la portada blinda mecánicamente la métrica de accesibilidad 100/100 de Lighthouse sin depender de la memoria del autor.
+
+**Siguiente paso o deuda:** Desarrollar el flujo de promoción (Fase 7.3) mediante un script interactivo (`merci-promote.py`) para trasladar y estandarizar borradores desde el laboratorio hacia la biblioteca.
+
 ### 2026-04-25 — Refactor: Optimización de metadatos YAML para accesibilidad y pipeline
 
 **Contexto:** Antes de diseñar el script de promoción de contenidos (Fase 7.3), era imperativo auditar la estructura de datos YAML para asegurar que soportara los requisitos de accesibilidad estricta (Core Web Vitals) y el control de flujo del orquestador.

@@ -50,6 +50,18 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     tipo = meta.get("tipo", "cuadernillo")
     descripcion = meta.get("descripcion", f"Documento técnico: {titulo}")
     tema = meta.get("tema", "Estantería General")
+    estado = meta.get("estado", "borrador").lower()
+    alt_portada = meta.get("alt_portada", "")
+    
+    # [REGLA DE NEGOCIO]: Máquina de estados (Feature Toggle). Aisla borradores de producción.
+    if estado != "publicado":
+        print(f"  ⏭️  Saltando (Estado: {estado}): {filepath.name}")
+        return False
+        
+    # [QA ACCESIBILIDAD]: WAI-ARIA estricto. Bloquea si falta la descripción visual de la portada.
+    if not alt_portada:
+        print(f"  ❌ Error: Falta el atributo 'alt_portada' obligatorio en {filepath.name}")
+        return False
     
     print(f"  ⚙️  Procesando {tipo}: {titulo}")
     
