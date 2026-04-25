@@ -37,6 +37,22 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-25 — Docs: Estandarización del Runbook de Publicación (SOP)
+
+**Contexto:** Al iniciar la Fase 7.4 y ante la proliferación de herramientas de consola creadas para el sistema Merci, la bitácora recogía un resumen escueto del orden de ejecución del pipeline, insuficiente para un proyecto de esta envergadura. Existía el riesgo de fricción cognitiva o fallos en cadena (ej. actualizar sitemap antes de compilar HTML).
+
+**Hecho:**
+- Se definió y documentó el Standard Operating Procedure (SOP) básico en el `README.md`.
+- Se creó el documento de arquitectura detallado `docs/flujo-publicacion-sop.md` explicando el ciclo de vida del conocimiento.
+- Se estableció el pipeline secuencial: `pull` -> `promote` -> `publish` -> `total` -> `commit` -> `push`.
+- Se marcó el hito de mantenimiento del Roadmap como completado.
+
+**Detalle técnico:** El nuevo documento especifica el porqué de cada paso. Por ejemplo, `merci publish` (compilación SSG) debe ejecutarse obligatoriamente *antes* que `merci total` (QA y Sitemap), ya que el escáner de enlaces (`linkcheck`) y el generador de `sitemap.xml` dependen de la existencia previa de los archivos HTML finales en la carpeta `public/` para funcionar correctamente.
+
+**Motivo / criterio:** *Developer Experience (DX), Knowledge Management y Pipeline As Code*. Documentar el "Runbook" detallado transforma un conjunto de scripts sueltos en una verdadera cadena de montaje (CI/CD local). Delegar esta explicación profunda a un documento dedicado en `docs/` en lugar de saturar la bitácora respeta el principio de Separación de Responsabilidades Documentales.
+
+**Siguiente paso o deuda:** Auditar la deuda técnica pendiente de las fases anteriores para dar por concluida la Fase 7.4.
+
 ### 2026-04-25 — Fix: Reubicación de borradores al entorno de incubación (Laboratorio)
 
 **Contexto:** Tras extraer el Volumen I de la bitácora, el archivo resultante fue ubicado en la carpeta `biblioteca/` con estado `borrador` y tareas pendientes (Prólogo). Esto violaba el flujo del ciclo de vida del contenido de la Fase 7.3.
