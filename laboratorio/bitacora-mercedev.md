@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-25 — Refactor: Pivote de Arquitectura de la Información (Libros vs Cuadernillos)
+
+**Contexto:** Tras la reescritura de la portada (`public/index.html`) para alinearla con la realidad operativa del proyecto, se detectó que mantener dos tipos de contenido (Cuadernillos y Bitácoras/Libros) dentro de la Biblioteca estática generaba complejidad innecesaria en el mantenimiento.
+
+**Hecho:**
+- Se redefinió la taxonomía del contenido: "Proyectos / Libros" residirán exclusivamente en la **Biblioteca** (Núcleo Estático).
+- "Cuadernillos / Exploraciones" residirán exclusivamente en la taxonomía **Art de Coté** (Capa Dinámica CMS/WordPress).
+- Se actualizó el *copy* de la portada para reflejar esta nueva frontera arquitectónica.
+
+**Motivo / criterio:** *Separation of Concerns* (Separación de Responsabilidades) y Arquitectura de la Información. Delegar el contenido divulgativo, efímero o exploratorio al entorno dinámico (WordPress) reduce la fricción de publicación. Reservar el motor de Generación de Sitios Estáticos (SSG) únicamente para manuales fundacionales pesados optimiza el uso de la herramienta de compilación a PDF y simplifica el pipeline a futuro.
+
+**Siguiente paso o deuda:** (Opcional) Renombrar `docs/plantilla-cuadernillo.md` a `plantilla-proyecto.md` y limpiar la lógica heredada en `merci-publish.py` si se desea erradicar el concepto de "cuadernillo" del núcleo estático.
+
 ### 2026-04-25 — QA: Auditoría de Deuda Técnica y cierre de Fase 7.4
 
 **Contexto:** Como parte del ciclo de mantenimiento y mejora continua (Fase 7.4), se procedió a escanear el repositorio en busca de marcadores `TODO` y deuda técnica acumulada en código o infraestructura.
