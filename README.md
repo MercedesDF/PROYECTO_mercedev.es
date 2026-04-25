@@ -253,7 +253,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Mantener 0 latencia y 0 dependencias (evitar consultas a base de datos en frontend).
 
 #### 8.2 Ciclo de Migración de Contenidos
-- [ ] Emplear `merci-promote` para trasladar cuadernillos históricos a la Biblioteca.
+- [x] Emplear `merci-promote` para trasladar cuadernillos históricos a la Biblioteca.
 
 ### Fase 9 - Inteligencia y Autonomía (Merci Avanzado)
 

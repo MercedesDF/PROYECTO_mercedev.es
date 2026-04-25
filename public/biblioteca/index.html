@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca — mercedev.es</title>
-    <meta name="description" content="Índice de publicaciones técnicas y cuadernillos de la Biblioteca.">
+    <meta name="description" content="Índice de publicaciones técnicas y proyectos de la Biblioteca.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/">
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/MerciController.js" defer></script>
+    <script src="/js/main.js" defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": "La Biblioteca - mercedev.es",
-      "description": "Índice de publicaciones técnicas y cuadernillos de la Biblioteca.",
+      "description": "Índice de publicaciones técnicas y proyectos de la Biblioteca.",
       "url": "https://mercedev.es/biblioteca/"
     }
     </script>
@@ -38,7 +39,7 @@
     <main class="main--padded section" id="main">
         <header style="margin-bottom: 3rem;">
             <h1 class="home-card__title--highlight">La Biblioteca</h1>
-            <p>Documentación técnica, cuadernillos DevSecOps y arquitectura de software.</p>
+            <p>Documentación técnica, proyectos DevSecOps y arquitectura de software.</p>
         </header>
         
         <section class="biblioteca-tema" style="margin-bottom: 4rem;">
@@ -47,7 +48,16 @@
                 
                 <article class="card card--book">
                     <header>
-                        <span class="card__meta">2026-04-21 — Bitácora</span>
+                        <span class="card__meta">2026-04-25 — Bitacora</span>
+                        <h2 class="card__title"><a href="/biblioteca/historia-mercedev-formato-automatizacion.html">Historia del Proyecto: Merci Boilerplate</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Registro técnico estructurado y cronológico de la construcción del motor híbrido DevSecOps.</p>
+                    </div>
+                </article>
+                <article class="card card--book">
+                    <header>
+                        <span class="card__meta">2026-04-21 — Bitacora</span>
                         <h2 class="card__title"><a href="/biblioteca/auditoria-rendimiento.html">Auditoría de Rendimiento y Core Web Vitals</a></h2>
                     </header>
                     <div class="card__content">
@@ -60,16 +70,16 @@
             <h2 class="home-card__title--highlight" style="margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">DevSecOps y Automatización</h2>
             <div class="home-grid">
                 
-                <article class="card card--booklet">
+                <article class="card card--book">
                     <header>
-                        <span class="card__meta">2026-04-24 — Cuadernillo</span>
-                        <h2 class="card__title"><a href="/biblioteca/cuadernillo-alias-absolutos.html">Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps</a></h2>
+                        <span class="card__meta">2026-04-24 — Bitacora</span>
+                        <h2 class="card__title"><a href="/biblioteca/bitacora-alias-absolutos.html">Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps</a></h2>
                     </header>
                     <div class="card__content">
                         <p>Solución al problema de autodescubrimiento de rutas en Python al usar alias absolutos en la terminal (Fantasmas en RAM).</p>
                     </div>
                 </article>
-                <article class="card card--booklet">
+                <article class="card card--book">
                     <header>
                         <span class="card__meta">2026-04-24 — Cuadernillo</span>
                         <h2 class="card__title"><a href="/biblioteca/cuadernillo-entorno-virtual-zsh.html">Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)</a></h2>
@@ -86,7 +96,7 @@
                 
                 <article class="card card--book">
                     <header>
-                        <span class="card__meta">2026-04-25 — Bitácora</span>
+                        <span class="card__meta">2026-04-25 — Cuadernillo" # cambiar a "bitacora" si es un proyecto principal</span>
                         <h2 class="card__title"><a href="/biblioteca/test-borrador.html">Título descriptivo del artículo</a></h2>
                     </header>
                     <div class="card__content">
@@ -102,7 +112,8 @@
             <span style="margin: 0 1rem;">|</span> <a href="#top" style="color: inherit; text-decoration: underline;">↑ Volver arriba</a>
         </p>
     </footer>
-     <!-- Asistente Merci -->
+
+    <!-- Asistente Merci -->
     <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
         <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
         <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
@@ -113,6 +124,5 @@
             <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
         </button>
     </aside>
-
 </body>
 </html>
