@@ -111,4 +111,16 @@
     li {
         margin-bottom: 0.5rem;
     }
+
+    /* Clases inyectadas por el orquestador para contenido multimedia */
+    .multimedia-video {
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        width: 100%;
+        margin-bottom: 1.25rem;
+    }
+    
+    .video-fallback {
+        display: none; /* Oculto en web, visible solo en los PDF generados por WeasyPrint */
+    }
 }
