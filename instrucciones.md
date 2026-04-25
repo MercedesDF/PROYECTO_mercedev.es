@@ -68,6 +68,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 - **Fase 5: Quality Assurance y Hardening.** CSP, endurecimiento de WP y Git Hooks.
 - **Fase 6: Despliegue y Auditoría Final.** Paso a producción, Web Vitals y documentación del proceso.
 - **Fase 7: Automatización y Clasificación.** Sistema de publicación automatizada, plantillas de libros y Producto Merci (Fase 7.5).
+- **Fase 8: Expansión de Contenido y Contexto Inteligente.** Enrutamiento por contexto de Merci y ciclo de migración de la bitácora.
 
 ## 6. Guía de Voz Editorial (Merci)
 Objetivo: redactar textos claros, humanos y directos, manteniendo rigor técnico y evitando tono publicitario.
@@ -101,3 +102,8 @@ Objetivo: redactar textos claros, humanos y directos, manteniendo rigor técnico
 - [ ] Incluye utilidad concreta para quien empieza.
 - [ ] Mantiene coherencia con roadmap y fases activas.
 - [ ] Puede leerse como documentación pública profesional.
+
+### 6.6. Criterio de Evolución del Asistente (Producto Merci)
+- **Cero dependencias visuales:** Toda nueva animación o estado del avatar debe delegarse a SASS reaccionando a cambios de atributos semánticos (`aria-hidden`, `aria-expanded`). Prohibido el uso de librerías de animación (ej. GSAP) o frameworks reactivos (Vue/React).
+- **Accesibilidad Nativa:** Cualquier nueva interacción debe ser operable por teclado (Tab) y anunciarse a los lectores de pantalla a través de la región `aria-live="polite"` ya establecida.
+- **Separación de Lógica (El Maniquí):** El frontend (`MerciController.js`) actúa únicamente como una máquina de estados de UI. Si en el futuro Merci requiere "inteligencia" (respuestas generadas por IA o bases de datos), la carga computacional debe ocurrir en el backend o en el orquestador SSG local, enviando al frontend estático únicamente los textos ya procesados.

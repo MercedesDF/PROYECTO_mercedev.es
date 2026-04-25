@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-25 — Feat: Enrutamiento por contexto para el cerebro de Merci (Fase 8.1)
+
+**Contexto:** Tras integrar a Merci en todas las vistas (Fase 7.5), el asistente requería "conciencia de contexto" (saber en qué página está el usuario) para ofrecer respuestas útiles, sin sacrificar la velocidad ni requerir conexiones a una base de datos en tiempo real.
+
+**Hecho:**
+- Se refactorizó la clase `MerciController` en `public/js/MerciController.js`.
+- Se implementó el método `_loadKnowledgeBase()` que lee `window.location.pathname`.
+- Se añadieron diccionarios de respuestas específicos para `/biblioteca`, `/blog`, `/art-de-cote` y `/contacto`.
+- Se abrió oficialmente la Fase 8 en el `README.md` y las instrucciones.
+
+**Motivo / criterio:** *Context Routing* (Enrutamiento por Contexto) en Vanilla JS. En lugar de realizar peticiones `fetch` lentas a un backend, inyectar el conocimiento directamente en la clase y filtrarlo por la URL actual mantiene la latencia en 0 milisegundos y respeta la política de 0 dependencias externas.
+
+**Siguiente paso o deuda:** Comprometer el código y planificar la migración de los cuadernillos antiguos a la biblioteca definitiva (Fase 8.2).
+
 ### 2026-04-25 — Feat: Implementación del asistente interactivo Merci (Fase 7.5)
 
 **Contexto:** Era el momento de dar vida pública al asistente "Merci" en la interfaz web (Fase 7.5). El código original propuesto utilizaba bucles continuos (`setInterval`) para calcular posiciones y mover la imagen por la pantalla, lo que destrozaba el rendimiento (Layout Thrashing) y violaba las directrices de accesibilidad WAI-ARIA. Además, se requería organizar la carpeta de multimedia previendo el crecimiento futuro.
