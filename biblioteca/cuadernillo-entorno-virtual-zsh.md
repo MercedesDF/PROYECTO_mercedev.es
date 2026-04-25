@@ -5,7 +5,7 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Automatización"
 volumen: 1
 fecha: "2026-04-24"
-estado: "borrador"
+estado: "publicado"
 portada: "portada-bash.webp"
 alt_portada: "Discrepancia de entornos:activando entorno terminal pc"
 ---

@@ -17,31 +17,47 @@ BIBLIOTECA_DIR = REPO_ROOT / "biblioteca"
 def main():
     print("🚀 [Merci Promote] Iniciando flujo de promoción de conocimiento...")
 
-    # 2. Escaneo del directorio excluyendo la bitácora central
-    borradores = [f for f in LABORATORIO_DIR.glob("*.md") if f.name != "bitacora-mercedev.md"]
+    # 2. Escaneo Dual: Laboratorio (nuevos) y Biblioteca (despublicados / huérfanos)
+    borradores_lab = [f for f in LABORATORIO_DIR.glob("*.md") if f.name != "bitacora-mercedev.md"]
+    borradores_bib = []
+
+    for f in BIBLIOTECA_DIR.glob("*.md"):
+        content = f.read_text(encoding="utf-8")
+        # Extracción rápida para leer el estado sin parsear todo
+        match = re.match(r"^---\n(.*?)\n---", content, re.DOTALL)
+        if match:
+            estado_match = re.search(r"^estado:\s*[\"']?(.*?)[\"']?\s*$", match.group(1), re.MULTILINE)
+            estado = estado_match.group(1).lower() if estado_match else "borrador"
+            if estado != "publicado":
+                borradores_bib.append(f)
+        else:
+            # Si no tiene YAML, es deuda técnica heredada y requiere curación
+            borradores_bib.append(f)
     
-    if not borradores:
-        print("  ℹ️ No se encontraron borradores en el laboratorio.")
+    borradores_totales = borradores_lab + borradores_bib
+    if not borradores_totales:
+        print("  ℹ️ No se encontraron borradores pendientes en el Laboratorio ni en la Biblioteca.")
         return
 
-    print("\n📄 Borradores efímeros disponibles:")
-    for idx, f in enumerate(borradores, start=1):
-        print(f"  [{idx}] {f.name}")
+    print("\n📄 Borradores pendientes de curación:")
+    for idx, f in enumerate(borradores_totales, start=1):
+        origen = "Laboratorio" if f.parent == LABORATORIO_DIR else "Biblioteca (Despublicado)"
+        print(f"  [{idx}] {f.name} ({origen})")
 
     # 3. Interfaz de selección por consola
     try:
-        seleccion = int(input("\n👉 Selecciona el número del borrador a promover (0 para cancelar): "))
+        seleccion = int(input("\n👉 Selecciona el número del borrador a promover/republicar (0 para cancelar): "))
         if seleccion == 0:
             print("  🛑 Operación cancelada.")
             return
-        if seleccion < 1 or seleccion > len(borradores):
+        if seleccion < 1 or seleccion > len(borradores_totales):
             print("  ❌ Selección inválida.")
             return
     except ValueError:
         print("  ❌ Entrada inválida. Debes introducir un número.")
         return
 
-    borrador_elegido = borradores[seleccion - 1]
+    borrador_elegido = borradores_totales[seleccion - 1]
     contenido = borrador_elegido.read_text(encoding="utf-8")
 
     # 4. Extracción de Metadatos usando expresiones regulares
@@ -69,6 +85,10 @@ def main():
     nuevo_tema = input(f"  🏷️  Tema/Estantería [{meta.get('tema', 'General')}]: ").strip() or meta.get('tema', 'General')
     nueva_desc = input(f"  📝 Descripción [{meta.get('descripcion', '')}]: ").strip() or meta.get('descripcion', '')
     nuevo_alt = input(f"  👁️  Alt de la portada [{meta.get('alt_portada', '')}]: ").strip() or meta.get('alt_portada', '')
+    
+    # Al republicar, permitimos conservar la fecha original o sobreescribirla con la actual
+    fecha_defecto = meta.get('fecha', datetime.now().strftime("%Y-%m-%d"))
+    nueva_fecha = input(f"  📅 Fecha de publicación [{fecha_defecto}]: ").strip() or fecha_defecto
 
     # Bloqueo estricto si falta el atributo de accesibilidad
     if not nuevo_alt:
@@ -80,7 +100,7 @@ def main():
     meta['descripcion'] = nueva_desc
     meta['alt_portada'] = nuevo_alt
     meta['estado'] = 'publicado'  # Cambio de estado automatizado
-    meta['fecha'] = datetime.now().strftime("%Y-%m-%d") # Auto-sellado con fecha de promoción actual
+    meta['fecha'] = nueva_fecha
 
     nuevo_yaml = "---\n"
     for k, v in meta.items():
@@ -91,15 +111,17 @@ def main():
     # Ensamblamos el contenido final
     nuevo_contenido = f"{nuevo_yaml}\n{md_body}"
 
-    # 7. Traslado físico de archivos (Promoción)
+    # 7. Traslado físico o Actualización In-Place
     destino = BIBLIOTECA_DIR / borrador_elegido.name
     
-    # Guardar en destino
-    destino.write_text(nuevo_contenido, encoding="utf-8")
-    # Purgar origen
-    borrador_elegido.unlink()
-
-    print(f"\n✅ Promoción exitosa. El archivo reside ahora en: biblioteca/{destino.name}")
+    if borrador_elegido.parent == LABORATORIO_DIR:
+        destino.write_text(nuevo_contenido, encoding="utf-8")
+        borrador_elegido.unlink()
+        print(f"\n✅ Promoción exitosa. El archivo fue movido a: biblioteca/{destino.name}")
+    else:
+        destino.write_text(nuevo_contenido, encoding="utf-8")
+        print(f"\n✅ Republicación exitosa. El borrador fue actualizado en: biblioteca/{destino.name}")
+        
     print("  💡 Siguiente paso: Ejecuta 'python3 scripts/merci/merci-publish.py' para compilarlo.")
 
 if __name__ == "__main__":
