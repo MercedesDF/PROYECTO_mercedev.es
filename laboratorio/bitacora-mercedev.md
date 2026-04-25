@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-25 — Fix: Control de errores (Fail Gracefully) en orquestador SSG
+
+**Contexto:** El orquestador de publicación (`merci-publish.py`) carecía de manejo de excepciones en sus procesos críticos. Cualquier error puntual (un Markdown malformado, un fallo de WeasyPrint al enlazar imágenes o un error de permisos I/O) provocaría un colapso total del script (Fatal Error), deteniendo el pipeline e impidiendo la publicación del resto de documentos válidos.
+
+**Hecho:**
+- Se envolvieron los procesos de `markdown.markdown()`, `HTML().write_pdf()` y `.write_text()` en bloques `try-except`.
+- Se implementó un retorno temprano (`return False`) con alertas por consola para saltar archivos corruptos.
+- Se aplicó degradación elegante (`pass`) en caso de fallo de WeasyPrint.
+
+**Motivo / criterio:** Principio de *Fail Gracefully* (Fallar con elegancia). Un pipeline DevSecOps maduro no se detiene por un solo elemento defectuoso. Capturar el error, reportarlo y continuar con el siguiente archivo garantiza la resiliencia de la cadena de suministro de contenido. Permitir que el HTML se publique aunque el PDF falle prioriza la disponibilidad del conocimiento por encima del formato secundario.
+
+**Siguiente paso o deuda:** Comprometer este parche y proceder con la migración del Volumen I a la Biblioteca mediante `merci-promote` (Fase 8.2).
+
 ### 2026-04-25 — Feat: Soporte multimedia avanzado en SSG (Vídeos y PDFs)
 
 **Contexto:** El motor SSG (`merci-publish.py`) parseaba correctamente el texto, pero el formato Markdown no soporta la etiqueta `<video>` nativamente, convirtiendo los archivos `.mp4` en etiquetas `<img>` rotas. Además, el generador de PDFs (WeasyPrint) no lograba renderizar las imágenes porque no lograba resolver las rutas estáticas (`/assets/`).
