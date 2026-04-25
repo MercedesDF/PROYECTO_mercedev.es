@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-25 — Fix: Reubicación de borradores al entorno de incubación (Laboratorio)
+
+**Contexto:** Tras extraer el Volumen I de la bitácora, el archivo resultante fue ubicado en la carpeta `biblioteca/` con estado `borrador` y tareas pendientes (Prólogo). Esto violaba el flujo del ciclo de vida del contenido de la Fase 7.3.
+
+**Hecho:**
+- Se reubicó físicamente el archivo `bitacora-mercedev-vol-I.md` de vuelta al `laboratorio/` mediante `git mv`.
+- Se asienta la directriz de que ningún documento "en construcción" debe residir en la biblioteca.
+
+**Motivo / criterio:** *Separación estricta de entornos (Environment Segregation).* La `biblioteca/` es un directorio exclusivo para activos de conocimiento finalizados. El `laboratorio/` es el entorno de incubación. Un borrador solo transiciona a la biblioteca en el momento exacto en que es "curado" y promovido a `publicado` mediante la herramienta `merci promote`.
+
+**Siguiente paso o deuda:** Iniciar la Fase 7.4 (Mantenimiento y mejora continua).
+
 ### 2026-04-25 — Refactor: Arquitectura documental en 4 volúmenes (Saga mercedev)
 
 **Contexto:** La bitácora del laboratorio crecía exponencialmente. Se requería trazar una línea divisoria clara entre la creación del motor (Fases 1-6) y las etapas posteriores, planificando el futuro de la identidad del proyecto.
