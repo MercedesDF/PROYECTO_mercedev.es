@@ -39,10 +39,27 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 | `docs/` | Estrategia y directrices |
 | `biblioteca/` | Documentación técnica definitiva (por estanterías) |
 | `laboratorio/` | I+D y bitácora de proyecto (`bitacora-mercedev.md`) |
-| `scripts/merci/` | Automatización Python (p. ej. `merci-audit.py`) |
+| `scripts/merci/` | Ecosistema DevSecOps local en Python puro |
 | `assets/` | Multimedia optimizado para producción |
 | `public/` | Raíz del documento del sitio estático (HTML, `robots.txt`, `sitemap.xml`; enlaces a `assets/`). |
 | `.assets-raw/` | Originales sin procesar en el entorno local; Git ignora el contenido salvo `.gitkeep` (PSD/RAW/vídeo no van al remoto). |
+
+### Ecosistema Merci (Scripts Principales)
+- `merci-audit.py`: Auditoría estática y bloqueo de secretos (SAST).
+- `merci-commit.py`: Empaquetado atómico impulsado por la lectura de la bitácora.
+- `merci-total.py`: Orquestador maestro del pipeline local.
+- `merci-publish.py` y `merci-promote.py`: Motor SSG y promoción de contenidos.
+- `merci-styles.py` y `merci-watcher.py`: Compilador SASS 7-1 local y vigilante en tiempo real.
+
+## Entorno de Desarrollo Local
+Para mantener la separación de responsabilidades y la alta velocidad, el desarrollo se divide en dos fases con ecosistemas distintos:
+
+### 1. Desarrollo UI/UX Estático (Python)
+Para maquetar HTML y SASS sin levantar bases de datos ni Nginx.
+Abre dos terminales: una para `python3 scripts/merci/merci-watcher.py` y otra en `public/` para el servidor efímero `python3 -m http.server 8000`.
+
+### 2. Integración Dinámica WP (Nginx / LEMP)
+El servidor nativo de Python **no procesa PHP**. Cuando llegues a la fase de integrar el CMS, abandona el servidor de Python y usa Nginx local con la configuración de proxy inverso que se detalla en `docs/integracion-wordpress.md`.
 
 ## Directrices del proyecto
 

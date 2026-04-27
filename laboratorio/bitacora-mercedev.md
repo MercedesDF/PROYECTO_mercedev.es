@@ -37,6 +37,49 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-27 — Arquitectura: Implementación de Documentación en la Sombra (Shadow Docs)
+
+**Contexto:** Al gobernar el Boilerplate desde este proyecto matriz, el `README.md` y las `instrucciones.md` entraban en colisión, ya que el repositorio padre y el hijo requieren documentaciones totalmente diferentes. Actualizar el clon manualmente era propenso a errores.
+
+**Hecho:**
+- Se crearon los archivos gemelos `-merci.md` (`README-merci.md`, `instrucciones-merci.md`) y `bitacora-merci-boilerplate.md` en este repositorio base.
+- Se actualizó `merci-init.py` dotándolo de la capacidad de intercambiar los gemelos (borrar los personales y renombrar los agnósticos) durante el proceso de purga.
+
+**Detalle técnico:** Se añadió el parámetro `exclude` a la función `purge_directory` para que la guillotina no arrasara con `bitacora-merci-boilerplate.md` al limpiar el laboratorio. Luego, mediante `Path.rename()`, se ascienden los archivos gemelos a su ruta oficial.
+
+**Motivo / criterio:** *Shadow Documentation / IaC*. Almacenar la documentación del proyecto hijo "inactiva" en la matriz garantiza el control de versiones (SSOT) de todas las facetas del código. Automatizar su intercambio elimina el factor de error humano en el Release Pipeline iterativo.
+
+**Siguiente paso o deuda:** Iniciar el desarrollo de la Fase 9 (Inteligencia y Autonomía) o el script local de Backups.
+
+### 2026-04-27 — Docs: Definición del Release Pipeline Agile para el Boilerplate
+
+**Contexto:** El proceso de actualizar y trasladar mejoras desde el proyecto matriz (`mercedev.es`) hacia el repositorio derivado (`merci-boilerplate`) corría el riesgo de sufrir "Configuration Drift" (Deriva de Configuración) si los bugs se parcheaban directamente en el destino.
+
+**Hecho:**
+- Se inyectó la Regla 14 en `instrucciones.md` dictando el flujo de trabajo circular estricto.
+- Se redactó el cuadernillo divulgativo `cuadernillo-agile-release-pipeline.md` detallando la maniobra.
+
+**Detalle técnico:** El flujo documentado exige que ante cualquier fallo detectado en el QA del boilerplate, se aborte el empaquetado, se corrija el código fuente en el proyecto matriz, y se reinicie el ciclo de clonación (`merci-init.py`) desde cero.
+
+**Motivo / criterio:** Gobernanza de Repositorios y SSOT (Single Source of Truth). Aplicar metodologías *Agile* al despliegue de infraestructura garantiza que el proyecto original herede y capitalice siempre las soluciones descubiertas durante la exportación de plantillas.
+
+**Siguiente paso o deuda:** Desarrollar el script de copias de seguridad locales (Backup) en Python.
+
+### 2026-04-27 — Sincronización de Parches (Backport) desde Merci Boilerplate
+
+**Contexto:** Durante el empaquetado del repositorio hijo (`merci-boilerplate`), se detectaron y solventaron deudas documentales como la falta de expansión del acrónimo JSON-LD, la omisión del entorno de desarrollo dual y la lista incompleta de herramientas en el `README.md`. Al ser `mercedev.es` la única fuente de verdad (SSOT), estos parches debían retroceder al proyecto matriz.
+
+**Hecho:**
+- Se expandió el acrónimo JSON-LD en `docs/flujo-publicacion-sop.md`.
+- Se amplió el `README.md` listando el ecosistema DevSecOps completo (`merci-promote.py`, `merci-publish.py`, `merci-watcher.py`, etc.).
+- Se inyectó la sección "Entorno de Desarrollo Local" al `README.md` de la matriz.
+
+**Detalle técnico:** Modificaciones directas en los archivos Markdown para asegurar la paridad documental entre el Boilerplate generado y el motor anfitrión original.
+
+**Motivo / criterio:** *Single Source of Truth (SSOT)*. Los errores solucionados en la plantilla derivada (fork) deben reflejarse retroactivamente en el repositorio padre (backporting) para evitar la deriva de configuración (Configuration Drift) y proteger la higiene del conocimiento de la rama principal.
+
+**Siguiente paso o deuda:** Avanzar hacia la Fase 9 (Inteligencia y Autonomía) del asistente Merci.
+
 ### 2026-04-26 — Fix: Prevención de fuga de datos (Data Leak) en empaquetado
 
 **Contexto:** Durante la creación de la Release 1.0.0 del Merci Boilerplate, se detectó que el clon resultante conservaba los archivos PDF generados por WeasyPrint en `public/descargas/`. Esto rompía la promesa de un "lienzo en blanco" y provocaba una fuga de datos (Data Leak) de los artículos de la autora hacia el repositorio público.
