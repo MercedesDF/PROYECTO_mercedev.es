@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-27 — Feat: Herramienta de copias de seguridad locales (Backup)
+
+**Contexto:** El uso de interfaces gráficas o comandos complejos de Git conlleva el riesgo inherente de pérdida accidental de archivos locales no rastreados (ej. eliminación accidental al descartar cambios). Se requería un mecanismo "salvavidas" local antes de operar ramas o historiales.
+
+**Hecho:** Se desarrolló `scripts/merci/merci-backup.py` y se añadió el directorio `backups/` al archivo `.gitignore`.
+
+**Detalle técnico:** El script utiliza la librería estándar `zipfile` para empaquetar el árbol del proyecto de forma iterativa, excluyendo activamente directorios de infraestructura pesados (`.git`, `.venv`, `.assets-raw`) para garantizar una compresión rápida (Zip Deflated) y ligera.
+
+**Motivo / criterio:** *Disaster Recovery* (Recuperación ante desastres). Proveer una herramienta CLI estandarizada que genere instantáneas locales (Snapshots) otorga confianza al desarrollador para realizar maniobras destructivas o refactorizaciones profundas sin depender exclusivamente del control de versiones remoto.
+
+**Siguiente paso o deuda:** Iniciar el desarrollo de la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
 ### 2026-04-27 — Fix: Purga profunda de evidencias en el historial de Git
 
 **Contexto:** Aunque `.gitignore` prevenía la adición de nuevos archivos multimedia, si algún binario pesado en `laboratorio/evidencias/` había sido comiteado accidentalmente en el pasado, este seguiría existiendo en el historial profundo de Git, inflando el peso del repositorio y reapareciendo al restaurar versiones antiguas.

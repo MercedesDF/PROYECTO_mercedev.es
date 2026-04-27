@@ -15,5 +15,8 @@ build/
 laboratorio/evidencias/*
 !laboratorio/evidencias/.gitkeep
 
+# Copias de seguridad locales
+backups/
+
 # Enlaces simbólicos de infraestructura CMS (no versionables)
 public/blog
