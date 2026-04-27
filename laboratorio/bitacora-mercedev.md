@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-27 — Fix: Exclusión estricta de evidencias del control de versiones
+
+**Contexto:** La carpeta `laboratorio/evidencias/`, destinada a almacenar material multimedia pesado (vídeos, capturas) para futuros montajes, corría el riesgo de ser rastreada por Git y subida al servidor remoto, inflando el peso del repositorio.
+
+**Hecho:** Se implementó una regla de exclusión estricta en `.gitignore` para `laboratorio/evidencias/*`, preservando únicamente el archivo `.gitkeep`.
+
+**Detalle técnico:** Al igual que con el directorio `.assets-raw/`, esta regla permite que la estructura de carpetas persista en el proyecto mientras vuelve a Git completamente "ciego" ante los binarios que se depositen en su interior.
+
+**Motivo / criterio:** Rigor de infraestructura. El sistema de control de versiones está diseñado para código, no para almacenamiento de archivos brutos o pesados. Aislar este contenido garantiza clones rápidos y evita alcanzar las cuotas de almacenamiento de las plataformas Git.
+
+**Siguiente paso o deuda:** Definir y desarrollar la estrategia técnica para la publicación de estos contenidos visuales en el futuro (evaluar la incrustación de vídeos optimizados vs. GIFs animados simulando vídeos dentro de la documentación).
+
 ### 2026-04-27 — Feat: Auto-nombrado (Slugificación) de URLs en SSG
 
 **Contexto:** Existía un acoplamiento rígido entre el nombre físico del archivo `.md` y la URL pública final (`.html`). Si el autor utilizaba nombres descriptivos o prefijos numéricos para organizar su entorno local, estos ensuciaban las rutas SEO de producción.
