@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-27 — Fix: Expansión de acrónimos en Shadow Docs (Boilerplate)
+
+**Contexto:** Al ejecutar la auditoría (`merci total`) en el repositorio clonado del Boilerplate, el linter de accesibilidad cognitiva emitió advertencias (WARN) por acrónimos no expandidos (como BEM). Esto ocurrió porque al purgar la biblioteca y el laboratorio, el recuento global de dichos términos cayó por debajo del umbral de consolidación (>3).
+
+**Hecho:** Se expandió explícitamente el acrónimo BEM (Block, Element, Modifier - Modificador de Elemento de Bloque) en `README-merci.md`, `instrucciones-merci.md` e `instrucciones.md`.
+
+**Detalle técnico:** Se aplicó la convención de expansión `ACRÓNIMO (Inglés - Español)` directamente en las documentaciones "en la sombra", garantizando que el texto base del Boilerplate cumpla con el análisis estático de `merci-audit.py` por sí mismo.
+
+**Motivo / criterio:** *Standalone Compliance*. Una plantilla agnóstica debe ser 100% autosuficiente y superar su propia auditoría con 0 advertencias desde el commit inicial, sin depender de la densidad documental del proyecto matriz del que fue extraída.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
 ### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 
 **Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-04-27.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.

@@ -45,10 +45,10 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 | `.assets-raw/` | Originales sin procesar en el entorno local; Git ignora el contenido salvo `.gitkeep` (PSD/RAW/vídeo no van al remoto). |
 
 ### Ecosistema Merci (Scripts Principales)
-- `merci-audit.py`: Auditoría estática y bloqueo de secretos (SAST).
+- `merci-audit.py`: Auditoría estática y bloqueo de secretos (SAST - Static Application Security Testing - Pruebas Estáticas de Seguridad de Aplicaciones).
 - `merci-commit.py`: Empaquetado atómico impulsado por la lectura de la bitácora.
 - `merci-total.py`: Orquestador maestro del pipeline local.
-- `merci-publish.py` y `merci-promote.py`: Motor SSG y promoción de contenidos.
+- `merci-publish.py` y `merci-promote.py`: Motor SSG (Static Site Generation - Generación de Sitios Estáticos) y promoción de contenidos.
 - `merci-styles.py` y `merci-watcher.py`: Compilador SASS 7-1 local y vigilante en tiempo real.
 
 ## Entorno de Desarrollo Local
@@ -59,7 +59,7 @@ Para maquetar HTML y SASS sin levantar bases de datos ni Nginx.
 Abre dos terminales: una para `python3 scripts/merci/merci-watcher.py` y otra en `public/` para el servidor efímero `python3 -m http.server 8000`.
 
 ### 2. Integración Dinámica WP (Nginx / LEMP)
-El servidor nativo de Python **no procesa PHP**. Cuando llegues a la fase de integrar el CMS, abandona el servidor de Python y usa Nginx local con la configuración de proxy inverso que se detalla en `docs/integracion-wordpress.md`.
+El servidor nativo de Python **no procesa PHP (Hypertext Preprocessor - Preprocesador de Hipertexto)**. Cuando llegues a la fase de integrar el CMS (Content Management System - Sistema de Gestión de Contenidos), abandona el servidor de Python y usa Nginx local con la configuración de proxy inverso que se detalla en `docs/integracion-wordpress.md`.
 
 ## Directrices del proyecto
 
@@ -140,7 +140,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Verificar orden de importación para evitar cascadas inesperadas.
 
 #### 3.2 Metodología BEM
-- [x] Establecer convención BEM para bloques, elementos y modificadores.
+- [x] Establecer convención BEM (Block, Element, Modifier - Modificador de Elemento de Bloque) para bloques, elementos y modificadores.
 - [x] Reflejar la convención BEM en los componentes HTML clave.
 - [x] Revisar y eliminar clases ambiguas o no alineadas con BEM.
 

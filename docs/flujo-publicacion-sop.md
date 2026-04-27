@@ -18,7 +18,7 @@ Redactar la idea, borrador o apunte técnico en la carpeta efímera `laboratorio
 Utilizar el asistente interactivo de consola para validar la madurez del documento. El script auditará el YAML Frontmatter, exigirá el cumplimiento de los criterios de accesibilidad estrictos (WAI-ARIA, como obligar a incluir `alt_portada`), actualizará la fecha, cambiará el estado a `publicado` y trasladará el archivo físicamente a su estantería definitiva en la `biblioteca/`.
 
 ### 4. Compilación (`merci publish`)
-El motor SSG (Static Site Generation) lee los documentos "publicados" de la biblioteca, inyecta el marco visual global (header y footer extraídos dinámicamente de la portada), genera los artefactos descargables (PDF mediante WeasyPrint) y deposita todo el código HTML estático final en la carpeta `public/`.
+El motor SSG (Static Site Generation - Generación de Sitios Estáticos) lee los documentos "publicados" de la biblioteca, inyecta el marco visual global (header y footer extraídos dinámicamente de la portada), genera los artefactos descargables (PDF mediante WeasyPrint) y deposita todo el código HTML estático final en la carpeta `public/`.
 
 ### 5. Aseguramiento de Calidad (`merci total`)
 Ejecutar el orquestador global de Quality Assurance (QA). 

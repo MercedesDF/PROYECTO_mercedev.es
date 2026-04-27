@@ -61,7 +61,7 @@ Para asegurar la supervivencia del paradigma minimalista y la puntuación perfec
 
 ## Preservación Canónica y de Indexación
 
-La sobreposición de rutas tiene el riesgo de romper la cadena de rastreo de SEO técnico. Se previene implementando:
+La sobreposición de rutas tiene el riesgo de romper la cadena de rastreo de SEO (Search Engine Optimization - Optimización para Motores de Búsqueda) técnico. Se previene implementando:
 
 1. **Bloqueo del Canibalismo de Portada:** En las opciones globales de WordPress, las rutas `siteurl` y `home` se unifican obligatoriamente como `https://mercedev.es/blog`. No se debe instalar en la raíz ni usar plugins para desviar "la portada de WordPress" a la raíz del dominio principal.
 2. **Jerarquía Unificada del Sitemap:** Un sitemap de índice (`sitemap_index.xml`) puede declarar dónde localizar los XML locales estáticos creados por `merci_sitemap.py` y dónde iniciar la traza generada automáticamente por WordPress para el contenido.
