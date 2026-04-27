@@ -29,7 +29,7 @@ Porque el actualizador del sitemap (`merci-sitemap.py`) y el escáner de enlaces
 Abrir `laboratorio/bitacora-mercedev.md` y documentar rápidamente la maniobra técnica realizada siguiendo la estructura de conocimiento de los 3 átomos (Desafío, Maniobra, Aprendizaje).
 
 ### 7. Empaquetado Atómico (`merci commit`)
-El script de CI/CD (Integración y Despliegue Continuos) lee la bitácora, realiza el auto-stage de todos los archivos nuevos o modificados (HTML, PDF, Markdown) y sella el repositorio de forma atómica en un único commit. Antes de hacerlo, validará todo contra el hook de seguridad *pre-commit* (búsqueda de secretos, validación de sintaxis y JSON-LD).
+El script de CI/CD (Integración y Despliegue Continuos) lee la bitácora, realiza el auto-stage de todos los archivos nuevos o modificados (HTML, PDF, Markdown) y sella el repositorio de forma atómica en un único commit. Antes de hacerlo, validará todo contra el hook de seguridad *pre-commit* (búsqueda de secretos, validación de sintaxis y JSON-LD (JavaScript Object Notation for Linked Data - Notación de Objetos JavaScript para Datos Enlazados)).
 
 ### 8. Despliegue (`git push`)
 Enviar el paquete cerrado e inmaculado al servidor, disparando la actualización instantánea en producción.

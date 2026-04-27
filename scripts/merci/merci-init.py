@@ -40,22 +40,24 @@ def replace_in_files(old_str: str, new_str: str):
                     print(f"    ⚠️ No se pudo procesar {file_path.name}: {e}")
     print(f"    ✅ Modificados {count} archivos.")
 
-def purge_directory(dir_path: Path):
+def purge_directory(dir_path: Path, exclude: list = None):
     """
-    QUÉ HACE: Elimina todo el contenido de una carpeta excepto el archivo .gitkeep.
-    POR QUÉ: Limpia la biblioteca y el laboratorio del proyecto clonado para empezar de cero.
+    QUÉ HACE: Elimina todo el contenido de una carpeta excepto .gitkeep y los archivos excluidos.
+    POR QUÉ: Limpia la biblioteca y el laboratorio, pero permite salvar archivos base como la bitácora agnóstica.
     """
+    if exclude is None:
+        exclude = []
+        
     print(f"  🗑️  Purgando directorio: {dir_path.relative_to(REPO_ROOT)}...")
     if not dir_path.exists():
         return
         
     for item in dir_path.iterdir():
-        if item.name == ".gitkeep":
+        if item.name == ".gitkeep" or item.name in exclude:
             continue
         if item.is_file():
             item.unlink()
         elif item.is_dir():
-            # Importación local para evitar dependencias innecesarias globales
             import shutil
             shutil.rmtree(item)
 
@@ -84,10 +86,26 @@ def main():
 
     # 2. Purga de datos históricos
     purge_directory(REPO_ROOT / "biblioteca")
-    purge_directory(REPO_ROOT / "laboratorio")
+    purge_directory(REPO_ROOT / "laboratorio", exclude=["bitacora-merci-boilerplate.md"])
     purge_directory(REPO_ROOT / "public" / "biblioteca")
     purge_directory(REPO_ROOT / "public" / "descargas")
     
+    # 3. Intercambio Documental (Los Gemelos)
+    print("  📄 Intercambiando documentación matriz por documentación agnóstica...")
+    
+    # Borramos la identidad documental del autor original
+    (REPO_ROOT / "README.md").unlink(missing_ok=True)
+    (REPO_ROOT / "instrucciones.md").unlink(missing_ok=True)
+    
+    # Ascendemos los archivos gemelos a oficiales
+    readme_merci = REPO_ROOT / "README-merci.md"
+    if readme_merci.exists():
+        readme_merci.rename(REPO_ROOT / "README.md")
+        
+    instrucciones_merci = REPO_ROOT / "instrucciones-merci.md"
+    if instrucciones_merci.exists():
+        instrucciones_merci.rename(REPO_ROOT / "instrucciones.md")
+
     print("\n🎉 ¡Inicialización completada! Bienvenido a tu nuevo proyecto.")
 
 if __name__ == "__main__":
