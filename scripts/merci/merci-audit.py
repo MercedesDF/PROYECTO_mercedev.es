@@ -595,6 +595,25 @@ def run_on_files(paths: Iterable[Path], strict_json_ld: bool) -> AuditState:
     return state
 
 
+def audit_banned_tracked_files(root: Path, state: AuditState, staged_only: bool) -> None:
+    """Verifica que no haya material pesado rastreado por Git (o en stage)."""
+    cmd = ["git", "-C", str(root), "diff", "--cached", "--name-only", "--diff-filter=ACM"] if staged_only else ["git", "-C", str(root), "ls-files"]
+    try:
+        completed = subprocess.run(cmd, check=True, capture_output=True, text=True)
+        for line in completed.stdout.splitlines():
+            line = line.strip()
+            # Ignorar líneas vacías y marcadores de estructura permitidos
+            if not line or line.endswith(".gitkeep"): continue
+            
+            if line.startswith("laboratorio/evidencias/") or line.startswith(".assets-raw/"):
+                path = root / line
+                state.add(Finding(
+                    path, 1, "error", "BANNED_TRACKED_FILE",
+                    f"Archivo en directorio restringido ({line}). Retíralo con 'git rm --cached'."
+                ))
+    except Exception:
+        pass
+
 def print_report(state: AuditState) -> None:
     """Imprime hallazgos en stdout, una línea por hallazgo (fácil de grep en CI)."""
     for item in state.errors + state.warns:
@@ -654,6 +673,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         else:
             files = list(iter_repo_files(root))
         state = run_on_files(files, args.strict_json_ld)
+        audit_banned_tracked_files(root, state, args.git_staged)
     except SystemExit:
         raise
     except Exception as exc:

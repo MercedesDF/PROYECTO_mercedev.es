@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-27 — Feat: Bloqueo activo de evidencias y assets pesados (Shift-Left)
+
+**Contexto:** Para asegurar que el historial de Git no se vuelva a contaminar con archivos binarios (vídeos, capturas) tras los incidentes con la carpeta `evidencias/`, el uso de `.gitignore` resultó ser insuficiente por su naturaleza pasiva frente a archivos previamente rastreados.
+
+**Hecho:** Se implementó la regla `BANNED_TRACKED_FILE` en `scripts/merci/merci-audit.py` (auditor maestro).
+
+**Detalle técnico:** Se creó la función `audit_banned_tracked_files` que consulta directamente a Git (`git ls-files` o `git diff --cached`). Si detecta que cualquier archivo (excepto `.gitkeep`) bajo `laboratorio/evidencias/` o `.assets-raw/` está a punto de ser comiteado o ya está siendo rastreado, inyecta un `ERROR` bloqueante en el estado de la auditoría.
+
+**Motivo / criterio:** *Shift-Left Security*. Delegar la higiene del repositorio a la memoria humana o a un `.gitignore` pasivo genera fugas de datos. Un escudo activo (Linter) que bloquea el commit atómico previene físicamente la subida de archivos pesados al servidor remoto.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
 ### 2026-04-27 — Fix: Erradicación de evidencias rastreadas heredadas
 
 **Contexto:** Tras resolver un conflicto de fusión masivo, la carpeta `laboratorio/evidencias/` volvió a subirse al repositorio remoto a pesar de estar incluida en el `.gitignore`.
