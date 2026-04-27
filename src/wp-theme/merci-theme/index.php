@@ -14,7 +14,7 @@
     wp_head(); 
     ?>
 </head>
-<body <?php body_class('theme-body'); ?>>
+<body <?php body_class('theme-body page'); ?>>
 
     <!-- Ancla invisible WAI-ARIA para Volver Arriba -->
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>

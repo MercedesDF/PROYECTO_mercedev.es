@@ -117,6 +117,18 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** Inyectar una regla de validación en `merci-audit.py` para bloquear atómicamente cualquier commit que contenga archivos en esta carpeta.
 
+### 2026-04-27 — Fix: Restauración de clase estructural para menú móvil
+
+**Contexto:** En el entorno de producción, el menú hamburguesa no se desplegaba en las páginas de la Biblioteca ni en las vistas dinámicas de WordPress, aislando al usuario en móvil.
+
+**Hecho:** Se inyectó la clase `.page` en las etiquetas `<body>` del orquestador `merci-publish.py` y del archivo `index.php` del Child Theme. También se corrigió la inyección del ancla invisible `#top` en el índice de la biblioteca.
+
+**Detalle técnico:** El análisis del código Vanilla JS (`main.js`) reveló que estaba perfectamente estructurado con Cláusulas de Guarda (Guard Clauses), por lo que no había colapsos por `TypeError`. El fallo era exclusivamente CSS: las reglas de visualización del menú dependían del contexto `.page` en el `body`, el cual fue omitido durante la generación dinámica del HTML.
+
+**Motivo / criterio:** Paridad de Entornos (Dev/Prod Parity). El núcleo estático base (`public/index.html`) poseía el atributo `class="page"` que habilitaba ciertas reglas SASS en cascada. Todo motor de renderizado (SSG o PHP) que reutilice el mismo CSS debe emitir exactamente la misma estructura de contenedores padre para evitar roturas visuales.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
 ### 2026-04-27 — Fix: Resolución de conflicto de sobreescritura en `git pull`
 
 **Contexto:** Al ejecutar `git pull` tras configurar la estrategia de fusión, Git abortó la operación con el error: "Los cambios locales de los siguientes archivos serán sobrescritos al fusionar". Esto ocurrió porque existían modificaciones locales en `laboratorio/bitacora-mercedev.md` que aún no habían sido empaquetadas en un commit.

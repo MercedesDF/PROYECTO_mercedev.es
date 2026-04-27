@@ -202,8 +202,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     }}
     </script>
 </head>
-<body>
-    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+<body class="page">
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     {header_html}
     <main class="main--padded section" id="main">
@@ -307,7 +306,8 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html):
     }}
     </script>
 </head>
-<body>
+<body class="page">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     {header_html}
     <main class="main--padded section" id="main">
         <header style="margin-bottom: 3rem;">
