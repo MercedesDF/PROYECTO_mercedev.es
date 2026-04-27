@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Release Pipeline Iterativo: Agile en despliegue de plantillas — mercedev.es</title>
+    <meta name="description" content="Cómo gobernar la actualización de un Boilerplate desde un proyecto matriz sin sufrir Deriva de Configuración.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/release-pipeline-iterativo-agile-en-despliegue-de-plantillas.html">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/MerciController.js" defer></script>
+    <script src="/js/main.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Release Pipeline Iterativo: Agile en despliegue de plantillas",
+      "description": "Cómo gobernar la actualización de un Boilerplate desde un proyecto matriz sin sufrir Deriva de Configuración.",
+      "url": "https://mercedev.es/biblioteca/release-pipeline-iterativo-agile-en-despliegue-de-plantillas.html"
+    }
+    </script>
+</head>
+<body>
+    <header class="header" id="top" tabindex="-1">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca" class="nav__link">Biblioteca</a>
+            <a href="/blog" class="nav__link">Blog</a>
+            <a href="/blog/category/art-de-cote" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda" class="nav__link">Tienda</a>
+            <a href="/contacto" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                <h1 class="home-card__title--highlight">Release Pipeline Iterativo: Agile en despliegue de plantillas</h1>
+                <a href="/descargas/release-pipeline-iterativo-agile-en-despliegue-de-plantillas.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>Al extraer un ecosistema base (Merci Boilerplate) a partir de un proyecto vivo (<code>mercedev.es</code>), surge el riesgo de la <strong>Deriva de Configuración (Configuration Drift)</strong>. Cuando se detecta un error en la plantilla exportada, el instinto natural del desarrollador es corregirlo directamente en el repositorio hijo. Esto provoca que el proyecto matriz y la plantilla se desincronicen de forma silenciosa, convirtiendo el mantenimiento a largo plazo en una deuda técnica insostenible.</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Se estableció un <strong>Release Pipeline Iterativo</strong> basado en principios Agile y de Única Fuente de Verdad (SSOT - Single Source of Truth). El protocolo innegociable para cada subida de versión es:</p>
+<ol>
+<li><strong>Clonación efímera:</strong> Se clona la matriz en un directorio temporal y se ejecuta la purga de identidad y binarios (<code>merci-init.py</code>).</li>
+<li><strong>Despliegue Ágil:</strong> Se copian los archivos al repositorio destino mediante <code>rsync</code> (excluyendo historiales Git y metadatos documentales propios).</li>
+<li><strong>QA Fail-Fast:</strong> Se ejecuta el orquestador maestro (<code>merci-total</code>) en el destino.</li>
+<li><strong>Iteración estricta:</strong> Si existe el más mínimo fallo, se destruye el clon temporal, se aplica la corrección obligatoriamente en el <strong>proyecto matriz</strong> (<code>mercedev.es</code>) y se reinicia el ciclo desde el paso 1.</li>
+</ol>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Gobernar infraestructuras como código exige disciplina arquitectónica. Arreglar bugs directamente en artefactos derivados (forks o plantillas exportadas) es un antipatrón. Forzar la resolución de problemas exclusivamente en el entorno anfitrión garantiza que toda mejora o parche beneficie simultáneamente a la web en producción y a la plantilla, consolidando el proyecto matriz como la verdadera única fuente de verdad.</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <p class="footer__text">
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+            <span style="margin: 0 1rem;">|</span> <a href="#top" style="color: inherit; text-decoration: underline;">↑ Volver arriba</a>
+        </p>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>
