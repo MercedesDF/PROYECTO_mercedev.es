@@ -16,7 +16,9 @@
 </head>
 <body <?php body_class('theme-body'); ?>>
 
-    <header class="header" id="top" tabindex="-1">
+    <!-- Ancla invisible WAI-ARIA para Volver Arriba -->
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
         <a href="/" class="header__brand">
             <img src="/assets/images/logo.webp?v=2" alt="{{DOMINIO}}" class="header__logo" width="263" height="65">
         </a>

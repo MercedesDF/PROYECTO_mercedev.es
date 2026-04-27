@@ -20,7 +20,9 @@
     </script>
 </head>
 <body>
-    <header class="header" id="top" tabindex="-1">
+        <!-- Ancla invisible WAI-ARIA para Volver Arriba -->
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
         <a href="/" class="header__brand">
             <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
         </a>
@@ -118,6 +120,15 @@
             <h2 class="home-card__title--highlight" style="margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">DevSecOps y Gobernanza</h2>
             <div class="home-grid">
                 
+                <article class="card card--booklet">
+                    <header>
+                        <span class="card__meta">2026-04-27 — Cuadernillo</span>
+                        <h2 class="card__title"><a href="/biblioteca/recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git.html">Recuperación de datos y el peligro de los comandos destructivos en Git</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Por qué las interfaces gráficas mienten, la terminal dice la verdad, y cómo blindarse antes de reescribir el historial.</p>
+                    </div>
+                </article>
                 <article class="card card--booklet">
                     <header>
                         <span class="card__meta">2026-04-27 — Cuadernillo</span>

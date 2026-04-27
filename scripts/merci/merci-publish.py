@@ -203,6 +203,8 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     </script>
 </head>
 <body>
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     {header_html}
     <main class="main--padded section" id="main">
         <article class="card {clase_css}">

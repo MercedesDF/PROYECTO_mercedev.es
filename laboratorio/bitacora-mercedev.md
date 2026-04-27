@@ -37,6 +37,30 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-27 — Fix: Restauración del scroll en el ancla "Volver arriba"
+
+**Contexto:** El enlace "Volver arriba" (`#top`) en el footer dejó de realizar el desplazamiento (scroll) físico esperado. El script `merci-linkcheck.py` no auditó este error porque, por estándar técnico, los rastreadores ignoran los fragmentos de ancla (`#`).
+
+**Hecho:** Se separó el identificador de ancla del contenedor visual `<header>`.
+
+**Detalle técnico:** Se eliminó el `id="top"` y `tabindex="-1"` del `<header>` en `public/index.html` (y derivados) y se inyectó un `<div>` vacío (`position: absolute; top: 0; left: 0;`) con el `id="top"` justo después de abrir la etiqueta `<body>`. Se replicó la inyección en las plantillas f-string de `scripts/merci/merci-publish.py`.
+
+**Motivo / criterio:** *Separation of Concerns* (Separación de responsabilidades). Al trasladar el `id="top"` al `<header>` (que es fijo o se encuentra siempre visible arriba) en la Fase 2, el navegador asumía que ya estaba en el *viewport* y omitía el scroll. Crear un ancla independiente restaura el scroll a la coordenada absoluta `0,0` manteniendo la puntuación WAI-ARIA 100/100.
+
+**Siguiente paso o deuda:** Aplicar el mismo parche en la plantilla de WordPress (`src/wp-theme/merci-theme/index.php`) para mantener la paridad entre entornos.
+
+### 2026-04-27 — Docs: Cuadernillo sobre recuperación de datos y peligros de GUI en Git
+
+**Contexto:** Tras un incidente donde la interfaz gráfica del editor (VS Code) indujo a la eliminación física accidental de una carpeta no versionada (`evidencias/`), surgió la necesidad de documentar la vulnerabilidad operativa de depender de herramientas visuales para el control de versiones.
+
+**Hecho:** Se redactó el activo de conocimiento `laboratorio/Recuperación de datos y el peligro de los comandos destructivos en Git-cuadernillo` detallando el incidente y la maniobra forense de rescate.
+
+**Detalle técnico:** El cuadernillo expone cómo la regla `.gitignore` oculta elementos en la vista del editor, provocando ilusiones ópticas de borrado, y documenta la recuperación de los archivos desde la papelera del sistema anfitrión, reafirmando el uso de `ls -la` en terminal nativa como diagnóstico definitivo.
+
+**Motivo / criterio:** *Knowledge Management* (Gestión del conocimiento). Transformar un accidente operativo en documentación fundacional mitiga el riesgo de que futuros desarrolladores repitan el error. Asienta la directriz de que la terminal es la única fuente de verdad y justifica la obligatoriedad de la herramienta de backups locales.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
 ### 2026-04-27 — Feat: Herramienta de copias de seguridad locales (Backup)
 
 **Contexto:** El uso de interfaces gráficas o comandos complejos de Git conlleva el riesgo inherente de pérdida accidental de archivos locales no rastreados (ej. eliminación accidental al descartar cambios). Se requería un mecanismo "salvavidas" local antes de operar ramas o historiales.
