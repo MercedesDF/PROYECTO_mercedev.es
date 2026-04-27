@@ -1,6 +1,7 @@
 ---
 titulo: "Prevención de Fugas de Datos (Data Leak) en empaquetados"
 descripcion: "Por qué purgar los artefactos binarios es fundamental al abstraer un Boilerplate agnóstico."
+tipo: "cuadernillo"
 tema: "Seguridad y Arquitectura"
 fecha: "2026-04-26"
 estado: "publicado"

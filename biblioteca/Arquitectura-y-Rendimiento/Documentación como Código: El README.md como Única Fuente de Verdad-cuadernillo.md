@@ -1,6 +1,7 @@
 ---
 titulo: "Documentación como Código: El README.md como Única Fuente de Verdad"
 descripcion: "Cómo la desincronización documental genera deuda técnica y rompe la confianza en el repositorio."
+tipo: "cuadernillo"
 tema: "Arquitectura y Rendimiento"
 fecha: "2026-04-26"
 estado: "publicado"

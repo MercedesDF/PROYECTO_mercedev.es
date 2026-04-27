@@ -1,6 +1,7 @@
 ---
 titulo: "Robustez en Expresiones Regulares (RegEx) para automatización"
 descripcion: "Cómo un simple guion rompió el orquestador de commits y por qué la Ley de Postel es vital en DevSecOps."
+tipo: "cuadernillo"
 tema: "Automatización y Python"
 fecha: "2026-04-26"
 estado: "publicado"

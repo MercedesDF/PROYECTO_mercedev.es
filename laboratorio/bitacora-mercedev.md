@@ -49,6 +49,18 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** Aplicar el mismo parche en la plantilla de WordPress (`src/wp-theme/merci-theme/index.php`) para mantener la paridad entre entornos.
 
+### 2026-04-27 — Fix: Resolución de error `non-fast-forward` en `git push`
+
+**Contexto:** Al intentar subir cambios al repositorio remoto (`git push`), la operación fue rechazada con el error `non-fast-forward`. Esto indica que el historial del servidor (GitHub) contenía commits que no existían en el repositorio local, creando una divergencia.
+
+**Hecho:** Se ejecutó `git pull` para descargar los cambios remotos y fusionarlos con la rama local. Tras la fusión, se pudo ejecutar `git push` con éxito.
+
+**Detalle técnico:** El comando `git pull` es un atajo para `git fetch` (descargar el historial del servidor) seguido de `git merge origin/main` (integrar los cambios remotos en la rama local). Si no hay conflictos, Git crea automáticamente un "merge commit" para unir las dos líneas de historial.
+
+**Motivo / criterio:** *Integridad del Historial*. Git bloquea los `push` "non-fast-forward" como un mecanismo de seguridad para prevenir la sobreescritura accidental de trabajo que ya existe en el servidor. La solución canónica es siempre integrar los cambios remotos (`pull`) antes de empujar los locales (`push`), garantizando que no se pierda ningún commit.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
 ### 2026-04-27 — Docs: Cuadernillo sobre recuperación de datos y peligros de GUI en Git
 
 **Contexto:** Tras un incidente donde la interfaz gráfica del editor (VS Code) indujo a la eliminación física accidental de una carpeta no versionada (`evidencias/`), surgió la necesidad de documentar la vulnerabilidad operativa de depender de herramientas visuales para el control de versiones.
