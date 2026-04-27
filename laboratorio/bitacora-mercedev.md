@@ -37,6 +37,31 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-27 — Fix: Resolución de conflicto de sobreescritura en `git pull`
+
+**Contexto:** Al ejecutar `git pull` tras configurar la estrategia de fusión, Git abortó la operación con el error: "Los cambios locales de los siguientes archivos serán sobrescritos al fusionar". Esto ocurrió porque existían modificaciones locales en `laboratorio/bitacora-mercedev.md` que aún no habían sido empaquetadas en un commit.
+
+**Hecho:** Se empaquetaron los cambios locales pendientes mediante `merci-commit.py` antes de volver a intentar la sincronización.
+
+**Detalle técnico:** Git se niega a ejecutar un `pull` si este va a sobrescribir trabajo local no guardado (uncommitted). El flujo de trabajo correcto es siempre: 1) Guardar el trabajo local (`git add .` y `git commit`) y 2) Sincronizar con el servidor (`git pull`).
+
+**Motivo / criterio:** *Integridad de datos*. Es un mecanismo de seguridad fundamental de Git para prevenir la pérdida de trabajo. Nunca se debe forzar una sincronización sobre cambios locales no guardados. La solución es siempre confirmar el estado local antes de integrar el estado remoto.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
+
+### 2026-04-27 — Fix: Configuración de reconciliación para ramas divergentes (Git)
+
+**Contexto:** Al ejecutar `git pull` para resolver un error de `non-fast-forward`, Git bloqueó la operación indicando que las ramas habían divergido (existían commits distintos tanto en local como en remoto) y requería especificar una estrategia de reconciliación explícita.
+
+**Hecho:** Se configuró la estrategia de fusión por defecto (`git config pull.rebase false`) y se completó la sincronización (`git pull` seguido de `git push`).
+
+**Detalle técnico:** Las ramas divergen cuando el historial local y el remoto se bifurcan (por ejemplo, al crear commits locales tras haber modificado el repositorio en la nube). Configurar `pull.rebase false` instruye a Git para que resuelva estas colisiones creando un "commit de fusión" (Merge Commit) estándar, preservando la cronología exacta de ambas líneas temporales sin reescribir el historial.
+
+**Motivo / criterio:** Gobernanza del repositorio. Definir explícitamente la estrategia de fusión es una buena práctica de ingeniería que previene comportamientos erráticos o destructivos al sincronizar código en entornos de desarrollo distribuidos.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
 ### 2026-04-27 — Fix: Restauración del scroll en el ancla "Volver arriba"
 
 **Contexto:** El enlace "Volver arriba" (`#top`) en el footer dejó de realizar el desplazamiento (scroll) físico esperado. El script `merci-linkcheck.py` no auditó este error porque, por estándar técnico, los rastreadores ignoran los fragmentos de ancla (`#`).
