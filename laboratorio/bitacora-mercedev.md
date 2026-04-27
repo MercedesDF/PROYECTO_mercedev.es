@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-27 — Fix: Erradicación de evidencias rastreadas heredadas
+
+**Contexto:** Tras resolver un conflicto de fusión masivo, la carpeta `laboratorio/evidencias/` volvió a subirse al repositorio remoto a pesar de estar incluida en el `.gitignore`.
+
+**Hecho:** Se ejecutó `git rm -r --cached laboratorio/evidencias/` para forzar a Git a "olvidar" los archivos sin borrarlos del disco duro local, y se generó un nuevo commit para purgar el servidor.
+
+**Detalle técnico:** El archivo `.gitignore` previene que archivos *nuevos* sean añadidos al índice (`staged`), pero **no tiene efecto** sobre archivos que ya estaban siendo rastreados (tracked) en el historial previo. Al fusionar la rama remota, Git recuperó la memoria de esos archivos. Para aplicar un gitignore retroactivamente, es obligatorio eliminar los archivos de la caché de Git explícitamente.
+
+**Motivo / criterio:** Higiene del repositorio. Comprender la diferencia entre archivos *tracked* y *untracked* es vital. La eliminación de la caché es la única maniobra válida para forzar a Git a soltar archivos que ya había asimilado en el pasado.
+
+**Siguiente paso o deuda:** Inyectar una regla de validación en `merci-audit.py` para bloquear atómicamente cualquier commit que contenga archivos en esta carpeta.
+
 ### 2026-04-27 — Fix: Resolución de conflicto de sobreescritura en `git pull`
 
 **Contexto:** Al ejecutar `git pull` tras configurar la estrategia de fusión, Git abortó la operación con el error: "Los cambios locales de los siguientes archivos serán sobrescritos al fusionar". Esto ocurrió porque existían modificaciones locales en `laboratorio/bitacora-mercedev.md` que aún no habían sido empaquetadas en un commit.
