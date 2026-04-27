@@ -86,6 +86,7 @@ def main():
     purge_directory(REPO_ROOT / "biblioteca")
     purge_directory(REPO_ROOT / "laboratorio")
     purge_directory(REPO_ROOT / "public" / "biblioteca")
+    purge_directory(REPO_ROOT / "public" / "descargas")
     
     print("\n🎉 ¡Inicialización completada! Bienvenido a tu nuevo proyecto.")
 
