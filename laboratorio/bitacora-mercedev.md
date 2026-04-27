@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-26 — Fix: Prevención de fuga de datos (Data Leak) en empaquetado
+
+**Contexto:** Durante la creación de la Release 1.0.0 del Merci Boilerplate, se detectó que el clon resultante conservaba los archivos PDF generados por WeasyPrint en `public/descargas/`. Esto rompía la promesa de un "lienzo en blanco" y provocaba una fuga de datos (Data Leak) de los artículos de la autora hacia el repositorio público.
+
+**Hecho:** Se parcheó el script destructivo `scripts/merci/merci-init.py` añadiendo la orden explícita de purgar el directorio de descargas.
+
+**Detalle técnico:** Se incluyó la instrucción `purge_directory(REPO_ROOT / "public" / "descargas")` en el bloque de purga de datos históricos, asegurando que los artefactos binarios sean erradicados junto con el historial de Markdown y HTML.
+
+**Motivo / criterio:** *Data Leak Prevention (Prevención de Pérdida de Datos)*. Un script que pretende empaquetar una infraestructura agnóstica debe ser exhaustivo. Dejar binarios compilados del autor original contamina el peso del repositorio de destino y expone propiedad intelectual que no forma parte del motor DevSecOps.
+
+**Siguiente paso o deuda:** Desarrollar el script de copias de seguridad locales (Backup Local) en Python o avanzar hacia la Fase 9 (Inteligencia y Autonomía).
+
 ### 2026-04-26 — Feat: Script de instanciación del Boilerplate (Fase 10)
 
 **Contexto:** Para convertir el repositorio en un producto reutilizable (Boilerplate Release 1.0.0), se necesitaba un mecanismo automatizado que permitiera a un usuario clonar el proyecto, limpiar todas las referencias personales (dominio, nombre) y purgar el historial documental sin tener que hacerlo archivo por archivo.
