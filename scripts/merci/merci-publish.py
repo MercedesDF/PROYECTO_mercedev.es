@@ -8,6 +8,7 @@ Transforma documentos Markdown de la biblioteca en páginas HTML estáticas.
 import argparse
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 try:
@@ -26,6 +27,20 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 BIBLIOTECA_DIR = REPO_ROOT / "biblioteca"
 PUBLIC_BIBLIOTECA = REPO_ROOT / "public" / "biblioteca"
 PUBLIC_DESCARGAS = REPO_ROOT / "public" / "descargas"
+
+def slugify(texto: str) -> str:
+    """
+    QUÉ HACE: Convierte un texto (ej. título) en una cadena segura para URLs (slug).
+    POR QUÉ: Permite al autor nombrar sus archivos .md libremente en el sistema local, 
+    asegurando que las URLs públicas sean siempre limpias, sin acentos ni espacios.
+    """
+    texto = str(texto)
+    # Normaliza eliminando acentos (ej. á -> a, ñ -> n)
+    texto = unicodedata.normalize('NFKD', texto).encode('ascii', 'ignore').decode('ascii')
+    # Elimina caracteres que no sean alfanuméricos, espacios o guiones
+    texto = re.sub(r'[^\w\s-]', '', texto.lower())
+    # Reemplaza múltiples espacios o guiones por un solo guion
+    return re.sub(r'[-\s]+', '-', texto).strip('-_')
 
 def limpiar_directorio_salida():
     """
@@ -70,8 +85,10 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     estado = meta.get("estado", "borrador").lower()
     alt_portada = meta.get("alt_portada", "")
     
-    out_filename = filepath.stem + ".html"
-    out_pdf_filename = filepath.stem + ".pdf"
+    # QUÉ HACE: Genera los nombres de salida basándose en el título del YAML, no en el archivo.
+    # POR QUÉ: Desacopla el sistema de archivos del routing web (Auto-nombrado).
+    out_filename = slugify(titulo) + ".html"
+    out_pdf_filename = slugify(titulo) + ".pdf"
     html_target = PUBLIC_BIBLIOTECA / out_filename
     pdf_target = PUBLIC_DESCARGAS / out_pdf_filename
 
@@ -328,8 +345,10 @@ def main():
 
     publicaciones_procesadas = []
 
-    # Por ahora, compilamos todos los archivos .md que existan en la biblioteca
-    for md_file in BIBLIOTECA_DIR.glob("*.md"):
+    # QUÉ HACE: Lee recursivamente todos los archivos .md en la biblioteca y sus subcarpetas.
+    # POR QUÉ: Permite al autor organizar los archivos fuente en subdirectorios temáticos 
+    # sin alterar la estructura plana de URLs de salida (/biblioteca/archivo.html).
+    for md_file in BIBLIOTECA_DIR.rglob("*.md"):
         meta = procesar_archivo(md_file, header_html, footer_html)
         if meta:
             publicaciones_procesadas.append(meta)

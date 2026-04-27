@@ -37,6 +37,30 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-27 — Feat: Auto-nombrado (Slugificación) de URLs en SSG
+
+**Contexto:** Existía un acoplamiento rígido entre el nombre físico del archivo `.md` y la URL pública final (`.html`). Si el autor utilizaba nombres descriptivos o prefijos numéricos para organizar su entorno local, estos ensuciaban las rutas SEO de producción.
+
+**Hecho:** Se implementó una función de `slugify` nativa en `scripts/merci/merci-publish.py` para generar los nombres de archivo de salida basándose estrictamente en el atributo `titulo` del YAML Frontmatter.
+
+**Detalle técnico:** Se empleó la librería estándar `unicodedata` (`NFKD`) para normalizar y despojar al texto de acentos o diacríticos del español, y expresiones regulares (`re.sub`) para reemplazar espacios por guiones y eliminar caracteres inválidos para URLs.
+
+**Motivo / criterio:** *Separation of Concerns* (Separación de Responsabilidades). Desacoplar la estructura del sistema de archivos local de la topología de URLs públicas mejora drásticamente la Developer Experience (DX). Permite reorganizar, renombrar y prefijar archivos `.md` localmente sin alterar enlaces indexados ni romper la arquitectura de la información web.
+
+**Siguiente paso o deuda:** Desarrollar el script de copias de seguridad (Backup Local) en Python.
+
+### 2026-04-27 — docs: Reestructuración nombres documentos a publicar
+
+**Contexto:** Dificultad para relacionar visualmente los archivos compilados (`.html` / `.pdf`) con sus documentos origen (`.md`) en el editor debido a discrepancias o abreviaturas en los nombres físicos.
+
+**Hecho:** Renombrar los archivos `.md` de la biblioteca para que coincidan exactamente con el título del documento, facilitando su localización a medida que el repositorio crece.
+
+**Detalle técnico:** Modificación manual del nombre físico de los archivos directamente en el directorio local de la biblioteca.
+
+**Motivo / criterio:** Ejecución manual justificada por el bajo volumen actual de archivos. Se asume la deuda técnica de automatizar el renombrado (slugificación) basado en el YAML Frontmatter en el futuro.
+
+**Siguiente paso o deuda:** Estructurar la `biblioteca/` en subcarpetas temáticas (ej. `DevSecOps y Gobernanza/`) y refactorizar `merci-publish.py` para soportar lectura recursiva y auto-nombrado.
+
 ### 2026-04-27 — Feat: Clean Build automático en orquestador SSG
 
 **Contexto:** Si un documento Markdown en la `biblioteca/` era renombrado o eliminado, el orquestador generaba la nueva versión pero los archivos `.html` y `.pdf` antiguos permanecían para siempre en `public/` como "archivos zombis". Requerir que el usuario ejecutara `rm -rf` manualmente era peligroso y propenso a errores.
