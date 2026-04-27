@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-27 — Fix: Purga profunda de evidencias en el historial de Git
+
+**Contexto:** Aunque `.gitignore` prevenía la adición de nuevos archivos multimedia, si algún binario pesado en `laboratorio/evidencias/` había sido comiteado accidentalmente en el pasado, este seguiría existiendo en el historial profundo de Git, inflando el peso del repositorio y reapareciendo al restaurar versiones antiguas.
+
+**Hecho:** Se ejecutó una reescritura completa del historial de Git (`filter-branch`) para erradicar cualquier rastro de los archivos de la carpeta de evidencias en todos los commits anteriores.
+
+**Detalle técnico:** Se utilizó un filtro de índice en Git (`--index-filter`) para recorrer todo el árbol de commits y ejecutar `git rm --cached --ignore-unmatch` sobre la carpeta objetivo, seguido de un recolector de basura agresivo (`git gc --prune=now`) y un `git push --force` para sobrescribir el repositorio remoto.
+
+**Motivo / criterio:** *Repository Hygiene* (Higiene del Repositorio). Git es un sistema inmutable por defecto. Para eliminar una fuga de datos o un binario pesado de forma retroactiva, es obligatorio reescribir la historia. Esto garantiza clones rápidos y protege las cuotas de almacenamiento del servidor.
+
+**Siguiente paso o deuda:** Programar el script de copias de seguridad (Backup Local) en Python.
+
 ### 2026-04-27 — Fix: Exclusión estricta de evidencias del control de versiones
 
 **Contexto:** La carpeta `laboratorio/evidencias/`, destinada a almacenar material multimedia pesado (vídeos, capturas) para futuros montajes, corría el riesgo de ser rastreada por Git y subida al servidor remoto, inflando el peso del repositorio.
