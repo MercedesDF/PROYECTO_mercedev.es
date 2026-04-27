@@ -15,8 +15,8 @@ BACKUP_DIR = REPO_ROOT / "backups"
 
 # QUÉ HACE: Define un conjunto (set) de carpetas que serán ignoradas durante la compresión.
 # POR QUÉ: Evita respaldar dependencias recreables (.venv), control de versiones (.git) 
-# o archivos crudos pesados (.assets-raw), manteniendo el backup ligero y rápido.
-EXCLUDE_DIRS = {'.git', '.venv', '__pycache__', 'backups', '.assets-raw'}
+# o archivos crudos pesados (.assets-raw, evidencias) y artefactos compilados (descargas).
+EXCLUDE_DIRS = {'.git', '.venv', '__pycache__', 'backups', '.assets-raw', 'evidencias', 'descargas'}
 
 def create_backup():
     BACKUP_DIR.mkdir(exist_ok=True)

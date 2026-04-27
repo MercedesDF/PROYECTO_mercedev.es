@@ -15,16 +15,19 @@ Este documento define las reglas de arquitectura e interacción de esta plantill
 1. **Seguridad Shift-Left:** Todo el código debe pasar obligatoriamente por `python3 scripts/merci/merci-audit.py` antes del commit.
 2. **Manejo de Errores:** Todo código debe incluir gestión de excepciones para evitar colapsos silentes.
 3. **Bitácora Obligatoria:** `merci-commit.py` bloqueará los empaquetados si no se ha documentado el cambio cronológicamente en la bitácora del laboratorio.
-4. **Convención de Commits:** Utilizar prefijos semánticos (`feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `perf:`).
-5. **Aislamiento de WordPress:** El CMS nunca debe escribir ni modificar archivos en el directorio `/public`. Su comunicación con el frontend es unidireccional y controlada por Nginx.
+4. **Copias de Seguridad (Disaster Recovery):** Utilizar `python3 scripts/merci/merci-backup.py` antes de cualquier operación destructiva o reescritura de historial.
+5. **Convención de Commits:** Utilizar prefijos semánticos (`feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `perf:`).
+6. **Aislamiento de WordPress:** El CMS nunca debe escribir ni modificar archivos en el directorio `/public`. Su comunicación con el frontend es unidireccional y controlada por Nginx.
 
 ## 4. Flujo Maestro de Publicación de Contenidos (SOP)
 El ecosistema cuenta con su propio SSG (Static Site Generation). Para publicar artículos en la Biblioteca estática:
-1. Crear archivo Markdown con YAML Frontmatter en `laboratorio/`.
-2. Ejecutar `python3 scripts/merci/merci-promote.py` para curarlo y moverlo a la Biblioteca.
-3. Ejecutar `python3 scripts/merci/merci-publish.py` para compilar el HTML y generar los PDFs automáticamente.
-4. Ejecutar `python3 scripts/merci/merci-total.py` para validar SEO, Sitemaps y compilar el CSS.
-5. Empaquetar con `python3 scripts/merci/merci-commit.py`.
+1. **Sincronización:** `git pull` para evitar conflictos con el servidor remoto.
+2. **Incubación:** Crear archivo Markdown con YAML Frontmatter en `laboratorio/`.
+3. **Curación:** Ejecutar `python3 scripts/merci/merci-promote.py` para auditar accesibilidad (WAI-ARIA) y moverlo a la Biblioteca (soporta subcarpetas temáticas).
+4. **Compilación:** Ejecutar `python3 scripts/merci/merci-publish.py` para compilar el HTML (con auto-nombrado de URL) y generar los PDFs.
+5. **QA Total:** Ejecutar `python3 scripts/merci/merci-total.py` para validar SEO, enlaces rotos y compilar SASS.
+6. **Trazabilidad:** Documentar los cambios en `laboratorio/bitacora-merci-boilerplate.md`.
+7. **Empaquetado:** Sellar atómicamente con `python3 scripts/merci/merci-commit.py`.
 
 ## 5. Decisiones Arquitectónicas Restringidas
 - **Cero dependencias visuales:** Prohibido el uso de librerías de animación de terceros o frameworks reactivos (Vue/React/Tailwind) en el frontend.

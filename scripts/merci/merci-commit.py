@@ -10,6 +10,7 @@ para redactar y ejecutar un commit atómico estructurado.
 import re
 import sys
 import subprocess
+from datetime import datetime
 from pathlib import Path
 
 # Definición de rutas absolutas basadas en la ubicación del script
@@ -104,6 +105,13 @@ def main():
 
         content = BITACORA_PATH.read_text(encoding="utf-8")
         title, context, hecho = parse_latest_entry(content)
+
+        # QUÉ HACE: Actualiza automáticamente la fecha de revisión al final del documento.
+        # POR QUÉ: Elimina la carga cognitiva de mantener este dato manualmente en cada sesión.
+        today = datetime.now().strftime("%Y-%m-%d")
+        updated_content = re.sub(r"\*Última revisión de la bitácora:.*?\*", f"*Última revisión de la bitácora: {today}.*", content)
+        if updated_content != content:
+            BITACORA_PATH.write_text(updated_content, encoding="utf-8")
 
         # Formateo del mensaje para Git
         commit_subject = title

@@ -1,4 +1,4 @@
-# Merci Boilerplate
+# Merci Boilerplate v1.0.0
 
 Un entorno web híbrido, minimalista y seguro desde el diseño (Shift-Left). 
 Combina un núcleo estático ultrarrápido (HTML5, SASS, Vanilla JS y BEM) con un motor dinámico aislado (WordPress). Diseñado para alcanzar un rendimiento perfecto (Core Web Vitals 100/100) y operar con 0 dependencias externas en el frontend.
@@ -46,6 +46,7 @@ Este boilerplate incluye su propia cadena de suministro CI/CD local basada ínte
 - `merci-commit.py`: Automatización de commits empaquetados atómicamente e impulsados por la lectura de la bitácora.
 - `merci-total.py`: Orquestador maestro del pipeline de compilación.
 - `merci-publish.py` y `merci-promote.py`: Motor SSG y curación de contenidos.
+- `merci-backup.py`: Creación instantánea de copias de seguridad locales en formato ZIP.
 - `merci-optimizer.py`: Optimización de imágenes a WebP.
 - `merci-linkcheck.py`: Rastreo DAST de enlaces rotos.
 

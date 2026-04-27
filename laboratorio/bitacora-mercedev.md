@@ -37,6 +37,40 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
+
+**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-04-27.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
+
+**Hecho:** Se implementó una rutina de actualización automática en `scripts/merci/merci-commit.py` mediante expresiones regulares.
+
+**Detalle técnico:** Justo antes de ejecutar el `git add .`, el script lee el contenido completo de la bitácora, localiza la cadena de texto de la última revisión y sustituye la fecha por el día actual (`datetime.now()`), sobrescribiendo el archivo para que se empaquete con el dato exacto.
+
+**Motivo / criterio:** *Fricción Cero*. Eliminar tareas repetitivas y propensas al error humano. Si el orquestador de commits ya lee la bitácora para extraer el mensaje, es el lugar arquitectónicamente perfecto para actualizar sus metadatos internos de forma transparente.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
+### 2026-04-27 — Docs: Versionado Semántico en Shadow Docs (v1.0.0)
+
+**Contexto:** El documento en la sombra `README-merci.md` (que asciende a README oficial tras la instanciación) carecía de la declaración explícita de la versión del motor, dificultando la trazabilidad para los usuarios del Boilerplate.
+
+**Hecho:** Se inyectó la etiqueta de versión `v1.0.0` en el encabezado principal de `README-merci.md`.
+
+**Motivo / criterio:** *Semantic Versioning* (Versionado Semántico). El archivo maestro de un proyecto agnóstico debe indicar claramente en qué punto de madurez se encuentra. Al estar integrado en el Release Pipeline Agile (Regla 14), este número se incrementará manualmente en el proyecto matriz justo antes de empaquetar futuras *releases* (ej. `v1.1.0`).
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
+### 2026-04-27 — Perf: Optimización de peso en copias de seguridad (Backup Local)
+
+**Contexto:** El script de copias de seguridad locales (`merci-backup.py`) estaba generando archivos ZIP de casi 47 MB, un peso desproporcionado para un repositorio de código y texto. El diagnóstico reveló que estaba comprimiendo los binarios de la carpeta `evidencias/` y los PDFs generados en `descargas/`.
+
+**Hecho:** Se añadieron los directorios `evidencias` y `descargas` al conjunto (set) de exclusión `EXCLUDE_DIRS` en el script de backup.
+
+**Detalle técnico:** Al ignorar estas carpetas en el recorrido `os.walk()`, se evita procesar y comprimir archivos multimedia pesados o artefactos dinámicos que pueden ser regenerados a voluntad mediante el orquestador SSG.
+
+**Motivo / criterio:** *Performance y Eficiencia*. Una herramienta de *Disaster Recovery* local debe ser ultrarrápida y generar instantáneas ligeras. Excluir binarios que no forman parte del código fuente matriz garantiza que el backup se ejecute en milisegundos y consuma un espacio residual en el disco.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
 ### 2026-04-27 — Feat: Bloqueo activo de evidencias y assets pesados (Shift-Left)
 
 **Contexto:** Para asegurar que el historial de Git no se vuelva a contaminar con archivos binarios (vídeos, capturas) tras los incidentes con la carpeta `evidencias/`, el uso de `.gitignore` resultó ser insuficiente por su naturaleza pasiva frente a archivos previamente rastreados.
@@ -907,4 +941,4 @@ Copia el bloque y rellénalo.
 
 ---
 
-*Última revisión de la bitácora: 2026-04-14.*
+*Última revisión de la bitácora: 2026-04-27.*
