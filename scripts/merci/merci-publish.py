@@ -27,6 +27,23 @@ BIBLIOTECA_DIR = REPO_ROOT / "biblioteca"
 PUBLIC_BIBLIOTECA = REPO_ROOT / "public" / "biblioteca"
 PUBLIC_DESCARGAS = REPO_ROOT / "public" / "descargas"
 
+def limpiar_directorio_salida():
+    """
+    QUÉ HACE: Purga exclusivamente los archivos .html y .pdf generados en ejecuciones anteriores.
+    POR QUÉ: Implementa un patrón 'Clean Build' automático. Previene la acumulación de archivos 'zombis' 
+    si un documento Markdown origen es renombrado o eliminado de la biblioteca.
+    """
+    print("🧹 [Merci Publish] Limpiando compilaciones anteriores (Clean Build)...")
+    for directorio in [PUBLIC_BIBLIOTECA, PUBLIC_DESCARGAS]:
+        if not directorio.exists():
+            continue
+        for item in directorio.iterdir():
+            if item.is_file() and item.suffix in {'.html', '.pdf'}:
+                try:
+                    item.unlink()
+                except OSError as e:
+                    print(f"  ⚠️ No se pudo borrar {item.name}: {e}")
+
 def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     print(f"📖 Leyendo: {filepath.name}...")
     content = filepath.read_text(encoding="utf-8")
@@ -143,8 +160,9 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
         pass
 
     # 5. Generar el HTML final inyectando las clases BEM estructurales
-    # [REFAC]: Todo documento de la biblioteca estática hereda el diseño de Libro/Proyecto
-    clase_css = "card--book"
+    # QUÉ HACE: Asigna la clase CSS BEM dinámicamente basándose en el atributo 'tipo'.
+    # POR QUÉ: Respeta la decisión del autor en el YAML Frontmatter, aplicando degradación elegante.
+    clase_css = "card--booklet" if tipo.lower() == "cuadernillo" else "card--book"
     
     html_final = f"""<!DOCTYPE html>
 <html lang="es">
@@ -227,7 +245,7 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html):
         
         cards_html = ""
         for pub in pubs_tema:
-            clase_css = "card--book"
+            clase_css = "card--booklet" if pub["tipo"].lower() == "cuadernillo" else "card--book"
             badge = pub["tipo"].capitalize()
             
             cards_html += f"""
@@ -289,6 +307,9 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html):
 
 def main():
     print("🚀 [Merci Publish] Iniciando orquestador de publicación...")
+    
+    # 0. Limpieza previa (Evitar archivos zombis)
+    limpiar_directorio_salida()
     
     # 0. Extraer Header y Footer dinámicamente de la portada (Single Source of Truth)
     header_html, footer_html = "", ""

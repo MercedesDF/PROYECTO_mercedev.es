@@ -37,6 +37,30 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-27 — Feat: Clean Build automático en orquestador SSG
+
+**Contexto:** Si un documento Markdown en la `biblioteca/` era renombrado o eliminado, el orquestador generaba la nueva versión pero los archivos `.html` y `.pdf` antiguos permanecían para siempre en `public/` como "archivos zombis". Requerir que el usuario ejecutara `rm -rf` manualmente era peligroso y propenso a errores.
+
+**Hecho:** Se implementó el patrón de "Clean Build" (Compilación limpia) creando la función `limpiar_directorio_salida()` en `scripts/merci/merci-publish.py`.
+
+**Detalle técnico:** Al iniciar el pipeline, el script escanea los directorios de destino (`public/biblioteca` y `public/descargas`) y ejecuta un `unlink()` estrictamente filtrado por las extensiones `.html` y `.pdf`. Esto garantiza que marcadores como `.gitkeep` u otros assets permanezcan intactos.
+
+**Motivo / criterio:** *Zero Dead Code / DX (Developer Experience)*. El directorio de salida (public) debe ser un reflejo exacto y efímero del estado actual del directorio de origen (código fuente). Automatizar la purga antes de la compilación asegura esta paridad sin depender de comandos destructivos manuales por parte del desarrollador.
+
+**Siguiente paso o deuda:** Crear el script Python para copias de seguridad locales (Backups) o avanzar a la Fase 9 (Inteligencia).
+
+### 2026-04-27 — Fix: Restauración de lógica visual dinámica en SSG
+
+**Contexto:** El orquestador de publicación estática (`merci-publish.py`) sobrescribía el diseño visual de las tarjetas forzando la clase CSS `.card--book` para todos los documentos de la Biblioteca, ignorando el atributo explícito `tipo: "cuadernillo"` definido por la autora en el YAML Frontmatter.
+
+**Hecho:** Se refactorizó la asignación de variables de `clase_css` en `scripts/merci/merci-publish.py` tanto para la página individual como para el generador del índice.
+
+**Detalle técnico:** Se implementó una lógica condicional en línea (Ternary Operator) que evalúa si el `tipo` es "cuadernillo" para inyectar el modificador BEM `.card--booklet`. Para cualquier otro caso, aplica degradación elegante devolviendo `.card--book`.
+
+**Motivo / criterio:** *Single Source of Truth (SSOT)*. El motor de compilación debe respetar ciegamente las definiciones del archivo origen. Forzar clases CSS rompe la jerarquía de la información y la autoridad del Frontmatter.
+
+**Siguiente paso o deuda:** Validar la visualización del borde naranja en los cuadernillos y continuar hacia la Fase 9 (Inteligencia) o el script de Backup Local.
+
 ### 2026-04-27 — Arquitectura: Implementación de Documentación en la Sombra (Shadow Docs)
 
 **Contexto:** Al gobernar el Boilerplate desde este proyecto matriz, el `README.md` y las `instrucciones.md` entraban en colisión, ya que el repositorio padre y el hijo requieren documentaciones totalmente diferentes. Actualizar el clon manualmente era propenso a errores.
