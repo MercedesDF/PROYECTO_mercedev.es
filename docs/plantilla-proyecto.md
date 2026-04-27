@@ -1,6 +1,6 @@
 ---
 titulo: "Título descriptivo del artículo"
-descripcion: "Breve descripción de 1 o 2 líneas para el SEO y el índice."
+descripcion: "Breve descripción de 1 o 2 líneas para el SEO (Search Engine Optimization - Optimización para Motores de Búsqueda) y el índice."
 tipo: "proyecto" # Valores recomendados: "proyecto", "libro" o "bitacora"
 tema: "DevSecOps y Automatización" # Estantería donde se agrupará en el índice
 volumen: 1

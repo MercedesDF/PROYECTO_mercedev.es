@@ -49,6 +49,16 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
 
+### 2026-04-27 — Fix: Expansión de acrónimo SEO en plantilla de proyecto
+
+**Contexto:** Tras el simulacro de instanciación del Boilerplate, el auditor `merci-audit.py` levantó una advertencia por el acrónimo "SEO" no expandido. El diagnóstico reveló que el término residía en los comentarios del YAML Frontmatter del archivo `docs/plantilla-proyecto.md`.
+
+**Hecho:** Se expandió el acrónimo SEO (Search Engine Optimization - Optimización para Motores de Búsqueda) directamente en la plantilla base del repositorio.
+
+**Motivo / criterio:** *Standalone Compliance*. Al igual que ocurrió con los Shadow Docs, las plantillas fundacionales que sobreviven al script de inicialización (`merci-init.py`) deben ser semánticamente autosuficientes para no heredar advertencias de linter al nuevo usuario.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
 ### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 
 **Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-04-27.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
