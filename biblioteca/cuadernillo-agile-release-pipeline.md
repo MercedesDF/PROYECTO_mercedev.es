@@ -3,7 +3,7 @@ titulo: "Release Pipeline Iterativo: Agile en despliegue de plantillas"
 descripcion: "Cómo gobernar la actualización de un Boilerplate desde un proyecto matriz sin sufrir Deriva de Configuración."
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-04-27"
-estado: "borrador"
+estado: "publicado"
 alt_portada: "Diagrama de flujo circular mostrando la clonación, instanciación, auditoría y retroalimentación hacia el proyecto matriz."
 ---
 
