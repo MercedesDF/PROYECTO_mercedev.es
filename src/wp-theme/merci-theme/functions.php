@@ -23,6 +23,9 @@ function merci_limpiar_estilos_por_defecto() {
     // Elimina el CSS de la librería de bloques (Gutenberg)
     wp_dequeue_style('wp-block-library');
     wp_dequeue_style('wp-block-library-theme');
+    // Elimina el CSS masivo de los bloques de WooCommerce (causa #1 de pérdida de rendimiento)
+    wp_dequeue_style('wc-blocks-style');
+    wp_dequeue_style('wc-blocks-vendors-style');
     // Elimina el CSS de variables globales (theme.json inyectado en línea)
     wp_dequeue_style('global-styles');
     // Elimina estilos clásicos residuales
@@ -47,7 +50,7 @@ function merci_cargar_assets_estaticos() {
     $domain_root = preg_replace('#/blog/?$#', '', home_url());
     // wp_enqueue_style('merci-core-styles', $domain_root . '/css/main.css', array(), '1.0.1', 'all');
     // Encolar el JavaScript unificado (el filtro de defer lo procesará automáticamente)
-    wp_enqueue_script('merci-core-js', $domain_root . '/js/main.js', array(), '1.0.0', true);
+    // wp_enqueue_script('merci-core-js', $domain_root . '/js/main.js', array(), '1.0.0', true);
 }
 add_action('wp_enqueue_scripts', 'merci_cargar_assets_estaticos');
 
@@ -125,6 +128,12 @@ remove_action('wp_head', 'rsd_link');
 
 // Desactivar la API XML-RPC (Cierra un vector crítico de ataques de fuerza bruta)
 add_filter('xmlrpc_enabled', '__return_false');
+
+// Eliminar scripts de oEmbed y enlaces de la API REST del head (Ruido innecesario)
+remove_action('wp_head', 'wp_oembed_add_discovery_links');
+remove_action('wp_head', 'wp_oembed_add_host_js');
+remove_action('wp_head', 'rest_output_link_wp_head', 10);
+remove_action('template_redirect', 'rest_output_link_header', 11);
 
 // Ofuscar mensajes de error en el inicio de sesión (Evita enumeración de usuarios)
 function merci_ofuscar_errores_login() {

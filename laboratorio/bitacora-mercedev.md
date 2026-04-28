@@ -37,6 +37,30 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-28 — Fix: Resolución de colisión y carga doble de scripts JS en WP
+
+**Contexto:** La consola del navegador en el entorno dinámico (`/blog`) arrojaba un error crítico: `SyntaxError: Identifier 'NavigationController' has already been declared`. Este error colapsaba la ejecución del frontend.
+
+**Hecho:** Se desactivó la carga de `main.js` mediante `wp_enqueue_script` en `functions.php`.
+
+**Detalle técnico:** Al implementar el patrón de *Cache Busting* dinámico (`time()`) en las plantillas `index.php` y `woocommerce.php`, se insertó la etiqueta `<script>` directamente en el `<head>`. Sin embargo, `functions.php` seguía encolando el mismo archivo en el `wp_footer()`. Declarar una clase de ES6 (`class NavigationController`) dos veces en el mismo ámbito global (Global Scope) produce un `SyntaxError` fatal.
+
+**Motivo / criterio:** *Single Source of Truth*. Los *assets* estáticos deben cargarse desde un único punto de control. Al haber delegado la responsabilidad del versionado dinámico directamente a las plantillas, la inyección desde el functions queda obsoleta y genera una condición de carrera y duplicidad de código.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
+### 2026-04-28 — Perf: Purga de bloques WooCommerce y oEmbed en WP
+
+**Contexto:** La auditoría de Lighthouse (PageSpeed Insights) reveló que la capa dinámica (Blog/Tienda) no alcanzaba el 100/100 en móviles, sufriendo penalizaciones por CSS y JS no utilizado, a diferencia del núcleo estático.
+
+**Hecho:** Se inyectaron reglas de desencolado (`wp_dequeue_style`) para `wc-blocks-style` y `wc-blocks-vendors-style` en `functions.php`. Se eliminaron los enlaces de oEmbed y REST API de la cabecera.
+
+**Detalle técnico:** Aunque se había desactivado el CSS base de WooCommerce en fases anteriores, el plugin inyecta silenciosamente un archivo masivo de estilos para sus bloques de Gutenberg (`wc-blocks-style`). Adicionalmente, WP inyecta scripts de descubrimiento oEmbed innecesarios. Su purga restaura el DOM ultraligero.
+
+**Motivo / criterio:** *Zero Bloat* (Cero Basura). La disparidad de rendimiento entre el SSG y WP suele radicar en el código "invisible" que los plugins asumen que el tema necesita. Desactivar todo lo que no esté estrictamente controlado por nuestra arquitectura SASS 7-1 protege las Core Web Vitals en dispositivos móviles de gama baja.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
 ### 2026-04-28 — Fix: Soporte oficial WooCommerce y purga absoluta de caché PHP
 
 **Contexto:** La tienda ignoraba el archivo `woocommerce.php` y los dispositivos móviles seguían mostrando HTML/CSS cacheado en vistas dinámicas, impidiendo el uso del menú y ocultando al asistente.
