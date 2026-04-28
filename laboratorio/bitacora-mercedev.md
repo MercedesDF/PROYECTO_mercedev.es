@@ -37,15 +37,15 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
-### 2026-04-27 — Fix: Expansión de acrónimos en Shadow Docs (Boilerplate)
+### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 
-**Contexto:** Al ejecutar la auditoría (`merci total`) en el repositorio clonado del Boilerplate, el linter de accesibilidad cognitiva emitió advertencias (WARN) por acrónimos no expandidos (como BEM). Esto ocurrió porque al purgar la biblioteca y el laboratorio, el recuento global de dichos términos cayó por debajo del umbral de consolidación (>3).
+**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-04-28.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
 
-**Hecho:** Se expandió explícitamente el acrónimo BEM (Block, Element, Modifier - Modificador de Elemento de Bloque) en `README-merci.md`, `instrucciones-merci.md` e `instrucciones.md`.
+**Hecho:** Se implementó una rutina de actualización automática en `scripts/merci/merci-commit.py` mediante expresiones regulares.
 
-**Detalle técnico:** Se aplicó la convención de expansión `ACRÓNIMO (Inglés - Español)` directamente en las documentaciones "en la sombra", garantizando que el texto base del Boilerplate cumpla con el análisis estático de `merci-audit.py` por sí mismo.
+**Detalle técnico:** Justo antes de ejecutar el `git add .`, el script lee el contenido completo de la bitácora, localiza la cadena de texto de la última revisión y sustituye la fecha por el día actual (`datetime.now()`), sobrescribiendo el archivo para que se empaquete con el dato exacto.
 
-**Motivo / criterio:** *Standalone Compliance*. Una plantilla agnóstica debe ser 100% autosuficiente y superar su propia auditoría con 0 advertencias desde el commit inicial, sin depender de la densidad documental del proyecto matriz del que fue extraída.
+**Motivo / criterio:** *Fricción Cero*. Eliminar tareas repetitivas y propensas al error humano. Si el orquestador de commits ya lee la bitácora para extraer el mensaje, es el lugar arquitectónicamente perfecto para actualizar sus metadatos internos de forma transparente.
 
 **Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
 
@@ -59,15 +59,15 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
 
-### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
+### 2026-04-27 — Fix: Expansión de acrónimos en Shadow Docs (Boilerplate)
 
-**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-04-28.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
+**Contexto:** Al ejecutar la auditoría (`merci total`) en el repositorio clonado del Boilerplate, el linter de accesibilidad cognitiva emitió advertencias (WARN) por acrónimos no expandidos (como BEM). Esto ocurrió porque al purgar la biblioteca y el laboratorio, el recuento global de dichos términos cayó por debajo del umbral de consolidación (>3).
 
-**Hecho:** Se implementó una rutina de actualización automática en `scripts/merci/merci-commit.py` mediante expresiones regulares.
+**Hecho:** Se expandió explícitamente el acrónimo BEM (Block, Element, Modifier - Modificador de Elemento de Bloque) en `README-merci.md`, `instrucciones-merci.md` e `instrucciones.md`.
 
-**Detalle técnico:** Justo antes de ejecutar el `git add .`, el script lee el contenido completo de la bitácora, localiza la cadena de texto de la última revisión y sustituye la fecha por el día actual (`datetime.now()`), sobrescribiendo el archivo para que se empaquete con el dato exacto.
+**Detalle técnico:** Se aplicó la convención de expansión `ACRÓNIMO (Inglés - Español)` directamente en las documentaciones "en la sombra", garantizando que el texto base del Boilerplate cumpla con el análisis estático de `merci-audit.py` por sí mismo.
 
-**Motivo / criterio:** *Fricción Cero*. Eliminar tareas repetitivas y propensas al error humano. Si el orquestador de commits ya lee la bitácora para extraer el mensaje, es el lugar arquitectónicamente perfecto para actualizar sus metadatos internos de forma transparente.
+**Motivo / criterio:** *Standalone Compliance*. Una plantilla agnóstica debe ser 100% autosuficiente y superar su propia auditoría con 0 advertencias desde el commit inicial, sin depender de la densidad documental del proyecto matriz del que fue extraída.
 
 **Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
 
