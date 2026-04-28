@@ -37,6 +37,31 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-28 — Docs: Redacción de cuadernillos técnicos (QA, Git y WP)
+
+**Contexto:** Antes de sellar la nueva versión base del ecosistema, era imperativo transformar las resoluciones técnicas críticas de la última sesión (conflictos de Git, caché móvil y jerarquía de WooCommerce) en activos de conocimiento reutilizables.
+
+**Hecho:** Se redactaron tres nuevos cuadernillos en formato borrador dentro de `laboratorio/`:
+- `cuadernillo-cache-movil-webkit.md` (Cache Busting)
+- `cuadernillo-domando-woocommerce.md` (Template Hierarchy)
+- `cuadernillo-conflictos-git-ours.md` (Git Merge Conflicts)
+
+**Motivo / criterio:** *Knowledge Management* (Gestión del Conocimiento). La documentación operativa no solo abarca el "cómo instalar", sino el "cómo sobrevivir". Documentar los incidentes reales bajo los 3 átomos del proyecto convierte la deuda técnica sufrida en una inversión formativa para el futuro del *Boilerplate*.
+
+**Siguiente paso o deuda:** Promover los cuadernillos a la Biblioteca o Art de Coté (según corresponda) mediante `merci-promote.py` e iniciar la Fase 9.
+
+### 2026-04-28 — QA: Certificación 100/100 en Core Web Vitals (Capa Dinámica)
+
+**Contexto:** Antes de empaquetar y exportar la versión final del Boilerplate (Release 1.0.0), se requería validación empírica de que la capa dinámica (WordPress/WooCommerce) no degradaba el rendimiento extremo del núcleo estático.
+
+**Hecho:** Se ejecutó la auditoría de Google PageSpeed Insights (Lighthouse) sobre la ruta de producción `/blog` en la vista móvil.
+
+**Detalle técnico:** La auditoría certificó una puntuación perfecta cuádruple: 100 Rendimiento, 100 Accesibilidad, 100 Mejores Prácticas y 100 SEO. Métricas clave: FCP 0.8s, LCP 1.1s, TBT 0ms. Esto valida empíricamente el éxito de las purgas de assets (`wp_dequeue_style` de `wc-blocks`) y la arquitectura de proxy inverso.
+
+**Motivo / criterio:** *QA Assurance* (Aseguramiento de Calidad). Una infraestructura DevSecOps no admite suposiciones. Validar la excelencia técnica en el entorno más hostil (móvil 4G simulado sobre CMS) es el requisito final innegociable antes de liberar una plantilla fundacional al público.
+
+**Siguiente paso o deuda:** Ejecutar el Release Pipeline (exportar a `merci-boilerplate`) e iniciar la Fase 9.
+
 ### 2026-04-28 — Fix: Resolución de colisión y carga doble de scripts JS en WP
 
 **Contexto:** La consola del navegador en el entorno dinámico (`/blog`) arrojaba un error crítico: `SyntaxError: Identifier 'NavigationController' has already been declared`. Este error colapsaba la ejecución del frontend.
