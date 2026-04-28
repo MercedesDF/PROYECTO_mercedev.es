@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
+    <?php
+    // Rompe-cachés dinámico para scripts: lee la fecha de modificación del archivo
+    $root_dir = dirname(ABSPATH) . '/public';
+    $js_merci_v = file_exists($root_dir . '/js/MerciController.js') ? filemtime($root_dir . '/js/MerciController.js') : '2';
+    $js_main_v = file_exists($root_dir . '/js/main.js') ? filemtime($root_dir . '/js/main.js') : '2';
+    ?>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Favicon explícito para la capa dinámica y Mercí -->
     <link rel="icon" href="/favicon.ico?v=3" type="image/x-icon">
-    <script src="/js/MerciController.js?v=1" defer></script>
+    <script src="/js/MerciController.js?v=<?php echo $js_merci_v; ?>" defer></script>
+    <script src="/js/main.js?v=<?php echo $js_main_v; ?>" defer></script>
 
     <?php 
     // wp_head() es el anclaje obligatorio. 

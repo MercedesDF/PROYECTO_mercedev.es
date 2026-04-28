@@ -75,6 +75,19 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
 
+### 2026-04-27 — Fix: Restauración de WooCommerce y dependencias dinámicas JS
+
+**Contexto:** Una auditoría móvil exhaustiva reveló que las páginas de WordPress (Blog/Tienda) no desplegaban el menú hamburguesa y que WooCommerce perdía todo el formato visual y estructural del tema.
+
+**Hecho:**
+- Se inyectó dinámicamente `main.js` en `index.php` utilizando `filemtime` para forzar la purga de caché.
+- Se creó el archivo `woocommerce.php` en el Child Theme copiando la estructura base monolítica.
+- Se aplicaron los Cache Busters (`?v=...`) y el ancla `#top` a la página estática `contacto/index.html`.
+
+**Motivo / criterio:** *Template Hierarchy* y Paridad. El fallo del menú en WP se debía a la omisión de `main.js` (donde reside el controlador de navegación). La rotura de la tienda se debía a que WooCommerce ignora `index.php` e inyecta su propio HTML desnudo a menos que exista un `woocommerce.php` explícito que envuelva su función `woocommerce_content()` dentro de nuestra arquitectura BEM.
+
+**Siguiente paso o deuda:** Desplegar en producción y confirmar resolución en dispositivos móviles.
+
 ### 2026-04-27 — Fix: Resolución de Caché Móvil y Bug de pointer-events (iOS Safari)
 
 **Contexto:** El asistente Merci funcionaba correctamente en la simulación móvil del PC, pero en un dispositivo físico real aparecía roto (posición estática al final de la página) y sus clics eran ignorados.

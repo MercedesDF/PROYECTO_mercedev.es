@@ -1,16 +1,24 @@
+<?php
+// Resolutor dinámico de versiones
+$root_dir = dirname(ABSPATH) . '/public';
+$js_merci_v = file_exists($root_dir . '/js/MerciController.js') ? filemtime($root_dir . '/js/MerciController.js') : '2';
+$js_main_v = file_exists($root_dir . '/js/main.js') ? filemtime($root_dir . '/js/main.js') : '2';
+?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php wp_title('|', true, 'right'); ?></title>
     <link rel="icon" href="/favicon.ico?v=3" type="image/x-icon">
+    <script src="/js/MerciController.js?v=<?php echo $js_merci_v; ?>" defer></script>
+    <script src="/js/main.js?v=<?php echo $js_main_v; ?>" defer></script>
     <?php wp_head(); ?>
 </head>
-<body <?php body_class('theme-body'); ?>>
+<body <?php body_class('theme-body page'); ?>>
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     <header class="header">
         <a href="/" class="header__brand">
-            <img src="/assets/images/logo.webp?v=2" alt="{{DOMINIO}}" class="header__logo" width="150" height="auto">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
         </a>
         <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
             <span class="header__toggle-icon"></span>
@@ -25,28 +33,27 @@
         </nav>
     </header>
 
-    <main class="main">
+    <main class="main" id="main">
         <section class="hero">
             <h1 class="hero__title">Tienda</h1>
-            <p class="hero__subtitle">Catálogo de recursos, herramientas y merchandising oficial del entorno Merci Boilerplate.</p>
+            <p class="hero__subtitle">Catálogo de recursos, herramientas y merchandising oficial.</p>
         </section>
-
         <section class="section">
-            <?php 
-            // Escudo de seguridad: Solo ejecutamos la tienda si el plugin está activo
-            if ( function_exists( 'woocommerce_content' ) ) {
-                woocommerce_content(); 
-            } else {
-                echo '<p>El motor del catálogo (WooCommerce) no está activo en este entorno.</p>';
-            }
-            ?>
+            <!-- Aquí es donde inyectamos la magia de WooCommerce -->
+            <?php woocommerce_content(); ?>
         </section>
     </main>
 
     <footer class="footer">
-        <p class="footer__text">&copy; 2026 <strong>{{DOMINIO}}</strong> — Base de código abierto bajo Licencia MIT.</p>
+        <p class="footer__text">
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+            <span style="margin: 0 1rem;">|</span> <a href="#top" style="color: inherit; text-decoration: underline;">↑ Volver arriba</a>
+        </p>
     </footer>
-
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true"><span class="merci-ui__message-text"></span></div>
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false"><img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy"></button>
+    </aside>
     <?php wp_footer(); ?>
 </body>
 </html>
