@@ -283,6 +283,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 #### 10.1 Preparación del Boilerplate
 - [x] Crear script de instanciación (`merci-init.py`) para limpiar datos base y arrancar proyectos nuevos.
 - [x] Revisión final de documentación pública y lanzamiento de la versión 1.0.0.
+
 ## Licencia
 
 Este proyecto se distribuye bajo los términos de la **Licencia MIT**. Consulta el archivo `LICENSE` para más detalles. El contenido narrativo de la biblioteca y bitácora es propiedad intelectual de su autora.
