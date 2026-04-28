@@ -19,7 +19,7 @@ Al ejecutar el orquestador local (`merci-total`) desde la terminal en un nuevo r
 - Se diagnosticó y purgó la caché de la sesión de la terminal que retenía en memoria el alias obsoleto, causando falsos positivos durante la prueba.
 
 **Detalle técnico:**
-Se inyectó el siguiente bloque de código en el archivo de configuración del usuario (`~/.zshrc` o `~/.bashrc`):
+Se inyectó el siguiente bloque de código en el archivo de configuración  (`~/.zshrc` o `~/.bashrc`):
 
 ```bash
 # Motor Merci - Ejecutor Inteligente

@@ -61,7 +61,7 @@ Copia el bloque y rellénalo.
 
 ### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 
-**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-04-27.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
+**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-04-28.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
 
 **Hecho:** Se implementó una rutina de actualización automática en `scripts/merci/merci-commit.py` mediante expresiones regulares.
 
@@ -128,6 +128,18 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** Paridad de Entornos (Dev/Prod Parity). El núcleo estático base (`public/index.html`) poseía el atributo `class="page"` que habilitaba ciertas reglas SASS en cascada. Todo motor de renderizado (SSG o PHP) que reutilice el mismo CSS debe emitir exactamente la misma estructura de contenedores padre para evitar roturas visuales.
 
 **Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
+### 2026-04-27 — Fix: Resolución masiva de conflictos (Estrategia --ours)
+
+**Contexto:** Al ejecutar `git pull`, estalló un conflicto de fusión masivo afectando a la bitácora, scripts, HTMLs y binarios (PDFs). El origen de esta colisión fue la reescritura del historial local (`git reset --soft`) realizada en sesiones anteriores, lo que provocó que el servidor remoto conservara un historial "fantasma" obsoleto que colisionó con la línea temporal actual.
+
+**Hecho:** Se resolvieron los conflictos favoreciendo en bloque la versión local mediante el comando `git checkout --ours .`.
+
+**Detalle técnico:** En lugar de resolver manualmente archivo por archivo (imposible para los binarios `add/add`), se utilizó la estrategia de resolución de Git que impone el árbol de trabajo local (`HEAD`) sobre el remoto. Esto elimina los marcadores de conflicto y restaura la integridad de los archivos generados y del código fuente.
+
+**Motivo / criterio:** *Single Source of Truth (SSOT)*. Cuando se sabe con absoluta certeza que el entorno local contiene la última versión validada y segura del código (gracias al aislamiento DevSecOps), la maniobra más segura es descartar la rama remota divergente en bloque. Intentar fusionar código generado (SSG) manualmente es un antipatrón.
+
+**Siguiente paso o deuda:** Finalizar el commit de fusión y continuar a la Fase 9.
 
 ### 2026-04-27 — Fix: Resolución de conflicto de sobreescritura en `git pull`
 
@@ -201,18 +213,6 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** *Disaster Recovery* (Recuperación ante desastres). Proveer una herramienta CLI estandarizada que genere instantáneas locales (Snapshots) otorga confianza al desarrollador para realizar maniobras destructivas o refactorizaciones profundas sin depender exclusivamente del control de versiones remoto.
 
 **Siguiente paso o deuda:** Iniciar el desarrollo de la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
-
-### 2026-04-27 — Fix: Purga profunda de evidencias en el historial de Git
-
-**Contexto:** Aunque `.gitignore` prevenía la adición de nuevos archivos multimedia, si algún binario pesado en `laboratorio/evidencias/` había sido comiteado accidentalmente en el pasado, este seguiría existiendo en el historial profundo de Git, inflando el peso del repositorio y reapareciendo al restaurar versiones antiguas.
-
-**Hecho:** Se ejecutó una reescritura completa del historial de Git (`filter-branch`) para erradicar cualquier rastro de los archivos de la carpeta de evidencias en todos los commits anteriores.
-
-**Detalle técnico:** Se utilizó un filtro de índice en Git (`--index-filter`) para recorrer todo el árbol de commits y ejecutar `git rm --cached --ignore-unmatch` sobre la carpeta objetivo, seguido de un recolector de basura agresivo (`git gc --prune=now`) y un `git push --force` para sobrescribir el repositorio remoto.
-
-**Motivo / criterio:** *Repository Hygiene* (Higiene del Repositorio). Git es un sistema inmutable por defecto. Para eliminar una fuga de datos o un binario pesado de forma retroactiva, es obligatorio reescribir la historia. Esto garantiza clones rápidos y protege las cuotas de almacenamiento del servidor.
-
-**Siguiente paso o deuda:** Programar el script de copias de seguridad (Backup Local) en Python.
 
 ### 2026-04-27 — Fix: Exclusión estricta de evidencias del control de versiones
 
@@ -975,4 +975,4 @@ Copia el bloque y rellénalo.
 
 ---
 
-*Última revisión de la bitácora: 2026-04-27.*
+*Última revisión de la bitácora: 2026-04-28.*

@@ -32,7 +32,7 @@ deactivate
 ```
 
 **Motivo / criterio:**
-Aislamiento de sesiones y Cero Magia Negra. Las terminales externas del sistema operativo están diseñadas para ser agnósticas y seguras por defecto. No activan entornos ni modifican el `$PATH` sin una orden explícita del usuario (`source`). Entender que la "magia" de VS Code es solo automatización local evita horas de depuración al desplegar código en servidores o al cambiar de terminal.
+Aislamiento de sesiones y Cero Magia Negra. Las terminales externas del sistema operativo están diseñadas para ser agnósticas y seguras por defecto. No activan entornos ni modifican el `$PATH` sin una orden explícita (`source`). Entender que la "magia" de VS Code es solo automatización local evita horas de depuración al desplegar código en servidores o al cambiar de terminal.
 
 **Fuentes / Bibliografía:**
 - Documentación oficial de Python sobre creación y activación de entornos virtuales (`venv`).

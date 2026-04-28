@@ -5,7 +5,7 @@ tipo: "bitacora"
 tema: "Arquitectura y Rendimiento"
 volumen: 1
 fecha: "2026-04-21"
-estado: "publicado"
+estado: "borrador"
 portada: "portada-auditoria.webp"
 alt_portada: "Gráfico de puntuación 100 sobre 100 en todas las métricas de Google PageSpeed Insights."
 ---

@@ -593,7 +593,7 @@ Se complementa con una **auditoría manual de accesibilidad**: navegación compl
 
 **Detalle técnico:** Los navegadores web aplican la caché más agresiva posible a los archivos `favicon.ico`. Añadir un parámetro de versión (`?v=2`) en la URL obliga al navegador a considerar la petición como un recurso nuevo, ignorando la caché local. Además, `image/x-icon` es el tipo MIME universalmente reconocido para este formato.
 
-**Motivo / criterio (Aprendizaje):** Control de Caché en Assets. Siempre que se sustituya un archivo estático crítico sin cambiar su nombre, se debe forzar la invalidación de la caché local del usuario (Cache Busting) para asegurar que los cambios visuales se propaguen inmediatamente a producción.
+**Motivo / criterio (Aprendizaje):** Control de Caché en Assets. Siempre que se sustituya un archivo estático crítico sin cambiar su nombre, se debe forzar la invalidación de la caché local (Cache Busting) para asegurar que los cambios visuales se propaguen inmediatamente a producción.
 
 **Siguiente paso o deuda:** Desplegar el parche, validar la aparición del icono y ejecutar la auditoría de rendimiento.
 
@@ -2020,9 +2020,9 @@ FLUSH PRIVILEGES;
 
 **Detalle técnico:**
 - El script ahora ejecuta `git diff --quiet HEAD -- <ruta_bitacora>` antes de proceder.
-- Si el comando devuelve un código de salida 0 (sin cambios), se emite una alerta en la terminal y se solicita confirmación explícita del usuario para continuar.
+- Si el comando devuelve un código de salida 0 (sin cambios), se emite una alerta en la terminal y se solicita confirmación explícita para continuar.
 
-**Motivo / criterio:** Reforzar la disciplina de "documentación primero" y prevenir el ruido en el historial de Git. La confirmación del usuario mantiene la flexibilidad para casos excepcionales sin sacrificar la seguridad del flujo por defecto.
+**Motivo / criterio:** Reforzar la disciplina de "documentación primero" y prevenir el ruido en el historial de Git. La confirmación mantiene la flexibilidad para casos excepcionales sin sacrificar la seguridad del flujo por defecto.
 
 **Siguiente paso o deuda:** Retomar el desarrollo del `functions.php` del Child Theme (Fase 4.2).
 
