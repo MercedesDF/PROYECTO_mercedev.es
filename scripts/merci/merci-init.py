@@ -92,8 +92,10 @@ def main():
     
     # Purga selectiva de manuales operativos exclusivos de la matriz
     print("  🗑️  Purgando manuales SOP exclusivos del proyecto matriz...")
-    (REPO_ROOT / "docs" / "flujo-publicacion-sop.md").unlink(missing_ok=True)
-    (REPO_ROOT / "docs" / "mantenimiento-boilerplate-sop.md").unlink(missing_ok=True)
+    docs_matriz = REPO_ROOT / "docs" / "matriz"
+    if docs_matriz.exists():
+        import shutil
+        shutil.rmtree(docs_matriz)
     
     # 3. Intercambio Documental (Los Gemelos)
     print("  📄 Intercambiando documentación matriz por documentación agnóstica...")

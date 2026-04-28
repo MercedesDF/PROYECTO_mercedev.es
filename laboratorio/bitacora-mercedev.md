@@ -37,6 +37,28 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-28 — Docs: Principio de inmutabilidad en el registro histórico
+
+**Contexto:** Tras reubicar documentos operativos a la carpeta `docs/matriz/`, se debatió si actualizar las rutas absolutas mencionadas en entradas de la bitácora redactadas en días anteriores (Fase 7) para que coincidieran con la nueva topología.
+
+**Hecho:** Se decidió no modificar los registros pasados y asentar la regla estricta de inmutabilidad documental en el laboratorio.
+
+**Motivo / criterio:** *Append-Only Log* (Registro de solo adición). La bitácora es un documento forense que refleja la realidad técnica exacta del momento en que se escribió. Reescribir el pasado para ajustar rutas o nombres de archivos que cambiaron posteriormente destruye la trazabilidad y es un antipatrón de auditoría. Los cambios arquitectónicos se documentan siempre como nuevos eventos en el presente.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
+### 2026-04-28 — Refactor: Agrupación de SOPs exclusivos en subdirectorio matriz/
+
+**Contexto:** La purga selectiva de manuales en `merci-init.py` requería añadir manualmente cada nuevo archivo a eliminar, lo cual no es escalable si el proyecto matriz aumenta su documentación interna.
+
+**Hecho:**
+- Se creó el subdirectorio `docs/matriz/` y se movieron los archivos `flujo-publicacion-sop.md` y `mantenimiento-boilerplate-sop.md` mediante `git mv`.
+- Se actualizó `merci-init.py` para erradicar el directorio completo `docs/matriz/` de forma dinámica mediante `shutil.rmtree()`.
+
+**Motivo / criterio:** *Escalabilidad y Mantenibilidad*. Agrupar los documentos exclusivos del proyecto matriz en una única carpeta dedicada simplifica la lógica del script destructivo. Cualquier futuro manual interno depositado en esa carpeta quedará automáticamente excluido del Boilerplate sin necesidad de modificar código Python.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
 ### 2026-04-28 — Fix: Resolución de colisión de contexto (Enrutamiento en MerciController)
 
 **Contexto:** El asistente Merci repetía las frases del Blog al navegar por la Tienda. Esto ocurría porque la URL de la tienda (`/blog/tienda`) contiene el segmento `/blog`, provocando un falso positivo en la validación secuencial del controlador.
@@ -730,6 +752,7 @@ Copia el bloque y rellénalo.
 **Hecho:**
 - Se definió y documentó el Standard Operating Procedure (SOP) básico en el `README.md`.
 - Se creó el documento de arquitectura detallado `docs/flujo-publicacion-sop.md` explicando el ciclo de vida del conocimiento.
+- Se creó el documento de arquitectura detallado `docs/matriz/flujo-publicacion-sop.md` explicando el ciclo de vida del conocimiento.
 - Se estableció el pipeline secuencial: `pull` -> `promote` -> `publish` -> `total` -> `commit` -> `push`.
 - Se marcó el hito de mantenimiento del Roadmap como completado.
 
