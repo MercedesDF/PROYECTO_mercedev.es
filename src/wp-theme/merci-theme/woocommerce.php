@@ -1,9 +1,9 @@
 <?php
 // Resolutor dinámico de versiones
 $root_dir = dirname(ABSPATH) . '/mercedev.es/public';
-$css_v = file_exists($root_dir . '/css/main.css') ? filemtime($root_dir . '/css/main.css') : '10';
-$js_merci_v = file_exists($root_dir . '/js/MerciController.js') ? filemtime($root_dir . '/js/MerciController.js') : '10';
-$js_main_v = file_exists($root_dir . '/js/main.js') ? filemtime($root_dir . '/js/main.js') : '10';
+$css_v = time();
+$js_merci_v = time();
+$js_main_v = time();
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>

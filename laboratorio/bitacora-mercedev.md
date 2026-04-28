@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-28 — Fix: Soporte oficial WooCommerce y purga absoluta de caché PHP
+
+**Contexto:** La tienda ignoraba el archivo `woocommerce.php` y los dispositivos móviles seguían mostrando HTML/CSS cacheado en vistas dinámicas, impidiendo el uso del menú y ocultando al asistente.
+
+**Hecho:**
+- Se inyectó `add_theme_support('woocommerce')` en `functions.php` para obligar al plugin a respetar la jerarquía de plantillas del tema.
+- Se reemplazó la lógica `filemtime` por `time()` en los *Cache Busters* de las plantillas PHP para forzar peticiones únicas en cada recarga.
+- Se incrementó a `v=11` la versión de los *assets* en páginas HTML estáticas.
+
+**Motivo / criterio:** *Template Hierarchy y Cache Invalidation*. WooCommerce se protege a sí mismo sirviendo sus plantillas base si el tema activo no declara soporte explícito, ignorando `woocommerce.php`. Para entornos de desarrollo o infraestructuras con cachés agresivas, usar el *timestamp* actual (`time()`) es la única garantía de purga instantánea sin acceso directo al servidor.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
 ### 2026-04-28 — Fix: Rutas de caché dinámico en WP y alineación de footer
 
 **Contexto:** El menú móvil seguía sin funcionar en las vistas dinámicas (WordPress) debido a que la función de purga de caché PHP apuntaba a una ruta de servidor incorrecta, sirviendo versiones obsoletas del JS. Adicionalmente, el enlace "Volver arriba" interfería visualmente con el asistente Merci en pantallas pequeñas al estar centrado.
