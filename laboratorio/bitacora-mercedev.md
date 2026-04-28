@@ -208,6 +208,26 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
 
+### 2026-04-28 — Fix: Purga selectiva de SOPs en instanciación de Boilerplate
+
+**Contexto:** Se detectó que el script de inicialización (`merci-init.py`) exportaba la totalidad de la carpeta `docs/` al nuevo proyecto. Esto incluía manuales de procedimiento (SOP) exclusivos de la matriz (`flujo-publicacion-sop.md` y `mantenimiento-boilerplate-sop.md`), generando ruido documental y confusión para el usuario final del Boilerplate.
+
+**Hecho:** Se inyectó una rutina de borrado selectivo (`unlink`) para los archivos SOP específicos dentro de la fase de purga de `scripts/merci/merci-init.py`.
+
+**Motivo / criterio:** *Separation of Concerns* (Separación de Responsabilidades Documentales). La documentación de infraestructura (`deployment`, `hardening`) es agnóstica y debe viajar con la plantilla. La documentación de gobierno de repositorios y flujos de publicación personalizados pertenece exclusivamente a la "Instancia Cliente" (el proyecto matriz) y debe ser erradicada del código base redistribuible.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
+### 2026-04-28 — Docs: Creación del SOP de actualización del Boilerplate
+
+**Contexto:** Las instrucciones para actualizar el repositorio `merci-boilerplate` desde el proyecto matriz estaban definidas únicamente en la Regla 14 de `instrucciones.md` y en un cuadernillo divulgativo, dificultando su localización como manual operativo estricto.
+
+**Hecho:** Se redactó el documento `docs/mantenimiento-boilerplate-sop.md`.
+
+**Motivo / criterio:** *Operabilidad y SSOT*. Un proceso complejo de múltiples pasos que involucra clonaciones destructivas (`merci-init.py`), comandos nativos (`rm -rf`, `rsync`) y saltos entre repositorios debe estar centralizado en un documento SOP (Standard Operating Procedure) oficial para evitar errores humanos o pérdida de datos durante las futuras *releases*.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
 ### 2026-04-27 — Fix: Resolución de TypeError por firmas de funciones en SSG
 
 **Contexto:** El orquestador `merci-publish.py` colapsó con un `TypeError` (`takes 3 positional arguments but 6 were given`) al intentar compilar la biblioteca tras la actualización de caché móvil.
