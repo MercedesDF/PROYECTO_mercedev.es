@@ -37,6 +37,30 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-28 — Fix: Rutas de caché dinámico en WP y alineación de footer
+
+**Contexto:** El menú móvil seguía sin funcionar en las vistas dinámicas (WordPress) debido a que la función de purga de caché PHP apuntaba a una ruta de servidor incorrecta, sirviendo versiones obsoletas del JS. Adicionalmente, el enlace "Volver arriba" interfería visualmente con el asistente Merci en pantallas pequeñas al estar centrado.
+
+**Hecho:**
+- Se corrigió la ruta de `$root_dir` en `index.php` y `woocommerce.php` para apuntar correctamente al directorio estático en el servidor anfitrión (`/mercedev.es/public`).
+- Se refactorizó la estructura HTML del `<footer>` en todas las plantillas, alineando el texto a la izquierda y añadiendo un padding inferior de seguridad (`6rem`).
+
+**Motivo / criterio:** *Rutas Absolutas y Usabilidad (UX)*. Al usar enlaces simbólicos en Nginx, la constante `ABSPATH` de WordPress requiere una travesía de directorios explícita para localizar los archivos estáticos. A nivel de UI, aislar los elementos interactivos flotantes (Merci) de los enlaces base del footer previene clics accidentales (Fat Finger Syndrome) en dispositivos móviles.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
+### 2026-04-28 — Fix: Unificación de carga de assets y Cache Busting dinámico en WP
+
+**Contexto:** Una auditoría multidispositivo final reveló que, a pesar de los parches anteriores, las vistas dinámicas (Blog, Tienda) y la página estática de Contacto seguían mostrando versiones cacheadas de CSS y JS en tablets y móviles, rompiendo la UI de Merci y el menú.
+
+**Hecho:**
+- Se implementó la carga directa del `main.css` con `filemtime` en `index.php` y `woocommerce.php`, eliminando la dependencia del `functions.php`.
+- Se actualizaron manualmente la versión de los assets en `contacto/index.html` y `index.html` para forzar la purga de caché.
+
+**Motivo / criterio:** *Single Source of Truth* y *Cache Invalidation*. La gestión de assets debe ser consistente. Cargar todos los recursos del núcleo estático (CSS y JS) con la misma estrategia de versionado dinámico en todas las plantillas (estáticas y PHP) erradica definitivamente los problemas de caché y asegura la paridad visual y funcional entre todos los dispositivos.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
 ### 2026-04-28 — Fix: Unificación de carga de assets y Cache Busting dinámico en WP
 
 **Contexto:** Una auditoría multidispositivo final reveló que, a pesar de los parches anteriores, las vistas dinámicas (Blog, Tienda) y la página estática de Contacto seguían mostrando versiones cacheadas de CSS y JS en tablets y móviles, rompiendo la UI de Merci y el menú.
@@ -113,17 +137,7 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** Desplegar en producción y confirmar resolución en dispositivos móviles.
 
-### 2026-04-28 — Fix: Unificación de carga de assets y Cache Busting dinámico en WP
 
-**Contexto:** Una auditoría multidispositivo final reveló que, a pesar de los parches anteriores, las vistas dinámicas (Blog, Tienda) y la página estática de Contacto seguían mostrando versiones cacheadas de CSS y JS en tablets y móviles, rompiendo la UI de Merci y el menú.
-
-**Hecho:**
-- Se implementó la carga directa del `main.css` con `filemtime` en `index.php` y `woocommerce.php`, eliminando la dependencia del `functions.php`.
-- Se actualizaron manualmente la versión de los assets en `contacto/index.html` y `index.html` para forzar la purga de caché.
-
-**Motivo / criterio:** *Single Source of Truth* y *Cache Invalidation*. La gestión de assets debe ser consistente. Cargar todos los recursos del núcleo estático (CSS y JS) con la misma estrategia de versionado dinámico en todas las plantillas (estáticas y PHP) erradica definitivamente los problemas de caché y asegura la paridad visual y funcional entre todos los dispositivos.
-
-**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
 
 ### 2026-04-27 — Fix: Resolución de Caché Móvil y Bug de pointer-events (iOS Safari)
 

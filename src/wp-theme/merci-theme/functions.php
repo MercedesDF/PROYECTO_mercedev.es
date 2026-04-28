@@ -45,7 +45,7 @@ function merci_cargar_assets_estaticos() {
     // Al usar home_url(), esquivamos la inyección del puerto interno 8080 que Varnish hace en $_SERVER['HTTP_HOST'].
     // Luego, eliminamos el sufijo '/blog' para apuntar a la raíz estática pública.
     $domain_root = preg_replace('#/blog/?$#', '', home_url());
-    wp_enqueue_style('merci-core-styles', $domain_root . '/css/main.css', array(), '1.0.1', 'all');
+    // wp_enqueue_style('merci-core-styles', $domain_root . '/css/main.css', array(), '1.0.1', 'all');
     // Encolar el JavaScript unificado (el filtro de defer lo procesará automáticamente)
     wp_enqueue_script('merci-core-js', $domain_root . '/js/main.js', array(), '1.0.0', true);
 }

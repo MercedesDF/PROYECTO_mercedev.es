@@ -359,9 +359,9 @@ def main(): # type: ignore
     css_path = REPO_ROOT / "public/css/main.css"
     js_controller_path = REPO_ROOT / "public/js/MerciController.js"
     js_main_path = REPO_ROOT / "public/js/main.js"
-    css_version = int(css_path.stat().st_mtime) if css_path.exists() else '3'
-    js_controller_version = int(js_controller_path.stat().st_mtime) if js_controller_path.exists() else '1'
-    js_main_version = int(js_main_path.stat().st_mtime) if js_main_path.exists() else '1'
+    css_version = int(css_path.stat().st_mtime) if css_path.exists() else '10'
+    js_controller_version = int(js_controller_path.stat().st_mtime) if js_controller_path.exists() else '10'
+    js_main_version = int(js_main_path.stat().st_mtime) if js_main_path.exists() else '10'
 
     publicaciones_procesadas = []
 

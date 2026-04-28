@@ -3,10 +3,10 @@
 <head>
     <?php
     // Rompe-cachés dinámico para scripts: lee la fecha de modificación del archivo
-    $root_dir = dirname(ABSPATH) . '/public';
-    $css_v = file_exists($root_dir . '/css/main.css') ? filemtime($root_dir . '/css/main.css') : '5';
-    $js_merci_v = file_exists($root_dir . '/js/MerciController.js') ? filemtime($root_dir . '/js/MerciController.js') : '2';
-    $js_main_v = file_exists($root_dir . '/js/main.js') ? filemtime($root_dir . '/js/main.js') : '2';
+    $root_dir = dirname(ABSPATH) . '/mercedev.es/public';
+    $css_v = file_exists($root_dir . '/css/main.css') ? filemtime($root_dir . '/css/main.css') : '10';
+    $js_merci_v = file_exists($root_dir . '/js/MerciController.js') ? filemtime($root_dir . '/js/MerciController.js') : '10';
+    $js_main_v = file_exists($root_dir . '/js/main.js') ? filemtime($root_dir . '/js/main.js') : '10';
     ?>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -114,11 +114,11 @@
         </section>
     </main>
 
-    <footer class="footer">
-        <p class="footer__text">
+    <footer class="footer" style="text-align: left; padding-bottom: 6rem;">
+        <div class="footer__text">
+            <a href="#top" style="color: inherit; text-decoration: underline; font-weight: 600; display: inline-block; margin-bottom: 1rem;">↑ Volver arriba</a><br>
             &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
-            <span style="margin: 0 1rem;">|</span> <a href="#top" style="color: inherit; text-decoration: underline;">↑ Volver arriba</a>
-        </p>
+        </div>
     </footer>
 
     <!-- Asistente Merci -->
