@@ -21,4 +21,4 @@ echo '<link rel="stylesheet" href="/css/main.css?v=' . $css_v . '">';
 ```
 
 ## El Aprendizaje / Deuda Técnica
-Nunca se debe confiar en los simuladores de dispositivos de las herramientas de desarrollador (DevTools) para dar por validado el rendimiento web o los estilos. La paridad Dev/Prod exige pruebas en hardware físico real. Adicionalmente, el uso de funciones dinámicas como `time()` en entornos de producción debe vigilarse para evitar saturar el servidor anfitrión (Time To First Byte - TTFB), evaluando la transición a `filemtime()` cuando la topología de directorios lo permita de forma robusta.
+Nunca se debe confiar en los simuladores de dispositivos de las herramientas de desarrollador (DevTools) para dar por validado el rendimiento web o los estilos. La paridad Dev/Prod exige pruebas en hardware físico real. Adicionalmente, el uso de funciones dinámicas como `time()` en entornos de producción debe vigilarse para evitar saturar el servidor anfitrión (TTFB (Time To First Byte - Tiempo Hasta el Primer Byte)), evaluando la transición a `filemtime()` cuando la topología de directorios lo permita de forma robusta.

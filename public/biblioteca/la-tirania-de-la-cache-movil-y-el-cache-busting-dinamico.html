@@ -6,7 +6,7 @@
     <title>La tiranía de la caché móvil y el 'Cache Busting' dinámico — mercedev.es</title>
     <meta name="description" content="Cómo forzar a los navegadores móviles a actualizar CSS y JS en arquitecturas híbridas.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/la-tirania-de-la-cache-movil-y-el-cache-busting-dinamico.html">
-    <link rel="stylesheet" href="/css/main.css?v=1777384490">
+    <link rel="stylesheet" href="/css/main.css?v=1777384817">
     <script src="/js/MerciController.js?v=1777384458" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <script type="application/ld+json">
@@ -54,7 +54,7 @@
 echo '&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/main.css?v=' . $css_v . '&quot;&gt;';
 </code></pre>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Nunca se debe confiar en los simuladores de dispositivos de las herramientas de desarrollador (DevTools) para dar por validado el rendimiento web o los estilos. La paridad Dev/Prod exige pruebas en hardware físico real. Adicionalmente, el uso de funciones dinámicas como <code>time()</code> en entornos de producción debe vigilarse para evitar saturar el servidor anfitrión (Time To First Byte - TTFB), evaluando la transición a <code>filemtime()</code> cuando la topología de directorios lo permita de forma robusta.</p>
+<p>Nunca se debe confiar en los simuladores de dispositivos de las herramientas de desarrollador (DevTools) para dar por validado el rendimiento web o los estilos. La paridad Dev/Prod exige pruebas en hardware físico real. Adicionalmente, el uso de funciones dinámicas como <code>time()</code> en entornos de producción debe vigilarse para evitar saturar el servidor anfitrión (TTFB (Time To First Byte - Tiempo Hasta el Primer Byte)), evaluando la transición a <code>filemtime()</code> cuando la topología de directorios lo permita de forma robusta.</p>
             </div>
         </article>
     </main>
