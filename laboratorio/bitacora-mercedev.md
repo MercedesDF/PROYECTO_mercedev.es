@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-27 — Fix: Resolución de Caché Móvil y Bug de pointer-events (iOS Safari)
+
+**Contexto:** El asistente Merci funcionaba correctamente en la simulación móvil del PC, pero en un dispositivo físico real aparecía roto (posición estática al final de la página) y sus clics eran ignorados.
+
+**Hecho:** 
+- Se inyectaron *Cache Busters* (`?v=...`) en las etiquetas `<script>` y `<link>` en todas las plantillas HTML/PHP del proyecto.
+- Se eliminaron las reglas CSS `pointer-events: none` y `pointer-events: auto` del contenedor de Merci en SASS.
+
+**Detalle técnico:** El síntoma de disparidad entre el PC y el móvil físico es el indicador estándar de caché agresiva. El navegador móvil conservaba una versión antigua de `main.css` y `MerciController.js` en memoria. Adicionalmente, se retiró el uso de `pointer-events` cruzados debido a un bug conocido en WebKit (iOS Safari) donde el navegador se niega a registrar eventos de *touch/click* en elementos hijos si el contenedor padre tiene `pointer-events: none`.
+
+**Motivo / criterio:** *Cross-Browser Compatibility* (Compatibilidad entre navegadores). Inyectar versiones en los *assets* estáticos obliga a los móviles a purgar su caché y descargar el último código. Evitar "hacks" de CSS (`pointer-events`) en contenedores interactivos previene colapsos en motores de renderizado estrictos como los de Apple.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
 ### 2026-04-27 — Feat: Reubicación automática de borradores al laboratorio en SSG
 
 **Contexto:** Se estableció como regla de arquitectura que la carpeta `biblioteca/` no debe contener archivos en estado de incubación o borrador (Environment Segregation). Sin embargo, si un archivo era despublicado cambiando su YAML a `estado: "borrador"`, permanecía físicamente en la biblioteca, requiriendo su traslado manual.
@@ -62,6 +76,19 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** *Cross-Browser Compatibility* (Compatibilidad entre navegadores). Inyectar versiones en los *assets* estáticos obliga a los móviles a purgar su caché y descargar el último código. Evitar "hacks" de CSS (`pointer-events`) en contenedores interactivos previene colapsos en motores de renderizado estrictos como los de Apple.
 
 **Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
+### 2026-04-27 — Fix: Resolución de caché móvil y consistencia de plantillas
+
+**Contexto:** Una auditoría multidispositivo reveló que el asistente Merci y el menú móvil fallaban en tablets y teléfonos (CSS/JS rotos), y que las plantillas dinámicas (PHP) y estáticas (`contacto/`) tenían inconsistencias en el footer.
+
+**Hecho:**
+- Se implementó una estrategia de "Cache Busting" dinámico en `merci-publish.py` usando la fecha de modificación del archivo (`.stat().st_mtime`) como versión.
+- Se actualizaron manualmente las versiones en los archivos estáticos (`index.html`, `contacto/index.html`).
+- Se corrigió el placeholder `{{DOMINIO}}` en `src/wp-theme/merci-theme/index.php`.
+
+**Motivo / criterio:** *Dev/Prod Parity & Cache Invalidation*. La disparidad entre el PC y el móvil es un síntoma inequívoco de caché agresiva. Usar `filemtime` como versión es la técnica más robusta para forzar la purga. Corregir los placeholders y los footers desactualizados restaura la consistencia visual y funcional en todo el ecosistema híbrido.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía. Se asume la deuda de refactorizar las plantillas de WooCommerce para corregir su footer.
 
 ### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 

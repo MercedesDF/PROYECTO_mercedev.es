@@ -20,7 +20,7 @@
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     <header class="header">
         <a href="/" class="header__brand">
-            <img src="/assets/images/logo.webp?v=2" alt="{{DOMINIO}}" class="header__logo" width="263" height="65">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
         </a>
         <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
             <span class="header__toggle-icon"></span>
@@ -109,7 +109,7 @@
 
     <footer class="footer">
         <p class="footer__text">
-            &copy; 2026 <strong>{{DOMINIO}}</strong> — Base de código abierto bajo Licencia MIT.
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
             <span style="margin: 0 1rem;">|</span> <a href="#top" style="color: inherit; text-decoration: underline;">↑ Volver arriba</a>
         </p>
     </footer>

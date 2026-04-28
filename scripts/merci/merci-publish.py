@@ -198,9 +198,9 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     <title>{titulo} — mercedev.es</title>
     <meta name="description" content="{descripcion}">
     <link rel="canonical" href="{canonical_url}">
-    <link rel="stylesheet" href="/css/main.css?v=3">
-    <script src="/js/MerciController.js?v=1" defer></script>
-    <script src="/js/main.js?v=1" defer></script>
+    <link rel="stylesheet" href="/css/main.css?v={css_v}">
+    <script src="/js/MerciController.js?v={js_c_v}" defer></script>
+    <script src="/js/main.js?v={js_m_v}" defer></script>
     <script type="application/ld+json">
     {{
       "@context": "https://schema.org",
@@ -302,9 +302,9 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html):
     <title>Biblioteca — mercedev.es</title>
     <meta name="description" content="Índice de publicaciones técnicas y proyectos de la Biblioteca.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/">
-    <link rel="stylesheet" href="/css/main.css?v=3">
-    <script src="/js/MerciController.js?v=1" defer></script>
-    <script src="/js/main.js?v=1" defer></script>
+    <link rel="stylesheet" href="/css/main.css?v={css_v}">
+    <script src="/js/MerciController.js?v={js_c_v}" defer></script>
+    <script src="/js/main.js?v={js_m_v}" defer></script>
     <script type="application/ld+json">
     {{
       "@context": "https://schema.org",
@@ -333,7 +333,7 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html):
     out_path.write_text(html_final, encoding="utf-8")
     print("  ✅ Índice generado con éxito: public/biblioteca/index.html")
 
-def main():
+def main(): # type: ignore
     print("🚀 [Merci Publish] Iniciando orquestador de publicación...")
     
     # 0. Limpieza previa (Evitar archivos zombis)
@@ -354,17 +354,26 @@ def main():
         if m_match:
             footer_html += f"\n\n    {m_match.group(1)}"
 
+    # QUÉ HACE: Implementa "Cache Busting" dinámico usando la fecha de modificación del archivo.
+    # POR QUÉ: Obliga a los navegadores móviles a descargar la última versión de los assets.
+    css_path = REPO_ROOT / "public/css/main.css"
+    js_controller_path = REPO_ROOT / "public/js/MerciController.js"
+    js_main_path = REPO_ROOT / "public/js/main.js"
+    css_version = int(css_path.stat().st_mtime) if css_path.exists() else '3'
+    js_controller_version = int(js_controller_path.stat().st_mtime) if js_controller_path.exists() else '1'
+    js_main_version = int(js_main_path.stat().st_mtime) if js_main_path.exists() else '1'
+
     publicaciones_procesadas = []
 
     # QUÉ HACE: Lee recursivamente todos los archivos .md en la biblioteca y sus subcarpetas.
     # POR QUÉ: Permite al autor organizar los archivos fuente en subdirectorios temáticos 
     # sin alterar la estructura plana de URLs de salida (/biblioteca/archivo.html).
     for md_file in BIBLIOTECA_DIR.rglob("*.md"):
-        meta = procesar_archivo(md_file, header_html, footer_html)
+        meta = procesar_archivo(md_file, header_html, footer_html, css_version, js_controller_version, js_main_version)
         if meta:
             publicaciones_procesadas.append(meta)
             
-    generar_indice_biblioteca(publicaciones_procesadas, header_html, footer_html)
+    generar_indice_biblioteca(publicaciones_procesadas, header_html, footer_html, css_version, js_controller_version, js_main_version)
             
     print("🚀 [Merci Publish] Pipeline de conversión finalizado.")
 
