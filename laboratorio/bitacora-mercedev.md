@@ -37,6 +37,31 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-28 — Fix: Unificación de carga de assets y Cache Busting dinámico en WP
+
+**Contexto:** Una auditoría multidispositivo final reveló que, a pesar de los parches anteriores, las vistas dinámicas (Blog, Tienda) y la página estática de Contacto seguían mostrando versiones cacheadas de CSS y JS en tablets y móviles, rompiendo la UI de Merci y el menú.
+
+**Hecho:**
+- Se implementó la carga directa del `main.css` con `filemtime` en `index.php` y `woocommerce.php`, eliminando la dependencia del `functions.php`.
+- Se actualizaron manualmente la versión de los assets en `contacto/index.html` y `index.html` para forzar la purga de caché.
+
+**Motivo / criterio:** *Single Source of Truth* y *Cache Invalidation*. La gestión de assets debe ser consistente. Cargar todos los recursos del núcleo estático (CSS y JS) con la misma estrategia de versionado dinámico en todas las plantillas (estáticas y PHP) erradica definitivamente los problemas de caché y asegura la paridad visual y funcional entre todos los dispositivos.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
+### 2026-04-27 — Fix: Restauración de WooCommerce y dependencias dinámicas JS
+
+**Contexto:** Una auditoría móvil exhaustiva reveló que las páginas de WordPress (Blog/Tienda) no desplegaban el menú hamburguesa y que WooCommerce perdía todo el formato visual y estructural del tema.
+
+**Hecho:**
+- Se inyectó dinámicamente `main.js` en `index.php` utilizando `filemtime` para forzar la purga de caché.
+- Se creó el archivo `woocommerce.php` en el Child Theme copiando la estructura base monolítica.
+- Se aplicaron los Cache Busters (`?v=...`) y el ancla `#top` a la página estática `contacto/index.html`.
+
+**Motivo / criterio:** *Template Hierarchy* y Paridad. El fallo del menú en WP se debía a la omisión de `main.js` (donde reside el controlador de navegación). La rotura de la tienda se debía a que WooCommerce ignora `index.php` e inyecta su propio HTML desnudo a menos que exista un `woocommerce.php` explícito que envuelva su función `woocommerce_content()` dentro de nuestra arquitectura BEM.
+
+**Siguiente paso o deuda:** Desplegar en producción y confirmar resolución en dispositivos móviles.
+
 ### 2026-04-27 — Fix: Resolución de Caché Móvil y Bug de pointer-events (iOS Safari)
 
 **Contexto:** El asistente Merci funcionaba correctamente en la simulación móvil del PC, pero en un dispositivo físico real aparecía roto (posición estática al final de la página) y sus clics eran ignorados.
@@ -87,6 +112,18 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** *Template Hierarchy* y Paridad. El fallo del menú en WP se debía a la omisión de `main.js` (donde reside el controlador de navegación). La rotura de la tienda se debía a que WooCommerce ignora `index.php` e inyecta su propio HTML desnudo a menos que exista un `woocommerce.php` explícito que envuelva su función `woocommerce_content()` dentro de nuestra arquitectura BEM.
 
 **Siguiente paso o deuda:** Desplegar en producción y confirmar resolución en dispositivos móviles.
+
+### 2026-04-28 — Fix: Unificación de carga de assets y Cache Busting dinámico en WP
+
+**Contexto:** Una auditoría multidispositivo final reveló que, a pesar de los parches anteriores, las vistas dinámicas (Blog, Tienda) y la página estática de Contacto seguían mostrando versiones cacheadas de CSS y JS en tablets y móviles, rompiendo la UI de Merci y el menú.
+
+**Hecho:**
+- Se implementó la carga directa del `main.css` con `filemtime` en `index.php` y `woocommerce.php`, eliminando la dependencia del `functions.php`.
+- Se actualizaron manualmente la versión de los assets en `contacto/index.html` y `index.html` para forzar la purga de caché.
+
+**Motivo / criterio:** *Single Source of Truth* y *Cache Invalidation*. La gestión de assets debe ser consistente. Cargar todos los recursos del núcleo estático (CSS y JS) con la misma estrategia de versionado dinámico en todas las plantillas (estáticas y PHP) erradica definitivamente los problemas de caché y asegura la paridad visual y funcional entre todos los dispositivos.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
 
 ### 2026-04-27 — Fix: Resolución de Caché Móvil y Bug de pointer-events (iOS Safari)
 

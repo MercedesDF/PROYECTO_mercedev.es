@@ -1,6 +1,7 @@
 <?php
 // Resolutor dinámico de versiones
 $root_dir = dirname(ABSPATH) . '/public';
+$css_v = file_exists($root_dir . '/css/main.css') ? filemtime($root_dir . '/css/main.css') : '5';
 $js_merci_v = file_exists($root_dir . '/js/MerciController.js') ? filemtime($root_dir . '/js/MerciController.js') : '2';
 $js_main_v = file_exists($root_dir . '/js/main.js') ? filemtime($root_dir . '/js/main.js') : '2';
 ?>
@@ -10,6 +11,7 @@ $js_main_v = file_exists($root_dir . '/js/main.js') ? filemtime($root_dir . '/js
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/favicon.ico?v=3" type="image/x-icon">
+    <link rel="stylesheet" href="/css/main.css?v=<?php echo $css_v; ?>">
     <script src="/js/MerciController.js?v=<?php echo $js_merci_v; ?>" defer></script>
     <script src="/js/main.js?v=<?php echo $js_main_v; ?>" defer></script>
     <?php wp_head(); ?>

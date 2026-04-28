@@ -4,6 +4,7 @@
     <?php
     // Rompe-cachés dinámico para scripts: lee la fecha de modificación del archivo
     $root_dir = dirname(ABSPATH) . '/public';
+    $css_v = file_exists($root_dir . '/css/main.css') ? filemtime($root_dir . '/css/main.css') : '5';
     $js_merci_v = file_exists($root_dir . '/js/MerciController.js') ? filemtime($root_dir . '/js/MerciController.js') : '2';
     $js_main_v = file_exists($root_dir . '/js/main.js') ? filemtime($root_dir . '/js/main.js') : '2';
     ?>
@@ -12,12 +13,11 @@
     
     <!-- Favicon explícito para la capa dinámica y Mercí -->
     <link rel="icon" href="/favicon.ico?v=3" type="image/x-icon">
+    <link rel="stylesheet" href="/css/main.css?v=<?php echo $css_v; ?>">
     <script src="/js/MerciController.js?v=<?php echo $js_merci_v; ?>" defer></script>
     <script src="/js/main.js?v=<?php echo $js_main_v; ?>" defer></script>
 
     <?php 
-    // wp_head() es el anclaje obligatorio. 
-    // Aquí aterrizará nuestro /assets/main.css gracias al functions.php
     wp_head(); 
     ?>
 </head>
