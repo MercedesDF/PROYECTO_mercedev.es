@@ -8,6 +8,7 @@ Transforma documentos Markdown de la biblioteca en páginas HTML estáticas.
 import argparse
 import re
 import sys
+import shutil
 import unicodedata
 from pathlib import Path
 
@@ -98,8 +99,16 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
             print(f"  🗑️  Despublicando (Estado: {estado}): Eliminando artefactos de {filepath.name}")
             if html_target.exists(): html_target.unlink()
             if pdf_target.exists(): pdf_target.unlink()
-        else:
-            print(f"  ⏭️  Saltando (Estado: {estado}): {filepath.name}")
+            
+        # QUÉ HACE: Expulsa físicamente el archivo origen hacia el entorno de incubación.
+        # POR QUÉ: Principio de segregación de entornos. La biblioteca no admite borradores.
+        destino_laboratorio = REPO_ROOT / "laboratorio" / filepath.name
+        print(f"  🔙 Expulsando (Estado: {estado}): Moviendo '{filepath.name}' de vuelta al laboratorio.")
+        try:
+            shutil.move(str(filepath), str(destino_laboratorio))
+        except Exception as e:
+            print(f"  ❌ Error al reubicar {filepath.name}: {e}")
+            
         return False
         
     # [QA ACCESIBILIDAD]: WAI-ARIA estricto. Bloquea si falta la descripción visual de la portada.

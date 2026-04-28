@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-27 — Feat: Reubicación automática de borradores al laboratorio en SSG
+
+**Contexto:** Se estableció como regla de arquitectura que la carpeta `biblioteca/` no debe contener archivos en estado de incubación o borrador (Environment Segregation). Sin embargo, si un archivo era despublicado cambiando su YAML a `estado: "borrador"`, permanecía físicamente en la biblioteca, requiriendo su traslado manual.
+
+**Hecho:** Se implementó una rutina de reubicación física en la máquina de estados de `scripts/merci/merci-publish.py`.
+
+**Detalle técnico:** En el bloque de control del "Kill-Switch", si un documento no tiene el estado `publicado`, además de purgar sus artefactos HTML/PDF generados, el orquestador utiliza `shutil.move()` para trasladar el archivo `.md` original de vuelta al directorio `laboratorio/`.
+
+**Motivo / criterio:** *Automation & Environment Segregation*. Un entorno DevSecOps maduro no confía en la disciplina manual para mantener la higiene de los directorios. El orquestador actúa como un agente activo que expulsa el contenido no válido del entorno de producción hacia la zona de pruebas.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
 ### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 
 **Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-04-28.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
