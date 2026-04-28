@@ -198,9 +198,9 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
     <title>{titulo} — mercedev.es</title>
     <meta name="description" content="{descripcion}">
     <link rel="canonical" href="{canonical_url}">
-    <link rel="stylesheet" href="/css/main.css">
-    <script src="/js/MerciController.js" defer></script>
-    <script src="/js/main.js" defer></script>
+    <link rel="stylesheet" href="/css/main.css?v=3">
+    <script src="/js/MerciController.js?v=1" defer></script>
+    <script src="/js/main.js?v=1" defer></script>
     <script type="application/ld+json">
     {{
       "@context": "https://schema.org",
@@ -302,9 +302,9 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html):
     <title>Biblioteca — mercedev.es</title>
     <meta name="description" content="Índice de publicaciones técnicas y proyectos de la Biblioteca.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/">
-    <link rel="stylesheet" href="/css/main.css">
-    <script src="/js/MerciController.js" defer></script>
-    <script src="/js/main.js" defer></script>
+    <link rel="stylesheet" href="/css/main.css?v=3">
+    <script src="/js/MerciController.js?v=1" defer></script>
+    <script src="/js/main.js?v=1" defer></script>
     <script type="application/ld+json">
     {{
       "@context": "https://schema.org",

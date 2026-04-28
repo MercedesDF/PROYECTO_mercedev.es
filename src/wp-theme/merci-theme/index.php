@@ -6,7 +6,7 @@
     
     <!-- Favicon explícito para la capa dinámica y Mercí -->
     <link rel="icon" href="/favicon.ico?v=3" type="image/x-icon">
-    <script src="/js/MerciController.js" defer></script>
+    <script src="/js/MerciController.js?v=1" defer></script>
 
     <?php 
     // wp_head() es el anclaje obligatorio. 

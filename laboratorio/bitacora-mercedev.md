@@ -49,6 +49,20 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
 
+### 2026-04-27 — Fix: Resolución de Caché Móvil y Bug de pointer-events (iOS Safari)
+
+**Contexto:** El asistente Merci funcionaba correctamente en la simulación móvil del PC, pero en un dispositivo físico real aparecía roto (posición estática al final de la página) y sus clics eran ignorados.
+
+**Hecho:** 
+- Se inyectaron *Cache Busters* (`?v=...`) en las etiquetas `<script>` y `<link>` en todas las plantillas HTML/PHP del proyecto.
+- Se eliminaron las reglas CSS `pointer-events: none` y `pointer-events: auto` del contenedor de Merci en SASS.
+
+**Detalle técnico:** El síntoma de disparidad entre el PC y el móvil físico es el indicador estándar de caché agresiva. El navegador móvil conservaba una versión antigua de `main.css` y `MerciController.js` en memoria. Adicionalmente, se retiró el uso de `pointer-events` cruzados debido a un bug conocido en WebKit (iOS Safari) donde el navegador se niega a registrar eventos de *touch/click* en elementos hijos si el contenedor padre tiene `pointer-events: none`.
+
+**Motivo / criterio:** *Cross-Browser Compatibility* (Compatibilidad entre navegadores). Inyectar versiones en los *assets* estáticos obliga a los móviles a purgar su caché y descargar el último código. Evitar "hacks" de CSS (`pointer-events`) en contenedores interactivos previene colapsos en motores de renderizado estrictos como los de Apple.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
 ### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 
 **Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-04-28.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.

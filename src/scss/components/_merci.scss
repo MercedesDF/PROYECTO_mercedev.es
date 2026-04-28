@@ -14,14 +14,12 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 0.5rem;
-    pointer-events: none; // Permite hacer clic en la web a través del contenedor invisible
 
     &__trigger {
         background: none;
         border: none;
         padding: 0;
         cursor: pointer;
-        pointer-events: auto; // Reactiva el clic solo en el botón
         transition: transform 0.3s ease;
         border-radius: 50%;
 
@@ -47,7 +45,6 @@
         padding: 0.5rem 1rem;
         border-radius: 1rem 1rem 0 1rem; // Forma de burbuja de chat
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        pointer-events: auto;
         max-width: 200px;
         font-size: 0.875rem;
         font-weight: 600;
