@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-28 — Fix: Resolución de colisión de contexto (Enrutamiento en MerciController)
+
+**Contexto:** El asistente Merci repetía las frases del Blog al navegar por la Tienda. Esto ocurría porque la URL de la tienda (`/blog/tienda`) contiene el segmento `/blog`, provocando un falso positivo en la validación secuencial del controlador.
+
+**Hecho:** Se inyectó una cláusula condicional específica para `/tienda` en el método `_loadKnowledgeBase()` de `public/js/MerciController.js`.
+
+**Detalle técnico:** En enrutamientos de frontend basados en coincidencias de subcadenas (`String.prototype.includes()`), el orden de evaluación es estricto. Se ubicó la validación de `/tienda` estructuralmente *antes* que la de `/blog` para que el bloque `if` intercepte la ruta anidada más específica en primer lugar.
+
+**Motivo / criterio:** *Context-Awareness* (Conciencia de contexto). Para que un agente conversacional mantenga la coherencia, la inferencia de su entorno debe manejar correctamente las colisiones de directorios. 
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
 ### 2026-04-28 — Fix: Expansión de acrónimos rezagados (TTFB y CPU)
 
 **Contexto:** La auditoría pre-commit (`merci-audit.py`) detectó acrónimos no expandidos (TTFB y CPU) en la bitácora y en cuadernillos promovidos a la biblioteca, bloqueando el empaquetado para asegurar la accesibilidad cognitiva.

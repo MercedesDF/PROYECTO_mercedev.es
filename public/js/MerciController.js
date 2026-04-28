@@ -64,6 +64,12 @@ class MerciController {
                 'I+D, experimentos y hallazgos colaterales 🧪',
                 'Esta zona la sirve WordPress de forma aislada 🛡️'
             ];
+        } else if (path.includes('/tienda')) {
+            return [
+                '¡Bienvenida a la Tienda! 🛒',
+                'Merchandising y catálogo oficial.',
+                'Gestionado por WooCommerce bajo el capó 🛍️'
+            ];
         } else if (path.includes('/blog')) {
             return [
                 'Estás en el Blog ✍️',
