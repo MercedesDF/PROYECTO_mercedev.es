@@ -60,7 +60,7 @@ def limpiar_directorio_salida():
                 except OSError as e:
                     print(f"  ⚠️ No se pudo borrar {item.name}: {e}")
 
-def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
+def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: int, js_c_v: int, js_m_v: int):
     print(f"📖 Leyendo: {filepath.name}...")
     content = filepath.read_text(encoding="utf-8")
     
@@ -252,7 +252,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str):
         "tema": tema
     }
 
-def generar_indice_biblioteca(publicaciones, header_html, footer_html):
+def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: int, js_c_v: int, js_m_v: int):
     print("📖 Generando índice temático de la Biblioteca...")
     
     # Agrupar publicaciones por tema (Estanterías)

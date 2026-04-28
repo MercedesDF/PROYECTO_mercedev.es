@@ -63,6 +63,18 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
 
+### 2026-04-27 — Fix: Resolución de TypeError por firmas de funciones en SSG
+
+**Contexto:** El orquestador `merci-publish.py` colapsó con un `TypeError` (`takes 3 positional arguments but 6 were given`) al intentar compilar la biblioteca tras la actualización de caché móvil.
+
+**Hecho:** Se actualizaron las firmas de las funciones `procesar_archivo` y `generar_indice_biblioteca` para aceptar los parámetros de versión dinámica.
+
+**Detalle técnico:** Durante la implementación del *Cache Busting*, se añadieron tres nuevos argumentos en las invocaciones de las funciones dentro de `main()`, pero se omitió actualizar la definición de las mismas. Se inyectaron los argumentos `css_v`, `js_c_v` y `js_m_v` requeridos por las plantillas f-string internas.
+
+**Motivo / criterio:** *Code Consistency* (Consistencia del código). Las definiciones de las funciones deben alinearse estrictamente con los argumentos inyectados y las interpolaciones generadas en las vistas HTML.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
 ### 2026-04-27 — Fix: Resolución de Caché Móvil y Bug de pointer-events (iOS Safari)
 
 **Contexto:** El asistente Merci funcionaba correctamente en la simulación móvil del PC, pero en un dispositivo físico real aparecía roto (posición estática al final de la página) y sus clics eran ignorados.
