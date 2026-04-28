@@ -37,6 +37,16 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-28 — Fix: Expansión de acrónimos rezagados (TTFB y CPU)
+
+**Contexto:** La auditoría pre-commit (`merci-audit.py`) detectó acrónimos no expandidos (TTFB y CPU) en la bitácora y en cuadernillos promovidos a la biblioteca, bloqueando el empaquetado para asegurar la accesibilidad cognitiva.
+
+**Hecho:** Se expandieron los acrónimos `TTFB` y `CPU` siguiendo el estándar `Acrónimo (Inglés - Español)` en los archivos correspondientes.
+
+**Motivo / criterio:** *Inclusión Cognitiva*. La auditoría es implacable por diseño: cualquier nuevo acrónimo introducido en la documentación debe ser explicado en su primera aparición para no generar deuda técnica documental.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
 ### 2026-04-28 — Fix: Resolución de TypeError por método inexistente en MerciController
 
 **Contexto:** Al interactuar con el asistente Merci en el entorno local, la consola del navegador arrojaba el error fatal `Uncaught TypeError: this.setState is not a function`.
@@ -622,7 +632,7 @@ Copia el bloque y rellénalo.
 - Se creó la clase `MerciController` en Vanilla JS (Programación Orientada a Objetos) actuando como máquina de estados.
 - Se inyectó el componente HTML accesible en `public/index.html`, `public/contacto/index.html`, `src/wp-theme/merci-theme/index.php` y en el orquestador `merci-publish.py`.
 
-**Detalle técnico:** En lugar de manipular el DOM y las coordenadas con JavaScript, el controlador interacciona estrictamente alternando atributos semánticos (`aria-hidden`, `aria-expanded`). Es el CSS el que reacciona a estos cambios de estado ARIA ejecutando transiciones suaves por GPU (`opacity`, `transform`). Esto garantiza un coste de CPU del 0% cuando el asistente está inactivo y asegura que los usuarios de teclado puedan tabular hacia él mediante el uso de un `<button>` nativo.
+**Detalle técnico:** En lugar de manipular el DOM y las coordenadas con JavaScript, el controlador interacciona estrictamente alternando atributos semánticos (`aria-hidden`, `aria-expanded`). Es el CSS el que reacciona a estos cambios de estado ARIA ejecutando transiciones suaves por GPU (`opacity`, `transform`). Esto garantiza un coste de CPU (Central Processing Unit - Unidad Central de Procesamiento) del 0% cuando el asistente está inactivo y asegura que los usuarios de teclado puedan tabular hacia él mediante el uso de un `<button>` nativo.
 
 **Motivo / criterio:** *Rendimiento Extremo y Accesibilidad Universal*. Al anclar visualmente al asistente y delegar las animaciones al motor de hojas de estilo, erradicamos el temido Cumulative Layout Shift (CLS) y evitamos secuestrar el hilo principal (Main Thread) del navegador, manteniendo intacta nuestra puntuación de 100/100 en Core Web Vitals sin usar librerías externas de terceros.
 
