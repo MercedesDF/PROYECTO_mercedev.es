@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps — mercedev.es</title>
+    <meta name="description" content="Solución al problema de autodescubrimiento de rutas en Python al usar alias absolutos en la terminal (Fantasmas en RAM).">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/alias-inteligentes-context-aware-para-ecosistemas-devsecops.html">
+    <link rel="stylesheet" href="/css/main.css?v=1777365901">
+    <script src="/js/MerciController.js?v=1777152851" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps",
+      "description": "Solución al problema de autodescubrimiento de rutas en Python al usar alias absolutos en la terminal (Fantasmas en RAM).",
+      "url": "https://mercedev.es/biblioteca/alias-inteligentes-context-aware-para-ecosistemas-devsecops.html"
+    }
+    </script>
+</head>
+<body class="page">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca" class="nav__link">Biblioteca</a>
+            <a href="/blog" class="nav__link">Blog</a>
+            <a href="/blog/category/art-de-cote" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda" class="nav__link">Tienda</a>
+            <a href="/contacto" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--book">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                <h1 class="home-card__title--highlight">Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps</h1>
+                <a href="/descargas/alias-inteligentes-context-aware-para-ecosistemas-devsecops.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <p><strong>Contexto:</strong>
+Al ejecutar el orquestador local (<code>merci-total</code>) desde la terminal en un nuevo repositorio derivado (<em>Merci Boilerplate</em>), el sistema auditaba por error el proyecto padre original (<code>mercedev.es</code>) en lugar del directorio activo. Esto ocurrió porque se habían configurado alias de terminal (<code>~/.zshrc</code>) con rutas absolutas. Al ejecutar el script del proyecto padre, Python utilizó <code>Path(__file__).resolve().parents</code> para descubrir su propia ubicación física, auditando en consecuencia la carpeta donde residía el archivo y no el directorio actual de la terminal.</p>
+<p><strong>Hecho:</strong>
+- Se descartó la práctica de definir alias estáticos (<code>alias merci-total="python3 /ruta/absoluta/..."</code>).
+- Se reemplazaron los alias por una función Bash inteligente sensible al contexto en el perfil de la terminal.
+- Se diagnosticó y purgó la caché de la sesión de la terminal que retenía en memoria el alias obsoleto, causando falsos positivos durante la prueba.</p>
+<p><strong>Detalle técnico:</strong>
+Se inyectó el siguiente bloque de código en el archivo de configuración del usuario (<code>~/.zshrc</code> o <code>~/.bashrc</code>):</p>
+<pre><code class="language-bash"># Motor Merci - Ejecutor Inteligente
+merci() {
+    if [ -f &quot;scripts/merci/merci-$1.py&quot; ]; then
+        python3 &quot;scripts/merci/merci-$1.py&quot;
+    else
+        echo &quot;🛡️ [Merci Error] No estás en la raíz de un proyecto Merci o el comando '$1' no existe.&quot;
+    fi
+}
+</code></pre>
+<p>Al posicionarse en la raíz de cualquier repositorio que contenga la estructura del proyecto, el desarrollador simplemente invoca <code>merci total</code> o <code>merci audit</code>. La función buscará la ruta relativa e invocará al script correcto.</p>
+<p><em>Nota de depuración (Fantasmas en RAM):</em> Si tras borrar los alias antiguos el sistema sigue ejecutando la ruta anterior (ej. al escribir <code>merci-total</code> por costumbre), se debe a que la sesión activa mantiene los alias vivos en la memoria volátil. Para purgar el estado, se debe ejecutar explícitamente <code>unalias merci-total</code> o abrir una nueva pestaña de terminal.</p>
+<p><strong>Motivo / criterio:</strong>
+Universalidad y portabilidad (DX - Developer Experience). Un alias absoluto rompe el aislamiento del entorno, forzando comandos en repositorios ajenos. Una función "Context-Aware" (Consciente del Contexto) permite trabajar con múltiples copias del Boilerplate en la misma máquina utilizando la misma sintaxis global. Además, comprender el ciclo de vida de los procesos en memoria evita horas de depuración innecesaria.</p>
+<p><strong>Fuentes / Bibliografía:</strong>
+- Asistencia mediante IA sobre el comportamiento del método <code>resolve().parents</code> en librerías de autodescubrimiento de Python.
+- Asistencia mediante IA sobre la retención en memoria (RAM) de alias obsoletos en sesiones de Bash/Zsh.</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <p class="footer__text">
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+            <span style="margin: 0 1rem;">|</span> <a href="#top" style="color: inherit; text-decoration: underline;">↑ Volver arriba</a>
+        </p>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>
