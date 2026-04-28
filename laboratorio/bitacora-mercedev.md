@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-28 — Docs: Auditoría externa de IA y expansión del Roadmap (Fase 11)
+
+**Contexto:** Tras cerrar la Fase 10 (Release 1.0.0 del Boilerplate), se sometió el repositorio a un análisis externo (Copilot). El dictamen situó la arquitectura en el top 1-3% global por rigor DevSecOps y optimización, y sugirió mejoras de integración en la nube.
+
+**Hecho:**
+- Se filtraron las propuestas, rechazando las que requerían dependencias pesadas (Cypress, telemetría) y aceptando las de CI/CD puro.
+- Se inyectó la nueva "Fase 11: Integración Continua y Calidad en la Nube" en el Roadmap del `README.md` e `instrucciones.md` (GitHub Actions, Lighthouse CI e Issue Templates).
+
+**Motivo / criterio:** *Continuous Improvement* (Mejora Continua). La validación externa confirma la solidez fundacional. Adoptar flujos de CI en la nube alinea el proyecto con estándares corporativos Enterprise, delegando la auditoría al servidor sin engordar el código fuente local ni violar la política de cero dependencias bloqueantes.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
 ### 2026-04-28 — Docs: Principio de inmutabilidad en el registro histórico
 
 **Contexto:** Tras reubicar documentos operativos a la carpeta `docs/matriz/`, se debatió si actualizar las rutas absolutas mencionadas en entradas de la bitácora redactadas en días anteriores (Fase 7) para que coincidieran con la nueva topología.
