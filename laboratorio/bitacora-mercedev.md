@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-28 — Fix: Resolución de TypeError por método inexistente en MerciController
+
+**Contexto:** Al interactuar con el asistente Merci en el entorno local, la consola del navegador arrojaba el error fatal `Uncaught TypeError: this.setState is not a function`.
+
+**Hecho:** Se corrigió la asignación de estado en el método `sleep()` de `public/js/MerciController.js`.
+
+**Detalle técnico:** Se reemplazó la llamada al método inexistente `this.setState('idle')` por la asignación directa de la propiedad `this.state = 'idle'`.
+
+**Motivo / criterio:** *Vanilla JS vs Frameworks*. El uso de `setState` es un remanente o confusión común procedente de frameworks reactivos (como React). En una arquitectura de 0 dependencias con POO estricta, si no se declara un *setter* explícito, el estado se muta directamente sobre la propiedad de la instancia para evitar colapsos de ejecución.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía.
+
 ### 2026-04-28 — Docs: Redacción de cuadernillos técnicos (QA, Git y WP)
 
 **Contexto:** Antes de sellar la nueva versión base del ecosistema, era imperativo transformar las resoluciones técnicas críticas de la última sesión (conflictos de Git, caché móvil y jerarquía de WooCommerce) en activos de conocimiento reutilizables.

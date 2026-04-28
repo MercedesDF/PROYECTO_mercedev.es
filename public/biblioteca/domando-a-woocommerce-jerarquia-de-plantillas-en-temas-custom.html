@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentación como Código: El README.md como Única Fuente de Verdad — mercedev.es</title>
-    <meta name="description" content="Cómo la desincronización documental genera deuda técnica y rompe la confianza en el repositorio.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.html">
+    <title>Domando a WooCommerce: Jerarquía de plantillas en temas custom — mercedev.es</title>
+    <meta name="description" content="Resolución del secuestro de plantillas por parte de WooCommerce en arquitecturas minimalistas.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom.html">
     <link rel="stylesheet" href="/css/main.css?v=1777372029">
     <script src="/js/MerciController.js?v=1777152851" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Documentación como Código: El README.md como Única Fuente de Verdad",
-      "description": "Cómo la desincronización documental genera deuda técnica y rompe la confianza en el repositorio.",
-      "url": "https://mercedev.es/biblioteca/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.html"
+      "headline": "Domando a WooCommerce: Jerarquía de plantillas en temas custom",
+      "description": "Resolución del secuestro de plantillas por parte de WooCommerce en arquitecturas minimalistas.",
+      "url": "https://mercedev.es/biblioteca/domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom.html"
     }
     </script>
 </head>
@@ -41,17 +41,19 @@
         <article class="card card--booklet">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">Documentación como Código: El README.md como Única Fuente de Verdad</h1>
-                <a href="/descargas/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">Domando a WooCommerce: Jerarquía de plantillas en temas custom</h1>
+                <a href="/descargas/domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Durante la revisión del repositorio, el sistema automatizado de QA (Quality Assurance - Aseguramiento de Calidad) detectó que el archivo maestro <code>README.md</code> presentaba bloques de código rotos, omisiones críticas de scripts del orquestador (<code>merci-commit.py</code>) y acrónimos técnicos sin expandir (como JSON-LD).</p>
+<p>Al integrar la tienda en la arquitectura híbrida, WooCommerce destruyó por completo el diseño estructural del proyecto. La página de la tienda carecía de cabecera (<code>&lt;header&gt;</code>), pie de página (<code>&lt;footer&gt;</code>) y CSS, rompiendo la experiencia de usuario. El plugin ignoraba el archivo <code>index.php</code> del Child Theme y escupía un HTML desnudo.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se reconstruyó la jerarquía Markdown del documento principal para reflejar con exactitud la topología real del proyecto. Se inyectaron las definiciones faltantes y se resolvieron las advertencias del linter estático de forma proactiva, sellando el código y la documentación en un único commit atómico.</p>
+<p>Se requirieron dos acciones simultáneas para recuperar el control arquitectónico:
+1. <strong>Declaración de soporte:</strong> Se inyectó <code>add_theme_support('woocommerce')</code> en el archivo <code>functions.php</code>. Esto desactiva el mecanismo de autodefensa del plugin.
+2. <strong>Envoltorio explícito:</strong> Se creó el archivo <code>woocommerce.php</code> en la raíz del tema, replicando la estructura HTML monolítica del proyecto (<code>&lt;body&gt;&lt;header&gt;...&lt;/header&gt;&lt;main&gt;</code>) e inyectando la función <code>woocommerce_content()</code> en el interior del bloque deseado.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Aplicar el paradigma SSOT (Single Source of Truth - Única Fuente de Verdad) significa que la infraestructura y la documentación no pueden vivir realidades paralelas. </p>
-<p>El archivo <code>README.md</code> no es un mero adorno; es la primera línea de defensa arquitectónica. Si un documento maestro miente por omisión, el desarrollador que hereda el proyecto terminará ejecutando maniobras manuales inseguras, rompiendo la filosofía <em>Shift-Left</em>. Tratar la documentación con el mismo rigor sintáctico y semántico que el código fuente es un pilar innegociable de la ingeniería de software madura.</p>
+<p>Los sistemas dinámicos complejos o CMS (Content Management System - Sistema de Gestión de Contenidos) como WordPress poseen jerarquías de plantillas (Template Hierarchy) estrictas. Si un tema <em>custom</em> o un Boilerplate minimalista no declara sus intenciones explícitamente mediante <em>hooks</em>, los plugins asumen que el tema es incapaz de renderizarlos y ejecutan rutinas de <em>fallback</em> invasivas. </p>
+<p>Mantener el control de la capa visual en ecosistemas híbridos exige dominar y neutralizar estas inyecciones por defecto, como también se demostró al purgar el CSS basura inyectado por los bloques de WooCommerce (<code>wp_dequeue_style('wc-blocks-style')</code>) para proteger las métricas de rendimiento 100/100.</p>
             </div>
         </article>
     </main>

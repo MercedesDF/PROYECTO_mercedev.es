@@ -4,7 +4,7 @@ descripcion: "Resolución del secuestro de plantillas por parte de WooCommerce e
 tipo: "cuadernillo"
 tema: "DevSecOps y Arquitectura"
 fecha: "2026-04-28"
-estado: "borrador"
+estado: "publicado"
 alt_portada: "Diagrama ilustrando a WooCommerce inyectando su contenido dentro de una plantilla controlada por el usuario."
 ---
 

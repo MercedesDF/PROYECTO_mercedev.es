@@ -4,7 +4,7 @@ descripcion: "Cómo forzar a los navegadores móviles a actualizar CSS y JS en a
 tipo: "cuadernillo"
 tema: "Rendimiento y UX"
 fecha: "2026-04-28"
-estado: "borrador"
+estado: "publicado"
 alt_portada: "Esquema visual de un navegador móvil ignorando la caché gracias a parámetros dinámicos de versión en la URL."
 ---
 

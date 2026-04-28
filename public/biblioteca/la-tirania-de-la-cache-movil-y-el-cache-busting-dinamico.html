@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentación como Código: El README.md como Única Fuente de Verdad — mercedev.es</title>
-    <meta name="description" content="Cómo la desincronización documental genera deuda técnica y rompe la confianza en el repositorio.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.html">
+    <title>La tiranía de la caché móvil y el 'Cache Busting' dinámico — mercedev.es</title>
+    <meta name="description" content="Cómo forzar a los navegadores móviles a actualizar CSS y JS en arquitecturas híbridas.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/la-tirania-de-la-cache-movil-y-el-cache-busting-dinamico.html">
     <link rel="stylesheet" href="/css/main.css?v=1777372029">
     <script src="/js/MerciController.js?v=1777152851" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Documentación como Código: El README.md como Única Fuente de Verdad",
-      "description": "Cómo la desincronización documental genera deuda técnica y rompe la confianza en el repositorio.",
-      "url": "https://mercedev.es/biblioteca/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.html"
+      "headline": "La tiranía de la caché móvil y el 'Cache Busting' dinámico",
+      "description": "Cómo forzar a los navegadores móviles a actualizar CSS y JS en arquitecturas híbridas.",
+      "url": "https://mercedev.es/biblioteca/la-tirania-de-la-cache-movil-y-el-cache-busting-dinamico.html"
     }
     </script>
 </head>
@@ -41,17 +41,20 @@
         <article class="card card--booklet">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">Documentación como Código: El README.md como Única Fuente de Verdad</h1>
-                <a href="/descargas/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">La tiranía de la caché móvil y el 'Cache Busting' dinámico</h1>
+                <a href="/descargas/la-tirania-de-la-cache-movil-y-el-cache-busting-dinamico.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Durante la revisión del repositorio, el sistema automatizado de QA (Quality Assurance - Aseguramiento de Calidad) detectó que el archivo maestro <code>README.md</code> presentaba bloques de código rotos, omisiones críticas de scripts del orquestador (<code>merci-commit.py</code>) y acrónimos técnicos sin expandir (como JSON-LD).</p>
+<p>Durante la auditoría de Control de Calidad (QA - Quality Assurance) en dispositivos físicos, se detectó que el menú de navegación y la interfaz de usuario (UI - User Interface) colapsaban en teléfonos y tablets, mientras que en los simuladores de PC funcionaban a la perfección. El diagnóstico reveló que los navegadores móviles (especialmente Chrome en Android y Safari en iOS) retienen versiones obsoletas de los archivos CSS (Cascading Style Sheets) y JS (JavaScript) mediante cachés extremadamente agresivas para ahorrar datos.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se reconstruyó la jerarquía Markdown del documento principal para reflejar con exactitud la topología real del proyecto. Se inyectaron las definiciones faltantes y se resolvieron las advertencias del linter estático de forma proactiva, sellando el código y la documentación en un único commit atómico.</p>
+<p>Se implementó una estrategia de <em>Cache Busting</em> (Invalidación de Caché) dinámica. En el núcleo estático, se incrementaron manualmente los parámetros de versión (<code>?v=11</code>) en las etiquetas <code>&lt;link&gt;</code> y <code>&lt;script&gt;</code>. En la capa dinámica (WordPress), se utilizó la función nativa <code>time()</code> de PHP (Hypertext Preprocessor) para anexar una marca de tiempo unix exacta a cada petición (ej. <code>main.css?v=1714300000</code>).</p>
+<p><strong>Detalle Técnico:</strong></p>
+<pre><code class="language-php">$css_v = time();
+echo '&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/main.css?v=' . $css_v . '&quot;&gt;';
+</code></pre>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Aplicar el paradigma SSOT (Single Source of Truth - Única Fuente de Verdad) significa que la infraestructura y la documentación no pueden vivir realidades paralelas. </p>
-<p>El archivo <code>README.md</code> no es un mero adorno; es la primera línea de defensa arquitectónica. Si un documento maestro miente por omisión, el desarrollador que hereda el proyecto terminará ejecutando maniobras manuales inseguras, rompiendo la filosofía <em>Shift-Left</em>. Tratar la documentación con el mismo rigor sintáctico y semántico que el código fuente es un pilar innegociable de la ingeniería de software madura.</p>
+<p>Nunca se debe confiar en los simuladores de dispositivos de las herramientas de desarrollador (DevTools) para dar por validado el rendimiento web o los estilos. La paridad Dev/Prod exige pruebas en hardware físico real. Adicionalmente, el uso de funciones dinámicas como <code>time()</code> en entornos de producción debe vigilarse para evitar saturar el servidor anfitrión (Time To First Byte - TTFB), evaluando la transición a <code>filemtime()</code> cuando la topología de directorios lo permita de forma robusta.</p>
             </div>
         </article>
     </main>

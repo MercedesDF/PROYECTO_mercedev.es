@@ -110,7 +110,7 @@ class MerciController {
     }
 
     sleep() {
-        this.setState('idle');
+        this.state = 'idle';
         
         // Oculta el globo delegando la animación al CSS
         this.messageBox.setAttribute('aria-hidden', 'true');
