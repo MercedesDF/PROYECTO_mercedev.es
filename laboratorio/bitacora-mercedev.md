@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — Arch: Pivot a modelo Whitelist en el feed principal de WordPress
+
+**Contexto:** Tras aplicar una regla de exclusión para separar "Art de Coté" del feed principal, se debatió que un enfoque de "lista negra" no es escalable. El feed principal (`/blog`) debía actuar como un contenedor estanco exclusivo, no como un recolector general que requiere exclusiones manuales.
+
+**Hecho:** Se refactorizó la función en `functions.php` a `merci_filtrar_feed_principal` (hook `pre_get_posts`) y se añadió la autocreación de la categoría "Blog".
+
+**Detalle técnico:** En lugar de excluir categorías con ID negativo (`'-' . $id`), la consulta `is_home()` ahora fuerza explícitamente la inclusión exclusiva del ID de la categoría "Blog" (`$query->set('cat', $blog_cat->term_id)`).
+
+**Motivo / criterio:** *Arquitectura de la Información y Escalabilidad (Whitelist vs Blacklist)*. Un modelo de lista blanca asegura que cualquier futura taxonomía o categoría independiente creada en el CMS quedará automáticamente aislada del blog sin necesidad de modificar el código del tema.
+
+**Siguiente paso o deuda:** Implementar automatización social para publicar entradas del blog directamente en LinkedIn (Fase 8.3).
+
 ### 2026-04-29 — Arch: Segregación de categorías en el feed principal de WordPress
 
 **Contexto:** Tras publicar un artículo en la categoría "Art de Coté" mediante el publicador Headless, se observó que dicho artículo aparecía tanto en su página de categoría como en el listado principal del blog (`/blog`), rompiendo la separación conceptual de los contenidos.
