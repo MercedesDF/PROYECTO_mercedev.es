@@ -37,6 +37,59 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — Feat: Reestructuración y unificación del pipeline maestro (merci-total)
+
+**Contexto:** Para evitar desincronizaciones por olvido de compilación manual, se vió que integrar el motor SSG (`merci-publish.py`) dentro del orquestador global de QA (`merci-total.py`) actualizaría la página de biblioteca a los nuevos formatos. Además, se detectó que el sincronizador de páginas (`merci-sync-pages.py`) se estaba ejecutando al final del proceso, después de las herramientas de auditoría.
+
+**Hecho:** 
+- Se inyectó `merci-publish.py` en la constante `PIPELINE` de `merci-total.py`.
+- Se reordenó el flujo de ejecución para separar estrictamente la Fase de Compilación (Build) de la Fase de Aseguramiento de Calidad (QA).
+
+**Detalle técnico:** El nuevo orden arquitectónico es: Optimización multimedia -> Compilación SASS -> Generación SSG (Publish) -> Propagación SSOT (Sync Pages) -> Generación de XML (Sitemap) -> Auditoría Shift-Left (Audit) -> Rastreo de enlaces (Linkcheck). 
+
+**Motivo / criterio:** *Pipeline as Code y Shift-Left*. Si las herramientas de QA (Audit, Linkcheck, Sitemap) se ejecutan antes de que los HTML definitivos hayan sido generados o sincronizados, el orquestador estaría validando "código fantasma" u obsoleto, dando falsos positivos de éxito. El orden de ejecución es tan crítico como el código mismo.
+
+**Siguiente paso o deuda:** Desarrollar el índice curado de la biblioteca o el publicador Headless (`merci-wp.py`).
+
+### 2026-04-29 — Feat: Sincronización automatizada de páginas estáticas (SSOT)
+
+**Contexto:** La página estática de contacto (`public/contacto/index.html`) requería actualización manual de la cabecera, pie de página y asistente Merci cada vez que la portada cambiaba, violando el principio de única fuente de verdad (SSOT).
+
+**Hecho:**
+- Se desarrolló el script `scripts/merci/merci-sync-pages.py`.
+- Se actualizó el `README.md` marcando la tarea de contacto como completada y registrando el nuevo script.
+
+**Detalle técnico:** El script en Python utiliza Expresiones Regulares (`re.sub` y `re.search`) con la bandera `re.DOTALL` para capturar físicamente el `<header>`, `<footer>` y `<aside class="merci-ui">` de `public/index.html` y sobrescribirlos en `public/contacto/index.html`.
+
+**Motivo / criterio:** *Fricción Cero y Single Source of Truth*. Al igual que `merci-publish` genera los artículos a partir del marco de la portada, `merci-sync-pages` extiende esa misma lógica de componentes inmutables a las páginas estáticas independientes. Elimina el riesgo de "desincronización visual" por error humano.
+
+**Siguiente paso o deuda:** Integrar la llamada a `merci-sync-pages.py` dentro del orquestador `merci-total.py` para automatizarlo en el QA global, y crear el índice curado de la biblioteca.
+
+### 2026-04-29 — Docs: Expansión del Roadmap (Fase 8.3 Consolidación Operativa)
+
+**Contexto:** Antes de proceder con las tareas de consolidación de UX (contacto, home, índice de biblioteca) y automatización Headless (publicador WP y automatización de LinkedIn), se detectó que estas intenciones no estaban formalmente registradas en el Roadmap, contraviniendo el rigor de las directrices operativas.
+
+**Hecho:** Se expandió la Fase 8 en el `README.md` inyectando la subfase `8.3 Consolidación Operativa (UX y Headless CMS)`. Se marcó como completada la primera tarea (inyección de enlaces en el footer).
+
+**Detalle técnico:** La Regla 12 de `instrucciones.md` exige mantener la hoja de ruta sincronizada. Añadir las tareas de consolidación formaliza la deuda técnica autoimpuesta y prepara el terreno para el desarrollo de `merci-wp.py`.
+
+**Motivo / criterio:** *Governance y Compliance (Gobernanza y Cumplimiento)*. En un ciclo de vida estructurado, ninguna maniobra técnica "improvisada" es válida. Todo desarrollo debe responder a un requisito explícito en el Roadmap para mantener la Única Fuente de Verdad (SSOT).
+
+**Siguiente paso o deuda:** Completar la página estática de Contacto (`public/contacto/index.html`) y refinar la portada.
+
+### 2026-04-29 — UX/UI: Consolidación de la interfaz y enlaces globales
+
+**Contexto:** Antes de abordar la Fase 9 (Integración de IA), se detectó la necesidad de consolidar la UX (User Experience - Experiencia de Usuario) inyectando los enlaces a redes profesionales (LinkedIn, GitHub) y al ecosistema hijo (`merci-boilerplate`), además de buscar un modelo de publicación para WordPress que no dependiera del panel de administración (GUI).
+
+**Hecho:** 
+- Se inyectó el bloque `.footer__links` en `public/index.html` con atributos de seguridad para enlaces externos (`target="_blank" rel="noopener noreferrer"`).
+
+**Detalle técnico:** Al inyectar los enlaces en el `<footer>` de la portada estática, el orquestador `merci-publish.py` los absorberá y propagará automáticamente a todos los artículos compilados de la Biblioteca en su próxima ejecución, manteniendo el principio de SSOT (Single Source of Truth).
+
+**Motivo / criterio:** *Consolidación antes de Innovación*. Evitar el "Shiny Object Syndrome" estabilizando la identidad pública y los flujos de trabajo locales (Headless CMS) garantiza que el ecosistema base sea robusto y operable antes de introducir lógicas asíncronas complejas como la Inteligencia Artificial.
+
+**Siguiente paso o deuda:** Crear la página estática de Contacto (`public/contacto/index.html`) y propagar el nuevo footer a la plantilla de WordPress.
+
 ### 2026-04-29 — DevSecOps: Truncamiento de historial Git (Orphan Branch) en Boilerplate
 
 **Contexto:** Tras el despliegue exitoso de la Release 1.0.0 del Boilerplate, una inspección del `git log` reveló que el repositorio destino conservaba el historial de commits de la matriz original, exponiendo metadatos, correos electrónicos y trazabilidad privada.

@@ -22,7 +22,7 @@
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     <header class="header">
         <a href="/" class="header__brand">
-            <img src="/assets/images/logo.webp" alt="mercedev.es" class="header__logo" width="150" height="auto">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
         </a>
         <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
             <span class="header__toggle-icon"></span>
@@ -42,7 +42,14 @@
             <p class="hero__subtitle">Página estática de contacto. En esta vista genérica puedes integrar tu formulario preferido o enlaces corporativos.</p>
         </section>
     </main>
-    <footer class="footer" style="text-align: left; padding-bottom: 6rem;">
+     <footer class="footer" style="text-align: left; padding-bottom: 6rem;">
+        <!-- QUÉ HACE: Contenedor flex para los enlaces sociales y de proyecto. -->
+        <!-- POR QUÉ: Al usar flex-wrap, aseguramos que en pantallas móviles pequeñas no se rompa el diseño (Responsive Design). -->
+        <div class="footer__links" style="margin-bottom: 1.5rem; display: flex; gap: 1.5rem; flex-wrap: wrap; font-weight: 500;">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
         <div class="footer__text">
             <a href="#top" style="color: inherit; text-decoration: underline; font-weight: 600; display: inline-block; margin-bottom: 1rem;">↑ Volver arriba</a><br>
             &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
