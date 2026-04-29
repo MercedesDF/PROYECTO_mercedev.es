@@ -7,6 +7,7 @@ fecha: "2026-04-25"
 estado: "borrador"
 portada: "creoquemehanhackeado.png"
 alt_portada: "Captura de pantalla de la configuración del navegador mostrando los permisos de ventanas emergentes."
+wp_id: "18"
 ---
 
 ## 1. El Desafío (Síntoma)

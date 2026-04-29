@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — Feat: Sincronización masiva en publicador Headless (merci-wp.py)
+
+**Contexto:** El publicador Headless de WordPress operaba sobre un solo archivo a la vez. Para garantizar la paridad absoluta entre los Markdowns locales y la base de datos de WordPress (ej. cambios masivos de formato o despublicaciones en bloque), se requería que el script actuara como un sincronizador global similar al de la biblioteca (`merci-publish.py`).
+
+**Hecho:** 
+- Se refactorizó `scripts/merci/merci-wp.py` para procesar directorios completos de forma recursiva.
+- Se definieron los directorios `laboratorio/blog` y `laboratorio/art-de-cote` como orígenes por defecto si el script se ejecuta sin argumentos.
+- Se actualizó el manual operativo (`docs/matriz/flujo-publicacion-sop.md`).
+
+**Detalle técnico:** Se extrajo la carga de credenciales `.env` fuera del bucle de publicación para optimizar recursos de I/O. Las interrupciones `sys.exit(1)` en el procesamiento individual de archivos se reemplazaron por retornos tempranos (`return False`) para aplicar el patrón "Fail-Gracefully" (Fallar con elegancia), permitiendo que el lote completo finalice aunque un archivo esté malformado.
+
+**Motivo / criterio:** *Single Source of Truth (SSOT)*. Obligar al desarrollador a recordar qué archivo modificó para sincronizarlo individualmente genera Deriva de Configuración. Ejecutar una sincronización masiva asegura que las despublicaciones (`estado: "borrador"`) se reflejen instantáneamente en el entorno de producción dinámico sin fricción operativa.
+
+**Siguiente paso o deuda:** Validar la automatización masiva y avanzar, bajo autorización, a la integración de automatización social para LinkedIn (Fase 8.3).
+
 ### 2026-04-29 — Arch: Pivot a modelo Whitelist en el feed principal de WordPress
 
 **Contexto:** Tras aplicar una regla de exclusión para separar "Art de Coté" del feed principal, se debatió que un enfoque de "lista negra" no es escalable. El feed principal (`/blog`) debía actuar como un contenedor estanco exclusivo, no como un recolector general que requiere exclusiones manuales.

@@ -35,11 +35,12 @@ Por diseño arquitectónico (Environment Segregation), el núcleo estático (Bib
 ### Paso a Paso:
 1. **Redacción Aislada:** Crea tu documento Markdown en una subcarpeta ajena al flujo estático, por ejemplo dentro de tu zona de pruebas (ej. `laboratorio/art-de-cote/`). 
    *Asegúrate de que el YAML tenga `estado: "publicado"` y un `tema:` que coincida con una categoría de tu WordPress.*
-2. **Inyección Directa (Headless):** Ejecuta el script pasándole la ruta exacta de tu archivo:
+2. **Sincronización Directa (Headless):** Ejecuta el script sin argumentos para escanear y sincronizar automáticamente todas las carpetas dinámicas (`blog/` y `art-de-cote/`):
    ```bash
-   python3 scripts/merci/merci-wp.py laboratorio/art-de-cote/tu-articulo.md
+   python3 scripts/merci/merci-wp.py
    ```
-3. **Actualización (Update):** El script publicará el artículo en WordPress y **escribirá el `wp_id`** dentro del YAML de tu archivo local. Si encuentras un error o quieres modificar el texto, edita tu Markdown local y vuelve a lanzar el mismo comando del paso 2. El script detectará el ID y actualizará el post existente sin duplicarlo.
+   *(Opcional: puedes pasarle la ruta de un archivo o carpeta específica si solo quieres sincronizar ese elemento).*
+3. **Actualización y Borradores (Kill-Switch WP):** En la primera ejecución, el script **escribirá el `wp_id`** dentro del YAML de tu archivo local. En futuras ejecuciones, el script detectará el ID y actualizará el post en la base de datos de WordPress. Si cambias el `estado` a `"borrador"`, el artículo se ocultará de la vista pública del blog automáticamente.
 4. **Sello de Código Fuente:** Opcionalmente, ejecuta `merci commit` para guardar el archivo `.md` (con su nuevo `wp_id`) en tu control de versiones.
 
 ---

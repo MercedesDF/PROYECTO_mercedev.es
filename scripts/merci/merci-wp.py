@@ -25,6 +25,10 @@ except ImportError:
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ENV_FILE = REPO_ROOT / ".env"
+WP_DIRS = [
+    REPO_ROOT / "laboratorio" / "blog",
+    REPO_ROOT / "laboratorio" / "art-de-cote"
+]
 
 def cargar_credenciales():
     """
@@ -70,23 +74,17 @@ def obtener_id_categoria(wp_url, auth_b64, nombre_categoria):
         
     return None
 
-def publicar_en_wordpress(filepath: str):
+def publicar_en_wordpress(filepath: str, creds: dict):
     target_path = Path(filepath).resolve()
     
     if not target_path.exists():
-        print(f"❌ [Merci WP] Error: No se encontró el archivo '{target_path.name}'.")
-        sys.exit(1)
+        print(f"  ❌ Error: No se encontró el archivo '{target_path.name}'.")
+        return False
         
-    print(f"🚀 [Merci WP] Iniciando conexión Headless con WordPress...")
-    creds = cargar_credenciales()
     wp_url = creds.get("WP_URL", "").rstrip("/")
     wp_user = creds.get("WP_USER", "")
     wp_password = creds.get("WP_APP_PASSWORD", "")
     
-    if not wp_url or not wp_user or not wp_password:
-        print("❌ [Merci WP] Error: Faltan credenciales completas en tu archivo .env.")
-        sys.exit(1)
-
     # 1. Preparar Autenticación Basic Auth (Shift-Left Security)
     auth_str = f"{wp_user}:{wp_password}"
     auth_b64 = base64.b64encode(auth_str.encode("utf-8")).decode("utf-8")
@@ -95,8 +93,8 @@ def publicar_en_wordpress(filepath: str):
     content = target_path.read_text(encoding="utf-8")
     match = re.match(r"^---\n(.*?)\n---\n(.*)", content, re.DOTALL)
     if not match:
-        print(f"❌ [Merci WP] Error: El archivo no tiene un YAML Frontmatter válido.")
-        sys.exit(1)
+        print(f"  ❌ Error: El archivo {target_path.name} no tiene un YAML Frontmatter válido.")
+        return False
         
     yaml_raw, md_body = match.groups()
     
@@ -171,10 +169,35 @@ def publicar_en_wordpress(filepath: str):
         print(f"  Detalle: {error_info}")
     except URLError as e:
         print(f"  ❌ Error de conexión: {e.reason}. ¿Está el entorno dinámico encendido?")
+        return False
+        
+    return True
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Uso: merci wp <ruta_al_archivo_markdown>")
+    print("🚀 [Merci WP] Iniciando conexión Headless con WordPress...")
+    creds = cargar_credenciales()
+    
+    if not creds.get("WP_URL") or not creds.get("WP_USER") or not creds.get("WP_APP_PASSWORD"):
+        print("❌ [Merci WP] Error: Faltan credenciales completas en tu archivo .env.")
         sys.exit(1)
         
-    publicar_en_wordpress(sys.argv[1])
+    # QUÉ HACE: Si se pasa un argumento, procesa ese archivo o carpeta. Si no, sincroniza masivamente.
+    # POR QUÉ: Permite sincronizaciones atómicas globales (SSOT) evitando la deriva de configuración.
+    if len(sys.argv) > 1:
+        target = Path(sys.argv[1]).resolve()
+        if target.is_dir():
+            for md_file in target.rglob("*.md"):
+                publicar_en_wordpress(str(md_file), creds)
+        else:
+            publicar_en_wordpress(str(target), creds)
+    else:
+        print("🔄 Sincronización masiva de carpetas dinámicas detectada...")
+        for wp_dir in WP_DIRS:
+            if wp_dir.exists():
+                print(f"\n📂 Escaneando directorio: {wp_dir.name}/")
+                for md_file in wp_dir.rglob("*.md"):
+                    publicar_en_wordpress(str(md_file), creds)
+            else:
+                print(f"\n⚠️  Directorio no encontrado: {wp_dir.name}/. Omitiendo.")
+                
+    print("\n✅ [Merci WP] Sincronización finalizada.")
