@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — Docs: Aclaración del pipeline de rsync y Shadow Docs
+
+**Contexto:** Existía la duda de si el comando de sincronización `rsync` hacia el repositorio del Boilerplate debía excluir explícitamente los manuales de la matriz (`README.md` e `instrucciones.md`) para evitar contaminar el repositorio destino, o si debían viajar los archivos gemelos (`-merci.md`).
+
+**Hecho:** Se validó y documentó la simplificación del comando de transferencia (`rsync -av --exclude='.git'`) en el SOP de mantenimiento, sin añadir exclusiones manuales para la documentación.
+
+**Detalle técnico:** La topología del *Release Pipeline* delega la manipulación de archivos al script de instanciación (`merci-init.py`), el cual se ejecuta en un directorio efímero *antes* de la sincronización. Este script elimina físicamente los manuales de la matriz y renombra los *Shadow Docs* a sus nombres definitivos. Al ejecutarse el comando `rsync` en el paso posterior, la carpeta ya contiene la documentación purificada y correcta.
+
+**Motivo / criterio:** *Separation of Concerns* (Separación de Responsabilidades) y *Infrastructure as Code*. El orquestador de Python es el único responsable de la mutación estructural del proyecto. Delegar exclusiones complejas a un comando de shell (rsync) lo vuelve frágil e interfiere con el ascenso de los documentos correctos preparados por el script.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
 ### 2026-04-28 — Docs: Auditoría externa de IA y expansión del Roadmap (Fase 11)
 
 **Contexto:** Tras cerrar la Fase 10 (Release 1.0.0 del Boilerplate), se sometió el repositorio a un análisis externo (Copilot). El dictamen situó la arquitectura en el top 1-3% global por rigor DevSecOps y optimización, y sugirió mejoras de integración en la nube.
@@ -318,7 +330,7 @@ Copia el bloque y rellénalo.
 
 ### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 
-**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-04-28.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
+**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-04-29.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
 
 **Hecho:** Se implementó una rutina de actualización automática en `scripts/merci/merci-commit.py` mediante expresiones regulares.
 
@@ -1255,4 +1267,4 @@ Copia el bloque y rellénalo.
 
 ---
 
-*Última revisión de la bitácora: 2026-04-28.*
+*Última revisión de la bitácora: 2026-04-29.*

@@ -16,7 +16,7 @@ Si hay un cambio de versión, actualiza el número manualmente en el archivo `RE
 Sal de tu entorno de trabajo actual y clona la versión más reciente desde el servidor a un directorio temporal neutral (ej. tu Escritorio):
 ```bash
 cd ~/Escritorio
-git clone git@github.com:TU_USUARIO/PROYECTO_mercedev.es.git clon-temporal
+git clone git@github.com:MercedesDF/PROYECTO_mercedev.es.git clon-temporal
 cd clon-temporal
 ```
 
@@ -36,7 +36,7 @@ rm -rf .git
 ### 5. Sincronización Ágil (Rsync)
 Copia los archivos limpios hacia tu directorio local del Boilerplate, ignorando los archivos estructurales que no deben viajar:
 ```bash
-rsync -av --exclude='.git' --exclude='README.md' --exclude='instrucciones.md' . ~/Escritorio/merci-boilerplate/
+rsync -av --exclude='.git' . ~/Escritorio/merci-boilerplate/
 ```
 
 ### 6. QA y Sello (En el repositorio destino)
