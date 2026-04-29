@@ -253,13 +253,12 @@ add_action( 'wp_head', 'merci_inyectar_metadatos_seo', 5 );
 function merci_filtrar_feed_principal($query) {
     // Solo aplicamos esta regla en la página principal del blog (is_home)
     // y solo a la consulta principal (is_main_query), no a menús o widgets.
-    if ( $query->is_home() && $query->is_main_query() ) {
+    if ( ! is_admin() && $query->is_home() && $query->is_main_query() ) {
         
-        // Forzamos a WordPress a buscar solo posts que pertenezcan a la categoría 'blog'
-        $blog_cat = get_category_by_slug('blog');
-        if ( $blog_cat ) {
-            $query->set( 'cat', $blog_cat->term_id );
-        }
+        // QUÉ HACE: Delega la resolución del slug directamente al motor principal de WordPress.
+        // POR QUÉ: Evita el "fallo abierto" (mostrar todos los posts) si el ID de la categoría falla al cargarse.
+        // Si la categoría 'blog' no existe o está vacía, se mostrarán 0 posts (Fallo Seguro).
+        $query->set( 'category_name', 'blog' );
     }
 }
 // Enganchamos nuestra función al 'hook' de WordPress que se dispara antes de obtener los posts.

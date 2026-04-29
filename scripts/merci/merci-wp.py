@@ -26,8 +26,8 @@ except ImportError:
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ENV_FILE = REPO_ROOT / ".env"
 WP_DIRS = [
-    REPO_ROOT / "laboratorio" / "blog",
-    REPO_ROOT / "laboratorio" / "art-de-cote"
+    REPO_ROOT / "blog",
+    REPO_ROOT / "art-de-cote"
 ]
 
 def cargar_credenciales():

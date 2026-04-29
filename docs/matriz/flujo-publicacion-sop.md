@@ -33,15 +33,16 @@ Por diseño arquitectónico (Environment Segregation), el núcleo estático (Bib
 **Características:** Contenido dinámico, artículos colaterales, reflexiones o novedades.
 
 ### Paso a Paso:
-1. **Redacción Aislada:** Crea tu documento Markdown en una subcarpeta ajena al flujo estático, por ejemplo dentro de tu zona de pruebas (ej. `laboratorio/art-de-cote/`). 
+1. **Incubación:** Crea tu documento Markdown dentro de tu zona de pruebas (ej. `laboratorio/blog/` o `laboratorio/art-de-cote/`). 
    *Asegúrate de que el YAML tenga `estado: "publicado"` y un `tema:` que coincida con una categoría de tu WordPress.*
-2. **Sincronización Directa (Headless):** Ejecuta el script sin argumentos para escanear y sincronizar automáticamente todas las carpetas dinámicas (`blog/` y `art-de-cote/`):
+2. **Curación (Promote):** Ejecuta `python3 scripts/merci/merci-promote.py` para curar el documento. El script detectará el destino y moverá físicamente el archivo a su carpeta definitiva en la raíz (`blog/` o `art-de-cote/`).
+3. **Sincronización Directa (Headless):** Ejecuta el publicador Headless para escanear y sincronizar automáticamente todas las carpetas dinámicas de la raíz:
    ```bash
    python3 scripts/merci/merci-wp.py
    ```
    *(Opcional: puedes pasarle la ruta de un archivo o carpeta específica si solo quieres sincronizar ese elemento).*
-3. **Actualización y Borradores (Kill-Switch WP):** En la primera ejecución, el script **escribirá el `wp_id`** dentro del YAML de tu archivo local. En futuras ejecuciones, el script detectará el ID y actualizará el post en la base de datos de WordPress. Si cambias el `estado` a `"borrador"`, el artículo se ocultará de la vista pública del blog automáticamente.
-4. **Sello de Código Fuente:** Opcionalmente, ejecuta `merci commit` para guardar el archivo `.md` (con su nuevo `wp_id`) en tu control de versiones.
+4. **Actualización y Borradores (Kill-Switch WP):** En la primera ejecución, el script **escribirá el `wp_id`** dentro del YAML de tu archivo local. En futuras ejecuciones, el script detectará el ID y actualizará el post. Si cambias el `estado` a `"borrador"`, el artículo se ocultará de la vista pública del blog automáticamente.
+5. **Sello de Código Fuente:** Opcionalmente, ejecuta `merci commit` para guardar el archivo `.md` en tu control de versiones.
 
 ---
 

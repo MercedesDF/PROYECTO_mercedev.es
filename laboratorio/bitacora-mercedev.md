@@ -37,6 +37,44 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — Feat: Enrutamiento contextual en orquestador de promoción (merci-promote)
+
+**Contexto:** Para cumplir con la nueva unificación del flujo de publicación (SSOT), se requería que el asistente interactivo `merci-promote.py` reconociera los subdirectorios de incubación dinámica (`laboratorio/blog` y `laboratorio/art-de-cote`) y trasladara los documentos curados a sus respectivas carpetas raíz.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-promote.py` implementando escaneo recursivo (`rglob`) y una lógica de enrutamiento basada en las rutas relativas.
+
+**Detalle técnico:** El script extrae las partes del directorio del archivo analizado (`rel_path.parts[:-1]`). Si detecta la palabra clave "blog" o "art-de-cote", asigna dinámicamente el directorio de destino y actualiza el mensaje de salida para sugerir el comando de publicación adecuado (`merci wp` en lugar de `merci total`).
+
+**Motivo / criterio:** *Context-Awareness y Experiencia del Desarrollador*. En un ecosistema con múltiples motores de renderizado, centralizar la curación documental en una sola herramienta CLI evita el error humano. El script actúa como un "router" inteligente: el autor solo tiene que organizar sus borradores en carpetas dentro del laboratorio, y Python infiere matemáticamente el destino de producción.
+
+**Siguiente paso o deuda:** Implementar automatización social para publicar entradas del blog directamente en LinkedIn (Fase 8.3).
+
+### 2026-04-29 — Arch: Unificación del flujo de promoción para Headless CMS
+
+**Contexto:** Los artículos destinados a WordPress se publicaban directamente desde el entorno de incubación (`laboratorio/`), saltándose el proceso de curación y creando disparidad arquitectónica respecto a la biblioteca estática. Además, WordPress no actualizaba las categorías de posts existentes si la API no lograba resolver el ID de la nueva categoría temporalmente.
+
+**Hecho:**
+- Se modificó la lista `WP_DIRS` en `scripts/merci/merci-wp.py` para apuntar a los directorios raíz `blog/` y `art-de-cote/`.
+- Se redefinió el SOP de publicación dual (`docs/matriz/flujo-publicacion-sop.md`) para exigir el uso de `merci-promote.py` antes de sincronizar con WP.
+
+**Motivo / criterio:** *Paridad de flujos y Separation of Concerns*. El entorno `laboratorio/` debe ser estrictamente para incubación. Aplicar la herramienta de promoción a los contenidos dinámicos unifica la experiencia del desarrollador (Developer Experience): todo nace en el laboratorio y todo se promueve a un directorio de pre-producción en la raíz, independientemente del motor de renderizado final (SSG o WP).
+
+**Siguiente paso o deuda:** Refactorizar `merci-promote.py` para soportar el traslado de documentos hacia los directorios dinámicos (`blog/` y `art-de-cote/`).
+
+### 2026-04-29 — Fix: Resolución de error WAI-ARIA por 'Trailing Slashes' y refuerzo de Whitelist en WP
+
+**Contexto:** El orquestador `merci-total.py` detuvo el pipeline reportando un error de accesibilidad WAI-ARIA (Enlaces ambiguos) en el menú principal. Paralelamente, los posts de "Art de Coté" seguían apareciendo en la portada dinámica (`/blog`), indicando un fallo en el modelo Whitelist implementado anteriormente.
+
+**Hecho:**
+- Se añadieron barras finales (*trailing slashes*) a las rutas de directorio en la navegación (`<nav>`) de todos los componentes estáticos y dinámicos (ej. `/blog/category/art-de-cote/`).
+- Se modificó la función `merci_filtrar_feed_principal` en `functions.php` delegando la consulta del slug directamente a `$query->set('category_name', 'blog')`.
+
+**Detalle técnico:** El linter de accesibilidad detectaba el enlace del menú (sin barra final) y el enlace autogenerado por WordPress en la tarjeta del post (con barra final) como dos destinos distintos compartiendo el mismo texto ancla. Añadir las barras estandariza las URIs y elimina la colisión. Respecto a WordPress, usar `get_category_by_slug` generaba un "fallo abierto": si la categoría no se recuperaba instantáneamente, el condicional se omitía y WP mostraba todos los posts por defecto. Usar `category_name` impone un "fallo seguro" delegado al motor SQL de WP.
+
+**Motivo / criterio:** *QA Estricto y Arquitectura Segura*. Las URIs de directorios deben terminar en `/` por estándar SEO (evita redirecciones 301 de servidor). En el backend, las funciones de filtro (Hooks) deben programarse siempre bajo el principio de fallo seguro (Fail-Safe) para garantizar la segregación de entornos.
+
+**Siguiente paso o deuda:** Validar el pipeline en verde y confirmar la segregación de posts en WordPress.
+
 ### 2026-04-29 — Feat: Sincronización masiva en publicador Headless (merci-wp.py)
 
 **Contexto:** El publicador Headless de WordPress operaba sobre un solo archivo a la vez. Para garantizar la paridad absoluta entre los Markdowns locales y la base de datos de WordPress (ej. cambios masivos de formato o despublicaciones en bloque), se requería que el script actuara como un sincronizador global similar al de la biblioteca (`merci-publish.py`).
