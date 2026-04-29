@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — UX: Enlaces de "Volver arriba" en estanterías de la Biblioteca
+
+**Contexto:** Con la implementación del "Mega-Menú" y el scroll suave hacia las tarjetas de los artículos, los usuarios necesitaban una forma rápida de regresar al índice superior tras revisar una estantería completa, sin depender del enlace del footer o de hacer scroll manual.
+
+**Hecho:** Se inyectó un enlace `↑ Volver arriba` (apuntando a `#top`) a la derecha de cada título de sección (Estantería) en el orquestador `scripts/merci/merci-publish.py`.
+
+**Detalle técnico:** Se envolvió el título de la sección (`<h2>`) y el nuevo enlace (`<a>`) en un contenedor `<div>` con `display: flex; justify-content: space-between; align-items: baseline;`. Esto garantiza que, sin importar la longitud del título del tema, el botón de retorno siempre quede fijado a la derecha de la pantalla y alineado con la base del texto.
+
+**Motivo / criterio:** *Fricción Cero y Microinteracciones*. Facilitar atajos de navegación contextuales mejora radicalmente la Experiencia de Usuario (UX) en páginas que actúan como índices o directorios largos. Al usar CSS nativo (Flexbox), se logra el diseño perfecto sin afectar el rendimiento ni requerir JavaScript.
+
+**Siguiente paso o deuda:** Desarrollar el publicador Headless (`merci-wp.py`) para escribir en WordPress local desde la terminal.
+
 ### 2026-04-29 — UX: Corrección de flujo de navegación en índice de Biblioteca
 
 **Contexto:** Los sub-enlaces del índice curado recién generado dirigían al usuario directamente a la página del artículo individual, provocando que la sección de tarjetas resumen de la propia página índice quedara huérfana e ignorada.

@@ -307,10 +307,14 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
         # Cerramos la lista de artículos y el elemento principal de la estantería
         enlaces_indice_html += f'                    </ul>\n                </li>\n'
                 
-        # QUÉ HACE: Inyecta el ID para el ancla y 'scroll-margin-top' para no quedar oculto bajo el menú.
+        # QUÉ HACE: Inyecta el ID para el ancla, 'scroll-margin-top' y un contenedor flex para alinear el botón "Volver arriba" a la derecha.
+        # POR QUÉ: Mejora la navegación permitiendo al usuario saltar de vuelta al Mega-Menú inmediatamente después de explorar una estantería.
         secciones_html += f"""
         <section class="biblioteca-tema" id="{tema_slug}" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
-            <h2 class="home-card__title--highlight" style="margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;"><a href="#{tema_slug}" style="text-decoration: none; color: inherit;">{tema}</a></h2>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">
+                <h2 class="home-card__title--highlight" style="margin: 0; border-bottom: none; padding-bottom: 0;"><a href="#{tema_slug}" style="text-decoration: none; color: inherit;">{tema}</a></h2>
+                <a href="#top" style="font-size: 0.9rem; font-weight: 600; color: #64748b; text-decoration: underline; white-space: nowrap; margin-left: 1rem;">↑ Volver arriba</a>
+            </div>
             <div class="home-grid">
                 {cards_html}
             </div>
