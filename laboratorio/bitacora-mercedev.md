@@ -37,6 +37,30 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — QA: Certificación "Cuádruple 100" en auditoría móvil extrema
+
+**Contexto:** Tras solventar las penalizaciones de contraste de color (WCAG) y la ambigüedad de enlaces (WAI-ARIA) en la nueva página índice de la Biblioteca, era obligatorio certificar el estado del arte mediante una auditoría de caja negra externa (Google PageSpeed Insights).
+
+**Hecho:** Se logró la máxima puntuación posible (100/100 en Rendimiento, Accesibilidad, Mejores Prácticas y SEO) bajo condiciones simuladas de estrés (Moto G Power sobre red 4G lenta).
+
+**Detalle técnico:** Las correcciones de accesibilidad (atributos `aria-label` y CSS de herencia de color) se integraron sin añadir un solo milisegundo al tiempo de carga. Las métricas Core Web Vitals continuaron marcando TBT 0ms y un Speed Index de apenas 0.8s.
+
+**Motivo / criterio:** *Quality Assurance*. Obtener un 4x100 en móvil demuestra que la accesibilidad universal y el rendimiento extremo no son conceptos excluyentes si se aborda el desarrollo desde una arquitectura de Cero Dependencias (Vanilla JS + SASS 7-1 + SSG en Python puro).
+
+**Siguiente paso o deuda:** Iniciar el desarrollo e integración del publicador Headless CMS (`merci-wp.py`) para WordPress.
+
+### 2026-04-29 — QA: Certificación 100/100 en Rendimiento (Core Web Vitals) de la Biblioteca
+
+**Contexto:** Tras la inyección masiva de nodos en el DOM para construir el "Mega-Menú" y la reestructuración de la página de la Biblioteca, era imperativo asegurar que la complejidad estructural no hubiera degradado el rendimiento.
+
+**Hecho:** Se ejecutó una auditoría final de Lighthouse (PageSpeed Insights). El resultado certificó un Rendimiento perfecto: FCP 0.8s, LCP 1.1s, TBT 0ms y CLS 0.
+
+**Detalle técnico:** Lograr **0 ms** de Tiempo de Bloqueo Total (TBT) demuestra que el hilo principal (Main Thread) del navegador está completamente libre. El CLS en 0 confirma que la carga asíncrona de estilos e imágenes no provoca repintados destructivos (Layout Thrashing).
+
+**Motivo / criterio:** *Performance Driven Development*. Esta métrica valida empíricamente la filosofía fundacional del proyecto: usar Vanilla JS, SASS 7-1 nativo y un orquestador SSG en Python aplasta en rendimiento a cualquier framework reactivo moderno (React/Vue/Tailwind) dependiente de ecosistemas Node.js pesados.
+
+**Siguiente paso o deuda:** Probar el publicador Headless (`merci-wp.py`) recién diseñado para escribir en WordPress local desde la terminal.
+
 ### 2026-04-29 — DevSecOps: Shift-Left Accessibility en rastreador de enlaces (DAST)
 
 **Contexto:** Tras solucionar manualmente una advertencia de Lighthouse ("Identical links have the same purpose"), se propuso automatizar la detección de esta regla WAI-ARIA localmente para no depender de herramientas externas, atrapando el error directamente en la integración continua.
