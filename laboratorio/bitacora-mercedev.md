@@ -37,6 +37,42 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — Feat: Integración del publicador Headless (merci-wp) en el orquestador maestro
+
+**Contexto:** Para garantizar que el entorno de producción dinámico (WordPress) se sincronice automáticamente antes de ejecutar las auditorías y el rastreo de enlaces, era necesario incluir el script `merci-wp.py` en la cadena de montaje global.
+
+**Hecho:** Se añadió `merci-wp.py` al array `PIPELINE` de `scripts/merci/merci-total.py`.
+
+**Detalle técnico:** El script se inyectó en la Fase de Construcción (Build), justo después de `merci-publish.py` y antes de `merci-sync-pages.py`. Esto asegura que los markdowns locales se conviertan en posts de WordPress y sus URLs estén activas antes de que `merci-linkcheck.py` y `merci-sitemap.py` rastreen el sitio.
+
+**Motivo / criterio:** *Fricción Cero y Single Source of Truth (SSOT)*. Automatizar la sincronización de WordPress junto con el sitio estático mediante un único comando (`merci total`) unifica definitivamente los flujos de trabajo duales, mitigando el riesgo de que la desarrolladora olvide subir un artículo antes de hacer el commit atómico.
+
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
+
+### 2026-04-29 — Fix: Ambigüedad WAI-ARIA en menú dinámico (Blog)
+
+**Contexto:** El rastreador `merci-linkcheck.py` detectó una infracción WAI-ARIA en las rutas de WordPress. El menú principal enlaza a `/blog/` con el texto "Blog", mientras que las tarjetas de los artículos enlazan a su categoría `/blog/category/blog/` con el mismo texto exacto, generando confusión para los lectores de pantalla.
+
+**Hecho:** Se inyectó `aria-label="Ir a la portada del Blog"` en el enlace del menú principal en `public/index.html` y `src/wp-theme/merci-theme/index.php`.
+
+**Detalle técnico:** Diferenciar el "Nombre Accesible" mediante `aria-label` resuelve la colisión en el DOM dinámico sin alterar el diseño visual, superando el escaneo automatizado del pipeline.
+
+**Motivo / criterio:** *Accesibilidad Estricta e Inclusión*. Los lectores de pantalla listan enlaces fuera de contexto. Diferenciar sus propósitos semánticamente restaura la puntuación de 100/100 en accesibilidad.
+
+**Siguiente paso o deuda:** Integrar la sincronización masiva de WordPress al pipeline maestro (`merci-total.py`).
+
+### 2026-04-29 — Fix: Robustez en RegEx para saltos de línea y BOM (merci-promote)
+
+**Contexto:** El asistente de promoción (`merci-promote.py`) fallaba al reconocer el YAML Frontmatter de la nueva plantilla de Art de Coté, a pesar de que el formato visual era estructuralmente correcto.
+
+**Hecho:** Se refactorizaron las expresiones regulares en `scripts/merci/merci-promote.py` para tolerar `\r\n` y se cambió la codificación de lectura a `utf-8-sig`.
+
+**Detalle técnico:** La expresión regular original `^---\n` era estricta con el salto de línea Unix (`LF`). Si el editor de texto guardaba el archivo con saltos de línea de Windows (`CRLF`) o inyectaba un carácter BOM (*Byte Order Mark* - `\ufeff`) al inicio, el `match` fallaba silenciosamente. Se actualizó a `^\s*---\r?\n` para absorber caracteres invisibles y retornos de carro.
+
+**Motivo / criterio:** *Robustez y Fricción Cero*. Un script de automatización CLI (Command Line Interface - Interfaz de Línea de Comandos) no debe colapsar por diferencias de codificación de texto a nivel de sistema operativo. Aplicar esta robustez evita bloqueos incomprensibles para el usuario.
+
+**Siguiente paso o deuda:** Validar la promoción del archivo y proceder con la automatización de LinkedIn (Fase 8.3).
+
 ### 2026-04-29 — Docs: Creación de plantillas Headless WP y definición de fronteras
 
 **Contexto:** Se requería crear plantillas base (YAML Frontmatter + Markdown) para facilitar la redacción de nuevos artículos destinados a las categorías dinámicas (Blog y Art de Coté). Surgió el debate arquitectónico sobre si debían alojarse en el `laboratorio/` y si pertenecían a las reglas de negocio de la matriz o al ecosistema del Boilerplate.

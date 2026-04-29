@@ -1,7 +1,11 @@
 ---
 titulo: "Título de la entrada del Blog"
-estado: "borrador"
+estado: "publicado"
 tema: "Blog"
+descripcion: "prueba"
+alt_portada: "prueba"
+fecha: "2026-04-29"
+wp_id: "22"
 ---
 
 Escribe aquí el contenido de tu artículo. 

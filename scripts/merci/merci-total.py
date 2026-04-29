@@ -20,15 +20,17 @@ SCRIPTS_DIR = Path(__file__).resolve().parent
 # 1. Optimizador: Prepara las imágenes WebP necesarias.
 # 2. Styles: Compila el SASS final a main.css.
 # 3. Publish: SSG que compila la Biblioteca desde Markdown a HTML/PDF.
-# 4. Sync Pages: Propaga el header/footer maestro a las páginas secundarias.
+# 4. WP Headless: Sincroniza los markdowns locales dinámicos hacia WordPress.
+# 5. Sync Pages: Propaga el header/footer maestro a las páginas secundarias.
 # --- FASE DE QA (QUALITY ASSURANCE) ---
-# 5. Sitemap: Escanea todos los HTML finales generados y actualiza el mapa XML.
-# 6. Audit: Auditoría estricta de seguridad, SEO y sintaxis sobre el código final.
-# 7. Linkcheck: Rastreo dinámico de enlaces rotos sobre el HTML final compilado.
+# 6. Sitemap: Escanea todos los HTML finales generados y actualiza el mapa XML.
+# 7. Audit: Auditoría estricta de seguridad, SEO y sintaxis sobre el código final.
+# 8. Linkcheck: Rastreo dinámico de enlaces rotos sobre el HTML final compilado.
 PIPELINE = [
     "merci-optimizer.py",
     "merci-styles.py",
     "merci-publish.py",
+    "merci-wp.py",
     "merci-sync-pages.py",
     "merci-sitemap.py",
     "merci-audit.py",
