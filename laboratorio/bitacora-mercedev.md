@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — QA: Resolución de ambigüedad en enlaces idénticos (WAI-ARIA)
+
+**Contexto:** Lighthouse detectó una infracción de "Mejores Prácticas/Accesibilidad" porque los enlaces del Mega-Menú y los títulos de las tarjetas tenían el mismo texto visible (el título del artículo) pero apuntaban a destinos diferentes (`#ancla` vs `/url-final.html`).
+
+**Hecho:** Se inyectaron atributos `aria-label` descriptivos en `scripts/merci/merci-publish.py` para diferenciar el propósito de cada enlace.
+
+**Detalle técnico:** El enlace del Mega-Menú ahora se anuncia a los lectores de pantalla como `Ir al resumen de: [Título]`, mientras que el enlace de la tarjeta se anuncia como `Leer artículo completo: [Título]`.
+
+**Motivo / criterio:** *Accesibilidad Estricta (100/100)*. Los lectores de pantalla listan los enlaces fuera de contexto. Si dos enlaces se llaman igual pero hacen cosas distintas, el usuario con discapacidad visual no puede predecir el resultado. Diferenciar sus propósitos mediante WAI-ARIA restaura la puntuación y mejora la UX inclusiva.
+
+**Siguiente paso o deuda:** Desarrollar el publicador Headless (`merci-wp.py`) para escribir en WordPress local desde la terminal.
+
 ### 2026-04-29 — QA: Resolución de contraste WCAG en índice de la Biblioteca
 
 **Contexto:** Tras la creación del Mega-Menú (índice curado) en la Biblioteca, una auditoría de Lighthouse detectó que el color naranja de los enlaces de las estanterías (`#ea580c`) sobre el fondo gris claro (`#f8fafc`) no alcanzaba el ratio de contraste mínimo exigido, provocando una penalización en Accesibilidad.

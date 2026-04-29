@@ -288,7 +288,8 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
             # QUÉ HACE: Inyecta cada artículo como un ancla interna apuntando a su tarjeta resumen.
             # POR QUÉ: Retiene al usuario en la página índice para que pueda leer la descripción antes de entrar.
             enlaces_indice_html += f'                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor=\'#cbd5e1\'" onmouseout="this.style.borderColor=\'#e2e8f0\'">\n'
-            enlaces_indice_html += f'                            <a href="#{pub_slug}" style="color: #475569; text-decoration: none; display: block;">{pub["titulo"]}</a>\n'
+            # QUÉ HACE: Diferencia el texto accesible (aria-label) para evitar penalización por enlaces con mismo texto y distinto destino.
+            enlaces_indice_html += f'                            <a href="#{pub_slug}" aria-label="Ir al resumen de: {pub["titulo"]}" style="color: #475569; text-decoration: none; display: block;">{pub["titulo"]}</a>\n'
             enlaces_indice_html += f'                        </li>\n'
             
             clase_css = "card--booklet" if pub["tipo"].lower() == "cuadernillo" else "card--book"
@@ -298,7 +299,7 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
                 <article class="card {clase_css}" id="{pub_slug}" style="scroll-margin-top: 100px;">
                     <header>
                         <span class="card__meta">{pub["fecha"]} — {badge}</span>
-                        <h2 class="card__title"><a href="{pub["url"]}">{pub["titulo"]}</a></h2>
+                        <h2 class="card__title"><a href="{pub["url"]}" aria-label="Leer artículo completo: {pub["titulo"]}">{pub["titulo"]}</a></h2>
                     </header>
                     <div class="card__content">
                         <p>{pub["descripcion"]}</p>
