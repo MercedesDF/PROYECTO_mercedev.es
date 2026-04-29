@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — DevSecOps: Shift-Left Accessibility en rastreador de enlaces (DAST)
+
+**Contexto:** Tras solucionar manualmente una advertencia de Lighthouse ("Identical links have the same purpose"), se propuso automatizar la detección de esta regla WAI-ARIA localmente para no depender de herramientas externas, atrapando el error directamente en la integración continua.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-linkcheck.py` transformándolo en un auditor dinámico dual (detecta enlaces rotos 404 + ambigüedad de accesibilidad).
+
+**Detalle técnico:** Se amplió la clase `LinkParser` (heredada de `HTMLParser`) para registrar cuándo el parseo ocurre dentro de una etiqueta `<a>` y extraer su texto visible (`handle_data`) o su `aria-label`. Al finalizar una página, se mapean los "Nombres Accesibles" resultantes contra sus URLs de destino. Si un mismo nombre apunta a más de un destino único (`len(set(hrefs)) > 1`), el orquestador aborta la ejecución con un error `♿❌ Error WCAG`.
+
+**Motivo / criterio:** *Shift-Left Accessibility*. Mover las validaciones de accesibilidad hacia la etapa de pre-commit elimina la latencia de descubrimiento de deuda técnica. Ampliar una herramienta nativa existente en Python logra este hito manteniendo la política innegociable de 0 dependencias (sin requerir Lighthouse CLI o módulos pesados de NPM).
+
+**Siguiente paso o deuda:** Desarrollar el publicador Headless (`merci-wp.py`) para escribir en WordPress local desde la terminal.
+
 ### 2026-04-29 — QA: Resolución de ambigüedad en enlaces idénticos (WAI-ARIA)
 
 **Contexto:** Lighthouse detectó una infracción de "Mejores Prácticas/Accesibilidad" porque los enlaces del Mega-Menú y los títulos de las tarjetas tenían el mismo texto visible (el título del artículo) pero apuntaban a destinos diferentes (`#ancla` vs `/url-final.html`).
