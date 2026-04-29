@@ -36,7 +36,10 @@ rm -rf .git
 ### 5. Sincronización Ágil (Rsync)
 Copia los archivos limpios hacia tu directorio local del Boilerplate, ignorando los archivos estructurales que no deben viajar:
 ```bash
-rsync -av --exclude='.git' . ~/Escritorio/merci-boilerplate/
+# El flag --delete es CRÍTICO: actúa como un espejo destructivo. 
+# Elimina del Boilerplate cualquier "archivo fantasma" de versiones anteriores
+# que haya sido purgado en el clon temporal por merci-init.py.
+rsync -av --delete --exclude='.git' . ~/Escritorio/merci-boilerplate/
 ```
 
 ### 6. QA y Sello (En el repositorio destino)

@@ -37,6 +37,42 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — DevSecOps: Truncamiento de historial Git (Orphan Branch) en Boilerplate
+
+**Contexto:** Tras el despliegue exitoso de la Release 1.0.0 del Boilerplate, una inspección del `git log` reveló que el repositorio destino conservaba el historial de commits de la matriz original, exponiendo metadatos, correos electrónicos y trazabilidad privada.
+
+**Hecho:** Se ejecutó un truncamiento absoluto del historial en el repositorio `merci-boilerplate` local utilizando `git checkout --orphan`, seguido de una reescritura remota con `git push --force`.
+
+**Detalle técnico:** La creación de una rama huérfana (`--orphan`) desconecta el árbol de trabajo actual de cualquier commit anterior. Al reemplazar la rama `main` con esta nueva rama y forzar la subida, el servidor remoto (GitHub) descarta el historial antiguo, dejando un único commit fundacional inmaculado.
+
+**Motivo / criterio:** *Data Leak Prevention* (Prevención de Pérdida de Datos). Un boilerplate público debe ser un lienzo en blanco (Zero Trust). El código fuente no solo incluye los archivos físicos actuales, sino toda la memoria inmutable de Git. Purgar el historial asegura la sanitización total de la propiedad intelectual exportada.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
+### 2026-04-29 — Fix: Sincronización destructiva (rsync --delete) y purga de assets
+
+**Contexto:** Tras la instanciación del Boilerplate, se detectó que los archivos originales (`README-merci.md`, `bitacora-mercedev.md`, scripts temporales y multimedia personal) seguían apareciendo en el repositorio destino, a pesar de que `merci-init.py` los borraba o renombraba correctamente en el clon temporal.
+
+**Hecho:** 
+- Se añadió la bandera `--delete` al comando `rsync` en `mantenimiento-boilerplate-sop.md`.
+- Se amplió `merci-init.py` para purgar explícitamente `.assets-raw`, `assets/images` (conservando logos/favicon) y `public/art-de-cote`.
+
+**Motivo / criterio:** *Configuration Drift* (Archivos Fantasma). El comando `rsync` estándar solo añade o actualiza archivos; si el repositorio de destino contiene archivos de subidas anteriores que ya no existen en la matriz, estos nunca se borrarán a menos que se exija una sincronización de espejo estricta con `--delete`. Esto resuelve el falso positivo de fallo en el orquestador Python y garantiza un empaquetado inmaculado.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
+### 2026-04-29 — Fix: Purga de Shadow Docs residuales en instanciación
+
+**Contexto:** Al ejecutar la instanciación (`merci-init.py`) siguiendo el SOP de mantenimiento, se detectó que los archivos originales `README-merci.md` e `instrucciones-merci.md` permanecían en el directorio junto a sus versiones definitivas (`README.md` e `instrucciones.md`), generando duplicidad documental en el Boilerplate.
+
+**Hecho:** Se instruyó la corrección en `scripts/merci/merci-init.py` para aplicar una maniobra destructiva (renombrado atómico) al ascender los *Shadow Docs*.
+
+**Detalle técnico:** En lugar de una simple copia, el orquestador Python debe utilizar el método `.replace()` de `pathlib.Path` para sobrescribir atómicamente el documento destino y erradicar el archivo `-merci` de origen en un solo movimiento.
+
+**Motivo / criterio:** *Zero Bloat* y *Single Source of Truth*. El código fuente exportado debe ser inmaculado. Conservar la infraestructura "en la sombra" dentro del repositorio público del Boilerplate confunde al usuario final y expone artefactos de la matriz innecesariamente.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9: Inteligencia y Autonomía (Integración de IA en Vanilla JS).
+
 ### 2026-04-29 — Docs: Aclaración del pipeline de rsync y Shadow Docs
 
 **Contexto:** Existía la duda de si el comando de sincronización `rsync` hacia el repositorio del Boilerplate debía excluir explícitamente los manuales de la matriz (`README.md` e `instrucciones.md`) para evitar contaminar el repositorio destino, o si debían viajar los archivos gemelos (`-merci.md`).
