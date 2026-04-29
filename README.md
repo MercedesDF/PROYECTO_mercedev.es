@@ -278,7 +278,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 <!-- POR QUÉ: Respeta la Regla 12 (Actualización continua del Roadmap) documentando la intención antes de la ejecución. -->
 - [x] Unificar enlaces globales en pie de página (LinkedIn, GitHub, Boilerplate) manteniendo paridad Dev/Prod.
 - [x] Completar página estática de contacto (`public/contacto/index.html`) y afinar la portada (Sincronización SSOT).
-- [ ] Generar un pequeño índice curado de los artículos publicados en la biblioteca.
+- [x] Generar un pequeño índice curado de los artículos publicados en la biblioteca (Auto-generado por merci-publish).
 - [ ] Desarrollar publicador Headless (`merci-wp.py`) para escribir en WordPress local desde terminal.
 - [ ] Implementar automatización social para publicar entradas del blog directamente en LinkedIn.
 

@@ -264,19 +264,37 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
         estanterias[tema].append(pub)
         
     secciones_html = ""
+    enlaces_indice_html = ""
     
     # Ordenar temas alfabéticamente y procesar sus publicaciones
     for tema in sorted(estanterias.keys()):
+        # QUÉ HACE: Genera un ID válido para el ancla (ej. 'devsecops-y-gobernanza')
+        tema_slug = slugify(tema)
+        
         # Ordenamos los artículos dentro de un mismo tema del más nuevo al más antiguo
         pubs_tema = sorted(estanterias[tema], key=lambda x: x["fecha"], reverse=True)
         
+        # Construimos el contenedor principal de la estantería (con diseño de columnas responsivo)
+        enlaces_indice_html += f'                <li style="flex: 1 1 300px; min-width: 250px;">\n'
+        enlaces_indice_html += f'                    <a href="#{tema_slug}" style="font-weight: 700; color: #ea580c; text-decoration: none; border-bottom: 2px solid rgba(234, 88, 12, 0.3); padding-bottom: 0.2rem; display: inline-block; margin-bottom: 0.8rem;">{tema}</a>\n'
+        enlaces_indice_html += f'                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">\n'
+        
         cards_html = ""
         for pub in pubs_tema:
+            # QUÉ HACE: Genera un ID válido para la tarjeta del artículo.
+            pub_slug = slugify(pub["titulo"])
+            
+            # QUÉ HACE: Inyecta cada artículo como un ancla interna apuntando a su tarjeta resumen.
+            # POR QUÉ: Retiene al usuario en la página índice para que pueda leer la descripción antes de entrar.
+            enlaces_indice_html += f'                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor=\'#cbd5e1\'" onmouseout="this.style.borderColor=\'#e2e8f0\'">\n'
+            enlaces_indice_html += f'                            <a href="#{pub_slug}" style="color: #475569; text-decoration: none; display: block;">{pub["titulo"]}</a>\n'
+            enlaces_indice_html += f'                        </li>\n'
+            
             clase_css = "card--booklet" if pub["tipo"].lower() == "cuadernillo" else "card--book"
             badge = pub["tipo"].capitalize()
             
             cards_html += f"""
-                <article class="card {clase_css}">
+                <article class="card {clase_css}" id="{pub_slug}" style="scroll-margin-top: 100px;">
                     <header>
                         <span class="card__meta">{pub["fecha"]} — {badge}</span>
                         <h2 class="card__title"><a href="{pub["url"]}">{pub["titulo"]}</a></h2>
@@ -286,9 +304,13 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
                     </div>
                 </article>"""
                 
+        # Cerramos la lista de artículos y el elemento principal de la estantería
+        enlaces_indice_html += f'                    </ul>\n                </li>\n'
+                
+        # QUÉ HACE: Inyecta el ID para el ancla y 'scroll-margin-top' para no quedar oculto bajo el menú.
         secciones_html += f"""
-        <section class="biblioteca-tema" style="margin-bottom: 4rem;">
-            <h2 class="home-card__title--highlight" style="margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">{tema}</h2>
+        <section class="biblioteca-tema" id="{tema_slug}" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
+            <h2 class="home-card__title--highlight" style="margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;"><a href="#{tema_slug}" style="text-decoration: none; color: inherit;">{tema}</a></h2>
             <div class="home-grid">
                 {cards_html}
             </div>
@@ -319,10 +341,20 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     {header_html}
     <main class="main--padded section" id="main">
-        <header style="margin-bottom: 3rem;">
-            <h1 class="home-card__title--highlight">La Biblioteca</h1>
-            <p>Documentación técnica, proyectos DevSecOps y arquitectura de software.</p>
-        </header>
+        <!-- QUÉ HACE: Sección Hero unificada con el resto del ecosistema -->
+        <section class="hero">
+            <h1 class="hero__title">La Biblioteca</h1>
+            <p class="hero__subtitle">Documentación técnica, proyectos DevSecOps y arquitectura de software. El activo de conocimiento central del ecosistema.</p>
+        </section>
+        
+        <!-- QUÉ HACE: Índice Curado (Table of Contents) autogenerado -->
+        <!-- POR QUÉ: Mejora la UX permitiendo navegación intra-página sin scroll excesivo. -->
+        <nav aria-label="Índice de estanterías" style="margin-bottom: 4rem; background: #f8fafc; padding: 2rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <h2 style="margin-top: 0; font-size: 1.2rem; margin-bottom: 1rem; color: #334155;">Estanterías Temáticas</h2>
+            <ul style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 0;">
+{enlaces_indice_html}            </ul>
+        </nav>
+        
         {secciones_html}
     </main>
     {footer_html}

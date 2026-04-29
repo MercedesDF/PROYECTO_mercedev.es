@@ -37,6 +37,42 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — UX: Corrección de flujo de navegación en índice de Biblioteca
+
+**Contexto:** Los sub-enlaces del índice curado recién generado dirigían al usuario directamente a la página del artículo individual, provocando que la sección de tarjetas resumen de la propia página índice quedara huérfana e ignorada.
+
+**Hecho:** Se modificaron los enlaces del bloque `<nav>` en `scripts/merci/merci-publish.py` para que actúen como anclas internas (`#`). Simultáneamente, se inyectaron IDs dinámicos (basados en el título) y la propiedad `scroll-margin-top` en los elementos `<article>` de las tarjetas.
+
+**Detalle técnico:** Al utilizar `slugify(pub["titulo"])` generamos un anclaje único por tarjeta (ej. `id="mi-articulo"`). Los enlaces del menú ahora apuntan a `#mi-articulo` en lugar de a `/biblioteca/mi-articulo.html`.
+
+**Motivo / criterio:** *Retención de Contexto y UX*. El objetivo de una página índice es actuar como un escaparate. Redirigir al usuario al resumen de la tarjeta permite que lea la descripción (excerpt) antes de decidir si desea hacer clic en el título y abandonar la navegación panorámica.
+
+**Siguiente paso o deuda:** Desarrollar el publicador Headless (`merci-wp.py`) para escribir en WordPress local desde la terminal.
+
+### 2026-04-29 — UX/UI: Expansión del índice curado con sub-enlaces de artículos (SSG)
+
+**Contexto:** El índice curado superior recién creado solo mostraba las "Estanterías" (temas), obligando al usuario a hacer clic o scroll a ciegas para descubrir qué artículos contenía cada categoría.
+
+**Hecho:** Se refactorizó el bucle de generación del índice en `scripts/merci/merci-publish.py` para inyectar una lista anidada (`<ul>`) con los enlaces directos a cada artículo bajo su respectiva estantería.
+
+**Detalle técnico:** Se alteró el layout del contenedor padre (`<li>`) aplicando CSS `flex: 1 1 300px`, creando automáticamente un diseño de columnas responsivo (tipo mampostería) que se adapta al ancho de la pantalla móvil o de escritorio sin usar CSS Grid explícito.
+
+**Motivo / criterio:** *Fricción Cero y Descubrimiento*. Evolucionar el índice hacia un patrón de "Mega Menú" o "Mapa del Sitio" visual expone todo el conocimiento disponible en el primer impacto (Above the Fold). Al autogenerarse en Python durante el proceso SSG, esta rica interfaz cuesta 0 milisegundos de renderizado extra al navegador.
+
+**Siguiente paso o deuda:** Desarrollar el publicador Headless (`merci-wp.py`) para escribir en WordPress local desde la terminal.
+
+### 2026-04-29 — UX: Reestructuración visual e índice curado en la Biblioteca (SSG)
+
+**Contexto:** La página principal autogenerada de la Biblioteca carecía de una sección `Hero`, lo que rompía la consistencia visual con el resto del ecosistema (Portada, Contacto). Además, carecía de un índice rápido, dificultando la navegación a medida que aumentaban las estanterías temáticas.
+
+**Hecho:** Se refactorizó la función `generar_indice_biblioteca()` en `scripts/merci/merci-publish.py` para inyectar una sección `Hero` y un bloque `<nav>` dinámico con enlaces ancla.
+
+**Detalle técnico:** Se reutilizó la función existente `slugify()` para convertir los nombres de los temas en atributos `id` HTML5 válidos. Se inyectó la propiedad CSS nativa `scroll-margin-top: 100px;` en cada sección temática para garantizar que la cabecera fija de la web no solape los títulos al realizar saltos internos mediante los enlaces ancla.
+
+**Motivo / criterio:** *UX (Experiencia de Usuario) y Fricción Cero*. Un motor de Generación de Sitios Estáticos (SSG) no solo debe agrupar enlaces, debe maquetar interfaces coherentes. Autogenerar el índice curado (*Table of Contents*) elimina la necesidad de mantenimiento manual por parte del autor al inaugurar nuevos temas.
+
+**Siguiente paso o deuda:** Desarrollar el publicador Headless (`merci-wp.py`) para escribir en WordPress local desde la terminal.
+
 ### 2026-04-29 — Feat: Reestructuración y unificación del pipeline maestro (merci-total)
 
 **Contexto:** Para evitar desincronizaciones por olvido de compilación manual, se vió que integrar el motor SSG (`merci-publish.py`) dentro del orquestador global de QA (`merci-total.py`) actualizaría la página de biblioteca a los nuevos formatos. Además, se detectó que el sincronizador de páginas (`merci-sync-pages.py`) se estaba ejecutando al final del proceso, después de las herramientas de auditoría.
