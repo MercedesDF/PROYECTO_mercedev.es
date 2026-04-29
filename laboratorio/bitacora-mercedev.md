@@ -37,6 +37,30 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — Docs: Creación de plantillas Headless WP y definición de fronteras
+
+**Contexto:** Se requería crear plantillas base (YAML Frontmatter + Markdown) para facilitar la redacción de nuevos artículos destinados a las categorías dinámicas (Blog y Art de Coté). Surgió el debate arquitectónico sobre si debían alojarse en el `laboratorio/` y si pertenecían a las reglas de negocio de la matriz o al ecosistema del Boilerplate.
+
+**Hecho:** Se crearon los archivos `docs/plantilla-blog.md` y `docs/plantilla-art-de-cote.md`.
+
+**Detalle técnico:** Las plantillas incluyen pre-configurados los campos `estado: "borrador"` y sus respectivos `tema:` para garantizar el enrutamiento correcto hacia WordPress por parte de `merci-wp.py`.
+
+**Motivo / criterio:** *Separation of Concerns* (Separación de Responsabilidades). El entorno `laboratorio/` es efímero y se purga durante la instanciación (`merci-init.py`); alojar plantillas allí provocaría su destrucción en proyectos derivados. Ubicarlas en `docs/` consolida el Boilerplate como un producto completo que provee tanto el motor de publicación como los moldes de contenido.
+
+**Siguiente paso o deuda:** Implementar automatización social para publicar entradas del blog directamente en LinkedIn.
+
+### 2026-04-29 — Feat: Expulsión activa de borradores al laboratorio en CMS Headless
+
+**Contexto:** Para garantizar la paridad absoluta con el flujo de la biblioteca estática, los artículos de WordPress que eran despublicados (`estado: "borrador"`) actualizaban su estado en la base de datos pero permanecían físicamente en las carpetas de producción (`blog/` o `art-de-cote/`).
+
+**Hecho:** Se implementó la lógica de "Kill-Switch" con reubicación física en `scripts/merci/merci-wp.py`.
+
+**Detalle técnico:** Tras una petición exitosa a la API de WordPress, si el estado no es `"publicado"` y el archivo no reside ya en `laboratorio/`, el script utiliza `shutil.move()` para trasladarlo de vuelta a `laboratorio/<ruta_relativa>`, replicando su árbol de directorios original dinámicamente (`destino_lab.parent.mkdir()`).
+
+**Motivo / criterio:** *Environment Segregation*. Ningún documento en fase de incubación o revisión debe residir en los directorios raíz, ya sean de la capa estática o dinámica. La automatización de este movimiento previene que el autor olvide limpiar las carpetas de producción tras despublicar un post.
+
+**Siguiente paso o deuda:** Implementar automatización social para publicar entradas del blog directamente en LinkedIn.
+
 ### 2026-04-29 — Feat: Enrutamiento contextual en orquestador de promoción (merci-promote)
 
 **Contexto:** Para cumplir con la nueva unificación del flujo de publicación (SSOT), se requería que el asistente interactivo `merci-promote.py` reconociera los subdirectorios de incubación dinámica (`laboratorio/blog` y `laboratorio/art-de-cote`) y trasladara los documentos curados a sus respectivas carpetas raíz.
