@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — QA: Resolución de contraste WCAG en índice de la Biblioteca
+
+**Contexto:** Tras la creación del Mega-Menú (índice curado) en la Biblioteca, una auditoría de Lighthouse detectó que el color naranja de los enlaces de las estanterías (`#ea580c`) sobre el fondo gris claro (`#f8fafc`) no alcanzaba el ratio de contraste mínimo exigido, provocando una penalización en Accesibilidad.
+
+**Hecho:** Se oscureció el color de los enlaces a `#9a3412` (y su borde inferior a `rgba(154, 52, 18, 0.3)`) en el orquestador `scripts/merci/merci-publish.py`.
+
+**Detalle técnico:** El color original `#ea580c` tiene un ratio de contraste de ~3.0:1 sobre fondos claros, lo cual está en el límite para textos en negrita grandes, pero falla el umbral estricto de 4.5:1 para textos generales. El nuevo tono `#9a3412` eleva el contraste por encima de 6:1, garantizando el 100/100 en Core Web Vitals (Accesibilidad).
+
+**Motivo / criterio:** *Accesibilidad Estricta (100/100)*. La estética (un color vibrante) nunca debe comprometer la legibilidad. Si una herramienta automatizada detecta un problema de contraste, se corrige inmediatamente endureciendo el tono hacia umbrales seguros (Shift-Left Accessibility).
+
+**Siguiente paso o deuda:** Desarrollar el publicador Headless (`merci-wp.py`) para escribir en WordPress local desde la terminal.
+
 ### 2026-04-29 — QA: Resolución de contraste WCAG en enlaces del footer
 
 **Contexto:** Tras la inyección de los nuevos enlaces sociales en el footer, la auditoría de Lighthouse (PageSpeed Insights) reportó una caída a 95/100 en Accesibilidad debido a un ratio de contraste deficiente.

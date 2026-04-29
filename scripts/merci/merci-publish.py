@@ -276,7 +276,8 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
         
         # Construimos el contenedor principal de la estantería (con diseño de columnas responsivo)
         enlaces_indice_html += f'                <li style="flex: 1 1 300px; min-width: 250px;">\n'
-        enlaces_indice_html += f'                    <a href="#{tema_slug}" style="font-weight: 700; color: #ea580c; text-decoration: none; border-bottom: 2px solid rgba(234, 88, 12, 0.3); padding-bottom: 0.2rem; display: inline-block; margin-bottom: 0.8rem;">{tema}</a>\n'
+        # QUÉ HACE: Aplica un tono naranja oscuro (#9a3412) para cumplir estrictamente con el ratio de contraste WCAG 4.5:1.
+        enlaces_indice_html += f'                    <a href="#{tema_slug}" style="font-weight: 700; color: #9a3412; text-decoration: none; border-bottom: 2px solid rgba(154, 52, 18, 0.3); padding-bottom: 0.2rem; display: inline-block; margin-bottom: 0.8rem;">{tema}</a>\n'
         enlaces_indice_html += f'                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">\n'
         
         cards_html = ""
