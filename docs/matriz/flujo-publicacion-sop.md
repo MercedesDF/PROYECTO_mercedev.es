@@ -1,40 +1,51 @@
-# SOP: Flujo de Publicación y Ciclo de Vida del Conocimiento
+# SOP: Flujo de Publicación Dual (SSG y Headless WP)
 
-Este documento detalla el Procedimiento Operativo Estándar (SOP - Standard Operating Procedure) o *Runbook* para gobernar el ciclo de vida del contenido dentro del ecosistema DevSecOps de Merci. 
+Este documento define el Procedimiento Operativo Estándar (SOP) para la publicación de contenidos en el ecosistema híbrido `mercedev.es`. 
 
-Dado que la automatización del proyecto consta de múltiples herramientas especializadas (orquestadores, optimizadores, auditores), el **orden de ejecución** es un factor crítico de arquitectura. Alterar este orden puede provocar fallos en cadena, como sitemaps desactualizados o enlaces rotos que escapen a la auditoría.
-
-## El Flujo Maestro (Paso a Paso)
-
-Para llevar una idea desde su concepción en local hasta su publicación segura en producción, el pipeline inamovible es el siguiente:
-
-### 1. Sincronización (`git pull`)
-Iniciar siempre la sesión descargando los últimos cambios del repositorio remoto para asegurar la paridad con el servidor y evitar conflictos de integración (Merge Conflicts).
-
-### 2. Incubación (Redacción manual)
-Redactar la idea, borrador o apunte técnico en la carpeta efímera `laboratorio/`. En esta fase no hay restricciones de validación, el documento es de uso interno y puede estar roto o incompleto.
-
-### 3. Curación (`merci promote`)
-Utilizar el asistente interactivo de consola para validar la madurez del documento. El script auditará el YAML Frontmatter, exigirá el cumplimiento de los criterios de accesibilidad estrictos (WAI-ARIA, como obligar a incluir `alt_portada`), actualizará la fecha, cambiará el estado a `publicado` y trasladará el archivo físicamente a su estantería definitiva en la `biblioteca/`.
-
-### 4. Compilación (`merci publish`)
-El motor SSG (Static Site Generation - Generación de Sitios Estáticos) lee los documentos "publicados" de la biblioteca, inyecta el marco visual global (header y footer extraídos dinámicamente de la portada), genera los artefactos descargables (PDF mediante WeasyPrint) y deposita todo el código HTML estático final en la carpeta `public/`.
-
-### 5. Aseguramiento de Calidad (`merci total`)
-Ejecutar el orquestador global de Quality Assurance (QA). 
-*¿Por qué exactamente en este paso?* 
-Porque el actualizador del sitemap (`merci-sitemap.py`) y el escáner de enlaces rotos (`merci-linkcheck.py`) necesitan que los archivos HTML ya hayan sido generados por el paso anterior (`publish`) para poder leerlos y auditarlos correctamente. Alterar este orden dejaría a los rastreadores "ciegos" frente al nuevo contenido. Además, este paso compila el CSS final de SASS.
-
-### 6. Trazabilidad (Bitácora)
-Abrir `laboratorio/bitacora-mercedev.md` y documentar rápidamente la maniobra técnica realizada siguiendo la estructura de conocimiento de los 3 átomos (Desafío, Maniobra, Aprendizaje).
-
-### 7. Empaquetado Atómico (`merci commit`)
-El script de CI/CD (Integración y Despliegue Continuos) lee la bitácora, realiza el auto-stage de todos los archivos nuevos o modificados (HTML, PDF, Markdown) y sella el repositorio de forma atómica en un único commit. Antes de hacerlo, validará todo contra el hook de seguridad *pre-commit* (búsqueda de secretos, validación de sintaxis y JSON-LD (JavaScript Object Notation for Linked Data - Notación de Objetos JavaScript para Datos Enlazados)).
-
-### 8. Despliegue (`git push`)
-Enviar el paquete cerrado e inmaculado al servidor, disparando la actualización instantánea en producción.
+Por diseño arquitectónico (Environment Segregation), el núcleo estático (Biblioteca) y la capa dinámica (Blog/Tienda en WordPress) viven en universos separados. **Sus flujos de publicación nunca deben cruzarse.**
 
 ---
 
-### Herramientas Situacionales
-Comandos paralelos como `merci watch` (vigilante de estilos en tiempo real) o `merci audit` (lanzar un linter aislado) son situacionales para el trabajo de diseño (UI) o depuración. Sin embargo, para la publicación de conocimiento, los 8 pasos descritos conforman la **tubería inamovible** del sistema.
+## FLUJO 1: La Biblioteca (Núcleo Estático / SSG)
+**Destino:** `public/biblioteca/`
+**Características:** Contenido fundacional, manuales y proyectos. Genera HTML ultrarrápido y PDF descargable.
+
+### Paso a Paso:
+1. **Incubación:** Crea o edita tu documento Markdown (`.md`) dentro de la carpeta `laboratorio/`. Su YAML Frontmatter debe tener `estado: "borrador"`.
+2. **Curación (Promote):** Cuando esté listo para publicarse, ejecuta en la terminal:
+   ```bash
+   python3 scripts/merci/merci-promote.py
+   ```
+   *Nota:* El asistente interactivo validará el SEO/Accesibilidad, cambiará el estado a `"publicado"` y moverá físicamente el archivo a la carpeta `biblioteca/`.
+3. **Compilación y QA:** Ejecuta el orquestador maestro para transformar el Markdown en HTML/PDF, actualizar el índice y pasar la auditoría estricta:
+   ```bash
+   merci total
+   ```
+4. **Sello y Empaquetado:** Sella la publicación subiendo los archivos a Git:
+   ```bash
+   merci commit
+   ```
+
+---
+
+## FLUJO 2: Blog y Art de Coté (WordPress Headless)
+**Destino:** Base de datos local de WordPress (visible en `/blog`).
+**Características:** Contenido dinámico, artículos colaterales, reflexiones o novedades.
+
+### Paso a Paso:
+1. **Redacción Aislada:** Crea tu documento Markdown en una subcarpeta ajena al flujo estático, por ejemplo dentro de tu zona de pruebas (ej. `laboratorio/art-de-cote/`). 
+   *Asegúrate de que el YAML tenga `estado: "publicado"` y un `tema:` que coincida con una categoría de tu WordPress.*
+2. **Inyección Directa (Headless):** Ejecuta el script pasándole la ruta exacta de tu archivo:
+   ```bash
+   python3 scripts/merci/merci-wp.py laboratorio/art-de-cote/tu-articulo.md
+   ```
+3. **Actualización (Update):** El script publicará el artículo en WordPress y **escribirá el `wp_id`** dentro del YAML de tu archivo local. Si encuentras un error o quieres modificar el texto, edita tu Markdown local y vuelve a lanzar el mismo comando del paso 2. El script detectará el ID y actualizará el post existente sin duplicarlo.
+4. **Sello de Código Fuente:** Opcionalmente, ejecuta `merci commit` para guardar el archivo `.md` (con su nuevo `wp_id`) en tu control de versiones.
+
+---
+
+## ⚠️ Reglas de Oro (Hardening Operativo)
+
+- **Prohibición de cruce:** Nunca ejecutes `merci-promote.py` sobre un archivo destinado a WordPress. Si lo haces, el script lo enviará a la `biblioteca/` y el SSG intentará compilarlo como una página estática.
+- **Despublicación SSG (Kill-Switch):** Si necesitas retirar un artículo de la Biblioteca, edita su `.md` en la carpeta `biblioteca/`, cambia el YAML a `estado: "borrador"` y ejecuta `merci total`. El orquestador destruirá el HTML/PDF público y enviará el archivo de vuelta al `laboratorio/`.
+- **Entorno encendido:** El *Flujo 2* requiere obligatoriamente que el servidor Nginx/MariaDB local esté encendido para poder comunicarse con la API REST de WordPress.

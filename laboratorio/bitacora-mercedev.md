@@ -37,6 +37,59 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — Arch: Segregación de categorías en el feed principal de WordPress
+
+**Contexto:** Tras publicar un artículo en la categoría "Art de Coté" mediante el publicador Headless, se observó que dicho artículo aparecía tanto en su página de categoría como en el listado principal del blog (`/blog`), rompiendo la separación conceptual de los contenidos.
+
+**Hecho:** Se implementó la función `merci_excluir_categorias_del_blog` en el archivo `functions.php` del tema, enganchada al hook `pre_get_posts`.
+
+**Detalle técnico:** La función intercepta la consulta principal de WordPress (`is_main_query()`) cuando se renderiza la página de inicio del blog (`is_home()`). Obtiene dinámicamente el ID de la categoría "Art de Coté" mediante `get_category_by_slug()` y modifica la consulta (`$query->set()`) para excluir explícitamente los posts de dicho ID.
+
+**Motivo / criterio:** *Arquitectura de la Información*. El comportamiento por defecto de WordPress es mostrar todos los posts en su feed principal. Para lograr una separación estricta entre un "blog" cronológico y colecciones temáticas, es necesario filtrar la consulta principal. Usar el hook `pre_get_posts` es el método canónico y más eficiente para lograrlo sin afectar el rendimiento.
+
+**Siguiente paso o deuda:** Implementar automatización social para publicar entradas del blog directamente en LinkedIn (Fase 8.3).
+
+### 2026-04-29 — Docs: Creación del SOP maestro de Publicación Dual
+
+**Contexto:** Tras la implementación exitosa del publicador Headless para WordPress (`merci-wp.py`), el ecosistema pasó a gobernar dos flujos de publicación completamente distintos (SSG estático vs API REST dinámica). Era imperativo documentar las fronteras operativas para evitar que el desarrollador cruce herramientas por error (ej. promover un post de WP a la biblioteca estática).
+
+**Hecho:** Se redactó y consolidó el documento `docs/matriz/flujo-publicacion-sop.md` (SOP: Flujo de Publicación Dual).
+
+**Detalle técnico:** El documento actúa como una guía de referencia rápida (*Cheat Sheet*) que separa explícitamente el Flujo 1 (Laboratorio -> Promote -> Publish) del Flujo 2 (Art de Coté -> WP Headless).
+
+**Motivo / criterio:** *Governance y Developer Experience (DX)*. Un ecosistema DevSecOps complejo requiere reglas de operación claras. Documentar las "Reglas de Oro" y los comandos exactos externaliza la carga cognitiva de la memoria del desarrollador hacia el repositorio de código, garantizando la mantenibilidad a largo plazo.
+
+**Siguiente paso o deuda:** Implementar automatización social para publicar entradas del blog directamente en LinkedIn (Fase 8.3).
+
+### 2026-04-29 — Feat: Sincronización bidireccional (Update) en Headless CMS
+
+**Contexto:** El publicador Headless (`merci-wp.py`) generaba un artículo duplicado cada vez que se ejecutaba sobre el mismo archivo. Además, se detectó que pasar documentos destinados a WordPress por el flujo de `merci-promote` los ubicaba en la `biblioteca/`, provocando que el orquestador SSG los compilara erróneamente como páginas estáticas.
+
+**Hecho:** 
+- Se modificó `scripts/merci/merci-wp.py` para que lea y escriba dinámicamente el atributo `wp_id` en el YAML Frontmatter del archivo Markdown local.
+- Se estableció la regla de segregar los archivos Markdown destinados a WordPress en carpetas externas a `biblioteca/` (ej. `art-de-cote/`) y omitir su paso por `merci-promote`.
+
+**Detalle técnico:** En la primera publicación, el script captura el `id` numérico devuelto por la API de WordPress y reescribe físicamente el YAML del archivo `.md` inyectando `wp_id: "ID"`. En ejecuciones posteriores, el script detecta este ID y muta su endpoint a `/wp-json/wp/v2/posts/{id}` para realizar una actualización (Update) en lugar de una creación (Create).
+
+**Motivo / criterio:** *Single Source of Truth (SSOT) Bidireccional*. Para que un Headless CMS en terminal funcione sin fricción, el archivo de texto local debe ser consciente de su entidad gemela en la base de datos. La inyección automática elimina el riesgo de duplicidad sin requerir interacción manual del autor.
+
+**Siguiente paso o deuda:** Implementar automatización social para publicar entradas del blog directamente en LinkedIn.
+
+### 2026-04-29 — Feat: Publicador Headless para WordPress (merci-wp.py)
+
+**Contexto:** Para eliminar la fricción de usar el panel de administración de WordPress, se requería una herramienta de terminal para publicar artículos directamente desde archivos Markdown locales.
+
+**Hecho:**
+- Se desarrolló el script `scripts/merci/merci-wp.py`.
+- Se documentó el proceso de creación de Contraseñas de Aplicación en WordPress y la configuración del archivo `.env`.
+- Se actualizó el `README.md` para registrar la nueva herramienta y marcar la tarea como completada.
+
+**Detalle técnico:** El script utiliza únicamente la biblioteca estándar de Python. Lee las credenciales de un archivo `.env` local, convierte el Markdown a HTML, y realiza dos peticiones a la API REST de WordPress: una (GET) para resolver el ID numérico de la categoría a partir de su nombre (leído del campo `tema:` del YAML), y otra (POST) para publicar el contenido. La autenticación se realiza mediante Basic Auth, enviando el usuario y la contraseña de aplicación codificados en Base64 en la cabecera `Authorization`.
+
+**Motivo / criterio:** *Fricción Cero y Developer Experience (DX)*. Automatizar la publicación desde la terminal se alinea con la filosofía "CLI-first" del proyecto. Evitar dependencias externas (`requests`, `python-dotenv`) mantiene el núcleo de automatización ultraligero y portable.
+
+**Siguiente paso o deuda:** Implementar la automatización social para publicar en LinkedIn.
+
 ### 2026-04-29 — QA: Certificación "Cuádruple 100" en auditoría móvil extrema
 
 **Contexto:** Tras solventar las penalizaciones de contraste de color (WCAG) y la ambigüedad de enlaces (WAI-ARIA) en la nueva página índice de la Biblioteca, era obligatorio certificar el estado del arte mediante una auditoría de caja negra externa (Google PageSpeed Insights).

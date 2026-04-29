@@ -50,6 +50,7 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 - `merci-total.py`: Orquestador maestro del pipeline local.
 - `merci-publish.py` y `merci-promote.py`: Motor SSG (Static Site Generation - Generación de Sitios Estáticos) y promoción de contenidos.
 - `merci-sync-pages.py`: Sincronizador de estructuras comunes estáticas (SSOT en páginas independientes).
+- `merci-wp.py`: Publicador Headless para WordPress vía API REST.
 - `merci-styles.py` y `merci-watcher.py`: Compilador SASS 7-1 local y vigilante en tiempo real.
 
 ## Entorno de Desarrollo Local
@@ -279,7 +280,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Unificar enlaces globales en pie de página (LinkedIn, GitHub, Boilerplate) manteniendo paridad Dev/Prod.
 - [x] Completar página estática de contacto (`public/contacto/index.html`) y afinar la portada (Sincronización SSOT).
 - [x] Generar un pequeño índice curado de los artículos publicados en la biblioteca (Auto-generado por merci-publish).
-- [ ] Desarrollar publicador Headless (`merci-wp.py`) para escribir en WordPress local desde terminal.
+- [x] Desarrollar publicador Headless (`merci-wp.py`) para escribir en WordPress local desde terminal.
 - [ ] Implementar automatización social para publicar entradas del blog directamente en LinkedIn.
 
 ### Fase 9 - Inteligencia y Autonomía (Merci Avanzado)
