@@ -118,9 +118,9 @@
         <!-- QUÉ HACE: Contenedor flex para los enlaces sociales y de proyecto. -->
         <!-- POR QUÉ: Al usar flex-wrap, aseguramos que en pantallas móviles pequeñas no se rompa el diseño (Responsive Design). -->
         <div class="footer__links" style="margin-bottom: 1.5rem; display: flex; gap: 1.5rem; flex-wrap: wrap; font-weight: 500;">
-            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
-            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
-            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">Merci Boilerplate</a>
         </div>
         <div class="footer__text">
             <a href="#top" style="color: inherit; text-decoration: underline; font-weight: 600; display: inline-block; margin-bottom: 1rem;">↑ Volver arriba</a><br>

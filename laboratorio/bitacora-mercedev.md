@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — QA: Resolución de contraste WCAG en enlaces del footer
+
+**Contexto:** Tras la inyección de los nuevos enlaces sociales en el footer, la auditoría de Lighthouse (PageSpeed Insights) reportó una caída a 95/100 en Accesibilidad debido a un ratio de contraste deficiente.
+
+**Hecho:** Se aplicaron estilos en línea (`color: inherit; text-decoration: underline; text-underline-offset: 4px;`) a la clase `.footer__link` en la portada (`public/index.html`) y la plantilla CMS (`src/wp-theme/merci-theme/index.php`).
+*Nota:* La página estática de contacto heredó la corrección automáticamente sin intervención manual gracias a la ejecución de `merci-sync-pages.py` en el orquestador.
+
+**Detalle técnico:** Los navegadores aplican un color azul por defecto (`#0000EE`) a los enlaces no estilizados, el cual falla sistemáticamente el ratio de contraste 4.5:1 de las normativas WCAG (Web Content Accessibility Guidelines - Pautas de Accesibilidad al Contenido en la Web) sobre fondos oscuros o claros con poca luminancia.
+
+**Motivo / criterio:** *Accesibilidad Estricta (100/100)*. Además del color, forzar el subrayado cumple con la norma de que "el color no debe ser el único indicador visual de interactividad". Mantener el 100/100 es innegociable en el ecosistema.
+
+**Siguiente paso o deuda:** Desarrollar el publicador Headless (`merci-wp.py`) para escribir en WordPress local desde la terminal.
+
 ### 2026-04-29 — UX: Enlaces de "Volver arriba" en estanterías de la Biblioteca
 
 **Contexto:** Con la implementación del "Mega-Menú" y el scroll suave hacia las tarjetas de los artículos, los usuarios necesitaban una forma rápida de regresar al índice superior tras revisar una estantería completa, sin depender del enlace del footer o de hacer scroll manual.
