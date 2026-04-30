@@ -91,6 +91,14 @@ def main():
     purge_directory(REPO_ROOT / "public" / "descargas")
     purge_directory(REPO_ROOT / "public" / "art-de-cote")
     
+    # QUÉ HACE: Reconstruye las carpetas estructurales del entorno de incubación.
+    # POR QUÉ: purge_directory elimina las carpetas. Git no rastrea carpetas vacías, 
+    # por lo que necesitamos recrearlas con su .gitkeep para que merci-wp.py no falle.
+    for dir_name in ["blog", "art-de-cote"]:
+        dir_path = REPO_ROOT / "laboratorio" / dir_name
+        dir_path.mkdir(exist_ok=True)
+        (dir_path / ".gitkeep").touch(exist_ok=True)
+
     # QUÉ HACE: Purga el material multimedia personal del autor original.
     # POR QUÉ: Evita engordar el Boilerplate con fotos propias, pero preserva 
     # los iconos estructurales de la UI (logos y el avatar del asistente Merci).

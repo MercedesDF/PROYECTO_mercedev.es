@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-30 — Fix: Preservación de estructura de directorios en instanciación
+
+**Contexto:** Tras instanciar el Boilerplate, el orquestador `merci-wp.py` emitía advertencias indicando que los directorios `blog/` y `art-de-cote/` no existían, ya que Git no rastrea carpetas vacías y `merci-init.py` destruía el contenido del `laboratorio/`.
+
+**Hecho:**
+- Se añadieron archivos `.gitkeep` a las carpetas `laboratorio/blog/` y `laboratorio/art-de-cote/` de la matriz.
+- Se parcheó `scripts/merci/merci-init.py` para reconstruir estos subdirectorios estructurales y generar sus respectivos `.gitkeep` tras la purga del laboratorio.
+
+**Detalle técnico:** La función `purge_directory` usa `shutil.rmtree`, lo que erradica subdirectorios enteros. Recrearlos explícitamente con `mkdir` y `touch(".gitkeep")` asegura que la topología de incubación Headless esté lista desde el commit cero del nuevo proyecto.
+
+**Motivo / criterio:** *Developer Experience (DX) y Robustez*. Un entorno de desarrollo debe proveer el andamiaje completo necesario para que sus herramientas CLI operen sin emitir advertencias de "archivo no encontrado" por problemas derivados del control de versiones.
+
+**Siguiente paso o deuda:** Retomar el MVP de la tienda (WooCommerce) estandarizando sus estilos visuales.
+
 ### 2026-04-30 — Fix: Resolución de enlace roto (PGP) en QA de Boilerplate
 
 **Contexto:** Al instanciar y auditar el Boilerplate v1.2.1, el orquestador `merci-total` detuvo el pipeline en la fase de `merci-linkcheck.py` al detectar un error 404 en el enlace `/llave-publica.asc` de la página estática de Contacto.
