@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — Refactor: Purga de deuda técnica en componente SASS (_hero.scss)
+
+**Contexto:** Una auditoría de la arquitectura SASS 7-1 reveló la existencia de una definición duplicada de la clase `.card` dentro del archivo `_hero.scss`, a pesar de que dicho componente ya tenía su propio archivo dedicado (`_card.scss`).
+
+**Hecho:** Se eliminó el bloque de código `.card` redundante de `src/scss/components/_hero.scss`.
+
+**Detalle técnico:** El archivo `_index.scss` importaba `_hero.scss` antes que `_card.scss`, provocando que el navegador leyera estilos que eran inmediatamente sobrescritos por el componente correcto. Aunque el resultado visual era el esperado, generaba código muerto en el `main.css` final.
+
+**Motivo / criterio:** *Code Hygiene y Single Responsibility Principle*. Cada componente SASS debe ser responsable únicamente de su propio bloque BEM. Eliminar código duplicado o desplazado reduce el peso del CSS final y mejora drásticamente la mantenibilidad y la claridad de la arquitectura.
+
+**Siguiente paso o deuda:** (Pendiente de instrucción).
+
 ### 2026-04-29 — Refactor: Reestructuración visual del índice de la Biblioteca (Grid y BEM)
 
 **Contexto:** El índice autogenerado de la Biblioteca utilizaba un layout basado en `flexbox` y clases CSS no estandarizadas (`.indice__*`), lo que dificultaba la creación de columnas de ancho uniforme y una jerarquía visual clara entre los títulos de las estanterías y los artículos.
