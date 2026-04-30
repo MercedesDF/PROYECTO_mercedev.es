@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — Docs: Publicación de cuadernillo sobre Especificidad CSS
+
+**Contexto:** Los incidentes relacionados con la pseudo-clase `:visited` y la Especificidad CSS fueron considerados una lección de arquitectura de software lo suficientemente valiosa como para ser promovida a un activo de conocimiento permanente en la Biblioteca.
+
+**Hecho:** Se redactó y creó el archivo `biblioteca/cuadernillo-la-guerra-de-la-especificidad-css.md`.
+
+**Detalle técnico:** El cuadernillo se estructuró bajo el formato de 3 átomos (Desafío, Maniobra, Aprendizaje), explicando con ejemplos prácticos del propio proyecto por qué los estilos en línea y los selectores anidados pueden romper la interactividad de los enlaces.
+
+**Motivo / criterio:** *Knowledge Management*. Transformar incidentes de depuración en material didáctico es un pilar de la filosofía del proyecto. Este cuadernillo servirá como referencia futura para evitar el uso de `!important` o la inyección de estilos en línea que comprometan la UX.
+
+**Siguiente paso o deuda:** (Pendiente de instrucción).
+
 ### 2026-04-29 — QA: Selección cromática matemática para estado :visited (WCAG)
 
 **Contexto:** Era necesario definir el color exacto para la variable `$color-visited` asegurando que mantuviera la coherencia visual con la marca y, simultáneamente, garantizara el 100/100 en accesibilidad en Google PageSpeed Insights.
