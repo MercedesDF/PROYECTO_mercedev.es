@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — Refactor: Poda de redundancias y duplicidades en arquitectura SASS
+
+**Contexto:** Tras analizar la especificidad CSS, se realizó una auditoría profunda en el directorio `src/scss/` buscando más casos de código muerto o duplicado que engordaran la hoja de estilos final.
+
+**Hecho:**
+- Se fusionaron las clases gemelas `.section-methodology` y `.section-ecosystem` en una única clase `.home-section` dentro de `_hero.scss` (y se actualizó `public/index.html`).
+- Se eliminaron reglas redundantes (`text-decoration: none` y herencia de color en anclas) en `_library-index.scss`.
+
+**Detalle técnico:** Las reglas eliminadas en el índice de la biblioteca eran "código muerto", ya que el archivo base `_typography.scss` ya se encarga de eliminar el subrayado globalmente y de gestionar la herencia de color en los encabezados (`h1-h6 a`). Las secciones de la portada se unificaron bajo un solo bloque BEM (`.home-section`), reduciendo el peso del CSS.
+
+**Motivo / criterio:** *Zero Dead Code* (Cero Código Muerto) y DRY (Don't Repeat Yourself). Las reglas CSS que redeclaran comportamientos ya definidos por la base tipográfica son un lastre. Mantener un CSS minimalista garantiza un procesamiento rápido del render tree en el navegador.
+
+**Siguiente paso o deuda:** (Pendiente de instrucción).
+
 ### 2026-04-29 — Refactor: Purga de deuda técnica en componente SASS (_hero.scss)
 
 **Contexto:** Una auditoría de la arquitectura SASS 7-1 reveló la existencia de una definición duplicada de la clase `.card` dentro del archivo `_hero.scss`, a pesar de que dicho componente ya tenía su propio archivo dedicado (`_card.scss`).

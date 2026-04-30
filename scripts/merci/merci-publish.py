@@ -346,7 +346,7 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
 <body class="page">
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     {header_html}
-    <main class="main--padded section" id="main">
+    <main class="main" id="main">
         <!-- QUÉ HACE: Sección Hero unificada con el resto del ecosistema -->
         <section class="hero">
             <h1 class="hero__title">La Biblioteca</h1>
