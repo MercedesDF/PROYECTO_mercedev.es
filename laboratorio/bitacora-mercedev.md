@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-30 — UX/UI: Estilización del MVP de la tienda (WooCommerce)
+
+**Contexto:** Tras decidir pivotar hacia la creación de una tienda mínima viable (MVP) antes de la campaña de LinkedIn, era necesario "vestir" el HTML crudo que genera WooCommerce, ya que sus estilos CSS nativos fueron purgados para mantener el 100/100 en Core Web Vitals.
+
+**Hecho:**
+- Se creó y estilizó el componente `src/scss/components/_woocommerce.scss`.
+- Se implementó un diseño de tarjetas en cuadrícula (Grid) para la vista de catálogo (`archive-product.php`).
+- Se maquetó la vista de producto individual (`single-product.php`) con un layout de 2 columnas (galería + resumen) y se normalizaron los estilos del formulario de compra y las pestañas de descripción.
+
+**Detalle técnico:** Se utilizaron las clases BEM y variables SASS existentes para mantener la coherencia visual. Se aplicó `display: grid` y `grid-template-columns` para las vistas de catálogo y producto, y `flexbox` para alinear los elementos del formulario de compra.
+
+**Motivo / criterio:** *Zero Bloat y Coherencia Visual*. En lugar de cargar los pesados CSS de WooCommerce, se aplicaron estilos ultraligeros y a medida, garantizando que la tienda se integre visualmente en el ecosistema Merci sin degradar el rendimiento.
+
+**Siguiente paso o deuda:** Con el MVP de la tienda funcional, el siguiente paso es retomar la automatización de LinkedIn (`merci-linkedin.py`).
+
 ### 2026-04-30 — Fix: Preservación de estructura de directorios en instanciación
 
 **Contexto:** Tras instanciar el Boilerplate, el orquestador `merci-wp.py` emitía advertencias indicando que los directorios `blog/` y `art-de-cote/` no existían, ya que Git no rastrea carpetas vacías y `merci-init.py` destruía el contenido del `laboratorio/`.
