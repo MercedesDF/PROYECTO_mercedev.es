@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-30 — Chore: Invalición de caché manual (Cache Busting v12)
+
+**Contexto:** Tras modificar los diálogos interactivos de `MerciController.js`, los cambios no se reflejaban en el servidor de producción para las rutas estáticas (Portada y Contacto) debido a la retención en caché de los navegadores.
+
+**Hecho:** Se incrementó el parámetro de versión (`?v=12`) en las etiquetas `<link>` y `<script>` de `public/index.html` y `public/contacto/index.html`.
+
+**Detalle técnico:** Mientras que el motor SSG y WordPress utilizan un sistema de versionado dinámico (basado en `filemtime` o `time()`), las páginas HTML puras requieren una actualización manual de la cadena de consulta (query string) para forzar a los clientes web y proxies a invalidar sus cachés locales y solicitar el nuevo archivo al servidor.
+
+**Motivo / criterio:** *Cache Invalidation*. Es la técnica estándar y más ligera para asegurar que todos los usuarios reciban la última versión del código frontend sin necesidad de purgar cachés a nivel de servidor (Nginx/Varnish).
+
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
+
 ### 2026-04-29 — UX/UI: Unificación responsiva de altura en componentes Hero
 
 **Contexto:** Se detectó disparidad visual entre las distintas páginas del ecosistema (Portada, Contacto, Biblioteca). La sección `.hero` crecía en función de la longitud de su texto, provocando que los bloques de cabecera tuvieran tamaños dispares.
@@ -116,6 +128,7 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** *Knowledge Management*. Transformar incidentes de depuración en material didáctico es un pilar de la filosofía del proyecto. Este cuadernillo servirá como referencia futura para evitar el uso de `!important` o la inyección de estilos en línea que comprometan la UX.
 
 **Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
+**Siguiente paso o deuda:** (Pendiente de instrucción).
 
 ### 2026-04-29 — QA: Selección cromática matemática para estado :visited (WCAG)
 
@@ -128,6 +141,7 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** *Shift-Left Accessibility y Diseño UI*. Las decisiones de color en una arquitectura estricta no se basan únicamente en la estética. Calcular matemáticamente el ratio de contraste antes de inyectar variables en SASS previene fallos tardíos en la auditoría de rendimiento (Fail-Fast).
 
 **Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
+**Siguiente paso o deuda:** (Pendiente de instrucción).
 
 ### 2026-04-29 — Fix: Aplicación de estado :visited en enlaces de cabecera (Tarjetas)
 
@@ -140,6 +154,7 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** *CSS Specificity y UX*. Para que los estados interactivos (`:hover`, `:focus`, `:visited`) funcionen de manera predecible, sus reglas deben tener una especificidad igual o superior a las reglas base del elemento. Esta corrección restaura el feedback visual del historial de navegación en todos los componentes.
 
 **Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
+**Siguiente paso o deuda:** (Pendiente de instrucción).
 
 ### 2026-04-29 — Fix: Resolución de especificidad CSS en enlaces del índice (SSG)
 
@@ -152,6 +167,7 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** *Separation of Concerns* y Accesibilidad/UX. Inyectar estilos estructurales menores en línea desde Python es aceptable en SSG, pero inyectar colores destruye la interactividad visual (hover, visited, focus). Mantener la capa cromática estrictamente en SASS garantiza la respuesta adecuada a las acciones del usuario.
 
 **Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
+**Siguiente paso o deuda:** (Pendiente de instrucción).
 
 ### 2026-04-29 — UX/UI: Incorporación de estado :visited en enlaces globales
 
@@ -164,6 +180,7 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** *Usabilidad y Fricción Cero*. Proveer *feedback* visual del historial de navegación es un estándar web fundamental (Heurísticas de Nielsen) que mejora significativamente la experiencia en sitios con alta densidad de contenido.
 
 **Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
+**Siguiente paso o deuda:** (Pendiente de instrucción).
 
 ### 2026-04-29 — Docs: Revisión editorial y refinamiento del copy en la portada
 
