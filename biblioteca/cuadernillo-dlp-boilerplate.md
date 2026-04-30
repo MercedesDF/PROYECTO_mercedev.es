@@ -2,8 +2,10 @@
 titulo: "Prevención de Fuga de Datos (DLP) en la creación de Boilerplates"
 descripcion: "Por qué excluir carpetas del borrado en un script de instanciación expone propiedad intelectual y cómo blindar el entorno."
 tema: "DevSecOps y Gobernanza"
-estado: "borrador"
+estado: "publicado"
 tipo: "cuadernillo"
+alt_portada: "dlp-boilerplate"
+fecha: "2026-04-30"
 ---
 
 ## El Desafío (Síntoma)

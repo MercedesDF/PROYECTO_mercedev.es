@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Release Pipeline Iterativo: Agile en despliegue de plantillas — mercedev.es</title>
-    <meta name="description" content="Cómo gobernar la actualización de un Boilerplate desde un proyecto matriz sin sufrir Deriva de Configuración.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/release-pipeline-iterativo-agile-en-despliegue-de-plantillas.html">
+    <title>La Ceguera de Taller y la Paridad Dev/Prod — mercedev.es</title>
+    <meta name="description" content="Por qué desarrollar estilos sin el motor subyacente local genera errores en cascada y cómo evitar la divergencia de infraestructura.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/la-ceguera-de-taller-y-la-paridad-devprod.html">
     <link rel="stylesheet" href="/css/main.css?v=1777575522">
     <script src="/js/MerciController.js?v=1777522104" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Release Pipeline Iterativo: Agile en despliegue de plantillas",
-      "description": "Cómo gobernar la actualización de un Boilerplate desde un proyecto matriz sin sufrir Deriva de Configuración.",
-      "url": "https://mercedev.es/biblioteca/release-pipeline-iterativo-agile-en-despliegue-de-plantillas.html"
+      "headline": "La Ceguera de Taller y la Paridad Dev/Prod",
+      "description": "Por qué desarrollar estilos sin el motor subyacente local genera errores en cascada y cómo evitar la divergencia de infraestructura.",
+      "url": "https://mercedev.es/biblioteca/la-ceguera-de-taller-y-la-paridad-devprod.html"
     }
     </script>
 </head>
@@ -43,22 +43,17 @@
         <article class="card card--booklet">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">Release Pipeline Iterativo: Agile en despliegue de plantillas</h1>
-                <a href="/descargas/release-pipeline-iterativo-agile-en-despliegue-de-plantillas.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">La Ceguera de Taller y la Paridad Dev/Prod</h1>
+                <a href="/descargas/la-ceguera-de-taller-y-la-paridad-devprod.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Al extraer un ecosistema base (Merci Boilerplate) a partir de un proyecto vivo (<code>mercedev.es</code>), surge el riesgo de la <strong>Deriva de Configuración (Configuration Drift)</strong>. Cuando se detecta un error en la plantilla exportada, el instinto natural del desarrollador es corregirlo directamente en el repositorio hijo. Esto provoca que el proyecto matriz y la plantilla se desincronicen de forma silenciosa, convirtiendo el mantenimiento a largo plazo en una deuda técnica insostenible.</p>
+<p>Durante la estilización visual (SASS) de la tienda WooCommerce, el código CSS compilado no producía ningún efecto visible en el entorno local (localhost). Tras horas de depuración en la jerarquía de plantillas (<code>woocommerce.php</code>), se descubrió la causa raíz: el plugin de WooCommerce estaba instalado en el servidor remoto de producción, pero <strong>no existía</strong> en el entorno de desarrollo local. Estábamos programando a ciegas.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se estableció un <strong>Release Pipeline Iterativo</strong> basado en principios Agile y de Única Fuente de Verdad (SSOT - Single Source of Truth). El protocolo innegociable para cada subida de versión es:</p>
-<ol>
-<li><strong>Clonación efímera:</strong> Se clona la matriz en un directorio temporal y se ejecuta la purga de identidad y binarios (<code>merci-init.py</code>).</li>
-<li><strong>Despliegue Ágil:</strong> Se copian los archivos al repositorio destino mediante <code>rsync</code> (excluyendo historiales Git y metadatos documentales propios).</li>
-<li><strong>QA Fail-Fast:</strong> Se ejecuta el orquestador maestro (<code>merci-total</code>) en el destino.</li>
-<li><strong>Iteración estricta:</strong> Si existe el más mínimo fallo, se destruye el clon temporal, se aplica la corrección obligatoriamente en el <strong>proyecto matriz</strong> (<code>mercedev.es</code>) y se reinicia el ciclo desde el paso 1.</li>
-</ol>
+<p>Se detuvo inmediatamente la escritura de código. Se restauró el principio de Paridad de Entornos (Dev/Prod Parity) obligando a replicar la topología de producción en la máquina de desarrollo: se instaló WooCommerce localmente, se configuraron las variables del CMS y se inyectaron datos de prueba mediante un script Headless. Solo entonces se retomó el flujo de diseño UI.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Gobernar infraestructuras como código exige disciplina arquitectónica. Arreglar bugs directamente en artefactos derivados (forks o plantillas exportadas) es un antipatrón. Forzar la resolución de problemas exclusivamente en el entorno anfitrión garantiza que toda mejora o parche beneficie simultáneamente a la web en producción y a la plantilla, consolidando el proyecto matriz como la verdadera única fuente de verdad.</p>
+<p>Este es un ejemplo clásico de violación de la regla de <em>Paridad Desarrollo/Producción</em> (Dev/Prod Parity), uno de los pilares de la metodología de los Doce Factores (Twelve-Factor App).</p>
+<p>Escribir código en un entorno que no refleja matemáticamente la infraestructura de destino es un antipatrón que fomenta la "Ceguera de Taller" y el vicio de probar en producción. El aislamiento de procesos (DevSecOps) carece de valor si el ecosistema local no es un espejo fiel y funcional del motor final. El código no debe adaptarse al entorno; los entornos deben ser indistinguibles para el código.</p>
             </div>
         </article>
     </main>

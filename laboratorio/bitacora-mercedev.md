@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-30 — Arch: Pivote estratégico hacia automatización social (LinkedIn)
+
+**Contexto:** Tras validar el MVP de la tienda WooCommerce (diseño, inyección headless, paridad de entornos), se determinó que su propósito principal como demostración técnica estaba cumplido. El valor de negocio inmediato no reside en la venta de merchandising, sino en la difusión de estos logros técnicos.
+
+**Hecho:**
+- Se aparca formalmente el desarrollo de la tienda.
+- Se re-prioriza como hito inmediato el desarrollo del script de automatización para LinkedIn (`merci-linkedin.py`), retomando la Fase 8.3.
+
+**Motivo / criterio:** *Business Value vs. Technical Exercise*. La tienda ha servido como un caso de estudio perfecto para demostrar la integración de un e-commerce en una arquitectura Headless de alto rendimiento. Ahora, el Retorno de la Inversión (ROI) es mayor si se capitaliza este logro mediante la difusión en redes profesionales, en lugar de seguir añadiendo funcionalidades a un escaparate no comercial.
+
+**Siguiente paso o deuda:** Diseñar la arquitectura de autenticación (OAuth 2.0) para `merci-linkedin.py` y comenzar su implementación.
+
 ### 2026-04-30 — Fix: Resolución de rutas estáticas en inyector Headless de WC
 
 **Contexto:** El inyector de productos (`merci-wc-mock.py`) enviaba una URL de imagen incorrecta a WooCommerce (`/blog/assets/images/...`), provocando que la imagen no se descargara ni se adjuntara al producto en la tienda.

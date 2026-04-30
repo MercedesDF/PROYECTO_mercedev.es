@@ -2,8 +2,10 @@
 titulo: "La Ceguera de Taller y la Paridad Dev/Prod"
 descripcion: "Por qué desarrollar estilos sin el motor subyacente local genera errores en cascada y cómo evitar la divergencia de infraestructura."
 tema: "DevSecOps y Gobernanza"
-estado: "borrador"
+estado: "publicado"
 tipo: "cuadernillo"
+alt_portada: "paridad-entornos-dev-prod"
+fecha: "2026-04-30"
 ---
 
 ## El Desafío (Síntoma)
