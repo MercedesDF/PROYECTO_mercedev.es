@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Guerra de la Especificidad CSS — mercedev.es</title>
+    <meta name="description" content="Análisis forense de por qué la pseudo-clase :visited no se aplicaba a los enlaces, y cómo la jerarquía de selectores determina el resultado final.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/la-guerra-de-la-especificidad-css.html">
+    <link rel="stylesheet" href="/css/main.css?v=1777518825">
+    <script src="/js/MerciController.js?v=1777390379" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "La Guerra de la Especificidad CSS",
+      "description": "Análisis forense de por qué la pseudo-clase :visited no se aplicaba a los enlaces, y cómo la jerarquía de selectores determina el resultado final.",
+      "url": "https://mercedev.es/biblioteca/la-guerra-de-la-especificidad-css.html"
+    }
+    </script>
+</head>
+<body class="page">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/blog/category/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                <h1 class="home-card__title--highlight">La Guerra de la Especificidad CSS</h1>
+                <a href="/descargas/la-guerra-de-la-especificidad-css.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>1. El Desafío (Síntoma)</h2>
+<p>Tras implementar la pseudo-clase <code>:visited</code> en la arquitectura SASS para mejorar la usabilidad, se detectó que los enlaces de los títulos en las tarjetas de la Biblioteca y los enlaces del índice autogenerado no cambiaban de color tras ser pulsados. El navegador parecía ignorar por completo la regla de estilo para los enlaces visitados.</p>
+<h2>2. La Maniobra (Lógica)</h2>
+<p>El diagnóstico reveló dos colisiones de <strong>Especificidad CSS</strong>, un sistema de puntuación invisible que usa el navegador para decidir qué regla aplicar cuando varias apuntan al mismo elemento.</p>
+<h4>Incidente 1: Estilos en Línea (Puntuación: 1000)</h4>
+<p>Los enlaces del índice (<code>.indice__enlace</code>) tenían un <code>style="color: #475569;"</code> inyectado directamente en el HTML por el script de Python. Un estilo en línea tiene la máxima prioridad (1000 puntos), aplastando cualquier regla externa de una hoja de estilos, cuya especificidad es mucho menor (ej. <code>a:visited</code> solo vale 10 puntos).</p>
+<ul>
+<li><strong>Solución:</strong> Se eliminó el atributo <code>style="color: ..."</code> del script Python y se delegó el control cromático a clases SASS (<code>.indice__enlace</code>), restaurando el flujo natural de la cascada.</li>
+</ul>
+<h4>Incidente 2: Selectores Anidados (Puntuación: 0-0-2 vs 0-1-1)</h4>
+<p>Los enlaces de las tarjetas estaban dentro de un <code>&lt;h2&gt;</code>. La hoja de estilos contenía una regla <code>h2 a { color: inherit; }</code>. Este selector anidado (<code>h2 a</code>) tiene una especificidad de <code>0,0,2</code> (dos selectores de etiqueta). La regla global <code>a:visited</code> tiene una especificidad de <code>0,1,1</code> (un selector de pseudo-clase y un selector de etiqueta).</p>
+<p>Aunque <code>0,1,1</code> parece mayor, el navegador prioriza el primer número distinto de izquierda a derecha. Como <code>2</code> es mayor que <code>1</code> en la última columna, la regla <code>h2 a</code> ganaba siempre la "guerra".</p>
+<ul>
+<li><strong>Solución:</strong> Se añadió una regla más específica: <code>h2 a:visited { color: $color-visited; }</code>. Este nuevo selector (<code>0,1,2</code>) ahora sí tiene la puntuación necesaria para sobrescribir al selector base.</li>
+</ul>
+<h2>3. El Aprendizaje / Deuda Técnica</h2>
+<p>La Especificidad CSS es la causa raíz de la mayoría de los bugs visuales de "mi CSS no funciona". Como regla arquitectónica:</p>
+<ol>
+<li><strong>Evitar Estilos en Línea para Colores:</strong> Nunca se debe usar <code>style="color:..."</code> en elementos que necesiten estados interactivos (<code>:hover</code>, <code>:focus</code>, <code>:visited</code>). La especificidad de 1000 puntos de los estilos en línea es un "arma nuclear" que destruye la interactividad.</li>
+<li><strong>Igualar o Superar la Especificidad:</strong> Para sobrescribir una regla, el nuevo selector debe tener, como mínimo, la misma "puntuación" de especificidad.</li>
+</ol>
+<p>Comprender este sistema de puntuación es fundamental para mantener una arquitectura SASS 7-1 limpia, predecible y sin necesidad de usar <code>!important</code> (el cual es un anti-patrón que indica una mala planificación estructural).</p>
+<hr />
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

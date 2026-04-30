@@ -6,7 +6,7 @@
     <title>Biblioteca — mercedev.es</title>
     <meta name="description" content="Índice de publicaciones técnicas y proyectos de la Biblioteca.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/">
-    <link rel="stylesheet" href="/css/main.css?v=1777514199">
+    <link rel="stylesheet" href="/css/main.css?v=1777518825">
     <script src="/js/MerciController.js?v=1777390379" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <script type="application/ld+json">
@@ -48,74 +48,77 @@
         
         <!-- QUÉ HACE: Índice Curado (Table of Contents) autogenerado -->
         <!-- POR QUÉ: Mejora la UX permitiendo navegación intra-página sin scroll excesivo. -->
-        <nav aria-label="Índice de estanterías" style="margin-bottom: 4rem; background: #f8fafc; padding: 2rem; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <h2 style="margin-top: 0; font-size: 1.2rem; margin-bottom: 1rem; color: #334155;">Estanterías Temáticas</h2>
-            <ul style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 0;">
-                <li style="flex: 1 1 300px; min-width: 250px;">
-                    <a href="#arquitectura-y-rendimiento" class="indice__tema" style="font-weight: 700; text-decoration: none; border-bottom: 2px solid rgba(154, 52, 18, 0.3); padding-bottom: 0.2rem; display: inline-block; margin-bottom: 0.8rem;">Arquitectura y Rendimiento</a>
-                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">
-                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor='#cbd5e1'" onmouseout="this.style.borderColor='#e2e8f0'">
-                            <a href="#documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad" class="indice__enlace" aria-label="Ir al resumen de: Documentación como Código: El README.md como Única Fuente de Verdad" style="text-decoration: none; display: block;">Documentación como Código: El README.md como Única Fuente de Verdad</a>
+        <nav class="library-nav" aria-label="Índice de estanterías">
+            <h2 class="library-nav__title">Estanterías Temáticas</h2>
+            <ul class="library-nav__list">
+                <li class="library-nav__item">
+                    <a href="#arquitectura-y-rendimiento" class="library-nav__theme-title">Arquitectura y Rendimiento</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#la-guerra-de-la-especificidad-css" class="library-nav__article-link" aria-label="Ir al resumen de: La Guerra de la Especificidad CSS">La Guerra de la Especificidad CSS</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad" class="library-nav__article-link" aria-label="Ir al resumen de: Documentación como Código: El README.md como Única Fuente de Verdad">Documentación como Código: El README.md como Única Fuente de Verdad</a>
                         </li>
                     </ul>
                 </li>
-                <li style="flex: 1 1 300px; min-width: 250px;">
-                    <a href="#automatizacion-y-python" class="indice__tema" style="font-weight: 700; text-decoration: none; border-bottom: 2px solid rgba(154, 52, 18, 0.3); padding-bottom: 0.2rem; display: inline-block; margin-bottom: 0.8rem;">Automatización y Python</a>
-                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">
-                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor='#cbd5e1'" onmouseout="this.style.borderColor='#e2e8f0'">
-                            <a href="#robustez-en-expresiones-regulares-regex-para-automatizacion" class="indice__enlace" aria-label="Ir al resumen de: Robustez en Expresiones Regulares (RegEx) para automatización" style="text-decoration: none; display: block;">Robustez en Expresiones Regulares (RegEx) para automatización</a>
+                <li class="library-nav__item">
+                    <a href="#automatizacion-y-python" class="library-nav__theme-title">Automatización y Python</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#robustez-en-expresiones-regulares-regex-para-automatizacion" class="library-nav__article-link" aria-label="Ir al resumen de: Robustez en Expresiones Regulares (RegEx) para automatización">Robustez en Expresiones Regulares (RegEx) para automatización</a>
                         </li>
                     </ul>
                 </li>
-                <li style="flex: 1 1 300px; min-width: 250px;">
-                    <a href="#devsecops-y-arquitectura" class="indice__tema" style="font-weight: 700; text-decoration: none; border-bottom: 2px solid rgba(154, 52, 18, 0.3); padding-bottom: 0.2rem; display: inline-block; margin-bottom: 0.8rem;">DevSecOps y Arquitectura</a>
-                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">
-                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor='#cbd5e1'" onmouseout="this.style.borderColor='#e2e8f0'">
-                            <a href="#domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom" class="indice__enlace" aria-label="Ir al resumen de: Domando a WooCommerce: Jerarquía de plantillas en temas custom" style="text-decoration: none; display: block;">Domando a WooCommerce: Jerarquía de plantillas en temas custom</a>
+                <li class="library-nav__item">
+                    <a href="#devsecops-y-arquitectura" class="library-nav__theme-title">DevSecOps y Arquitectura</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom" class="library-nav__article-link" aria-label="Ir al resumen de: Domando a WooCommerce: Jerarquía de plantillas en temas custom">Domando a WooCommerce: Jerarquía de plantillas en temas custom</a>
                         </li>
                     </ul>
                 </li>
-                <li style="flex: 1 1 300px; min-width: 250px;">
-                    <a href="#devsecops-y-automatizacion" class="indice__tema" style="font-weight: 700; text-decoration: none; border-bottom: 2px solid rgba(154, 52, 18, 0.3); padding-bottom: 0.2rem; display: inline-block; margin-bottom: 0.8rem;">DevSecOps y Automatización</a>
-                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">
-                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor='#cbd5e1'" onmouseout="this.style.borderColor='#e2e8f0'">
-                            <a href="#alias-inteligentes-context-aware-para-ecosistemas-devsecops" class="indice__enlace" aria-label="Ir al resumen de: Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps" style="text-decoration: none; display: block;">Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps</a>
+                <li class="library-nav__item">
+                    <a href="#devsecops-y-automatizacion" class="library-nav__theme-title">DevSecOps y Automatización</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#alias-inteligentes-context-aware-para-ecosistemas-devsecops" class="library-nav__article-link" aria-label="Ir al resumen de: Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps">Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps</a>
                         </li>
-                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor='#cbd5e1'" onmouseout="this.style.borderColor='#e2e8f0'">
-                            <a href="#discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh" class="indice__enlace" aria-label="Ir al resumen de: Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)" style="text-decoration: none; display: block;">Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)</a>
-                        </li>
-                    </ul>
-                </li>
-                <li style="flex: 1 1 300px; min-width: 250px;">
-                    <a href="#devsecops-y-gobernanza" class="indice__tema" style="font-weight: 700; text-decoration: none; border-bottom: 2px solid rgba(154, 52, 18, 0.3); padding-bottom: 0.2rem; display: inline-block; margin-bottom: 0.8rem;">DevSecOps y Gobernanza</a>
-                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">
-                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor='#cbd5e1'" onmouseout="this.style.borderColor='#e2e8f0'">
-                            <a href="#prevencion-de-fuga-de-datos-con-ramas-huerfanas-en-git" class="indice__enlace" aria-label="Ir al resumen de: Prevención de Fuga de Datos con Ramas Huérfanas en Git" style="text-decoration: none; display: block;">Prevención de Fuga de Datos con Ramas Huérfanas en Git</a>
-                        </li>
-                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor='#cbd5e1'" onmouseout="this.style.borderColor='#e2e8f0'">
-                            <a href="#conflictos-masivos-en-git-y-la-estrategia-de-fuerza-bruta-ours" class="indice__enlace" aria-label="Ir al resumen de: Conflictos masivos en Git y la estrategia de fuerza bruta (--ours)" style="text-decoration: none; display: block;">Conflictos masivos en Git y la estrategia de fuerza bruta (--ours)</a>
-                        </li>
-                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor='#cbd5e1'" onmouseout="this.style.borderColor='#e2e8f0'">
-                            <a href="#recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git" class="indice__enlace" aria-label="Ir al resumen de: Recuperación de datos y el peligro de los comandos destructivos en Git" style="text-decoration: none; display: block;">Recuperación de datos y el peligro de los comandos destructivos en Git</a>
-                        </li>
-                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor='#cbd5e1'" onmouseout="this.style.borderColor='#e2e8f0'">
-                            <a href="#release-pipeline-iterativo-agile-en-despliegue-de-plantillas" class="indice__enlace" aria-label="Ir al resumen de: Release Pipeline Iterativo: Agile en despliegue de plantillas" style="text-decoration: none; display: block;">Release Pipeline Iterativo: Agile en despliegue de plantillas</a>
+                        <li class="library-nav__article-item">
+                            <a href="#discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh" class="library-nav__article-link" aria-label="Ir al resumen de: Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)">Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)</a>
                         </li>
                     </ul>
                 </li>
-                <li style="flex: 1 1 300px; min-width: 250px;">
-                    <a href="#rendimiento-y-ux" class="indice__tema" style="font-weight: 700; text-decoration: none; border-bottom: 2px solid rgba(154, 52, 18, 0.3); padding-bottom: 0.2rem; display: inline-block; margin-bottom: 0.8rem;">Rendimiento y UX</a>
-                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">
-                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor='#cbd5e1'" onmouseout="this.style.borderColor='#e2e8f0'">
-                            <a href="#la-tirania-de-la-cache-movil-y-el-cache-busting-dinamico" class="indice__enlace" aria-label="Ir al resumen de: La tiranía de la caché móvil y el 'Cache Busting' dinámico" style="text-decoration: none; display: block;">La tiranía de la caché móvil y el 'Cache Busting' dinámico</a>
+                <li class="library-nav__item">
+                    <a href="#devsecops-y-gobernanza" class="library-nav__theme-title">DevSecOps y Gobernanza</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#prevencion-de-fuga-de-datos-con-ramas-huerfanas-en-git" class="library-nav__article-link" aria-label="Ir al resumen de: Prevención de Fuga de Datos con Ramas Huérfanas en Git">Prevención de Fuga de Datos con Ramas Huérfanas en Git</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#conflictos-masivos-en-git-y-la-estrategia-de-fuerza-bruta-ours" class="library-nav__article-link" aria-label="Ir al resumen de: Conflictos masivos en Git y la estrategia de fuerza bruta (--ours)">Conflictos masivos en Git y la estrategia de fuerza bruta (--ours)</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git" class="library-nav__article-link" aria-label="Ir al resumen de: Recuperación de datos y el peligro de los comandos destructivos en Git">Recuperación de datos y el peligro de los comandos destructivos en Git</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#release-pipeline-iterativo-agile-en-despliegue-de-plantillas" class="library-nav__article-link" aria-label="Ir al resumen de: Release Pipeline Iterativo: Agile en despliegue de plantillas">Release Pipeline Iterativo: Agile en despliegue de plantillas</a>
                         </li>
                     </ul>
                 </li>
-                <li style="flex: 1 1 300px; min-width: 250px;">
-                    <a href="#seguridad-y-arquitectura" class="indice__tema" style="font-weight: 700; text-decoration: none; border-bottom: 2px solid rgba(154, 52, 18, 0.3); padding-bottom: 0.2rem; display: inline-block; margin-bottom: 0.8rem;">Seguridad y Arquitectura</a>
-                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">
-                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor='#cbd5e1'" onmouseout="this.style.borderColor='#e2e8f0'">
-                            <a href="#prevencion-de-fugas-de-datos-data-leak-en-empaquetados" class="indice__enlace" aria-label="Ir al resumen de: Prevención de Fugas de Datos (Data Leak) en empaquetados" style="text-decoration: none; display: block;">Prevención de Fugas de Datos (Data Leak) en empaquetados</a>
+                <li class="library-nav__item">
+                    <a href="#rendimiento-y-ux" class="library-nav__theme-title">Rendimiento y UX</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#la-tirania-de-la-cache-movil-y-el-cache-busting-dinamico" class="library-nav__article-link" aria-label="Ir al resumen de: La tiranía de la caché móvil y el 'Cache Busting' dinámico">La tiranía de la caché móvil y el 'Cache Busting' dinámico</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="library-nav__item">
+                    <a href="#seguridad-y-arquitectura" class="library-nav__theme-title">Seguridad y Arquitectura</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#prevencion-de-fugas-de-datos-data-leak-en-empaquetados" class="library-nav__article-link" aria-label="Ir al resumen de: Prevención de Fugas de Datos (Data Leak) en empaquetados">Prevención de Fugas de Datos (Data Leak) en empaquetados</a>
                         </li>
                     </ul>
                 </li>
@@ -123,14 +126,23 @@
         </nav>
         
         
-        <section class="biblioteca-tema" id="arquitectura-y-rendimiento" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">
-                <h2 class="home-card__title--highlight" style="margin: 0; border-bottom: none; padding-bottom: 0;"><a href="#arquitectura-y-rendimiento" style="text-decoration: none; color: inherit;">Arquitectura y Rendimiento</a></h2>
-                <a href="#top" style="font-size: 0.9rem; font-weight: 600; color: #64748b; text-decoration: underline; white-space: nowrap; margin-left: 1rem;">↑ Volver arriba</a>
+        <section class="library-section" id="arquitectura-y-rendimiento">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#arquitectura-y-rendimiento">Arquitectura y Rendimiento</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
             </div>
             <div class="home-grid">
                 
-                <article class="card card--booklet" id="documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad" style="scroll-margin-top: 100px;">
+                <article class="card card--booklet" id="la-guerra-de-la-especificidad-css">
+                    <header>
+                        <span class="card__meta">2026-04-29 — Cuadernillo</span>
+                        <h2 class="card__title"><a href="/biblioteca/la-guerra-de-la-especificidad-css.html" aria-label="Leer artículo completo: La Guerra de la Especificidad CSS">La Guerra de la Especificidad CSS</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Análisis forense de por qué la pseudo-clase :visited no se aplicaba a los enlaces, y cómo la jerarquía de selectores determina el resultado final.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad">
                     <header>
                         <span class="card__meta">2026-04-26 — Cuadernillo</span>
                         <h2 class="card__title"><a href="/biblioteca/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.html" aria-label="Leer artículo completo: Documentación como Código: El README.md como Única Fuente de Verdad">Documentación como Código: El README.md como Única Fuente de Verdad</a></h2>
@@ -141,14 +153,14 @@
                 </article>
             </div>
         </section>
-        <section class="biblioteca-tema" id="automatizacion-y-python" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">
-                <h2 class="home-card__title--highlight" style="margin: 0; border-bottom: none; padding-bottom: 0;"><a href="#automatizacion-y-python" style="text-decoration: none; color: inherit;">Automatización y Python</a></h2>
-                <a href="#top" style="font-size: 0.9rem; font-weight: 600; color: #64748b; text-decoration: underline; white-space: nowrap; margin-left: 1rem;">↑ Volver arriba</a>
+        <section class="library-section" id="automatizacion-y-python">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#automatizacion-y-python">Automatización y Python</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
             </div>
             <div class="home-grid">
                 
-                <article class="card card--booklet" id="robustez-en-expresiones-regulares-regex-para-automatizacion" style="scroll-margin-top: 100px;">
+                <article class="card card--booklet" id="robustez-en-expresiones-regulares-regex-para-automatizacion">
                     <header>
                         <span class="card__meta">2026-04-26 — Cuadernillo</span>
                         <h2 class="card__title"><a href="/biblioteca/robustez-en-expresiones-regulares-regex-para-automatizacion.html" aria-label="Leer artículo completo: Robustez en Expresiones Regulares (RegEx) para automatización">Robustez en Expresiones Regulares (RegEx) para automatización</a></h2>
@@ -159,14 +171,14 @@
                 </article>
             </div>
         </section>
-        <section class="biblioteca-tema" id="devsecops-y-arquitectura" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">
-                <h2 class="home-card__title--highlight" style="margin: 0; border-bottom: none; padding-bottom: 0;"><a href="#devsecops-y-arquitectura" style="text-decoration: none; color: inherit;">DevSecOps y Arquitectura</a></h2>
-                <a href="#top" style="font-size: 0.9rem; font-weight: 600; color: #64748b; text-decoration: underline; white-space: nowrap; margin-left: 1rem;">↑ Volver arriba</a>
+        <section class="library-section" id="devsecops-y-arquitectura">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#devsecops-y-arquitectura">DevSecOps y Arquitectura</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
             </div>
             <div class="home-grid">
                 
-                <article class="card card--booklet" id="domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom" style="scroll-margin-top: 100px;">
+                <article class="card card--booklet" id="domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom">
                     <header>
                         <span class="card__meta">2026-04-28 — Cuadernillo</span>
                         <h2 class="card__title"><a href="/biblioteca/domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom.html" aria-label="Leer artículo completo: Domando a WooCommerce: Jerarquía de plantillas en temas custom">Domando a WooCommerce: Jerarquía de plantillas en temas custom</a></h2>
@@ -177,14 +189,14 @@
                 </article>
             </div>
         </section>
-        <section class="biblioteca-tema" id="devsecops-y-automatizacion" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">
-                <h2 class="home-card__title--highlight" style="margin: 0; border-bottom: none; padding-bottom: 0;"><a href="#devsecops-y-automatizacion" style="text-decoration: none; color: inherit;">DevSecOps y Automatización</a></h2>
-                <a href="#top" style="font-size: 0.9rem; font-weight: 600; color: #64748b; text-decoration: underline; white-space: nowrap; margin-left: 1rem;">↑ Volver arriba</a>
+        <section class="library-section" id="devsecops-y-automatizacion">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#devsecops-y-automatizacion">DevSecOps y Automatización</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
             </div>
             <div class="home-grid">
                 
-                <article class="card card--book" id="alias-inteligentes-context-aware-para-ecosistemas-devsecops" style="scroll-margin-top: 100px;">
+                <article class="card card--book" id="alias-inteligentes-context-aware-para-ecosistemas-devsecops">
                     <header>
                         <span class="card__meta">2026-04-24 — Bitacora</span>
                         <h2 class="card__title"><a href="/biblioteca/alias-inteligentes-context-aware-para-ecosistemas-devsecops.html" aria-label="Leer artículo completo: Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps">Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps</a></h2>
@@ -193,7 +205,7 @@
                         <p>Solución al problema de autodescubrimiento de rutas en Python al usar alias absolutos en la terminal (Fantasmas en RAM).</p>
                     </div>
                 </article>
-                <article class="card card--booklet" id="discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh" style="scroll-margin-top: 100px;">
+                <article class="card card--booklet" id="discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh">
                     <header>
                         <span class="card__meta">2026-04-24 — Cuadernillo</span>
                         <h2 class="card__title"><a href="/biblioteca/discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh.html" aria-label="Leer artículo completo: Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)">Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)</a></h2>
@@ -204,14 +216,14 @@
                 </article>
             </div>
         </section>
-        <section class="biblioteca-tema" id="devsecops-y-gobernanza" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">
-                <h2 class="home-card__title--highlight" style="margin: 0; border-bottom: none; padding-bottom: 0;"><a href="#devsecops-y-gobernanza" style="text-decoration: none; color: inherit;">DevSecOps y Gobernanza</a></h2>
-                <a href="#top" style="font-size: 0.9rem; font-weight: 600; color: #64748b; text-decoration: underline; white-space: nowrap; margin-left: 1rem;">↑ Volver arriba</a>
+        <section class="library-section" id="devsecops-y-gobernanza">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#devsecops-y-gobernanza">DevSecOps y Gobernanza</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
             </div>
             <div class="home-grid">
                 
-                <article class="card card--booklet" id="prevencion-de-fuga-de-datos-con-ramas-huerfanas-en-git" style="scroll-margin-top: 100px;">
+                <article class="card card--booklet" id="prevencion-de-fuga-de-datos-con-ramas-huerfanas-en-git">
                     <header>
                         <span class="card__meta">2026-04-29 — Cuadernillo</span>
                         <h2 class="card__title"><a href="/biblioteca/prevencion-de-fuga-de-datos-con-ramas-huerfanas-en-git.html" aria-label="Leer artículo completo: Prevención de Fuga de Datos con Ramas Huérfanas en Git">Prevención de Fuga de Datos con Ramas Huérfanas en Git</a></h2>
@@ -220,7 +232,7 @@
                         <p>Cómo truncar el historial inmutable de un repositorio derivado para evitar exponer la propiedad intelectual de un proyecto matriz.</p>
                     </div>
                 </article>
-                <article class="card card--booklet" id="conflictos-masivos-en-git-y-la-estrategia-de-fuerza-bruta-ours" style="scroll-margin-top: 100px;">
+                <article class="card card--booklet" id="conflictos-masivos-en-git-y-la-estrategia-de-fuerza-bruta-ours">
                     <header>
                         <span class="card__meta">2026-04-28 — Cuadernillo</span>
                         <h2 class="card__title"><a href="/biblioteca/conflictos-masivos-en-git-y-la-estrategia-de-fuerza-bruta-ours.html" aria-label="Leer artículo completo: Conflictos masivos en Git y la estrategia de fuerza bruta (--ours)">Conflictos masivos en Git y la estrategia de fuerza bruta (--ours)</a></h2>
@@ -229,7 +241,7 @@
                         <p>Cómo resolver colisiones de fusión destructivas cuando el entorno local es la única fuente de verdad.</p>
                     </div>
                 </article>
-                <article class="card card--booklet" id="recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git" style="scroll-margin-top: 100px;">
+                <article class="card card--booklet" id="recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git">
                     <header>
                         <span class="card__meta">2026-04-27 — Cuadernillo</span>
                         <h2 class="card__title"><a href="/biblioteca/recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git.html" aria-label="Leer artículo completo: Recuperación de datos y el peligro de los comandos destructivos en Git">Recuperación de datos y el peligro de los comandos destructivos en Git</a></h2>
@@ -238,7 +250,7 @@
                         <p>Por qué las interfaces gráficas mienten, la terminal dice la verdad, y cómo blindarse antes de reescribir el historial.</p>
                     </div>
                 </article>
-                <article class="card card--booklet" id="release-pipeline-iterativo-agile-en-despliegue-de-plantillas" style="scroll-margin-top: 100px;">
+                <article class="card card--booklet" id="release-pipeline-iterativo-agile-en-despliegue-de-plantillas">
                     <header>
                         <span class="card__meta">2026-04-27 — Cuadernillo</span>
                         <h2 class="card__title"><a href="/biblioteca/release-pipeline-iterativo-agile-en-despliegue-de-plantillas.html" aria-label="Leer artículo completo: Release Pipeline Iterativo: Agile en despliegue de plantillas">Release Pipeline Iterativo: Agile en despliegue de plantillas</a></h2>
@@ -249,14 +261,14 @@
                 </article>
             </div>
         </section>
-        <section class="biblioteca-tema" id="rendimiento-y-ux" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">
-                <h2 class="home-card__title--highlight" style="margin: 0; border-bottom: none; padding-bottom: 0;"><a href="#rendimiento-y-ux" style="text-decoration: none; color: inherit;">Rendimiento y UX</a></h2>
-                <a href="#top" style="font-size: 0.9rem; font-weight: 600; color: #64748b; text-decoration: underline; white-space: nowrap; margin-left: 1rem;">↑ Volver arriba</a>
+        <section class="library-section" id="rendimiento-y-ux">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#rendimiento-y-ux">Rendimiento y UX</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
             </div>
             <div class="home-grid">
                 
-                <article class="card card--booklet" id="la-tirania-de-la-cache-movil-y-el-cache-busting-dinamico" style="scroll-margin-top: 100px;">
+                <article class="card card--booklet" id="la-tirania-de-la-cache-movil-y-el-cache-busting-dinamico">
                     <header>
                         <span class="card__meta">2026-04-28 — Cuadernillo</span>
                         <h2 class="card__title"><a href="/biblioteca/la-tirania-de-la-cache-movil-y-el-cache-busting-dinamico.html" aria-label="Leer artículo completo: La tiranía de la caché móvil y el 'Cache Busting' dinámico">La tiranía de la caché móvil y el 'Cache Busting' dinámico</a></h2>
@@ -267,14 +279,14 @@
                 </article>
             </div>
         </section>
-        <section class="biblioteca-tema" id="seguridad-y-arquitectura" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">
-                <h2 class="home-card__title--highlight" style="margin: 0; border-bottom: none; padding-bottom: 0;"><a href="#seguridad-y-arquitectura" style="text-decoration: none; color: inherit;">Seguridad y Arquitectura</a></h2>
-                <a href="#top" style="font-size: 0.9rem; font-weight: 600; color: #64748b; text-decoration: underline; white-space: nowrap; margin-left: 1rem;">↑ Volver arriba</a>
+        <section class="library-section" id="seguridad-y-arquitectura">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#seguridad-y-arquitectura">Seguridad y Arquitectura</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
             </div>
             <div class="home-grid">
                 
-                <article class="card card--booklet" id="prevencion-de-fugas-de-datos-data-leak-en-empaquetados" style="scroll-margin-top: 100px;">
+                <article class="card card--booklet" id="prevencion-de-fugas-de-datos-data-leak-en-empaquetados">
                     <header>
                         <span class="card__meta">2026-04-26 — Cuadernillo</span>
                         <h2 class="card__title"><a href="/biblioteca/prevencion-de-fugas-de-datos-data-leak-en-empaquetados.html" aria-label="Leer artículo completo: Prevención de Fugas de Datos (Data Leak) en empaquetados">Prevención de Fugas de Datos (Data Leak) en empaquetados</a></h2>
@@ -286,18 +298,14 @@
             </div>
         </section>
     </main>
-    <footer class="footer" style="text-align: left; padding-bottom: 6rem;">
-        <!-- QUÉ HACE: Contenedor flex para los enlaces sociales y de proyecto. -->
-        <!-- POR QUÉ: Al usar flex-wrap, aseguramos que en pantallas móviles pequeñas no se rompa el diseño (Responsive Design). -->
-        <div class="footer__links" style="margin-bottom: 1.5rem; display: flex; gap: 1.5rem; flex-wrap: wrap; font-weight: 500;">
-            <!-- QUÉ HACE: Fuerza a heredar el color del texto de alta legibilidad y añade subrayado. -->
-            <!-- POR QUÉ: Supera el ratio de contraste WCAG 4.5:1 y evita depender solo del color para identificar interactividad. -->
-            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">LinkedIn</a>
-            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">GitHub</a>
-            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">Merci Boilerplate</a>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
         </div>
         <div class="footer__text">
-            <a href="#top" style="color: inherit; text-decoration: underline; font-weight: 600; display: inline-block; margin-bottom: 1rem;">↑ Volver arriba</a><br>
+            <a href="#top">↑ Volver arriba</a><br>
             &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
         </div>
     </footer>

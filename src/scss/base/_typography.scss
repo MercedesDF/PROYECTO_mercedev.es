@@ -48,25 +48,3 @@ a {
         color: color.scale($color-primary, $lightness: 20%);
     }
 }
-
-/* Clases específicas para el índice autogenerado de la Biblioteca */
-.indice__tema {
-    color: #9a3412; /* Naranja accesible WCAG */
-    
-    &:visited {
-        /* QUÉ HACE: Aplica el color visitado de la variable global a las estanterías */
-        color: $color-visited;
-    }
-}
-
-.indice__enlace {
-    color: #475569; /* Gris pizarra original */
-    transition: color 0.2s ease;
-    
-    &:visited {
-        color: $color-visited;
-    }
-    &:hover {
-        color: $color-primary;
-    }
-}

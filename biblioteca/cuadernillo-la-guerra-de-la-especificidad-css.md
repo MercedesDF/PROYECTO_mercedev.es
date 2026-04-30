@@ -40,4 +40,3 @@ La Especificidad CSS es la causa raíz de la mayoría de los bugs visuales de "m
 Comprender este sistema de puntuación es fundamental para mantener una arquitectura SASS 7-1 limpia, predecible y sin necesidad de usar `!important` (el cual es un anti-patrón que indica una mala planificación estructural).
 
 ---
-*Este documento fue generado a partir de un incidente real ocurrido durante la Fase 8.3 del proyecto mercedev.es.*

@@ -37,6 +37,36 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — Refactor: Reestructuración visual del índice de la Biblioteca (Grid y BEM)
+
+**Contexto:** El índice autogenerado de la Biblioteca utilizaba un layout basado en `flexbox` y clases CSS no estandarizadas (`.indice__*`), lo que dificultaba la creación de columnas de ancho uniforme y una jerarquía visual clara entre los títulos de las estanterías y los artículos.
+
+**Hecho:**
+- Se refactorizó `src/scss/components/_library-index.scss` para usar `display: grid` en la lista de estanterías.
+- Se migraron los estilos de `.indice__*` desde `_typography.scss` a `_library-index.scss`, renombrando las clases para cumplir la metodología BEM (ej. `.library-nav__theme-title`).
+- Se modificó `scripts/merci/merci-publish.py` para inyectar las nuevas clases BEM.
+- Se diferenció tipográficamente el título de la estantería (mayúsculas, más peso) del de los artículos.
+
+**Detalle técnico:** Se utilizó `grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));` para lograr un diseño de rejilla responsivo sin media queries. La refactorización a BEM y la centralización de los estilos en su propio componente SASS mejoran la mantenibilidad y la Separación de Responsabilidades.
+
+**Motivo / criterio:** *UX y Code Hygiene*. Un layout en rejilla (Grid) es superior a Flexbox para crear columnas de ancho idéntico, mejorando la armonía visual. Diferenciar la tipografía establece una jerarquía clara que guía al usuario. Pagar la deuda técnica de las clases no estándar y centralizarlas en su componente SASS es una práctica de ingeniería de software limpia.
+
+**Siguiente paso o deuda:** (Pendiente de instrucción).
+
+### 2026-04-29 — Refactor: Pago de deuda técnica (Eliminación de estilos en línea)
+
+**Contexto:** Una auditoría de código reveló la existencia de una cantidad significativa de estilos en línea (`style="..."`) en el footer y en el índice de la biblioteca, lo cual se considera deuda técnica al violar el principio de Separación de Responsabilidades y la metodología BEM.
+
+**Hecho:**
+- Se crearon los componentes SASS `_footer.scss` y `_library-index.scss`.
+- Se refactorizaron los archivos `public/index.html`, `public/contacto/index.html`, `src/wp-theme/merci-theme/index.php` y `scripts/merci/merci-publish.py` para eliminar los atributos `style` y reemplazarlos por clases BEM.
+
+**Detalle técnico:** Se extrajo toda la lógica de posicionamiento (flexbox, márgenes) y cromática a clases BEM dedicadas (ej. `.footer__links`, `.library-nav`, `.library-section`). Esto restaura la autoridad de la arquitectura SASS 7-1 y permite el uso de pseudo-clases interactivas y media queries responsivas.
+
+**Motivo / criterio:** *Code Hygiene y Mantenibilidad*. Aunque los estilos en línea son útiles para prototipado rápido, su permanencia en producción genera un código frágil y difícil de mantener. La refactorización a SASS BEM centraliza la capa de presentación, saldando la deuda técnica y preparando el código para futuras iteraciones.
+
+**Siguiente paso o deuda:** (Pendiente de instrucción).
+
 ### 2026-04-29 — Docs: Publicación de cuadernillo sobre Especificidad CSS
 
 **Contexto:** Los incidentes relacionados con la pseudo-clase `:visited` y la Especificidad CSS fueron considerados una lección de arquitectura de software lo suficientemente valiosa como para ser promovida a un activo de conocimiento permanente en la Biblioteca.

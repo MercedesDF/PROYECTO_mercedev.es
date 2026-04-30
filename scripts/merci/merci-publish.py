@@ -275,10 +275,10 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
         pubs_tema = sorted(estanterias[tema], key=lambda x: x["fecha"], reverse=True)
         
         # Construimos el contenedor principal de la estantería (con diseño de columnas responsivo)
-        enlaces_indice_html += f'                <li style="flex: 1 1 300px; min-width: 250px;">\n'
+        enlaces_indice_html += f'                <li class="library-nav__item">\n'
         # QUÉ HACE: Delega el color a la clase SASS .indice__tema para permitir pseudo-clases interactivas (:visited).
-        enlaces_indice_html += f'                    <a href="#{tema_slug}" class="indice__tema" style="font-weight: 700; text-decoration: none; border-bottom: 2px solid rgba(154, 52, 18, 0.3); padding-bottom: 0.2rem; display: inline-block; margin-bottom: 0.8rem;">{tema}</a>\n'
-        enlaces_indice_html += f'                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">\n'
+        enlaces_indice_html += f'                    <a href="#{tema_slug}" class="library-nav__theme-title">{tema}</a>\n'
+        enlaces_indice_html += f'                    <ul class="library-nav__article-list">\n'
         
         cards_html = ""
         for pub in pubs_tema:
@@ -287,16 +287,16 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
             
             # QUÉ HACE: Inyecta cada artículo como un ancla interna apuntando a su tarjeta resumen.
             # POR QUÉ: Retiene al usuario en la página índice para que pueda leer la descripción antes de entrar.
-            enlaces_indice_html += f'                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor=\'#cbd5e1\'" onmouseout="this.style.borderColor=\'#e2e8f0\'">\n'
+            enlaces_indice_html += f'                        <li class="library-nav__article-item">\n'
             # QUÉ HACE: Diferencia el texto accesible (aria-label) para evitar penalización por enlaces con mismo texto y distinto destino.
-            enlaces_indice_html += f'                            <a href="#{pub_slug}" class="indice__enlace" aria-label="Ir al resumen de: {pub["titulo"]}" style="text-decoration: none; display: block;">{pub["titulo"]}</a>\n'
+            enlaces_indice_html += f'                            <a href="#{pub_slug}" class="library-nav__article-link" aria-label="Ir al resumen de: {pub["titulo"]}">{pub["titulo"]}</a>\n'
             enlaces_indice_html += f'                        </li>\n'
             
             clase_css = "card--booklet" if pub["tipo"].lower() == "cuadernillo" else "card--book"
             badge = pub["tipo"].capitalize()
             
             cards_html += f"""
-                <article class="card {clase_css}" id="{pub_slug}" style="scroll-margin-top: 100px;">
+                <article class="card {clase_css}" id="{pub_slug}">
                     <header>
                         <span class="card__meta">{pub["fecha"]} — {badge}</span>
                         <h2 class="card__title"><a href="{pub["url"]}" aria-label="Leer artículo completo: {pub["titulo"]}">{pub["titulo"]}</a></h2>
@@ -312,10 +312,10 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
         # QUÉ HACE: Inyecta el ID para el ancla, 'scroll-margin-top' y un contenedor flex para alinear el botón "Volver arriba" a la derecha.
         # POR QUÉ: Mejora la navegación permitiendo al usuario saltar de vuelta al Mega-Menú inmediatamente después de explorar una estantería.
         secciones_html += f"""
-        <section class="biblioteca-tema" id="{tema_slug}" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;">
-                <h2 class="home-card__title--highlight" style="margin: 0; border-bottom: none; padding-bottom: 0;"><a href="#{tema_slug}" style="text-decoration: none; color: inherit;">{tema}</a></h2>
-                <a href="#top" style="font-size: 0.9rem; font-weight: 600; color: #64748b; text-decoration: underline; white-space: nowrap; margin-left: 1rem;">↑ Volver arriba</a>
+        <section class="library-section" id="{tema_slug}">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#{tema_slug}">{tema}</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
             </div>
             <div class="home-grid">
                 {cards_html}
@@ -355,9 +355,9 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
         
         <!-- QUÉ HACE: Índice Curado (Table of Contents) autogenerado -->
         <!-- POR QUÉ: Mejora la UX permitiendo navegación intra-página sin scroll excesivo. -->
-        <nav aria-label="Índice de estanterías" style="margin-bottom: 4rem; background: #f8fafc; padding: 2rem; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <h2 style="margin-top: 0; font-size: 1.2rem; margin-bottom: 1rem; color: #334155;">Estanterías Temáticas</h2>
-            <ul style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 0;">
+        <nav class="library-nav" aria-label="Índice de estanterías">
+            <h2 class="library-nav__title">Estanterías Temáticas</h2>
+            <ul class="library-nav__list">
 {enlaces_indice_html}            </ul>
         </nav>
         
