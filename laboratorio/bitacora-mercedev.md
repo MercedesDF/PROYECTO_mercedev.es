@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-30 — Docs: Release v1.2.0 del Boilerplate (Consolidación Headless y QA)
+
+**Contexto:** Tras finalizar las herramientas de publicación Headless (`merci-wp`), el enrutamiento contextual (`merci-promote`) y purificar la interfaz estática (Contacto), el ecosistema base alcanzó un hito de madurez que debía ser exportado a la plantilla pública antes de iniciar ramas de desarrollo paralelas (como WooCommerce).
+
+**Hecho:**
+- Se actualizó `README-merci.md` con las novedades de la v1.2.0.
+- Se marcó la Fase 8.3 como completada al 100% en `instrucciones-merci.md`.
+- Se ejecutó el pipeline de despliegue (`merci-init.py` destructivo y `rsync --delete`) para exportar el código inmaculado al repositorio `merci-boilerplate`.
+
+**Detalle técnico:** El orquestador de instanciación purgó automáticamente los manuales SOP exclusivos de la matriz (`docs/matriz/`) asegurando que los "Shadow Docs" ascendieran atómicamente a su versión final en el destino, erradicando la derivación de configuración.
+
+**Motivo / criterio:** *Release Management y Single Source of Truth (SSOT)*. Iniciar desarrollos nuevos (tienda) teniendo "deuda de despliegue" pendiente es un antipatrón. Empaquetar y sellar el repositorio ahora asegura que el Boilerplate herede un estado estable y 100/100 auditado antes de introducir la complejidad de un e-commerce.
+
+**Siguiente paso o deuda:** Desarrollar el MVP de la tienda (WooCommerce) estandarizando sus estilos visuales en la arquitectura SASS 7-1.
+
 ### 2026-04-30 — UX/UI: Refactorización purista de la página de Contacto
 
 **Contexto:** La página de contacto (`public/contacto/index.html`) conservaba el texto "placeholder" (texto de relleno) genérico del Boilerplate. Se requería definir el método de contacto sin violar la arquitectura de 0 dependencias ni engordar el código con servicios de terceros (formularios).

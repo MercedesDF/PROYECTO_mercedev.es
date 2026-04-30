@@ -275,8 +275,6 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Emplear `merci-promote` para trasladar cuadernillos históricos a la Biblioteca.
 
 #### 8.3 Consolidación Operativa (UX y Headless CMS)
-<!-- QUÉ HACE: Planifica las tareas de consolidación acordadas antes de saltar a la IA. -->
-<!-- POR QUÉ: Respeta la Regla 12 (Actualización continua del Roadmap) documentando la intención antes de la ejecución. -->
 - [x] Unificar enlaces globales en pie de página (LinkedIn, GitHub, Boilerplate) manteniendo paridad Dev/Prod.
 - [x] Completar página estática de contacto (`public/contacto/index.html`) y afinar la portada (Sincronización SSOT).
 - [x] Generar un pequeño índice curado de los artículos publicados en la biblioteca (Auto-generado por merci-publish).
