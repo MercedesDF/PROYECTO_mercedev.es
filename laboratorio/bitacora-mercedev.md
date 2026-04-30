@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-30 — DevSecOps: Prevención de fuga de datos en directorios Headless
+
+**Contexto:** Se sugirió modificar el script de instanciación para simplemente "no borrar" las carpetas dinámicas (`blog/` y `art-de-cote/`). El análisis arquitectónico reveló que esto expondría los borradores y artículos publicados de la autora en el repositorio público. Además, se detectó que las carpetas raíz dinámicas no estaban siendo purgadas.
+
+**Hecho:**
+- Se añadieron `blog/` y `art-de-cote/` de la raíz a la lista de eliminación de `purge_directory` en `merci-init.py`.
+- Se refactorizó la lógica de reconstrucción para generar las 4 carpetas dinámicas (en la raíz y en laboratorio) con sus respectivos `.gitkeep` tras la limpieza.
+
+**Detalle técnico:** En lugar de excluir directorios del borrado (lo que conserva su contenido interno), se arrasa con ellos y se vuelven a crear usando `mkdir(parents=True, exist_ok=True)` y `touch(".gitkeep")`.
+
+**Motivo / criterio:** *Data Leak Prevention (DLP)*. Un boilerplate debe ser un lienzo en blanco. Excluir carpetas del borrado es un antipatrón de seguridad si estas pueden contener propiedad intelectual. Destruir y reconstruir el andamiaje garantiza la higiene absoluta del repositorio derivado.
+
+**Siguiente paso o deuda:** Retomar el desarrollo de la automatización social para LinkedIn (`merci-linkedin.py`).
+
 ### 2026-04-30 — UX/UI: Estilización del MVP de la tienda (WooCommerce)
 
 **Contexto:** Tras decidir pivotar hacia la creación de una tienda mínima viable (MVP) antes de la campaña de LinkedIn, era necesario "vestir" el HTML crudo que genera WooCommerce, ya que sus estilos CSS nativos fueron purgados para mantener el 100/100 en Core Web Vitals.
