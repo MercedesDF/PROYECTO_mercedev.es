@@ -1,6 +1,6 @@
 ---
 titulo: "Título de la exploración o cuadernillo"
-estado: "publicado"
+estado: "borrador"
 tema: "Art de Coté"
 descripcion: "prueba"
 alt_portada: "prueba"

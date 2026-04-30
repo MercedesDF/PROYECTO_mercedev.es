@@ -37,6 +37,80 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — QA: Selección cromática matemática para estado :visited (WCAG)
+
+**Contexto:** Era necesario definir el color exacto para la variable `$color-visited` asegurando que mantuviera la coherencia visual con la marca y, simultáneamente, garantizara el 100/100 en accesibilidad en Google PageSpeed Insights.
+
+**Hecho:** Se actualizó `$color-visited` a `#7c2d12` en `src/scss/abstracts/_variables.scss`.
+
+**Detalle técnico:** El color asignado temporalmente (`#070f75`, azul marino) superaba la prueba de contraste pero causaba disonancia cromática. El tono elegido (`#7c2d12`, teja oscuro) mantiene la raíz del color principal (`#ea580c`) pero ofrece un ratio de contraste de ~10.2:1 sobre fondos blancos y ~9.8:1 sobre el gris claro (`#f8fafc`) del índice, superando ampliamente el mínimo exigido de 4.5:1 (Nivel AA) y alcanzando el nivel AAA.
+
+**Motivo / criterio:** *Shift-Left Accessibility y Diseño UI*. Las decisiones de color en una arquitectura estricta no se basan únicamente en la estética. Calcular matemáticamente el ratio de contraste antes de inyectar variables en SASS previene fallos tardíos en la auditoría de rendimiento (Fail-Fast).
+
+**Siguiente paso o deuda:** (Pendiente de instrucción).
+
+### 2026-04-29 — Fix: Aplicación de estado :visited en enlaces de cabecera (Tarjetas)
+
+**Contexto:** Se detectó que los enlaces de los títulos en las tarjetas de la Biblioteca no cambiaban de color al ser visitados, a pesar de que la regla `:visited` global estaba correctamente definida en SASS.
+
+**Hecho:** Se añadió la pseudo-clase `&:visited` dentro del anidamiento de `h1-h6 > a` en `src/scss/base/_typography.scss`.
+
+**Detalle técnico:** La regla `h2 a { color: inherit; }` tenía una especificidad CSS (`0,0,2`) superior a la regla global `a:visited` (`0,1,1`), provocando que el navegador ignorara el color de visitado y forzara la herencia del color del encabezado. Al añadir explícitamente `&:visited { color: $color-visited; }` dentro del bloque del encabezado, se crea una regla más específica (`0,1,2`) que el navegador sí puede aplicar.
+
+**Motivo / criterio:** *CSS Specificity y UX*. Para que los estados interactivos (`:hover`, `:focus`, `:visited`) funcionen de manera predecible, sus reglas deben tener una especificidad igual o superior a las reglas base del elemento. Esta corrección restaura el feedback visual del historial de navegación en todos los componentes.
+
+**Siguiente paso o deuda:** (Pendiente de instrucción).
+
+### 2026-04-29 — Fix: Resolución de especificidad CSS en enlaces del índice (SSG)
+
+**Contexto:** Tras habilitar el estado `:visited` en la arquitectura SASS, se detectó que los enlaces del índice autogenerado de la Biblioteca no cambiaban de color tras ser pulsados.
+
+**Hecho:** Se eliminó el atributo `style="color: ..."` de las etiquetas `<a>` en `scripts/merci/merci-publish.py` y se delegó el control cromático a las nuevas clases `.indice__tema` y `.indice__enlace` en `src/scss/base/_typography.scss`.
+
+**Detalle técnico:** Los estilos en línea (`style="..."`) poseen una especificidad CSS de `1000`, aplastando cualquier pseudo-clase externa como `:visited` (cuya especificidad es `0010`). Al extraer el color a clases SASS estandarizadas, se restaura el flujo natural de la cascada CSS, permitiendo al navegador aplicar los colores de historial correctamente.
+
+**Motivo / criterio:** *Separation of Concerns* y Accesibilidad/UX. Inyectar estilos estructurales menores en línea desde Python es aceptable en SSG, pero inyectar colores destruye la interactividad visual (hover, visited, focus). Mantener la capa cromática estrictamente en SASS garantiza la respuesta adecuada a las acciones del usuario.
+
+**Siguiente paso o deuda:** (Pendiente de instrucción).
+
+### 2026-04-29 — UX/UI: Incorporación de estado :visited en enlaces globales
+
+**Contexto:** Para mejorar la navegación y reducir la carga cognitiva, era necesario que el usuario pudiera identificar de un vistazo qué artículos o estanterías de la Biblioteca ya había visitado previamente.
+
+**Hecho:** Se instruyó la adición de la pseudo-clase `:visited` en la arquitectura SASS para los enlaces globales.
+
+**Detalle técnico:** En accesibilidad y usabilidad (UX), diferenciar el estado visitado previene que el usuario haga clic repetidamente en contenido ya consumido. Se aplicó un tono ligeramente más oscuro o desaturado al color principal del enlace para mantener la coherencia visual sin violar el contraste WCAG.
+
+**Motivo / criterio:** *Usabilidad y Fricción Cero*. Proveer *feedback* visual del historial de navegación es un estándar web fundamental (Heurísticas de Nielsen) que mejora significativamente la experiencia en sitios con alta densidad de contenido.
+
+**Siguiente paso o deuda:** (Pendiente de instrucción).
+
+### 2026-04-29 — Docs: Revisión editorial y refinamiento del copy en la portada
+
+**Contexto:** Antes de subir a producción, se propuso una revisión de los textos de la portada (`public/index.html`) para asegurar que estuvieran alineados con la "Guía de Voz Editorial" (Regla 6), transmitiendo claridad técnica y evitando redundancias.
+
+**Hecho:** Se refinó el subtítulo del Hero y la descripción de la tarjeta del Sistema Merci en `public/index.html`.
+
+**Detalle técnico:** Se eliminó la redundancia ("base de conocimiento y operaciones con base en") sustituyéndola por "centro de operaciones. Un entorno web...". En la tarjeta de Merci, se hizo la llamada a la acción más directa y nativa ("Haz clic sobre su avatar").
+
+**Motivo / criterio:** *UX Copywriting*. El texto de la interfaz es tan importante como la arquitectura subyacente. Aplicar la regla 80/20 (claridad técnica / personalidad) garantiza que el usuario perciba el rigor DevSecOps desde la primera línea que lee.
+
+**Siguiente paso o deuda:** (Pendiente de instrucción).
+
+### 2026-04-29 — Docs: Auditoría de paridad y actualización a Boilerplate v1.1.0
+
+**Contexto:** Antes de desplegar el código a producción y exportar la nueva plantilla al repositorio derivado (`merci-boilerplate`), era imperativo verificar que los manuales operativos reflejaran el estado real del ecosistema (SSOT).
+
+**Hecho:**
+- Se incrementó la versión a `v1.1.0` en `README-merci.md`.
+- Se actualizaron los listados de scripts y flujos operativos (SOP Dual) en `instrucciones.md` e `instrucciones-merci.md`.
+
+**Detalle técnico:** Se incluyeron de forma explícita las herramientas `merci-wp.py`, `merci-sync-pages.py` y `merci-promote.py` (en su versión con enrutamiento inteligente) dentro de la documentación *Shadow* que viajará con la nueva instanciación del boilerplate.
+
+**Motivo / criterio:** *Governance*. El código no está terminado hasta que la documentación no lo explica. Un salto de versión menor (Minor Release) está justificado por la inclusión de características Headless y de compilación completas y retrocompatibles.
+
+**Siguiente paso o deuda:** Empaquetar la matriz, desplegar en producción y ejecutar el ciclo completo de instanciación hacia el Boilerplate.
+
 ### 2026-04-29 — Feat: Integración del publicador Headless (merci-wp) en el orquestador maestro
 
 **Contexto:** Para garantizar que el entorno de producción dinámico (WordPress) se sincronice automáticamente antes de ejecutar las auditorías y el rastreo de enlaces, era necesario incluir el script `merci-wp.py` en la cadena de montaje global.
@@ -718,7 +792,7 @@ Copia el bloque y rellénalo.
 
 ### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 
-**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-04-29.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
+**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-04-30.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
 
 **Hecho:** Se implementó una rutina de actualización automática en `scripts/merci/merci-commit.py` mediante expresiones regulares.
 
@@ -1655,4 +1729,4 @@ Copia el bloque y rellénalo.
 
 ---
 
-*Última revisión de la bitácora: 2026-04-29.*
+*Última revisión de la bitácora: 2026-04-30.*

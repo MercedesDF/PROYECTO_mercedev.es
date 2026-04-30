@@ -276,8 +276,8 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
         
         # Construimos el contenedor principal de la estantería (con diseño de columnas responsivo)
         enlaces_indice_html += f'                <li style="flex: 1 1 300px; min-width: 250px;">\n'
-        # QUÉ HACE: Aplica un tono naranja oscuro (#9a3412) para cumplir estrictamente con el ratio de contraste WCAG 4.5:1.
-        enlaces_indice_html += f'                    <a href="#{tema_slug}" style="font-weight: 700; color: #9a3412; text-decoration: none; border-bottom: 2px solid rgba(154, 52, 18, 0.3); padding-bottom: 0.2rem; display: inline-block; margin-bottom: 0.8rem;">{tema}</a>\n'
+        # QUÉ HACE: Delega el color a la clase SASS .indice__tema para permitir pseudo-clases interactivas (:visited).
+        enlaces_indice_html += f'                    <a href="#{tema_slug}" class="indice__tema" style="font-weight: 700; text-decoration: none; border-bottom: 2px solid rgba(154, 52, 18, 0.3); padding-bottom: 0.2rem; display: inline-block; margin-bottom: 0.8rem;">{tema}</a>\n'
         enlaces_indice_html += f'                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">\n'
         
         cards_html = ""
@@ -289,7 +289,7 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
             # POR QUÉ: Retiene al usuario en la página índice para que pueda leer la descripción antes de entrar.
             enlaces_indice_html += f'                        <li style="padding-left: 1rem; border-left: 2px solid #e2e8f0; transition: border-color 0.2s;" onmouseover="this.style.borderColor=\'#cbd5e1\'" onmouseout="this.style.borderColor=\'#e2e8f0\'">\n'
             # QUÉ HACE: Diferencia el texto accesible (aria-label) para evitar penalización por enlaces con mismo texto y distinto destino.
-            enlaces_indice_html += f'                            <a href="#{pub_slug}" aria-label="Ir al resumen de: {pub["titulo"]}" style="color: #475569; text-decoration: none; display: block;">{pub["titulo"]}</a>\n'
+            enlaces_indice_html += f'                            <a href="#{pub_slug}" class="indice__enlace" aria-label="Ir al resumen de: {pub["titulo"]}" style="text-decoration: none; display: block;">{pub["titulo"]}</a>\n'
             enlaces_indice_html += f'                        </li>\n'
             
             clase_css = "card--booklet" if pub["tipo"].lower() == "cuadernillo" else "card--book"

@@ -1,6 +1,6 @@
 ---
 titulo: "Título de la entrada del Blog"
-estado: "publicado"
+estado: "borrador"
 tema: "Blog"
 descripcion: "prueba"
 alt_portada: "prueba"

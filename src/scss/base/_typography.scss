@@ -21,6 +21,10 @@ h1, h2, h3, h4, h5, h6 {
         &:hover {
             color: $color-primary;
         }
+        &:visited {
+            /* QUÉ HACE: Asegura que los enlaces en cabeceras también respeten el estado de visitado. */
+            color: $color-visited;
+        }
     }
 }
 
@@ -33,8 +37,36 @@ a {
     text-decoration: none;
     transition: color 0.2s ease;
 
+    &:visited {
+        /* QUÉ HACE: Consume la variable global para teñir los enlaces ya leídos. */
+        /* POR QUÉ: Mantiene la centralización de los colores y mejora la UX al indicar el historial. */
+        color: $color-visited;
+    }
+
     &:hover,
     &:focus {
         color: color.scale($color-primary, $lightness: 20%);
+    }
+}
+
+/* Clases específicas para el índice autogenerado de la Biblioteca */
+.indice__tema {
+    color: #9a3412; /* Naranja accesible WCAG */
+    
+    &:visited {
+        /* QUÉ HACE: Aplica el color visitado de la variable global a las estanterías */
+        color: $color-visited;
+    }
+}
+
+.indice__enlace {
+    color: #475569; /* Gris pizarra original */
+    transition: color 0.2s ease;
+    
+    &:visited {
+        color: $color-visited;
+    }
+    &:hover {
+        color: $color-primary;
     }
 }

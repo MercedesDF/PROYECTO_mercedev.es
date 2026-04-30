@@ -25,11 +25,14 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 ### 2.2. Automatización y Control (Backend / DevSecOps local)
 - **Entorno:** Terminal **zsh** en sistema **Ubuntu**.
 - **Python (Sistema "Merci"):** Motor de auditoría y automatización.
-  - `merci-audit.py`: Análisis estático, escaneo de secretos y validación de metadatos SEO (Git pre-commit).
+  - `merci-audit.py`: Análisis estático, escaneo de secretos y validación WAI-ARIA/SEO (Git pre-commit).
   - `merci-optimizer.py`: Procesamiento de assets multimedia con `Pillow` (conversión WebP responsivo).
   - `merci-sitemap.py`: Gestión y actualización automatizada de fechas en `sitemap.xml`.
-  - `merci-linkcheck.py`: Rastreador dinámico (DAST - Dynamic Application Security Testing) para auditar enlaces rotos HTTP.
-  - `merci-total.py`: Orquestador maestro que ejecuta el pipeline completo de validación local (Fail-Fast).
+  - `merci-linkcheck.py`: Rastreador dinámico (DAST) para auditar enlaces rotos HTTP y ambigüedad WAI-ARIA.
+  - `merci-publish.py` y `merci-promote.py`: Motor SSG y asistente interactivo de enrutamiento contextual.
+  - `merci-sync-pages.py`: Sincronizador de estructuras comunes estáticas (SSOT).
+  - `merci-wp.py`: Sincronizador Headless para inyección masiva en WordPress vía API REST.
+  - `merci-total.py`: Orquestador maestro que ejecuta el pipeline completo (Build y QA) con patrón Fail-Fast.
 
 ### 2.3. Capa de Contenidos Dinámicos
 - **WordPress:** Aislado en subdirectorios (`/blog` y `/tienda`).
