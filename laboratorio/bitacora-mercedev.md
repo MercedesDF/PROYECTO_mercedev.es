@@ -37,6 +37,17 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-30 — Fix: Resolución de enlace roto (PGP) en QA de Boilerplate
+
+**Contexto:** Al instanciar y auditar el Boilerplate v1.2.1, el orquestador `merci-total` detuvo el pipeline en la fase de `merci-linkcheck.py` al detectar un error 404 en el enlace `/llave-publica.asc` de la página estática de Contacto.
+
+**Hecho:**
+- Se creó el archivo de texto plano `public/llave-publica.asc` con un bloque de mensaje explicativo (Placeholder) para satisfacer el escaneo de red.
+
+**Motivo / criterio:** *QA Estricto (Fail-Fast)*. El orquestador demostró su valor al no tolerar "promesas" de archivos futuros. Para que la plantilla apruebe su propia auditoría desde el commit cero, todos los enlaces estructurales deben resolver a un archivo real, delegando al usuario final la tarea de reemplazar el archivo de muestra con su clave criptográfica real.
+
+**Siguiente paso o deuda:** Retomar el MVP de la tienda (WooCommerce) estandarizando sus estilos visuales.
+
 ### 2026-04-30 — Fix: Generación de plantilla .env en instanciación (Release v1.2.1)
 
 **Contexto:** Un nuevo usuario que clona el Boilerplate v1.2.0 experimentaba un fallo crítico en su primer `merci total` porque el pipeline de QA invocaba a `merci-wp.py`, el cual colapsaba al no encontrar el archivo `.env` (excluido por `.gitignore`).
