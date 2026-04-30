@@ -37,6 +37,48 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-30 — Fix: Resolución de rutas estáticas en inyector Headless de WC
+
+**Contexto:** El inyector de productos (`merci-wc-mock.py`) enviaba una URL de imagen incorrecta a WooCommerce (`/blog/assets/images/...`), provocando que la imagen no se descargara ni se adjuntara al producto en la tienda.
+
+**Hecho:**
+- Se implementó la variable `domain_root` utilizando `wp_url.removesuffix('/blog')` en `merci-wc-mock.py`.
+- Se actualizó el *payload* JSON para que el campo `src` de la imagen apunte a la raíz del dominio estático.
+
+**Detalle técnico:** En la arquitectura aislada, la variable de entorno `WP_URL` apunta al subdirectorio del CMS, pero Nginx sirve los *assets* multimedia directamente desde la raíz pública. Amputar programáticamente el sufijo del CMS en Python garantiza que la API REST reciba una URI absoluta resoluble, manteniendo la segregación de entornos.
+
+**Motivo / criterio:** *Single Source of Truth y Aislamiento*. No duplicar variables de entorno (como crear un `STATIC_URL` en el `.env`) mantiene la configuración sencilla. Inferir matemáticamente la ruta estática a partir de la ruta dinámica es el enfoque más resiliente frente a cambios de dominio.
+
+**Siguiente paso o deuda:** Validar la inyección correcta de la imagen en la tienda y proceder con LinkedIn (Fase 8.3).
+
+### 2026-04-30 — Fix: Purga de título duplicado e inyección de imágenes optimizadas en WC
+
+**Contexto:** La página principal de la tienda (`archive-product.php`) mostraba el título "Tienda" por duplicado. Además, se requería definir el flujo de trabajo para insertar imágenes optimizadas en los productos vía API Headless.
+
+**Hecho:**
+- Se inyectó el filtro `woocommerce_show_page_title` devolviendo `false` en `functions.php` para eliminar el título nativo del plugin.
+- Se actualizó el script `merci-wc-mock.py` añadiendo el *payload* de imágenes apuntando a los *assets* locales generados por `merci-optimizer.py`.
+
+**Detalle técnico:** WooCommerce inyecta automáticamente `<h1 class="page-title">` al renderizar el bucle de productos. Como nuestra plantilla `woocommerce.php` ya provee un componente BEM `.hero`, el filtro nativo purga la inyección redundante. Para las imágenes, la API REST requiere una URI absoluta (`src`); proveer la ruta local de la imagen `.webp` generada por nuestro orquestador obliga a WP a consumir el archivo ya optimizado, protegiendo los Core Web Vitals.
+
+**Motivo / criterio:** *Zero Bloat y UI/UX*. Desactivar elementos nativos del CMS mediante hooks de PHP evita tener que ocultarlos con `display: none` en CSS, manteniendo el DOM lo más ligero posible. Interceptar el flujo multimedia asegura que ninguna imagen bruta llegue a la base de datos dinámica.
+
+**Siguiente paso o deuda:** Validar visualmente la tienda sin títulos duplicados y el producto con su imagen, y proceder a LinkedIn (Fase 8.3).
+
+### 2026-04-30 — Feat: Inyector Headless de Productos Mock (WooCommerce)
+
+**Contexto:** Para validar los estilos SASS de la tienda en el entorno local recién configurado, era necesario crear un producto de prueba. Para mantener la filosofía "CLI-first" y no depender del panel de administración (GUI) de WordPress, se requería una vía de inyección desde la terminal.
+
+**Hecho:**
+- Se desarrolló el script experimental `laboratorio/scripts_temporales/merci-wc-mock.py`.
+- El script consume el archivo `.env` existente y realiza un `POST` a la API REST nativa de WooCommerce (`/wc/v3/products`).
+
+**Detalle técnico:** Se descartó el uso de comandos `curl` crudos para evitar exponer la contraseña de aplicación (`WP_APP_PASSWORD`) en el historial de la terminal (`.bash_history`), cumpliendo con los estándares de seguridad (Shift-Left). El script interactúa mediante Autenticación Básica Base64.
+
+**Motivo / criterio:** *Developer Experience (DX) y Seguridad*. Automatizar la inyección de datos de prueba (Mock Data) acelera el desarrollo del frontend. Utilizar las mismas credenciales seguras que `merci-wp.py` demuestra la versatilidad de la arquitectura Headless.
+
+**Siguiente paso o deuda:** Inyectar el producto, validar el diseño del catálogo individual y, finalmente, comenzar con LinkedIn.
+
 ### 2026-04-30 — UX: Enlace de retroceso en vista de producto (WooCommerce)
 
 **Contexto:** Tras restaurar la paridad de entornos y validar los estilos SASS de la tienda, se observó que la vista de producto individual (`single-product`) carecía de un atajo para regresar rápidamente al catálogo, generando fricción en la navegación.
