@@ -37,6 +37,54 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-30 — Docs: Publicación de cuadernillo sobre optimización de backups
+
+**Contexto:** La drástica reducción del peso de las copias de seguridad (de 50 MB a 0.35 MB) mediante el uso del modo `--verbose` y rutas absolutas se consideró un caso de éxito digno de ser documentado como activo de conocimiento.
+
+**Hecho:** Se redactó y publicó el archivo `biblioteca/cuadernillo-optimizacion-backups-locales.md`.
+
+**Detalle técnico:** El documento explica el diagnóstico a través de la terminal (Caja de Cristal) y la diferencia crítica entre excluir carpetas por coincidencia de cadenas de texto frente al uso de rutas absolutas estructuradas en Python (`Path`).
+
+**Motivo / criterio:** *Knowledge Management*. Trasladar las victorias de rendimiento e infraestructura a la Biblioteca consolida la madurez del ecosistema y sirve como manual de mejores prácticas para el desarrollo y depuración de herramientas CLI locales.
+
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
+
+### 2026-04-30 — Perf: Verificación de reducción masiva en backup local (0.35 MB)
+
+**Contexto:** Tras aplicar las exclusiones de los binarios de Dart Sass y el historial de auditorías de PageSpeed, era necesario verificar empíricamente el impacto en el tamaño del empaquetado final del repositorio.
+
+**Hecho:** El script `merci-backup.py` generó una copia de seguridad exitosa con un peso total de tan solo 0.35 MB.
+
+**Detalle técnico:** La cifra de 0.35 MB representa una reducción de más del 99.3% frente a los 50.31 MB anteriores. Esto certifica que el filtro de rutas absolutas funciona con precisión quirúrgica, aislando el código fuente puro de cualquier artefacto pesado, multimedia incrustada o binario regenerable.
+
+**Motivo / criterio:** *Zero Bloat y Disaster Recovery*. Un entorno DevSecOps debe permitir respaldos ultrarrápidos y portables. Esta métrica consolida empíricamente la arquitectura del proyecto: el peso reside en las dependencias y el CMS, mientras que el código matriz se mantiene estrictamente minimalista y ágil.
+
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
+
+### 2026-04-30 — Feat: Modo verbose en script de copias de seguridad
+
+**Contexto:** Tras refactorizar las exclusiones del backup para reducir su peso, surgió la necesidad operativa de poder auditar visualmente qué archivos exactos se estaban empaquetando en el archivo ZIP para verificar que no se filtrara basura o código de terceros.
+
+**Hecho:** Se implementó el flag `--verbose` (o `-v`) en `scripts/merci/merci-backup.py`.
+
+**Detalle técnico:** Se integró la lectura de `sys.argv` para activar la variable booleana `verbose`. Durante la iteración `os.walk`, si el modo está activo, la terminal imprime en tiempo real cada ruta relativa que se escribe en el archivo ZIP (`zipf.write`).
+
+**Motivo / criterio:** *Transparencia y Trazabilidad*. Un proceso de copia de seguridad no debe ser una caja negra. Proveer un modo detallado opcional permite a la desarrolladora certificar la exactitud del filtro de exclusiones sin saturar la salida estándar por defecto en la ejecución diaria.
+
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
+
+### 2026-04-30 — Perf: Refactorización de exclusiones en script de backup
+
+**Contexto:** La ejecución de `merci-backup.py` generaba un archivo ZIP de más de 50 MB, un tamaño desproporcionado para un repositorio de código fuente. Se diagnosticó que el script estaba comprimiendo la instalación completa de WordPress ubicada en la ruta `public/blog`.
+
+**Hecho:** Se modificó la lógica de exclusión en `scripts/merci/merci-backup.py` para utilizar rutas absolutas (`EXCLUDE_PATHS`) en lugar de nombres de carpetas genéricos.
+
+**Detalle técnico:** Anteriormente, el script excluía carpetas de forma global. No se podía excluir la palabra "blog" porque habría omitido el código fuente en `blog/` y `laboratorio/blog/`. Al migrar a una comprobación por ruta absoluta (`Path(root) / d not in EXCLUDE_PATHS`), se bloquea quirúrgicamente la instalación del CMS.
+
+**Motivo / criterio:** *Performance y Zero Bloat*. Las copias de seguridad locales deben ser ultraligeras y contener exclusivamente el estado del proyecto DevSecOps. Las dependencias externas o instalaciones de terceros (como el núcleo de WP) se regeneran o gestionan aparte, no se empaquetan en el backup del código fuente.
+
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
+
 ### 2026-04-30 — Chore: Invalición de caché manual (Cache Busting v12)
 
 **Contexto:** Tras modificar los diálogos interactivos de `MerciController.js`, los cambios no se reflejaban en el servidor de producción para las rutas estáticas (Portada y Contacto) debido a la retención en caché de los navegadores.
