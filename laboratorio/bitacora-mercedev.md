@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-30 — UX/UI: Refactorización purista de la página de Contacto
+
+**Contexto:** La página de contacto (`public/contacto/index.html`) conservaba el texto "placeholder" (texto de relleno) genérico del Boilerplate. Se requería definir el método de contacto sin violar la arquitectura de 0 dependencias ni engordar el código con servicios de terceros (formularios).
+
+**Hecho:**
+- Se eliminó el texto genérico del Hero y se implementó un diseño purista tipográfico.
+- Se inyectó un canal de comunicación directo (`mailto:`) y un bloque preparado para alojar una clave pública PGP (Pretty Good Privacy).
+
+**Motivo / criterio:** *Zero Bloat y DevSecOps*. Depender de un `<form>` requiere procesado backend (PHP) o servicios de terceros que inyectan scripts y latencia, vulnerando la política estricta de rendimiento y privacidad (GDPR). Proveer un email directo y soporte para cifrado E2EE (End-to-End Encryption) es el estándar técnico superior.
+
+**Siguiente paso o deuda:** Iniciar el diseño y desarrollo de la automatización Headless para LinkedIn (`merci-linkedin.py`).
+
 ### 2026-04-30 — Docs: Publicación de cuadernillo sobre optimización de backups
 
 **Contexto:** La drástica reducción del peso de las copias de seguridad (de 50 MB a 0.35 MB) mediante el uso del modo `--verbose` y rutas absolutas se consideró un caso de éxito digno de ser documentado como activo de conocimiento.
