@@ -9,8 +9,11 @@ Dado que `mercedev.es` actúa como la Única Fuente de Verdad (SSOT - Single Sou
 Para liberar una nueva versión (ej. pasar de `v1.0.0` a `v1.1.0`), ejecuta la siguiente secuencia en tu terminal:
 
 ### 1. Preparación en la Matriz
-Asegúrate de que `mercedev.es` está auditado, commiteado y subido a GitHub (`git push`).
-Si hay un cambio de versión, actualiza el número manualmente en el archivo `README-merci.md`.
+1.  **Sello Local:** Asegúrate de que `mercedev.es` está auditado y commiteado (`merci commit`). Si hay un cambio de versión, actualiza el número manualmente en el archivo `README-merci.md`.
+2.  **Sincronización Remota:** Sube los cambios al servidor remoto para que el clon pueda verlos.
+    ```bash
+    git push
+    ```
 
 ### 2. Clonación Efímera
 Sal de tu entorno de trabajo actual y clona la versión más reciente desde el servidor a un directorio temporal neutral (ej. tu Escritorio):

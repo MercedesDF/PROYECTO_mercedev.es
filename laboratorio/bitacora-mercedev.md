@@ -37,6 +37,69 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-30 — UX: Enlace de retroceso en vista de producto (WooCommerce)
+
+**Contexto:** Tras restaurar la paridad de entornos y validar los estilos SASS de la tienda, se observó que la vista de producto individual (`single-product`) carecía de un atajo para regresar rápidamente al catálogo, generando fricción en la navegación.
+
+**Hecho:**
+- Se inyectó un enlace condicional (`is_product()`) en `src/wp-theme/merci-theme/woocommerce.php` apuntando a la página principal de la tienda.
+- Se reutilizó la clase SASS existente `.card__back-link` para mantener la consistencia visual.
+
+**Motivo / criterio:** *Fricción Cero y Reusabilidad*. Proveer una vía de escape clara mejora la experiencia de usuario (UX). Reutilizar una clase CSS semántica creada originalmente para la biblioteca (`.card__back-link`) evita inyectar estilos en línea o crear código duplicado, cumpliendo con el principio DRY (Don't Repeat Yourself).
+
+**Siguiente paso o deuda:** Dar por cerrado el MVP de la tienda e iniciar el diseño del script de automatización para LinkedIn (`merci-linkedin.py`).
+
+### 2026-04-30 — Arch: Restauración de Paridad de Entornos (Dev/Prod Parity)
+
+**Contexto:** Durante la estilización del MVP de la tienda, se detectó una desconexión total entre el código SASS y la visualización local. El diagnóstico reveló que WooCommerce estaba instalado exclusivamente en el servidor de producción, pero ausente en el entorno de desarrollo local.
+
+**Hecho:**
+- Se pausó el desarrollo de código.
+- Se instruyó la instalación, activación y configuración de WooCommerce en el WordPress local, incluyendo la creación de datos de prueba (Mock Data).
+
+**Motivo / criterio:** *Dev/Prod Parity* (Paridad Desarrollo/Producción). Desarrollar sobre un entorno local que no refleja la topología exacta de producción genera "ceguera de desarrollo" y fomenta el anti-patrón de probar código directamente en la web pública. Replicar el CMS y sus plugins clave en local es un requisito innegociable de la arquitectura DevSecOps.
+
+**Siguiente paso o deuda:** Validar visualmente los estilos SASS de la tienda en el entorno local ahora que el motor dinámico está operativo, y continuar con LinkedIn.
+
+### 2026-04-30 — Fix: Resolución de Jerarquía de Plantillas en WooCommerce
+
+**Contexto (El Desafío):** La página de la tienda (`/blog/tienda`) renderizaba un contenedor vacío (`.article__content`) a pesar de que la plantilla `woocommerce.php` contenía la función `woocommerce_content()` correcta. El CMS estaba ignorando la plantilla específica y recurriendo a `index.php`.
+
+**Hecho (La Maniobra):**
+- Se configuró la página "Tienda" como la página oficial en el panel de administración de WordPress, bajo `WooCommerce > Ajustes > Productos`.
+
+**Detalle técnico:** La existencia de un archivo `woocommerce.php` en el tema no es suficiente. WordPress solo lo utiliza si la URL que se está visitando corresponde a la página asignada explícitamente como "Página de la tienda" en los ajustes del plugin. Sin esta asignación, WordPress trata la URL como una página estándar y aplica su jerarquía de plantillas por defecto (`page.php` o, en su defecto, `index.php`).
+
+**Motivo / criterio (El Aprendizaje):** *Template Hierarchy y Configuración sobre Código*. La configuración del panel de administración de un CMS a menudo tiene mayor precedencia que la estructura de archivos del tema. Comprender la jerarquía de plantillas es crucial para depurar por qué un archivo de tema es ignorado por el motor de renderizado.
+
+**Siguiente paso o deuda:** Validar que la tienda ahora renderiza los productos y sus estilos SASS correctamente.
+
+### 2026-04-30 — Fix: Inyección nativa de WooCommerce (Template Hierarchy)
+
+**Contexto:** Al intentar estilizar la tienda MVP, la página no renderizaba ningún producto (HTML vacío dentro de `.article__content`). Una auditoría del DOM (F12) reveló que el CMS estaba ejecutando el bucle estándar (`the_content()`) en lugar de la cuadrícula de la tienda.
+
+**Hecho:**
+- Se reemplazó el bucle `The Loop` estándar de WordPress por la función `woocommerce_content()` dentro del archivo `src/wp-theme/merci-theme/woocommerce.php`.
+
+**Detalle técnico:** WooCommerce renderiza su tienda en una "Página" (Page) física de WP. Si el archivo `woocommerce.php` es una copia literal de `index.php` usando `the_content()`, devuelve un bloque vacío. Llamar a `woocommerce_content()` le devuelve el control del renderizado al plugin dentro de nuestros contenedores semánticos SASS.
+
+**Motivo / criterio:** *Separation of Concerns* y Arquitectura de Plantillas. Obligar a WooCommerce a usar su propio motor de renderizado dentro de nuestra caja fuerte (`<section class="section">`) es el único método validado y oficial para evitar colisiones de rutas dinámicas manteniendo el 100% de nuestros estilos base.
+
+**Siguiente paso o deuda:** Validar la cuadrícula SASS compilada en el navegador y continuar con la automatización para LinkedIn.
+
+### 2026-04-30 — Docs: Refinamiento del SOP de Release del Boilerplate
+
+**Contexto (El Desafío):** Se detectó una fisura lógica en el Procedimiento Operativo Estándar (SOP) de actualización del Boilerplate (`docs/matriz/mantenimiento-boilerplate-sop.md`). Las instrucciones indicaban modificar archivos en la matriz local y luego clonar desde el remoto, pero omitían el paso crítico de subir (`git push`) los cambios locales al servidor.
+
+**Hecho (La Maniobra):**
+- Se actualizó `docs/matriz/mantenimiento-boilerplate-sop.md` para dividir el "Paso 1" en dos sub-pasos explícitos: el sello local (`merci commit`) y la sincronización remota (`git push`).
+
+**Detalle técnico:** El comando `git clone` del SOP se nutre del estado del repositorio en GitHub, no del estado del disco duro local. Sin un `push` previo, el clon temporal siempre descargaba una versión obsoleta del código, invalidando las correcciones recién aplicadas.
+
+**Motivo / criterio (El Aprendizaje):** *Infrastructure as Code (IaC) y Rigor Operativo*. Un SOP debe ser atómico e inequívoco. Este refinamiento previene la "falsa ejecución" del pipeline, garantizando que el proceso de instanciación siempre parta de la última versión validada y subida del código matriz.
+
+**Siguiente paso o deuda:** Con el pipeline de release blindado, iniciar el desarrollo de la automatización social para LinkedIn (`merci-linkedin.py`).
+
 ### 2026-04-30 — DevSecOps: Prevención de fuga de datos en directorios Headless
 
 **Contexto:** Se sugirió modificar el script de instanciación para simplemente "no borrar" las carpetas dinámicas (`blog/` y `art-de-cote/`). El análisis arquitectónico reveló que esto expondría los borradores y artículos publicados de la autora en el repositorio público. Además, se detectó que las carpetas raíz dinámicas no estaban siendo purgadas.
