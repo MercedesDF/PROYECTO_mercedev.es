@@ -2,7 +2,9 @@
 
 .footer {
     text-align: left;
-    padding-bottom: $spacing-xl;
+    /* QUÉ HACE: Añade el mismo padding horizontal (32px / 2rem) que el header y el main. */
+    /* POR QUÉ: Mantiene la alineación vertical de los contenidos (Grid Alignment) en todo el layout. */
+    padding: $spacing-lg $spacing-lg $spacing-xl;
 
     &__links {
         margin-bottom: 1.5rem;

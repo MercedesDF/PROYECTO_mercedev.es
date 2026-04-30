@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-29 — UX/UI: Unificación responsiva de altura en componentes Hero
+
+**Contexto:** Se detectó disparidad visual entre las distintas páginas del ecosistema (Portada, Contacto, Biblioteca). La sección `.hero` crecía en función de la longitud de su texto, provocando que los bloques de cabecera tuvieran tamaños dispares.
+
+**Hecho:** Se implementó `min-height: 40vh` y centrado vertical con `flexbox` en `src/scss/components/_hero.scss`.
+
+**Detalle técnico:** En lugar de aplicar restricciones rígidas (`height` o `max-height`), que corren el riesgo de provocar desbordamientos de texto (overflow) en pantallas móviles estrechas, se definió una altura mínima basada en *Viewport Height* (`vh`). Flexbox (`justify-content: center`) se encarga de absorber la diferencia de longitud del texto repartiendo el espacio vacío, logrando paridad visual en pantallas de escritorio.
+
+**Motivo / criterio:** *Consistencia Visual y Responsive Design*. Establecer un tamaño base flexible estandariza la primera impresión del usuario en todas las rutas sin comprometer la legibilidad ni la puntuación de Core Web Vitals en dispositivos móviles.
+
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
+
 ### 2026-04-29 — Refactor: Poda de redundancias y duplicidades en arquitectura SASS
 
 **Contexto:** Tras analizar la especificidad CSS, se realizó una auditoría profunda en el directorio `src/scss/` buscando más casos de código muerto o duplicado que engordaran la hoja de estilos final.
@@ -49,7 +61,7 @@ Copia el bloque y rellénalo.
 
 **Motivo / criterio:** *Zero Dead Code* (Cero Código Muerto) y DRY (Don't Repeat Yourself). Las reglas CSS que redeclaran comportamientos ya definidos por la base tipográfica son un lastre. Mantener un CSS minimalista garantiza un procesamiento rápido del render tree en el navegador.
 
-**Siguiente paso o deuda:** (Pendiente de instrucción).
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
 
 ### 2026-04-29 — Refactor: Purga de deuda técnica en componente SASS (_hero.scss)
 
@@ -61,7 +73,7 @@ Copia el bloque y rellénalo.
 
 **Motivo / criterio:** *Code Hygiene y Single Responsibility Principle*. Cada componente SASS debe ser responsable únicamente de su propio bloque BEM. Eliminar código duplicado o desplazado reduce el peso del CSS final y mejora drásticamente la mantenibilidad y la claridad de la arquitectura.
 
-**Siguiente paso o deuda:** (Pendiente de instrucción).
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
 
 ### 2026-04-29 — Refactor: Reestructuración visual del índice de la Biblioteca (Grid y BEM)
 
@@ -77,7 +89,7 @@ Copia el bloque y rellénalo.
 
 **Motivo / criterio:** *UX y Code Hygiene*. Un layout en rejilla (Grid) es superior a Flexbox para crear columnas de ancho idéntico, mejorando la armonía visual. Diferenciar la tipografía establece una jerarquía clara que guía al usuario. Pagar la deuda técnica de las clases no estándar y centralizarlas en su componente SASS es una práctica de ingeniería de software limpia.
 
-**Siguiente paso o deuda:** (Pendiente de instrucción).
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
 
 ### 2026-04-29 — Refactor: Pago de deuda técnica (Eliminación de estilos en línea)
 
@@ -91,7 +103,7 @@ Copia el bloque y rellénalo.
 
 **Motivo / criterio:** *Code Hygiene y Mantenibilidad*. Aunque los estilos en línea son útiles para prototipado rápido, su permanencia en producción genera un código frágil y difícil de mantener. La refactorización a SASS BEM centraliza la capa de presentación, saldando la deuda técnica y preparando el código para futuras iteraciones.
 
-**Siguiente paso o deuda:** (Pendiente de instrucción).
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
 
 ### 2026-04-29 — Docs: Publicación de cuadernillo sobre Especificidad CSS
 
@@ -103,7 +115,7 @@ Copia el bloque y rellénalo.
 
 **Motivo / criterio:** *Knowledge Management*. Transformar incidentes de depuración en material didáctico es un pilar de la filosofía del proyecto. Este cuadernillo servirá como referencia futura para evitar el uso de `!important` o la inyección de estilos en línea que comprometan la UX.
 
-**Siguiente paso o deuda:** (Pendiente de instrucción).
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
 
 ### 2026-04-29 — QA: Selección cromática matemática para estado :visited (WCAG)
 
@@ -115,7 +127,7 @@ Copia el bloque y rellénalo.
 
 **Motivo / criterio:** *Shift-Left Accessibility y Diseño UI*. Las decisiones de color en una arquitectura estricta no se basan únicamente en la estética. Calcular matemáticamente el ratio de contraste antes de inyectar variables en SASS previene fallos tardíos en la auditoría de rendimiento (Fail-Fast).
 
-**Siguiente paso o deuda:** (Pendiente de instrucción).
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
 
 ### 2026-04-29 — Fix: Aplicación de estado :visited en enlaces de cabecera (Tarjetas)
 
@@ -127,7 +139,7 @@ Copia el bloque y rellénalo.
 
 **Motivo / criterio:** *CSS Specificity y UX*. Para que los estados interactivos (`:hover`, `:focus`, `:visited`) funcionen de manera predecible, sus reglas deben tener una especificidad igual o superior a las reglas base del elemento. Esta corrección restaura el feedback visual del historial de navegación en todos los componentes.
 
-**Siguiente paso o deuda:** (Pendiente de instrucción).
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
 
 ### 2026-04-29 — Fix: Resolución de especificidad CSS en enlaces del índice (SSG)
 
@@ -139,7 +151,7 @@ Copia el bloque y rellénalo.
 
 **Motivo / criterio:** *Separation of Concerns* y Accesibilidad/UX. Inyectar estilos estructurales menores en línea desde Python es aceptable en SSG, pero inyectar colores destruye la interactividad visual (hover, visited, focus). Mantener la capa cromática estrictamente en SASS garantiza la respuesta adecuada a las acciones del usuario.
 
-**Siguiente paso o deuda:** (Pendiente de instrucción).
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
 
 ### 2026-04-29 — UX/UI: Incorporación de estado :visited en enlaces globales
 
@@ -151,7 +163,7 @@ Copia el bloque y rellénalo.
 
 **Motivo / criterio:** *Usabilidad y Fricción Cero*. Proveer *feedback* visual del historial de navegación es un estándar web fundamental (Heurísticas de Nielsen) que mejora significativamente la experiencia en sitios con alta densidad de contenido.
 
-**Siguiente paso o deuda:** (Pendiente de instrucción).
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
 
 ### 2026-04-29 — Docs: Revisión editorial y refinamiento del copy en la portada
 
