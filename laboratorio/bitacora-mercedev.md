@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-30 — Fix: Generación de plantilla .env en instanciación (Release v1.2.1)
+
+**Contexto:** Un nuevo usuario que clona el Boilerplate v1.2.0 experimentaba un fallo crítico en su primer `merci total` porque el pipeline de QA invocaba a `merci-wp.py`, el cual colapsaba al no encontrar el archivo `.env` (excluido por `.gitignore`).
+
+**Hecho:**
+- Se modificó `scripts/merci/merci-init.py` para inyectar dinámicamente un archivo `.env` de ejemplo con las variables `WP_URL`, `WP_USER` y `WP_APP_PASSWORD`.
+- Se actualizó la versión en `README-merci.md` a v1.2.1.
+
+**Detalle técnico:** El script ahora utiliza `write_text` para crear el archivo de configuración en la raíz del clon antes de finalizar el proceso, asegurando que la dependencia de variables de entorno esté satisfecha para el orquestador.
+
+**Motivo / criterio:** *Developer Experience (DX) y Fricción Cero*. Un boilerplate debe funcionar *out of the box* (listo para usar). Entregar un pipeline roto degrada la confianza en la herramienta. Proveer un `.env` de muestra transforma un error de código (`FileNotFoundError`) en un fallo de conexión controlado, informando al usuario de lo que debe configurar.
+
+**Siguiente paso o deuda:** Retomar el MVP de la tienda (WooCommerce) estandarizando sus estilos visuales en la arquitectura SASS 7-1.
+
 ### 2026-04-30 — Docs: Release v1.2.0 del Boilerplate (Consolidación Headless y QA)
 
 **Contexto:** Tras finalizar las herramientas de publicación Headless (`merci-wp`), el enrutamiento contextual (`merci-promote`) y purificar la interfaz estática (Contacto), el ecosistema base alcanzó un hito de madurez que debía ser exportado a la plantilla pública antes de iniciar ramas de desarrollo paralelas (como WooCommerce).
