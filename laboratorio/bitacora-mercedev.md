@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-01 — Fix: Resolución de truncamiento de texto multilínea YAML (merci-promote)
+
+**Contexto:** Al promocionar un artículo y enviarlo a LinkedIn, la red social publicó un post vacío que solo contenía el símbolo `|`. Se diagnosticó que `merci-promote` (y otros scripts) utilizan un parseador YAML rudimentario (`split(":")`) que destruyó el bloque de texto multilínea al no encontrar el delimitador de clave-valor en las líneas inferiores.
+
+**Hecho:**
+- Se refactorizó `merci-linkedin.py` para leer el texto a publicar desde un comentario HTML (`<!-- linkedin: ... -->`) ubicado en el cuerpo del documento (`md_body`).
+- Se actualizaron las plantillas (`plantilla-blog.md`, `plantilla-art-de-cote.md`) para retirar el campo `linkedin_post` del YAML Frontmatter e inyectar el bloque HTML oculto.
+
+**Detalle técnico:** Implementar un parseador YAML completo en Python nativo para soportar *block scalars* (bloques multilínea) requiere miles de líneas de código o añadir la dependencia externa `PyYAML`. Extraer la responsabilidad del texto largo hacia el cuerpo del Markdown (escondiéndolo en un comentario HTML que los navegadores ignoran) sortea la limitación técnica manteniendo la directriz de "0 dependencias bloqueantes".
+
+**Motivo / criterio:** *Robustez vs. Deuda Técnica*. Si una herramienta casera tiene límites estructurales, adaptar el formato de entrada (Markdown) es infinitamente más seguro y mantenible que intentar reinventar la rueda programando un parseador complejo propenso a errores.
+
+**Siguiente paso o deuda:** Validar la republicación en LinkedIn con texto multilínea intacto.
+
 ### 2026-04-30 — DevSecOps: Bloqueo de token OIDC de LinkedIn en control de versiones
 
 **Contexto:** Durante las pruebas del motor de LinkedIn, el instinto DevSecOps alertó sobre la posible inclusión accidental del archivo de credenciales (`.linkedin_token.json`) en el commit automático, ya que no había sido excluido en la configuración pasiva.

@@ -201,14 +201,15 @@ def publicar_articulos_pendientes():
             yaml_block = match.group(1)
             estado = re.search(r'^estado:\s*["\']?([^"\'\n]+)["\']?', yaml_block, re.MULTILINE)
             
-            # Búsquedas clave: Texto de LinkedIn, ID de WordPress (Garantía web) e ID de LinkedIn
-            linkedin_post_match = re.search(r'^linkedin_post:\s*(.*?)(?=\n[a-z_]+:|\Z)', yaml_block, re.MULTILINE | re.DOTALL)
             wp_id_match = re.search(r'^wp_id:', yaml_block, re.MULTILINE)
             linkedin_id = re.search(r'^linkedin_id:', yaml_block, re.MULTILINE)
             
-            # REGLA ESTRICTA: Solo publica si existe en la web (wp_id_match) y no se ha publicado antes
-            if estado and estado.group(1) == "publicado" and linkedin_post_match and wp_id_match and not linkedin_id:
-                texto_post = linkedin_post_match.group(1).strip().strip("'\"")
+            # NUEVA LÓGICA: Leer el texto de LinkedIn desde un comentario HTML en el cuerpo del Markdown
+            linkedin_text_match = re.search(r'<!--\s*linkedin:\s*(.*?)\s*-->', content, re.DOTALL | re.IGNORECASE)
+            
+            # REGLA ESTRICTA: Solo publica si existe en la web, tiene el bloque HTML y no se ha publicado antes
+            if estado and estado.group(1) == "publicado" and linkedin_text_match and wp_id_match and not linkedin_id:
+                texto_post = linkedin_text_match.group(1).strip()
                 print(f"  📝 Publicando en LinkedIn post de: {archivo.name}...")
                 post_id = publicar_texto_linkedin(access_token, author_urn, texto_post)
                 
