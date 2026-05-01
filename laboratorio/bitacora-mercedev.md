@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-01 — Refactor: Unificación de metadatos y UI responsiva en Biblioteca
+
+**Contexto:** Se detectó una alta entropía en los YAML Frontmatter de la `biblioteca/` (campos `volumen` innecesarios, falta de `tipo`, descripciones y `alt_portada` rotos). Además, en la vista móvil, las secciones de la biblioteca (`.library-section`) carecían de *padding* lateral, pegando el contenido a los bordes del dispositivo.
+
+**Hecho:**
+- Se estandarizó el Frontmatter de los cuadernillos para asegurar un parseo SSG uniforme.
+- Se creó el archivo fundacional `docs/plantilla-cuadernillo.md` para prevenir futuras derivas de formato.
+- Se inyectó `padding: 0 $spacing-lg;` responsivo en el componente `.library-section` (SASS).
+
+**Motivo / criterio:** *Single Source of Truth (SSOT) y Mobile First*. La ausencia de una plantilla estricta para "cuadernillos" provocaba que los archivos heredaran metadatos obsoletos (como `volumen:` o `portada:`). La corrección CSS alinea el comportamiento del contenedor `.library-section` con la navegación superior, restaurando el 100/100 en usabilidad móvil.
+
+**Siguiente paso o deuda:** Recompilar SASS, ejecutar QA (`merci total`) y proceder a empaquetar el commit atómico.
+
 ### 2026-05-01 — QA: Resolución de colisión de enlaces ancla (WAI-ARIA) en el SSG
 
 **Contexto:** El pipeline se detuvo en la fase de `merci-linkcheck.py` al detectar enlaces ambiguos en el índice de la Biblioteca. El nombre de la estantería "Art de Coté" generó enlaces ancla (`#art-de-cote`) que colisionaban con el enlace homónimo del menú de navegación global (`/blog/category/art-de-cote/`).

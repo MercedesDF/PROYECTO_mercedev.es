@@ -4,7 +4,7 @@ descripcion: "Por qué excluir carpetas del borrado en un script de instanciaci�
 tema: "DevSecOps y Gobernanza"
 estado: "publicado"
 tipo: "cuadernillo"
-alt_portada: "dlp-boilerplate"
+alt_portada: "Esquema conceptual de la prevención de fuga de datos en repositorios públicos."
 fecha: "2026-04-30"
 ---
 

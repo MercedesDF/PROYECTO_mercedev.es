@@ -4,7 +4,7 @@ descripcion: "Por qué desarrollar estilos sin el motor subyacente local genera 
 tema: "DevSecOps y Gobernanza"
 estado: "publicado"
 tipo: "cuadernillo"
-alt_portada: "paridad-entornos-dev-prod"
+alt_portada: "Comparativa visual entre un entorno de desarrollo aislado y el entorno de producción."
 fecha: "2026-04-30"
 ---
 

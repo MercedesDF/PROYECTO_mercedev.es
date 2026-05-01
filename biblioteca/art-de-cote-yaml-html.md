@@ -2,8 +2,9 @@
 titulo: "El límite del YAML: Comentarios HTML como almacenamiento de metadatos"
 estado: "publicado"
 tema: "Art de Coté"
-descripcion: "art-de-cote-yaml-htm"
-alt_portada: "art-de-cote-yaml-htm"
+tipo: "cuadernillo"
+descripcion: "Cómo superar las limitaciones de parseo en YAML inyectando metadatos multilínea dentro de comentarios HTML nativos."
+alt_portada: "Fragmento de código mostrando un comentario HTML utilizado como almacenamiento de datos."
 fecha: "2026-05-01"
 ---
 

@@ -3,11 +3,9 @@ titulo: "Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)"
 descripcion: "Cómo resolver la activación de entornos virtuales de Python (.venv) cuando el editor lo hace mágicamente pero la terminal del sistema no."
 tipo: "cuadernillo"
 tema: "DevSecOps y Automatización"
-volumen: 1
 fecha: "2026-04-24"
 estado: "publicado"
-portada: "portada-bash.webp"
-alt_portada: "Discrepancia de entornos:activando entorno terminal pc"
+alt_portada: "Captura de pantalla mostrando la discrepancia de entornos entre VS Code y la terminal externa."
 ---
 
 **Contexto:**

@@ -4,7 +4,7 @@ descripcion: "Cómo publicar productos en la tienda desde la terminal local sin 
 tema: "Arquitectura y Rendimiento"
 estado: "publicado"
 tipo: "cuadernillo"
-alt_portada: "inyeccion-headless-woocommerce"
+alt_portada: "Esquema de inyección de datos Headless hacia la API de WooCommerce."
 fecha: "2026-04-30"
 ---
 
