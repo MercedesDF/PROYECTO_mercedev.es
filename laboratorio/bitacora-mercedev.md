@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-01 — QA: Validación End-to-End del publicador social (LinkedIn)
+
+**Contexto:** Se necesitaba certificar que el ecosistema completo funcionara en cadena (Laboratorio -> Promote -> WordPress -> LinkedIn) extrayendo el texto multilínea correctamente tras la migración a comentarios HTML.
+
+**Hecho:**
+- Se ejecutó con éxito el pipeline completo sobre un artículo real.
+- Se actualizó el `README.md` marcando la automatización de LinkedIn y la Fase 8 como completadas.
+
+**Detalle técnico:** El orquestador `merci-linkedin.py` localizó exitosamente el marcador `wp_id`, extrajo el bloque `<!-- linkedin: ... -->` preservando los saltos de línea, publicó a través de la API OIDC y selló el archivo local inyectando el `linkedin_id` de forma atómica.
+
+**Motivo / criterio:** *QA de Integración (End-to-End Testing)*. Un desarrollo no se da por terminado hasta que se valida empíricamente su funcionamiento en el entorno final de producción. Con este éxito, la Fase 8 queda formalmente clausurada y la arquitectura de distribución consolidada.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9 (Inteligencia y Autonomía) o saltar a la Fase 11 (CI/CD Cloud).
+
 ### 2026-05-01 — Fix: Resolución de truncamiento de texto multilínea YAML (merci-promote)
 
 **Contexto:** Al promocionar un artículo y enviarlo a LinkedIn, la red social publicó un post vacío que solo contenía el símbolo `|`. Se diagnosticó que `merci-promote` (y otros scripts) utilizan un parseador YAML rudimentario (`split(":")`) que destruyó el bloque de texto multilínea al no encontrar el delimitador de clave-valor en las líneas inferiores.

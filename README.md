@@ -279,7 +279,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Completar página estática de contacto (`public/contacto/index.html`) y afinar la portada (Sincronización SSOT).
 - [x] Generar un pequeño índice curado de los artículos publicados en la biblioteca (Auto-generado por merci-publish).
 - [x] Desarrollar publicador Headless (`merci-wp.py`) para escribir en WordPress local desde terminal.
-- [ ] Implementar automatización social para publicar entradas del blog directamente en LinkedIn.
+- [x] Implementar automatización social para publicar entradas del blog directamente en LinkedIn.
 
 ### Fase 9 - Inteligencia y Autonomía (Merci Avanzado)
 
