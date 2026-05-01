@@ -18,9 +18,9 @@ El diagnóstico reveló dos colisiones de **Especificidad CSS**, un sistema de p
 
 #### Incidente 1: Estilos en Línea (Puntuación: 1000)
 
-Los enlaces del índice (`.indice__enlace`) tenían un `style="color: #475569;"` inyectado directamente en el HTML por el script de Python. Un estilo en línea tiene la máxima prioridad (1000 puntos), aplastando cualquier regla externa de una hoja de estilos, cuya especificidad es mucho menor (ej. `a:visited` solo vale 10 puntos).
+Los enlaces del índice (`.indice__enlace`) tenían un `style="color: #475569;"` inyectado directamente en el HTML por el script de Python. Un estilo en línea tiene la máxima prioridad (1000 puntos), aplastando cualquier regla externa de una hoja de estilos, cuya especificidad es mucho menor (ej. `a:visited` solo vale 10 puntos). <!-- merci-audit:silence-style -->
 
-*   **Solución:** Se eliminó el atributo `style="color: ..."` del script Python y se delegó el control cromático a clases SASS (`.indice__enlace`), restaurando el flujo natural de la cascada.
+*   **Solución:** Se eliminó el atributo `style="color: ..."` del script Python y se delegó el control cromático a clases SASS (`.indice__enlace`), restaurando el flujo natural de la cascada. <!-- merci-audit:silence-style -->
 
 #### Incidente 2: Selectores Anidados (Puntuación: 0-0-2 vs 0-1-1)
 
@@ -34,7 +34,7 @@ Aunque `0,1,1` parece mayor, el navegador prioriza el primer número distinto de
 
 La Especificidad CSS es la causa raíz de la mayoría de los bugs visuales de "mi CSS no funciona". Como regla arquitectónica:
 
-1.  **Evitar Estilos en Línea para Colores:** Nunca se debe usar `style="color:..."` en elementos que necesiten estados interactivos (`:hover`, `:focus`, `:visited`). La especificidad de 1000 puntos de los estilos en línea es un "arma nuclear" que destruye la interactividad.
+1.  **Evitar Estilos en Línea para Colores:** Nunca se debe usar `style="color:..."` en elementos que necesiten estados interactivos (`:hover`, `:focus`, `:visited`). La especificidad de 1000 puntos de los estilos en línea es un "arma nuclear" que destruye la interactividad. <!-- merci-audit:silence-style -->
 2.  **Igualar o Superar la Especificidad:** Para sobrescribir una regla, el nuevo selector debe tener, como mínimo, la misma "puntuación" de especificidad.
 
 Comprender este sistema de puntuación es fundamental para mantener una arquitectura SASS 7-1 limpia, predecible y sin necesidad de usar `!important` (el cual es un anti-patrón que indica una mala planificación estructural).

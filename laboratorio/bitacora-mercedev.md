@@ -37,6 +37,32 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-01 — QA: Silenciado de falsos positivos en linter de estilos (UI_INLINE_STYLE)
+
+**Contexto:** La primera pasada del nuevo linter de estilos en línea arrojó 3 advertencias (`WARN UI_INLINE_STYLE`) en el HTML compilado de `la-guerra-de-la-especificidad-css.html`. El diagnóstico reveló que correspondían a fragmentos de código educativo documentados en el propio artículo.
+
+**Hecho:**
+- Se inyectó la directiva `<!-- merci-audit:silence-style -->` al final de las líneas afectadas en el archivo Markdown original (`biblioteca/cuadernillo-la-guerra-de-la-especificidad-css.md`).
+
+**Detalle técnico:** El auditor no discrimina si la cadena `style="..."` se encuentra renderizada dentro de una etiqueta `<code>` o en un componente estructural. En lugar de aplicar sobreingeniería a las expresiones regulares del linter (lo cual es propenso a fallos), se emplean los marcadores de silenciamiento explícitos nativos de la herramienta.
+
+**Motivo / criterio:** *Fail Gracefully y Falsos Positivos*. Exigir una herramienta estricta implica dotarla de válvulas de escape intencionales. Utilizar el silenciamiento en línea certifica que el desarrollador ha revisado manualmente el hallazgo y asume que es arquitectónicamente seguro, manteniendo la alerta activa para verdaderas violaciones de estilo.
+
+**Siguiente paso o deuda:** Re-ejecutar `merci total` para confirmar el *Zero Warnings* y proceder con la Fase 9 o Fase 11.
+
+### 2026-05-01 — QA: Linter de estilos en línea (UI_INLINE_STYLE)
+
+**Contexto:** Para proteger la arquitectura SASS 7-1 y la metodología BEM, se requería automatizar la detección de estilos en línea (`style="..."`) inyectados en el HTML o en las plantillas PHP, los cuales generan deuda técnica y problemas de especificidad.
+
+**Hecho:**
+- Se implementó la regla `audit_inline_styles` en `scripts/merci/merci-audit.py`.
+
+**Detalle técnico:** El linter utiliza una expresión regular para detectar atributos `style=` en archivos `.html`, `.php`, `.js` y `.py`. Evalúa las coincidencias y emite una advertencia (`WARN`). Se implementó una excepción explícita para los estilos del ancla invisible WAI-ARIA (`#top`) para evitar falsos positivos arquitectónicos.
+
+**Motivo / criterio:** *Shift-Left Quality*. En lugar de crear un script independiente que añada fricción operativa, integrar esta validación en el auditor maestro asegura que la comprobación se ejecute automáticamente antes de cada commit. Las advertencias no bloquean el flujo, pero visibilizan la deuda técnica inmediatamente.
+
+**Siguiente paso o deuda:** Ejecutar el auditor para escanear el proyecto en busca de estilos en línea residuales.
+
 ### 2026-05-01 — Refactor: Unificación de metadatos y UI responsiva en Biblioteca
 
 **Contexto:** Se detectó una alta entropía en los YAML Frontmatter de la `biblioteca/` (campos `volumen` innecesarios, falta de `tipo`, descripciones y `alt_portada` rotos). Además, en la vista móvil, las secciones de la biblioteca (`.library-section`) carecían de *padding* lateral, pegando el contenido a los bordes del dispositivo.

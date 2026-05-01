@@ -385,6 +385,36 @@ def audit_php_smells(state: AuditState, path: Path, text: str) -> None:
                 )
             )
 
+def audit_inline_styles(state: AuditState, path: Path, text: str) -> None:
+    """
+    Detecta atributos style="..." en el código, los cuales vulneran 
+    la arquitectura SASS 7-1 y la metodología BEM.
+    """
+    if path.suffix.lower() not in {".html", ".htm", ".php", ".py", ".js"}:
+        return
+        
+    pattern = re.compile(r'\bstyle\s*=\s*(["\'])(.*?)\1', re.IGNORECASE)
+    lines = text.splitlines()
+    
+    for line_number, line in enumerate(lines, start=1):
+        if "merci-audit:silence-style" in line:
+            continue
+        
+        for match in pattern.finditer(line):
+            style_content = match.group(2).strip()
+            # Excepciones arquitectónicas justificadas (como el ancla WAI-ARIA invisible o los estilos del PDF)
+            if "position: absolute; top: 0; left: 0;" in style_content or "text-align: left; padding-bottom: 6rem;" in style_content:
+                continue
+                
+            state.add(
+                Finding(
+                    path,
+                    line_number,
+                    "warn",
+                    "UI_INLINE_STYLE",
+                    f"Estilo en línea detectado (style='{style_content[:25]}...'). Extraer a componente SASS (BEM).",
+                )
+            )
 
 class SeoHTMLParser(HTMLParser):
     """
@@ -592,6 +622,7 @@ def run_on_files(paths: Iterable[Path], strict_json_ld: bool) -> AuditState:
         audit_html_seo(state, path, text, strict_json_ld)
         audit_md_acronyms(state, path, text)
         audit_php_smells(state, path, text)
+        audit_inline_styles(state, path, text)
     return state
 
 
