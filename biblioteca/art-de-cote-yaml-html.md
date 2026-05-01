@@ -1,7 +1,10 @@
 ---
 titulo: "El límite del YAML: Comentarios HTML como almacenamiento de metadatos"
-estado: "borrador"
+estado: "publicado"
 tema: "Art de Coté"
+descripcion: "art-de-cote-yaml-htm"
+alt_portada: "art-de-cote-yaml-htm"
+fecha: "2026-05-01"
 ---
 
 <!-- linkedin:

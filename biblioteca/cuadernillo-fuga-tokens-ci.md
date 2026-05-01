@@ -2,7 +2,9 @@
 titulo: "Prevención de Fuga de Credenciales en Integración Continua Local"
 descripcion: "Por qué un archivo .gitignore no es suficiente cuando automatizas commits y cómo crear un escudo activo."
 tema: "DevSecOps y Gobernanza"
-estado: "borrador"
+estado: "publicado"
+alt_portada: "or qué un archivo .gitignore no es suficiente cuando automatizas commits y cómo crear un escudo activo."
+fecha: "2026-05-01"
 ---
 
 ## El Desafío (Síntoma)

@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-01 — QA: Resolución de colisión de enlaces ancla (WAI-ARIA) en el SSG
+
+**Contexto:** El pipeline se detuvo en la fase de `merci-linkcheck.py` al detectar enlaces ambiguos en el índice de la Biblioteca. El nombre de la estantería "Art de Coté" generó enlaces ancla (`#art-de-cote`) que colisionaban con el enlace homónimo del menú de navegación global (`/blog/category/art-de-cote/`).
+
+**Hecho:**
+- Se parcheó `scripts/merci/merci-publish.py` para inyectar dinámicamente atributos `aria-label` en los enlaces de las estanterías temáticas.
+
+**Detalle técnico:** Se transformaron los anclajes para que posean nombres accesibles únicos como `aria-label="Explorar estantería: {tema}"`. El texto visual se mantiene inalterado, pero los lectores de pantalla y las herramientas de auditoría ahora logran diferenciar semánticamente el enlace de ancla interno del enlace de navegación estructural.
+
+**Motivo / criterio:** *Shift-Left Accessibility*. Las colisiones WAI-ARIA son inevitables cuando el contenido generado dinámicamente (SSG) hereda nombres que coinciden con elementos estructurales. Garantizar identificadores únicos a nivel de compilador evita tener que limitar la nomenclatura que elija el autor.
+
+**Siguiente paso o deuda:** Re-ejecutar el pipeline maestro para certificar 0 errores y proceder al commit.
+
 ### 2026-05-01 — QA: Validación End-to-End del publicador social (LinkedIn)
 
 **Contexto:** Se necesitaba certificar que el ecosistema completo funcionara en cadena (Laboratorio -> Promote -> WordPress -> LinkedIn) extrayendo el texto multilínea correctamente tras la migración a comentarios HTML.

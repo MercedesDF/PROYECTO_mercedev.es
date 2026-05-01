@@ -2,7 +2,9 @@
 titulo: "Autenticación OIDC (OAuth 2.0) con Cero Dependencias"
 descripcion: "Cómo domar la API de LinkedIn levantando un micro-servidor efímero en Vanilla Python."
 tema: "Arquitectura y Rendimiento"
-estado: "borrador"
+estado: "publicado"
+alt_portada: "Cómo domar la API de LinkedIn levantando un micro-servidor efímero en Vanilla Python."
+fecha: "2026-05-01"
 ---
 
 ## El Desafío (Síntoma)
