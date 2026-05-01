@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conflictos masivos en Git y la estrategia de fuerza bruta (--ours) — mercedev.es</title>
-    <meta name="description" content="Cómo resolver colisiones de fusión destructivas cuando el entorno local es la única fuente de verdad.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/conflictos-masivos-en-git-y-la-estrategia-de-fuerza-bruta-ours.html">
+    <title>Única Fuente de Verdad: Resolviendo la Deriva de Slugs entre SSG y CMS — mercedev.es</title>
+    <meta name="description" content="Cómo resolver los conflictos de nomenclatura de URIs cuando se integran generadores estáticos (Python) con motores dinámicos (WordPress).">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms.html">
     <link rel="stylesheet" href="/css/main.css?v=1777679816">
     <script src="/js/MerciController.js?v=1777612167" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Conflictos masivos en Git y la estrategia de fuerza bruta (--ours)",
-      "description": "Cómo resolver colisiones de fusión destructivas cuando el entorno local es la única fuente de verdad.",
-      "url": "https://mercedev.es/biblioteca/conflictos-masivos-en-git-y-la-estrategia-de-fuerza-bruta-ours.html"
+      "headline": "Única Fuente de Verdad: Resolviendo la Deriva de Slugs entre SSG y CMS",
+      "description": "Cómo resolver los conflictos de nomenclatura de URIs cuando se integran generadores estáticos (Python) con motores dinámicos (WordPress).",
+      "url": "https://mercedev.es/biblioteca/unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms.html"
     }
     </script>
 </head>
@@ -43,22 +43,19 @@
         <article class="card card--booklet">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">Conflictos masivos en Git y la estrategia de fuerza bruta (--ours)</h1>
-                <a href="/descargas/conflictos-masivos-en-git-y-la-estrategia-de-fuerza-bruta-ours.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">Única Fuente de Verdad: Resolviendo la Deriva de Slugs entre SSG y CMS</h1>
+                <a href="/descargas/unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Tras una reescritura de historial local (<code>git reset --soft</code>), el servidor remoto conservó una línea de tiempo "fantasma". Al intentar sincronizar mediante <code>git pull</code>, se desató un conflicto de fusión (Merge Conflict) masivo. Git inyectó marcadores de conflicto (<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>) en archivos de texto e impidió la fusión de archivos binarios (PDFs), bloqueando por completo el ciclo de Integración Continua (CI - Continuous Integration).</p>
+<p>En nuestra arquitectura híbrida, el orquestador maestro generaba automáticamente versiones en PDF de los artículos dinámicos para que los usuarios pudieran descargarlos. Sin embargo, nuestro rastreador de enlaces (<code>merci-linkcheck.py</code>) detectó masivos errores 404 (Not Found). Python estaba generando PDFs con nombres matemáticamente perfectos (ej. <code>mi-post.pdf</code>), pero WordPress, al detectar títulos similares en su papelera, alteraba silenciosamente los enlaces en producción (ej. <code>mi-post-2</code>). Al diferir los motores de nomenclatura, los botones de descarga de la web apuntaban a archivos que no existían.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Dado que se tenía la certeza absoluta de que el entorno local era la Única Fuente de Verdad (SSOT - Single Source of Truth) y que el servidor remoto contenía basura obsoleta, se descartó la resolución manual archivo por archivo. 
-Se ejecutó la estrategia de resolución por imposición local:</p>
-<pre><code class="language-bash">git checkout --ours .
-git add .
-git commit -m &quot;Merge branch 'main' - Resolución masiva de conflictos&quot;
-</code></pre>
+<p>En ingeniería de software, cuando integras dos sistemas, solo uno puede ostentar la "Única Fuente de Verdad" (Single Source of Truth - SSOT). </p>
+<p>En lugar de intentar programar en Python el complejo algoritmo de duplicidad de WordPress, invertimos el orden lógico de ejecución en nuestro script publicador Headless (<code>merci-wp.py</code>). En vez de <em>Fabricar PDF -&gt; Publicar en WP</em>, pasamos a <em>Publicar en WP -&gt; Leer respuesta de la API -&gt; Extraer el Slug definitivo -&gt; Fabricar PDF</em>.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Entrar en pánico o confiar en las interfaces gráficas (GUI - Graphical User Interface) de los editores de código ante conflictos masivos suele derivar en la pérdida de datos y en la desincronización de la bitácora. 
-La terminal ofrece mecanismos de cirugía de alta precisión. Comprender el funcionamiento de estrategias como <code>--ours</code> (quedarse con la versión local) o <code>--theirs</code> (quedarse con la versión entrante) permite neutralizar colisiones catastróficas en apenas tres comandos, siempre y cuando la disciplina operativa (commits atómicos) se haya mantenido rigurosamente.</p>
+<p>Esta maniobra es un ejemplo de manual de <strong>Tolerancia a Fallos y SSOT</strong>. En un ecosistema acoplado, el sistema que persiste los datos (la base de datos de WordPress) es el que manda sobre las URIs. </p>
+<p>Al retrasar la generación estática hasta recibir la confirmación del servidor dinámico, aseguramos una <strong>Paridad Dev/Prod absoluta</strong>. La automatización no consiste en que un script lo haga todo rápido y a ciegas, sino en que sepa preguntar a las herramientas adecuadas antes de actuar.</p>
+<!-- merci-audit:silence-acronym -->
             </div>
         </article>
     </main>

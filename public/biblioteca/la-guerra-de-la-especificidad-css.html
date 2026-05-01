@@ -6,7 +6,7 @@
     <title>La Guerra de la Especificidad CSS — mercedev.es</title>
     <meta name="description" content="Análisis forense de por qué la pseudo-clase :visited no se aplicaba a los enlaces, y cómo la jerarquía de selectores determina el resultado final.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/la-guerra-de-la-especificidad-css.html">
-    <link rel="stylesheet" href="/css/main.css?v=1777639522">
+    <link rel="stylesheet" href="/css/main.css?v=1777679816">
     <script src="/js/MerciController.js?v=1777612167" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <script type="application/ld+json">
@@ -52,9 +52,9 @@
 <h2>2. La Maniobra (Lógica)</h2>
 <p>El diagnóstico reveló dos colisiones de <strong>Especificidad CSS</strong>, un sistema de puntuación invisible que usa el navegador para decidir qué regla aplicar cuando varias apuntan al mismo elemento.</p>
 <h4>Incidente 1: Estilos en Línea (Puntuación: 1000)</h4>
-<p>Los enlaces del índice (<code>.indice__enlace</code>) tenían un <code>style="color: #475569;"</code> inyectado directamente en el HTML por el script de Python. Un estilo en línea tiene la máxima prioridad (1000 puntos), aplastando cualquier regla externa de una hoja de estilos, cuya especificidad es mucho menor (ej. <code>a:visited</code> solo vale 10 puntos).</p>
+<p>Los enlaces del índice (<code>.indice__enlace</code>) tenían un <code>style="color: #475569;"</code> inyectado directamente en el HTML por el script de Python. Un estilo en línea tiene la máxima prioridad (1000 puntos), aplastando cualquier regla externa de una hoja de estilos, cuya especificidad es mucho menor (ej. <code>a:visited</code> solo vale 10 puntos). <!-- merci-audit:silence-style --></p>
 <ul>
-<li><strong>Solución:</strong> Se eliminó el atributo <code>style="color: ..."</code> del script Python y se delegó el control cromático a clases SASS (<code>.indice__enlace</code>), restaurando el flujo natural de la cascada.</li>
+<li><strong>Solución:</strong> Se eliminó el atributo <code>style="color: ..."</code> del script Python y se delegó el control cromático a clases SASS (<code>.indice__enlace</code>), restaurando el flujo natural de la cascada. <!-- merci-audit:silence-style --></li>
 </ul>
 <h4>Incidente 2: Selectores Anidados (Puntuación: 0-0-2 vs 0-1-1)</h4>
 <p>Los enlaces de las tarjetas estaban dentro de un <code>&lt;h2&gt;</code>. La hoja de estilos contenía una regla <code>h2 a { color: inherit; }</code>. Este selector anidado (<code>h2 a</code>) tiene una especificidad de <code>0,0,2</code> (dos selectores de etiqueta). La regla global <code>a:visited</code> tiene una especificidad de <code>0,1,1</code> (un selector de pseudo-clase y un selector de etiqueta).</p>
@@ -65,7 +65,7 @@
 <h2>3. El Aprendizaje / Deuda Técnica</h2>
 <p>La Especificidad CSS es la causa raíz de la mayoría de los bugs visuales de "mi CSS no funciona". Como regla arquitectónica:</p>
 <ol>
-<li><strong>Evitar Estilos en Línea para Colores:</strong> Nunca se debe usar <code>style="color:..."</code> en elementos que necesiten estados interactivos (<code>:hover</code>, <code>:focus</code>, <code>:visited</code>). La especificidad de 1000 puntos de los estilos en línea es un "arma nuclear" que destruye la interactividad.</li>
+<li><strong>Evitar Estilos en Línea para Colores:</strong> Nunca se debe usar <code>style="color:..."</code> en elementos que necesiten estados interactivos (<code>:hover</code>, <code>:focus</code>, <code>:visited</code>). La especificidad de 1000 puntos de los estilos en línea es un "arma nuclear" que destruye la interactividad. <!-- merci-audit:silence-style --></li>
 <li><strong>Igualar o Superar la Especificidad:</strong> Para sobrescribir una regla, el nuevo selector debe tener, como mínimo, la misma "puntuación" de especificidad.</li>
 </ol>
 <p>Comprender este sistema de puntuación es fundamental para mantener una arquitectura SASS 7-1 limpia, predecible y sin necesidad de usar <code>!important</code> (el cual es un anti-patrón que indica una mala planificación estructural).</p>

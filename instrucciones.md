@@ -116,3 +116,13 @@ Objetivo: redactar textos claros, humanos y directos, manteniendo rigor técnico
 - **Cero dependencias visuales:** Toda nueva animación o estado del avatar debe delegarse a SASS reaccionando a cambios de atributos semánticos (`aria-hidden`, `aria-expanded`). Prohibido el uso de librerías de animación (ej. GSAP) o frameworks reactivos (Vue/React).
 - **Accesibilidad Nativa:** Cualquier nueva interacción debe ser operable por teclado (Tab) y anunciarse a los lectores de pantalla a través de la región `aria-live="polite"` ya establecida.
 - **Separación de Lógica (El Maniquí):** El frontend (`MerciController.js`) actúa únicamente como una máquina de estados de UI. Si en el futuro Merci requiere "inteligencia" (respuestas generadas por IA o bases de datos), la carga computacional debe ocurrir en el backend o en el orquestador SSG local, enviando al frontend estático únicamente los textos ya procesados.
+
+## 7. Protocolo Estricto de Cierre de Fase (Definition of Done)
+Antes de dar por concluida una Fase del Roadmap y transicionar a la siguiente, es OBLIGATORIO ejecutar este checklist de 5 pasos para asegurar la higiene del repositorio:
+
+1. **Conciliación de Deuda Técnica:** ¿Queda algún `TODO` en el código, algún error silenciado temporalmente o una vulnerabilidad asumida? Se deben resolver ahora o quedar explícitamente registrados en la bitácora como deuda técnica justificada.
+2. **Cosecha de Conocimiento:** ¿Están creados todos los cuadernillos de los desafíos superados (incluyendo los aprendizajes extraídos al saldar la deuda técnica del paso 1)? Deben ser curados (`merci promote`) y compilados (`merci total`).
+3. **Auditoría Documental:** ¿Está toda la documentación base correcta? El `README.md` debe tener los hitos marcados (`[x]`) y la biblia (`instrucciones.md`) debe reflejar las nuevas directrices o herramientas creadas.
+4. **Evaluación de Release (Boilerplate):** ¿Se han modificado scripts del ecosistema (`merci-*.py`), configuraciones base o arquitectura que pertenezcan a la plantilla pública? Si la respuesta es sí, se DEBE registrar en la bitácora y ejecutar el *Release Pipeline* para subir una nueva versión de `merci-boilerplate` antes de continuar.
+5. **Snapshot (Backup Local):** Generar una copia de seguridad del repositorio en su estado estable (`merci-backup.py`) para tener un punto de restauración garantizado antes de alterar la arquitectura en la siguiente fase.
+6. **Sello Definitivo:** Una vez confirmados los 5 puntos anteriores, se emite la orden explícita de confirmación y se otorga luz verde para iniciar la conceptualización de la siguiente fase lógica.

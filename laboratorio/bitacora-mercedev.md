@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-01 — Fix: Resolución de deriva de slugs (SSOT) entre SSG y Headless CMS
+
+**Contexto:** El rastreador local (`merci-linkcheck.py`) detuvo el pipeline reportando errores 404 en las descargas de PDFs de WordPress. Python generaba los PDFs basándose en el título crudo del Markdown, pero WordPress asignaba "slugs" distintos (ej. añadiendo `-2`) para evitar colisiones en su base de datos.
+
+**Hecho:**
+- Se refactorizó `scripts/merci/merci-wp.py` retrasando la generación del PDF mediante WeasyPrint.
+- Se redactó el cuadernillo `cuadernillo-ssot-slugs-wp.md` en el laboratorio documentando el incidente.
+
+**Detalle técnico:** Se movió el bloque de generación del PDF al interior de la respuesta exitosa de la API REST (`urllib.request.urlopen`). Ahora, el script extrae el campo `slug` del JSON devuelto por WordPress y utiliza exactamente esa cadena de texto como nombre físico para el archivo `.pdf` (`out_pdf_filename = f"{wp_slug}.pdf"`).
+
+**Motivo / criterio:** *Single Source of Truth (SSOT)*. En un sistema distribuido, la base de datos es la única fuente de verdad para las URIs. Obligar al generador estático (Python) a esperar la respuesta del motor dinámico (WordPress) garantiza la paridad absoluta entre el enlace web renderizado y el archivo físico en el disco duro.
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para validar el pipeline a 0 errores y actualizar el `README-merci.md`.
+
 ### 2026-05-01 — QA: Silenciado de falsos positivos en linter de estilos (UI_INLINE_STYLE)
 
 **Contexto:** La primera pasada del nuevo linter de estilos en línea arrojó 3 advertencias (`WARN UI_INLINE_STYLE`) en el HTML compilado de `la-guerra-de-la-especificidad-css.html`. El diagnóstico reveló que correspondían a fragmentos de código educativo documentados en el propio artículo.
@@ -1272,7 +1286,7 @@ Copia el bloque y rellénalo.
 
 ### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 
-**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-05-01.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
+**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-05-02.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
 
 **Hecho:** Se implementó una rutina de actualización automática en `scripts/merci/merci-commit.py` mediante expresiones regulares.
 
@@ -2209,4 +2223,4 @@ Copia el bloque y rellénalo.
 
 ---
 
-*Última revisión de la bitácora: 2026-05-01.*
+*Última revisión de la bitácora: 2026-05-02.*
