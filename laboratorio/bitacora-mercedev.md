@@ -37,6 +37,49 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-04-30 — DevSecOps: Bloqueo de token OIDC de LinkedIn en control de versiones
+
+**Contexto:** Durante las pruebas del motor de LinkedIn, el instinto DevSecOps alertó sobre la posible inclusión accidental del archivo de credenciales (`.linkedin_token.json`) en el commit automático, ya que no había sido excluido en la configuración pasiva.
+
+**Hecho:**
+- Se ejecutó `git reset --soft HEAD~1` y `git rm --cached .linkedin_token.json` para expurgar el token del historial local.
+- Se añadió el archivo `.linkedin_token.json` al `.gitignore`.
+- Se parcheó `scripts/merci/merci-audit.py` para incluir este archivo en la lista estricta de `BANNED_TRACKED_FILE`.
+
+**Detalle técnico:** El script `merci-commit.py` ejecuta `git add .` automáticamente. Sin la exclusión, el token OAuth habría viajado al repositorio público. Inyectar el archivo en la regla `BANNED_TRACKED_FILE` del auditor garantiza un "fail-fast", bloqueando atómicamente cualquier commit si Git intenta rastrearlo en el futuro.
+
+**Motivo / criterio:** *Shift-Left Security y Zero Trust*. Los tokens OIDC poseen permisos de escritura y representan un riesgo crítico de seguridad si se filtran. La política exige que el escudo activo (el auditor pre-commit) conozca la existencia de nuevos archivos de credenciales para interceptarlos infaliblemente en caso de que fallen las exclusiones pasivas.
+
+**Siguiente paso o deuda:** Finalizar el commit atómico saneado y verificar si la publicación en LinkedIn fue exitosa.
+
+### 2026-04-30 — Feat: Motor de Publicación Automática en LinkedIn (SSOT Estricto)
+
+**Contexto:** Tras asegurar la obtención del *Access Token* (OIDC), era necesario desarrollar el módulo de publicación. Se debatió si el script de LinkedIn debía leer los artículos directamente de la API del servidor web de producción para garantizar que solo se publicaran artículos "reales".
+
+**Hecho:**
+- Se amplió `scripts/merci/merci-linkedin.py` implementando la inyección a la API y el parseo YAML local.
+- Se estableció la validación estricta de pre-existencia web: el script solo lee archivos locales que posean el marcador `wp_id`.
+
+**Detalle técnico:** Leer del servidor web destruiría el texto personalizado del campo `linkedin_post`. Al exigir que el archivo Markdown local contenga `wp_id`, usamos la inyección previa de `merci-wp.py` como garantía irrefutable de que el contenido está vivo en producción. Si se cumplen las condiciones, realiza un POST a `/v2/ugcPosts` e inyecta el `linkedin_id` para prevenir duplicados.
+
+**Motivo / criterio:** *Decoupling y Single Source of Truth*. Separar los scripts por canal (uno para WP, otro para LinkedIn) aísla los fallos de las APIs externas. Confiar en la firma YAML local unifica el flujo: el Markdown es el único DNI del artículo.
+
+**Siguiente paso o deuda:** Crear un artículo de prueba, promoverlo, publicarlo en WP y ejecutar el script para ver el post real en LinkedIn.
+
+### 2026-04-30 — Feat: Motor de Autenticación OIDC para LinkedIn (Cero Dependencias)
+
+**Contexto:** Para automatizar las publicaciones en LinkedIn (Fase 8.3) con robustez a largo plazo, se descartó el uso de tokens estáticos manuales en favor del flujo completo "Three-legged OAuth 2.0" (OIDC), permitiendo al script gestionar y renovar sus propias credenciales.
+
+**Hecho:**
+- Se configuró la aplicación en el portal de desarrolladores de LinkedIn (Scopes: `openid`, `profile`, `w_member_social`).
+- Se desarrolló el motor base en `scripts/merci/merci-linkedin.py` utilizando la librería estándar `http.server` y `urllib`.
+
+**Detalle técnico:** El script levanta un `HTTPServer` efímero en el puerto 8000 que bloquea la ejecución (`handle_request()`) hasta atrapar el *callback* del navegador. Extrae el código `?code=XYZ`, realiza el POST de intercambio por el *Access Token* y lo guarda físicamente en el archivo seguro `.linkedin_token.json`.
+
+**Motivo / criterio:** *Zero Bloat & Autonomía*. Programar un servidor web de un solo uso en lugar de importar librerías pesadas como `Flask` o `requests_oauthlib` demuestra la potencia de Vanilla Python. Este flujo garantiza que la integración no colapse por caducidad de tokens en el futuro.
+
+**Siguiente paso o deuda:** Ejecutar el script por primera vez para generar el token inicial, y luego diseñar la función para publicar un post real enviando datos a la API de LinkedIn.
+
 ### 2026-04-30 — Arch: Pivote estratégico hacia automatización social (LinkedIn)
 
 **Contexto:** Tras validar el MVP de la tienda WooCommerce (diseño, inyección headless, paridad de entornos), se determinó que su propósito principal como demostración técnica estaba cumplido. El valor de negocio inmediato no reside en la venta de merchandising, sino en la difusión de estos logros técnicos.
@@ -1149,7 +1192,7 @@ Copia el bloque y rellénalo.
 
 ### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 
-**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-04-30.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
+**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-05-01.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
 
 **Hecho:** Se implementó una rutina de actualización automática en `scripts/merci/merci-commit.py` mediante expresiones regulares.
 
@@ -2086,4 +2129,4 @@ Copia el bloque y rellénalo.
 
 ---
 
-*Última revisión de la bitácora: 2026-04-30.*
+*Última revisión de la bitácora: 2026-05-01.*

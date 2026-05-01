@@ -2,6 +2,9 @@
 titulo: "Título de la entrada del Blog"
 estado: "borrador"
 tema: "Blog"
+linkedin_post: |
+  Escribe aquí tu anuncio para LinkedIn.
+  Puedes poner saltos de línea e inyectar la URL de la web: https://mercedev.es/blog/tu-url
 ---
 
 Escribe aquí el contenido de tu artículo. 

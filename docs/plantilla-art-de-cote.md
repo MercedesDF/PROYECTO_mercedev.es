@@ -2,6 +2,9 @@
 titulo: "Título de la exploración o cuadernillo"
 estado: "borrador"
 tema: "Art de Coté"
+linkedin_post: |
+  Escribe aquí tu anuncio para LinkedIn.
+  Puedes poner saltos de línea e inyectar la URL de la web: https://mercedev.es/blog/tu-url
 ---
 
 Escribe aquí el contenido de tu exploración colateral.
