@@ -286,8 +286,8 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 ### Fase 9 - Inteligencia y Autonomía (Merci Avanzado)
 
 #### 9.1 Conexión Dinámica (Opcional)
-- [ ] Evaluar integración segura con APIs de LLM o modelos locales para respuestas dinámicas.
-- [ ] Garantizar que la IA no rompe la política de 0 dependencias bloqueantes (Graceful Degradation).
+- [x] Evaluar integración segura con APIs de LLM o modelos locales para respuestas dinámicas (Shift-Left AI con Gemini).
+- [x] Garantizar que la IA no rompe la política de 0 dependencias bloqueantes (Graceful Degradation y Fallback estático).
 
 ### Fase 10 - Empaquetado y Ecosistema (Release 1.0.0)
 

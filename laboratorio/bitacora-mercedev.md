@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Milestone: Automatización del Lóbulo Frontal y Cierre de Fase 9
+
+**Contexto:** Tras validar la conexión exitosa de la IA estática con la interfaz (Vanilla JS), era imperativo automatizar la generación del cerebro (`brain_data.json`) para que la base de conocimientos se actualice sin intervención humana en cada compilación.
+
+**Hecho:**
+- Se inyectó el script `merci-brain.py` en la constante `PIPELINE` del orquestador `merci-total.py`.
+- Se dio por concluida oficialmente la Fase 9 (Inteligencia y Autonomía).
+
+**Detalle técnico:** El script de IA se ejecuta en la fase de Construcción (Build), garantizando que el JSON estático esté siempre sincronizado con los artículos publicados antes de que se ejecuten las auditorías de calidad (QA). Al contar con construcción incremental, su impacto en el tiempo de compilación diario es de 0 segundos, y sus fallos de red se gestionan mediante Degradación Elegante.
+
+**Motivo / criterio:** *Pipeline as Code*. Una herramienta que requiere ejecución manual terminará siendo olvidada, generando Deriva de Datos (Data Drift) entre los artículos nuevos y las respuestas de la IA. Integrarlo en el orquestador maestro cierra el círculo DevSecOps.
+
+**Siguiente paso o deuda:** Auditar el ecosistema completo y planificar la Release v1.5.0 del Boilerplate para exportar el motor de Inteligencia Artificial.
+
 ### 2026-05-02 — Feat: Integración de Shift-Left AI en Vanilla JS (MerciController)
 
 **Contexto:** Con el archivo estático `brain_data.json` compilado por el lóbulo frontal en Python, se requería conectar este "cerebro" a la interfaz de usuario de Merci sin bloquear la renderización de la página ni requerir recargas.

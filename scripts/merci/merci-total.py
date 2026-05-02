@@ -32,6 +32,7 @@ PIPELINE = [
     "merci-publish.py",
     "merci-wp.py",
     "merci-sync-pages.py",
+    "merci-brain.py",
     "merci-sitemap.py",
     "merci-audit.py",
     "merci-linkcheck.py"
