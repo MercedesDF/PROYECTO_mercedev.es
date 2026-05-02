@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps — mercedev.es</title>
+    <title>Alias Inteligentes (v2.0) para ecosistemas DevSecOps — mercedev.es</title>
     <meta name="description" content="Solución al problema de autodescubrimiento de rutas en Python al usar alias absolutos en la terminal (Fantasmas en RAM).">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/alias-inteligentes-context-aware-para-ecosistemas-devsecops.html">
-    <link rel="stylesheet" href="/css/main.css?v=1777715757">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/alias-inteligentes-v20-para-ecosistemas-devsecops.html">
+    <link rel="stylesheet" href="/css/main.css?v=1777717636">
     <script src="/js/MerciController.js?v=1777612167" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps",
+      "headline": "Alias Inteligentes (v2.0) para ecosistemas DevSecOps",
       "description": "Solución al problema de autodescubrimiento de rutas en Python al usar alias absolutos en la terminal (Fantasmas en RAM).",
-      "url": "https://mercedev.es/biblioteca/alias-inteligentes-context-aware-para-ecosistemas-devsecops.html"
+      "url": "https://mercedev.es/biblioteca/alias-inteligentes-v20-para-ecosistemas-devsecops.html"
     }
     </script>
 </head>
@@ -43,8 +43,8 @@
         <article class="card card--book">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps</h1>
-                <a href="/descargas/alias-inteligentes-context-aware-para-ecosistemas-devsecops.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">Alias Inteligentes (v2.0) para ecosistemas DevSecOps</h1>
+                <a href="/descargas/alias-inteligentes-v20-para-ecosistemas-devsecops.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
                 <p><strong>Contexto:</strong>
@@ -71,6 +71,24 @@ Universalidad y portabilidad (DX - Developer Experience). Un alias absoluto romp
 <p><strong>Fuentes / Bibliografía:</strong>
 - Asistencia mediante IA sobre el comportamiento del método <code>resolve().parents</code> en librerías de autodescubrimiento de Python.
 - Asistencia mediante IA sobre la retención en memoria (RAM) de alias obsoletos en sesiones de Bash/Zsh.</p>
+<h3>Actualización v2.0: Parámetros Infinitos y Recarga en Caliente</h3>
+<p><strong>El Desafío (Síntoma):</strong> 
+La función original era rígida y no permitía pasar argumentos adicionales (flags como <code>--verbose</code>, <code>-v</code> o rutas de archivos) a los scripts subyacentes, limitando el uso de herramientas como el orquestador de backups.</p>
+<p><strong>La Maniobra (Lógica):</strong> 
+Se actualizó la función inyectando la variable de expansión <code>${@:2}</code> de Zsh/Bash. </p>
+<pre><code class="language-bash">merci() {
+    if [ -f &quot;scripts/merci/merci-$1.py&quot; ]; then
+        # Ejecuta el script pasándole todos los argumentos a partir del segundo
+        python3 &quot;scripts/merci/merci-$1.py&quot; &quot;${@:2}&quot;
+    else
+        echo &quot;🛡️ [Merci Error] No estás en la raíz o el comando no existe.&quot;
+    fi
+}
+</code></pre>
+<p><strong>El Aprendizaje (Recarga de Terminal):</strong> 
+Al modificar el archivo <code>~/.zshrc</code> (o <code>~/.bashrc</code>), los cambios no se aplican mágicamente a las terminales que ya están abiertas. Para inyectar la nueva configuración en caliente sin tener que reiniciar el sistema o cerrar la ventana, es obligatorio ejecutar el comando de recarga:</p>
+<pre><code class="language-bash">source ~/.zshrc
+</code></pre>
             </div>
         </article>
     </main>

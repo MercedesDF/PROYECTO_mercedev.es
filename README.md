@@ -279,8 +279,9 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Unificar enlaces globales en pie de página (LinkedIn, GitHub, Boilerplate) manteniendo paridad Dev/Prod.
 - [x] Completar página estática de contacto (`public/contacto/index.html`) y afinar la portada (Sincronización SSOT).
 - [x] Generar un pequeño índice curado de los artículos publicados en la biblioteca (Auto-generado por merci-publish).
-- [x] Desarrollar publicador Headless (`merci-wp.py`) para escribir en WordPress local desde terminal.
+- [x] Desarrollar publicador Headless (`merci-wp.py`) agnóstico al entorno (Local/Nube) con resolución dinámica por Slug y Proxy Bypass.
 - [x] Implementar automatización social para publicar entradas del blog directamente en LinkedIn.
+- [x] Prevenir *Data Drift* (Posts Fantasma) aislando el borrado y estableciendo el Kill-Switch de despublicación.
 
 ### Fase 9 - Inteligencia y Autonomía (Merci Avanzado)
 

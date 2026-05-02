@@ -1,5 +1,5 @@
 ---
-titulo: "Alias Inteligentes (Context-Aware) para ecosistemas DevSecOps"
+titulo: "Alias Inteligentes (v2.0) para ecosistemas DevSecOps"
 descripcion: "Solución al problema de autodescubrimiento de rutas en Python al usar alias absolutos en la terminal (Fantasmas en RAM)."
 tipo: "bitacora"
 tema: "DevSecOps y Automatización"
@@ -39,3 +39,28 @@ Universalidad y portabilidad (DX - Developer Experience). Un alias absoluto romp
 **Fuentes / Bibliografía:**
 - Asistencia mediante IA sobre el comportamiento del método `resolve().parents` en librerías de autodescubrimiento de Python.
 - Asistencia mediante IA sobre la retención en memoria (RAM) de alias obsoletos en sesiones de Bash/Zsh.
+
+### Actualización v2.0: Parámetros Infinitos y Recarga en Caliente
+
+**El Desafío (Síntoma):** 
+La función original era rígida y no permitía pasar argumentos adicionales (flags como `--verbose`, `-v` o rutas de archivos) a los scripts subyacentes, limitando el uso de herramientas como el orquestador de backups.
+
+**La Maniobra (Lógica):** 
+Se actualizó la función inyectando la variable de expansión `${@:2}` de Zsh/Bash. 
+
+```bash
+merci() {
+    if [ -f "scripts/merci/merci-$1.py" ]; then
+        # Ejecuta el script pasándole todos los argumentos a partir del segundo
+        python3 "scripts/merci/merci-$1.py" "${@:2}"
+    else
+        echo "🛡️ [Merci Error] No estás en la raíz o el comando no existe."
+    fi
+}
+```
+
+**El Aprendizaje (Recarga de Terminal):** 
+Al modificar el archivo `~/.zshrc` (o `~/.bashrc`), los cambios no se aplican mágicamente a las terminales que ya están abiertas. Para inyectar la nueva configuración en caliente sin tener que reiniciar el sistema o cerrar la ventana, es obligatorio ejecutar el comando de recarga:
+```bash
+source ~/.zshrc
+```

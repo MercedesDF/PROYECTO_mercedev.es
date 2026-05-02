@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Docs: Actualización v2.0 del cuadernillo de Alias Inteligentes
+
+**Contexto:** La función Bash `merci` original era rígida y no permitía pasar argumentos adicionales (flags como `-v` o rutas de archivos) a los scripts subyacentes, limitando el uso de herramientas dinámicas como el orquestador de backups o el publicador de WordPress.
+
+**Hecho:**
+- Actualizar el cuadernillo `Alias Inteligentes-bitacora.md` a su versión 2.0.
+- Documentar la inyección de la variable `${@:2}` para admitir parámetros infinitos.
+- Añadir la instrucción de recarga en caliente de la terminal (`source ~/.zshrc`).
+
+**Detalle técnico:** La variable de expansión `${@:2}` captura todos los argumentos a partir del segundo y los traslada al script de Python. Se utilizó el flujo de trabajo estándar (Kill-Switch) para degradar el cuadernillo a borrador en el laboratorio, aplicar el bloque de conocimiento y volver a promoverlo a la biblioteca mediante `merci-promote.py`.
+
+**Motivo / criterio:** *Mejora Continua (Continuous Improvement) y Gestión del Conocimiento*. Los activos de la biblioteca deben ser documentos vivos. Reflejar los parches operativos (como la recarga en caliente y el paso de argumentos) asegura que los futuros usuarios del Boilerplate dispongan de la versión más pulida y eficiente de las herramientas de terminal.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9 (Inteligencia y Autonomía).
+
 ### 2026-05-02 — QA: Certificación "Cuádruple 100" en capa dinámica tras refactorización Headless
 
 **Contexto:** Tras erradicar los "posts zombis" de la base de datos local y refactorizar el publicador Headless (`merci-wp.py`) para utilizar resolución dinámica por slug, era imperativo certificar que la arquitectura seguía rindiendo al máximo nivel en producción.

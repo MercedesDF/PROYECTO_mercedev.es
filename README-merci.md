@@ -7,8 +7,8 @@ Combina un núcleo estático ultrarrápido (HTML5, SASS, Vanilla JS y BEM (Block
 
 ## 🚀 Novedades en la v1.3.1 (Paridad Dev/Prod y Proxy Bypass)
 
-- **SSOT Dinámico por Slug:** Erradicada la inyección de `wp_id` fijos en los archivos Markdown. El orquestador Headless ahora resuelve la existencia de los artículos interrogando al servidor mediante su nombre de archivo (slug), permitiendo publicar exactamente el mismo documento contra Localhost, Staging o Producción sin colisiones.
-- **Escudo Anti-Proxy:** Inyectadas cabeceras personalizadas (`X-Authorization`) y firmas corporativas (`User-Agent`) en Python, junto a parches en el tema hijo para atravesar barreras de seguridad (Varnish Cache, OPcache, WAF) garantizando la publicación ininterrumpida en ecosistemas Cloud.
+- **SSOT (Single Source of Truth - Única Fuente de Verdad) Dinámico por Slug:** Erradicada la inyección de `wp_id` fijos en los archivos Markdown. El orquestador Headless ahora resuelve la existencia de los artículos interrogando al servidor mediante su nombre de archivo (slug), permitiendo publicar exactamente el mismo documento contra Localhost, Staging o Producción sin colisiones.
+- **Escudo Anti-Proxy:** Inyectadas cabeceras personalizadas (`X-Authorization`) y firmas corporativas (`User-Agent`) en Python, junto a parches en el tema hijo para atravesar barreras de seguridad (Varnish Cache, OPcache, WAF - Web Application Firewall - Cortafuegos de Aplicaciones Web) garantizando la publicación ininterrumpida en ecosistemas Cloud.
 
 ## 🚀 Novedades en la v1.3.0 (Paridad Dev/Prod y Shift-Left Quality)
 
