@@ -126,19 +126,24 @@ def generar_cerebro_estatico(api_key, modelo):
         desc = meta.get("descripcion", "")
         url = f"/biblioteca/{slugify(titulo)}.html"
         
-        # Si ya existe una respuesta válida (no es un error 429), la conservamos y saltamos
-        if url in brain_data and not brain_data[url].startswith("Error HTTP"):
+        # Si ya existe una respuesta válida (no es error ni contingencia), la conservamos y saltamos
+        if url in brain_data and not brain_data[url].startswith("Error HTTP") and not brain_data[url].startswith("[Fallback]"):
             continue
         
         print(f"  🧠 Pensando saludo para: {titulo}...")
         prompt = f"Eres Merci, la asistente virtual de la web mercedev.es (Arquitectura DevSecOps). El usuario acaba de entrar a leer el artículo titulado '{titulo}' (Contexto: {desc}). Escribe un saludo directo, inteligente y con un sutil toque 'geek' o de ingeniería (una sola frase, máximo 15 palabras) dándole la bienvenida a este contenido concreto. No uses comillas."
         
         respuesta = consultar_gemini(prompt, api_key, modelo)
-        brain_data[url] = respuesta.replace('"', '').strip()
         
-        # Respetar el límite estricto de la API gratuita (5 RPM = 1 petición cada 12 segundos)
-        print("  ⏳ Enfriando sinapsis (15s) para evitar bloqueos por cuota de red...")
-        time.sleep(15)
+        # Degradación elegante (Graceful Degradation) si la API rechaza por cuotas
+        if respuesta.startswith("Error HTTP"):
+            print(f"  ⚠️ Cuota de API agotada. Inyectando respuesta de contingencia...")
+            brain_data[url] = f"[Fallback] Bienvenido a la lectura de: {titulo}."
+        else:
+            brain_data[url] = respuesta.replace('"', '').strip()
+            # Respetar el límite estricto de la API gratuita (5 RPM)
+            print("  ⏳ Enfriando sinapsis (15s) para evitar bloqueos por cuota de red...")
+            time.sleep(15)
 
     # Guardar el JSON (Base de conocimientos estática)
     PUBLIC_JS_DIR.mkdir(parents=True, exist_ok=True)

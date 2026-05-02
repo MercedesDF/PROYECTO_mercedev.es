@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Arch: Degradación Elegante (Graceful Degradation) ante límites de API
+
+**Contexto:** La capa gratuita de Google AI Studio impuso un límite diario ineludible de 20 peticiones para los modelos más recientes, provocando que los últimos artículos del escaneo recibieran y guardaran un error `HTTP 429` como respuesta.
+
+**Hecho:**
+- Se implementó el patrón de Degradación Elegante en `merci-brain.py`.
+- Si la API devuelve error, el script inyecta un saludo genérico prefijado con `[Fallback]` en el JSON.
+
+**Detalle técnico:** El orquestador fue instruido para que reconozca la etiqueta `[Fallback]` en futuras ejecuciones. De esta forma, el sistema genera un JSON limpio y funcional inmediatamente para no bloquear el desarrollo del frontend. Al día siguiente, cuando la cuota diaria se restablezca, una simple re-ejecución sobrescribirá los fallbacks con respuestas reales de la IA.
+
+**Motivo / criterio:** *Resiliencia de Infraestructura*. Un ecosistema DevSecOps no debe detener su cadena de montaje (Pipeline) porque un proveedor de terceros (SaaS) agote su cuota. Proveer respuestas por defecto garantiza la continuidad del negocio y la integridad de los datos.
+
+**Siguiente paso o deuda:** Conectar el frontend (`MerciController.js`) al archivo `brain_data.json` purificado.
+
 ### 2026-05-02 — Fix: Búsqueda flexible de modelos Gemini por subcadenas (Quota 20)
 
 **Contexto:** El autodescubrimiento falló en encontrar la familia `1.5-flash` mediante coincidencia exacta, recayendo por defecto en el modelo experimental `2.5-flash`, el cual agotó su límite estricto de 20 peticiones diarias gratuitas en la primera compilación.
