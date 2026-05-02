@@ -41,9 +41,9 @@ Copia el bloque y rellénalo.
 
 **Contexto:** La complejidad alcanzada por el publicador Headless (`merci-wp.py`) requería blindar el conocimiento de sus funciones contra futuras refactorizaciones.
 
-**Hecho:** Se estandarizaron los docstrings y comentarios internos de `scripts/merci/merci-wp.py` siguiendo el formato "QUÉ HACE" y "POR QUÉ".
+**Hecho:** Estandarizar los docstrings y comentarios internos de `scripts/merci/merci-wp.py` siguiendo el formato "QUÉ HACE" y "POR QUÉ".
 
-**Detalle técnico:** Se explicaron explícitamente decisiones como el parseo nativo de YAML, la inyección dual de credenciales y el uso de `slugify`.
+**Detalle técnico:** Explicar explícitamente decisiones como el parseo nativo de YAML, la inyección dual de credenciales y el uso de `slugify`.
 
 **Motivo / criterio:** *Mantenibilidad y Pedagogía*. Un Boilerplate no solo hereda código, sino criterio. Forzar la documentación de la *intención* previene que futuros desarrolladores eliminen piezas clave (como las cabeceras anti-WAF) por considerarlas "redundantes".
 
@@ -51,9 +51,9 @@ Copia el bloque y rellénalo.
 
 **Contexto:** El uso de un `wp_id` inyectado en el YAML local provocaba errores 404 al intentar actualizar artículos tras cambiar el entorno de localhost a producción, ya que los IDs de la base de datos no coincidían y el script intentaba actualizar un ID inexistente.
 
-**Hecho:** 
-- Se eliminó la lectura e inyección de `wp_id` en el script `merci-wp.py`.
-- Se implementó la función `obtener_id_por_slug()` para interrogar a la API REST de destino.
+**Hecho:**
+- Eliminar la lectura e inyección de `wp_id` en el script `merci-wp.py`.
+- Implementar la función `obtener_id_por_slug()` para interrogar a la API REST de destino.
 
 **Detalle técnico:** En lugar de depender del ID local, el script utiliza el nombre del archivo (`target_path.stem`) para preguntar "¿Existe un post con este slug en este entorno?". Si existe, captura su ID remoto temporalmente en memoria y ejecuta un `PUT`; si no, ejecuta un `POST`.
 
@@ -63,7 +63,7 @@ Copia el bloque y rellénalo.
 
 **Contexto:** Nginx en CloudPanel devolvía errores 404/403 al intentar interrogar la API REST de WordPress para buscar categorías (ej. `?search=Blog`).
 
-**Hecho:** Se inyectó la cabecera `User-Agent: Merci-Boilerplate-Agent/1.0` en todas las peticiones HTTP dentro de `merci-wp.py`.
+**Hecho:** Inyectar la cabecera `User-Agent: Merci-Boilerplate-Agent/1.0` en todas las peticiones HTTP dentro de `merci-wp.py`.
 
 **Detalle técnico:** Los firewalls (WAF) y proxies de alto rendimiento bloquean automáticamente agentes de usuario genéricos de librerías como `Python-urllib` asumiendo que son bots maliciosos de *scraping*. 
 
@@ -73,9 +73,9 @@ Copia el bloque y rellénalo.
 
 **Contexto:** WordPress en producción ocultaba la opción para generar Contraseñas de Aplicación, asumiendo falsamente que el entorno era inseguro (HTTP), a pesar de que CloudPanel servía la web por HTTPS validado.
 
-**Hecho:** 
-- Se inyectó temporalmente `$_SERVER['HTTPS'] = 'on';` en `wp-config.php` de producción.
-- Ante la agresividad de OPcache/FastCGI sobrescribiendo variables globales, se recurrió a la extracción directa de la credencial mediante terminal usando WP-CLI (`wp user application-password create`).
+**Hecho:**
+- Inyectar temporalmente `$_SERVER['HTTPS'] = 'on';` en `wp-config.php` de producción.
+- Ante la agresividad de OPcache/FastCGI sobrescribiendo variables globales, recurrir a la extracción directa de la credencial mediante terminal usando WP-CLI (`wp user application-password create`).
 
 **Detalle técnico:** CloudPanel termina la conexión SSL (offloading) en Nginx y pasa el tráfico interno a PHP por HTTP normal. WP detecta HTTP en entorno de producción y, por seguridad nativa innegociable, bloquea la API de contraseñas. Extraer la clave por terminal salta completamente el servidor web y dialoga directamente con el motor de base de datos.
 
@@ -85,9 +85,9 @@ Copia el bloque y rellénalo.
 
 **Contexto:** Al apuntar el publicador Headless (`merci-wp.py`) a producción, el proxy inverso CloudPanel/Varnish interceptaba y purgaba la cabecera HTTP estándar `Authorization: Basic`, desnudando la petición y provocando que WP la rechazara con un error 401 Unauthorized.
 
-**Hecho:** 
-- Se implementó un envío dual de credenciales en Python inyectando una cabecera personalizada gemela (`X-Authorization`).
-- Se inyectó un parche en `src/wp-theme/merci-theme/functions.php` para restaurar la cabecera oficial en el servidor: `$_SERVER['HTTP_AUTHORIZATION'] = $_SERVER['HTTP_X_AUTHORIZATION']`.
+**Hecho:**
+- Implementar un envío dual de credenciales en Python inyectando una cabecera personalizada gemela (`X-Authorization`).
+- Inyectar un parche en `src/wp-theme/merci-theme/functions.php` para restaurar la cabecera oficial en el servidor: `$_SERVER['HTTP_AUTHORIZATION'] = $_SERVER['HTTP_X_AUTHORIZATION']`.
 
 **Detalle técnico:** Los proxies de alto rendimiento están configurados para no cachear peticiones con `Authorization` o purgarla por seguridad. Las cabeceras personalizadas (`X-*`) no son filtradas y atraviesan Varnish intactas. Al llegar a PHP, el filtro de nuestro tema restaura la variable global en memoria justo antes de que WP valide al usuario.
 
@@ -97,7 +97,7 @@ Copia el bloque y rellénalo.
 
 **Contexto:** Se necesitaba un flujo de trabajo que permitiera publicar el mismo archivo Markdown primero en localhost (para pruebas y QA) y luego en producción, sin mezclar credenciales ni alterar el código fuente de los automatismos en Python.
 
-**Hecho:** Se consolidó el uso del archivo `.env` local como un "Conmutador de Vías".
+**Hecho:** Consolidar el uso del archivo `.env` local como un "Conmutador de Vías".
 
 **Detalle técnico:** El archivo `.env` ahora alberga bloques comentados (`#`) independientes para cada entorno (Localhost y Producción). Alternar los comentarios redefine dinámicamente hacia qué servidor apuntan las peticiones de `merci-wp.py`.
 
@@ -107,9 +107,9 @@ Copia el bloque y rellénalo.
 
 **Contexto:** Al intentar publicar los artículos en el servidor de producción, se evidenció que los archivos Maqrkdown locales contenían atributos `wp_id` asociados a la base de datos de localhost, provocando colisiones de entorno al apuntar el script a la API REST de producción.
 
-**Hecho:** Se refactorizó `scripts/merci/merci-wp.py` para implementar búsqueda dinámica de existencia por `slug`.
+**Hecho:** Refactorizar `scripts/merci/merci-wp.py` para implementar búsqueda dinámica de existencia por `slug`.
 
-**Detalle técnico:** Se inyectó la función `obtener_id_por_slug()`. Antes de realizar el POST/PUT, el script interroga al WordPress de destino. Si el artículo ya existe en ese servidor, asume el ID remoto (`entorno_id`), ignorando el `wp_id` escrito en el YAML local.
+**Detalle técnico:** Inyectar la función `obtener_id_por_slug()`. Antes de realizar el POST/PUT, el script interroga al WordPress de destino. Si el artículo ya existe en ese servidor, asume el ID remoto (`entorno_id`), ignorando el `wp_id` escrito en el YAML local.
 
 **Motivo / criterio:** *Dev/Prod Parity (Multi-entorno)*. Depender de un único ID estático en el archivo acopla el código a una sola base de datos. La resolución dinámica permite que el mismo archivo Markdown se sincronice indistintamente contra Localhost, Staging o Producción sin corromper las bases de datos de destino.
 
@@ -118,10 +118,10 @@ Copia el bloque y rellénalo.
 **Contexto:** Tras consolidar la paridad absoluta entre el motor SSG y el Headless CMS (generación de PDFs, extracción de resúmenes y SSOT de slugs) y fortificar la documentación contra "posts fantasma" (Data Drift), era imperativo empaquetar estos avances antes de iniciar nuevas lógicas de desarrollo.
 
 **Hecho:**
-- Se ejecutó el Release Pipeline exportando el código limpio al repositorio `merci-boilerplate`.
-- Se da por concluida oficialmente la Fase 8 (Expansión de Contenido y Contexto Inteligente).
+- Ejecutar el Release Pipeline exportando el código limpio al repositorio `merci-boilerplate`.
+- Dar por concluida oficialmente la Fase 8 (Expansión de Contenido y Contexto Inteligente).
 
-**Detalle técnico:** La ejecución del orquestador destructivo `merci-init.py` ascendió los *Shadow Docs* actualizados (README v1.3.0 y el nuevo SOP maestro público) y purgó con éxito todos los borradores residuales, garantizando un ecosistema inmaculado para los usuarios del Boilerplate.
+**Detalle técnico:** Ejecutar el orquestador destructivo `merci-init.py` para ascender los *Shadow Docs* actualizados (README v1.3.0 y el nuevo SOP maestro público) y purgar con éxito todos los borradores residuales, garantizando un ecosistema inmaculado para los usuarios del Boilerplate.
 
 **Motivo / criterio:** *Release Management y Zero Technical Debt*. Aplicar el cierre formal de fase (Definition of Done) exige liberar el ecosistema de "deuda de despliegue". Iniciar el desarrollo de la Fase 9 o Fase 11 sobre un código base no sincronizado con su plantilla matriz es una práctica propensa a crear bifurcaciones problemáticas.
 
@@ -132,8 +132,8 @@ Copia el bloque y rellénalo.
 **Contexto:** Tras el incidente de los posts fantasma (Data Drift) por borrado manual de archivos, se evidenció que las reglas de publicación son críticas no solo para el proyecto matriz, sino para cualquier usuario futuro del Boilerplate.
 
 **Hecho:**
-- Se movió el archivo `flujo-publicacion-sop.md` desde el directorio privado `docs/matriz/` hacia el directorio público `docs/`.
-- Se añadió la "Regla de Oro" sobre la Prevención de Posts Fantasma, prohibiendo el borrado manual de archivos `.md` sincronizados sin antes aplicar el Kill-Switch (`estado: "borrador"`).
+- Mover el archivo `flujo-publicacion-sop.md` desde el directorio privado `docs/matriz/` hacia el directorio público `docs/`.
+- Añadir la "Regla de Oro" sobre la Prevención de Posts Fantasma, prohibiendo el borrado manual de archivos `.md` sincronizados sin antes aplicar el Kill-Switch (`estado: "borrador"`).
 
 **Motivo / criterio:** *Knowledge Export (Exportación de Conocimiento)*. Las mecánicas de sincronización Headless y SSG son el núcleo funcional del producto. Restringir este manual a la matriz ocultaría al usuario final del Boilerplate cómo utilizar el ecosistema de forma segura, provocándoles la misma deuda técnica de desincronización que acabamos de sufrir.
 
@@ -143,9 +143,9 @@ Copia el bloque y rellénalo.
 
 **Contexto:** El orquestador `merci-total` falló en la etapa de rastreo de enlaces (`merci-linkcheck.py`) reportando un 404 en el PDF de `mi-primer-post-automatizado`. El archivo Markdown original había sido eliminado localmente sin pasar por el proceso de despublicación formal.
 
-**Hecho:** Se purgó manualmente la entrada residual desde el panel de administración de WordPress local.
+**Hecho:** Purgar manualmente la entrada residual desde el panel de administración de WordPress local.
 
-**Detalle técnico:** El script `merci-publish.py` borra la carpeta `descargas/` (Clean Build). Posteriormente, `merci-wp.py` solo genera PDFs para los archivos `.md` que existen actualmente en el directorio. Al no existir el archivo local, su PDF no se regenera, pero como WordPress nunca recibió la orden REST de borrarlo, el CMS continuaba sirviendo el post público con un enlace a un archivo inexistente.
+**Detalle técnico:** El script `merci-publish.py` borra la carpeta `descargas/` (Clean Build). Posteriormente, `merci-wp.py` genera PDFs solo para los archivos `.md` existentes en el directorio. Al no existir el archivo local, su PDF no se regenera, pero como WordPress nunca recibió la orden REST de borrarlo, el CMS continuaba sirviendo el post público con un enlace a un archivo inexistente.
 
 **Motivo / criterio:** *Higiene Headless y Data Drift*. En una arquitectura desacoplada y unidireccional, borrar un archivo fuente de producción manualmente provoca "posts zombis". La despublicación debe delegarse siempre al "Kill-Switch" automatizado (cambiar a `estado: "borrador"` y ejecutar `merci wp`) antes de borrar el fichero físico localmente.
 

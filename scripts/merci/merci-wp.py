@@ -121,6 +121,13 @@ def obtener_id_por_slug(wp_url, auth_b64, slug):
     return None
 
 def publicar_en_wordpress(filepath: str, creds: dict):
+    """
+    QUÉ HACE: Lee un archivo Markdown, extrae su contenido y metadatos, y lo sincroniza
+    con la base de datos de WordPress correspondiente según el entorno activo.
+    POR QUÉ: Centraliza la lógica de publicación Headless, aislando al usuario del panel
+    de administración de WP y permitiendo gobernar el CMS puramente desde archivos planos
+    controlados por Git (GitOps).
+    """
     target_path = Path(filepath).resolve()
     
     if not target_path.exists():
