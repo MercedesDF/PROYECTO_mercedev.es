@@ -37,6 +37,24 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Milestone: Cierre de Fase 8 y Validación del Definition of Done
+
+**Contexto:** Finalizar formalmente la Fase 8 (Expansión de Contenido y Contexto Inteligente) garantizando la higiene absoluta del repositorio antes de iniciar la orquestación en la nube (Fase 11).
+
+**Hecho:** Ejecutar y superar el Protocolo Estricto de Cierre de Fase:
+- [x] **1. Deuda Técnica:** 0 TODOs pendientes. Rendimiento 100/100 retenido en vistas dinámicas.
+- [x] **2. Cosecha de Conocimiento:** Cuadernillo sobre Ceguera de Proxy extraído y promovido.
+- [x] **3. Auditoría Documental:** `README.md` actualizado reflejando el SSOT por Slug y el escudo Anti-Proxy.
+- [x] **4. Evaluación de Release:** Versión `v1.3.1` del Boilerplate exportada con éxito (`merci-init.py` destructivo).
+- [x] **5. Snapshot:** Backup local detallado generado (`merci-backup.py -v`) con un peso optimizado de 1.51 MB.
+- [x] **6. Sello Definitivo:** Commit atómico en preparación.
+
+**Detalle técnico:** La fase concluye demostrando empíricamente la viabilidad de la arquitectura híbrida (Dev/Prod Parity). El enrutamiento dinámico resuelve las URIs sin colisiones mediante *slugs*, la UI se mantiene purista y la base de datos local ha sido purgada de "posts zombis" (Data Drift). 
+
+**Motivo / criterio:** *Governance y Definition of Done (DoD)*. Sellar el repositorio mediante un checklist auditable previene la transferencia de deuda técnica entre fases. Al saltar directamente a la Fase 11 (CI/CD), el código fuente debe estar inmaculado para que los corredores (runners) en la nube no fallen por problemas de configuración local heredados.
+
+**Siguiente paso o deuda:** Iniciar oficialmente la Fase 11: Integración Continua y Calidad en la Nube (CI/CD con GitHub Actions).
+
 ### 2026-05-02 — Docs: Actualización v2.0 del cuadernillo de Alias Inteligentes
 
 **Contexto:** La función Bash `merci` original era rígida y no permitía pasar argumentos adicionales (flags como `-v` o rutas de archivos) a los scripts subyacentes, limitando el uso de herramientas dinámicas como el orquestador de backups o el publicador de WordPress.
