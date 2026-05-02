@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Arch: Inicio de Fase 11 (CI/CD) y primer Workflow de GitHub Actions
+
+**Contexto:** Tras finalizar la Fase 8, se requiere trasladar las políticas de seguridad y calidad (Shift-Left) locales hacia la nube, garantizando que ninguna contribución externa ni salto accidental de hooks locales rompa la arquitectura del repositorio público.
+
+**Hecho:**
+- Iniciar formalmente la Fase 11 (Integración Continua y Calidad en la Nube).
+- Diseñar el primer flujo de GitHub Actions (`.github/workflows/audit.yml`) para automatizar la ejecución de `merci-audit.py`.
+
+**Detalle técnico:** El workflow se configura para reaccionar ante eventos `push` y `pull_request` sobre la rama `main`. Levanta un contenedor virtual Ubuntu, instala Python 3.10 y ejecuta la auditoría estricta (`--strict-json-ld`). Si el script de Python devuelve un código de salida `1` (Error), GitHub marcará el commit con una cruz roja y bloqueará la integración del código.
+
+**Motivo / criterio:** *Continuous Integration (CI)*. La confianza en el código no debe depender exclusivamente de la disciplina del desarrollador en su máquina local. Automatizar la auditoría en el servidor transforma las reglas documentadas en barreras físicas inquebrantables.
+
+**Siguiente paso o deuda:** Validar la ejecución exitosa del workflow en GitHub y continuar con la Gobernanza Open Source (Issue Templates).
+
 ### 2026-05-02 — Milestone: Cierre de Fase 8 y Validación del Definition of Done
 
 **Contexto:** Finalizar formalmente la Fase 8 (Expansión de Contenido y Contexto Inteligente) garantizando la higiene absoluta del repositorio antes de iniciar la orquestación en la nube (Fase 11).
