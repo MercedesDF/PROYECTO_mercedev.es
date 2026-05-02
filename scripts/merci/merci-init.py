@@ -96,7 +96,9 @@ def configure_ai_module(include_ai: bool):
         # 3. Limpiar dependencias en Python y SASS
         total_py = REPO_ROOT / "scripts" / "merci" / "merci-total.py"
         if total_py.exists():
-            total_py.write_text(total_py.read_text(encoding="utf-8").replace('    "merci-brain.py",\n', ''), encoding="utf-8")
+            content_total = total_py.read_text(encoding="utf-8")
+            content_total = re.sub(r'\s*"merci-brain\.py",', '', content_total)
+            total_py.write_text(content_total, encoding="utf-8")
             
         scss_index = REPO_ROOT / "src" / "scss" / "components" / "_index.scss"
         if scss_index.exists():
@@ -170,7 +172,11 @@ def main():
     # POR QUÉ: Evita engordar el Boilerplate con fotos propias, pero preserva 
     # los iconos estructurales de la UI (logos y el avatar del asistente Merci).
     purge_directory(REPO_ROOT / ".assets-raw")
-    purge_directory(REPO_ROOT / "assets" / "images", exclude=["favicon.ico", "favicon.png", "logo.webp", "logo.png", "Merci-en-la-nube.webp"])
+    
+    imagenes_a_conservar = ["favicon.ico", "favicon.png", "logo.webp", "logo.png"]
+    if incluir_ia:
+        imagenes_a_conservar.append("Merci-en-la-nube.webp")
+    purge_directory(REPO_ROOT / "assets" / "images", exclude=imagenes_a_conservar)
     
     # Purga selectiva de manuales operativos exclusivos de la matriz
     print("  🗑️  Purgando manuales SOP exclusivos del proyecto matriz...")

@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Fix: Degradación elegante por ausencia de API Key (Fail Gracefully)
+
+**Contexto:** Al instanciar el Boilerplate y ejecutar `merci total`, el orquestador abortaba la ejecución (Fail-Fast) en la etapa de `merci-brain.py` al no encontrar la variable `GEMINI_API_KEY` en el `.env`, impidiendo que los nuevos usuarios completaran su primera compilación.
+
+**Hecho:**
+- Se reemplazó la salida de error fatal (`sys.exit(1)`) por una advertencia (`WARN`) y salida exitosa (`sys.exit(0)`) en `scripts/merci/merci-brain.py`.
+
+**Detalle técnico:** El script ahora detecta la ausencia de la clave, emite un mensaje informativo indicando que el asistente operará con sus respuestas genéricas y finaliza su proceso en verde. Esto permite que el orquestador maestro continúe con las auditorías (QA) y el rastreo de enlaces ininterrumpidamente.
+
+**Motivo / criterio:** *Out-of-the-Box Experience* y *Graceful Degradation*. Una característica opcional (como la IA de terceros) nunca debe romper la cadena de montaje (Build Pipeline) de un usuario recién llegado. Suavizar este error elimina la fricción de configuración inicial y protege la confianza en la herramienta.
+
+**Siguiente paso o deuda:** Re-exportar la versión definitiva del Boilerplate (v1.5.0), aplicar el snapshot final y dar por terminada la jornada.
+
 ### 2026-05-02 — Arch: White-labeling y Guillotina Opcional para IA en Boilerplate
 
 **Contexto:** El módulo de Inteligencia Artificial ("Merci") estaba fuertemente acoplado a la marca personal de la autora. Distribuir el Boilerplate con este avatar por defecto generaría intrusión de marca e hinchazón de código para usuarios que solo desearan un generador estático purista.
