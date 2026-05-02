@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Fix: Resolución de advertencia de deprecación (Node.js 20) en GitHub Actions
+
+**Contexto:** Tras la ejecución exitosa del primer workflow de GitHub Actions, el servidor emitió una advertencia (Warning) indicando que las acciones `checkout@v4` y `setup-python@v5` utilizan Node.js 20, el cual será descontinuado próximamente.
+
+**Hecho:**
+- Inyectar la variable de entorno `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` a nivel global en `.github/workflows/audit.yml`.
+
+**Detalle técnico:** Forzar el uso de Node.js 24 adelanta la compatibilidad del pipeline y silencia la advertencia de obsolescencia que emite el runner de GitHub, asegurando un reporte de auditoría inmaculado (cero advertencias).
+
+**Motivo / criterio:** *Zero Technical Debt (Cero Deuda Técnica)*. En la arquitectura Merci, las advertencias no se ignoran, se solucionan. Mantener el pipeline en la nube tan limpio como el orquestador local es vital para la disciplina DevSecOps.
+
+**Siguiente paso o deuda:** Continuar con la configuración de Gobernanza Open Source (Issue y PR Templates) de la Fase 11.
+
 ### 2026-05-02 — Fix: Reubicación del workflow de GitHub Actions
 
 **Contexto:** El workflow `Merci Audit CI` no se ejecutaba en la nube tras el *push*. Se diagnosticó que el archivo YAML fue guardado en el directorio incorrecto (`laboratorio/`).
