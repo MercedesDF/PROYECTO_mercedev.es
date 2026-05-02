@@ -31,6 +31,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
   - `merci-linkcheck.py`: Rastreador dinámico (DAST) para auditar enlaces rotos HTTP y ambigüedad WAI-ARIA.
   - `merci-publish.py` y `merci-promote.py`: Motor SSG y asistente interactivo de enrutamiento contextual.
   - `merci-sync-pages.py`: Sincronizador de estructuras comunes estáticas (SSOT).
+  - `merci-linkedin.py`: Motor de autenticación OIDC (OpenID Connect) y publicación automatizada en LinkedIn.
   - `merci-wp.py`: Sincronizador Headless para inyección masiva en WordPress vía API REST.
   - `merci-total.py`: Orquestador maestro que ejecuta el pipeline completo (Build y QA) con patrón Fail-Fast.
 

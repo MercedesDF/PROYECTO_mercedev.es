@@ -37,9 +37,75 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Docs: Documentación arquitectónica de orquestadores (QUÉ HACE/POR QUÉ)
+
+**Contexto:** La complejidad alcanzada por el publicador Headless (`merci-wp.py`) requería blindar el conocimiento de sus funciones contra futuras refactorizaciones.
+
+**Hecho:** Se estandarizaron los docstrings y comentarios internos de `scripts/merci/merci-wp.py` siguiendo el formato "QUÉ HACE" y "POR QUÉ".
+
+**Detalle técnico:** Se explicaron explícitamente decisiones como el parseo nativo de YAML, la inyección dual de credenciales y el uso de `slugify`.
+
+**Motivo / criterio:** *Mantenibilidad y Pedagogía*. Un Boilerplate no solo hereda código, sino criterio. Forzar la documentación de la *intención* previene que futuros desarrolladores eliminen piezas clave (como las cabeceras anti-WAF) por considerarlas "redundantes".
+
+### 2026-05-02 — Arch: SSOT Dinámico por Slug (Erradicación de wp_id estático)
+
+**Contexto:** El uso de un `wp_id` inyectado en el YAML local provocaba errores 404 al intentar actualizar artículos tras cambiar el entorno de localhost a producción, ya que los IDs de la base de datos no coincidían y el script intentaba actualizar un ID inexistente.
+
+**Hecho:** 
+- Se eliminó la lectura e inyección de `wp_id` en el script `merci-wp.py`.
+- Se implementó la función `obtener_id_por_slug()` para interrogar a la API REST de destino.
+
+**Detalle técnico:** En lugar de depender del ID local, el script utiliza el nombre del archivo (`target_path.stem`) para preguntar "¿Existe un post con este slug en este entorno?". Si existe, captura su ID remoto temporalmente en memoria y ejecuta un `PUT`; si no, ejecuta un `POST`.
+
+**Motivo / criterio:** *Paridad Dev/Prod Absoluta*. El archivo Markdown se vuelve verdaderamente agnóstico. Al usar el *slug* (el nombre físico del archivo) como clave primaria universal, podemos sincronizar exactamente el mismo documento contra infinitas bases de datos sin colisiones ni corrupción de IDs.
+
+### 2026-05-02 — Fix: Evasión de escudos WAF y proxies (User-Agent corporativo)
+
+**Contexto:** Nginx en CloudPanel devolvía errores 404/403 al intentar interrogar la API REST de WordPress para buscar categorías (ej. `?search=Blog`).
+
+**Hecho:** Se inyectó la cabecera `User-Agent: Merci-Boilerplate-Agent/1.0` en todas las peticiones HTTP dentro de `merci-wp.py`.
+
+**Detalle técnico:** Los firewalls (WAF) y proxies de alto rendimiento bloquean automáticamente agentes de usuario genéricos de librerías como `Python-urllib` asumiendo que son bots maliciosos de *scraping*. 
+
+**Motivo / criterio:** *Identidad de Ecosistema y Bypass Seguro*. Forjar un Agente de Usuario legítimo permite al orquestador atravesar la frontera de Nginx. Además, habilita la trazabilidad forense en los archivos `access.log` del servidor, permitiendo distinguir el tráfico del Boilerplate de los ataques reales.
+
+### 2026-05-02 — Fix: Ceguera de HTTPS en WordPress detrás de Proxy Varnish
+
+**Contexto:** WordPress en producción ocultaba la opción para generar Contraseñas de Aplicación, asumiendo falsamente que el entorno era inseguro (HTTP), a pesar de que CloudPanel servía la web por HTTPS validado.
+
+**Hecho:** 
+- Se inyectó temporalmente `$_SERVER['HTTPS'] = 'on';` en `wp-config.php` de producción.
+- Ante la agresividad de OPcache/FastCGI sobrescribiendo variables globales, se recurrió a la extracción directa de la credencial mediante terminal usando WP-CLI (`wp user application-password create`).
+
+**Detalle técnico:** CloudPanel termina la conexión SSL (offloading) en Nginx y pasa el tráfico interno a PHP por HTTP normal. WP detecta HTTP en entorno de producción y, por seguridad nativa innegociable, bloquea la API de contraseñas. Extraer la clave por terminal salta completamente el servidor web y dialoga directamente con el motor de base de datos.
+
+**Motivo / criterio:** *Infraestructura como Código (IaC)*. Cuando las capas de caché profunda o los proxies ofuscan la Interfaz Gráfica (GUI), descender a la capa del sistema operativo (WP-CLI) es la vía más profesional y segura para aprovisionar herramientas sin alterar permanentemente configuraciones delicadas del servidor web.
+
+### 2026-05-02 — Fix: Bypass de "Ceguera de Proxy" (Autorización REST API)
+
+**Contexto:** Al apuntar el publicador Headless (`merci-wp.py`) a producción, el proxy inverso CloudPanel/Varnish interceptaba y purgaba la cabecera HTTP estándar `Authorization: Basic`, desnudando la petición y provocando que WP la rechazara con un error 401 Unauthorized.
+
+**Hecho:** 
+- Se implementó un envío dual de credenciales en Python inyectando una cabecera personalizada gemela (`X-Authorization`).
+- Se inyectó un parche en `src/wp-theme/merci-theme/functions.php` para restaurar la cabecera oficial en el servidor: `$_SERVER['HTTP_AUTHORIZATION'] = $_SERVER['HTTP_X_AUTHORIZATION']`.
+
+**Detalle técnico:** Los proxies de alto rendimiento están configurados para no cachear peticiones con `Authorization` o purgarla por seguridad. Las cabeceras personalizadas (`X-*`) no son filtradas y atraviesan Varnish intactas. Al llegar a PHP, el filtro de nuestro tema restaura la variable global en memoria justo antes de que WP valide al usuario.
+
+**Motivo / criterio:** *Shift-Left Routing*. En lugar de crear complejas excepciones en la infraestructura de Nginx de CloudPanel (lo que generaría deriva de configuración entre local y nube), solucionarlo a nivel de código de aplicación asegura que el ecosistema funcione en cualquier hosting o proxy del mercado (Agnosticismo de Infraestructura).
+
+### 2026-05-02 — Arch: Conmutador de Entornos (Environment Switcher) en .env
+
+**Contexto:** Se necesitaba un flujo de trabajo que permitiera publicar el mismo archivo Markdown primero en localhost (para pruebas y QA) y luego en producción, sin mezclar credenciales ni alterar el código fuente de los automatismos en Python.
+
+**Hecho:** Se consolidó el uso del archivo `.env` local como un "Conmutador de Vías".
+
+**Detalle técnico:** El archivo `.env` ahora alberga bloques comentados (`#`) independientes para cada entorno (Localhost y Producción). Alternar los comentarios redefine dinámicamente hacia qué servidor apuntan las peticiones de `merci-wp.py`.
+
+**Motivo / criterio:** *Dev/Prod Parity y Simplicidad*. Este enfoque no requiere librerías complejas de gestión de variables de entorno ni comandos extra. Combinado con la resolución dinámica de IDs por *slug*, permite a la desarrolladora incubar en local y desplegar en la nube de forma secuencial usando exactamente los mismos comandos de terminal, garantizando cero colisiones.
+
 ### 2026-05-02 — Arch: Resolución dinámica de IDs multi-entorno en Headless CMS
 
-**Contexto:** Al intentar publicar los artículos en el servidor de producción, se evidenció que los archivos Markdown locales contenían atributos `wp_id` asociados a la base de datos de localhost, provocando colisiones de entorno al apuntar el script a la API REST de producción.
+**Contexto:** Al intentar publicar los artículos en el servidor de producción, se evidenció que los archivos Maqrkdown locales contenían atributos `wp_id` asociados a la base de datos de localhost, provocando colisiones de entorno al apuntar el script a la API REST de producción.
 
 **Hecho:** Se refactorizó `scripts/merci/merci-wp.py` para implementar búsqueda dinámica de existencia por `slug`.
 

@@ -273,3 +273,16 @@ add_action( 'pre_get_posts', 'merci_filtrar_feed_principal' );
 // impida generar contraseñas para la API REST.
 // ===================================================
 add_filter( 'wp_is_application_passwords_available', '__return_true' );
+
+// =========================================================================
+// 8. PARCHE PROXY: Restauración de Autorización Básica (Varnish / FastCGI)
+// =========================================================================
+// Proxies agresivos como Varnish o Nginx pueden purgar la cabecera 'Authorization'.
+// Si el orquestador Python envía la credencial mediante 'X-Authorization', la restauramos.
+if ( isset( $_SERVER['HTTP_X_AUTHORIZATION'] ) && ! isset( $_SERVER['HTTP_AUTHORIZATION'] ) ) {
+    $_SERVER['HTTP_AUTHORIZATION'] = $_SERVER['HTTP_X_AUTHORIZATION'];
+}
+// También cubrimos el caso de redirecciones FastCGI estándar
+if ( isset( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) && ! isset( $_SERVER['HTTP_AUTHORIZATION'] ) ) {
+    $_SERVER['HTTP_AUTHORIZATION'] = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+}

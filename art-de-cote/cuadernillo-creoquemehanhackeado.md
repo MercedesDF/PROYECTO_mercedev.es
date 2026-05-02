@@ -6,7 +6,6 @@ tipo: "cuadernillo"
 descripcion: "Registro de la experiencia de pérdida de control del navegador y la importancia de la configuración de privacidad."
 alt_portada: "Captura de pantalla de la configuración del navegador mostrando los permisos de ventanas emergentes."
 fecha: "2026-04-25"
-wp_id: "50"
 ---
 
 ## El Desafío (Síntoma)
