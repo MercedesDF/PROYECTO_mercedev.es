@@ -37,6 +37,57 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Milestone: Cierre de Fase 9 y Validación del Definition of Done
+
+**Contexto:** Finalizar formalmente la Fase 9 (Inteligencia y Autonomía) garantizando la higiene absoluta del repositorio antes de empaquetar el motor de IA en la Release v1.5.0 y retomar la Fase 11.
+
+**Hecho:** Se ejecutó y superó el Protocolo Estricto de Cierre de Fase:
+- [x] **1. Deuda Técnica:** 0 TODOs pendientes. Gestión de cuotas de API y Degradación Elegante implementados. Minimalismo absoluto en consola (DX) aplicado.
+- [x] **2. Cosecha de Conocimiento:** Cuadernillo `cuadernillo-shift-left-ai-merci-brain.md` curado, promovido y compilado.
+- [x] **3. Auditoría Documental:** Hitos completados en el `README.md` y `README-merci.md` actualizados a v1.5.0 con notas de DX.
+- [x] **4. Evaluación de Release:** Release v1.5.0 lista para empaquetar en el Boilerplate.
+- [x] **5. Snapshot:** Backup local detallado generado.
+- [x] **6. Sello Definitivo:** Commit atómico en preparación.
+
+**Motivo / criterio:** *Governance y Definition of Done (DoD)*. Sellar las fases mediante un checklist auditable previene la transferencia de deuda técnica y garantiza que cada nueva versión del Boilerplate sea madura.
+
+**Siguiente paso o deuda:** Ejecutar el Release Pipeline (v1.5.0), realizar el backup y retomar la Fase 11.
+
+### 2026-05-02 — Docs: Release v1.5.0 del Boilerplate (Shift-Left AI y DX)
+
+**Contexto:** Tras culminar la Fase 9 y pulir la experiencia de desarrollo (DX) del orquestador, era el momento de empaquetar estas mejoras en la plantilla base.
+
+**Hecho:**
+- Se actualizó la versión de `README-merci.md` a la `v1.5.0`, documentando la IA estática y el minimalismo en la terminal (Verbose flags).
+- Se preparó el código para ejecutar el *Release Pipeline*.
+
+**Motivo / criterio:** *Release Management*. Empaquetar las funcionalidades probadas independiza el motor DevSecOps del contenido de la autora.
+
+### 2026-05-02 — UI/UX: Minimalismo absoluto en consola (Verbose flags)
+
+**Contexto:** Los scripts de automatización generaban un exceso de ruido en la terminal informando de cada paso intermedio ("Leyendo", "Procesando"), lo que dificultaba la lectura del orquestador global.
+
+**Hecho:**
+- Se inyectó la bandera `--verbose` (o `-v`) en los scripts locales (`merci-wp.py`, `merci-optimizer.py`, etc.).
+- Se ocultaron los mensajes intermedios, conservando únicamente un mensaje de éxito (cuadradito verde) por archivo.
+
+**Detalle técnico:** Se implementó una lógica condicional `if verbose:` alrededor de los mensajes de seguimiento. Las alertas de error permanecen siempre visibles (Fail-Fast).
+
+**Motivo / criterio:** *Silence is Golden* (Filosofía Unix). Un pipeline CI/CD debe ser silencioso cuando tiene éxito y ruidoso cuando falla. Ver únicamente los marcadores de éxito agiliza la lectura de los logs.
+
+### 2026-05-02 — UI/UX: Mejora de espaciado visual en el orquestador maestro
+
+**Contexto:** Al encadenar la ejecución silenciosa de los scripts en `merci-total.py`, los mensajes de finalización de un proceso se pegaban inmediatamente a la cabecera del siguiente (`▶️ Ejecutando...`), dificultando la legibilidad.
+
+**Hecho:**
+- Se inyectó un salto de línea condicional (`print()`) en `scripts/merci/merci-total.py` tras la ejecución exitosa de cada subproceso.
+
+**Detalle técnico:** En lugar de modificar los 9 scripts individuales, centralizar el espaciado en el bucle `for` de `merci-total` respeta el principio DRY (Don't Repeat Yourself) y garantiza una separación de bloques uniforme.
+
+**Motivo / criterio:** *Developer Experience (DX)*. El espacio en blanco (Whitespace) es un elemento de diseño fundamental también en la terminal. Separar visualmente los bloques de ejecución reduce la carga cognitiva y permite escanear los resultados rápidamente.
+
+**Siguiente paso o deuda:** Iniciar los hitos de la Fase 11 (Lighthouse CI y compilación en la nube).
+
 ### 2026-05-02 — Milestone: Automatización del Lóbulo Frontal y Cierre de Fase 9
 
 **Contexto:** Tras validar la conexión exitosa de la IA estática con la interfaz (Vanilla JS), era imperativo automatizar la generación del cerebro (`brain_data.json`) para que la base de conocimientos se actualice sin intervención humana en cada compilación.

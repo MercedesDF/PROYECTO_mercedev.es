@@ -61,7 +61,6 @@ def limpiar_directorio_salida():
                     print(f"  ⚠️ No se pudo borrar {item.name}: {e}")
 
 def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: int, js_c_v: int, js_m_v: int):
-    print(f"📖 Leyendo: {filepath.name}...")
     content = filepath.read_text(encoding="utf-8")
     
     # 1. Extraer YAML Frontmatter y Cuerpo del Markdown
@@ -116,7 +115,6 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
         print(f"  ❌ Error: Falta el atributo 'alt_portada' obligatorio en {filepath.name}")
         return False
     
-    print(f"  ⚙️  Procesando {tipo}: {titulo}")
     canonical_url = f"https://mercedev.es/biblioteca/{out_filename}"
 
     # QUÉ HACE: Pre-procesador de multimedia. Busca sintaxis de imagen que apunte a un vídeo.
@@ -139,7 +137,6 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
         return False
     
     # 4. Generar PDF con WeasyPrint (Maquetación específica para impresión)
-    print("  📄 Generando edición en PDF...")
     out_pdf_path = PUBLIC_DESCARGAS / out_pdf_filename
     PUBLIC_DESCARGAS.mkdir(parents=True, exist_ok=True)
     

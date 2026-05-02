@@ -85,7 +85,7 @@ def consultar_gemini(prompt, api_key, modelo="gemini-pro"):
     except Exception as e:
         return f"Error de conexión sináptica: {e}"
 
-def generar_cerebro_estatico(api_key, modelo):
+def generar_cerebro_estatico(api_key, modelo, force_clean=False):
     """
     QUÉ HACE: Escanea la biblioteca, pide saludos contextuales a Gemini y los guarda en un JSON.
     POR QUÉ: Permite a Merci tener respuestas inteligentes en cada artículo sin consumir
@@ -99,6 +99,10 @@ def generar_cerebro_estatico(api_key, modelo):
         print("  ⚠️ La carpeta biblioteca no existe.")
         return
 
+    if force_clean and output_json.exists():
+        print("  🧹 [Clean Build] Borrando memoria anterior para forzar regeneración...")
+        output_json.unlink()
+
     # QUÉ HACE: Lee el cerebro existente para no repetir peticiones válidas (Incremental Build).
     brain_data = {}
     if output_json.exists():
@@ -106,6 +110,8 @@ def generar_cerebro_estatico(api_key, modelo):
             brain_data = json.loads(output_json.read_text(encoding="utf-8"))
         except Exception:
             pass
+    
+    cuota_agotada = False
     
     for md_file in biblioteca_dir.rglob("*.md"):
         content = md_file.read_text(encoding="utf-8")
@@ -126,8 +132,14 @@ def generar_cerebro_estatico(api_key, modelo):
         desc = meta.get("descripcion", "")
         url = f"/biblioteca/{slugify(titulo)}.html"
         
-        # Si ya existe una respuesta válida (no es error ni contingencia), la conservamos y saltamos
+        # Si ya existe una respuesta válida generada por IA, la conservamos y saltamos en silencio
         if url in brain_data and not brain_data[url].startswith("Error HTTP") and not brain_data[url].startswith("[Fallback]"):
+            continue
+            
+        # Circuit Breaker: Si la cuota ya se agotó en esta ejecución, mantenemos/creamos el fallback en silencio
+        if cuota_agotada:
+            if url not in brain_data or brain_data[url].startswith("Error HTTP"):
+                brain_data[url] = f"[Fallback] Bienvenido a la lectura de: {titulo}."
             continue
         
         print(f"  🧠 Pensando saludo para: {titulo}...")
@@ -135,9 +147,10 @@ def generar_cerebro_estatico(api_key, modelo):
         
         respuesta = consultar_gemini(prompt, api_key, modelo)
         
-        # Degradación elegante (Graceful Degradation) si la API rechaza por cuotas
+        # Degradación elegante con Circuit Breaker
         if respuesta.startswith("Error HTTP"):
-            print(f"  ⚠️ Cuota de API agotada. Inyectando respuesta de contingencia...")
+            print(f"  ⚠️ Cuota de API agotada. Suspendiendo peticiones y aplicando contingencia...")
+            cuota_agotada = True
             brain_data[url] = f"[Fallback] Bienvenido a la lectura de: {titulo}."
         else:
             brain_data[url] = respuesta.replace('"', '').strip()
@@ -149,9 +162,15 @@ def generar_cerebro_estatico(api_key, modelo):
     PUBLIC_JS_DIR.mkdir(parents=True, exist_ok=True)
     output_json.write_text(json.dumps(brain_data, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"\n✅ ¡Cerebro estático generado! Guardado en {output_json.relative_to(REPO_ROOT)}")
+    
+    # Reporte final de contingencias
+    fallbacks_count = sum(1 for v in brain_data.values() if v.startswith("[Fallback]"))
+    if fallbacks_count > 0:
+        print(f"  ℹ️  Info: Quedan {fallbacks_count} artículos pendientes de IA por límite de cuota. Se reintentarán automáticamente en el próximo 'merci total'.")
 
 if __name__ == "__main__":
     print("🧠 [Merci Brain] Despertando lóbulo frontal...")
+    force_clean = "--clean" in sys.argv
     api_key = cargar_api_key()
     
     if not api_key:
@@ -160,4 +179,4 @@ if __name__ == "__main__":
     modelo_activo = auto_descubrir_modelo(api_key)
     print(f"  📡 Conectando a la red neuronal (Modelo auto-descubierto: {modelo_activo})...")
     
-    generar_cerebro_estatico(api_key, modelo_activo)
+    generar_cerebro_estatico(api_key, modelo_activo, force_clean)
