@@ -37,6 +37,62 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Fix: Exclusión de modelo experimental (Quota limit 0) en Gemini
+
+**Contexto:** Al intentar procesar los últimos artículos, la API de Gemini devolvió un error `HTTP 429` indicando que el límite de cuota era `0` para el modelo `gemini-2.0-flash`, bloqueando la generación estática.
+
+**Hecho:**
+- Se actualizó la lista de preferencias en `auto_descubrir_modelo()` dentro de `merci-brain.py`.
+- Se eliminó `gemini-2.0-flash` para forzar el uso de la versión estable `gemini-1.5-flash`.
+
+**Detalle técnico:** Google AI Studio impone límites estrictos (o nulos) a modelos en fase experimental o de acceso anticipado según la región o el tier de la cuenta. Retirar la versión 2.0 obliga al script a utilizar la rama 1.5, la cual goza de una cuota gratuita estable de 15 RPM y 1500 peticiones diarias.
+
+**Motivo / criterio:** *Estabilidad sobre Novedad*. En automatizaciones DevSecOps, la fiabilidad de la conexión es más crítica que el uso del último modelo disponible en el mercado.
+
+**Siguiente paso o deuda:** Conectar el frontend (`MerciController.js`) al archivo generado una vez finalizado el escaneo.
+
+### 2026-05-02 — Perf: Construcción incremental y control de cuotas en IA (Rate Limiting)
+
+**Contexto:** El lóbulo frontal (`merci-brain.py`) escaneaba todos los artículos en un bucle rápido, lo que provocó que la API gratuita de Gemini rechazara las conexiones con un error `HTTP 429: Too Many Requests` (límite estricto de 5 peticiones por minuto).
+
+**Hecho:**
+- Se refactorizó `merci-brain.py` para leer el archivo `brain_data.json` antes de procesar y saltarse los artículos ya generados (Incremental Build).
+- Se implementó un retraso forzado (`time.sleep(15)`) entre llamadas a la API.
+
+**Detalle técnico:** La construcción incremental salva la cuota de la API y reduce el tiempo de compilación a 0 segundos si no hay artículos nuevos. El *Rate Limiting* (15 segundos) garantiza mantenerse dentro del límite de 4-5 RPM de la capa gratuita, evitando baneos del servidor.
+
+**Motivo / criterio:** *Resiliencia y API Governance*. Cuando se integran servicios de terceros (SaaS), es imperativo proteger el orquestador local contra bloqueos de red limitando el consumo (Throttling) y cacheando las respuestas válidas.
+
+**Siguiente paso o deuda:** Conectar el frontend (`MerciController.js`) al archivo generado e integrar el script en el orquestador global.
+
+### 2026-05-02 — Feat: Shift-Left AI (Contexto dinámico inyectado en compilación)
+
+**Contexto:** Se requería dotar al asistente de la interfaz (Merci) de inteligencia artificial para generar saludos contextualizados basados en el artículo que lee el visitante. Realizar peticiones a Gemini desde el frontend Javascript expondría la API Key y arruinaría el rendimiento web (Core Web Vitals).
+
+**Hecho:**
+- Se implementó el descubrimiento dinámico de modelos (`gemini-2.5-flash`) en `merci-brain.py`.
+- Se programó un escáner de la Biblioteca que extrae el título y la descripción de cada Markdown publicado y solicita a Gemini un saludo ad-hoc.
+- Se compiló la salida de la IA en un archivo estático local (`public/js/brain_data.json`).
+
+**Detalle técnico:** Al usar expresiones regulares para leer el YAML Frontmatter, se minimiza la cantidad de tokens enviados a la API (solo se envían metadatos, no el cuerpo completo del artículo). La respuesta se asocia al `slug` del archivo y se empaqueta en JSON.
+
+**Motivo / criterio:** *Shift-Left AI y Edge Performance*. La IA "piensa" en tiempo de compilación dentro del servidor seguro (terminal), no en tiempo de ejecución en el navegador del usuario. Esto permite a la interfaz web ofrecer respuestas generativas complejas con una latencia literal de 0 milisegundos y con coste nulo de API tras el despliegue.
+
+**Siguiente paso o deuda:** Enseñar al frontend (`MerciController.js`) a consumir el nuevo `brain_data.json` y conectar `merci-brain.py` al orquestador maestro (`merci-total`).
+
+### 2026-05-02 — Fix: Resolución de error 404 en conexión sináptica con Gemini (Migración a Flash)
+
+**Contexto:** Al ejecutar la primera prueba de conexión del lóbulo frontal (`merci-brain.py`), la API REST de Google devolvió un error HTTP 404 (Not Found) al solicitar el modelo `gemini-1.5-pro`.
+
+**Hecho:**
+- Se refactorizó la URL del endpoint en `scripts/merci/merci-brain.py` para apuntar al modelo ultrarrápido `gemini-1.5-flash`.
+
+**Detalle técnico:** La capa gratuita (v1beta) de Google Cloud / AI Studio rota frecuentemente los alias directos de las versiones Pro o exige sufijos específicos (`-latest`). El modelo Flash ofrece mayor estabilidad en el endpoint y está diseñado específicamente para tareas de baja latencia y alta eficiencia.
+
+**Motivo / criterio:** *Rendimiento y Fricción Cero*. Dado que la IA se utilizará en tiempo de compilación (Shift-Left AI) para procesar artículos, priorizar un modelo optimizado para velocidad (Flash) acelera el flujo de construcción (Build) local y evita romper el pipeline de SSG por cambios de nomenclatura en la API de terceros.
+
+**Siguiente paso o deuda:** Implementar la lógica para que el script lea los artículos de la biblioteca y genere respuestas estáticas (diccionarios JSON).
+
 ### 2026-05-02 — Docs: Release v1.4.0 del Boilerplate (CI/CD y Gobernanza)
 
 **Contexto:** Tras integrar GitHub Actions y las plantillas de contribución (Fase 11), el ecosistema base adquirió capacidades de infraestructura en la nube. Era imperativo exportar estas mejoras al repositorio público para que los futuros usuarios hereden el pipeline de integración continua desde el inicio.
