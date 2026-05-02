@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — QA: Validación de redirección segura y Cuádruple 100 en WP
+
+**Contexto:** Tras inyectar el escudo anti-proxy para forzar HTTPS en el entorno de WordPress, era necesario reevaluar la ruta dinámica sin barra final (`/blog`) para confirmar la erradicación del problema de *Mixed Content*.
+
+**Hecho:** Se ejecutó una nueva auditoría externa con Google PageSpeed Insights sobre la URL conflictiva.
+
+**Detalle técnico:** WordPress resolvió la redirección 301 hacia la ruta canónica preservando el esquema HTTPS. Se certificó la recuperación de la puntuación en "Mejores Prácticas", logrando un Cuádruple 100 perfecto (Rendimiento, Accesibilidad, Mejores Prácticas, SEO) bajo simulación móvil 4G, reteniendo un TBT (Total Blocking Time) de 0 ms.
+
+**Motivo / criterio:** *QA Assurance (Aseguramiento de Calidad)*. Cerrar el ciclo de depuración validando empíricamente que el parche a nivel de código de aplicación elimina la penalización del motor de búsqueda sin generar efectos secundarios en el rendimiento.
+
+**Siguiente paso o deuda:** Iniciar los hitos de la Fase 11 (Lighthouse CI y compilación en la nube).
+
 ### 2026-05-02 — Fix: Prevención de redirecciones inseguras (Mixed Content) por Ceguera de Proxy
 
 **Contexto:** Una auditoría de PageSpeed Insights penalizó la puntuación de "Mejores Prácticas" (81/100) al detectar una solicitud no segura (HTTP). El análisis reveló que al solicitar una URL sin barra final (`/blog`), WordPress generaba una redirección canónica hacia HTTP en lugar de HTTPS.
@@ -49,7 +61,7 @@ Copia el bloque y rellénalo.
 
 **Motivo / criterio:** *Security & Shift-Left Routing*. Prevenir las degradaciones de protocolo (Mixed Content) protege la integridad de las sesiones de los usuarios y restablece el 100/100 en las métricas de calidad de Google, solucionando la penalización de forma agnóstica al proveedor de hosting.
 
-**Siguiente paso o deuda:** Iniciar los hitos de la Fase 11 (Lighthouse CI y compilación en la nube).
+**Siguiente paso o deuda:** Iniciar los hitos de la Fase 11 (Lighthouse CI y compilación en la nube).   
 
 ### 2026-05-02 — Fix: Degradación elegante por ausencia de API Key (Fail Gracefully)
 
