@@ -37,6 +37,14 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Fix: Reubicación del workflow de GitHub Actions
+
+**Contexto:** El workflow `Merci Audit CI` no se ejecutaba en la nube tras el *push*. Se diagnosticó que el archivo YAML fue guardado en el directorio incorrecto (`laboratorio/`).
+
+**Hecho:** Se movió el archivo `audit.yml` a la ruta estricta obligatoria `.github/workflows/audit.yml`.
+
+**Motivo / criterio:** *Convenciones de CI/CD*. GitHub Actions solo escanea y ejecuta los archivos de declaración de *pipelines* si residen exactamente en la carpeta oculta `.github/workflows/` de la raíz del repositorio.
+
 ### 2026-05-02 — Arch: Inicio de Fase 11 (CI/CD) y primer Workflow de GitHub Actions
 
 **Contexto:** Tras finalizar la Fase 8, se requiere trasladar las políticas de seguridad y calidad (Shift-Left) locales hacia la nube, garantizando que ninguna contribución externa ni salto accidental de hooks locales rompa la arquitectura del repositorio público.
