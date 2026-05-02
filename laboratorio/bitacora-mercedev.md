@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Docs: Gobernanza Open Source (Issue Templates)
+
+**Contexto:** Al abrir el Boilerplate a la comunidad o colaborar con otros desarrolladores, se corre el riesgo de recibir reportes de errores desestructurados que no aportan contexto arquitectónico ni pasos de reproducción, generando fricción operativa.
+
+**Hecho:**
+- Se crearon las plantillas de contribución `bug_report.md` y `feature_request.md` en el directorio estandarizado `.github/ISSUE_TEMPLATE/`.
+
+**Detalle técnico:** Las plantillas utilizan Markdown con YAML Frontmatter (reconocido nativamente por GitHub) para pre-configurar etiquetas (`bug`, `enhancement`) y prefijos de commits convencionales (`fix:`, `feat:`). Su estructura obliga a quien reporta a utilizar la nomenclatura del proyecto (El Desafío / La Maniobra).
+
+**Motivo / criterio:** *Gobernanza y Fricción Cero*. Estandarizar la entrada de información (Inbound) educa a los colaboradores en la filosofía del proyecto desde el minuto uno. Exigir contexto, entorno y justificación arquitectónica separa las contribuciones valiosas del ruido, manteniendo la higiene del repositorio.
+
+**Siguiente paso o deuda:** Crear la plantilla para Pull Requests (`PULL_REQUEST_TEMPLATE.md`) y dar por consolidada la gobernanza del repositorio.
+
 ### 2026-05-02 — Arch: Aceptación de deuda técnica externa en GitHub Actions (Node 20)
 
 **Contexto:** Tras inyectar la variable de entorno para forzar Node.js 24, el runner de GitHub Actions continuó emitiendo la advertencia de deprecación sobre las acciones `checkout@v4` y `setup-python@v5`.
