@@ -37,6 +37,30 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Arch: Resolución dinámica de IDs multi-entorno en Headless CMS
+
+**Contexto:** Al intentar publicar los artículos en el servidor de producción, se evidenció que los archivos Markdown locales contenían atributos `wp_id` asociados a la base de datos de localhost, provocando colisiones de entorno al apuntar el script a la API REST de producción.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-wp.py` para implementar búsqueda dinámica de existencia por `slug`.
+
+**Detalle técnico:** Se inyectó la función `obtener_id_por_slug()`. Antes de realizar el POST/PUT, el script interroga al WordPress de destino. Si el artículo ya existe en ese servidor, asume el ID remoto (`entorno_id`), ignorando el `wp_id` escrito en el YAML local.
+
+**Motivo / criterio:** *Dev/Prod Parity (Multi-entorno)*. Depender de un único ID estático en el archivo acopla el código a una sola base de datos. La resolución dinámica permite que el mismo archivo Markdown se sincronice indistintamente contra Localhost, Staging o Producción sin corromper las bases de datos de destino.
+
+### 2026-05-02 — Docs: Release v1.3.0 del Boilerplate y Cierre de Fase 8
+
+**Contexto:** Tras consolidar la paridad absoluta entre el motor SSG y el Headless CMS (generación de PDFs, extracción de resúmenes y SSOT de slugs) y fortificar la documentación contra "posts fantasma" (Data Drift), era imperativo empaquetar estos avances antes de iniciar nuevas lógicas de desarrollo.
+
+**Hecho:**
+- Se ejecutó el Release Pipeline exportando el código limpio al repositorio `merci-boilerplate`.
+- Se da por concluida oficialmente la Fase 8 (Expansión de Contenido y Contexto Inteligente).
+
+**Detalle técnico:** La ejecución del orquestador destructivo `merci-init.py` ascendió los *Shadow Docs* actualizados (README v1.3.0 y el nuevo SOP maestro público) y purgó con éxito todos los borradores residuales, garantizando un ecosistema inmaculado para los usuarios del Boilerplate.
+
+**Motivo / criterio:** *Release Management y Zero Technical Debt*. Aplicar el cierre formal de fase (Definition of Done) exige liberar el ecosistema de "deuda de despliegue". Iniciar el desarrollo de la Fase 9 o Fase 11 sobre un código base no sincronizado con su plantilla matriz es una práctica propensa a crear bifurcaciones problemáticas.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9 (Inteligencia y Autonomía) o Fase 11 (CI/CD Cloud).
+
 ### 2026-05-02 — Docs: Reubicación y ampliación del SOP de Publicación Dual
 
 **Contexto:** Tras el incidente de los posts fantasma (Data Drift) por borrado manual de archivos, se evidenció que las reglas de publicación son críticas no solo para el proyecto matriz, sino para cualquier usuario futuro del Boilerplate.
