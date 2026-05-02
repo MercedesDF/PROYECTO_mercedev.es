@@ -1,9 +1,13 @@
-# Merci Boilerplate v1.5.0
+# Merci Boilerplate v1.5.1
 
 Un entorno web híbrido, minimalista y seguro desde el diseño (Shift-Left). 
 Combina un núcleo estático ultrarrápido (HTML5, SASS, Vanilla JS y BEM (Block, Element, Modifier - Modificador de Elemento de Bloque)) con un motor dinámico aislado (WordPress). Diseñado para alcanzar un rendimiento perfecto (Core Web Vitals 100/100) y operar con 0 dependencias externas en el frontend.
 
 > 📖 **Historia y Arquitectura:** La justificación de las decisiones DevSecOps, el aislamiento del CMS y los manuales operativos se encuentran en la carpeta `/docs`.
+
+## 🚀 Novedades en la v1.5.1 (Hotfix Out-of-the-Box)
+
+- **Fail-Gracefully en Lóbulo Frontal:** El orquestador de Inteligencia Artificial (`merci-brain.py`) ya no detiene el pipeline maestro si el usuario no ha configurado una clave API de Gemini. En su lugar, emite una advertencia informativa y permite al asistente Merci operar con sus respuestas genéricas por defecto (Degradación Elegante desde el commit cero).
 
 ## 🚀 Novedades en la v1.5.0 (Shift-Left AI y Autonomía)
 

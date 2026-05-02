@@ -174,7 +174,9 @@ if __name__ == "__main__":
     api_key = cargar_api_key()
     
     if not api_key:
-        sys.exit("❌ Error: GEMINI_API_KEY no encontrada en tu archivo .env seguro.")
+        print("  ⚠️ WARN: GEMINI_API_KEY no encontrada en el archivo .env.")
+        print("  ℹ️  El asistente Merci utilizará sus respuestas genéricas por defecto.")
+        sys.exit(0)
         
     modelo_activo = auto_descubrir_modelo(api_key)
     print(f"  📡 Conectando a la red neuronal (Modelo auto-descubierto: {modelo_activo})...")

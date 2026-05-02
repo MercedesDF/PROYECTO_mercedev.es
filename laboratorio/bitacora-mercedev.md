@@ -37,6 +37,21 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Arch: White-labeling y Guillotina Opcional para IA en Boilerplate
+
+**Contexto:** El módulo de Inteligencia Artificial ("Merci") estaba fuertemente acoplado a la marca personal de la autora. Distribuir el Boilerplate con este avatar por defecto generaría intrusión de marca e hinchazón de código para usuarios que solo desearan un generador estático purista.
+
+**Hecho:**
+- Se implementó un prompt condicional (Opt-Out) en `scripts/merci/merci-init.py`.
+- Se programó una rutina de "Marca Blanca" que neutraliza los textos y prompts del avatar.
+- Se programó una rutina de "Amputación Quirúrgica" que elimina atómicamente el módulo IA (SASS, Vanilla JS, Python y llamadas HTML) si el usuario lo rechaza.
+
+**Detalle técnico:** El script de instanciación emplea expresiones regulares (`re.sub`) para inyectarse en el código de `merci-total.py` y `merci-publish.py`, erradicando no solo los archivos físicos (`merci-brain.py`, `MerciController.js`), sino también cualquier línea de importación, función o variable enlazada a ellos, asegurando que el pipeline resultante compile sin errores.
+
+**Motivo / criterio:** *Separation of Concerns* y *Zero Bloat*. Un Boilerplate debe entregar valor sin imponer identidad. Permitir la amputación total del módulo IA empodera al usuario final, manteniendo el proyecto base ultra-ligero y fiel a la promesa de "0 dependencias" reales, mientras preserva la propiedad intelectual (Marca) de la autora original.
+
+**Siguiente paso o deuda:** Desplegar el Boilerplate v1.5.0 actualizado con la nueva guillotina opcional.
+
 ### 2026-05-02 — Milestone: Cierre de Fase 9 y Validación del Definition of Done
 
 **Contexto:** Finalizar formalmente la Fase 9 (Inteligencia y Autonomía) garantizando la higiene absoluta del repositorio antes de empaquetar el motor de IA en la Release v1.5.0 y retomar la Fase 11.
