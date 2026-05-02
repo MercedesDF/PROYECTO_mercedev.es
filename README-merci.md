@@ -1,9 +1,14 @@
-# Merci Boilerplate v1.3.1
+# Merci Boilerplate v1.4.0
 
 Un entorno web híbrido, minimalista y seguro desde el diseño (Shift-Left). 
 Combina un núcleo estático ultrarrápido (HTML5, SASS, Vanilla JS y BEM (Block, Element, Modifier - Modificador de Elemento de Bloque)) con un motor dinámico aislado (WordPress). Diseñado para alcanzar un rendimiento perfecto (Core Web Vitals 100/100) y operar con 0 dependencias externas en el frontend.
 
 > 📖 **Historia y Arquitectura:** La justificación de las decisiones DevSecOps, el aislamiento del CMS y los manuales operativos se encuentran en la carpeta `/docs`.
+
+## 🚀 Novedades en la v1.4.0 (Gobernanza y CI/CD en la nube)
+
+- **Integración Continua (CI):** Añadido flujo de trabajo automatizado con GitHub Actions (`.github/workflows/audit.yml`). La auditoría estricta de seguridad y calidad (Shift-Left) se ejecuta ahora automáticamente en la nube en cada *push* o *pull request*, forzando el uso de Node.js 24.
+- **Gobernanza Open Source:** Incorporación de *Issue Templates* (Bug Report, Feature Request) y *Pull Request Template* estandarizadas bajo la estructura de 3 átomos (Desafío, Maniobra, Criterio), exigiendo validación estricta y limitando la fricción de mantenimiento.
 
 ## 🚀 Novedades en la v1.3.1 (Paridad Dev/Prod y Proxy Bypass)
 

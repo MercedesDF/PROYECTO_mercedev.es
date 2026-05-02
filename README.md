@@ -298,14 +298,14 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 ### Fase 11 - Integración Continua y Calidad en la Nube (CI/CD)
 
 #### 11.1 Automatización Cloud (GitHub Actions)
-- [ ] Implementar flujos de GitHub Actions para automatizar `merci-audit` en cada Pull Request.
+- [x] Implementar flujos de GitHub Actions para automatizar `merci-audit` en cada Pull Request.
 - [ ] Automatizar la compilación SSG (`merci-publish`) directamente en el servidor de despliegue.
 
 #### 11.2 Monitorización de Rendimiento
 - [ ] Integrar Lighthouse CI para garantizar que ninguna actualización degrade el 100/100 en Core Web Vitals.
 
 #### 11.3 Gobernanza Open Source
-- [ ] Configurar *Issue Templates* y *Pull Request Templates* para estandarizar las contribuciones en repositorios públicos.
+- [x] Configurar *Issue Templates* y *Pull Request Templates* para estandarizar las contribuciones en repositorios públicos.
 
 ## Licencia
 

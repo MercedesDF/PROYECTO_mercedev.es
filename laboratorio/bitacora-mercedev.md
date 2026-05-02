@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Docs: Release v1.4.0 del Boilerplate (CI/CD y Gobernanza)
+
+**Contexto:** Tras integrar GitHub Actions y las plantillas de contribución (Fase 11), el ecosistema base adquirió capacidades de infraestructura en la nube. Era imperativo exportar estas mejoras al repositorio público para que los futuros usuarios hereden el pipeline de integración continua desde el inicio.
+
+**Hecho:**
+- Se actualizó `README-merci.md` a la versión `v1.4.0` documentando las novedades de nube y gobernanza.
+- Se actualizaron los hitos de la Fase 11 en el `README.md` matriz.
+- Se ejecutó el Release Pipeline hacia el repositorio derivado `merci-boilerplate`.
+
+**Motivo / criterio:** *Configuration Drift (Deriva de Configuración)*. Todo componente de infraestructura agnóstico (como `.github/`) pertenece al producto base. Aplicar la Regla 14 de actualización iterativa asegura que el proyecto hijo posea un servidor de CI en la nube preconfigurado ("Out of the Box").
+
+**Siguiente paso o deuda:** Finalizar los últimos hitos de la Fase 11 (Lighthouse CI) o dar el salto definitivo a la Fase 9 (Inteligencia y Autonomía).
+
 ### 2026-05-02 — Docs: Gobernanza Open Source (Pull Request Template)
 
 **Contexto:** Tras estandarizar el reporte de *Issues*, era necesario establecer una barrera de calidad para las contribuciones de código (Pull Requests) entrantes, asegurando que los colaboradores respeten la auditoría local y la filosofía del proyecto antes de solicitar una integración.
