@@ -42,8 +42,8 @@ Copia el bloque y rellénalo.
 **Contexto:** Tras inyectar la variable de entorno para forzar Node.js 24, el runner de GitHub Actions continuó emitiendo la advertencia de deprecación sobre las acciones `checkout@v4` y `setup-python@v5`.
 
 **Hecho:**
-- Constatar que el proyecto matriz no utiliza Node.js en su ecosistema.
-- Desestimar la advertencia, asumiéndola como deuda técnica de infraestructura externa.
+- Se constató que el proyecto matriz no utiliza Node.js en su ecosistema.
+- Se desestimó la advertencia, asumiéndola como deuda técnica de infraestructura externa.
 
 **Detalle técnico:** El aviso proviene del código interno con el que GitHub programó los *runners* oficiales. Hasta que la plataforma no publique nuevas versiones mayores de estas acciones, la advertencia persistirá a nivel de servidor sin afectar la ejecución.
 
@@ -56,7 +56,7 @@ Copia el bloque y rellénalo.
 **Contexto:** Tras la ejecución exitosa del primer workflow de GitHub Actions, el servidor emitió una advertencia (Warning) indicando que las acciones `checkout@v4` y `setup-python@v5` utilizan Node.js 20, el cual será descontinuado próximamente.
 
 **Hecho:**
-- Inyectar la variable de entorno `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` a nivel global en `.github/workflows/audit.yml`.
+- Se inyectó la variable de entorno `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` a nivel global en `.github/workflows/audit.yml`.
 
 **Detalle técnico:** Forzar el uso de Node.js 24 adelanta la compatibilidad del pipeline y silencia la advertencia de obsolescencia que emite el runner de GitHub, asegurando un reporte de auditoría inmaculado (cero advertencias).
 
@@ -77,8 +77,8 @@ Copia el bloque y rellénalo.
 **Contexto:** Tras finalizar la Fase 8, se requiere trasladar las políticas de seguridad y calidad (Shift-Left) locales hacia la nube, garantizando que ninguna contribución externa ni salto accidental de hooks locales rompa la arquitectura del repositorio público.
 
 **Hecho:**
-- Iniciar formalmente la Fase 11 (Integración Continua y Calidad en la Nube).
-- Diseñar el primer flujo de GitHub Actions (`.github/workflows/audit.yml`) para automatizar la ejecución de `merci-audit.py`.
+- Se inició formalmente la Fase 11 (Integración Continua y Calidad en la Nube).
+- Se diseñó el primer flujo de GitHub Actions (`.github/workflows/audit.yml`) para automatizar la ejecución de `merci-audit.py`.
 
 **Detalle técnico:** El workflow se configura para reaccionar ante eventos `push` y `pull_request` sobre la rama `main`. Levanta un contenedor virtual Ubuntu, instala Python 3.10 y ejecuta la auditoría estricta (`--strict-json-ld`). Si el script de Python devuelve un código de salida `1` (Error), GitHub marcará el commit con una cruz roja y bloqueará la integración del código.
 
@@ -90,7 +90,7 @@ Copia el bloque y rellénalo.
 
 **Contexto:** Finalizar formalmente la Fase 8 (Expansión de Contenido y Contexto Inteligente) garantizando la higiene absoluta del repositorio antes de iniciar la orquestación en la nube (Fase 11).
 
-**Hecho:** Ejecutar y superar el Protocolo Estricto de Cierre de Fase:
+**Hecho:** Se ejecutó y superó el Protocolo Estricto de Cierre de Fase:
 - [x] **1. Deuda Técnica:** 0 TODOs pendientes. Rendimiento 100/100 retenido en vistas dinámicas.
 - [x] **2. Cosecha de Conocimiento:** Cuadernillo sobre Ceguera de Proxy extraído y promovido.
 - [x] **3. Auditoría Documental:** `README.md` actualizado reflejando el SSOT por Slug y el escudo Anti-Proxy.
@@ -109,9 +109,9 @@ Copia el bloque y rellénalo.
 **Contexto:** La función Bash `merci` original era rígida y no permitía pasar argumentos adicionales (flags como `-v` o rutas de archivos) a los scripts subyacentes, limitando el uso de herramientas dinámicas como el orquestador de backups o el publicador de WordPress.
 
 **Hecho:**
-- Actualizar el cuadernillo `Alias Inteligentes-bitacora.md` a su versión 2.0.
-- Documentar la inyección de la variable `${@:2}` para admitir parámetros infinitos.
-- Añadir la instrucción de recarga en caliente de la terminal (`source ~/.zshrc`).
+- Se actualizó el cuadernillo `Alias Inteligentes-bitacora.md` a su versión 2.0.
+- Se documentó la inyección de la variable `${@:2}` para admitir parámetros infinitos.
+- Se añadió la instrucción de recarga en caliente de la terminal (`source ~/.zshrc`).
 
 **Detalle técnico:** La variable de expansión `${@:2}` captura todos los argumentos a partir del segundo y los traslada al script de Python. Se utilizó el flujo de trabajo estándar (Kill-Switch) para degradar el cuadernillo a borrador en el laboratorio, aplicar el bloque de conocimiento y volver a promoverlo a la biblioteca mediante `merci-promote.py`.
 
@@ -123,7 +123,7 @@ Copia el bloque y rellénalo.
 
 **Contexto:** Tras erradicar los "posts zombis" de la base de datos local y refactorizar el publicador Headless (`merci-wp.py`) para utilizar resolución dinámica por slug, era imperativo certificar que la arquitectura seguía rindiendo al máximo nivel en producción.
 
-**Hecho:** Ejecutar auditoría externa de Google PageSpeed Insights sobre la ruta dinámica de WordPress `/blog/category/art-de-cote/` bajo simulación de red móvil 4G.
+**Hecho:** Se ejecutó una auditoría externa de Google PageSpeed Insights sobre la ruta dinámica de WordPress `/blog/category/art-de-cote/` bajo simulación de red móvil 4G.
 
 **Detalle técnico:** Se logró una puntuación perfecta (100 Rendimiento, 100 Accesibilidad, 100 Mejores Prácticas, 100 SEO). Las métricas Core Web Vitals se mantienen inmaculadas: FCP 0.8s, LCP 1.1s, TBT 0ms y CLS 0. La corrección WAI-ARIA de enlaces de tarjetas y la purga de dependencias JS bloqueantes se validaron con éxito.
 
@@ -135,7 +135,7 @@ Copia el bloque y rellénalo.
 
 **Contexto:** La complejidad alcanzada por el publicador Headless (`merci-wp.py`) requería blindar el conocimiento de sus funciones contra futuras refactorizaciones.
 
-**Hecho:** Estandarizar los docstrings y comentarios internos de `scripts/merci/merci-wp.py` siguiendo el formato "QUÉ HACE" y "POR QUÉ".
+**Hecho:** Se estandarizaron los docstrings y comentarios internos de `scripts/merci/merci-wp.py` siguiendo el formato "QUÉ HACE" y "POR QUÉ".
 
 **Detalle técnico:** Explicar explícitamente decisiones como el parseo nativo de YAML, la inyección dual de credenciales y el uso de `slugify`.
 
@@ -146,8 +146,8 @@ Copia el bloque y rellénalo.
 **Contexto:** El uso de un `wp_id` inyectado en el YAML local provocaba errores 404 al intentar actualizar artículos tras cambiar el entorno de localhost a producción, ya que los IDs de la base de datos no coincidían y el script intentaba actualizar un ID inexistente.
 
 **Hecho:**
-- Eliminar la lectura e inyección de `wp_id` en el script `merci-wp.py`.
-- Implementar la función `obtener_id_por_slug()` para interrogar a la API REST de destino.
+- Se eliminó la lectura e inyección de `wp_id` en el script `merci-wp.py`.
+- Se implementó la función `obtener_id_por_slug()` para interrogar a la API REST de destino.
 
 **Detalle técnico:** En lugar de depender del ID local, el script utiliza el nombre del archivo (`target_path.stem`) para preguntar "¿Existe un post con este slug en este entorno?". Si existe, captura su ID remoto temporalmente en memoria y ejecuta un `PUT`; si no, ejecuta un `POST`.
 
@@ -157,7 +157,7 @@ Copia el bloque y rellénalo.
 
 **Contexto:** Nginx en CloudPanel devolvía errores 404/403 al intentar interrogar la API REST de WordPress para buscar categorías (ej. `?search=Blog`).
 
-**Hecho:** Inyectar la cabecera `User-Agent: Merci-Boilerplate-Agent/1.0` en todas las peticiones HTTP dentro de `merci-wp.py`.
+**Hecho:** Se inyectó la cabecera `User-Agent: Merci-Boilerplate-Agent/1.0` en todas las peticiones HTTP dentro de `merci-wp.py`.
 
 **Detalle técnico:** Los firewalls (WAF) y proxies de alto rendimiento bloquean automáticamente agentes de usuario genéricos de librerías como `Python-urllib` asumiendo que son bots maliciosos de *scraping*. 
 
@@ -168,8 +168,8 @@ Copia el bloque y rellénalo.
 **Contexto:** WordPress en producción ocultaba la opción para generar Contraseñas de Aplicación, asumiendo falsamente que el entorno era inseguro (HTTP), a pesar de que CloudPanel servía la web por HTTPS validado.
 
 **Hecho:**
-- Inyectar temporalmente `$_SERVER['HTTPS'] = 'on';` en `wp-config.php` de producción.
-- Ante la agresividad de OPcache/FastCGI sobrescribiendo variables globales, recurrir a la extracción directa de la credencial mediante terminal usando WP-CLI (`wp user application-password create`).
+- Se inyectó temporalmente `$_SERVER['HTTPS'] = 'on';` en `wp-config.php` de producción.
+- Ante la agresividad de OPcache/FastCGI sobrescribiendo variables globales, se recurrió a la extracción directa de la credencial mediante terminal usando WP-CLI (`wp user application-password create`).
 
 **Detalle técnico:** CloudPanel termina la conexión SSL (offloading) en Nginx y pasa el tráfico interno a PHP por HTTP normal. WP detecta HTTP en entorno de producción y, por seguridad nativa innegociable, bloquea la API de contraseñas. Extraer la clave por terminal salta completamente el servidor web y dialoga directamente con el motor de base de datos.
 
@@ -180,8 +180,8 @@ Copia el bloque y rellénalo.
 **Contexto:** Al apuntar el publicador Headless (`merci-wp.py`) a producción, el proxy inverso CloudPanel/Varnish interceptaba y purgaba la cabecera HTTP estándar `Authorization: Basic`, desnudando la petición y provocando que WP la rechazara con un error 401 Unauthorized.
 
 **Hecho:**
-- Implementar un envío dual de credenciales en Python inyectando una cabecera personalizada gemela (`X-Authorization`).
-- Inyectar un parche en `src/wp-theme/merci-theme/functions.php` para restaurar la cabecera oficial en el servidor: `$_SERVER['HTTP_AUTHORIZATION'] = $_SERVER['HTTP_X_AUTHORIZATION']`.
+- Se implementó un envío dual de credenciales en Python inyectando una cabecera personalizada gemela (`X-Authorization`).
+- Se inyectó un parche en `src/wp-theme/merci-theme/functions.php` para restaurar la cabecera oficial en el servidor: `$_SERVER['HTTP_AUTHORIZATION'] = $_SERVER['HTTP_X_AUTHORIZATION']`.
 
 **Detalle técnico:** Los proxies de alto rendimiento están configurados para no cachear peticiones con `Authorization` o purgarla por seguridad. Las cabeceras personalizadas (`X-*`) no son filtradas y atraviesan Varnish intactas. Al llegar a PHP, el filtro de nuestro tema restaura la variable global en memoria justo antes de que WP valide al usuario.
 
@@ -191,7 +191,7 @@ Copia el bloque y rellénalo.
 
 **Contexto:** Se necesitaba un flujo de trabajo que permitiera publicar el mismo archivo Markdown primero en localhost (para pruebas y QA) y luego en producción, sin mezclar credenciales ni alterar el código fuente de los automatismos en Python.
 
-**Hecho:** Consolidar el uso del archivo `.env` local como un "Conmutador de Vías".
+**Hecho:** Se consolidó el uso del archivo `.env` local como un "Conmutador de Vías".
 
 **Detalle técnico:** El archivo `.env` ahora alberga bloques comentados (`#`) independientes para cada entorno (Localhost y Producción). Alternar los comentarios redefine dinámicamente hacia qué servidor apuntan las peticiones de `merci-wp.py`.
 
@@ -201,7 +201,7 @@ Copia el bloque y rellénalo.
 
 **Contexto:** Al intentar publicar los artículos en el servidor de producción, se evidenció que los archivos Maqrkdown locales contenían atributos `wp_id` asociados a la base de datos de localhost, provocando colisiones de entorno al apuntar el script a la API REST de producción.
 
-**Hecho:** Refactorizar `scripts/merci/merci-wp.py` para implementar búsqueda dinámica de existencia por `slug`.
+**Hecho:** Se refactorizó `scripts/merci/merci-wp.py` para implementar búsqueda dinámica de existencia por `slug`.
 
 **Detalle técnico:** Inyectar la función `obtener_id_por_slug()`. Antes de realizar el POST/PUT, el script interroga al WordPress de destino. Si el artículo ya existe en ese servidor, asume el ID remoto (`entorno_id`), ignorando el `wp_id` escrito en el YAML local.
 
@@ -212,8 +212,8 @@ Copia el bloque y rellénalo.
 **Contexto:** Tras consolidar la paridad absoluta entre el motor SSG y el Headless CMS (generación de PDFs, extracción de resúmenes y SSOT de slugs) y fortificar la documentación contra "posts fantasma" (Data Drift), era imperativo empaquetar estos avances antes de iniciar nuevas lógicas de desarrollo.
 
 **Hecho:**
-- Ejecutar el Release Pipeline exportando el código limpio al repositorio `merci-boilerplate`.
-- Dar por concluida oficialmente la Fase 8 (Expansión de Contenido y Contexto Inteligente).
+- Se ejecutó el Release Pipeline exportando el código limpio al repositorio `merci-boilerplate`.
+- Se dio por concluida oficialmente la Fase 8 (Expansión de Contenido y Contexto Inteligente).
 
 **Detalle técnico:** Ejecutar el orquestador destructivo `merci-init.py` para ascender los *Shadow Docs* actualizados (README v1.3.0 y el nuevo SOP maestro público) y purgar con éxito todos los borradores residuales, garantizando un ecosistema inmaculado para los usuarios del Boilerplate.
 
@@ -226,8 +226,8 @@ Copia el bloque y rellénalo.
 **Contexto:** Tras el incidente de los posts fantasma (Data Drift) por borrado manual de archivos, se evidenció que las reglas de publicación son críticas no solo para el proyecto matriz, sino para cualquier usuario futuro del Boilerplate.
 
 **Hecho:**
-- Mover el archivo `flujo-publicacion-sop.md` desde el directorio privado `docs/matriz/` hacia el directorio público `docs/`.
-- Añadir la "Regla de Oro" sobre la Prevención de Posts Fantasma, prohibiendo el borrado manual de archivos `.md` sincronizados sin antes aplicar el Kill-Switch (`estado: "borrador"`).
+- Se movió el archivo `flujo-publicacion-sop.md` desde el directorio privado `docs/matriz/` hacia el directorio público `docs/`.
+- Se añadió la "Regla de Oro" sobre la Prevención de Posts Fantasma, prohibiendo el borrado manual de archivos `.md` sincronizados sin antes aplicar el Kill-Switch (`estado: "borrador"`).
 
 **Motivo / criterio:** *Knowledge Export (Exportación de Conocimiento)*. Las mecánicas de sincronización Headless y SSG son el núcleo funcional del producto. Restringir este manual a la matriz ocultaría al usuario final del Boilerplate cómo utilizar el ecosistema de forma segura, provocándoles la misma deuda técnica de desincronización que acabamos de sufrir.
 
@@ -237,7 +237,7 @@ Copia el bloque y rellénalo.
 
 **Contexto:** El orquestador `merci-total` falló en la etapa de rastreo de enlaces (`merci-linkcheck.py`) reportando un 404 en el PDF de `mi-primer-post-automatizado`. El archivo Markdown original había sido eliminado localmente sin pasar por el proceso de despublicación formal.
 
-**Hecho:** Purgar manualmente la entrada residual desde el panel de administración de WordPress local.
+**Hecho:** Se purgó manualmente la entrada residual desde el panel de administración de WordPress local.
 
 **Detalle técnico:** El script `merci-publish.py` borra la carpeta `descargas/` (Clean Build). Posteriormente, `merci-wp.py` genera PDFs solo para los archivos `.md` existentes en el directorio. Al no existir el archivo local, su PDF no se regenera, pero como WordPress nunca recibió la orden REST de borrarlo, el CMS continuaba sirviendo el post público con un enlace a un archivo inexistente.
 
