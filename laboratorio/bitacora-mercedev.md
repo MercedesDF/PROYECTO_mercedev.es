@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Arch: Aceptación de deuda técnica externa en GitHub Actions (Node 20)
+
+**Contexto:** Tras inyectar la variable de entorno para forzar Node.js 24, el runner de GitHub Actions continuó emitiendo la advertencia de deprecación sobre las acciones `checkout@v4` y `setup-python@v5`.
+
+**Hecho:**
+- Constatar que el proyecto matriz no utiliza Node.js en su ecosistema.
+- Desestimar la advertencia, asumiéndola como deuda técnica de infraestructura externa.
+
+**Detalle técnico:** El aviso proviene del código interno con el que GitHub programó los *runners* oficiales. Hasta que la plataforma no publique nuevas versiones mayores de estas acciones, la advertencia persistirá a nivel de servidor sin afectar la ejecución.
+
+**Motivo / criterio:** *Separation of Concerns*. En DevSecOps, es vital distinguir entre una vulnerabilidad del código propio y un aviso de mantenimiento de la infraestructura anfitriona. Al tener cero dependencias de Node.js en el proyecto, este aviso no impacta en la seguridad ni el rendimiento.
+
+**Siguiente paso o deuda:** Continuar con la configuración de Gobernanza Open Source (Issue Templates).
+
 ### 2026-05-02 — Fix: Resolución de advertencia de deprecación (Node.js 20) en GitHub Actions
 
 **Contexto:** Tras la ejecución exitosa del primer workflow de GitHub Actions, el servidor emitió una advertencia (Warning) indicando que las acciones `checkout@v4` y `setup-python@v5` utilizan Node.js 20, el cual será descontinuado próximamente.
