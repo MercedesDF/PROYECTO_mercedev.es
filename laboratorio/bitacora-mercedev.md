@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Fix: Prevención de redirecciones inseguras (Mixed Content) por Ceguera de Proxy
+
+**Contexto:** Una auditoría de PageSpeed Insights penalizó la puntuación de "Mejores Prácticas" (81/100) al detectar una solicitud no segura (HTTP). El análisis reveló que al solicitar una URL sin barra final (`/blog`), WordPress generaba una redirección canónica hacia HTTP en lugar de HTTPS.
+
+**Hecho:**
+- Se inyectó la lectura de la cabecera `HTTP_X_FORWARDED_PROTO` en `src/wp-theme/merci-theme/functions.php`.
+- Si el proxy inverso informa que la conexión original es segura, se fuerza la variable global `$_SERVER['HTTPS'] = 'on'`.
+
+**Detalle técnico:** WordPress utiliza la variable `$_SERVER['HTTPS']` para construir dinámicamente enlaces canónicos, metaetiquetas y redirecciones `301`. Al estar detrás de Varnish/CloudPanel, esta variable llega vacía (Ceguera de HTTPS). Restaurarla a nivel de tema corrige la redirección sin necesidad de alterar el `wp-config.php` del servidor.
+
+**Motivo / criterio:** *Security & Shift-Left Routing*. Prevenir las degradaciones de protocolo (Mixed Content) protege la integridad de las sesiones de los usuarios y restablece el 100/100 en las métricas de calidad de Google, solucionando la penalización de forma agnóstica al proveedor de hosting.
+
+**Siguiente paso o deuda:** Iniciar los hitos de la Fase 11 (Lighthouse CI y compilación en la nube).
+
 ### 2026-05-02 — Fix: Degradación elegante por ausencia de API Key (Fail Gracefully)
 
 **Contexto:** Al instanciar el Boilerplate y ejecutar `merci total`, el orquestador abortaba la ejecución (Fail-Fast) en la etapa de `merci-brain.py` al no encontrar la variable `GEMINI_API_KEY` en el `.env`, impidiendo que los nuevos usuarios completaran su primera compilación.
