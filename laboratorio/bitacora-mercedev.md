@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Fix: Búsqueda flexible de modelos Gemini por subcadenas (Quota 20)
+
+**Contexto:** El autodescubrimiento falló en encontrar la familia `1.5-flash` mediante coincidencia exacta, recayendo por defecto en el modelo experimental `2.5-flash`, el cual agotó su límite estricto de 20 peticiones diarias gratuitas en la primera compilación.
+
+**Hecho:**
+- Se refactorizó la función `auto_descubrir_modelo()` en `merci-brain.py` para usar coincidencia por subcadenas (`in`).
+
+**Detalle técnico:** Los proveedores de IA añaden sufijos de versión (ej. `-001`, `-002`) que rompen las validaciones estrictas. Iterar sobre un array de "familias" y buscar si la cadena está contenida en el nombre del modelo garantiza atrapar versiones estables que otorgan cuotas gratuitas altas (1500 RPM).
+
+**Motivo / criterio:** *Resiliencia de API*. Las integraciones con servicios de terceros deben ser lo suficientemente flexibles para soportar cambios menores en las nomenclaturas de sus *endpoints* sin romper la infraestructura de despliegue local.
+
+**Siguiente paso o deuda:** Conectar el frontend (`MerciController.js`) al archivo generado una vez finalizado el escaneo.
+
 ### 2026-05-02 — Fix: Exclusión de modelo experimental (Quota limit 0) en Gemini
 
 **Contexto:** Al intentar procesar los últimos artículos, la API de Gemini devolvió un error `HTTP 429` indicando que el límite de cuota era `0` para el modelo `gemini-2.0-flash`, bloqueando la generación estática.

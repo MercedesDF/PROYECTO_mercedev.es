@@ -53,10 +53,12 @@ def auto_descubrir_modelo(api_key):
                 if "generateContent" in m.get("supportedGenerationMethods", [])
                 and "gemini" in m.get("name", "").lower()
             ]
-            # Excluimos 2.0-flash experimental por tener limit: 0 en algunas capas gratuitas. Usamos 1.5-flash.
-            for pref in ["gemini-1.5-flash", "gemini-1.5-flash-8b", "gemini-1.5-pro", "gemini-pro"]:
-                if pref in validos: return pref
-            return validos[0] if validos else "gemini-pro"
+            # Búsqueda flexible por subcadena para atrapar sufijos (-001, -002) y garantizar cuota de 1500/día
+            for familia in ["1.5-flash", "1.5-pro", "2.0-flash"]:
+                for v in validos:
+                    if familia in v: return v
+            # Si no encuentra ninguna familia prioritaria, coge la última para evitar las experimentales recientes
+            return validos[-1] if validos else "gemini-pro"
     except Exception:
         return "gemini-pro"
 
