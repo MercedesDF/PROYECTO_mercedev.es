@@ -266,3 +266,10 @@ function merci_filtrar_feed_principal($query) {
 }
 // Enganchamos nuestra función al 'hook' de WordPress que se dispara antes de obtener los posts.
 add_action( 'pre_get_posts', 'merci_filtrar_feed_principal' );
+
+// ===================================================
+// PARCHE DEVSECOPS: Forzar Contraseñas de Aplicación
+// Anula cualquier bloqueo interno de WP o plugins que 
+// impida generar contraseñas para la API REST.
+// ===================================================
+add_filter( 'wp_is_application_passwords_available', '__return_true' );
