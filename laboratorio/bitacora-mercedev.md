@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Feat: Integración de Shift-Left AI en Vanilla JS (MerciController)
+
+**Contexto:** Con el archivo estático `brain_data.json` compilado por el lóbulo frontal en Python, se requería conectar este "cerebro" a la interfaz de usuario de Merci sin bloquear la renderización de la página ni requerir recargas.
+
+**Hecho:**
+- Se refactorizó `MerciController.js` para cargar asíncronamente el archivo JSON mediante la API `fetch`.
+- Se implementó la lógica de limpieza dinámica para los mensajes de contingencia (`[Fallback]`).
+
+**Detalle técnico:** El controlador carga primero la base de conocimientos estándar (`_loadStandardKnowledgeBase()`) para garantizar que la interfaz responda inmediatamente (Fail-Safe). En segundo plano (`_connectBrain()`), realiza la petición asíncrona al JSON. Si el archivo existe y contiene una clave que coincide exactamente con `window.location.pathname`, el mensaje genérico se sobrescribe con la respuesta inteligente.
+
+**Motivo / criterio:** *Zero Latency & Progressive Enhancement*. Cargar el conocimiento por red en segundo plano (Ajax) asegura que el TBT (Total Blocking Time) siga en 0 ms. Al usar la lógica de sobrescritura, si el JSON falla, la web se degrada elegantemente hacia las respuestas nativas, garantizando una UX ininterrumpida.
+
+**Siguiente paso o deuda:** Integrar el lóbulo frontal (`merci-brain.py`) en el orquestador maestro (`merci-total.py`) para que la inteligencia artificial actualice sus conocimientos en cada compilación automática.
+
 ### 2026-05-02 — Arch: Degradación Elegante (Graceful Degradation) ante límites de API
 
 **Contexto:** La capa gratuita de Google AI Studio impuso un límite diario ineludible de 20 peticiones para los modelos más recientes, provocando que los últimos artículos del escaneo recibieran y guardaran un error `HTTP 429` como respuesta.
