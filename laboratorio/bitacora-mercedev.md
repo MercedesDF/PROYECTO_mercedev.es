@@ -37,6 +37,30 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Docs: Reubicación y ampliación del SOP de Publicación Dual
+
+**Contexto:** Tras el incidente de los posts fantasma (Data Drift) por borrado manual de archivos, se evidenció que las reglas de publicación son críticas no solo para el proyecto matriz, sino para cualquier usuario futuro del Boilerplate.
+
+**Hecho:**
+- Se movió el archivo `flujo-publicacion-sop.md` desde el directorio privado `docs/matriz/` hacia el directorio público `docs/`.
+- Se añadió la "Regla de Oro" sobre la Prevención de Posts Fantasma, prohibiendo el borrado manual de archivos `.md` sincronizados sin antes aplicar el Kill-Switch (`estado: "borrador"`).
+
+**Motivo / criterio:** *Knowledge Export (Exportación de Conocimiento)*. Las mecánicas de sincronización Headless y SSG son el núcleo funcional del producto. Restringir este manual a la matriz ocultaría al usuario final del Boilerplate cómo utilizar el ecosistema de forma segura, provocándoles la misma deuda técnica de desincronización que acabamos de sufrir.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9 (Inteligencia y Autonomía) o Fase 11 (CI/CD).
+
+### 2026-05-02 — Fix: Erradicación de posts fantasma (Data Drift) en Headless CMS
+
+**Contexto:** El orquestador `merci-total` falló en la etapa de rastreo de enlaces (`merci-linkcheck.py`) reportando un 404 en el PDF de `mi-primer-post-automatizado`. El archivo Markdown original había sido eliminado localmente sin pasar por el proceso de despublicación formal.
+
+**Hecho:** Se purgó manualmente la entrada residual desde el panel de administración de WordPress local.
+
+**Detalle técnico:** El script `merci-publish.py` borra la carpeta `descargas/` (Clean Build). Posteriormente, `merci-wp.py` solo genera PDFs para los archivos `.md` que existen actualmente en el directorio. Al no existir el archivo local, su PDF no se regenera, pero como WordPress nunca recibió la orden REST de borrarlo, el CMS continuaba sirviendo el post público con un enlace a un archivo inexistente.
+
+**Motivo / criterio:** *Higiene Headless y Data Drift*. En una arquitectura desacoplada y unidireccional, borrar un archivo fuente de producción manualmente provoca "posts zombis". La despublicación debe delegarse siempre al "Kill-Switch" automatizado (cambiar a `estado: "borrador"` y ejecutar `merci wp`) antes de borrar el fichero físico localmente.
+
+**Siguiente paso o deuda:** Iniciar la Fase 9 (Inteligencia de Merci) o Fase 11 (CI/CD).
+
 ### 2026-05-01 — Fix: Resolución de deriva de slugs (SSOT) entre SSG y Headless CMS
 
 **Contexto:** El rastreador local (`merci-linkcheck.py`) detuvo el pipeline reportando errores 404 en las descargas de PDFs de WordPress. Python generaba los PDFs basándose en el título crudo del Markdown, pero WordPress asignaba "slugs" distintos (ej. añadiendo `-2`) para evitar colisiones en su base de datos.
