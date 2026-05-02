@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-02 — Docs: Gobernanza Open Source (Pull Request Template)
+
+**Contexto:** Tras estandarizar el reporte de *Issues*, era necesario establecer una barrera de calidad para las contribuciones de código (Pull Requests) entrantes, asegurando que los colaboradores respeten la auditoría local y la filosofía del proyecto antes de solicitar una integración.
+
+**Hecho:**
+- Se creó el archivo `.github/PULL_REQUEST_TEMPLATE.md`.
+- Se incluyó un *checklist* de validación estricto (Shift-Left) en la plantilla.
+
+**Detalle técnico:** GitHub inyecta automáticamente el contenido de este archivo en la caja de descripción cada vez que un usuario abre un nuevo Pull Request. El checklist obliga al contribuyente a confirmar explícitamente que ha ejecutado `merci-audit.py` y que no ha inyectado dependencias externas.
+
+**Motivo / criterio:** *Gatekeeping y Shift-Left Quality*. Un repositorio público atrae contribuciones bienintencionadas pero a menudo desalineadas con la arquitectura (ej. uso de librerías NPM). El checklist actúa como una barrera psicológica y técnica que filtra el código ruidoso, protegiendo el tiempo de revisión de la mantenedora.
+
+**Siguiente paso o deuda:** Finalizar las herramientas de la Fase 11 o transicionar a la Inteligencia y Autonomía (Fase 9).
+
 ### 2026-05-02 — Docs: Gobernanza Open Source (Issue Templates)
 
 **Contexto:** Al abrir el Boilerplate a la comunidad o colaborar con otros desarrolladores, se corre el riesgo de recibir reportes de errores desestructurados que no aportan contexto arquitectónico ni pasos de reproducción, generando fricción operativa.
