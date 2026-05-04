@@ -37,6 +37,30 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-04 — Docs: Expansión del Roadmap (Fase 8.4 Identidad y Autoridad Técnica)
+
+**Contexto:** Tras modificar el posicionamiento en la portada (`index.html`) inyectando el nuevo enlace a `/sobre-mi/`, se generó un enlace roto (deuda técnica). Para evitar el desarrollo errático y el "Scope Creep", era obligatorio registrar formalmente los próximos pasos en el plan de proyecto antes de continuar escribiendo código.
+
+**Hecho:** 
+- Se inyectó la subfase `8.4 Identidad y Autoridad Técnica` en el `README.md`.
+- Se marcó la reescritura de la portada como completada y se listaron las tareas pendientes (propagación de menú y CV Semántico).
+
+**Motivo / criterio:** *Governance y Single Source of Truth (SSOT)*. Respetar la Regla 12 de las directrices: ninguna maniobra arquitectónica debe ejecutarse sin antes estar planificada. Esto garantiza que la deuda técnica quede trazada y el proyecto no pierda su integridad estructural.
+
+**Siguiente paso o deuda:** Sincronizar el nuevo enlace del menú en todas las plantillas (WordPress y estáticas) antes de proceder a la creación del HTML del CV semántico.
+
+### 2026-05-04 — Docs: Actualización de posicionamiento público y perfil arquitectónico
+
+**Contexto:** Tras una evaluación de la infraestructura y el "copy" del proyecto, se constató que la narrativa fundacional ("transición desde entorno no-dev") no reflejaba la madurez real de la arquitectura DevSecOps alcanzada. Era imperativo ajustar el perfil público y las directrices internas al nivel de una "AI Systems Architect" apoyada en el *Spec-Driven Development*.
+
+**Hecho:** 
+- Se actualizó el `README.md` eliminando la narrativa *junior* e inyectando la terminología técnica correcta (Decisiones de Arquitectura, Spec-Driven).
+- Se refactorizó el "Perfil del Asistente" en `instrucciones.md` para oficializar el modelo de Gobernanza (Mercedes como Arquitecta Directora, la IA como Ejecutor Táctico).
+
+**Motivo / criterio:** *Single Source of Truth y Brand Identity*. El código base (orquestadores DevSecOps en Python puro, SSG híbrido con Headless CMS, seguridad Shift-Left) exige una presentación documental alineada con su complejidad técnica. Mitigar el "síndrome del impostor documental" asegura que cualquier evaluador que clone el repositorio lo aborde desde la perspectiva correcta de ingeniería de software.
+
+**Siguiente paso o deuda:** Iniciar la reescritura del `public/index.html` bajo este nuevo prisma de autoridad técnica y consolidar la nueva UI/UX del portfolio.
+
 ### 2026-05-02 — QA: Validación de redirección segura y Cuádruple 100 en WP
 
 **Contexto:** Tras inyectar el escudo anti-proxy para forzar HTTPS en el entorno de WordPress, era necesario reevaluar la ruta dinámica sin barra final (`/blog`) para confirmar la erradicación del problema de *Mixed Content*.
@@ -1750,7 +1774,7 @@ Copia el bloque y rellénalo.
 
 ### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 
-**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-05-02.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
+**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-05-04.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
 
 **Hecho:** Se implementó una rutina de actualización automática en `scripts/merci/merci-commit.py` mediante expresiones regulares.
 
@@ -2687,4 +2711,4 @@ Copia el bloque y rellénalo.
 
 ---
 
-*Última revisión de la bitácora: 2026-05-02.*
+*Última revisión de la bitácora: 2026-05-04.*

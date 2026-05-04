@@ -1,10 +1,8 @@
 # mercedev.es
 
-Proyecto de Mercedes — transición desde entorno técnico no-dev 
-al desarrollo web. Construido con criterio, documentado por fases.
+Base de conocimiento y centro de operaciones DevSecOps de Mercedes. Arquitectura de software híbrida, Desarrollo Guiado por Especificaciones (Spec-Driven Development) y orquestación de Inteligencia Artificial bajo estrictos estándares de gobernanza.
 
-Repositorio del sitio **mercedev.es**: núcleo estático minimalista,
-biblioteca de conocimiento y automatización local (**Merci**).
+Repositorio del sitio **mercedev.es**: núcleo estático minimalista (100/100 Core Web Vitals), biblioteca de Decisiones de Arquitectura (ADRs) y automatización local en Python puro (**Sistema Merci**).
 
 ## Requisitos
 
@@ -282,6 +280,11 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Desarrollar publicador Headless (`merci-wp.py`) agnóstico al entorno (Local/Nube) con resolución dinámica por Slug y Proxy Bypass.
 - [x] Implementar automatización social para publicar entradas del blog directamente en LinkedIn.
 - [x] Prevenir *Data Drift* (Posts Fantasma) aislando el borrado y estableciendo el Kill-Switch de despublicación.
+
+#### 8.4 Identidad y Autoridad Técnica
+- [x] Actualización de posicionamiento público y copy de portada (`index.html`).
+- [ ] Propagación de enlaces de navegación en cabeceras de plantillas estáticas y dinámicas para evitar asimetría visual.
+- [ ] Diseño e implementación del CV Semántico "Anti-ATS" (`/sobre-mi/index.html`) expuesto con marcado de microdatos JSON-LD (`schema.org/Person`).
 
 ### Fase 9 - Inteligencia y Autonomía (Merci Avanzado)
 
