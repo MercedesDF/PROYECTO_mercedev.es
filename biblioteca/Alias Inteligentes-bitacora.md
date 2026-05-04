@@ -1,6 +1,6 @@
 ---
-titulo: "Alias Inteligentes (v3.0) para ecosistemas DevSecOps"
-descripcion: "Evolución del enrutador Zsh: autodescubrimiento de rutas, parámetros infinitos y enrutamiento directo al entorno virtual (.venv)."
+titulo: "Alias Inteligentes (v3.1) para ecosistemas DevSecOps"
+descripcion: "Evolución del enrutador Zsh: autodescubrimiento, parámetros infinitos y fallback dinámico de entorno virtual a global."
 tipo: "bitacora"
 tema: "DevSecOps y Automatización"
 fecha: "2026-05-04"

@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-04 — Fix: Fallback dinámico en enrutador Zsh (Alias Inteligentes v3.1)
+
+**Contexto:** Al instanciar un nuevo clon del Boilerplate, la ejecución del comando habitual `merci init` falló devolviendo `no existe el archivo o el directorio: .venv/bin/python`. Al ser un repositorio recién clonado, el entorno virtual aún no existía.
+
+**Hecho:** Se actualizó la función `merci()` en el archivo `~/.zshrc` y la documentación correspondiente en `Alias Inteligentes-bitacora.md` a la versión 3.1.
+
+**Detalle técnico:** Se inyectó un condicional `if [ -f ".venv/bin/python" ]` dentro del enrutador. Si el entorno virtual existe, lo usa (fricción cero). Si no existe (clon limpio), aplica *Degradación Elegante* haciendo *fallback* al binario global de `python3`.
+
+**Motivo / criterio:** *Developer Experience (DX) y Fail Gracefully*. Las herramientas CLI deben adaptarse al usuario, no al revés. Aunque el SOP indicaba usar `python3` explícitamente, la memoria muscular lleva a usar el alias. Dotar al alias de la inteligencia para sobrevivir en entornos limpios es un paso más hacia el "Cero Mantenimiento".
+
+**Siguiente paso o deuda:** Re-ejecutar `merci init` en el clon temporal y finalizar la exportación del Boilerplate v1.6.0.
+
 ### 2026-05-04 — Milestone: Cierre de Fase 8.4 y Validación del Definition of Done (Release v1.6.0)
 
 **Contexto:** Finalizar formalmente la Fase 8.4 (Identidad y Autoridad Técnica) y las mejoras operativas de *Cero Mantenimiento* antes de empaquetar y exportar la versión 1.6.0 al repositorio público del Boilerplate.
