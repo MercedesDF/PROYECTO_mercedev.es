@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-04 — Arch: Data Leak Prevention para el CV Semántico en Boilerplate
+
+**Contexto:** Antes de empaquetar la nueva versión del proyecto base (Boilerplate), se detectó un riesgo crítico de fuga de datos (Data Leak): la nueva página `/sobre-mi/index.html` contenía el perfil personal de la autora y sus datos JSON-LD estructurados.
+
+**Hecho:** Se planificó la actualización del orquestador destructivo `merci-init.py` y se actualizó `README-merci.md` a la versión `v1.6.0`.
+
+**Detalle técnico:** En lugar de purgar físicamente la página de currículum (lo cual rompería los enlaces de navegación del menú global), se definió la estrategia de "abstracción". El script de inicialización deberá vaciar los metadatos JSON-LD y reemplazar el contenido del *Hero* por texto genérico (Placeholder), entregando al usuario final una plantilla semántica "Anti-ATS" lista para usar.
+
+**Motivo / criterio:** *Data Leak Prevention (DLP) y Valor de Producto*. Proteger la PII (Personally Identifiable Information) de la autora es innegociable. Convertir el archivo en una plantilla en lugar de borrarlo aporta un valor inmenso al repositorio derivado.
+
+**Siguiente paso o deuda:** Actualizar la lógica de `scripts/merci/merci-init.py` para inyectar la rutina de anonimización y ejecutar el Release Pipeline de la v1.6.0.
+
 ### 2026-05-04 — Fix: Sincronización de menú en plantilla monolítica de WooCommerce
 
 **Contexto:** Tras propagar el nuevo enlace "Sobre Mí" por el ecosistema (SSG e `index.php` de WordPress), se detectó que la página de la tienda carecía de dicho enlace, generando una asimetría visual en la navegación.

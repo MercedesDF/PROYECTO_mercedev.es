@@ -1,9 +1,14 @@
-# Merci Boilerplate v1.5.0
+# Merci Boilerplate v1.6.0
 
 Un entorno web híbrido, minimalista y seguro desde el diseño (Shift-Left). 
 Combina un núcleo estático ultrarrápido (HTML5, SASS, Vanilla JS y BEM (Block, Element, Modifier - Modificador de Elemento de Bloque)) con un motor dinámico aislado (WordPress). Diseñado para alcanzar un rendimiento perfecto (Core Web Vitals 100/100) y operar con 0 dependencias externas en el frontend.
 
 > 📖 **Historia y Arquitectura:** La justificación de las decisiones DevSecOps, el aislamiento del CMS y los manuales operativos se encuentran en la carpeta `/docs`.
+
+## 🚀 Novedades en la v1.6.0 (Autoridad Técnica y Zero Maintenance)
+
+- **Perfil Semántico "Anti-ATS":** Nueva estructura de página estática (`/sobre-mi/`) diseñada para eludir los errores de lectura de los reclutadores corporativos (ATS). Entrega el perfil profesional directamente en código máquina nativo mediante microdatos JSON-LD (`schema.org/Person`), asegurando un 100% de precisión en la extracción de capacidades técnicas.
+- **Autodescubrimiento SSG (Zero Maintenance):** El orquestador `merci-sync-pages.py` abandona las rutas fijas (hardcoding) e implementa un motor de búsqueda recursivo (`Path.rglob()`). Ahora detecta y sincroniza mágicamente cualquier nueva página estática independiente que se añada al directorio `public/`, inyectando el menú y el pie de página de la portada (SSOT) sin intervención manual.
 
 ## 🚀 Novedades en la v1.5.0 (Shift-Left AI y Autonomía)
 
