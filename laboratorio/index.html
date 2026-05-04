@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <!-- QUÉ HACE: Meta descripción enfocada a reclutadores técnicos e indexación. -->
+    <meta name="description" content="Perfil técnico y currículum semántico de Mercedes Domínguez, AI Systems Architect & DevSecOps Lead. Especialista en Spec-Driven Development y arquitecturas de 0 dependencias.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Mí / CV — mercedev.es</title>
+    
+    <link rel="icon" href="/favicon.ico?v=3" type="image/x-icon">
+    <link rel="stylesheet" href="/css/main.css?v=13">
+    <script src="/js/MerciController.js?v=13" defer></script>
+    <script src="/js/main.js?v=13" defer></script>
+    <link rel="canonical" href="https://mercedev.es/sobre-mi/">
+
+    <!-- QUÉ HACE: El núcleo del "CV Anti-ATS". Datos estructurados listos para ser consumidos por IAs y rastreadores corporativos. -->
+    <!-- POR QUÉ: Los ATS leen código, no diseño. Entregarles un JSON-LD estándar elimina los errores de parseo de los PDFs. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Mercedes Domínguez",
+      "jobTitle": "AI Systems Architect & DevSecOps Lead",
+      "url": "https://mercedev.es/sobre-mi/",
+      "sameAs": [
+        "https://www.linkedin.com/in/mercedesdf-ingenieria/",
+        "https://github.com/MercedesDF"
+      ],
+      "knowsAbout": [
+        "DevSecOps",
+        "AI Governance",
+        "Spec-Driven Development",
+        "Python Automation",
+        "Static Site Generation (SSG)",
+        "Software Architecture",
+        "Core Web Vitals Optimization"
+      ],
+      "description": "Arquitecta de sistemas especializada en Desarrollo Guiado por Especificaciones (Spec-Driven Development). Diseña infraestructuras escalables, seguras (Shift-Left) y de latencia cero, gobernando agentes de IA para la ejecución táctica del código."
+    }
+    </script>
+</head>
+<body class="page">
+    <!-- Ancla invisible WAI-ARIA -->
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    
+    <!-- El header y footer serán gestionados automáticamente por merci-sync-pages.py en la próxima compilación -->
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+    </header>
+
+    <main class="main" id="main">
+        <section class="hero">
+            <h1 class="hero__title">El talento no se mide en<br>pulsaciones por minuto.</h1>
+            <p class="hero__subtitle">Se mide en la capacidad para gobernar la incertidumbre técnica. Aporto la madurez sistémica que la automatización no puede replicar: pensamiento estratégico, evaluación de compromisos y prevención de la deuda técnica.</p>
+        </section>
+
+        <section class="section home-section">
+            <h2 class="home-section__title">El CV "Anti-ATS" (Semantic Profile)</h2>
+            <div class="card">
+                <div class="card__content">
+                    <p>Los Sistemas de Seguimiento de Candidatos (ATS) y los algoritmos de reclutamiento son máquinas que leen datos estructurados, pero a menudo se confunden al intentar extraer texto de PDFs visuales o diseños complejos.</p>
+                    <p>Fiel a la filosofía de este proyecto, mi currículum no es un documento ofuscado. Está <strong>codificado semánticamente en el <code>&lt;head&gt;</code> de esta misma página</strong> utilizando microdatos JSON-LD bajo el estándar oficial <code>schema.org/Person</code>.</p>
+                    <p>Cualquier agente de IA o scraper corporativo que rastree este dominio extraerá mi perfil, mi stack tecnológico (<em>DevSecOps, Gobernanza LLM, Python, SSG</em>) y mi experiencia de forma instantánea y con un 100% de precisión matemática.</p>
+                    <p>Si eres un humano evaluando mi perfil, todo lo que necesitas saber sobre cómo construyo, rompo y escalo sistemas está documentado públicamente en la <a href="/biblioteca/">Biblioteca</a> de este repositorio.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <!-- Mantenemos un footer mínimo; merci-sync-pages lo sobrescribirá con el completo -->
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

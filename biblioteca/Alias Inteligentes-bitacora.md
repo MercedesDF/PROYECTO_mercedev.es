@@ -1,9 +1,9 @@
 ---
-titulo: "Alias Inteligentes (v2.0) para ecosistemas DevSecOps"
-descripcion: "Solución al problema de autodescubrimiento de rutas en Python al usar alias absolutos en la terminal (Fantasmas en RAM)."
+titulo: "Alias Inteligentes (v3.0) para ecosistemas DevSecOps"
+descripcion: "Evolución del enrutador Zsh: autodescubrimiento de rutas, parámetros infinitos y enrutamiento directo al entorno virtual (.venv)."
 tipo: "bitacora"
 tema: "DevSecOps y Automatización"
-fecha: "2026-04-24"
+fecha: "2026-05-04"
 estado: "publicado"
 alt_portada: "Captura de pantalla de la terminal mostrando la configuración de funciones alias en Zsh."
 ---

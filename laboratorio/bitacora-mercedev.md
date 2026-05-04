@@ -37,6 +37,32 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-04 — Docs: Unificación de cuadernillos de Alias Inteligentes (v3.0)
+
+**Contexto:** Se detectó fragmentación en la biblioteca al promover la versión 3.0 de los Alias Inteligentes como un cuadernillo independiente, separándolo de las versiones 1.0 y 2.0 ya documentadas.
+
+**Hecho:**
+- Se eliminó el archivo `biblioteca/cuadernillo-alias-inteligentes-v30-para-ecosistemas-devsecops.md`.
+- Se fusionó su contenido (explicación de Runtime vs Buildtime y enrutamiento `.venv`) dentro del archivo original `biblioteca/Alias Inteligentes-bitacora.md`.
+
+**Motivo / criterio:** *Single Source of Truth* y *Atomización de la Información*. Mantener la evolución de una misma herramienta en un único documento histórico facilita su consulta y evita la dispersión temática en la Biblioteca.
+
+**Siguiente paso o deuda:** Ejecutar el orquestador global (`merci total`) para limpiar artefactos huérfanos y validar los enlaces en verde.
+
+### 2026-05-04 — Feat: Creación del CV Semántico "Anti-ATS" (JSON-LD)
+
+**Contexto:** El orquestador `merci total` detuvo el pipeline al detectar el enlace roto (`/sobre-mi/`) inyectado en la fase anterior, demostrando el éxito del patrón Fail-Fast del escáner DAST local (`merci-linkcheck.py`). Se requería construir la página de currículum finalizando la Fase 8.4.
+
+**Hecho:** 
+- Se creó la carpeta y el archivo `public/sobre-mi/index.html`.
+- Se inyectó el esquema de datos `schema.org/Person` en formato JSON-LD en la cabecera del documento.
+
+**Detalle técnico:** En lugar de renderizar el CV dinámicamente con dependencias externas, los datos duros (stack tecnológico, rol DevSecOps, URLs) se estructuraron en un bloque `<script type="application/ld+json">`. Esto permite que cualquier IA o ATS (Applicant Tracking System) extraiga el perfil con un 100% de precisión sin necesidad de procesar PDFs o DOM visual. La página utiliza las clases estructurales BEM ya existentes.
+
+**Motivo / criterio:** *Semantic Web y Zero Bloat*. Responder a las demandas del mercado corporativo de 2026 entregando los datos directamente en el idioma nativo de las máquinas que procesan los reclutamientos, demostrando autoridad técnica mediante el propio formato de entrega.
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para validar que el pipeline resuelve los enlaces a 0 errores y proceder al commit atómico.
+
 ### 2026-05-04 — Docs: Redacción de cuadernillo Alias Inteligentes v3.0
 
 **Contexto:** Tras la resolución del problema de activación de entornos virtuales y la consolidación de la política de "0 Dependencias (Runtime vs Buildtime)", era preceptivo generar un activo de conocimiento basado en la nueva función Zsh `merci()`.
