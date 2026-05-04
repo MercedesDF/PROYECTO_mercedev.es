@@ -37,6 +37,30 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-04 — Docs: Redacción de cuadernillo Alias Inteligentes v3.0
+
+**Contexto:** Tras la resolución del problema de activación de entornos virtuales y la consolidación de la política de "0 Dependencias (Runtime vs Buildtime)", era preceptivo generar un activo de conocimiento basado en la nueva función Zsh `merci()`.
+
+**Hecho:** Se redactó el borrador `cuadernillo-alias-inteligentes-v30-para-ecosistemas-devsecops.md` en el laboratorio.
+
+**Motivo / criterio:** *Knowledge Harvesting (Cosecha de Conocimiento)*. Documentar la evolución de nuestras propias herramientas de terminal asegura que los principios DevSecOps no se pierdan. La versión 3.0 consolida el uso de binarios aislados, la eliminación de la fricción operativa y el paso de parámetros ilimitados.
+
+**Siguiente paso o deuda:** Iniciar la redacción estática del CV Semántico (`/sobre-mi/index.html`) expuesto con marcado JSON-LD.
+
+### 2026-05-04 — Arch: Cero Dependencias (Runtime vs Buildtime) y enrutador Zsh inteligente
+
+**Contexto:** La ejecución de herramientas locales (como `merci total`) fallaba si se olvidaba activar el entorno virtual de Python (`source .venv/bin/activate`), generando fricción operativa. Se debatió si eliminar dependencias de compilación y migrar a `.txt` puro para evadir el uso de entornos virtuales.
+
+**Hecho:** 
+- Se clarificó la regla arquitectónica: la política de "0 dependencias" aplica estrictamente al entorno de ejecución (Runtime en navegador), no a las herramientas de construcción locales (Buildtime / pipeline).
+- Se actualizó la función inteligente `merci()` en `~/.zshrc` para apuntar explícitamente al binario aislado del entorno (`.venv/bin/python`).
+
+**Detalle técnico:** Al usar la ruta explícita del binario (`.venv/bin/python "scripts/merci/merci-$1.py"`), el sistema operativo resuelve automáticamente las librerías instaladas en ese entorno aislado sin necesidad de que la sesión de la terminal esté "activada", logrando fricción cero (DX).
+
+**Motivo / criterio:** *Developer Experience (DX)* y *Separation of Concerns*. No se debe sacrificar una arquitectura madura (Markdown, WeasyPrint para PDF, WebP) por una molestia operativa en la terminal. Modificar la función de enrutamiento para que sea consciente del entorno virtual es la solución POSIX nativa y elegante.
+
+**Siguiente paso o deuda:** Ejecutar `merci sync-pages` y propagar el nuevo enlace del menú (`/sobre-mi/`) a las plantillas dinámicas de WordPress.
+
 ### 2026-05-04 — Docs: Expansión del Roadmap (Fase 8.4 Identidad y Autoridad Técnica)
 
 **Contexto:** Tras modificar el posicionamiento en la portada (`index.html`) inyectando el nuevo enlace a `/sobre-mi/`, se generó un enlace roto (deuda técnica). Para evitar el desarrollo errático y el "Scope Creep", era obligatorio registrar formalmente los próximos pasos en el plan de proyecto antes de continuar escribiendo código.
