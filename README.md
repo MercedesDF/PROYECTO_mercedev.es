@@ -46,11 +46,16 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 - `merci-audit.py`: Auditoría estática y bloqueo de secretos (SAST - Static Application Security Testing - Pruebas Estáticas de Seguridad de Aplicaciones).
 - `merci-commit.py`: Empaquetado atómico impulsado por la lectura de la bitácora.
 - `merci-total.py`: Orquestador maestro del pipeline local.
+- `merci-brain.py`: Lóbulo frontal de Inteligencia Artificial (Shift-Left AI).
 - `merci-publish.py` y `merci-promote.py`: Motor SSG (Static Site Generation - Generación de Sitios Estáticos) y promoción de contenidos.
 - `merci-sync-pages.py`: Sincronizador de estructuras comunes estáticas (SSOT en páginas independientes).
+- `merci-sitemap.py` y `merci-linkcheck.py`: Rastreador dinámico (DAST) y generación de mapa XML.
+- `merci-backup.py`: Creador de instantáneas ultraligeras (Snapshots).
+- `merci-init.py`: Instanciador destructivo para nuevos repositorios derivados.
 - `merci-linkedin.py`: Motor de autenticación OIDC (OpenID Connect) y publicación automatizada en LinkedIn.
 - `merci-wp.py`: Publicador Headless para WordPress vía API REST.
 - `merci-styles.py` y `merci-watcher.py`: Compilador SASS 7-1 local y vigilante en tiempo real.
+- `merci-optimizer.py`: Optimizador de imágenes a formato WebP.
 
 ## Entorno de Desarrollo Local
 Para mantener la separación de responsabilidades y la alta velocidad, el desarrollo se divide en dos fases con ecosistemas distintos:

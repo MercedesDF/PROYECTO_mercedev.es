@@ -57,9 +57,9 @@ Copia el bloque y rellénalo.
 - [x] **1. Deuda Técnica:** 0 TODOs bloqueantes. Implementada Degradación Elegante (Fail Gracefully) en dependencias locales (`sys.exit(0)`).
 - [x] **2. Cosecha de Conocimiento:** Creada la versión 3.0 del cuadernillo de Alias Inteligentes y consolidada atómicamente en la biblioteca.
 - [x] **3. Auditoría Documental:** `README.md` actualizado con hitos completos. `README-merci.md` con *release notes* de la v1.6.0.
-- [ ] **4. Evaluación de Release:** Script `merci-init.py` fortificado con rutinas DLP (Data Leak Prevention) para anonimizar el CV Semántico y resetear `brain_data.json`.
-- [ ] **5. Snapshot:** (Pendiente de ejecución de comando local de backup).
-- [ ] **6. Sello Definitivo:** Commit atómico de cierre preparado.
+- [x] **4. Evaluación de Release:** Script `merci-init.py` fortificado con rutinas DLP y ejecutado con éxito en el clon temporal.
+- [x] **5. Snapshot:** Copia de seguridad local generada correctamente mediante `merci-backup.py`.
+- [x] **6. Sello Definitivo:** Commit atómico de cierre consolidado y Boilerplate v1.6.0 exportado con éxito.
 
 **Motivo / criterio:** *Governance y Definition of Done (DoD)*. Garantizar que la plantilla pública (Boilerplate) no herede datos privados de la autora ni dependencias frágiles, sellando empíricamente la madurez de la infraestructura.
 

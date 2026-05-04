@@ -27,11 +27,16 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 - **Entorno:** Terminal **zsh** en sistema **Ubuntu**.
 - **Python (Sistema "Merci"):** Motor de auditoría y automatización.
   - `merci-audit.py`: Análisis estático, escaneo de secretos y validación WAI-ARIA/SEO (Git pre-commit).
+  - `merci-commit.py`: Empaquetado atómico impulsado por la lectura de la bitácora.
   - `merci-optimizer.py`: Procesamiento de assets multimedia con `Pillow` (conversión WebP responsivo).
   - `merci-sitemap.py`: Gestión y actualización automatizada de fechas en `sitemap.xml`.
   - `merci-linkcheck.py`: Rastreador dinámico (DAST) para auditar enlaces rotos HTTP y ambigüedad WAI-ARIA.
   - `merci-publish.py` y `merci-promote.py`: Motor SSG y asistente interactivo de enrutamiento contextual.
   - `merci-sync-pages.py`: Sincronizador de estructuras comunes estáticas (SSOT).
+  - `merci-brain.py`: Generador de base de conocimientos IA estática (Shift-Left AI).
+  - `merci-backup.py`: Generador instantáneo de instantáneas locales (ZIP).
+  - `merci-init.py`: Inicializador para arrancar nuevos repositorios derivados.
+  - `merci-styles.py` y `merci-watcher.py`: Compilador y vigilante de arquitectura SASS 7-1.
   - `merci-linkedin.py`: Motor de autenticación OIDC (OpenID Connect) y publicación automatizada en LinkedIn.
   - `merci-wp.py`: Sincronizador Headless para inyección masiva en WordPress vía API REST.
   - `merci-total.py`: Orquestador maestro que ejecuta el pipeline completo (Build y QA) con patrón Fail-Fast.

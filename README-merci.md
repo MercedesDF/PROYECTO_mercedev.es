@@ -98,12 +98,15 @@ Este boilerplate incluye su propia cadena de suministro CI/CD (Continuous Integr
 - `merci-audit.py`: Auditoría estática y bloqueo de secretos (SAST - Static Application Security Testing - Pruebas Estáticas de Seguridad de Aplicaciones).
 - `merci-commit.py`: Automatización de commits empaquetados atómicamente e impulsados por la lectura de la bitácora.
 - `merci-total.py`: Orquestador maestro del pipeline (Build y QA).
+- `merci-brain.py`: Generador de base de conocimientos estática (Shift-Left AI).
 - `merci-publish.py` y `merci-promote.py`: Motor SSG (Static Site Generation - Generación de Sitios Estáticos) y curación de contenidos.
 - `merci-backup.py`: Creación instantánea de copias de seguridad locales en formato ZIP.
 - `merci-optimizer.py`: Optimización de imágenes a WebP.
-- `merci-linkcheck.py`: Rastreo DAST (Dynamic Application Security Testing - Pruebas Dinámicas de Seguridad de Aplicaciones) de enlaces rotos.
+- `merci-sitemap.py` y `merci-linkcheck.py`: Rastreo DAST de enlaces rotos y actualización de XML.
 - `merci-sync-pages.py`: Sincronizador de estructuras estáticas (SSOT).
 - `merci-wp.py`: Publicador Headless masivo para integración nativa con WordPress.
+- `merci-styles.py` y `merci-watcher.py`: Compilador y vigilante de SASS local.
+- `merci-init.py`: Inicializador destructivo para nuevos proyectos.
 
 ---
 *Desarrollado bajo licencia MIT.*
