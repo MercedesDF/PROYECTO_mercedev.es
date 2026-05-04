@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-04 — Fix: Sincronización de menú en plantilla monolítica de WooCommerce
+
+**Contexto:** Tras propagar el nuevo enlace "Sobre Mí" por el ecosistema (SSG e `index.php` de WordPress), se detectó que la página de la tienda carecía de dicho enlace, generando una asimetría visual en la navegación.
+
+**Hecho:** Se inyectó manualmente el enlace `<a href="/sobre-mi/" class="nav__link">Sobre Mí</a>` en el bloque `<nav>` del archivo `src/wp-theme/merci-theme/woocommerce.php`.
+
+**Detalle técnico:** En una arquitectura de plantillas sin fragmentación (sin `header.php` ni `footer.php`), los archivos que actúan como puntos de entrada independientes (como `woocommerce.php`) mantienen su propia estructura HTML hardcodeada y no heredan los cambios de `index.php`.
+
+**Motivo / criterio:** *Dev/Prod Parity* y *Coherencia UX*. Mantener plantillas monolíticas reduce las consultas de E/S en PHP mejorando el rendimiento, pero la deuda técnica asumida es que las actualizaciones estructurales del "layout" deben replicarse en todos los archivos raíz del *Child Theme*.
+
+**Siguiente paso o deuda:** Ejecutar commit, hacer *push* de la corrección y avanzar finalmente hacia la Fase 11 (Lighthouse CI y compilación SSG en la nube).
+
 ### 2026-05-04 — Feat: Autodescubrimiento en Sincronizador Estático (merci-sync-pages)
 
 **Contexto:** Aunque el sincronizador `merci-sync-pages.py` fue refactorizado para aceptar una lista de páginas, esto obligaba a mantener un registro manual (hardcoding) cada vez que se creaba una nueva página estática *standalone*, generando deuda técnica y riesgo de omisión.
