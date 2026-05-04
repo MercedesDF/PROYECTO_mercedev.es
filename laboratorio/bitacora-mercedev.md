@@ -37,6 +37,33 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-04 — Milestone: Cierre de Fase 8.4 y Validación del Definition of Done (Release v1.6.0)
+
+**Contexto:** Finalizar formalmente la Fase 8.4 (Identidad y Autoridad Técnica) y las mejoras operativas de *Cero Mantenimiento* antes de empaquetar y exportar la versión 1.6.0 al repositorio público del Boilerplate.
+
+**Hecho:** Se revisaron las documentaciones y se ejecutó el Protocolo Estricto de Cierre de Fase:
+- [x] **1. Deuda Técnica:** 0 TODOs bloqueantes. Implementada Degradación Elegante (Fail Gracefully) en dependencias locales (`sys.exit(0)`).
+- [x] **2. Cosecha de Conocimiento:** Creada la versión 3.0 del cuadernillo de Alias Inteligentes y consolidada atómicamente en la biblioteca.
+- [x] **3. Auditoría Documental:** `README.md` actualizado con hitos completos. `README-merci.md` con *release notes* de la v1.6.0.
+- [ ] **4. Evaluación de Release:** Script `merci-init.py` fortificado con rutinas DLP (Data Leak Prevention) para anonimizar el CV Semántico y resetear `brain_data.json`.
+- [ ] **5. Snapshot:** (Pendiente de ejecución de comando local de backup).
+- [ ] **6. Sello Definitivo:** Commit atómico de cierre preparado.
+
+**Motivo / criterio:** *Governance y Definition of Done (DoD)*. Garantizar que la plantilla pública (Boilerplate) no herede datos privados de la autora ni dependencias frágiles, sellando empíricamente la madurez de la infraestructura.
+
+### 2026-05-04 — Fix: Degradación Elegante (Fail Gracefully) en dependencias locales
+
+**Contexto:** Al clonar el repositorio Boilerplate e invocar el orquestador global (`merci total`) mediante el intérprete Python global, el pipeline colapsaba con `sys.exit(1)` por la ausencia de las librerías `markdown`, `weasyprint` y `Pillow`, contraviniendo la política de "0 dependencias bloqueantes".
+
+**Hecho:**
+- Se refactorizaron las cabeceras `try/except ImportError` en `merci-publish.py`, `merci-wp.py` y `merci-optimizer.py`.
+- Se sustituyeron los códigos de salida fatales por salidas exitosas (`sys.exit(0)`) acompañadas de advertencias informativas (`ℹ️ [Merci Info]`).
+- Se implementó un bypass seguro para WeasyPrint (`if HTML:`), permitiendo compilar en HTML aunque falle la generación de PDFs.
+
+**Motivo / criterio:** *Out-of-the-Box Experience*. La promesa de 0 dependencias implica que el repositorio debe auditar, compilar SASS y verificar enlaces desde el minuto uno sin forzar al usuario a hacer `pip install`. Convertir dependencias locales faltantes en advertencias en lugar de bloqueos permite que el pipeline "sobreviva" y entregue el máximo valor posible, degradando elegantemente las capacidades secundarias.
+
+**Siguiente paso o deuda:** Validar la ejecución inmaculada del pipeline en un clon limpio y retomar la automatización de CI/CD en GitHub Actions (Fase 11).
+
 ### 2026-05-04 — Arch: Data Leak Prevention para el CV Semántico en Boilerplate
 
 **Contexto:** Antes de empaquetar la nueva versión del proyecto base (Boilerplate), se detectó un riesgo crítico de fuga de datos (Data Leak): la nueva página `/sobre-mi/index.html` contenía el perfil personal de la autora y sus datos JSON-LD estructurados.

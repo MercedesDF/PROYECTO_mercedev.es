@@ -205,6 +205,10 @@ def main():
     purge_directory(REPO_ROOT / "public" / "descargas")
     purge_directory(REPO_ROOT / "public" / "art-de-cote")
     
+    # QUÉ HACE: Purga incondicional de la base de conocimientos estática de la IA.
+    # POR QUÉ: DLP (Data Leak Prevention). Garantiza que la IA nazca con amnesia, sin arrastrar las respuestas cacheadas de la autora.
+    (REPO_ROOT / "public" / "js" / "brain_data.json").unlink(missing_ok=True)
+    
     # QUÉ HACE: Reconstruye las carpetas estructurales (Matriz y Laboratorio).
     # POR QUÉ: Recrearlas vacías garantiza que no haya fugas de datos (borradores antiguos)
     # pero asegura que el andamiaje del Headless CMS esté listo para el nuevo usuario.

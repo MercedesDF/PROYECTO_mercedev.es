@@ -15,14 +15,14 @@ from pathlib import Path
 try:
     import markdown
 except ImportError:
-    print("🛡️ [Merci Error] Falta la librería 'markdown'. Ejecuta: pip install markdown")
-    sys.exit(1)
+    print("ℹ️ [Merci Info] Falta la librería 'markdown' (pip install markdown). Omitiendo compilación SSG estática.")
+    sys.exit(0)
 
 try:
     from weasyprint import HTML
 except ImportError:
-    print("🛡️ [Merci Error] Falta la librería 'weasyprint'. Ejecuta: pip install weasyprint")
-    sys.exit(1)
+    HTML = None
+    print("ℹ️ [Merci Info] Falta la librería 'weasyprint' (pip install weasyprint). No se generarán PDFs.")
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 BIBLIOTECA_DIR = REPO_ROOT / "biblioteca"
@@ -175,12 +175,13 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     # POR QUÉ: Sin el base_url, WeasyPrint no puede resolver rutas absolutas como /assets/images/... 
     # y las imágenes del Markdown aparecerían rotas o invisibles en el PDF descargable.
     # CONTROL DE ERRORES: WeasyPrint es propenso a fallar si las imágenes anidadas están corruptas.
-    try:
-        HTML(string=pdf_html_content, base_url=str(REPO_ROOT / "public")).write_pdf(out_pdf_path)
-    except Exception as e:
-        print(f"  ❌ Error crítico al generar PDF para {filepath.name}. Comprueba las imágenes: {e}")
-        # Continuamos con el proceso aunque falle el PDF para no dejar a la web sin HTML
-        pass
+    if HTML:
+        try:
+            HTML(string=pdf_html_content, base_url=str(REPO_ROOT / "public")).write_pdf(out_pdf_path)
+        except Exception as e:
+            print(f"  ❌ Error crítico al generar PDF para {filepath.name}. Comprueba las imágenes: {e}")
+            # Continuamos con el proceso aunque falle el PDF para no dejar a la web sin HTML
+            pass
 
     # 5. Generar el HTML final inyectando las clases BEM estructurales
     # QUÉ HACE: Asigna la clase CSS BEM dinámicamente basándose en el atributo 'tipo'.
