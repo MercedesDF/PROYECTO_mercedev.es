@@ -13,11 +13,24 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-INDEX_PATH = REPO_ROOT / "public" / "index.html"
-TARGET_PAGES = [
-    REPO_ROOT / "public" / "contacto" / "index.html",
-    REPO_ROOT / "public" / "sobre-mi" / "index.html"
-]
+PUBLIC_DIR = REPO_ROOT / "public"
+INDEX_PATH = PUBLIC_DIR / "index.html"
+
+# Exclusiones: biblioteca (merci-publish), blog (WordPress), descargas (PDFs)
+EXCLUDED_DIRS = {"biblioteca", "blog", "descargas"}
+
+def discover_target_pages() -> list[Path]:
+    """
+    QUÉ HACE: Autodescubre páginas HTML estáticas ignorando la portada y las rutas autogeneradas/dinámicas.
+    POR QUÉ: Automatización real. Si añades una nueva carpeta en public/ en el futuro, se sincronizará mágicamente.
+    """
+    pages = []
+    for html_file in PUBLIC_DIR.rglob("*.html"):
+        if html_file == INDEX_PATH:
+            continue
+        if not any(excluded in html_file.parts for excluded in EXCLUDED_DIRS):
+            pages.append(html_file)
+    return pages
 
 def extract_block(html: str, regex_pattern: str, block_name: str) -> str:
     """
@@ -48,6 +61,7 @@ def main():
         print("[Merci Error] Falta el index.html principal (SSOT) para sincronizar.")
         sys.exit(1)
         
+    target_pages = discover_target_pages()
     index_html = INDEX_PATH.read_text(encoding="utf-8")
     
     # 1. Patrones de extracción (Regex)
@@ -61,18 +75,21 @@ def main():
     aside_content = extract_block(index_html, aside_pattern, "Aside (Merci)")
     
     # 3. Iterar e inyectar en todas las páginas de destino
-    for target_path in TARGET_PAGES:
-        if not target_path.exists():
-            print(f"⚠️ [Merci Warn] No se encontró {target_path.parent.name} para sincronizar, saltando...")
-            continue
-            
+    if not target_pages:
+        print("ℹ️ [Merci Sync] No se encontraron páginas secundarias para sincronizar.")
+        return
+
+    for target_path in target_pages:
+        # Obtenemos el nombre de la carpeta contenedora para el log, o el nombre del archivo si está en la raíz
+        page_name = target_path.parent.name if target_path.parent.name != "public" else target_path.name
+        
         target_html = target_path.read_text(encoding="utf-8")
         nuevo_html = replace_block(target_html, header_pattern, header_content, "Header")
         nuevo_html = replace_block(nuevo_html, footer_pattern, footer_content, "Footer")
         nuevo_html = replace_block(nuevo_html, aside_pattern, aside_content, "Aside (Merci)")
         
         target_path.write_text(nuevo_html, encoding="utf-8")
-        print(f"✅ {target_path.parent.name.capitalize()} sincronizado con la portada.")
+        print(f"✅ {page_name.capitalize()} sincronizado con la portada.")
 
 if __name__ == "__main__":
     main()

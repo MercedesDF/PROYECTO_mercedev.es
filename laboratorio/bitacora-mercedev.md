@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-04 — Feat: Autodescubrimiento en Sincronizador Estático (merci-sync-pages)
+
+**Contexto:** Aunque el sincronizador `merci-sync-pages.py` fue refactorizado para aceptar una lista de páginas, esto obligaba a mantener un registro manual (hardcoding) cada vez que se creaba una nueva página estática *standalone*, generando deuda técnica y riesgo de omisión.
+
+**Hecho:** Se implementó una función de autodescubrimiento (`discover_target_pages`) mediante `Path.rglob()` en `scripts/merci/merci-sync-pages.py`.
+
+**Detalle técnico:** El script ahora escanea recursivamente el directorio `public/` buscando todos los archivos `.html`. Ignora automáticamente la portada (`index.html` - SSOT) y excluye directorios gobernados por otros procesos (como `biblioteca/`, `descargas/` y el symlink `blog/`).
+
+**Motivo / criterio:** *Automation & Zero Maintenance*. Un script DevSecOps maduro no debe requerir que el código fuente se actualice para realizar su trabajo sobre nuevos archivos. El autodescubrimiento lo hace verdaderamente "Plug & Play" y garantiza que ninguna página estática presente o futura quede desincronizada.
+
+**Siguiente paso o deuda:** Ejecutar el orquestador global (`merci total`) y finalizar el commit de despliegue de la Fase 8.4.
+
 ### 2026-05-04 — Fix: Sincronización de páginas estáticas y orden de menú
 
 **Contexto:** Al crear la página `/sobre-mi/`, esta no heredó los elementos comunes (menú, footer) porque el orquestador `merci-sync-pages.py` estaba rígidamente programado para sincronizar únicamente la página de contacto. Además, se solicitó que el enlace "Sobre Mí" apareciera inmediatamente después de "Biblioteca" en la navegación.
