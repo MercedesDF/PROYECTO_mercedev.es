@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-04 — Fix: Sincronización de páginas estáticas y orden de menú
+
+**Contexto:** Al crear la página `/sobre-mi/`, esta no heredó los elementos comunes (menú, footer) porque el orquestador `merci-sync-pages.py` estaba rígidamente programado para sincronizar únicamente la página de contacto. Además, se solicitó que el enlace "Sobre Mí" apareciera inmediatamente después de "Biblioteca" en la navegación.
+
+**Hecho:** 
+- Se refactorizó `scripts/merci/merci-sync-pages.py` para aceptar una matriz (`TARGET_PAGES`) con múltiples rutas.
+- Se reordenó el enlace en el `<nav>` de `public/index.html` y `src/wp-theme/merci-theme/index.php`.
+
+**Detalle técnico:** El script de Python ahora itera de forma dinámica sobre todas las rutas estáticas independientes definidas en la constante `TARGET_PAGES`. Si se añaden nuevas páginas *standalone* en el futuro, solo es necesario agregarlas a esta lista.
+
+**Motivo / criterio:** *Single Source of Truth* y automatización escalable. Un orquestador debe ser capaz de crecer con el proyecto. Forzar las rutas (hardcoding) es deuda técnica; iterar sobre ellas lo convierte en un verdadero sincronizador global.
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para sincronizar las páginas correctamente y finalizar el commit de despliegue.
+
 ### 2026-05-04 — Docs: Unificación de cuadernillos de Alias Inteligentes (v3.0)
 
 **Contexto:** Se detectó fragmentación en la biblioteca al promover la versión 3.0 de los Alias Inteligentes como un cuadernillo independiente, separándolo de las versiones 1.0 y 2.0 ya documentadas.

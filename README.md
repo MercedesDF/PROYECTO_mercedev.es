@@ -283,8 +283,8 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 
 #### 8.4 Identidad y Autoridad Técnica
 - [x] Actualización de posicionamiento público y copy de portada (`index.html`).
-- [ ] Propagación de enlaces de navegación en cabeceras de plantillas estáticas y dinámicas para evitar asimetría visual.
-- [ ] Diseño e implementación del CV Semántico "Anti-ATS" (`/sobre-mi/index.html`) expuesto con marcado de microdatos JSON-LD (`schema.org/Person`).
+- [x] Propagación de enlaces de navegación en cabeceras de plantillas estáticas y dinámicas para evitar asimetría visual.
+- [x] Diseño e implementación del CV Semántico "Anti-ATS" (`/sobre-mi/index.html`) expuesto con marcado de microdatos JSON-LD (`schema.org/Person`).
 
 ### Fase 9 - Inteligencia y Autonomía (Merci Avanzado)
 

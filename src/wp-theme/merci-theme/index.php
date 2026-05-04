@@ -35,6 +35,7 @@
         <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
             <a href="/" class="nav__link">Home</a>
             <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
             <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
             <a href="/blog/category/art-de-cote/" class="nav__link">Art de Coté</a>
             <a href="/blog/tienda/" class="nav__link">Tienda</a>
