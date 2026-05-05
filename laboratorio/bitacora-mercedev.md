@@ -41,7 +41,7 @@ Copia el bloque y rellénalo.
 
 **Contexto:** Se detectó duplicidad de estanterías temáticas en el índice de la biblioteca generada por SSG (Static Site Generation - Generación de Sitios Estáticos) debido a variaciones en la capitalización del texto introducido manualmente en los archivos Markdown.
 
-**Hecho:** Se redactó el activo de conocimiento `laboratorio/cuadernillo-normalizacion-casefold.md` (en estado borrador).
+**Hecho:** Se redactó el activo de conocimiento `laboratorio/cuadernillo-normalizacion-casefold.md`.
 
 **Detalle técnico:** El documento explica la diferencia crítica entre `.lower()` y `.casefold()` en Python, y cómo la normalización de cadenas de entrada soluciona la fragmentación de categorías sin modificar el texto visual original.
 
