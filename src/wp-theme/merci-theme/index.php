@@ -79,7 +79,13 @@
                 <!-- VISTA DE LECTURA (Artículo individual) -->
                 <?php while ( have_posts() ) : the_post(); ?>
                     <article class="card card--booklet">
-                        <a href="javascript:history.back()" class="card__back-link">← Volver</a>
+                        <?php 
+                        $back_link = '/blog/';
+                        if ( has_category('art-de-cote') ) {
+                            $back_link = '/blog/category/art-de-cote/';
+                        }
+                        ?>
+                        <a href="<?php echo esc_url($back_link); ?>" class="card__back-link">← Volver</a>
                         <header>
                             <?php if ( ! $header_title ) : ?>
                                 <h1 class="home-card__title--highlight"><?php the_title(); ?></h1>

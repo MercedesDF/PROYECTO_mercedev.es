@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-06 — Fix: Resolución de enlaces de retroceso rotos en capa dinámica (WP)
+
+**Contexto:** El botón "Volver" en los artículos individuales de WordPress (`blog` y `art-de-cote`) fallaba al depender del historial del navegador (`javascript:history.back()`). Esto impedía el retroceso si el usuario abría el enlace en una nueva pestaña o accedía directamente a la URL.
+
+**Hecho:** Se reemplazó el script en línea por una URL de retroceso dinámica generada en PHP dentro de `src/wp-theme/merci-theme/index.php`.
+
+**Detalle técnico:** Se implementó el condicional nativo `has_category('art-de-cote')` para inferir estructuralmente la ruta padre correcta. Si es "Art de Coté", resuelve a `/blog/category/art-de-cote/`; para el resto, hace fallback seguro hacia `/blog/`.
+
+**Motivo / criterio:** *Fricción Cero y Robustez de Enrutamiento*. Depender del historial de sesión del navegador es un anti-patrón de accesibilidad. Resolver la ruta lógicamente en el backend (PHP) asegura que el botón devuelva al usuario a la estantería temática correcta de forma infalible, mejorando la UX y erradicando el uso innecesario de JavaScript en línea.
+
+**Siguiente paso o deuda:** Sincronizar los cambios con el servidor de producción e iniciar formalmente la Fase 1 del Roadmap de Orquestación de IA.
+
 ### 2026-05-06 — QA: Resolución de contraste WCAG mediante alcance de contexto (Scoped CSS)
 
 **Contexto:** La auditoría de PageSpeed Insights sobre `/sobre-mi/` reportó una penalización en Accesibilidad (95/100). El análisis reveló que el color primario de los enlaces (`#ea580c`) no alcanza el ratio estricto de 4.5:1 requerido para texto de tamaño regular. Esto ocurría exclusivamente en esta ruta por ser densa en enlaces de párrafo continuo.
@@ -2048,7 +2060,7 @@ Copia el bloque y rellénalo.
 
 ### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 
-**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-05-05.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
+**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-05-06.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
 
 **Hecho:** Se implementó una rutina de actualización automática en `scripts/merci/merci-commit.py` mediante expresiones regulares.
 
@@ -2985,4 +2997,4 @@ Copia el bloque y rellénalo.
 
 ---
 
-*Última revisión de la bitácora: 2026-05-05.*
+*Última revisión de la bitácora: 2026-05-06.*
