@@ -37,6 +37,30 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-05 — Docs: Preservación de flujo CI/CD descartado en Art de Coté
+
+**Contexto:** Tras decidir amputar el despliegue automatizado por colisión con el CMS (Content Management System - Sistema de Gestión de Contenidos), se requería no perder el código funcional desarrollado, atesorándolo como un activo de conocimiento.
+
+**Hecho:** Se redactó el activo de conocimiento `laboratorio/art-de-cote/cuadernillo-despliegue-ssg-puro.md`.
+
+**Detalle técnico:** El cuadernillo documenta íntegramente el flujo YAML de GitHub Actions (con inyección nativa de `ssh-agent` y escudos de diagnóstico) y justifica arquitectónicamente por qué el uso de `rsync --delete` es hostil contra arquitecturas híbridas que dependen de enlaces simbólicos no rastreados por Git.
+
+**Motivo / criterio:** *Waste Not (Cero Desperdicio)*. En I+D, el código descartado de forma justificada no es basura, es experiencia. Guardarlo en la taxonomía "Art de Coté" previene tener que reinventar la rueda si en el futuro se despliega una versión del Boilerplate que sea 100% estática.
+
+**Siguiente paso o deuda:** Iniciar formalmente la Fase 1 del Roadmap de Orquestación de IA.
+
+### 2026-05-05 — Arch: Rollback de Despliegue Automático (CD) a favor de control manual
+
+**Contexto:** Tras activar el despliegue automático mediante `rsync` en GitHub Actions, se detectó que la capa dinámica (WordPress) dejaba de cargar en producción, obligando a depender del `git pull` manual (el cual sí preservaba la operatividad del CMS).
+
+**Hecho:** Se eliminó físicamente el archivo `.github/workflows/deploy.yml` para amputar la capacidad de Despliegue Continuo (CD - Continuous Deployment) del robot de GitHub, manteniendo únicamente la Integración Continua (CI) de auditoría. Se actualizó el `README.md` reflejando el rollback.
+
+**Detalle técnico:** El diagnóstico forense reveló por qué `rsync` rompía WordPress y `git pull` no: El comando `rsync --delete public/` ejecutado por el robot borraba implacablemente el enlace simbólico `public/blog` en el servidor de producción (ya que este symlink está en `.gitignore` y no existe en el repositorio de GitHub). Por el contrario, `git pull` ignora los archivos no rastreados, preservando el puente hacia el CMS.
+
+**Motivo / criterio:** *Control Operativo y Rollback*. En lugar de sobre-ingeniar el comando `rsync` con exclusiones complejas para el symlink, se asume la decisión de diseño de mantener el control manual del despliegue (`git pull`). La capacidad de revertir una automatización que añade fricción y destruye entornos es un pilar del desarrollo DevSecOps.
+
+**Siguiente paso o deuda:** Iniciar formalmente la Fase 1 del Roadmap de Orquestación de IA.
+
 ### 2026-05-05 — Docs: Cuadernillo sobre normalización de temas (Casefold)
 
 **Contexto:** Se detectó duplicidad de estanterías temáticas en el índice de la biblioteca generada por SSG (Static Site Generation - Generación de Sitios Estáticos) debido a variaciones en la capitalización del texto introducido manualmente en los archivos Markdown.

@@ -308,7 +308,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 
 #### 11.1 Automatización Cloud (GitHub Actions)
 - [x] Implementar flujos de GitHub Actions para automatizar `merci-audit` en cada Pull Request.
-- [x] Automatizar la compilación SSG (`merci-publish`) directamente en el servidor de despliegue.
+- [ ] Automatizar la compilación SSG (`merci-publish`) directamente en el servidor de despliegue (Rollback: Preferencia de Arquitectura por control manual mediante `git pull`).
 
 #### 11.2 Monitorización de Rendimiento
 - [x] Integrar Lighthouse CI para garantizar que ninguna actualización degrade el 100/100 en Core Web Vitals.
