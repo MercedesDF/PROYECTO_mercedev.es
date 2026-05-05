@@ -2,19 +2,19 @@
 titulo: "Despliegue SSG Puro con GitHub Actions (rsync)"
 descripcion: "Automatización de despliegue estático mediante CI/CD y justificación de su descarte en arquitecturas híbridas."
 tipo: "cuadernillo"
-tema: "Infraestructura y Automatización"
+tema: "Reflexiones"
 fecha: "2026-05-05"
 estado: "publicado"
 alt_portada: "Diagrama conceptual mostrando a un agente de GitHub Actions sincronizando archivos mediante rsync a un servidor web."
 ---
 
-## 1. El Desafío (Síntoma)
+## El Desafío (Síntoma)
 
 Durante la Fase 11 de maduración del ecosistema, se buscó automatizar el despliegue del código hacia el servidor de producción utilizando CI/CD (Continuous Integration / Continuous Deployment - Integración Continua / Despliegue Continuo). El objetivo era compilar el SSG (Static Site Generation - Generación de Sitios Estáticos) en la nube y enviar los archivos listos a través de SSH (Secure Shell).
 
 Sin embargo, al aplicar el comando `rsync --delete`, se detectó que la capa dinámica del CMS (Content Management System - Sistema de Gestión de Contenidos) en producción dejaba de funcionar. `rsync` purgaba implacablemente el enlace simbólico físico (`public/blog`) que unía el núcleo estático con la instalación asilada de WordPress. Como dicho enlace está excluido en el `.gitignore`, el robot de GitHub asumía que era un archivo "sobrante" en el servidor y lo destruía.
 
-## 2. La Maniobra (Lógica)
+## La Maniobra (Lógica)
 
 En lugar de sobreingeniar el comando `rsync` con exclusiones complejas para mantener vivo el puente del CMS, se tomó la decisión arquitectónica de **hacer un rollback y descartar el despliegue automático para esta infraestructura**. La arquitectura híbrida mantiene el control manual mediante `git pull` en el servidor, el cual es lo suficientemente inteligente para ignorar los archivos no rastreados y preservar la integración.
 
@@ -80,7 +80,7 @@ jobs:
           rsync -avz -e "ssh -v -o StrictHostKeyChecking=no" --delete public/ $SERVER_USER@$SERVER_IP:~/htdocs/mercedev.es/public/
 ```
 
-## 3. El Aprendizaje / Deuda Técnica
+## El Aprendizaje / Deuda Técnica
 
 El código que no llega a producción pero ha sido empíricamente validado es I+D puro. Tirarlo a la basura es desperdiciar esfuerzo de ingeniería de sistemas.
 
