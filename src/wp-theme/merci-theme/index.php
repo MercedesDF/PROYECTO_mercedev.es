@@ -81,7 +81,25 @@
                     <article class="card card--booklet">
                         <?php 
                         $back_link = '/blog/';
+                        $is_art_de_cote = false;
+                        
+                        // 1. ¿Está asignado directamente?
                         if ( has_category('art-de-cote') ) {
+                            $is_art_de_cote = true;
+                        } else {
+                            // 2. ¿Pertenece a alguna subcategoría (hija) de Art de Coté?
+                            $art_term = get_category_by_slug('art-de-cote');
+                            if ( $art_term ) {
+                                foreach ( get_the_category() as $cat ) {
+                                    if ( cat_is_ancestor_of( $art_term, $cat ) ) {
+                                        $is_art_de_cote = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        if ( $is_art_de_cote ) {
                             $back_link = '/blog/category/art-de-cote/';
                         }
                         ?>

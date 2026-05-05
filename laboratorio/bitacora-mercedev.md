@@ -37,6 +37,18 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-06 — Fix: Resolución de jerarquía en botones de retroceso (Art de Coté)
+
+**Contexto:** El botón "Volver" en artículos individuales de "Art de Coté" redirigía a la portada del Blog (`/blog/`) en lugar de a su estantería original. Esto ocurría porque los posts estaban asignados a subcategorías específicas (temas) y no directamente a la categoría padre "Art de Coté".
+
+**Hecho:** Se refactorizó la lógica condicional del botón de retroceso en `src/wp-theme/merci-theme/index.php`.
+
+**Detalle técnico:** La función nativa `has_category()` de WordPress solo evalúa la asignación directa. Se implementó una verificación de árbol genealógico utilizando `cat_is_ancestor_of()` para iterar sobre todas las categorías del post. Si alguna de ellas desciende de `art-de-cote`, la variable de retroceso se ajusta correctamente a `/blog/category/art-de-cote/`.
+
+**Motivo / criterio:** *Robustez en Arquitectura de la Información*. Cuando el CMS estructura los posts en subcategorías (inyectadas por el Headless script), el frontend debe ser lo suficientemente inteligente para inferir la jerarquía completa y no solo las asignaciones de primer nivel, evitando así expulsar al usuario de su contexto de navegación.
+
+**Siguiente paso o deuda:** Sincronizar el tema con producción e iniciar la Fase 1 del Roadmap de IA.
+
 ### 2026-05-06 — Fix: Resolución de enlaces de retroceso rotos en capa dinámica (WP)
 
 **Contexto:** El botón "Volver" en los artículos individuales de WordPress (`blog` y `art-de-cote`) fallaba al depender del historial del navegador (`javascript:history.back()`). Esto impedía el retroceso si el usuario abría el enlace en una nueva pestaña o accedía directamente a la URL.
