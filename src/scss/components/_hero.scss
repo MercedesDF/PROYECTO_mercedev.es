@@ -27,3 +27,12 @@
         margin: 0 auto $spacing-lg;
     }
 }
+
+.hero__statement {
+    font-size: 1.75rem; // Ligeramente más pequeño que el H1
+    font-weight: 400;   // Peso normal para que la cursiva se vea elegante
+    font-style: italic; // El toque visual que pediste
+    color: $color-text-base; // Negro / Azul muy oscuro
+    margin-bottom: $spacing-md;
+    line-height: 1.3;
+}

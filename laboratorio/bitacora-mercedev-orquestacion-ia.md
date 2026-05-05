@@ -37,3 +37,35 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-06 — Docs: Alineación del CV Semántico con la identidad de Performance Engineer
+
+**Contexto:** El currículum semántico (`/sobre-mi/index.html`) conservaba el copy anterior ("Arquitecta de Sistemas de IA") que resultaba ajeno a la nueva identidad profesional y restaba impacto visual a la frase clave "gobernar la incertidumbre".
+
+**Hecho:**
+- Se extrajo la frase clave a un `<h2>` independiente con la clase BEM `.hero__statement` (cursiva, `$color-text-base`).
+- Se reescribió el primer párrafo del "CV Anti-ATS" para vincular la experiencia industrial de 20 años con el rigor del Performance Engineering.
+- Se actualizó el objeto JSON-LD para reflejar los nuevos *skills* ("Spec as Source", "Web Performance").
+
+**Motivo / criterio:** *Coherencia de Marca Personal*. El CV debe respirar el mismo aire empírico y analítico que LinkedIn y la Portada. Darle entidad de `<h2>` a la frase sobre la incertidumbre refuerza la tesis de madurez (Seniority) y crea una jerarquía visual más atractiva antes de entrar en los párrafos densos.
+
+**Siguiente paso o deuda:** Iniciar la automatización e intercepción de errores en Python (Fase 1 de IA).
+
+### 2026-05-06 — Docs: Pivote de identidad hacia Performance Engineering y Spec as Source
+
+**Contexto:** El posicionamiento como "AI Systems Architect" no reflejaba con precisión el trabajo real y el inmenso valor demostrable del ecosistema actual (100/100 cuádruple en PageSpeed Insights, documentación exhaustiva y automatización DevSecOps). Se necesitaba un perfil más "vendible" y ajustado a la realidad técnica.
+
+**Hecho:** Se actualizó `public/index.html` para reflejar el perfil de **Performance Engineer & Technical Writer**.
+
+**Motivo / criterio:** *Authenticity & Market Fit*. "Spec as Source", las métricas de rendimiento perfectas y la trazabilidad documental (ADRs, bitácoras) son habilidades tangibles, raras y altamente demandadas. Presentarse con hechos empíricos (lo que ya se hace y se domina) proyecta mucha más autoridad que prometer orquestación de IA, la cual está apenas comenzando en el Roadmap.
+
+**Siguiente paso o deuda:** Iniciar la automatización e intercepción de errores en Python (Fase 1 de IA).
+
+### 2026-05-06 — Docs: Refinamiento del tono editorial en la portada
+
+**Contexto:** El copy de la portada presentaba un tono demasiado agresivo ("La máquina ejecuta el código. Yo diseño el sistema.", "declaración de intenciones"), alejándose de la Guía de Voz equilibrada del proyecto.
+
+**Hecho:** Se suavizó el `H1`, el subtítulo y la tarjeta "Anti-ATS" en `public/index.html`.
+
+**Motivo / criterio:** *Brand Identity y Tono Editorial*. Mostrar autoridad técnica y *Seniority* no requiere un tono dictatorial ni beligerante. Un enfoque firme pero integrador ("Arquitectura de Sistemas y Orquestación de IA") transmite la misma capacidad técnica resultando mucho más accesible y corporativo para reclutadores o clientes.
+
+**Siguiente paso o deuda:** Iniciar formalmente la Fase 1 del Roadmap de Orquestación de IA.
