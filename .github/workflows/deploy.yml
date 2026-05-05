@@ -36,8 +36,12 @@ jobs:
         # QUÉ HACE: Inyecta la clave SSH y sincroniza la carpeta compilada al servidor.
         # POR QUÉ: Automatiza el paso a producción con `--delete` para mantener el servidor web higienizado.
         run: |
+          if [ -z "$SERVER_IP" ] || [ -z "$SERVER_USER" ]; then
+            echo "🚨 ERROR: Faltan secretos. Revisa SERVER_IP o SERVER_USER en GitHub Settings > Secrets."
+            exit 1
+          fi
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
-          rsync -avz --delete public/ $SERVER_USER@$SERVER_IP:~/htdocs/mercedev.es/public/
+          rsync -avz -e "ssh -i ~/.ssh/id_ed25519" --delete public/ $SERVER_USER@$SERVER_IP:~/htdocs/mercedev.es/public/
