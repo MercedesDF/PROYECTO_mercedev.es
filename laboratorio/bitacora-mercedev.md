@@ -37,6 +37,37 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-06 — QA: Resolución de contraste WCAG mediante alcance de contexto (Scoped CSS)
+
+**Contexto:** La auditoría de PageSpeed Insights sobre `/sobre-mi/` reportó una penalización en Accesibilidad (95/100). El análisis reveló que el color primario de los enlaces (`#ea580c`) no alcanza el ratio estricto de 4.5:1 requerido para texto de tamaño regular. Esto ocurría exclusivamente en esta ruta por ser densa en enlaces de párrafo continuo.
+
+**Hecho:**
+- Se creó la variable matemática `$color-regular` en `_variables.scss` con un tono de alto contraste (`#9a3412`).
+- Se añadió una regla en `_typography.scss` para inyectar esta variable en los enlaces anidados exclusivamente dentro de bloques de texto (`p`, `li`).
+- Se preservó el color `$color-primary` original para la interfaz global (tarjetas, botones, cabeceras).
+
+**Detalle técnico:** El color primario original ofrece un contraste de ~3.01:1 sobre fondos blancos. Al abstraer el Orange 800 en `$color-regular`, elevamos el ratio a >6:1 de forma escalable. Al limitar el alcance con Scoped CSS (`p a, li a`), la especificidad (0,0,2) queda intencionadamente por debajo de las pseudo-clases interactivas globales `a:hover` y `a:visited` (0,1,1), respetando la cascada nativa de SASS sin reescribir código.
+
+**Motivo / criterio:** *Context-Aware Styling y Single Source of Truth*. Utilizar colores quemados (hardcoded) ensucia la arquitectura. Extraer el color a una variable semántica y aplicarlo mediante alcance de contexto salda la deuda matemática del WCAG AA donde es estrictamente necesario, protegiendo el diseño global y el "Cuádruple 100".
+
+**Siguiente paso o deuda:** Validar la restitución del 100/100 en PageSpeed Insights y seguir cerrando la fase 11.
+
+### 2026-05-05 — Milestone: Protocolo de Cierre y Sello Definitivo de la Fase 11
+
+**Contexto:** Aplicar el *Definition of Done* (Protocolo Estricto de Cierre de Fase) tras completar la Integración Continua en la nube (CI/CD), finalizando oficialmente la construcción del ecosistema base fundacional.
+
+**Hecho:** Se ejecutó el protocolo y se superó la lista de verificación:
+- [x] **1. Deuda Técnica:** 0 TODOs. Orquestador maestro (`merci total`) en verde absoluto tras depurar la deriva de datos (Data Drift) en WordPress.
+- [x] **2. Cosecha de Conocimiento:** Cuadernillos sobre SSH, normalización Casefold y Despliegue SSG curados, publicados en Biblioteca y Art de Coté.
+- [x] **3. Auditoría Documental:** `README.md` sincronizado con los hitos y *rollbacks* de la Fase 11.
+- [x] **4. Evaluación de Release:** Script `merci-init.py` purgado de dependencias de despliegue automatizado para salvaguardar el Boilerplate.
+- [x] **5. Snapshot:** Backup ultraligero del estado final generado con éxito.
+- [x] **6. Sello Definitivo:** Commit atómico de consolidación preparado.
+
+**Motivo / criterio:** *Governance y Definition of Done (DoD)*. Sellar formalmente la Fase 11 certifica que el Boilerplate y su matriz están maduros, auditados y blindados. Es el paso obligatorio para transicionar hacia la Orquestación con Inteligencia Artificial sin arrastrar deudas de infraestructura.
+
+**Siguiente paso o deuda:** Iniciar formalmente la Fase 1 del nuevo plan de proyecto: `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`.
+
 ### 2026-05-05 — Docs: Preservación de flujo CI/CD descartado en Art de Coté
 
 **Contexto:** Tras decidir amputar el despliegue automatizado por colisión con el CMS (Content Management System - Sistema de Gestión de Contenidos), se requería no perder el código funcional desarrollado, atesorándolo como un activo de conocimiento.
