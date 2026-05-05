@@ -47,4 +47,5 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
-          rsync -avz -e "ssh -i ~/.ssh/id_ed25519" --delete public/ $SERVER_USER@$SERVER_IP:~/htdocs/mercedev.es/public/
+          ssh-keyscan -H $SERVER_IP 2>&1 | sort > ~/.ssh/known_hosts.tmp && mv ~/.ssh/known_hosts.tmp ~/.ssh/known_hosts
+          rsync -avz -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new" --delete public/ $SERVER_USER@$SERVER_IP:~/htdocs/mercedev.es/public/
