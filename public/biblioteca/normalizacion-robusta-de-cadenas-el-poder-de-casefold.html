@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh) — mercedev.es</title>
-    <meta name="description" content="Cómo resolver la activación de entornos virtuales de Python (.venv) cuando el editor lo hace mágicamente pero la terminal del sistema no.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh.html">
+    <title>Normalización Robusta de Cadenas: El Poder de Casefold — mercedev.es</title>
+    <meta name="description" content="Resolución de duplicidad en estanterías del SSG mediante la normalización de cadenas independientes de capitalización.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/normalizacion-robusta-de-cadenas-el-poder-de-casefold.html">
     <link rel="stylesheet" href="/css/main.css?v=1777999834">
     <script src="/js/MerciController.js?v=1777729228" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)",
-      "description": "Cómo resolver la activación de entornos virtuales de Python (.venv) cuando el editor lo hace mágicamente pero la terminal del sistema no.",
-      "url": "https://mercedev.es/biblioteca/discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh.html"
+      "headline": "Normalización Robusta de Cadenas: El Poder de Casefold",
+      "description": "Resolución de duplicidad en estanterías del SSG mediante la normalización de cadenas independientes de capitalización.",
+      "url": "https://mercedev.es/biblioteca/normalizacion-robusta-de-cadenas-el-poder-de-casefold.html"
     }
     </script>
 </head>
@@ -46,31 +46,20 @@
         <article class="card card--booklet">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)</h1>
-                <a href="/descargas/discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">Normalización Robusta de Cadenas: El Poder de Casefold</h1>
+                <a href="/descargas/normalizacion-robusta-de-cadenas-el-poder-de-casefold.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
-                <p><strong>Contexto:</strong>
-Al trabajar en el proyecto, se detectó que la terminal integrada del IDE (Integrated Development Environment - Entorno de Desarrollo Integrado) VS Code activaba automáticamente el entorno virtual de Python (mostrando <code>(.venv)</code> en el <em>prompt</em>). Sin embargo, al abrir una terminal externa (Zsh) en la misma carpeta, el entorno no existía, lo que provocaba errores de dependencias no encontradas (como <code>weasyprint</code> o <code>Pillow</code>) al intentar ejecutar los scripts del orquestador.</p>
-<p><strong>Hecho:</strong>
-- Se diagnosticó que VS Code inyecta comandos de activación en su propia sub-sesión de terminal.
-- Se aplicó la activación manual del entorno virtual en la sesión de la terminal externa del sistema operativo.</p>
-<p><strong>Detalle técnico:</strong>
-Para sincronizar el estado de una terminal externa POSIX (Portable Operating System Interface - Interfaz de Sistema Operativo Portátil) con el entorno del proyecto, se debe invocar el script de activación directamente. Situado en la raíz del repositorio, se ejecuta:</p>
-<pre><code class="language-bash"># Activar el entorno virtual en Zsh o Bash
-source .venv/bin/activate
-
-# Para verificar que Python ahora apunta al entorno aislado:
-which python
-
-# Para salir del entorno cuando se termine de trabajar:
-deactivate
-</code></pre>
-<p><strong>Motivo / criterio:</strong>
-Aislamiento de sesiones y Cero Magia Negra. Las terminales externas del sistema operativo están diseñadas para ser agnósticas y seguras por defecto. No activan entornos ni modifican el <code>$PATH</code> sin una orden explícita del usuario (<code>source</code>). Entender que la "magia" de VS Code es solo automatización local evita horas de depuración al desplegar código en servidores o al cambiar de terminal.</p>
-<p><strong>Fuentes / Bibliografía:</strong>
-- Documentación oficial de Python sobre creación y activación de entornos virtuales (<code>venv</code>).
-- Documentación de VS Code sobre la integración de entornos Python en la terminal.</p>
+                <h2>1. El Desafío (Síntoma)</h2>
+<p>Al compilar el índice curado de la Biblioteca mediante el orquestador SSG (Static Site Generation - Generación de Sitios Estáticos), se detectó una fragmentación en la Arquitectura de la Información. Una misma estantería temática (por ejemplo, "Arquitectura de Software") aparecía listada dos veces de forma independiente. </p>
+<p>El origen del error radicaba en variaciones minúsculas de tipografía introducidas por el factor humano en el YAML Frontmatter de distintos artículos (ej. <code>tema: "Arquitectura de Software"</code> frente a <code>tema: "arquitectura de software"</code>). Dado que los diccionarios en Python son sensibles a mayúsculas y minúsculas (<em>case-sensitive</em>), el script interpretaba estas variaciones como categorías completamente distintas.</p>
+<h2>2. La Maniobra (Lógica)</h2>
+<p>Se implementó una normalización robusta de cadenas de texto directamente en el bucle de agrupación del script <code>scripts/merci/merci-publish.py</code>. </p>
+<p>En lugar de forzar a los autores a escribir siempre de la misma forma, se capturó el valor original (<code>tema_original = pub["tema"]</code>) para su uso visual en la interfaz, pero se utilizó el método <code>.casefold()</code> de Python para generar la clave interna de agrupación en el diccionario:
+<code>tema = tema_original.casefold()</code></p>
+<h2>3. El Aprendizaje / Deuda Técnica</h2>
+<p>En el procesamiento de lenguajes y agrupación de datos, confiar en la disciplina tipográfica del usuario es un antipatrón de diseño. El sistema debe ser tolerante a variaciones inofensivas.</p>
+<p>Se eligió explícitamente <code>.casefold()</code> en lugar del tradicional <code>.lower()</code> porque el primero es un método agresivo diseñado específicamente para comparaciones de cadenas independientes del formato (<em>case-matching</em>). Mientras que <code>.lower()</code> se limita a convertir caracteres ASCII a minúsculas, <code>.casefold()</code> maneja correctamente caracteres especiales y ligaduras de otros idiomas (como el alemán o el griego), garantizando que la agrupación lógica nunca falle por cuestiones de codificación internacional.</p>
             </div>
         </article>
     </main>

@@ -4,7 +4,7 @@ descripcion: "Resolución de duplicidad en estanterías del SSG mediante la norm
 tipo: "cuadernillo"
 tema: "Arquitectura de Software"
 fecha: "2026-05-05"
-estado: "borrador"
+estado: "publicado"
 alt_portada: "Diagrama conceptual mostrando la convergencia de palabras con distintas mayúsculas hacia una única clave normalizada en Python."
 ---
 
