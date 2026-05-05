@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inyección de Claves SSH en GitHub Actions: Anatomía de un Despliegue rsync — mercedev.es</title>
+    <meta name="description" content="Depuración de errores de autenticación y gestión de secretos para despliegues automatizados mediante CI/CD.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/inyeccion-de-claves-ssh-en-github-actions-anatomia-de-un-despliegue-rsync.html">
+    <link rel="stylesheet" href="/css/main.css?v=1777998981">
+    <script src="/js/MerciController.js?v=1777729228" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Inyección de Claves SSH en GitHub Actions: Anatomía de un Despliegue rsync",
+      "description": "Depuración de errores de autenticación y gestión de secretos para despliegues automatizados mediante CI/CD.",
+      "url": "https://mercedev.es/biblioteca/inyeccion-de-claves-ssh-en-github-actions-anatomia-de-un-despliegue-rsync.html"
+    }
+    </script>
+</head>
+<body class="page">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
+            <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/blog/category/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                <h1 class="home-card__title--highlight">Inyección de Claves SSH en GitHub Actions: Anatomía de un Despliegue rsync</h1>
+                <a href="/descargas/inyeccion-de-claves-ssh-en-github-actions-anatomia-de-un-despliegue-rsync.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>1. El Desafío (Síntoma)</h2>
+<p>Durante la configuración del flujo de CI/CD (Continuous Integration / Continuous Deployment - Integración Continua / Despliegue Continuo) en GitHub Actions para el despliegue automático del sitio estático, se presentaron dos fallos críticos que bloquearon la subida de archivos hacia el servidor VPS (Virtual Private Server - Servidor Privado Virtual):</p>
+<ol>
+<li><strong>Fallo de variables vacías:</strong> El comando <code>ssh-keyscan</code> devolvió un error de sintaxis (<code>usage: ssh-keyscan...</code>), indicando que la variable que contenía la IP del servidor no se estaba inyectando en la máquina virtual.</li>
+<li><strong>Fallo de autenticación:</strong> Al ejecutar la sincronización de archivos, el servidor rechazó la conexión con un error <code>Permission denied (publickey)</code>, a pesar de que la clave había sido configurada.</li>
+</ol>
+<h2>2. La Maniobra (Lógica)</h2>
+<p>La resolución de estos incidentes requirió aplicar tres correcciones estrictas sobre la gestión de secretos y la invocación de la herramienta de despliegue:</p>
+<ul>
+<li><strong>Segregación Estricta de Secretos:</strong> GitHub Actions no procesa archivos combinados ni entiende el formato manual "Clave: Valor" en su interfaz. Se crearon tres secretos independientes (<code>SERVER_IP</code>, <code>SERVER_USER</code>, <code>DEPLOY_SSH_KEY</code>), insertando el valor crudo (raw) en las cajas de texto sin comillas ("") ni etiquetas delimitadoras.</li>
+<li><strong>Preservación del Formato de la Clave Privada:</strong> La clave privada SSH (Secure Shell) debe conservar escrupulosamente sus saltos de línea y las cabeceras <code>-----BEGIN OPENSSH PRIVATE KEY-----</code>. Para evitar la corrupción de formato que a menudo produce la selección de texto en la terminal del sistema, se utilizó un editor de texto gráfico para extraer y copiar la clave inmaculada. <!-- merci-audit:silence-secret --></li>
+<li><strong>Enrutamiento Explícito en rsync:</strong> Se parcheó el flujo de trabajo (<code>deploy.yml</code>) para forzar a la herramienta de sincronización a utilizar la clave recién inyectada mediante el parámetro <code>-e</code>:
+    <code>rsync -avz -e "ssh -i ~/.ssh/id_ed25519" --delete public/ ...</code></li>
+</ul>
+<h2>3. El Aprendizaje / Deuda Técnica</h2>
+<p>En el diseño de Infraestructura como Código (IaC - Infrastructure as Code), la gestión y el paso de secretos hacia herramientas de terceros es el punto de mayor fricción.</p>
+<p>Las máquinas virtuales efímeras (runners) no poseen la "inteligencia" de un entorno local preconfigurado; no buscarán claves SSH por defecto si no se les indica explícitamente su ubicación exacta. Convertir variables de entorno en archivos físicos temporales en la nube (<code>echo "$SSH_PRIVATE_KEY" &gt; ~/.ssh/id_ed25519</code>) es una técnica válida y segura, pero exige guiar manualmente a herramientas de bajo nivel como <code>rsync</code> hacia esa ruta. </p>
+<p>Dominar este flujo operativo permite conectar de forma segura cualquier repositorio público con infraestructuras corporativas privadas, manteniendo las claves bajo cifrado de grado militar.</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

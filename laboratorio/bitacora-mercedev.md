@@ -37,6 +37,42 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-05 — Docs: Cuadernillo sobre normalización de temas (Casefold)
+
+**Contexto:** Se detectó duplicidad de estanterías temáticas en el índice de la biblioteca generada por SSG (Static Site Generation - Generación de Sitios Estáticos) debido a variaciones en la capitalización del texto introducido manualmente en los archivos Markdown.
+
+**Hecho:** Se redactó el activo de conocimiento `laboratorio/cuadernillo-normalizacion-casefold.md` (en estado borrador).
+
+**Detalle técnico:** El documento explica la diferencia crítica entre `.lower()` y `.casefold()` en Python, y cómo la normalización de cadenas de entrada soluciona la fragmentación de categorías sin modificar el texto visual original.
+
+**Motivo / criterio:** *Knowledge Management*. Documentar por qué se elige un método específico (`casefold`) sobre el habitual (`lower`) preserva la intención técnica (evitar fallos con caracteres especiales o acentos en la agrupación de diccionarios) para futuros mantenedores.
+
+**Siguiente paso o deuda:** Promover el cuadernillo a la Biblioteca cuando se considere finalizado y evaluar el comportamiento de los flujos de GitHub Actions tras el `git push`.
+
+### 2026-05-05 — Fix: Erradicación de rutinas de despliegue en el Boilerplate
+
+**Contexto:** Se identificó que el orquestador de instanciación (`merci-init.py`) conservaba el flujo de GitHub Actions de despliegue (`deploy.yml`) de la matriz. Como el Boilerplate es una plantilla agnóstica sin servidor de producción asociado, este archivo constituía un residuo arquitectónico inútil y acoplado.
+
+**Hecho:** Se parcheó `scripts/merci/merci-init.py` para aplicar la eliminación física (`unlink`) del archivo `.github/workflows/deploy.yml` durante la instanciación de clones.
+
+**Detalle técnico:** Se añadió la instrucción `(REPO_ROOT / ".github" / "workflows" / "deploy.yml").unlink(missing_ok=True)` en la fase de purga de datos históricos.
+
+**Motivo / criterio:** *Agnosticismo de Infraestructura y Zero Trust*. Un proyecto derivado no debe nacer con flujos de despliegue automatizado (Continuous Deployment) pre-configurados con las rutas del proyecto original. Si el usuario final requiere CD, debe configurarlo desde cero para su propio entorno.
+
+**Siguiente paso o deuda:** Iniciar el nuevo roadmap de Orquestación IA (`ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`).
+
+### 2026-05-05 — Docs: Cuadernillo sobre inyección SSH en GitHub Actions
+
+**Contexto:** Tras la exitosa depuración de los errores de autenticación (`Permission denied`) y variables vacías en el flujo CI/CD (Continuous Integration / Continuous Deployment - Integración Continua / Despliegue Continuo) de GitHub Actions, era necesario documentar las lecciones aprendidas sobre gestión de secretos y configuración de `rsync`.
+
+**Hecho:** Se creó el activo de conocimiento `biblioteca/cuadernillo-secretos-ssh-github-actions.md`.
+
+**Detalle técnico:** El documento expone la necesidad de la segregación de variables de entorno en la bóveda de GitHub, el uso estricto de la clave privada copiada en crudo sin comillas y la inyección obligatoria del parámetro `-e "ssh -i ~/.ssh/id_ed25519"` en el comando `rsync` para establecer la conexión SSH (Secure Shell).
+
+**Motivo / criterio:** *Knowledge Management (Gestión del Conocimiento)*. Convertir el tiempo invertido en depurar infraestructura en un manual de referencia previene que futuros mantenedores o usuarios del Boilerplate tropiecen con los mismos fallos crípticos de conexión al intentar desplegar en la nube.
+
+**Siguiente paso o deuda:** Ejecutar el orquestador global para empaquetar este nuevo activo en el proyecto base y retomar formalmente el inicio de la Fase 1 en el nuevo roadmap de Inteligencia Artificial.
+
 ### 2026-05-05 — Milestone: Cierre de Fase 11 (CI/CD, Lighthouse y Cloud Deploy)
 
 **Contexto:** Sellar el proyecto base automatizando la monitorización de rendimiento (Core Web Vitals) y la compilación SSG (Static Site Generation - Generación de Sitios Estáticos) directamente en la nube, garantizando que el servidor de producción solo reciba código inmaculado.
