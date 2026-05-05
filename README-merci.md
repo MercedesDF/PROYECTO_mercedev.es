@@ -70,8 +70,13 @@ cd TU_REPOSITORIO
 # 2. Ejecuta la instanciación (¡Destructivo para la plantilla base!)
 python3 scripts/merci/merci-init.py
 
-# 3. Audita el código resultante
-python3 scripts/merci/merci-audit.py
+# 3. Aprovisiona el entorno de construcción (Build-time)
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+# 4. Ejecuta el pipeline completo
+merci total
 ```
 
 ## 📋 Requisitos del Sistema

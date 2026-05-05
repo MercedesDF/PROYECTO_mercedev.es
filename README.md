@@ -290,6 +290,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Actualización de posicionamiento público y copy de portada (`index.html`).
 - [x] Propagación de enlaces de navegación en cabeceras de plantillas estáticas y dinámicas para evitar asimetría visual.
 - [x] Diseño e implementación del CV Semántico "Anti-ATS" (`/sobre-mi/index.html`) expuesto con marcado de microdatos JSON-LD (`schema.org/Person`).
+- [x] Consolidación documental del patrón arquitectónico en la Biblioteca (`cuadernillo-cv-anti-ats-json-ld.md`).
 
 ### Fase 9 - Inteligencia y Autonomía (Merci Avanzado)
 
@@ -314,6 +315,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 
 #### 11.3 Gobernanza Open Source
 - [x] Configurar *Issue Templates* y *Pull Request Templates* para estandarizar las contribuciones en repositorios públicos.
+
 
 ## Licencia
 

@@ -37,6 +37,20 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-05 — Creación de cuadernillo "El CV Anti-ATS" (JSON-LD)
+
+**Contexto:** Documentar la filosofía y la implementación técnica detrás del CV semántico "Anti-ATS" y el uso de JSON-LD, como un activo de conocimiento permanente en la Biblioteca.
+
+**Hecho:** Se creó el archivo `biblioteca/cuadernillo-cv-anti-ats-json-ld.md` siguiendo el formato de 3 átomos (Desafío, Maniobra, Aprendizaje).
+
+**Detalle técnico:** El cuadernillo explica el uso de `schema.org/Person` en JSON-LD para optimizar la lectura de perfiles profesionales por parte de los sistemas ATS, garantizando una extracción de datos precisa y sin errores, y cómo se integra en la página `/sobre-mi/index.html`.
+
+**Motivo / criterio:** Consolidar el conocimiento sobre una solución innovadora a un problema común en el reclutamiento técnico, alineado con la filosofía de "Shift-Left" y "Comunicación en capas" del proyecto. Este documento sirve como referencia para entender la implementación del CV semántico.
+
+**Siguiente paso o deuda:** Asegurar que el cuadernillo esté correctamente integrado en el pipeline SSG y sea accesible desde la Biblioteca.
+
+
+
 ### 2026-05-04 — Fix: Fallback dinámico en enrutador Zsh (Alias Inteligentes v3.1)
 
 **Contexto:** Al instanciar un nuevo clon del Boilerplate, la ejecución del comando habitual `merci init` falló devolviendo `no existe el archivo o el directorio: .venv/bin/python`. Al ser un repositorio recién clonado, el entorno virtual aún no existía.
@@ -1913,7 +1927,7 @@ Copia el bloque y rellénalo.
 
 ### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 
-**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-05-04.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
+**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-05-05.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
 
 **Hecho:** Se implementó una rutina de actualización automática en `scripts/merci/merci-commit.py` mediante expresiones regulares.
 
@@ -2850,4 +2864,4 @@ Copia el bloque y rellénalo.
 
 ---
 
-*Última revisión de la bitácora: 2026-05-04.*
+*Última revisión de la bitácora: 2026-05-05.*
