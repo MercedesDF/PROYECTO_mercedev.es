@@ -1,0 +1,43 @@
+name: Build & Deploy (SSG Cloud)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'biblioteca/**'
+      - 'public/**'
+      - 'scripts/merci/**'
+      - 'src/scss/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Execute SSG Compilation (Build)
+        # QUÉ HACE: Compila y sincroniza todas las páginas de la capa estática.
+        # POR QUÉ: Extrae la carga de compilación de la máquina local; el VPS solo recibe archivos listos.
+        run: |
+          python3 scripts/merci/merci-publish.py
+          python3 scripts/merci/merci-sync-pages.py
+
+      - name: Deploy to Production (CloudPanel) via rsync
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+        # QUÉ HACE: Inyecta la clave SSH y sincroniza la carpeta compilada al servidor.
+        # POR QUÉ: Automatiza el paso a producción con `--delete` para mantener el servidor web higienizado.
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
+          rsync -avz --delete public/ $SERVER_USER@$SERVER_IP:~/htdocs/mercedev.es/public/

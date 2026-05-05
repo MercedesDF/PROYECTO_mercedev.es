@@ -37,6 +37,36 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-05 — Milestone: Cierre de Fase 11 (CI/CD, Lighthouse y Cloud Deploy)
+
+**Contexto:** Sellar el proyecto base automatizando la monitorización de rendimiento (Core Web Vitals) y la compilación SSG (Static Site Generation - Generación de Sitios Estáticos) directamente en la nube, garantizando que el servidor de producción solo reciba código inmaculado.
+
+**Hecho:**
+- Creado archivo de presupuesto de rendimiento `lighthouserc.json` imponiendo un límite estricto de 100/100 en todas las categorías.
+- Creado flujo `.github/workflows/lighthouse.yml` para ejecutar Lighthouse CI en cada PR (Pull Request - Solicitud de Extracción).
+- Creado flujo `.github/workflows/deploy.yml` para compilar `merci-publish.py` en el *runner* y sincronizar vía rsync (SSH - Secure Shell) a CloudPanel.
+- Actualizado `README.md` marcando la Fase 11 como 100% completada.
+
+**Motivo / criterio:** *Zero Maintenance y Strict QA (Quality Assurance - Aseguramiento de Calidad)*. Al compilar el SSG en GitHub Actions, liberamos a la máquina local y al servidor VPS (Virtual Private Server - Servidor Privado Virtual) de la carga de compilación. Lighthouse CI actúa como la guillotina final: si un solo commit reduce el rendimiento a 99/100, la integración se bloquea automáticamente.
+
+**Siguiente paso o deuda:** Con la Fase 11 terminada, el proyecto base (Merci Boilerplate) alcanza su máxima madurez. El siguiente hito lógico es dar el salto al nuevo horizonte de IA, iniciando la Fase 1 del `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`.
+
+### 2026-05-05 — Milestone: Protocolo de Cierre y Sello Definitivo del CV Semántico
+
+**Contexto:** Aplicar el *Definition of Done* (Protocolo Estricto de Cierre de Fase) tras la implementación del currículum semántico JSON-LD y su cuadernillo, garantizando cero deuda técnica antes de transicionar a una nueva fase.
+
+**Hecho:** Se ejecutó el protocolo y se superó la lista de verificación:
+- [x] **1. Deuda Técnica:** 0 TODOs. El auditor maestro (`merci-audit.py`) no reporta advertencias WAI-ARIA, SEO ni de acrónimos en el nuevo HTML ni en el cuadernillo.
+- [x] **2. Cosecha de Conocimiento:** Documento `cuadernillo-cv-anti-ats-json-ld.md` atesorado definitivamente en la Biblioteca, cerrando el ciclo atómico.
+- [x] **3. Auditoría Documental:** `README.md` sincronizado con la Fase 8.4 sellada al 100%.
+- [x] **4. Evaluación de Release:** El orquestador de inicialización `merci-init.py` ya incluye la abstracción DLP para convertir el CV en una plantilla genérica para la versión base.
+- [x] **5. Snapshot:** Ejecutado `merci-backup.py` para generar una instantánea ultraligera (Snapshot) del proyecto en estado inmaculado.
+- [x] **6. Sello Definitivo:** Commit atómico de consolidación generado y listo para subir.
+
+**Motivo / criterio:** *Governance y Shift-Left*. Ninguna pieza de software o de identidad está realmente acabada hasta que su "porqué" arquitectónico está escrito, curado y respaldado. Este protocolo asegura que no arrastramos cabos sueltos ni deuda silenciosa al iniciar nuevos desarrollos lógicos o de nube.
+
+**Siguiente paso o deuda:** Iniciar el nuevo roadmap de Orquestación IA (`ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`) o retomar la Fase 11 de CI/CD.
+
 ### 2026-05-05 — Creación de cuadernillo "El CV Anti-ATS" (JSON-LD)
 
 **Contexto:** Documentar la filosofía y la implementación técnica detrás del CV semántico "Anti-ATS" y el uso de JSON-LD, como un activo de conocimiento permanente en la Biblioteca.
