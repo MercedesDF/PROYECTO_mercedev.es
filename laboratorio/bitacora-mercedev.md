@@ -37,6 +37,19 @@ Copia el bloque y rellénalo.
 ---
 ## Registro cronológico
 
+### 2026-05-06 — Docs: Release v1.6.1 del Boilerplate y preparación de terreno para IA
+
+**Contexto:** Tras subsanar las penalizaciones de contraste de accesibilidad (WCAG) en el núcleo estático y fortificar el enrutamiento contextual en la capa dinámica (WordPress), era imperativo empaquetar estas correcciones arquitectónicas en el Boilerplate antes de iniciar la compleja Fase 1 de Inteligencia Artificial (Self-Healing System).
+
+**Hecho:**
+- Se actualizó `README-merci.md` a la versión `v1.6.1` detallando las mejoras de UX y Accesibilidad.
+- Se revisó la integridad de las plantillas y del archivo `.env` de muestra.
+- Se ejecutó el Protocolo Estricto de Cierre certificando 0 deudas técnicas y el restablecimiento del Cuádruple 100 en todas las métricas móviles.
+
+**Motivo / criterio:** *Clean Slate (Lienzo en Blanco) y Governance*. Nunca se debe arrancar una épica de alta incertidumbre si el código base presenta deuda técnica. Lanzar la release menor (`v1.6.1`) asegura que el Boilerplate público reciba los últimos parches y que nuestro entorno local quede congelado, respaldado y seguro para mutar hacia el modelo Self-Healing.
+
+**Siguiente paso o deuda:** Ejecutar el backup local (`merci-backup.py`), realizar el proceso de instanciación hacia el repositorio de `merci-boilerplate` y arrancar oficialmente con la Fase 1 de Orquestación IA.
+
 ### 2026-05-06 — Fix: Resolución de jerarquía en botones de retroceso (Art de Coté)
 
 **Contexto:** El botón "Volver" en artículos individuales de "Art de Coté" redirigía a la portada del Blog (`/blog/`) en lugar de a su estantería original. Esto ocurría porque los posts estaban asignados a subcategorías específicas (temas) y no directamente a la categoría padre "Art de Coté".
