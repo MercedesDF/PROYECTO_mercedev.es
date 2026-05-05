@@ -15,6 +15,8 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # QUÉ HACE: Enlaza este trabajo con tu Entorno de GitHub para extraer sus secretos específicos.
+    environment: 'Droplet Producción mercedev-php'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
