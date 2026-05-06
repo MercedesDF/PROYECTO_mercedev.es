@@ -4,6 +4,7 @@ descripcion: "Cómo una auditoría en la terminal redujo el peso de los backups 
 tipo: "cuadernillo"
 tema: "DevSecOps y Automatización"
 fecha: "2026-04-30"
+fase: "8 (Expansión de Contenido)"
 estado: "publicado"
 alt_portada: "Gráfico conceptual mostrando un embudo que filtra dependencias pesadas y binarios, dejando pasar solo el código fuente ligero."
 ---

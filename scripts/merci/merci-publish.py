@@ -84,6 +84,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     tema = meta.get("tema", "Estantería General")
     estado = meta.get("estado", "borrador").lower()
     alt_portada = meta.get("alt_portada", "")
+    fase = meta.get("fase", "")
     
     # QUÉ HACE: Genera los nombres de salida basándose en el título del YAML, no en el archivo.
     # POR QUÉ: Desacopla el sistema de archivos del routing web (Auto-nombrado).
@@ -140,6 +141,8 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     out_pdf_path = PUBLIC_DESCARGAS / out_pdf_filename
     PUBLIC_DESCARGAS.mkdir(parents=True, exist_ok=True)
     
+    fase_pdf_text = f" | Fase {fase}" if fase else ""
+    
     pdf_html_content = f"""<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -163,7 +166,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     <div class="portada">
         <h1>{titulo}</h1>
         <p>{tipo.capitalize()} | Vol. {meta.get('volumen', 1)}</p>
-        <p><strong>mercedev.es</strong> — {meta.get('fecha', '')}</p>
+        <p><strong>mercedev.es</strong> — {meta.get('fecha', '')}{fase_pdf_text}</p>
     </div>
     <div class="contenido">
         {html_content}
@@ -247,7 +250,8 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
         "url": f"/biblioteca/{out_filename}",
         "tipo": tipo,
         "fecha": meta.get("fecha", "1970-01-01"),
-        "tema": tema
+        "tema": tema,
+        "fase": fase
     }
 
 def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: int, js_c_v: int, js_m_v: int):
@@ -294,11 +298,12 @@ def generar_indice_biblioteca(publicaciones, header_html, footer_html, css_v: in
             
             clase_css = "card--booklet" if pub["tipo"].lower() == "cuadernillo" else "card--book"
             badge = pub["tipo"].capitalize()
+            fase_badge = f" &middot; Fase {pub['fase']}" if pub.get("fase") else ""
             
             cards_html += f"""
                 <article class="card {clase_css}" id="{pub_slug}">
                     <header>
-                        <span class="card__meta">{pub["fecha"]} — {badge}</span>
+                        <span class="card__meta">{pub["fecha"]} — {badge}{fase_badge}</span>
                         <h2 class="card__title"><a href="{pub["url"]}" aria-label="Leer artículo completo: {pub["titulo"]}">{pub["titulo"]}</a></h2>
                     </header>
                     <div class="card__content">

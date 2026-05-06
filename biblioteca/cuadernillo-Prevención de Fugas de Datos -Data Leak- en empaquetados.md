@@ -4,6 +4,7 @@ descripcion: "Por qué purgar los artefactos binarios es fundamental al abstraer
 tipo: "cuadernillo"
 tema: "Seguridad y Arquitectura"
 fecha: "2026-04-26"
+fase: "10 (Empaquetado y Release)"
 estado: "publicado"
 alt_portada: "Diagrama mostrando el filtro de limpieza aislando el código fuente de los archivos PDF generados."
 ---

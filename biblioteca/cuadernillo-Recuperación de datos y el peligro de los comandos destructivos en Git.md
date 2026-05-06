@@ -3,6 +3,7 @@ titulo: "Recuperación de datos y el peligro de los comandos destructivos en Git
 descripcion: "Por qué las interfaces gráficas mienten, la terminal dice la verdad, y cómo blindarse antes de reescribir el historial."
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-04-27"
+fase: "8 (Expansión de Contenido)"
 estado: "publicado"
 tipo: "cuadernillo"
 alt_portada: "Señal de advertencia junto a una terminal ejecutando comandos de limpieza de Git."

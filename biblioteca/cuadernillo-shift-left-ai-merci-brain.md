@@ -4,6 +4,7 @@ descripcion: "Cómo dotar a un asistente web de IA generativa sin exponer API Ke
 tipo: "cuadernillo"
 tema: "DevSecOps y Automatización"
 fecha: "2026-05-02"
+fase: "9 (Inteligencia y Autonomía)"
 estado: "publicado"
 alt_portada: "Diagrama conceptual ilustrando el traslado de la consulta de IA desde el navegador hacia el orquestador de compilación en Python."
 ---

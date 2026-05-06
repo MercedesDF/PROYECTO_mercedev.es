@@ -38,6 +38,16 @@ Copia el bloque y rellénalo.
 
 ## Registro cronológico
 
+### 2026-05-06 — Arch: Formalización de Art de Coté para scripts auxiliares (Cero Desperdicio)
+
+**Contexto:** Se requería definir qué hacer con los scripts temporales, andamiajes o flujos de trabajo (como el pipeline de CI/CD puro con rsync) que funcionan perfectamente pero son descartados por decisiones de diseño.
+
+**Hecho:** Se actualizó la Regla 10 en `instrucciones.md` para asentar formalmente que este tipo de conocimiento no se elimina, sino que se transforma en cuadernillos bajo la taxonomía "Art de Coté" (Arte Colateral).
+
+**Motivo / criterio:** *Waste Not* (Cero Desperdicio). El código escrito y validado representa tiempo de ingeniería valioso. Preservarlo en el CMS bajo una categoría colateral enriquece la base de conocimientos sin contaminar la arquitectura principal del Boilerplate, dejándolo disponible "por si acaso".
+
+**Siguiente paso o deuda:** Iniciar la Fase 1 del Roadmap de IA (Creación de `/merci-brain` y estandarización de prompts).
+
 ### 2026-05-06 — Milestone: Cierre Arquitectónico Fundacional (Fases 1 a 11)
 
 **Contexto:** El roadmap original del proyecto, concebido para construir un ecosistema web híbrido desde cero absoluto, ha llegado a su conclusión. Era necesario dejar un registro histórico y formal de este hito antes de mutar la naturaleza del orquestador hacia la Inteligencia Artificial.

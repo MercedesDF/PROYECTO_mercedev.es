@@ -5,6 +5,7 @@ tema: "Blog"
 descripcion: "prueba"
 alt_portada: "prueba"
 fecha: "2026-04-29"
+fase: "8 (Expansión de Contenido)"
 wp_id: "22"
 ---
 

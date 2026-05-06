@@ -4,6 +4,7 @@ descripcion: "Depuración de errores de autenticación y gestión de secretos pa
 tipo: "cuadernillo"
 tema: "Infraestructura y Automatización"
 fecha: "2026-05-05"
+fase: "11 (CI/CD y Lighthouse)"
 estado: "publicado"
 alt_portada: "Diagrama conceptual de GitHub Actions conectándose por SSH a un servidor web."
 ---

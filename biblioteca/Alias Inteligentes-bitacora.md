@@ -4,6 +4,7 @@ descripcion: "Evolución del enrutador Zsh: autodescubrimiento, parámetros infi
 tipo: "bitacora"
 tema: "DevSecOps y Automatización"
 fecha: "2026-05-04"
+fase: "8.4 (Identidad y Autoridad)"
 estado: "publicado"
 alt_portada: "Captura de pantalla de la terminal mostrando la configuración de funciones alias en Zsh."
 ---

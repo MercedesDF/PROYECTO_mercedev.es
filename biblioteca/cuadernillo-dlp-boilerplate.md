@@ -6,6 +6,7 @@ estado: "publicado"
 tipo: "cuadernillo"
 alt_portada: "Esquema conceptual de la prevención de fuga de datos en repositorios públicos."
 fecha: "2026-04-30"
+fase: "8 (Expansión de Contenido)"
 ---
 
 ## El Desafío (Síntoma)

@@ -6,6 +6,7 @@ tipo: "cuadernillo"
 descripcion: "Cómo superar las limitaciones de parseo en YAML inyectando metadatos multilínea dentro de comentarios HTML nativos."
 alt_portada: "Fragmento de código mostrando un comentario HTML utilizado como almacenamiento de datos."
 fecha: "2026-05-01"
+fase: "8 (Expansión de Contenido)"
 ---
 
 <!-- linkedin:

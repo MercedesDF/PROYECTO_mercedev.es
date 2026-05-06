@@ -4,6 +4,7 @@ descripcion: "Cómo truncar el historial inmutable de un repositorio derivado pa
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-04-29"
+fase: "8 (Expansión de Contenido)"
 estado: "publicado"
 alt_portada: "Esquema visual que muestra una línea temporal de Git siendo cortada para aislar un único commit fundacional."
 ---

@@ -2,6 +2,7 @@
 titulo: "Título de la exploración o cuadernillo"
 estado: "borrador"
 tema: "Art de Coté"
+fase: ""
 ---
 
 <!-- linkedin:

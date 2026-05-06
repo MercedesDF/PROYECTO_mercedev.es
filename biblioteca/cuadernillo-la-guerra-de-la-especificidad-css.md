@@ -4,6 +4,7 @@ descripcion: "Análisis forense de por qué la pseudo-clase :visited no se aplic
 tipo: "cuadernillo"
 tema: "Arquitectura y Rendimiento"
 fecha: "2026-04-29"
+fase: "8 (Expansión de Contenido)"
 estado: "publicado"
 alt_portada: "Diagrama que muestra la puntuación de especificidad de diferentes selectores CSS, desde un selector de etiqueta hasta un estilo en línea."
 ---

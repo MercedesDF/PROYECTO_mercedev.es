@@ -6,6 +6,7 @@ estado: "publicado"
 tipo: "cuadernillo"
 alt_portada: "Esquema de inyección de datos Headless hacia la API de WooCommerce."
 fecha: "2026-04-30"
+fase: "8 (Expansión de Contenido)"
 ---
 
 ## El Desafío (Síntoma)

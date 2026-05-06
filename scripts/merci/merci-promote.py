@@ -95,6 +95,7 @@ def main():
     nuevo_tema = input(f"  🏷️  Tema/Estantería [{meta.get('tema', 'General')}]: ").strip() or meta.get('tema', 'General')
     nueva_desc = input(f"  📝 Descripción [{meta.get('descripcion', '')}]: ").strip() or meta.get('descripcion', '')
     nuevo_alt = input(f"  👁️  Alt de la portada [{meta.get('alt_portada', '')}]: ").strip() or meta.get('alt_portada', '')
+    nueva_fase = input(f"  🏗️  Fase del Roadmap [{meta.get('fase', '')}]: ").strip() or meta.get('fase', '')
     
     # Al republicar, permitimos conservar la fecha original o sobreescribirla con la actual
     fecha_defecto = meta.get('fecha', datetime.now().strftime("%Y-%m-%d"))
@@ -109,6 +110,7 @@ def main():
     meta['tema'] = nuevo_tema
     meta['descripcion'] = nueva_desc
     meta['alt_portada'] = nuevo_alt
+    meta['fase'] = nueva_fase
     meta['estado'] = 'publicado'  # Cambio de estado automatizado
     meta['fecha'] = nueva_fecha
 

@@ -2,6 +2,7 @@
 titulo: "Título de la entrada del Blog"
 estado: "borrador"
 tema: "Blog"
+fase: ""
 ---
 
 <!-- linkedin:

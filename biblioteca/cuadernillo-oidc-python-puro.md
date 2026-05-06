@@ -6,6 +6,7 @@ estado: "publicado"
 tipo: "cuadernillo"
 alt_portada: "Diagrama de flujo de autenticación OIDC con servidor local en Python."
 fecha: "2026-05-01"
+fase: "8 (Expansión de Contenido)"
 ---
 
 ## El Desafío (Síntoma)

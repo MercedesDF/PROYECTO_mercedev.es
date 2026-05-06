@@ -4,6 +4,7 @@ descripcion: "Cómo un simple guion rompió el orquestador de commits y por qué
 tipo: "cuadernillo"
 tema: "Automatización y Python"
 fecha: "2026-04-26"
+fase: "10 (Empaquetado y Release)"
 estado: "publicado"
 alt_portada: "Esquema visual de una expresión regular capturando múltiples tipos de guiones tipográficos."
 ---

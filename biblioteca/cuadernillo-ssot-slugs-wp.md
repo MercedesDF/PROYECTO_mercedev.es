@@ -6,6 +6,7 @@ tipo: "cuadernillo"
 descripcion: "Cómo resolver los conflictos de nomenclatura de URIs cuando se integran generadores estáticos (Python) con motores dinámicos (WordPress)."
 alt_portada: "Esquema conceptual mostrando a Python consultando la API de WordPress antes de generar un archivo físico."
 fecha: "2026-05-01"
+fase: "8 (Expansión de Contenido)"
 ---
 
 ## El Desafío (Síntoma)

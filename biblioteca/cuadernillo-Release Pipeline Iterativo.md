@@ -4,6 +4,7 @@ descripcion: "Cómo gobernar la actualización de un Boilerplate desde un proyec
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-04-27"
+fase: "8 (Expansión de Contenido)"
 estado: "publicado"
 alt_portada: "Diagrama de flujo circular mostrando la clonación, instanciación, auditoría y retroalimentación hacia el proyecto matriz."
 ---
