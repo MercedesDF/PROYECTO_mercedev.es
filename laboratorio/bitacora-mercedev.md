@@ -37,6 +37,31 @@ Copia el bloque y rellénalo.
 ---
 
 ## Registro cronológico
+### 2026-05-07 — UI: Leyenda descriptiva para el Dashboard de Métricas
+
+**Contexto:** El "Engineering Dashboard" de la portada con las 10 métricas carecía de contexto sobre el origen y la valoración de los números presentados, dificultando la comprensión para usuarios menos técnicos.
+
+**Hecho:** 
+- Se inyectó el bloque `<p class="hero__dashboard-legend">` en `public/index.html`.
+- Se añadieron las reglas CSS `.hero__dashboard-legend` en `src/scss/components/_hero.scss`, alineadas a la izquierda.
+
+**Motivo / criterio:** *Accesibilidad Cognitiva y Autoridad*. Explicar de dónde vienen los datos (auditoría real de Google PageSpeed) y qué significan (rango de excelencia / 100 sobre 100) contextualiza las métricas puras, transformando números fríos en un argumento de venta de autoridad técnica verificable.
+
+**Siguiente paso o deuda:** Recompilar el CSS, ejecutar `merci total` y comenzar la Fase 1 de IA.
+
+### 2026-05-07 — Feat: Ampliación de métricas extraídas de PageSpeed (FCP y SI)
+
+**Contexto:** El script de extracción leía 4 métricas (LCP, INP, CLS, TBT), pero el reporte de PageSpeed incluye otras relevantes como First Contentful Paint (FCP) y Speed Index (SI). Se solicitó incluirlas todas en el Dashboard de la portada.
+
+**Hecho:**
+- Se inyectaron los patrones Regex bidireccionales para FCP y SI en `laboratorio/scripts_temporales/merci-extract-metrics.py`.
+- Se añadieron los bloques HTML para las nuevas métricas en `public/index.html`.
+- Se refactorizó la rejilla CSS en `src/scss/components/_hero.scss` de 4 a 5 columnas para alojar perfectamente las 10 métricas totales en dos filas.
+
+**Motivo / criterio:** *Data Completeness y UI Responsiva*. Ignorar datos disponibles en un reporte validado limita la observabilidad. Adaptar la cuadrícula SASS demuestra la flexibilidad de la arquitectura modular: ampliar el dashboard de 8 a 10 métricas cuesta solo un dígito de CSS.
+
+**Siguiente paso o deuda:** Iniciar la Fase 1 de IA.
+
 ### 2026-05-06 — QA: Intercepción de enlace roto en capa dinámica (Menú Art de Coté)
 
 **Contexto:** El orquestador `merci total` detuvo el pipeline en la fase de rastreo dinámico (`merci-linkcheck.py`) tras detectar un error 404 hacia `/blog/category/art-de-cote/` originado en `/blog/`.

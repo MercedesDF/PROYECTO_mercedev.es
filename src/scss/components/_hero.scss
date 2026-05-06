@@ -50,7 +50,7 @@
         margin-top: 1.5rem;
 
         @media (min-width: 768px) {
-            grid-template-columns: repeat(4, minmax(0, 1fr)); // 4 columnas en escritorio
+            grid-template-columns: repeat(5, minmax(0, 1fr)); // 5 columnas en escritorio para 10 métricas
         }
     }
 
@@ -72,6 +72,15 @@
     &__metric-value {
         font-size: 1rem;
         font-weight: 600;
+    }
+
+    &__dashboard-legend {
+        font-size: 0.75rem;
+        opacity: 0.7;
+        margin: 0.75rem 0 0;
+        text-align: left;
+        max-width: 80ch;
+        line-height: 1.5;
     }
 
     &__highlights {
