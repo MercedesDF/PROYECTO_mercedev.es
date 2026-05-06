@@ -36,6 +36,8 @@ Copia el bloque y rellénalo.
 
 ---
 
+## Registro cronológico
+
 ### 2026-05-06 — Milestone: Cierre Arquitectónico Fundacional (Fases 1 a 11)
 
 **Contexto:** El roadmap original del proyecto, concebido para construir un ecosistema web híbrido desde cero absoluto, ha llegado a su conclusión. Era necesario dejar un registro histórico y formal de este hito antes de mutar la naturaleza del orquestador hacia la Inteligencia Artificial.
@@ -48,11 +50,6 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** Cerrar la etapa de construcción de infraestructura pura y abrir el IDE para ejecutar la Fase 1 del nuevo documento `ROADMAP-AI-ORQUESTACION.md` (Observabilidad e Intercepción de errores).
 
-### 2026-05-06 — Docs: Alineación del CV Semántico con la identidad de Performance Engineer
-
-**Contexto:** El currículum semántico (`/sobre-mi/index.html`) conservaba el copy anterior ("Arquitecta de Sistemas de IA") que resultaba ajeno a la nueva identidad profesional y restaba impacto visual a la frase clave "gobernar la incertidumbre".
-
-## Registro cronológico
 ### 2026-05-06 — Docs: Alineación del CV Semántico con la identidad de Performance Engineer
 
 **Contexto:** El currículum semántico (`/sobre-mi/index.html`) conservaba el copy anterior ("Arquitecta de Sistemas de IA") que resultaba ajeno a la nueva identidad profesional y restaba impacto visual a la frase clave "gobernar la incertidumbre".
