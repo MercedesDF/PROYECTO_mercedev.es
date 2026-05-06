@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despliegue SSG Puro con GitHub Actions (rsync) — mercedev.es</title>
+    <meta name="description" content="Automatización de despliegue estático mediante CI/CD y justificación de su descarte en arquitecturas híbridas.">
+    <link rel="canonical" href="https://mercedev.es/art-de-cote/despliegue-ssg-puro-con-github-actions-rsync.html">
+    <link rel="stylesheet" href="/css/main.css?v=1778107246">
+    <script src="/js/MerciController.js?v=1777729228" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Despliegue SSG Puro con GitHub Actions (rsync)",
+      "description": "Automatización de despliegue estático mediante CI/CD y justificación de su descarte en arquitecturas híbridas.",
+      "url": "https://mercedev.es/art-de-cote/despliegue-ssg-puro-con-github-actions-rsync.html"
+    }
+    </script>
+</head>
+<body class="page">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
+            <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/art-de-cote/" class="card__back-link">← Volver a Art de Coté</a>
+            <header>
+                <h1 class="home-card__title--highlight">Despliegue SSG Puro con GitHub Actions (rsync)</h1>
+                <a href="/descargas/despliegue-ssg-puro-con-github-actions-rsync.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>Durante la Fase 11 de maduración del ecosistema, se buscó automatizar el despliegue del código hacia el servidor de producción utilizando CI/CD (Continuous Integration / Continuous Deployment - Integración Continua / Despliegue Continuo). El objetivo era compilar el SSG (Static Site Generation - Generación de Sitios Estáticos) en la nube y enviar los archivos listos a través de SSH (Secure Shell).</p>
+<p>Sin embargo, al aplicar el comando <code>rsync --delete</code>, se detectó que la capa dinámica del CMS (Content Management System - Sistema de Gestión de Contenidos) en producción dejaba de funcionar. <code>rsync</code> purgaba implacablemente el enlace simbólico físico (<code>public/blog</code>) que unía el núcleo estático con la instalación asilada de WordPress. Como dicho enlace está excluido en el <code>.gitignore</code>, el robot de GitHub asumía que era un archivo "sobrante" en el servidor y lo destruía.</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>En lugar de sobreingeniar el comando <code>rsync</code> con exclusiones complejas para mantener vivo el puente del CMS, se tomó la decisión arquitectónica de <strong>hacer un rollback y descartar el despliegue automático para esta infraestructura</strong>. La arquitectura híbrida mantiene el control manual mediante <code>git pull</code> en el servidor, el cual es lo suficientemente inteligente para ignorar los archivos no rastreados y preservar la integración.</p>
+<p>No obstante, el código del flujo desarrollado es una pieza de ingeniería robusta y validada. Superó las barreras de permisos e inyectó llaves de forma inmaculada. Se archiva a continuación como un activo "Plug &amp; Play" para su uso directo en futuras arquitecturas que sean <strong>100% estáticas</strong> (sin CMS acoplado).</p>
+<pre><code class="language-yaml">name: Build &amp; Deploy (SSG Cloud)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/**'
+      - 'biblioteca/**'
+      - 'public/**'
+      - 'scripts/merci/**'
+      - 'src/scss/**'
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: 'Droplet Producción mercedev-php'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Execute SSG Compilation (Build)
+        run: |
+          python3 scripts/merci/merci-publish.py
+          python3 scripts/merci/merci-sync-pages.py
+
+      - name: Deploy to Production (CloudPanel) via rsync
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+        run: |
+          if [ -z &quot;$SERVER_IP&quot; ] || [ -z &quot;$SERVER_USER&quot; ]; then
+            echo &quot;🚨 ERROR: Faltan secretos. Revisa SERVER_IP o SERVER_USER en GitHub Settings &gt; Secrets.&quot;
+            exit 1
+          fi
+
+          # Inicializar el agente SSH nativo en memoria RAM
+          eval $(ssh-agent -s)
+
+          mkdir -p ~/.ssh
+          echo &quot;$SSH_PRIVATE_KEY&quot; &gt; ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+          # Cargar la llave auditada en la memoria del agente
+          ssh-add ~/.ssh/id_ed25519
+
+          # Añadir la firma del servidor y desplegar confiando en el agente
+          ssh-keyscan -H $SERVER_IP &gt;&gt; ~/.ssh/known_hosts 2&gt;/dev/null
+          rsync -avz -e &quot;ssh -v -o StrictHostKeyChecking=no&quot; --delete public/ $SERVER_USER@$SERVER_IP:~/htdocs/mercedev.es/public/
+</code></pre>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>El código que no llega a producción pero ha sido empíricamente validado es I+D puro. Tirarlo a la basura es desperdiciar esfuerzo de ingeniería de sistemas.</p>
+<p><strong>Lección Arquitectónica:</strong> Las herramientas destructivas de sincronización (<code>rsync --delete</code>) son por defecto hostiles contra arquitecturas híbridas que mantienen estado local u oculto en el servidor de destino (como enlaces simbólicos o carpetas de subidas de usuarios que no viajan en Git). Para ecosistemas acoplados, la sincronización pasiva (<code>git pull</code>) o la containerización inmutable (Docker) resultan patrones sustancialmente más seguros.</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

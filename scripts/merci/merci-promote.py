@@ -133,7 +133,7 @@ def main():
         comando_sugerido = "merci wp"
     elif "art-de-cote" in rel_path.parts[:-1]:
         directorio_destino = REPO_ROOT / "art-de-cote"
-        comando_sugerido = "merci wp"
+        comando_sugerido = "merci total"
     else:
         directorio_destino = REPO_ROOT / "biblioteca"
         comando_sugerido = "merci total"

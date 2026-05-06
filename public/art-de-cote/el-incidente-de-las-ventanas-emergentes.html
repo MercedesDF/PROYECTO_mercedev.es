@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperación de datos y el peligro de los comandos destructivos en Git — mercedev.es</title>
-    <meta name="description" content="Por qué las interfaces gráficas mienten, la terminal dice la verdad, y cómo blindarse antes de reescribir el historial.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git.html">
+    <title>El incidente de las ventanas emergentes — mercedev.es</title>
+    <meta name="description" content="Registro de la experiencia de pérdida de control del navegador y la importancia de la configuración de privacidad.">
+    <link rel="canonical" href="https://mercedev.es/art-de-cote/el-incidente-de-las-ventanas-emergentes.html">
     <link rel="stylesheet" href="/css/main.css?v=1778107246">
     <script src="/js/MerciController.js?v=1777729228" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Recuperación de datos y el peligro de los comandos destructivos en Git",
-      "description": "Por qué las interfaces gráficas mienten, la terminal dice la verdad, y cómo blindarse antes de reescribir el historial.",
-      "url": "https://mercedev.es/biblioteca/recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git.html"
+      "headline": "El incidente de las ventanas emergentes",
+      "description": "Registro de la experiencia de pérdida de control del navegador y la importancia de la configuración de privacidad.",
+      "url": "https://mercedev.es/art-de-cote/el-incidente-de-las-ventanas-emergentes.html"
     }
     </script>
 </head>
@@ -44,27 +44,23 @@
     </header>
     <main class="main--padded section" id="main">
         <article class="card card--booklet">
-            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <a href="/art-de-cote/" class="card__back-link">← Volver a Art de Coté</a>
             <header>
-                <h1 class="home-card__title--highlight">Recuperación de datos y el peligro de los comandos destructivos en Git</h1>
-                <a href="/descargas/recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">El incidente de las ventanas emergentes</h1>
+                <a href="/descargas/el-incidente-de-las-ventanas-emergentes.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Durante un intento de purgar material multimedia pesado del historial profundo de Git (reescritura de historial), la carpeta objetivo desapareció repentinamente del explorador de archivos del editor de código (VS Code). Se generó una alerta crítica por posible pérdida de datos no versionados (archivos <em>untracked</em>), asumiendo que el comando de consola había arrasado con el disco duro físico.</p>
+<p>Durante una sesión de trabajo, el navegador comenzó a abrir múltiples ventanas emergentes de terceros sin control aparente. Esto generó una fuerte sensación de vulnerabilidad y la sospecha inicial de haber sufrido una inyección de código malicioso o un hackeo, coincidiendo temporalmente con un bloqueo del sistema operativo.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se aplicó ingeniería forense para determinar el estado real de la máquina:
-1. <strong>Descartar la ilusión óptica:</strong> Se utilizó la terminal nativa del sistema (<code>ls -la</code>) para confirmar si la desaparición era real o si la interfaz gráfica (GUI) estaba ocultando los archivos por estar listados en el <code>.gitignore</code>.
-2. <strong>Rastreo de operaciones:</strong> Al confirmar la ausencia física, se dedujo que el comando <code>git rm --cached</code> no era el culpable (pues está diseñado para no tocar el disco). La causa raíz fue una manipulación accidental en la GUI (clic en "Descartar cambios"), la cual elimina archivos físicos sin red de seguridad.
-3. <strong>Rescate:</strong> Se localizaron y restauraron los archivos directamente desde la Papelera de reciclaje del sistema operativo anfitrión (Ubuntu) y, como medida de mitigación futura, se programó un script Python para generar copias de seguridad locales (<code>merci-backup.py</code>).</p>
-<h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Este incidente consolida tres reglas de arquitectura operativa innegociables en DevSecOps:</p>
-<ol>
-<li><strong>Las interfaces gráficas mienten; la terminal es la única fuente de verdad.</strong> Los editores de código modernos ocultan información por conveniencia. Ante la duda, el diagnóstico siempre debe realizarse desde una terminal nativa (fuera del IDE).</li>
-<li><strong>Git no protege lo que no conoce.</strong> Operar con archivos <em>untracked</em> (no rastreados) es caminar por la cuerda floja. Si se borran, Git no tiene memoria de ellos para restaurarlos.</li>
-<li><strong>Snapshots antes de la cirugía.</strong> Ejecutar comandos de reescritura de historial (<code>filter-branch</code>, <code>reset --hard</code>) o purgas de caché es una operación "a corazón abierto". Es obligatorio generar un archivo <code>.zip</code> con el estado íntegro del proyecto antes de alterar el motor de control de versiones.</li>
-</ol>
-<p><em>Asumir que las herramientas nos protegen de nosotros mismos es el primer paso hacia el desastre.</em></p>
+<p>Se procedió a auditar el entorno. Primero, se aisló el navegador abriéndolo desde la terminal en un modo seguro sin restaurar pestañas. Posteriormente, al revisar la configuración de privacidad del navegador, se detectó que los permisos para mostrar ventanas emergentes de sitios de terceros estaban habilitados. Se procedió a revocar dichos permisos inmediatamente.</p>
+<h2>El Aprendizaje/Deuda Técnica</h2>
+<p>En momentos de estrés tecnológico, es común establecer saltos lógicos entre síntomas visuales (pop-ups) y fallos del sistema a bajo nivel, asumiendo ataques complejos. Aunque los scripts de terceros generan saturación de recursos y una mala experiencia, no siempre implican una vulneración o "hackeo" real del equipo. </p>
+<p>Esta experiencia refuerza, desde la empatía con el usuario final, el porqué de nuestra arquitectura en el <strong>Merci Boilerplate</strong>:</p>
+<ul>
+<li>La implementación de políticas <strong>CSP (Content Security Policy)</strong> estrictas.</li>
+<li>La prohibición absoluta de inyectar dependencias de terceros o scripts publicitarios que secuestren la experiencia de navegación.</li>
+</ul>
             </div>
         </article>
     </main>

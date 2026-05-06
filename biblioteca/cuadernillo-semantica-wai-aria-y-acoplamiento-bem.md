@@ -5,7 +5,7 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-06"
 fase: "11 (Cierre Arquitectónico)"
-estado: "borrador"
+estado: "publicado"
 alt_portada: "Esquema mostrando un div genérico siendo ignorado por un lector de pantalla frente a uno con role='group'."
 ---
 

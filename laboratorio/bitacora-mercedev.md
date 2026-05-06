@@ -37,6 +37,38 @@ Copia el bloque y rellénalo.
 ---
 
 ## Registro cronológico
+### 2026-05-06 — QA: Intercepción de enlace roto en capa dinámica (Menú Art de Coté)
+
+**Contexto:** El orquestador `merci total` detuvo el pipeline en la fase de rastreo dinámico (`merci-linkcheck.py`) tras detectar un error 404 hacia `/blog/category/art-de-cote/` originado en `/blog/`.
+
+**Hecho:** Se diagnosticó que las plantillas monolíticas de WordPress (`index.php` y `woocommerce.php`) conservaban la ruta antigua en su bloque `<nav>` *hardcodeado*. Se actualizó manualmente el enlace hacia la nueva ruta estática `/art-de-cote/`.
+
+**Motivo / criterio:** *Fail-Fast y DAST*. El escáner de enlaces demuestra su inmenso valor bloqueando el despliegue al detectar asimetrías de enrutamiento entre el núcleo SSG y el CMS. Las plantillas PHP no son procesadas por `merci-sync-pages.py`, exigiendo intervención explícita del autor para mantener la paridad visual.
+
+**Siguiente paso o deuda:** Validar la corrección ejecutando `merci total` y comenzar la Fase 1 del Roadmap de IA.
+
+### 2026-05-06 — Arch: Independencia absoluta de Art de Coté.
+
+**Contexto:** Tras decidir migrar Art de Coté al motor estático (SSG), existían dos rutas: añadirlo en la Biblioteca como una estantería más o darle entidad propia como índice independiente.
+
+**Hecho:** 
+- Se refactorizó `merci-publish.py` para procesar y compilar la carpeta `art-de-cote/` de forma paralela a `biblioteca/`.
+- Se modificó `merci-wp.py` para excluir esta carpeta del flujo de WordPress.
+- Se actualizaron los enlaces del menú principal hacia `/art-de-cote/`.
+
+**Motivo / criterio:** *Control y Separación de Identidad*. Otorgarle su propio `index.html` autogenerado mantiene la claridad conceptual en el menú y evita mezclar ensayos colaterales con la doctrina y tutoriales técnicos de la Biblioteca, facilitando la navegación de los usuarios que clonarán el repositorio.
+
+**Siguiente paso o deuda:** Validar la compilación SSG dual ejecutando `merci total`.
+
+### 2026-05-06 — Arch: Pivote SSG para "Art de Coté" (Desacoplamiento de WordPress)
+
+**Contexto:** La sección "Art de Coté", destinada a preservar scripts temporales, andamiajes y código colateral, estaba enrutada hacia la capa dinámica (WordPress). Se reevaluó la naturaleza del contenido.
+
+**Hecho:** Se decidió extraer "Art de Coté" del CMS y migrarlo al motor de Generación de Sitios Estáticos (SSG), operando bajo el mismo flujo que la Biblioteca.
+
+**Motivo / criterio:** *Data Integrity & SSOT*. El código fuente, los scripts y los flujos YAML son ciudadanos de primera clase en Markdown y Git. Almacenar fragmentos de código técnico en una base de datos MySQL (WordPress) es un antipatrón que expone el código a corrupción de formato y pérdida de trazabilidad. Devolver Art de Coté a la capa estática garantiza 0ms de latencia y un control de versiones absoluto sobre los experimentos preservados.
+
+**Siguiente paso o deuda:** Refactorizar `merci-promote.py` y `merci-publish.py` para soportar la nueva ruta estática. Modificar los enlaces de navegación global.
 
 ### 2026-05-06 — Arch: Formalización de Art de Coté para scripts auxiliares (Cero Desperdicio)
 
@@ -2141,7 +2173,7 @@ Copia el bloque y rellénalo.
 
 ### 2026-04-27 — Feat: Automatización de la fecha de última revisión en bitácora
 
-**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-05-06.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
+**Contexto:** La línea final del archivo de bitácora (`*Última revisión de la bitácora: 2026-05-07.*`) contenía una fecha obsoleta (2026-04-14) porque dependía de la actualización manual por parte de la autora en cada sesión.
 
 **Hecho:** Se implementó una rutina de actualización automática en `scripts/merci/merci-commit.py` mediante expresiones regulares.
 
@@ -5470,4 +5502,4 @@ FLUSH PRIVILEGES;
 
 ---
 
-*Última revisión de la bitácora: 2026-05-06.*
+*Última revisión de la bitácora: 2026-05-07.*

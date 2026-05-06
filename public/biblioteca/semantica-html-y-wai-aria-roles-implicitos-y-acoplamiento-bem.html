@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperación de datos y el peligro de los comandos destructivos en Git — mercedev.es</title>
-    <meta name="description" content="Por qué las interfaces gráficas mienten, la terminal dice la verdad, y cómo blindarse antes de reescribir el historial.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git.html">
+    <title>Semántica HTML y WAI-ARIA: Roles implícitos y acoplamiento BEM — mercedev.es</title>
+    <meta name="description" content="Por qué los lectores de pantalla ignoran etiquetas aria-label genéricas y el peligro de acoplar bloques BEM.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem.html">
     <link rel="stylesheet" href="/css/main.css?v=1778107246">
     <script src="/js/MerciController.js?v=1777729228" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Recuperación de datos y el peligro de los comandos destructivos en Git",
-      "description": "Por qué las interfaces gráficas mienten, la terminal dice la verdad, y cómo blindarse antes de reescribir el historial.",
-      "url": "https://mercedev.es/biblioteca/recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git.html"
+      "headline": "Semántica HTML y WAI-ARIA: Roles implícitos y acoplamiento BEM",
+      "description": "Por qué los lectores de pantalla ignoran etiquetas aria-label genéricas y el peligro de acoplar bloques BEM.",
+      "url": "https://mercedev.es/biblioteca/semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem.html"
     }
     </script>
 </head>
@@ -46,25 +46,32 @@
         <article class="card card--booklet">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">Recuperación de datos y el peligro de los comandos destructivos en Git</h1>
-                <a href="/descargas/recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">Semántica HTML y WAI-ARIA: Roles implícitos y acoplamiento BEM</h1>
+                <a href="/descargas/semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Durante un intento de purgar material multimedia pesado del historial profundo de Git (reescritura de historial), la carpeta objetivo desapareció repentinamente del explorador de archivos del editor de código (VS Code). Se generó una alerta crítica por posible pérdida de datos no versionados (archivos <em>untracked</em>), asumiendo que el comando de consola había arrasado con el disco duro físico.</p>
-<h2>La Maniobra (Lógica)</h2>
-<p>Se aplicó ingeniería forense para determinar el estado real de la máquina:
-1. <strong>Descartar la ilusión óptica:</strong> Se utilizó la terminal nativa del sistema (<code>ls -la</code>) para confirmar si la desaparición era real o si la interfaz gráfica (GUI) estaba ocultando los archivos por estar listados en el <code>.gitignore</code>.
-2. <strong>Rastreo de operaciones:</strong> Al confirmar la ausencia física, se dedujo que el comando <code>git rm --cached</code> no era el culpable (pues está diseñado para no tocar el disco). La causa raíz fue una manipulación accidental en la GUI (clic en "Descartar cambios"), la cual elimina archivos físicos sin red de seguridad.
-3. <strong>Rescate:</strong> Se localizaron y restauraron los archivos directamente desde la Papelera de reciclaje del sistema operativo anfitrión (Ubuntu) y, como medida de mitigación futura, se programó un script Python para generar copias de seguridad locales (<code>merci-backup.py</code>).</p>
-<h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Este incidente consolida tres reglas de arquitectura operativa innegociables en DevSecOps:</p>
+<p>Durante la auditoría de las últimas vistas (Engineering Dashboard y CV Semántico), surgieron dos incidentes arquitectónicos aparentemente inconexos pero nacidos de la misma causa: la falta de semántica estricta.</p>
 <ol>
-<li><strong>Las interfaces gráficas mienten; la terminal es la única fuente de verdad.</strong> Los editores de código modernos ocultan información por conveniencia. Ante la duda, el diagnóstico siempre debe realizarse desde una terminal nativa (fuera del IDE).</li>
-<li><strong>Git no protege lo que no conoce.</strong> Operar con archivos <em>untracked</em> (no rastreados) es caminar por la cuerda floja. Si se borran, Git no tiene memoria de ellos para restaurarlos.</li>
-<li><strong>Snapshots antes de la cirugía.</strong> Ejecutar comandos de reescritura de historial (<code>filter-branch</code>, <code>reset --hard</code>) o purgas de caché es una operación "a corazón abierto". Es obligatorio generar un archivo <code>.zip</code> con el estado íntegro del proyecto antes de alterar el motor de control de versiones.</li>
+<li><strong>Ceguera de Lector de Pantalla:</strong> Se inyectó un atributo <code>aria-label="Métricas de rendimiento del sistema"</code> a un <code>&lt;div&gt;</code> genérico que actuaba como contenedor del dashboard. Sin embargo, las tecnologías asistivas a menudo lo ignoraban por completo al leer la página.</li>
+<li><strong>Acoplamiento BEM:</strong> Los botones de llamada a la acción (CTA) del Hero en el currículum estaban utilizando la clase <code>.nav__link</code>. Aunque visualmente resolvía el problema temporalmente, ataba el diseño de un componente local a la barra de navegación global de la web.</li>
 </ol>
-<p><em>Asumir que las herramientas nos protegen de nosotros mismos es el primer paso hacia el desastre.</em></p>
+<h2>La Maniobra (Lógica)</h2>
+<ol>
+<li><strong>Restauración WAI-ARIA:</strong> Se inyectó explícitamente el atributo <code>role="group"</code> al <code>&lt;div&gt;</code> genérico del dashboard (<code>&lt;div class="hero__dashboard" role="group" aria-label="..."&gt;</code>).</li>
+<li><strong>Desacoplamiento BEM:</strong> Se eliminó la clase <code>.nav__link</code> de los botones del Hero en el HTML. En su lugar, se crearon reglas SASS nativas anidadas dentro de su propio bloque (<code>.hero__cta a</code>) para gobernar su aspecto. Adicionalmente, se restituyó la etiqueta estructural <code>&lt;h2&gt;</code> para la declaración de intenciones en el currículum que había quedado huérfana.</li>
+</ol>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Este incidente refuerza dos reglas fundamentales en el ecosistema:</p>
+<ul>
+<li>
+<p><strong>WAI-ARIA y Elementos Genéricos:</strong> Un <code>aria-label</code> por sí solo no convierte un elemento genérico (<code>div</code>, <code>span</code>) en algo semánticamente relevante. El estándar dictamina que, si un elemento carece de semántica nativa (como sí la tienen <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, o <code>&lt;button&gt;</code>), el navegador y el Árbol de Accesibilidad no le darán un "nombre accesible" a menos que se le asigne un rol válido (como <code>group</code> o <code>region</code>).</p>
+</li>
+<li>
+<p><strong>Principio de Responsabilidad Única en CSS:</strong> Reutilizar clases globales (como <code>.nav__link</code>) para "ahorrar" código en botones aislados es un antipatrón en la metodología BEM. Genera un código frágil: cualquier cambio futuro de espaciado o color en el menú global habría destrozado visualmente los botones de la portada.</p>
+</li>
+</ul>
+<p><em>Si no tiene rol, no existe. Si no es su bloque, no usa su clase.</em></p>
             </div>
         </article>
     </main>
