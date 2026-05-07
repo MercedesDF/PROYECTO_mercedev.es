@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silenciando al Guardián: Excepciones explícitas en linters estáticos — mercedev.es</title>
-    <meta name="description" content="Cómo gestionar falsos positivos en herramientas de auditoría de código (QA) mediante directivas de silenciamiento en línea.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos.html">
+    <title>Estrategias de Integración Headless: WP y WooCommerce — mercedev.es</title>
+    <meta name="description" content="Resolución de ceguera de proxy, paridad Dev/Prod y sincronización bidireccional en un ecosistema CMS aislado.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/estrategias-de-integracion-headless-wp-y-woocommerce.html">
     <link rel="stylesheet" href="/css/main.css?v=1778154283">
     <script src="/js/MerciController.js?v=1777729228" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Silenciando al Guardián: Excepciones explícitas en linters estáticos",
-      "description": "Cómo gestionar falsos positivos en herramientas de auditoría de código (QA) mediante directivas de silenciamiento en línea.",
-      "url": "https://mercedev.es/biblioteca/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos.html"
+      "headline": "Estrategias de Integración Headless: WP y WooCommerce",
+      "description": "Resolución de ceguera de proxy, paridad Dev/Prod y sincronización bidireccional en un ecosistema CMS aislado.",
+      "url": "https://mercedev.es/biblioteca/estrategias-de-integracion-headless-wp-y-woocommerce.html"
     }
     </script>
 </head>
@@ -43,26 +43,32 @@
         </nav>
     </header>
     <main class="main--padded section" id="main">
-        <article class="card card--booklet">
+        <article class="card card--book">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">Silenciando al Guardián: Excepciones explícitas en linters estáticos</h1>
-                <a href="/descargas/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">Estrategias de Integración Headless: WP y WooCommerce</h1>
+                <a href="/descargas/estrategias-de-integracion-headless-wp-y-woocommerce.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
-                <!-- linkedin:
-En DevSecOps, a veces el linter de seguridad es demasiado estricto. Hoy en Art de Coté documentamos cómo crear válvulas de escape elegantes para falsos positivos en auditorías de código. 🛡️
-https://mercedev.es/biblioteca/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos
--->
-
+                <h1>Estrategias de Integración Headless: WP y WooCommerce</h1>
 <h2>El Desafío (Síntoma)</h2>
-<p>Al implementar una nueva regla en el orquestador maestro (<code>merci-audit.py</code>) para prohibir y detectar estilos en línea <!-- merci-audit:silence-style -->(<code>style="..."</code>), la herramienta bloqueó la compilación de la biblioteca. El diagnóstico reveló un <strong>Falso Positivo Legítimo</strong>: el linter estaba escaneando un artículo técnico que explicaba cómo funciona la especificidad CSS, detectando los bloques de código de ejemplo como violaciones reales de la arquitectura SASS.</p>
+<p>La integración de un CMS (Content Management System) pesado como WordPress (WP) y WooCommerce en un núcleo estático de alto rendimiento (Core Web Vitals 100/100) introdujo múltiples vectores de fallo. Los desafíos documentados incluyeron:
+- <strong>Ceguera de Proxy:</strong> Varnish y Nginx ofuscaban el protocolo HTTPS y purgaban las cabeceras de autorización estándar, provocando errores de <em>Mixed Content</em> y bloqueos de la API REST (HTTP 401).
+- <strong>Deriva de Datos (Data Drift):</strong> Diferencias de IDs entre el entorno de desarrollo local y producción generaban conflictos al sincronizar contenido.
+- <strong>Contaminación de Rendimiento:</strong> WooCommerce inyectaba scripts en línea agresivos (Speculation Rules, fragmentos de carrito AJAX) que violaban la Política de Seguridad de Contenidos (CSP) y hundían el rendimiento móvil.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Para solucionar esto, se descartó aplicar sobreingeniería a las Expresiones Regulares (RegEx) del auditor (intentar enseñarle a distinguir si el texto estaba dentro de una etiqueta <code>&lt;code&gt;</code> o no). En su lugar, se optó por la simplicidad:</p>
-<p>Se inyectó una válvula de escape en el código de Python que le instruye ignorar la línea actual si detecta el comentario HTML <code>&lt;!-- merci-audit:silence-style --&gt;</code>. Al añadir esta firma al final de la línea conflictiva en el Markdown, el linter la omite silenciosamente.</p>
+<p>Para domar el CMS, se desplegó una estrategia de defensa en profundidad:
+1. <strong>Bypass de Proxy y SSL:</strong> Se inyectó una cabecera HTTP gemela (<code>X-Authorization</code>) desde el orquestador Python (<code>merci-wp.py</code>) para atravesar Varnish, restaurándola luego a nivel de PHP en el Child Theme. El <em>Mixed Content</em> se resolvió forzando URLs relativas al protocolo (<code>//</code>) y leyendo <code>home_url()</code> en lugar de las variables brutas de servidor (<code>$_SERVER</code>).
+2. <strong>SSOT Dinámico por Slug:</strong> Se erradicó el uso de IDs rígidos. <code>merci-wp.py</code> ahora interroga a la API REST de destino usando el nombre del archivo (slug). Esto logra paridad Dev/Prod absoluta, permitiendo actualizar el mismo archivo local contra diferentes bases de datos sin colisiones.
+3. <strong>Escudo de Rendimiento y Kill-Switch:</strong> Se implementaron bloqueos estrictos en <code>functions.php</code> (desencolado masivo y Whitelist Criptográfico CSP en Nginx). Adicionalmente, el orquestador Python aplica un "Kill-Switch" que expulsa los artículos despublicados (<code>estado: "borrador"</code>) de vuelta al directorio de incubación local, previniendo posts fantasmas.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Una herramienta de QA (Quality Assurance - Aseguramiento de Calidad) implacable y sin excepciones es peligrosa, ya que incentiva a los desarrolladores a apagar el escudo por completo cuando se topan con un bloqueo.</p>
-<p>Permitir el silenciamiento en línea (Inline Silencing) es el estándar de la industria (como <code>eslint-disable-next-line</code> en JavaScript). Obliga al desarrollador a firmar explícitamente la excepción, dejando constancia de que ha revisado el código y asume la responsabilidad arquitectónica, sin comprometer la seguridad del resto del repositorio. El pragmatismo vence a la complejidad algorítmica.</p>
+<p>Aislar un CMS por infraestructura (Proxy Inverso) es solo la mitad del trabajo; la otra mitad es aislarlo lógicamente. Confiar en un "Slug" como identificador universal (Single Source of Truth) desacopla el contenido del estado temporal de cualquier base de datos.</p>
+<h2>Cuadernillos de Referencia (Profundización táctica)</h2>
+<p>Para estudiar las batallas específicas libradas para domar el CMS, consulta:
+- Ceguera de Proxy y Bypass en Headless CMS
+- Única Fuente de Verdad: Resolviendo la deriva de slugs entre SSG y CMS
+- Inyección Headless en WooCommerce con Python Puro
+- Domando a WooCommerce: Jerarquía de plantillas en temas custom</p>
             </div>
         </article>
     </main>

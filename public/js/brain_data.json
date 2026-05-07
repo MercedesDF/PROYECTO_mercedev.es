@@ -26,5 +26,8 @@
   "/biblioteca/el-cv-anti-ats-hablando-el-idioma-nativo-de-las-maquinas.html": "[Fallback] Bienvenido a la lectura de: El CV 'Anti-ATS': Hablando el Idioma Nativo de las Máquinas.",
   "/biblioteca/inyeccion-de-claves-ssh-en-github-actions-anatomia-de-un-despliegue-rsync.html": "[Fallback] Bienvenido a la lectura de: Inyección de Claves SSH en GitHub Actions: Anatomía de un Despliegue rsync.",
   "/biblioteca/normalizacion-robusta-de-cadenas-el-poder-de-casefold.html": "[Fallback] Bienvenido a la lectura de: Normalización Robusta de Cadenas: El Poder de Casefold.",
-  "/biblioteca/semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem.html": "[Fallback] Bienvenido a la lectura de: Semántica HTML y WAI-ARIA: Roles implícitos y acoplamiento BEM."
+  "/biblioteca/semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem.html": "[Fallback] Bienvenido a la lectura de: Semántica HTML y WAI-ARIA: Roles implícitos y acoplamiento BEM.",
+  "/biblioteca/ingenieria-de-interfaz-estatica-ssg-python-puro.html": "[Fallback] Bienvenido a la lectura de: Ingeniería de Interfaz Estática (SSG): Python Puro.",
+  "/biblioteca/estrategias-de-integracion-headless-wp-y-woocommerce.html": "[Fallback] Bienvenido a la lectura de: Estrategias de Integración Headless: WP y WooCommerce.",
+  "/biblioteca/arquitectura-y-gobernanza-merci-totalpy-como-ssot.html": "[Fallback] Bienvenido a la lectura de: Arquitectura y Gobernanza: merci-total.py como SSOT."
 }

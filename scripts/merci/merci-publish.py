@@ -285,8 +285,10 @@ def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, can
         # QUÉ HACE: Genera un ID válido para el ancla (ej. 'devsecops-y-gobernanza')
         tema_slug = slugify(tema)
         
-        # Ordenamos los artículos dentro de un mismo tema del más nuevo al más antiguo
-        pubs_tema = sorted(estanterias[tema], key=lambda x: x["fecha"], reverse=True)
+        # QUÉ HACE: Ordena los artículos: Primero los "Compendios" (True), luego por fecha del más nuevo al más antiguo.
+        # POR QUÉ: Otorga un trato preferente (arriba de la lista) a los documentos de alto nivel 
+        # para que el usuario encuentre la visión global antes de descender a los cuadernillos tácticos.
+        pubs_tema = sorted(estanterias[tema], key=lambda x: (x["tipo"].lower() == "compendio", x["fecha"]), reverse=True)
         
         # Construimos el contenedor principal de la estantería (con diseño de columnas responsivo)
         enlaces_indice_html += f'                <li class="library-nav__item">\n'

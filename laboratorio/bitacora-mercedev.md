@@ -37,9 +37,19 @@ Copia el bloque y rellénalo.
 ---
 
 ## Registro cronológico
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
+
+### 2026-05-07 — Perf: Corrección de exclusión en backups locales (Zero Bloat)
+
+**Contexto:** Tras superar con 0 errores el pipeline de `merci total`, la copia de seguridad local generó un archivo masivo de 54.68 MB.
+
+**Hecho:** Se parcheó `scripts/merci/merci-backup.py` apuntando la regla de exclusión a `REPO_ROOT / "auditorias-pagespeed.web.dev"`.
+
+**Detalle técnico:** El script buscaba la carpeta de reportes de PageSpeed dentro de `laboratorio/`, pero los pesados PDFs residían en la raíz del repositorio. Al no coincidir la ruta, comprimió decenas de megabytes no deseados.
+
+**Motivo / criterio:** *Zero Bloat y Transparencia CLI*. El modo `--verbose` funcionó perfectamente como caja de cristal revelando a los "polizones". Corregir la exclusión restaura el backup a su tamaño óptimo (fracciones de MB).
+
+**Siguiente paso o deuda:** Re-ejecutar el backup y emitir el Sello Definitivo de la auditoría.
+
 ### 2026-05-07 — Chore: Cierre de PR Dependabot (pypdf 5.4.0 → 6.10.2)
 
 **Contexto:** Tras añadir `pypdf==5.4.0` al `requirements.txt` en esta sesión, GitHub Actions disparó automáticamente un PR de Dependabot proponiendo actualizar la librería a la versión `6.10.2`.
@@ -52,7 +62,6 @@ Copia el bloque y rellénalo.
 
 **Siguiente paso o deuda:** Continuar con el Release Pipeline de la v1.7.0 (Pasos 2–7 del SOP en `docs/matriz/mantenimiento-boilerplate-sop.md`).
 
->>>>>>> 2a945bc1a85b2e7895085f5c71d4d7e21ed287eb
 ### 2026-05-07 — Docs: Release v1.7.0 del Boilerplate (SSG Dual y Engineering Dashboard)
 
 **Contexto:** Evaluación del estado del repositorio frente a la v1.6.1 publicada en Git. Se detectaron cambios de arquitectura sustanciales en scripts del ecosistema que justifican una nueva release menor antes de arrancar el Roadmap de IA.
@@ -79,7 +88,6 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** *Trazabilidad y Governance*. Las deudas técnicas no registradas son deudas invisibles. Formalizarlas en el roadmap y en la bitácora garantiza que no se pierdan entre sesiones y que puedan priorizarse en el momento adecuado.
 
 **Siguiente paso o deuda:** Evaluar el estado del Boilerplate en Git (v1.6.1) frente al estado actual del repositorio para determinar si procede una nueva release antes de arrancar el Roadmap de IA.
-=======
 ### 2026-05-07 — Fix: Resolución de permisos de archivo en configuración de Continue (~/.continue/config.json)
 
 **Contexto (El Desafío):** Al intentar acceder al archivo de configuración de la extensión Continue (`~/.continue/config.json`) para aplicar el modelo `gemini-1.5-flash`, la terminal devolvió un error `zsh: permiso denegado`.
@@ -99,7 +107,6 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** *Fricción Cero y Rate Limiting*. `gemini-1.5-flash` ofrece una cuota gratuita de 1500 peticiones diarias (15 RPM - Requests Per Minute). Apuntar la herramienta de asistencia del IDE hacia este modelo la convierte en un recurso API ilimitado para el proyecto, evitando que Continue colapse por bloqueos HTTP 429 durante la orquestación.
 
 **Siguiente paso o deuda:** Iniciar formalmente la Fase 1 del Roadmap de IA (Observabilidad e Intercepción de Errores).
->>>>>>> Stashed changes
 
 ### 2026-05-07 — UI: Leyenda descriptiva para el Dashboard de Métricas
 

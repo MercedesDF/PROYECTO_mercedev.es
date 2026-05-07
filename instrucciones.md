@@ -14,6 +14,7 @@ Al usar acrónimos, definir seguidamente su significado en inglés y español. S
   1. **El Desafío (Síntoma):** Definición del problema técnico o requisito encontrado durante el desarrollo.
   2. **La Maniobra (Lógica):** Arquitectura y solución técnica implementada.
   3. **El Aprendizaje/Deuda Técnica:** Efectos secundarios, refactorizaciones futuras o lecciones aprendidas.
+- **Compendios Estratégicos:** Documentos de alto nivel (tipo `compendio`) que agrupan y sintetizan múltiples lecciones tácticas (cuadernillos) en una visión arquitectónica global. Disponen de trato preferencial en el índice de la Biblioteca.
 
 ## 2. Stack Tecnológico y Arquitectura
 Arquitectura híbrida diseñada para el aislamiento de procesos:

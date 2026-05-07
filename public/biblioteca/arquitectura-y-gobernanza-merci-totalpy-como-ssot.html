@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silenciando al Guardián: Excepciones explícitas en linters estáticos — mercedev.es</title>
-    <meta name="description" content="Cómo gestionar falsos positivos en herramientas de auditoría de código (QA) mediante directivas de silenciamiento en línea.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos.html">
+    <title>Arquitectura y Gobernanza: merci-total.py como SSOT — mercedev.es</title>
+    <meta name="description" content="Consolidación del pipeline DevSecOps local, el patrón Fail-Fast y la orquestación como Única Fuente de Verdad.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/arquitectura-y-gobernanza-merci-totalpy-como-ssot.html">
     <link rel="stylesheet" href="/css/main.css?v=1778154283">
     <script src="/js/MerciController.js?v=1777729228" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Silenciando al Guardián: Excepciones explícitas en linters estáticos",
-      "description": "Cómo gestionar falsos positivos en herramientas de auditoría de código (QA) mediante directivas de silenciamiento en línea.",
-      "url": "https://mercedev.es/biblioteca/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos.html"
+      "headline": "Arquitectura y Gobernanza: merci-total.py como SSOT",
+      "description": "Consolidación del pipeline DevSecOps local, el patrón Fail-Fast y la orquestación como Única Fuente de Verdad.",
+      "url": "https://mercedev.es/biblioteca/arquitectura-y-gobernanza-merci-totalpy-como-ssot.html"
     }
     </script>
 </head>
@@ -43,26 +43,29 @@
         </nav>
     </header>
     <main class="main--padded section" id="main">
-        <article class="card card--booklet">
+        <article class="card card--book">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">Silenciando al Guardián: Excepciones explícitas en linters estáticos</h1>
-                <a href="/descargas/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">Arquitectura y Gobernanza: merci-total.py como SSOT</h1>
+                <a href="/descargas/arquitectura-y-gobernanza-merci-totalpy-como-ssot.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
-                <!-- linkedin:
-En DevSecOps, a veces el linter de seguridad es demasiado estricto. Hoy en Art de Coté documentamos cómo crear válvulas de escape elegantes para falsos positivos en auditorías de código. 🛡️
-https://mercedev.es/biblioteca/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos
--->
-
+                <h1>Arquitectura y Gobernanza: merci-total.py como SSOT</h1>
 <h2>El Desafío (Síntoma)</h2>
-<p>Al implementar una nueva regla en el orquestador maestro (<code>merci-audit.py</code>) para prohibir y detectar estilos en línea <!-- merci-audit:silence-style -->(<code>style="..."</code>), la herramienta bloqueó la compilación de la biblioteca. El diagnóstico reveló un <strong>Falso Positivo Legítimo</strong>: el linter estaba escaneando un artículo técnico que explicaba cómo funciona la especificidad CSS, detectando los bloques de código de ejemplo como violaciones reales de la arquitectura SASS.</p>
+<p>A medida que el ecosistema Merci crecía, la cantidad de scripts independientes (optimizador de imágenes, compilador SASS, orquestador SSG, sincronizador CMS, auditor estático y rastreador dinámico) se multiplicó. Ejecutar estas herramientas individualmente generaba fricción operativa y un alto riesgo de omisión humana. Por ejemplo, compilar el mapa del sitio antes de generar los HTML, o hacer un commit sin pasar la auditoría de accesibilidad WAI-ARIA (Web Accessibility Initiative - Accessible Rich Internet Applications). Esta fragmentación amenazaba la integridad del principio de Única Fuente de Verdad (SSOT - Single Source of Truth).</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Para solucionar esto, se descartó aplicar sobreingeniería a las Expresiones Regulares (RegEx) del auditor (intentar enseñarle a distinguir si el texto estaba dentro de una etiqueta <code>&lt;code&gt;</code> o no). En su lugar, se optó por la simplicidad:</p>
-<p>Se inyectó una válvula de escape en el código de Python que le instruye ignorar la línea actual si detecta el comentario HTML <code>&lt;!-- merci-audit:silence-style --&gt;</code>. Al añadir esta firma al final de la línea conflictiva en el Markdown, el linter la omite silenciosamente.</p>
+<p>Se implementó <code>merci-total.py</code> como el orquestador maestro del pipeline CI/CD (Continuous Integration / Continuous Deployment) local. </p>
+<p>El script impone un orden de ejecución innegociable que separa la fase de Construcción (Build) de la fase de Aseguramiento de Calidad (QA):
+1. <strong>Build:</strong> <code>merci-optimizer</code> -&gt; <code>merci-styles</code> -&gt; <code>merci-publish</code> -&gt; <code>merci-wp</code> -&gt; <code>merci-sync-pages</code>.
+2. <strong>QA &amp; SEO:</strong> <code>merci-sitemap</code> -&gt; <code>merci-audit</code> -&gt; <code>merci-linkcheck</code>.</p>
+<p>Se dotó al pipeline del patrón <strong>Fail-Fast</strong>: si cualquier subproceso devuelve un código de error (ej. un enlace roto o un secreto expuesto), el orquestador se detiene inmediatamente. Simultáneamente, se aplicó el patrón de <strong>Degradación Elegante (Graceful Degradation)</strong> para dependencias externas: si falta la API Key de IA o la librería <code>weasyprint</code> para PDFs, el pipeline advierte pero finaliza con éxito, protegiendo la experiencia "Out-of-the-Box" del Boilerplate.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Una herramienta de QA (Quality Assurance - Aseguramiento de Calidad) implacable y sin excepciones es peligrosa, ya que incentiva a los desarrolladores a apagar el escudo por completo cuando se topan con un bloqueo.</p>
-<p>Permitir el silenciamiento en línea (Inline Silencing) es el estándar de la industria (como <code>eslint-disable-next-line</code> en JavaScript). Obliga al desarrollador a firmar explícitamente la excepción, dejando constancia de que ha revisado el código y asume la responsabilidad arquitectónica, sin comprometer la seguridad del resto del repositorio. El pragmatismo vence a la complejidad algorítmica.</p>
+<p><em>Pipeline as Code</em>. La automatización es inútil si depende de la memoria del desarrollador. Encapsular la cadena de suministro en un único comando (<code>merci total</code>) transforma una arquitectura compleja en un flujo de trabajo de fricción cero. Además, esta centralización es el pilar que permite la Regla 14 de gobernanza: cualquier clon del Boilerplate hereda este flujo exacto, previniendo la Deriva de Configuración (Configuration Drift).</p>
+<h2>Cuadernillos de Referencia (Profundización táctica)</h2>
+<p>Para estudiar los desafíos técnicos concretos que cimentaron esta arquitectura, consulta:
+- Release Pipeline Iterativo (Agile) en despliegue de plantillas
+- Documentación como Código: El README.md como Única Fuente de Verdad
+- Silenciando al Guardián: Excepciones explícitas en Linters Estáticos</p>
             </div>
         </article>
     </main>
