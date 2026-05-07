@@ -39,6 +39,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-07 — Test: Validación exitosa del motor local (Ollama + LiteLLM)
+
+**Contexto:** Validar empíricamente que el entorno Python (vía LiteLLM) puede comunicarse con el modelo local `phi3` sin salida a Internet, confirmando la viabilidad de la arquitectura *Zero Latency*.
+
+**Hecho:** Se ejecutó con éxito la sonda `test_ia.py`, obteniendo respuesta directa del modelo local. Se establecieron los directorios estructurales `/merci-brain/` y `/laboratorio/prompts/`.
+
+**Detalle técnico:** LiteLLM enrutó correctamente la petición al puerto `11434` local con la telemetría desactivada. El modelo `phi3` devolvió una respuesta coherente sobre DevSecOps, confirmando la operatividad del *Hybrid Stack*.
+
+**Motivo / criterio:** *Fail-Fast y Zero Trust*. Antes de acoplar la IA al orquestador maestro, esta prueba de conectividad garantiza que el puente de red local es estable, blindando la privacidad del código fuente y evitando dependencias bloqueantes de terceros (APIs caídas o cuotas excedidas).
+
+**Siguiente paso o deuda:** Redactar el primer prompt base en `/laboratorio/prompts/` para estandarizar la forma en que la IA auditará el proyecto.
+
 ### 2026-05-07 — Feat: Soporte multi-bitácora en orquestador de commits
 
 **Contexto:** Al inaugurar la nueva bitácora exclusiva para la Fase de Orquestación IA, el script de empaquetado atómico (`merci-commit.py`) quedó ciego, ya que tenía la ruta de la bitácora original hardcodeada.

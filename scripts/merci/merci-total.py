@@ -27,6 +27,7 @@ SCRIPTS_DIR = Path(__file__).resolve().parent
 # 7. Sitemap: Escanea todos los HTML finales generados y actualiza el mapa XML.
 # 8. Audit: Auditoría estricta de seguridad, SEO y sintaxis sobre el código final.
 # 9. Linkcheck: Rastreo dinámico de enlaces rotos sobre el HTML final compilado.
+
 PIPELINE = [
     "merci-optimizer.py",
     "merci-styles.py",
