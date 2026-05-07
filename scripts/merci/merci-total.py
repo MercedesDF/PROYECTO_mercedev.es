@@ -34,6 +34,7 @@ PIPELINE = [
     "merci-sync-pages.py",
     "merci-brain.py",
     "merci-sitemap.py",
+    "merci-extract-metrics.py",
     "merci-audit.py",
     "merci-linkcheck.py"
 ]

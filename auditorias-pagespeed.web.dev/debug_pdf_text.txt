@@ -1,9 +1,7 @@
-Informe desde el 7 may 2026, 1:08:58 a.m.
-Se muestran los resultados para la URL: https://mercedev.es/biblioteca/
-Ejecutar con la URL original
+Informe desde el 7 may 2026, 2:17:26 p.m.
 Descubre lo que experim entan tus usuarios reales No hay datos
 Diagnostica problem as de rendim iento
-https://mercedev.es/biblioteca Analizar
+https://mercedev.es/ Analizar
 Los valores son estim ados y pueden variar. La m edición del rendim iento se
 calcula directam ente a partir de estas m étricas.Consulta la calculadora.
 0–49 50–89 90–100
@@ -17,7 +15,6 @@ SEO
 100
 1 0 0
 Rendim iento
-100
  Celulares  Escritorio
 PageSpeed Insights Copiar vínculo Documentos
 Mostrar las auditorías relevantes para la m étrica: All FCP LCP
@@ -31,9 +28,9 @@ T otal Blocking T im e
 Cum ulative Layout Shift
 0
 Speed Index
-1.2 s
-Captured at 7 m ay 2026, 1:09
-a.m . GMT +2
+0.8 s
+Captured at 7 m ay 2026, 2:17
+p.m . GMT +2
 Moto G Power em ulado with
 Lighthouse 13.0.1
 Sesión de una sola página
@@ -42,7 +39,7 @@ Carga inicial de la página
  Using HeadlessChrom ium
 146.0.7680.177 with lr
 EST ADÍST ICAS
-Solicitudes de bloqueo de renderización — Ahorro estim ado de 120 m s
+Solicitudes de bloqueo de renderización — Ahorro estim ado de 150 m s
 Mejora la entrega de im ágenes — Ahorro estim ado de 65 KiB
 PageSpeed Insights Copiar vínculo Documentos
 Estas com probaciones destacan las oportunidades para m ejorar la
@@ -70,8 +67,8 @@ Custom  controls have associated labels
 Custom  controls have ARIA roles
 Estos elem entos abarcan áreas que las herram ientas de prueba autom áticas no contem plan. O btén m ás inform ación en
 nuestra guía sobre cóm o revisar los aspectos de accesibilidad.
-AUDIT ORÍAS APROBADAS(21) Mostrar
-NO APLICABLE (39) Mostrar
+AUDIT ORÍAS APROBADAS(22) Mostrar
+NO APLICABLE (38) Mostrar
 Recom endaciones
 100
 CONFIANZA Y SEGURIDAD
