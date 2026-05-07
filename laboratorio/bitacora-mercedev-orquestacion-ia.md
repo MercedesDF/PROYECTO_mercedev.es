@@ -39,6 +39,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-07 — Fix: Degradación Elegante en extractor de métricas (Fail Gracefully)
+
+**Contexto:** Al ejecutar la instanciación y prueba del Boilerplate (`merci total`), el orquestador se detuvo porque `merci-extract-metrics.py` exigía la librería `pypdf` con un error fatal (`sys.exit(1)`). Esto rompía la política de "0 dependencias bloqueantes".
+
+**Hecho:** Se modificó `scripts/merci/merci-extract-metrics.py` para aplicar el patrón *Fail Gracefully*.
+
+**Detalle técnico:** Si la librería no está instalada, el script ahora emite un mensaje informativo (`ℹ️ [Merci Info]`) y sale con `sys.exit(0)`, permitiendo que el pipeline maestro continúe con la ejecución de los siguientes scripts.
+
+**Motivo / criterio:** *Out-of-the-Box Experience*. Una utilidad accesoria (como leer un PDF para actualizar el dashboard) no debe detener la cadena de compilación principal de un nuevo usuario que solo quiere levantar el proyecto base.
+
+**Siguiente paso o deuda:** Reanudar la exportación del Boilerplate v1.8.0 y proceder con la inyección de IA en `merci-audit.py`.
+
 ### 2026-05-07 — Milestone: Cierre de Fase 1 (Cimientos y Conectividad IA)
 
 **Contexto:** Aplicar el *Definition of Done* para la Fase 1 del Roadmap de IA, asegurando que la infraestructura base (Ollama + LiteLLM), los directorios estructurales y las reglas rectoras están consolidados antes de desarrollar el primer agente autónomo.
