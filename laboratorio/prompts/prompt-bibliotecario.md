@@ -12,8 +12,8 @@ Tu respuesta DEBE contener ÚNICAMENTE el código Markdown resultante. No incluy
 
 ```markdown
 ---
-titulo: "[Genera un título conciso, técnico y descriptivo]"
-descripcion: "[Genera un resumen de una sola línea sobre el problema y la solución]"
+titulo: "[Genera un título conciso, técnico y descriptivo en ESPAÑOL]"
+descripcion: "[Genera un resumen de una sola línea sobre el problema y la solución en ESPAÑOL]"
 tipo: "cuadernillo"
 tema: "[Infiere el tema: ej. Arquitectura, DevSecOps, Frontend, SASS, Automatización]"
 fecha: "[Usa la fecha actual proporcionada en el prompt]"
@@ -21,6 +21,13 @@ fase: "[Infiere la fase del roadmap o déjalo genérico]"
 estado: "borrador"
 alt_portada: "[Genera una descripción visual técnica detallada para una supuesta imagen de cabecera]"
 ---
+
+**REGLAS DEL YAML FRONTMATTER (INNEGOCIABLES):**
+1. TODOS los valores deben ir encerrados estrictamente entre comillas dobles (ejemplo: `tema: "Mi tema"`). No omitas las comillas en NINGÚN campo.
+2. El campo `estado` debe ser SIEMPRE `"borrador"`. Tienes TERMINANTEMENTE PROHIBIDO cambiarlo a "finalizado", "publicado" u otra cosa.
+3. DEBES CERRAR el bloque YAML con los tres guiones `---` antes de iniciar el bloque de LinkedIn.
+4. **Idioma:** Absolutamente todo el contenido (título, descripción, texto) debe redactarse en ESPAÑOL (Castellano). Tienes prohibido usar inglés para los títulos.
+5. **Tipología:** El campo `tipo` NO DEBE MODIFICARSE ni ampliarse. Copia exactamente el valor que recibes en el ejemplo superior (no le añadas la palabra "técnico").
 
 <!-- linkedin:
 [Redacta aquí un post atractivo de 2-3 líneas en tono profesional y técnico anunciando este aprendizaje para LinkedIn, incluyendo un par de emojis pertinentes y hashtags].

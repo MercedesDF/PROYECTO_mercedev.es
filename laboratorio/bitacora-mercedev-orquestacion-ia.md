@@ -39,6 +39,40 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — Fix: Endurecimiento de idioma y tipología en Agente Bibliotecario
+
+**Contexto:** Los modelos locales tendían a generar títulos en inglés y a "alucinar" en el campo `tipo` del YAML Frontmatter (escribiendo "compendio técnico" en lugar del estricto "compendio"), lo que rompía la taxonomía del sitio estático en producción.
+
+**Hecho:** Se inyectaron nuevas reglas innegociables en `laboratorio/prompts/prompt-bibliotecario.md`.
+
+**Detalle técnico:** Se añadió la orden explícita de redactar en Español (Castellano) en los placeholders de título y descripción. Se incluyeron dos nuevas reglas restrictivas en la sección de Gobernanza para bloquear la modificación del campo `tipo` y prohibir el uso del inglés.
+
+**Motivo / criterio:** *Prompt Hardening* (Endurecimiento de Prompt). Los LLMs intentan ser "demasiado útiles" expandiendo etiquetas a formatos legibles. En una arquitectura donde el YAML dirige el flujo del código SSG, la IA no tiene permitido alterar los enumeradores estructurales.
+
+**Siguiente paso o deuda:** Re-evaluar el desempeño del Agente SSOT.
+
+### 2026-05-08 — Feat: Enrutamiento interactivo y tipología en Agente Bibliotecario
+
+**Contexto:** El Agente Bibliotecario generaba todos los documentos asumiendo que eran "cuadernillos" destinados a la Biblioteca, ignorando la taxonomía del proyecto que incluye "Compendios" estratégicos y "Art de Coté" (Motor SSG).
+
+**Hecho:** Se refactorizó `scripts/merci/merci-librarian.py` añadiendo un menú interactivo previo a la generación de la IA.
+
+**Detalle técnico:** El usuario ahora elige el tipo de documento. El script inyecta instrucciones contextuales (`instrucciones_extra`) para guiar a `phi3` en el enfoque (táctico, estratégico o experimental). Además, usa `str.replace` sobre el System Prompt para forzar el campo `tipo:` en el YAML y reubica físicamente los Art de Coté en `laboratorio/art-de-cote/` para que `merci-promote` los herede sin fricción hacia la rama estática.
+
+**Motivo / criterio:** *AI Governance*. La IA propone, el humano dispone. Preguntar al humano antes de delegar la redacción a la máquina garantiza que el documento nazca con la topología y el marco mental correctos, evitando retrabajo manual de enrutamiento posterior.
+
+### 2026-05-08 — Feat: Agente Sync SSOT (Single Source of Truth)
+
+**Contexto:** Evitar la Deriva Documental (Document Drift). A menudo se cierran hitos en la bitácora pero se olvida marcar la casilla `[x]` correspondiente en el Roadmap o actualizar el README.
+
+**Hecho:**
+- Se desarrolló el agente `scripts/merci/merci-ssot.py`.
+- Se marcó el hito del Agente Bibliotecario como completado en el Roadmap.
+
+**Detalle técnico:** El script extrae dinámicamente la última entrada de la bitácora activa y el contenido del Roadmap, inyectando ambos contextos en la IA local (phi3). La IA audita si existe alguna desincronización lógica entre lo ejecutado y lo documentado, emitiendo una alerta en terminal.
+
+**Motivo / criterio:** *Document as Code*. La documentación no puede depender exclusivamente de la memoria humana. Delegar a un LLM la comparación semántica entre el log de cambios (bitácora) y el plan de proyecto (Roadmap) garantiza la integridad de la Única Fuente de Verdad.
+
 ### 2026-05-08 — Fix: Inyección de fecha dinámica en Agente Bibliotecario y Promoción
 
 **Contexto:** Los cuadernillos generados por la IA mantenían la fecha literal `AAAA-MM-DD` porque el modelo local no tenía conciencia temporal, y el asistente de promoción (`merci-promote.py`) conservaba ese *placeholder* asumiéndolo como valor válido.

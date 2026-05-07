@@ -20,7 +20,7 @@ Este roadmap marca la evolución de mercedev.es de un sitio estático a una plat
 
 ## Fase 3: Orquestación de Contenidos y Docs (Semanas 5-6)
 
-- [ ] Agente Bibliotecario: Automatizar la creación de cuadernillos en /biblioteca a partir de notas rápidas en Markdown.  
+- [x] Agente Bibliotecario: Automatizar la creación de cuadernillos en /biblioteca a partir de notas rápidas en Markdown.  
 
 - [ ] Sync SSOT (Single Source of Truth): Agente que verifique que el README.md y los /docs están siempre sincronizados tras cada cambio de código.  
 

@@ -52,17 +52,41 @@ def clean_markdown(text: str) -> str:
     return text
 
 def process_note(note_path: Path):
-    print(f"🤖 [Merci Librarian] Analizando nota cruda: {note_path.name}")
+    print(f"\n🤖 [Merci Librarian] Analizando nota cruda: {note_path.name}")
+    
+    print("  ¿Qué tipo de conocimiento contiene esta nota?")
+    print("  [1] Cuadernillo (Táctico - Biblioteca) [Defecto]")
+    print("  [2] Compendio (Estratégico - Biblioteca)")
+    print("  [3] Art de Coté (Experimento / Descartado - SSG Estático)")
+    opcion = input("  👉 Elige una opción [1]: ").strip()
+    
+    tipo_doc = "cuadernillo"
+    prefijo = "cuadernillo-borrador"
+    destino_dir = LAB_DIR
+    instrucciones_extra = ""
+
+    if opcion == "2":
+        tipo_doc = "compendio"
+        prefijo = "compendio-borrador"
+        instrucciones_extra = "ATENCIÓN: Estás redactando un COMPENDIO estratégico de alto nivel. Agrupa los conceptos con visión arquitectónica en lugar de centrarte en un solo bug."
+    elif opcion == "3":
+        prefijo = "art-de-cote-borrador"
+        destino_dir = LAB_DIR / "art-de-cote"
+        destino_dir.mkdir(parents=True, exist_ok=True)
+        instrucciones_extra = "ATENCIÓN: Estás redactando un ART DE COTÉ. Enfatiza el valor del código descartado o el experimento realizado para que quede como registro."
     
     fecha_hoy = datetime.now().strftime("%Y-%m-%d")
     note_content = note_path.read_text(encoding="utf-8", errors="replace")
-    prompt = f"La fecha actual es {fecha_hoy}. Transforma las siguientes notas en bruto en un Cuadernillo estructurado:\n\n{note_content}"
+    prompt = f"La fecha actual es {fecha_hoy}. {instrucciones_extra}\n\nTransforma las siguientes notas en bruto en un documento estructurado:\n\n{note_content}"
+    
+    # Inyectamos el tipo de documento dinámicamente en el molde mental (System Prompt)
+    system_prompt = get_system_prompt().replace('tipo: "cuadernillo"', f'tipo: "{tipo_doc}"')
     
     try:
         respuesta = completion(
             model="ollama/phi3",
             messages=[
-                {"role": "system", "content": get_system_prompt()},
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt}
             ],
             api_base="http://localhost:11434",
@@ -70,7 +94,7 @@ def process_note(note_path: Path):
         )
         
         md_final = clean_markdown(respuesta.choices[0].message.content)
-        output_path = LAB_DIR / f"cuadernillo-borrador-{note_path.stem}.md"
+        output_path = destino_dir / f"{prefijo}-{note_path.stem}.md"
         output_path.write_text(md_final, encoding="utf-8")
         
         print(f"  ✅ [Éxito] Cuadernillo generado: {output_path.relative_to(REPO_ROOT)}")
