@@ -31,8 +31,8 @@ def main():
             continue
         for f in dest_dir.rglob("*.md"):
             content = f.read_text(encoding="utf-8", errors="replace")
-            # QUÉ HACE: Tolera saltos de línea Windows (\r\n) y espacios/BOM iniciales.
-            match = re.match(r"^\s*---\r?\n(.*?)\r?\n---", content, re.DOTALL)
+            # QUÉ HACE: Expresión regular robusta tolerante a espacios residuales.
+            match = re.search(r"^\s*---\s*\n(.*?)\n---\s*(?:\n|$)", content, flags=re.DOTALL | re.MULTILINE)
             if match:
                 estado_match = re.search(r"^estado:\s*[\"']?(.*?)[\"']?\s*$", match.group(1), re.MULTILINE)
                 estado = estado_match.group(1).lower() if estado_match else "borrador"
@@ -71,8 +71,8 @@ def main():
 
     # 4. Extracción de Metadatos usando expresiones regulares
     # Extrae el bloque entre los dos --- iniciales
-    # QUÉ HACE: \r?\n hace que el retorno de carro sea opcional, volviendo el parser multiplataforma.
-    match = re.match(r"^\s*---\r?\n(.*?)\r?\n---\r?\n?(.*)", contenido, re.DOTALL)
+    # QUÉ HACE: Expresión regular robusta y tolerante a espacios y saltos de línea irregulares.
+    match = re.search(r"^\s*---\s*\n(.*?)\n---\s*(?:\n|$)(.*)", contenido, flags=re.DOTALL | re.MULTILINE)
     if not match:
         print(f"  ❌ Error: El archivo {borrador_elegido.name} no tiene un YAML Frontmatter válido.")
         print("  Por favor, añade la estructura base (plantilla) antes de promoverlo.")

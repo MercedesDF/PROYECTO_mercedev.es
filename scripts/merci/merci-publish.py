@@ -66,7 +66,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     content = filepath.read_text(encoding="utf-8")
     
     # 1. Extraer YAML Frontmatter y Cuerpo del Markdown
-    match = re.match(r"^---\n(.*?)\n---\n(.*)", content, re.DOTALL)
+    match = re.search(r"^\s*---\s*\n(.*?)\n---\s*(?:\n|$)(.*)", content, flags=re.DOTALL | re.MULTILINE)
     if not match:
         print(f"  ❌ Error: No se encontró YAML Frontmatter válido en {filepath.name}")
         return False
