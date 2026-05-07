@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-07 — Feat: Inicio de Fase 2 (El Agente Auditor)
+
+**Contexto:** Con la infraestructura de la Fase 1 sellada y el Boilerplate v1.8.0 exportado, se requiere dotar al auditor maestro (`merci-audit.py`) de capacidades de Inteligencia Artificial local para sugerir correcciones en consola.
+
+**Hecho:** Se inició el diseño arquitectónico para la inyección de `litellm` y la ingesta del `prompt-sistema-base.md` dentro de las funciones de reporte de errores del linter.
+
+**Motivo / criterio:** *Self-Healing System y Fricción Cero*. Un orquestador que solo reporta errores aporta valor, pero un agente que analiza el fallo en contexto y propone la maniobra de reparación exacta reduce la fricción cognitiva a cero y acelera la iteración segura (Shift-Left).
+
+**Siguiente paso o deuda:** Refactorizar `scripts/merci/merci-audit.py` implementando la conexión local con Ollama bajo un patrón de Degradación Elegante.
+
 ### 2026-05-07 — Fix: Degradación Elegante en extractor de métricas (Fail Gracefully)
 
 **Contexto:** Al ejecutar la instanciación y prueba del Boilerplate (`merci total`), el orquestador se detuvo porque `merci-extract-metrics.py` exigía la librería `pypdf` con un error fatal (`sys.exit(1)`). Esto rompía la política de "0 dependencias bloqueantes".
