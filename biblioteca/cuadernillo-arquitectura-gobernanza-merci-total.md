@@ -17,6 +17,7 @@ A medida que el ecosistema Merci crecía, la cantidad de scripts independientes 
 Se implementó `merci-total.py` como el orquestador maestro del pipeline CI/CD (Continuous Integration / Continuous Deployment) local. 
 
 El script impone un orden de ejecución innegociable que separa la fase de Construcción (Build) de la fase de Aseguramiento de Calidad (QA):
+
 1. **Build:** `merci-optimizer` -> `merci-styles` -> `merci-publish` -> `merci-wp` -> `merci-sync-pages`.
 2. **QA & SEO:** `merci-sitemap` -> `merci-audit` -> `merci-linkcheck`.
 
@@ -27,6 +28,7 @@ Se dotó al pipeline del patrón **Fail-Fast**: si cualquier subproceso devuelve
 
 ## Cuadernillos de Referencia (Profundización táctica)
 Para estudiar los desafíos técnicos concretos que cimentaron esta arquitectura, consulta:
-- Release Pipeline Iterativo (Agile) en despliegue de plantillas
-- Documentación como Código: El README.md como Única Fuente de Verdad
-- Silenciando al Guardián: Excepciones explícitas en Linters Estáticos
+
+- [Release Pipeline Iterativo (Agile) en despliegue de plantillas](/biblioteca/release-pipeline-iterativo-agile-en-despliegue-de-plantillas.html)
+- [Documentación como Código: El README.md como Única Fuente de Verdad](/biblioteca/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.html)
+- [Silenciando al Guardián: Excepciones explícitas en Linters Estáticos](/biblioteca/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos.html)

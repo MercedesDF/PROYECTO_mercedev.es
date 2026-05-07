@@ -6,7 +6,7 @@
     <title>Estrategias de Integración Headless: WP y WooCommerce — mercedev.es</title>
     <meta name="description" content="Resolución de ceguera de proxy, paridad Dev/Prod y sincronización bidireccional en un ecosistema CMS aislado.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/estrategias-de-integracion-headless-wp-y-woocommerce.html">
-    <link rel="stylesheet" href="/css/main.css?v=1778154283">
+    <link rel="stylesheet" href="/css/main.css?v=1778155024">
     <script src="/js/MerciController.js?v=1777729228" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <script type="application/ld+json">
@@ -52,23 +52,29 @@
             <div class="card__content">
                 <h1>Estrategias de Integración Headless: WP y WooCommerce</h1>
 <h2>El Desafío (Síntoma)</h2>
-<p>La integración de un CMS (Content Management System) pesado como WordPress (WP) y WooCommerce en un núcleo estático de alto rendimiento (Core Web Vitals 100/100) introdujo múltiples vectores de fallo. Los desafíos documentados incluyeron:
-- <strong>Ceguera de Proxy:</strong> Varnish y Nginx ofuscaban el protocolo HTTPS y purgaban las cabeceras de autorización estándar, provocando errores de <em>Mixed Content</em> y bloqueos de la API REST (HTTP 401).
-- <strong>Deriva de Datos (Data Drift):</strong> Diferencias de IDs entre el entorno de desarrollo local y producción generaban conflictos al sincronizar contenido.
-- <strong>Contaminación de Rendimiento:</strong> WooCommerce inyectaba scripts en línea agresivos (Speculation Rules, fragmentos de carrito AJAX) que violaban la Política de Seguridad de Contenidos (CSP) y hundían el rendimiento móvil.</p>
+<p>La integración de un CMS (Content Management System) pesado como WordPress (WP) y WooCommerce en un núcleo estático de alto rendimiento (Core Web Vitals 100/100) introdujo múltiples vectores de fallo. Los desafíos documentados incluyeron:</p>
+<ul>
+<li><strong>Ceguera de Proxy:</strong> Varnish y Nginx ofuscaban el protocolo HTTPS y purgaban las cabeceras de autorización estándar, provocando errores de <em>Mixed Content</em> y bloqueos de la API REST (HTTP 401).</li>
+<li><strong>Deriva de Datos (Data Drift):</strong> Diferencias de IDs entre el entorno de desarrollo local y producción generaban conflictos al sincronizar contenido.</li>
+<li><strong>Contaminación de Rendimiento:</strong> WooCommerce inyectaba scripts en línea agresivos (Speculation Rules, fragmentos de carrito AJAX) que violaban la Política de Seguridad de Contenidos (CSP) y hundían el rendimiento móvil.</li>
+</ul>
 <h2>La Maniobra (Lógica)</h2>
-<p>Para domar el CMS, se desplegó una estrategia de defensa en profundidad:
-1. <strong>Bypass de Proxy y SSL:</strong> Se inyectó una cabecera HTTP gemela (<code>X-Authorization</code>) desde el orquestador Python (<code>merci-wp.py</code>) para atravesar Varnish, restaurándola luego a nivel de PHP en el Child Theme. El <em>Mixed Content</em> se resolvió forzando URLs relativas al protocolo (<code>//</code>) y leyendo <code>home_url()</code> en lugar de las variables brutas de servidor (<code>$_SERVER</code>).
-2. <strong>SSOT Dinámico por Slug:</strong> Se erradicó el uso de IDs rígidos. <code>merci-wp.py</code> ahora interroga a la API REST de destino usando el nombre del archivo (slug). Esto logra paridad Dev/Prod absoluta, permitiendo actualizar el mismo archivo local contra diferentes bases de datos sin colisiones.
-3. <strong>Escudo de Rendimiento y Kill-Switch:</strong> Se implementaron bloqueos estrictos en <code>functions.php</code> (desencolado masivo y Whitelist Criptográfico CSP en Nginx). Adicionalmente, el orquestador Python aplica un "Kill-Switch" que expulsa los artículos despublicados (<code>estado: "borrador"</code>) de vuelta al directorio de incubación local, previniendo posts fantasmas.</p>
+<p>Para domar el CMS, se desplegó una estrategia de defensa en profundidad:</p>
+<ol>
+<li><strong>Bypass de Proxy y SSL:</strong> Se inyectó una cabecera HTTP gemela (<code>X-Authorization</code>) desde el orquestador Python (<code>merci-wp.py</code>) para atravesar Varnish, restaurándola luego a nivel de PHP en el Child Theme. El <em>Mixed Content</em> se resolvió forzando URLs relativas al protocolo (<code>//</code>) y leyendo <code>home_url()</code> en lugar de las variables brutas de servidor (<code>$_SERVER</code>).</li>
+<li><strong>SSOT Dinámico por Slug:</strong> Se erradicó el uso de IDs rígidos. <code>merci-wp.py</code> ahora interroga a la API REST de destino usando el nombre del archivo (slug). Esto logra paridad Dev/Prod absoluta, permitiendo actualizar el mismo archivo local contra diferentes bases de datos sin colisiones.</li>
+<li><strong>Escudo de Rendimiento y Kill-Switch:</strong> Se implementaron bloqueos estrictos en <code>functions.php</code> (desencolado masivo y Whitelist Criptográfico CSP en Nginx). Adicionalmente, el orquestador Python aplica un "Kill-Switch" que expulsa los artículos despublicados (<code>estado: "borrador"</code>) de vuelta al directorio de incubación local, previniendo posts fantasmas.</li>
+</ol>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <p>Aislar un CMS por infraestructura (Proxy Inverso) es solo la mitad del trabajo; la otra mitad es aislarlo lógicamente. Confiar en un "Slug" como identificador universal (Single Source of Truth) desacopla el contenido del estado temporal de cualquier base de datos.</p>
 <h2>Cuadernillos de Referencia (Profundización táctica)</h2>
-<p>Para estudiar las batallas específicas libradas para domar el CMS, consulta:
-- Ceguera de Proxy y Bypass en Headless CMS
-- Única Fuente de Verdad: Resolviendo la deriva de slugs entre SSG y CMS
-- Inyección Headless en WooCommerce con Python Puro
-- Domando a WooCommerce: Jerarquía de plantillas en temas custom</p>
+<p>Para estudiar las batallas específicas libradas para domar el CMS, consulta:</p>
+<ul>
+<li><a href="/biblioteca/ceguera-de-proxy-y-bypass-en-headless-cms.html">Ceguera de Proxy y Bypass en Headless CMS</a></li>
+<li><a href="/biblioteca/unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms.html">Única Fuente de Verdad: Resolviendo la deriva de slugs entre SSG y CMS</a></li>
+<li><a href="/biblioteca/inyeccion-headless-en-woocommerce-con-python-puro.html">Inyección Headless en WooCommerce con Python Puro</a></li>
+<li><a href="/biblioteca/domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom.html">Domando a WooCommerce: Jerarquía de plantillas en temas custom</a></li>
+</ul>
             </div>
         </article>
     </main>
