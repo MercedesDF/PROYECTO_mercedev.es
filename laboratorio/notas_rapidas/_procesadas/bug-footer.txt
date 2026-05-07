@@ -1,0 +1,1 @@
+Me tiré 2 horas ayer porque el z-index de merci tapaba el enlace del footer. Al final el problema era que faltaba display: relative en el contenedor padre. Deuda técnica: revisar si afecta al móvil.

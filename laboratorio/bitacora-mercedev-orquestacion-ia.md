@@ -39,6 +39,19 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — Fix: Inyección de fecha dinámica en Agente Bibliotecario y Promoción
+
+**Contexto:** Los cuadernillos generados por la IA mantenían la fecha literal `AAAA-MM-DD` porque el modelo local no tenía conciencia temporal, y el asistente de promoción (`merci-promote.py`) conservaba ese *placeholder* asumiéndolo como valor válido.
+
+**Hecho:**
+- Se refactorizó `scripts/merci/merci-promote.py` para detectar y sobrescribir el placeholder `AAAA-MM-DD` con la fecha actual.
+- Se inyectó `datetime.now()` en el prompt dinámico de `scripts/merci/merci-librarian.py`.
+- Se actualizó `prompt-bibliotecario.md` para exigir el uso de la fecha inyectada.
+
+**Motivo / criterio:** *Context Awareness*. Los LLM locales no tienen reloj interno. Proveer la fecha como contexto dinámico en tiempo de ejecución (Run-time) y asegurar que el orquestador de promoción sepa sanitizar *placeholders* cierra la brecha de automatización temporal.
+
+**Siguiente paso o deuda:** Validar la automatización de *Single Source of Truth* (SSOT) para el `README.md` (Siguiente hito de la Fase 3).
+
 ### 2026-05-08 — Docs: Creación del prompt maestro para el Agente Bibliotecario
 
 **Contexto:** Antes de programar la lógica del agente en Python, era necesario asentar las reglas editoriales y de formato que domarán a la IA local para que convierta notas crudas en "Cuadernillos" listos para la biblioteca.
