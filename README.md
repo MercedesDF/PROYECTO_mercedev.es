@@ -181,6 +181,7 @@ Checklist de avance por fases y subfases. Cada hito está pensado para poder mar
 - [x] Configurar WooCommerce en modo catálogo para merchandising de Merci según alcance funcional definido.
 - [x] Limitar plugins y extensiones a los estrictamente necesarios.
 - [x] Revisar impacto de scripts dinámicos en tiempos de carga.
+- [ ] **Deuda técnica:** Evaluar activación de tienda funcional (pasarela de pago, carrito). Requiere decisión de arquitectura previa. Ver `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md` Fase 4.
 
 #### 4.4 Integración sin degradación del núcleo
 - [x] Medir impacto de `/blog` y `/tienda` sobre Core Web Vitals del sitio principal.

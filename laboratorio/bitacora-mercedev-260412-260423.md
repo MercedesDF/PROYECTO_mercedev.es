@@ -2,8 +2,13 @@
 
 ## Para qué sirve este archivo
 
+> **Archivo histórico — Fases 1 a 6 (2026-04-12 a 2026-04-23).**
+> La convención de este archivo añadía entradas **al final** (orden cronológico directo), que era la convención vigente en ese momento.
+> La convención activa desde la Fase 7 en adelante es **añadir al principio** (orden cronológico inverso), tal como se documenta en `bitacora-mercedev.md`.
+> No modificar este archivo salvo corrección puntual de dato erróneo o material sensible.
+
 - **Yo futuro:** recuperar en minutos qué se decidió, por qué, y cómo se ejecutó algo técnico sin rebuscar en el chat o en commits sueltos.
-- **Biblioteca (al cerrar el proyecto):** aquí vive el borrador narrativo y técnico; luego se depura y se traslada a `biblioteca/` como piezas definitivas (por estantería o tema), siguiendo la idea de “activo de conocimiento” del proyecto.
+- **Biblioteca (al cerrar el proyecto):** aquí vive el borrador narrativo y técnico; luego se depura y se traslada a `biblioteca/` como piezas definitivas (por estantería o tema), siguiendo la idea de "activo de conocimiento" del proyecto.
 
 No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa el día a día con **hechos, comandos y lecciones**.
 

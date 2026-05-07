@@ -37,6 +37,33 @@ Copia el bloque y rellénalo.
 ---
 
 ## Registro cronológico
+### 2026-05-07 — Docs: Release v1.7.0 del Boilerplate (SSG Dual y Engineering Dashboard)
+
+**Contexto:** Evaluación del estado del repositorio frente a la v1.6.1 publicada en Git. Se detectaron cambios de arquitectura sustanciales en scripts del ecosistema que justifican una nueva release menor antes de arrancar el Roadmap de IA.
+
+**Hecho:**
+- Se actualizó `README-merci.md` a la versión `v1.7.0` con las release notes completas.
+- Cambios incluidos en la release: arquitectura SSG dual (`merci-publish.py` compila `/biblioteca/` y `/art-de-cote/` en paralelo), desacoplamiento de Art de Coté de WordPress (`merci-wp.py`, `merci-promote.py`, `merci-sync-pages.py`), robustez de parseo YAML en los tres scripts, Engineering Dashboard en portada (10 métricas + SASS BEM), y formalización de la Regla 10 (Art de Coté) en `instrucciones.md`.
+
+**Detalle técnico:** Archivos del ecosistema modificados desde v1.6.1: `scripts/merci/merci-publish.py` (+92/-0 líneas), `scripts/merci/merci-promote.py` (+12/-0), `scripts/merci/merci-sync-pages.py` (+2/-0), `scripts/merci/merci-wp.py` (+5/-0), `src/scss/components/_hero.scss` (+100/-0), `src/wp-theme/merci-theme/index.php` (+1/-1), `src/wp-theme/merci-theme/woocommerce.php` (+1/-1), `instrucciones.md` (+1/-1).
+
+**Motivo / criterio:** *Release Management y Governance*. Según la Regla 14 de `instrucciones.md`, toda mejora en scripts del ecosistema debe ejecutar el Release Pipeline antes de continuar. Los cambios acumulados desde v1.6.1 son suficientemente sustanciales (nueva arquitectura SSG dual) para justificar una versión menor (v1.7.0) en lugar de un hotfix.
+
+**Siguiente paso o deuda:** Ejecutar el Release Pipeline completo: `merci-backup.py` → clonar en temporal → `merci-init.py` → `rsync` → `merci-total` en el Boilerplate → commit y push. Ver SOP en `docs/matriz/mantenimiento-boilerplate-sop.md`.
+
+### 2026-05-07 — Docs: Registro de deudas técnicas pendientes (WP→LinkedIn, Tienda, Boilerplate)
+
+**Contexto:** Revisión integral del proyecto detectó tres deudas técnicas no registradas formalmente en ningún documento de planificación.
+
+**Hecho:**
+- Se añadió tarea "Pipeline WP → LinkedIn" en `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md` (Fase 3), para automatizar la publicación en LinkedIn al sincronizar un post en WordPress. El bloque `<- linkedin: -->` del Frontmatter ya contiene el texto del anuncio; la integración requiere revisar el estado del token OIDC y conectar `merci-wp.py` con `merci-linkedin.py`.
+- Se añadió tarea "Evaluación de Tienda WooCommerce" en `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md` (Fase 4) y hito de deuda técnica en `README.md` (Fase 4.3). WooCommerce opera en modo catálogo desde la Fase 4.3; la activación de carrito y pasarela de pago requiere decisión de arquitectura previa (impacto en CSP y Core Web Vitals).
+- Se añadió deuda de gobernanza: revisar si el estado actual del repositorio justifica una nueva release del Boilerplate por encima de la v1.6.1 publicada en Git.
+
+**Motivo / criterio:** *Trazabilidad y Governance*. Las deudas técnicas no registradas son deudas invisibles. Formalizarlas en el roadmap y en la bitácora garantiza que no se pierdan entre sesiones y que puedan priorizarse en el momento adecuado.
+
+**Siguiente paso o deuda:** Evaluar el estado del Boilerplate en Git (v1.6.1) frente al estado actual del repositorio para determinar si procede una nueva release antes de arrancar el Roadmap de IA.
+
 ### 2026-05-07 — UI: Leyenda descriptiva para el Dashboard de Métricas
 
 **Contexto:** El "Engineering Dashboard" de la portada con las 10 métricas carecía de contexto sobre el origen y la valoración de los números presentados, dificultando la comprensión para usuarios menos técnicos.

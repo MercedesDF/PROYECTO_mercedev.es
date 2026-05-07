@@ -2,15 +2,12 @@
 titulo: "Título de la entrada del Blog"
 estado: "borrador"
 tema: "Blog"
-descripcion: "prueba"
-alt_portada: "prueba"
-fecha: "2026-04-29"
-fase: "8 (Expansión de Contenido)"
-wp_id: "22"
+descripcion: ""
+alt_portada: ""
+fecha: "2026-MM-DD"
+fase: ""
 ---
 
-Escribe aquí el contenido de tu artículo. 
+Escribe aquí el contenido de tu artículo.
 
 *Nota: Al ejecutar `merci wp`, este documento se publicará en la portada dinámica de WordPress. El script inyectará automáticamente la clave `wp_id` en este YAML tras la primera sincronización.*
-
-<!-- TODO: Borra estas notas antes de publicar. -->
