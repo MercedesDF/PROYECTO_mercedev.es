@@ -39,6 +39,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-07 — Feat: Agente Vigilante de Assets (WebP Automation)
+
+**Contexto:** Eliminar la fricción de tener que ejecutar manualmente el optimizador de imágenes o esperar a correr el orquestador global cada vez que se añade material multimedia en bruto al proyecto.
+
+**Hecho:** Se implementó `scripts/merci/merci-assets-watcher.py` y se marcó el hito *WebP Automation* en la Fase 2 del Roadmap de IA como completado.
+
+**Detalle técnico:** El script actúa como un agente en segundo plano. Escanea `.assets-raw/` cada 2 segundos comparando el estado de modificación física (`st_mtime`). Al detectar diferencias, invoca automáticamente a `merci-optimizer.py`. Mantiene la política estricta de 0 dependencias externas.
+
+**Motivo / criterio:** *Fricción Cero y Developer Experience (DX)*. Un ecosistema maduro no espera a que el humano recuerde optimizar las imágenes. El agente reacciona en tiempo real, garantizando que el desarrollador pueda centrarse en el contenido mientras el sistema se auto-regula visualmente.
+
+**Siguiente paso o deuda:** Validar el agente copiando una imagen de prueba a `.assets-raw/` y proceder al cierre final de la Fase 2 (IA-Fix Workflow).
+
 ### 2026-05-07 — Milestone: El Agente Auditor (Self-Healing MVP) Operativo
 
 **Contexto:** Validar empíricamente que la inyección de LiteLLM y Ollama en el orquestador de calidad (`merci-audit.py`) intercepta correctamente los errores de código y devuelve sugerencias de reparación contextualizadas respetando el *System Prompt*.

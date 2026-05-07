@@ -16,7 +16,7 @@ Este roadmap marca la evolución de mercedev.es de un sitio estático a una plat
 
 - [ ] IA-Fix Workflow: Crear GitHub Action que dispare una corrección automática de IA ante fallos de Linter o formato de imágenes.  
 
-- [ ] WebP Automation: Implementar agente que vigile /assets/images y convierta automáticamente cualquier subida a .webp optimizado.  
+- [x] WebP Automation: Implementar agente que vigile /.assets-raw y convierta automáticamente cualquier subida a .webp optimizado.  
 
 ## Fase 3: Orquestación de Contenidos y Docs (Semanas 5-6)
 
