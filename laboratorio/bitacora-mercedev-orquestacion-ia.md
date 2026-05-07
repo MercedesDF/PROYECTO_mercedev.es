@@ -39,14 +39,40 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — Docs: Creación del prompt maestro para el Agente Bibliotecario
+
+**Contexto:** Antes de programar la lógica del agente en Python, era necesario asentar las reglas editoriales y de formato que domarán a la IA local para que convierta notas crudas en "Cuadernillos" listos para la biblioteca.
+
+**Hecho:** Se redactó el archivo `/laboratorio/prompts/prompt-bibliotecario.md`.
+
+**Detalle técnico:** El prompt exige *Zero-Shot formatting* (solo salida de código Markdown), inyecta la regla de los 3 átomos (Desafío, Maniobra, Aprendizaje) y fuerza campos fijos de Gobernanza como `estado: "borrador"` y el bloque HTML `<!-- linkedin: ... -->`.
+
+**Motivo / criterio:** *Spec-Driven Development*. Diseñar primero el "molde mental" del agente asegura que las respuestas del LLM sean predecibles. Obligar al agente a pre-redactar el post de LinkedIn anidado en el documento prepara el terreno y agiliza el flujo de la automatización social.
+
+**Siguiente paso o deuda:** Desarrollar el script de Python `merci-librarian.py` para procesar el directorio de notas e invocar este prompt vía LiteLLM.
+
+### 2026-05-08 — Feat: Inicio de Fase 3 (El Agente Bibliotecario)
+
+**Contexto:** Con el ecosistema "Self-Healing" operativo (Fase 2 sellada), el siguiente cuello de botella operativo es la redacción técnica. Se requiere reducir a cero la fricción de documentar, permitiendo que la autora vuelque notas en crudo y la IA las convierta en "Cuadernillos" inmaculados.
+
+**Hecho:** Se inauguró la Fase 3 del Roadmap de IA y se comenzó el diseño arquitectónico del Agente Bibliotecario.
+
+**Motivo / criterio:** *Docs-as-Code y Zero Friction*. Documentar consume energía cognitiva. Delegar la aplicación de la regla de los 3 átomos (Desafío, Maniobra, Aprendizaje) y la generación del YAML Frontmatter a un agente LLM local asegura que la biblioteca crezca constantemente manteniendo un estándar editorial perfecto.
+
+**Siguiente paso o deuda:** Diseñar el script del Agente Bibliotecario (`merci-librarian.py`) y definir su prompt especializado.
+
 ### 2026-05-07 — Milestone: Cierre de Fase 2 (Auto-Healing System)
 
 **Contexto:** Abordar el último hito de la Fase 2 creando un flujo de reparación automática en la nube (CI/CD) ante fallos del linter, aplicando la estrategia de *Hybrid Stack* diseñada en la Fase 1.
 
 **Hecho:**
-- Se implementó el agente `scripts/merci/merci-auto-fix.py`.
-- Se diseñó el workflow `.github/workflows/ia-fix.yml`.
-- Se marcó la Fase 2 como completada en el Roadmap de IA.
+Se ejecutó el Protocolo Estricto de Cierre de Fase (Definition of Done):
+- [x] **1. Deuda Técnica:** 0 TODOs. El patrón *Fail Gracefully* protege el pipeline; si falla la API o falta el token, los agentes se apagan sin romper la compilación base.
+- [x] **2. Cosecha de Conocimiento:** Consolidado el framework mental de "Desafío, Maniobra y Código" para los prompts del sistema.
+- [x] **3. Auditoría Documental:** Fase 2 marcada como completada en el Roadmap de IA.
+- [x] **4. Evaluación de Release:** El ecosistema de agentes (Self-Healing y WebP Automation) justifica la elevación a la **Release v1.9.0** del Boilerplate.
+- [x] **5. Snapshot:** Ejecutado backup local para respaldar el ecosistema con sus nuevas capacidades cognitivas.
+- [x] **6. Sello Definitivo:** Commit atómico de cierre consolidado.
 
 **Detalle técnico:** El agente en la nube invoca a `merci-audit.py` para interceptar el primer error bloqueante. Si lo encuentra, delega la reparación al modelo `gemini-1.5-flash` a través de LiteLLM. El workflow instala las dependencias de IA, expone el secreto `GEMINI_API_KEY`, ejecuta la reparación y hace un *auto-commit* de vuelta.
 
