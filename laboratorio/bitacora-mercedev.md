@@ -37,7 +37,22 @@ Copia el bloque y rellénalo.
 ---
 
 ## Registro cronológico
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+### 2026-05-07 — Chore: Cierre de PR Dependabot (pypdf 5.4.0 → 6.10.2)
+
+**Contexto:** Tras añadir `pypdf==5.4.0` al `requirements.txt` en esta sesión, GitHub Actions disparó automáticamente un PR de Dependabot proponiendo actualizar la librería a la versión `6.10.2`.
+
+**Hecho:**
+- Se cerró el PR `#1` de Dependabot sin mergear desde la interfaz de GitHub.
+- No se modificó `requirements.txt`.
+
+**Motivo / criterio:** *Versiones Pinadas y Control Consciente*. La política del proyecto es mantener versiones exactas en `requirements.txt` para garantizar reproducibilidad entre entornos. Las actualizaciones automáticas de Dependabot no se aceptan a ciegas: pueden introducir cambios de API o comportamiento no probados. `pypdf` es además una dependencia de laboratorio (solo usada por `laboratorio/scripts_temporales/merci-extract-metrics.py`), no del pipeline principal, por lo que el riesgo de no actualizar es mínimo. Cualquier actualización de dependencias debe evaluarse manualmente, probarse en local y commitearse de forma consciente.
+
+**Siguiente paso o deuda:** Continuar con el Release Pipeline de la v1.7.0 (Pasos 2–7 del SOP en `docs/matriz/mantenimiento-boilerplate-sop.md`).
+
+>>>>>>> 2a945bc1a85b2e7895085f5c71d4d7e21ed287eb
 ### 2026-05-07 — Docs: Release v1.7.0 del Boilerplate (SSG Dual y Engineering Dashboard)
 
 **Contexto:** Evaluación del estado del repositorio frente a la v1.6.1 publicada en Git. Se detectaron cambios de arquitectura sustanciales en scripts del ecosistema que justifican una nueva release menor antes de arrancar el Roadmap de IA.
