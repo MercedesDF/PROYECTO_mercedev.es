@@ -13,9 +13,11 @@
     
     <!-- Favicon y Mercí-->
     <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon">
-    <link rel="stylesheet" href="/css/main.css?v=13">
-    <script src="/js/MerciController.js?v=13" defer></script>
-    <script src="/js/main.js?v=13" defer></script>
+    <!-- QUÉ HACE: Cache Busting dinámico incrementado a v14 -->
+    <!-- POR QUÉ: Obliga a Varnish y a navegadores móviles a purgar la caché y descargar la nueva rejilla de 5 columnas. -->
+    <link rel="stylesheet" href="/css/main.css?v=1778157492">
+    <script src="/js/MerciController.js?v=1777729228" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
     <link rel="canonical" href="https://mercedev.es">
     
     <!-- JSON-LD Mínimo Fase 2 -->

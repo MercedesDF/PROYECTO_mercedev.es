@@ -393,11 +393,28 @@ def main(): # type: ignore
     # 0. Limpieza previa (Evitar archivos zombis)
     limpiar_directorio_salida()
     
+    # QUÉ HACE: Implementa "Cache Busting" dinámico usando la fecha de modificación del archivo.
+    # POR QUÉ: Obliga a los navegadores móviles a descargar la última versión de los assets.
+    css_path = REPO_ROOT / "public/css/main.css"
+    js_controller_path = REPO_ROOT / "public/js/MerciController.js"
+    js_main_path = REPO_ROOT / "public/js/main.js"
+    css_version = int(css_path.stat().st_mtime) if css_path.exists() else '11'
+    js_controller_version = int(js_controller_path.stat().st_mtime) if js_controller_path.exists() else '11'
+    js_main_version = int(js_main_path.stat().st_mtime) if js_main_path.exists() else '11'
+
     # 0. Extraer Header y Footer dinámicamente de la portada (Single Source of Truth)
     header_html, footer_html = "", ""
     index_path = REPO_ROOT / "public" / "index.html"
     if index_path.exists():
         index_content = index_path.read_text(encoding="utf-8")
+        
+        # QUÉ HACE: Autoinyecta las nuevas versiones en el index.html (Single Source of Truth)
+        # POR QUÉ: Automatiza el Cache Busting. Las páginas satélite lo heredarán a través de merci-sync-pages.py.
+        index_content = re.sub(r'(href="/css/main\.css\?v=)\d+', rf'\g<1>{css_version}', index_content)
+        index_content = re.sub(r'(src="/js/MerciController\.js\?v=)\d+', rf'\g<1>{js_controller_version}', index_content)
+        index_content = re.sub(r'(src="/js/main\.js\?v=)\d+', rf'\g<1>{js_main_version}', index_content)
+        index_path.write_text(index_content, encoding="utf-8")
+
         h_match = re.search(r"(<header.*?</header>)", index_content, re.DOTALL | re.IGNORECASE)
         f_match = re.search(r"(<footer.*?</footer>)", index_content, re.DOTALL | re.IGNORECASE)
         m_match = re.search(r"(<!-- Asistente Merci -->.*?</aside>)", index_content, re.DOTALL | re.IGNORECASE)
@@ -407,15 +424,6 @@ def main(): # type: ignore
         # QUÉ HACE: Añade el bloque de Merci al footer extraído para inyectarlo en todas las páginas generadas
         if m_match:
             footer_html += f"\n\n    {m_match.group(1)}"
-
-    # QUÉ HACE: Implementa "Cache Busting" dinámico usando la fecha de modificación del archivo.
-    # POR QUÉ: Obliga a los navegadores móviles a descargar la última versión de los assets.
-    css_path = REPO_ROOT / "public/css/main.css"
-    js_controller_path = REPO_ROOT / "public/js/MerciController.js"
-    js_main_path = REPO_ROOT / "public/js/main.js"
-    css_version = int(css_path.stat().st_mtime) if css_path.exists() else '11'
-    js_controller_version = int(js_controller_path.stat().st_mtime) if js_controller_path.exists() else '11'
-    js_main_version = int(js_main_path.stat().st_mtime) if js_main_path.exists() else '11'
 
     publicaciones_bib = []
     publicaciones_art = []
