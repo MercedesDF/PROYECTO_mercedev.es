@@ -39,6 +39,19 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-07 — Milestone: Cierre de Fase 2 (Auto-Healing System)
+
+**Contexto:** Abordar el último hito de la Fase 2 creando un flujo de reparación automática en la nube (CI/CD) ante fallos del linter, aplicando la estrategia de *Hybrid Stack* diseñada en la Fase 1.
+
+**Hecho:**
+- Se implementó el agente `scripts/merci/merci-auto-fix.py`.
+- Se diseñó el workflow `.github/workflows/ia-fix.yml`.
+- Se marcó la Fase 2 como completada en el Roadmap de IA.
+
+**Detalle técnico:** El agente en la nube invoca a `merci-audit.py` para interceptar el primer error bloqueante. Si lo encuentra, delega la reparación al modelo `gemini-1.5-flash` a través de LiteLLM. El workflow instala las dependencias de IA, expone el secreto `GEMINI_API_KEY`, ejecuta la reparación y hace un *auto-commit* de vuelta.
+
+**Motivo / criterio:** *Self-Healing Cloud y Zero Latency Local*. Utilizar Ollama en local ahorra costes y asegura privacidad, pero los contenedores de GitHub Actions no pueden cargar modelos locales pesados. Usar la API de Gemini como modelo de contingencia (Fallback) en la nube demuestra la brillantez de haber utilizado LiteLLM como capa de abstracción universal (Agnosticismo de Modelos).
+
 ### 2026-05-07 — Feat: Agente Vigilante de Assets (WebP Automation)
 
 **Contexto:** Eliminar la fricción de tener que ejecutar manualmente el optimizador de imágenes o esperar a correr el orquestador global cada vez que se añade material multimedia en bruto al proyecto.

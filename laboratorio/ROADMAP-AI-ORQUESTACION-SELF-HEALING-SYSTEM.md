@@ -14,7 +14,7 @@ Este roadmap marca la evolución de mercedev.es de un sitio estático a una plat
 
 - [x] Evolución de merci-audit.py: Integrar IA para que el script no solo detecte errores, sino que sugiera el comando de reparación.  
 
-- [ ] IA-Fix Workflow: Crear GitHub Action que dispare una corrección automática de IA ante fallos de Linter o formato de imágenes.  
+- [x] IA-Fix Workflow: Crear GitHub Action que dispare una corrección automática de IA ante fallos del linter utilizando el *Hybrid Stack*.  
 
 - [x] WebP Automation: Implementar agente que vigile /.assets-raw y convierta automáticamente cualquier subida a .webp optimizado.  
 
