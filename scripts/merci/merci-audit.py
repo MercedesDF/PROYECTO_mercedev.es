@@ -89,6 +89,7 @@ TEXT_SUFFIXES = frozenset(
         ".yml",
         ".yaml",
         ".toml",
+        ".py",
         ".ini",
         ".env",
         ".sh",
@@ -394,13 +395,13 @@ def audit_php_smells(state: AuditState, path: Path, text: str) -> None:
 
 def audit_inline_styles(state: AuditState, path: Path, text: str) -> None:
     """
-    Detecta atributos style="..." en el código, los cuales vulneran 
+    Detecta atributos style="..." en el código, los cuales vulneran # merci-audit:silence-style
     la arquitectura SASS 7-1 y la metodología BEM.
     """
     if path.suffix.lower() not in {".html", ".htm", ".php", ".py", ".js"}:
         return
         
-    pattern = re.compile(r'\bstyle\s*=\s*(["\'])(.*?)\1', re.IGNORECASE)
+    pattern = re.compile(r'\bstyle\s*=\s*(["\'])(.*?)\1', re.IGNORECASE)  # merci-audit:silence-style
     lines = text.splitlines()
     
     for line_number, line in enumerate(lines, start=1):
@@ -419,7 +420,7 @@ def audit_inline_styles(state: AuditState, path: Path, text: str) -> None:
                     line_number,
                     "warn",
                     "UI_INLINE_STYLE",
-                    f"Estilo en línea detectado (style='{style_content[:25]}...'). Extraer a componente SASS (BEM).",
+                    f"Estilo en línea detectado (style='{style_content[:25]}...'). Extraer a componente SASS (BEM).",  # merci-audit:silence-style
                 )
             )
 

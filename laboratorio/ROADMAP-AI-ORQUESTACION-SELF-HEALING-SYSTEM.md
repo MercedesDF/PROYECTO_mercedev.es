@@ -12,7 +12,7 @@ Este roadmap marca la evolución de mercedev.es de un sitio estático a una plat
 
 ## Fase 2: El Agente Auditor (Self-Healing Base) (Semanas 3-4)
 
-- [ ] Evolución de merci-audit.py: Integrar IA para que el script no solo detecte errores, sino que sugiera el comando de reparación.  
+- [x] Evolución de merci-audit.py: Integrar IA para que el script no solo detecte errores, sino que sugiera el comando de reparación.  
 
 - [ ] IA-Fix Workflow: Crear GitHub Action que dispare una corrección automática de IA ante fallos de Linter o formato de imágenes.  
 

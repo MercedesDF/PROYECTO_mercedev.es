@@ -39,6 +39,33 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-07 — Milestone: El Agente Auditor (Self-Healing MVP) Operativo
+
+**Contexto:** Validar empíricamente que la inyección de LiteLLM y Ollama en el orquestador de calidad (`merci-audit.py`) intercepta correctamente los errores de código y devuelve sugerencias de reparación contextualizadas respetando el *System Prompt*.
+
+**Hecho:**
+- Se ejecutó `merci audit` provocando un error sintáctico (`PY_SYNTAX`) deliberado.
+- El Agente analizó el fragmento y escupió en consola una maniobra de corrección estructurada (Desafío, Maniobra, Código).
+- Se marcó el primer hito de la Fase 2 en el `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md` como completado.
+
+**Detalle técnico:** El patrón *Fail Gracefully* funcionó a la perfección. La IA operó sobre un entorno aislado (`.venv`) consultando el modelo local `phi3` en `localhost:11434`, manteniendo una fricción nula en el pipeline maestro y respetando la filosofía DevSecOps.
+
+**Motivo / criterio:** *Self-Healing Base*. Un orquestador que propone la solución exacta en la misma terminal donde reporta el error reduce drásticamente el tiempo de depuración (Developer Experience). Esto sella la base de la Fase 2.
+
+**Siguiente paso o deuda:** Abordar el siguiente agente del Roadmap (IA-Fix Workflow o WebP Automation).
+
+### 2026-05-07 — Fix: El Agente Auditor estaba ciego a los archivos Python
+
+**Contexto:** Al ejecutar la prueba de validación del Agente Auditor con un archivo Python de sintaxis errónea (`falla_prueba.py`), el script no reportó ningún error, permaneciendo en silencio.
+
+**Hecho:** Se diagnosticó un bug en `scripts/merci/merci-audit.py`. La lista de extensiones de archivo a escanear (`TEXT_SUFFIXES`) omitía la extensión `.py`.
+
+**Detalle técnico:** El auditor solo aplicaba sus reglas de sintaxis Python a los archivos que pasaban el filtro de extensiones. Al no estar `.py` en la lista, el archivo de prueba era ignorado por completo durante el escaneo del repositorio. Se añadió `.py` al `frozenset` `TEXT_SUFFIXES`.
+
+**Motivo / criterio:** *Regresión y QA sobre QA*. Un linter que no es capaz de ver los archivos que se supone que debe auditar es una herramienta inútil. Este tipo de regresiones silenciosas son las más peligrosas. La prueba de humo con un error provocado ha sido crucial para detectar esta ceguera.
+
+**Siguiente paso o deuda:** Re-ejecutar la auditoría para confirmar que el Agente ahora sí detecta el error y sugiere la reparación.
+
 ### 2026-05-07 — Feat: Inicio de Fase 2 (El Agente Auditor)
 
 **Contexto:** Con la infraestructura de la Fase 1 sellada y el Boilerplate v1.8.0 exportado, se requiere dotar al auditor maestro (`merci-audit.py`) de capacidades de Inteligencia Artificial local para sugerir correcciones en consola.
