@@ -39,6 +39,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-07 — Feat: Soporte multi-bitácora en orquestador de commits
+
+**Contexto:** Al inaugurar la nueva bitácora exclusiva para la Fase de Orquestación IA, el script de empaquetado atómico (`merci-commit.py`) quedó ciego, ya que tenía la ruta de la bitácora original hardcodeada.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-commit.py` para soportar múltiples bitácoras activas.
+
+**Detalle técnico:** Se implementó la función `obtener_bitacora_activa()` que lee las fechas de modificación física (`st_mtime`) de una lista permitida de bitácoras. El script asume como "bitácora activa" aquella que haya sido guardada más recientemente y extrae de ella el mensaje para Git.
+
+**Motivo / criterio:** *Separation of Concerns y Fricción Cero*. Unificar las bitácoras destruiría el trabajo de segregación documental que acabamos de hacer. Volver el script inteligente para que sepa en qué archivo estás trabajando actualmente mantiene el pipeline ágil sin sacrificar la organización.
+
+**Siguiente paso o deuda:** Validar el empaquetado atómico y reanudar el setup de IA.
+
 ### 2026-05-07 — Feat: Integración de extracción de métricas en orquestador maestro
 
 **Contexto:** La actualización de los datos del Engineering Dashboard en la portada dependía de la ejecución manual del script de extracción de PDFs, generando riesgo de olvido y desincronización (Data Drift).
@@ -62,6 +74,30 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 **Motivo / criterio:** *Fricción Cero y Single Source of Truth*. Al actualizar la portada estáticamente durante la fase de Build (`merci publish`), el archivo queda versionado en Git automáticamente con la versión más reciente. Posteriormente, `merci-sync-pages.py` propaga este HTML actualizado al resto de las páginas estáticas (como Contacto), cerrando el ciclo de automatización sin intervención humana.
 
 **Siguiente paso o deuda:** Finalizar instalación local de Inteligencia Artificial (Ollama y LiteLLM) de la Fase 1.
+
+### 2026-05-07 — Feat: Instalación exitosa de motor IA local (Ollama)
+
+**Contexto:** Tras el fallo de conexión SSL documentado anteriormente, se requería reintentar la instalación del motor Ollama en el sistema anfitrión para asentar la base del Hybrid Stack.
+
+**Hecho:** Se instaló Ollama correctamente en Ubuntu y se procedió a descargar el modelo de lenguaje `phi3`.
+
+**Detalle técnico:** El modelo `phi3` fue seleccionado por su alta relación capacidad/peso, ideal para tareas de DevSecOps en entornos de desarrollo local. Se configuró un script puente con `litellm` para validar la conexión a través del puerto 11434.
+
+**Motivo / criterio:** *Zero Latency y Privacidad*. Disponer del motor ejecutándose nativamente aísla nuestro flujo de orquestación de caídas de red o límites de cuota de APIs externas (Gemini), permitiendo procesar código fuente de forma 100% privada.
+
+**Siguiente paso o deuda:** Ejecutar el script `test_ia.py` para validar la conexión Python-Ollama e iniciar la estandarización de Prompts.
+
+### 2026-05-07 — Fix: Error de instalación de Ollama (SSL_ERROR_SYSCALL)
+
+**Contexto:** Al intentar instalar Ollama en el sistema anfitrión como parte de la Fase 1 del Roadmap de IA, el script de instalación falló con errores de conexión SSL y corrupción de archivo.
+
+**Hecho:** El comando `curl -fsSL https://ollama.com/install.sh | sh` devolvió `OpenSSL SSL_connect: SSL_ERROR_SYSCALL` y `zstd: unexpected end of file`, indicando una descarga incompleta del binario de Ollama.
+
+**Detalle técnico:** El error `SSL_ERROR_SYSCALL` sugiere una interrupción de la conexión segura (HTTPS) con el servidor de descarga de GitHub (`release-assets.githubusercontent.com`). Esto puede ser causado por problemas de red, un firewall restrictivo o un proxy. La corrupción del archivo (`zstd`, `tar`) es una consecuencia directa de la descarga fallida.
+
+**Motivo / criterio:** *Resiliencia de Infraestructura*. La instalación de herramientas de bajo nivel puede verse afectada por factores externos al código. Es crucial diagnosticar la causa raíz de los fallos de red para asegurar una base sólida para el entorno de IA.
+
+**Siguiente paso o deuda:** Solucionar el problema de descarga de Ollama, verificar la conectividad de red y reintentar la instalación.
 
 ### 2026-05-07 — Arch: Diseño del Hybrid Stack (LiteLLM + Ollama)
 
