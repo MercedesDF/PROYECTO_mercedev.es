@@ -44,10 +44,13 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 **Contexto:** Aplicar el *Definition of Done* para la Fase 1 del Roadmap de IA, asegurando que la infraestructura base (Ollama + LiteLLM), los directorios estructurales y las reglas rectoras están consolidados antes de desarrollar el primer agente autónomo.
 
 **Hecho:**
-- Se verificó la operatividad del *Hybrid Stack* (Ollama + LiteLLM) mediante la sonda `test_ia.py`.
-- Se establecieron los directorios `/merci-brain/` y `/laboratorio/prompts/`.
-- Se inyectó la filosofía innegociable del proyecto en `prompt-sistema-base.md`.
-- Se dieron por completadas todas las tareas de la Fase 1 en el `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`.
+Se ejecutó el Protocolo Estricto de Cierre de Fase (Definition of Done):
+- [x] **1. Deuda Técnica:** 0 TODOs. La conexión local de IA está validada y es 100% privada (telemetría apagada).
+- [x] **2. Cosecha de Conocimiento:** Creado `prompt-sistema-base.md` con las reglas de arquitectura innegociables para futuros agentes.
+- [x] **3. Auditoría Documental:** Hitos de la Fase 1 marcados como completados en `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`.
+- [x] **4. Evaluación de Release:** Los cambios en orquestadores (`merci-commit`, `merci-publish`, `merci-total`) justifican la nueva **Release v1.8.0** del Boilerplate.
+- [x] **5. Snapshot:** Ejecutado backup local para asegurar el ecosistema inmaculado antes de inyectar IA en el núcleo.
+- [x] **6. Sello Definitivo:** Commit atómico.
 
 **Motivo / criterio:** *Governance y Definition of Done (DoD)*. Sellar formalmente la fase garantiza que la plataforma de orquestación es estable, privada (Zero Trust) y tiene límites arquitectónicos estrictos antes de inyectar capacidad generativa a los scripts del núcleo.
 
