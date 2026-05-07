@@ -4,11 +4,11 @@ Este roadmap marca la evolución de mercedev.es de un sitio estático a una plat
 
 ## Fase 1: Cimientos y Conectividad (Semanas 1-2)
 
-- [ ] Setup de Modelos (Hybrid Stack): Configurar Ollama para ejecución local y LiteLLM para fallback con Gemini Flash API.
+- [x] Setup de Modelos (Hybrid Stack): Configurar Ollama para ejecución local y LiteLLM para fallback con Gemini Flash API.
 
-- [ ] Directorio del Cerebro: Crear /merci-brain para centralizar los agentes de Python.
+- [x] Directorio del Cerebro: Crear /merci-brain para centralizar los agentes de Python.
 
-- [ ] Estandarización de Prompts: Crear /laboratorio/prompts con las reglas de estilo y arquitectura para que las IAs mantengan la coherencia del repo.  
+- [x] Estandarización de Prompts: Crear /laboratorio/prompts con las reglas de estilo y arquitectura para que las IAs mantengan la coherencia del repo.  
 
 ## Fase 2: El Agente Auditor (Self-Healing Base) (Semanas 3-4)
 

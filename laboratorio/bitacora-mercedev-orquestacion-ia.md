@@ -39,6 +39,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-07 — Docs: Estandarización del Prompt Sistema Base para agentes IA
+
+**Contexto:** Con el directorio de prompts creado, se requería asentar las "Instrucciones Base" (System Prompt) para asegurar que cualquier agente de IA (como el futuro Agente Auditor) respete la filosofía de cero dependencias y rendimiento extremo del proyecto.
+
+**Hecho:**
+- Se redactó `/laboratorio/prompts/prompt-sistema-base.md`.
+- Se marcaron como completados los tres primeros hitos de la Fase 1 en el `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`.
+
+**Motivo / criterio:** *Governance AI*. Los LLMs tienden a alucinar soluciones usando frameworks populares (React, Tailwind). Inyectar un "Prompt de Sistema" estricto en cada llamada al modelo local actúa como un escudo arquitectónico, forzando a la IA a pensar y codificar exclusivamente bajo los paradigmas de Vanilla JS y Python puro.
+
+**Siguiente paso o deuda:** Iniciar la Fase 2 (El Agente Auditor), dotando a `merci-audit.py` de capacidades de sugerencia de comandos de reparación.
+
 ### 2026-05-07 — Test: Validación exitosa del motor local (Ollama + LiteLLM)
 
 **Contexto:** Validar empíricamente que el entorno Python (vía LiteLLM) puede comunicarse con el modelo local `phi3` sin salida a Internet, confirmando la viabilidad de la arquitectura *Zero Latency*.
