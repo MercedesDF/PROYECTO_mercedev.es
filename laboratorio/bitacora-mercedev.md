@@ -37,6 +37,7 @@ Copia el bloque y rellénalo.
 ---
 
 ## Registro cronológico
+<<<<<<< Updated upstream
 ### 2026-05-07 — Docs: Release v1.7.0 del Boilerplate (SSG Dual y Engineering Dashboard)
 
 **Contexto:** Evaluación del estado del repositorio frente a la v1.6.1 publicada en Git. Se detectaron cambios de arquitectura sustanciales en scripts del ecosistema que justifican una nueva release menor antes de arrancar el Roadmap de IA.
@@ -63,6 +64,27 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** *Trazabilidad y Governance*. Las deudas técnicas no registradas son deudas invisibles. Formalizarlas en el roadmap y en la bitácora garantiza que no se pierdan entre sesiones y que puedan priorizarse en el momento adecuado.
 
 **Siguiente paso o deuda:** Evaluar el estado del Boilerplate en Git (v1.6.1) frente al estado actual del repositorio para determinar si procede una nueva release antes de arrancar el Roadmap de IA.
+=======
+### 2026-05-07 — Fix: Resolución de permisos de archivo en configuración de Continue (~/.continue/config.json)
+
+**Contexto (El Desafío):** Al intentar acceder al archivo de configuración de la extensión Continue (`~/.continue/config.json`) para aplicar el modelo `gemini-1.5-flash`, la terminal devolvió un error `zsh: permiso denegado`.
+
+**Hecho (La Maniobra):** Se diagnosticó un problema de propiedad de archivos a nivel de sistema operativo, probablemente causado por la creación del directorio con privilegios de `sudo`. Se instruyó la ejecución del comando `sudo chown -R hildegahr:hildegahr /home/hildegahr/.continue` para restaurar la propiedad al usuario correcto.
+
+**Motivo / criterio (El Aprendizaje):** *Seguridad y Propiedad en Linux*. Un error de "permiso denegado" en un archivo de configuración de usuario casi siempre apunta a que `root` es el propietario. El comando `chown` (change owner) con el flag recursivo (`-R`) es la maniobra estándar para reclamar la propiedad de un directorio y todo su contenido, restaurando la operatividad sin necesidad de escalar privilegios para la edición diaria.
+
+**Siguiente paso o deuda:** Proceder con la edición del archivo `config.json` para anclar el modelo de IA a `gemini-1.5-flash` y eliminar las limitaciones de cuota.
+
+### 2026-05-07 — Conf: Reconfiguración de Continue (Gemini 1.5 Flash) para cuota extendida
+
+**Contexto:** Las limitaciones de cuota (Rate Limits de 20 peticiones/día) de los modelos Pro o experimentales en la extensión Continue impedían la generación fluida y masiva de los textos para el asistente Merci.
+
+**Hecho:** Se instruyó la reconfiguración del archivo de Continue (`~/.continue/config.json` o `.yaml`) para utilizar el proveedor `google-generative-ai` anclado al modelo `gemini-1.5-flash`.
+
+**Motivo / criterio:** *Fricción Cero y Rate Limiting*. `gemini-1.5-flash` ofrece una cuota gratuita de 1500 peticiones diarias (15 RPM - Requests Per Minute). Apuntar la herramienta de asistencia del IDE hacia este modelo la convierte en un recurso API ilimitado para el proyecto, evitando que Continue colapse por bloqueos HTTP 429 durante la orquestación.
+
+**Siguiente paso o deuda:** Iniciar formalmente la Fase 1 del Roadmap de IA (Observabilidad e Intercepción de Errores).
+>>>>>>> Stashed changes
 
 ### 2026-05-07 — UI: Leyenda descriptiva para el Dashboard de Métricas
 
