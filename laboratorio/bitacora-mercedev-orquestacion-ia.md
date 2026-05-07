@@ -39,6 +39,20 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-07 — Milestone: Cierre de Fase 1 (Cimientos y Conectividad IA)
+
+**Contexto:** Aplicar el *Definition of Done* para la Fase 1 del Roadmap de IA, asegurando que la infraestructura base (Ollama + LiteLLM), los directorios estructurales y las reglas rectoras están consolidados antes de desarrollar el primer agente autónomo.
+
+**Hecho:**
+- Se verificó la operatividad del *Hybrid Stack* (Ollama + LiteLLM) mediante la sonda `test_ia.py`.
+- Se establecieron los directorios `/merci-brain/` y `/laboratorio/prompts/`.
+- Se inyectó la filosofía innegociable del proyecto en `prompt-sistema-base.md`.
+- Se dieron por completadas todas las tareas de la Fase 1 en el `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`.
+
+**Motivo / criterio:** *Governance y Definition of Done (DoD)*. Sellar formalmente la fase garantiza que la plataforma de orquestación es estable, privada (Zero Trust) y tiene límites arquitectónicos estrictos antes de inyectar capacidad generativa a los scripts del núcleo.
+
+**Siguiente paso o deuda:** Iniciar la Fase 2 (El Agente Auditor), dotando a `merci-audit.py` de capacidades de sugerencia y reparación de código mediante IA.
+
 ### 2026-05-07 — Docs: Estandarización del Prompt Sistema Base para agentes IA
 
 **Contexto:** Con el directorio de prompts creado, se requería asentar las "Instrucciones Base" (System Prompt) para asegurar que cualquier agente de IA (como el futuro Agente Auditor) respete la filosofía de cero dependencias y rendimiento extremo del proyecto.
