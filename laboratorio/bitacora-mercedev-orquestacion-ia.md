@@ -39,6 +39,56 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — Feat: Escalado del modelo local a Llama 3 (8B) en Agente Bibliotecario
+
+**Contexto (Desafío):** La API gratuita de Google (Gemini) sigue devolviendo errores `HTTP 404` intermitentes para los alias de la rama `1.5-flash` debido a restricciones regionales o cambios no documentados. Al aplicar la Degradación Elegante, el modelo local `phi3` volvía a alucinar, demostrando ser incapaz de seguir el *System Prompt* estructural.
+
+**Hecho (Maniobra):** Se sustituyó el modelo local de contingencia `phi3` por `llama3` (8B de parámetros) en `scripts/merci/merci-librarian.py`. Se instruyó la descarga del modelo mediante `ollama pull llama3`.
+
+**Motivo / criterio (Aprendizaje):** *Local AI Resilience*. `phi3` es demasiado pequeño (3.8B) para seguir instrucciones de formato estricto (Zero-Shot YAML Frontmatter). Escalar a `llama3` (8B) proporciona capacidades de razonamiento muy superiores y soporte nativo para seguimiento de instrucciones en español, convirtiendo el *fallback* en una alternativa local verdaderamente operativa y no en un parche que genera más ruido. Liberarse de la tiranía de las APIs de terceros justifica el uso de recursos locales.
+
+**Siguiente paso o deuda:** Descargar el modelo en Ollama, limpiar el cuadernillo residual y relanzar el Agente Bibliotecario.
+
+### 2026-05-08 — Fix: Eliminación de fallback dinámico engañoso y blindaje de merci-brain
+
+**Contexto (Desafío):** Google introdujo un nuevo modelo súper experimental (`gemini-2.5-computer-use-preview-10-2025`) al final de la lista de su API, con límite de cuota 0. La lógica de *fallback* del autodescubridor (`validos[-1]`) lo seleccionó erróneamente, rompiendo nuevamente a `merci-librarian.py`. Además, `merci-brain.py` seguía expuesto a estos mismos fallos y a la contaminación de consola por `FutureWarning`.
+
+**Hecho (Maniobra):** Se eliminó la lógica `validos[-1]` en favor del alias estricto `"gemini-1.5-flash"` en ambos agentes. Se replicaron las políticas de silenciamiento de advertencias (`warnings`) y la exclusión de la familia `2.0-flash` en `scripts/merci/merci-brain.py`.
+
+**Motivo / criterio (Aprendizaje):** *Fail-Safe Default*. Asumir que el último elemento de una API de terceros es una opción segura es un antipatrón. El *fallback* definitivo debe ser siempre un anclaje absoluto a la versión de producción que garantiza cuota. Mantener la paridad de parches entre todos los agentes que consumen la misma API asegura la estabilidad del ecosistema en bloque.
+
+**Siguiente paso o deuda:** Limpiar el archivo residual, re-ejecutar `merci librarian` y auditar la orquestación global con `merci total`.
+
+### 2026-05-08 — Fix: Exclusión de Gemini 2.0 (Límite 0) y silenciamiento de warnings
+
+**Contexto (Desafío):** Al ejecutar el Agente Bibliotecario, el autodescubridor seleccionó el modelo experimental `gemini-2.0-flash`. Sin embargo, Google impone una cuota de 0 peticiones (Free Tier) para este modelo en nuestra región, provocando un `HTTP 429` inmediato y forzando una degradación inútil a `phi3`. Además, la terminal se ensució con un `FutureWarning` de `litellm`.
+
+**Hecho (Maniobra):** Se eliminó `2.0-flash` de la matriz de preferencias en `scripts/merci/merci-librarian.py` para anclar la resolución a la rama estable `1.5-flash`. Se inyectó el módulo `warnings` nativo de Python para silenciar las alertas inofensivas de la librería.
+
+**Motivo / criterio (Aprendizaje):** *Estabilidad sobre Novedad & Clean DX*. Consumir el último modelo disponible es un antipatrón si el proveedor no garantiza cuota operativa. Forzar la rama 1.5 asegura las 1500 peticiones diarias. Ocultar los *warnings* de librerías de terceros (Supply Chain) protege la experiencia de desarrollo (DX) manteniendo la salida de la terminal enfocada en los procesos del proyecto.
+
+**Siguiente paso o deuda:** Limpiar el cuadernillo alucinado y re-ejecutar el Agente Bibliotecario.
+
+### 2026-05-08 — Fix: Resolución de alias 404 en modelo Gemini (Agente Bibliotecario)
+
+**Contexto (Desafío):** Al ejecutar el Agente Bibliotecario, LiteLLM devolvió un error `HTTP 404 (Not Found)` al intentar conectar con `gemini-1.5-flash`. Google AI Studio no reconocía este alias base en la versión `v1beta` de la API requerida por la librería. Se produjo también un `FutureWarning` inofensivo sobre la librería subyacente.
+
+**Hecho (Maniobra):** Se parcheó `scripts/merci/merci-librarian.py` cambiando el modelo objetivo a `gemini/gemini-1.5-flash-latest`.
+
+**Motivo / criterio (Aprendizaje):** *API Resilience & Alias Routing*. Las plataformas de IA en la nube rotan o exigen sufijos explícitos (`-latest`, `-001`) para sus modelos más recientes. Anclar el orquestador al alias `latest` garantiza la resolución del *endpoint* sin importar los cambios en la nomenclatura base de la capa gratuita, estabilizando el *Hybrid Stack*.
+
+**Siguiente paso o deuda:** Re-ejecutar el Agente Bibliotecario para generar definitivamente el cuadernillo.
+
+### 2026-05-08 — Fix: Resolución de dependencia faltante para Gemini (google-generativeai)
+
+**Contexto (Desafío):** Al ejecutar el Agente Bibliotecario, el script falló al intentar conectar con `gemini-1.5-flash` debido a la falta de la librería nativa de Google (`Importing google.generativeai failed`). La Degradación Elegante funcionó, pero el modelo local (`phi3`) sufrió una alucinación severa, inventando contenido sobre Docker, GoLang y JWT al final del documento.
+
+**Hecho (Maniobra):** Se añadió la dependencia `google-generativeai` al archivo `requirements.txt` para que LiteLLM pueda interactuar correctamente con la API de Google en futuras ejecuciones.
+
+**Motivo / criterio (Aprendizaje):** *Supply Chain & Fallback Testing*. LiteLLM es una capa de abstracción, pero requiere los SDKs nativos de los proveedores para funcionar. Este fallo validó empíricamente que nuestra lógica de `try/except` (Fail Gracefully) funciona, protegiendo el orquestador de colapsos absolutos, pero también re-confirmó la falta de fiabilidad de los modelos locales pequeños para tareas de redacción complejas.
+
+**Siguiente paso o deuda:** Instalar la dependencia en el entorno virtual, borrar el cuadernillo alucinado y re-ejecutar `merci librarian`.
+
 ### 2026-05-08 — Fix: Migración del Agente Bibliotecario a Gemini Flash (Calidad vs. Rendimiento)
 
 **Contexto (Desafío):** La evaluación empírica del Agente Bibliotecario con el modelo local `phi3` reveló una "caída de atención" significativa, resultando en alucinaciones, incumplimiento de la estructura de los 3 átomos y errores en el Frontmatter YAML. Esto comprometía la calidad del conocimiento de la Biblioteca.

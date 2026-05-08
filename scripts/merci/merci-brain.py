@@ -17,6 +17,10 @@ import time
 import urllib.request
 import urllib.error
 from pathlib import Path
+import warnings
+
+# Silenciamos advertencias de deprecación de librerías de terceros (ej. google.generativeai) para mantener la consola limpia
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ENV_PATH = REPO_ROOT / ".env"
@@ -53,14 +57,13 @@ def auto_descubrir_modelo(api_key):
                 if "generateContent" in m.get("supportedGenerationMethods", [])
                 and "gemini" in m.get("name", "").lower()
             ]
-            # Búsqueda flexible por subcadena para atrapar sufijos (-001, -002) y garantizar cuota de 1500/día
-            for familia in ["1.5-flash", "1.5-pro", "2.0-flash"]:
+            # Excluimos 2.0 y modelos preview porque imponen límite de cuota 0 en tier gratuito para algunas regiones
+            for familia in ["1.5-flash", "1.5-pro"]:
                 for v in validos:
                     if familia in v: return v
-            # Si no encuentra ninguna familia prioritaria, coge la última para evitar las experimentales recientes
-            return validos[-1] if validos else "gemini-pro"
+            return "gemini-1.5-flash"
     except Exception:
-        return "gemini-pro"
+        return "gemini-1.5-flash"
 
 def consultar_gemini(prompt, api_key, modelo="gemini-pro"):
     """Realiza una petición POST nativa a la API de Gemini."""
