@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — Test: Evaluación empírica de capacidades del Agente Bibliotecario (phi3)
+
+**Contexto (Desafío):** Al revisar el resultado de `merci-librarian.py` (`cuadernillo-borrador-nota-gobernanza-ramas-force-push.md`), se constató que el modelo local (`phi3`) falló en la ejecución del *System Prompt*. Ignoró la estructura Markdown de los 3 átomos, colapsó el texto en párrafos planos y alucinó conceptos técnicos peligrosos (ej. requerir "SSH con credenciales OAuth" para proteger ramas).
+
+**Hecho (Maniobra):** Se eliminó el archivo generado por el modelo local. Se reemplazó por la versión curada previamente por el modelo de frontera de Google (Gemini) en el laboratorio, renombrándola a su archivo definitivo (`cuadernillo-gobernanza-ramas-force-push.md`).
+
+**Motivo / criterio (Aprendizaje):** *LLM Limitations & Prompt Engineering*. Modelos locales pequeños (como `phi3` con 3.8B parámetros) sufren de "Attention Drop" (caída de atención) cuando se enfrentan a *Prompts* densos con reglas de formato estricto (Zero-Shot formatting). Si el agente carece de la capacidad cognitiva para estructurar el documento sin inventar datos técnicos, se deberá escalar el modelo local, implementar una "Cadena de Pensamiento" (Chain of Thought), o delegar la tarea de redacción a la API de contingencia (Fallback a Gemini).
+
+**Siguiente paso o deuda:** Evaluar si modificamos `merci-librarian.py` para que use el modelo `gemini-1.5-flash` a través de LiteLLM para tareas complejas de redacción, asegurando la calidad del contenido de la Biblioteca.
+
 ### 2026-05-08 — Fix: Endurecimiento de idioma y tipología en Agente Bibliotecario
 
 **Contexto:** Los modelos locales tendían a generar títulos en inglés y a "alucinar" en el campo `tipo` del YAML Frontmatter (escribiendo "compendio técnico" en lugar del estricto "compendio"), lo que rompía la taxonomía del sitio estático en producción.

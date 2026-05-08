@@ -14,7 +14,8 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 1. **Añadir entradas al principio** de la sección “Registro cronológico”, con la plantilla de abajo. El registro es **acumulativo**: lo ya escrito forma parte del historial y **no se reemplaza** por nuevas sesiones (así no se pierde contexto ni fechas).
 2. **Una entrada por sesión o por tema cerrado** (lo que resulte más claro al escribir).
 3. Si algo fue un error o una vulnerabilidad evitada, opcionalmente usar los **tres átomos** del proyecto (Desafío → Maniobra → Aprendizaje/Deuda) en el cuerpo de la entrada.
-4. **Correcciones excepcionales** (typo, dato incorrecto, redacción de un solo párrafo, retirada de información sensible): editar solo el fragmento necesario o añadir una línea aclaratoria bajo la entrada; evitar reescribir todo el archivo o borrar entradas enteras sin motivo documentado.
+4. **Convención de Rutas:** Al hacer referencia a archivos o directorios, usar rutas relativas a la raíz del proyecto, comenzando con `PROYECTO_mercedev.es/` (ej. `PROYECTO_mercedev.es/laboratorio/archivo.md`). No incluir el prefijo absoluto del sistema operativo (`/home/hildegahr/Escritorio/`).
+5. **Correcciones excepcionales** (typo, dato incorrecto, redacción de un solo párrafo, retirada de información sensible): editar solo el fragmento necesario o añadir una línea aclaratoria bajo la entrada; evitar reescribir todo el archivo o borrar entradas enteras sin motivo documentado.
 
 ### Plantilla para nuevas entradas
 
@@ -37,6 +38,39 @@ Copia el bloque y rellénalo.
 ---
 
 ## Registro cronológico
+
+### 2026-05-08 — Docs: Estandarización de Rutas de Archivo en Bitácora
+
+**Contexto (Desafío):** Se detectó una inconsistencia en el registro de rutas de archivo dentro de la bitácora, incluyendo el prefijo absoluto del sistema (`/home/hildegahr/Escritorio/`), lo que comprometía la legibilidad, la portabilidad y la agnositicidad del registro.
+
+**Hecho (Maniobra):** Se ha establecido una nueva convención para la documentación de rutas. A partir de ahora, todas las rutas de archivo mencionadas en la bitácora serán relativas a la raíz del proyecto, comenzando con `PROYECTO_mercedev.es/`.
+
+**Detalle técnico:** La bitácora `laboratorio/bitacora-mercedev.md` ha sido actualizada con esta nueva directriz en la sección "Cómo mantenerlo (acuerdo simple)".
+
+**Motivo / criterio (Aprendizaje):** *Legibilidad y Portabilidad*. Mantener una convención estricta en el registro de rutas es crucial para que la bitácora actúe como una Única Fuente de Verdad (SSOT) agnóstica a la ubicación física del repositorio. Esto facilita su comprensión y reutilización por parte de futuros colaboradores o en diferentes entornos.
+
+**Siguiente paso o deuda:** Asegurar la aplicación de esta nueva convención en futuras entradas de la bitácora.
+
+
+### 2026-05-08 — Test: Creación de nota para Agente Bibliotecario (Gobernanza Ramas)
+
+**Contexto:** Para validar el comportamiento del "Agente Bibliotecario" y el flujo de "Cosecha de Conocimiento" (Fase 3 del Roadmap de IA), se creó una nota preliminar sobre la colisión entre la protección de ramas en GitHub y la estrategia de 'force push' para ramas huérfanas. El objetivo es que el Agente procese esta nota en bruto.
+
+**Hecho:** Se creó el archivo `PROYECTO_mercedev.es/laboratorio/nota-gobernanza-ramas-force-push.md` en estado 'borrador', especificando "DevSecOps y Gobernanza" como estantería destino.
+
+**Motivo / criterio:** *Testing and Validation*. Esta nota sirve como input de prueba para el flujo de curación de contenido por parte del "Agente Bibliotecario". Es fundamental entender cómo la IA procesa un input mínimo antes de escalar la generación de cuadernillos.
+
+**Siguiente paso o deuda:** Ejecutar `merci-librarian.py` para procesar la nota y evaluar el cuadernillo generado por el Agente.
+
+### 2026-05-08 — Docs: Creación de cuadernillo sobre Gobernanza de Ramas y Force Push
+
+**Contexto:** Tras integrar GitHub Actions y configurar el repositorio, la plataforma advirtió que la rama `main` estaba desprotegida. Al evaluar la activación de las Branch Protection Rules (Reglas de Protección de Rama), se identificó una colisión directa con el protocolo de Prevención de Fuga de Datos, el cual exige el uso de Ramas Huérfanas y `force push`.
+
+**Hecho:** Se redactó en el laboratorio el borrador `cuadernillo-gobernanza-ramas-force-push.md` explicando cómo conciliar la seguridad de la rama principal con las operaciones destructivas de mantenimiento necesarias para el Boilerplate.
+
+**Motivo / criterio:** *Knowledge Management (Gestión del Conocimiento)*. Toda excepción en la infraestructura de seguridad en la nube (como permitir `push -f` a administradores en `main`) debe estar justificada arquitectónicamente. Esto evita que en el futuro se apliquen bloqueos rígidos que impidan el truncamiento del historial.
+
+**Siguiente paso o deuda:** Curar el documento promoviéndolo a la Biblioteca (`merci-promote.py`), compilar el orquestador global (`merci-total`) y empaquetar el commit.
 
 ### 2026-05-07 — Perf: Corrección de exclusión en backups locales (Zero Bloat)
 
