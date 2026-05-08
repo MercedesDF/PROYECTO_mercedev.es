@@ -8,6 +8,8 @@ editorial a través del modelo de IA local (Ollama) y genera cuadernillos
 Markdown estructurados en el directorio de incubación (`laboratorio/`).
 """
 
+# TODO(Fase 3): Script deprecado y movido a scripts temporales. El RAG local con modelos <70B colapsa por exceso de contexto (Context Window Stuffing). Conservado como Art de Coté para referencia de Prompt Engineering avanzado y filtrado semántico.
+
 import os
 import sys
 from datetime import datetime

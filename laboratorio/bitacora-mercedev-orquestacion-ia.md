@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — Arch: Deprecación del Agente Bibliotecario (RAG Local) a Art de Coté
+
+**Contexto (Desafío):** A pesar de la agresiva sanitización de salida y la optimización del contexto, el modelo local Llama 3 (8B) continuaba fallando en la generación consistente de cuadernillos con formato YAML estricto (*Context Window Stuffing* y *Recency Bias*). El esfuerzo de domar la IA local añadía más fricción operativa que la redacción manual.
+
+**Hecho (Maniobra):** Se decidió abortar el uso del Agente Bibliotecario en local. El script `scripts/merci/merci-librarian.py` fue modificado con un marcador `TODO` y desplazado a `laboratorio/scripts_temporales/merci-librarian.py`. Se redactó el cuadernillo explicativo en `laboratorio/art-de-cote/`.
+
+**Motivo / criterio (Aprendizaje):** *Fail-Fast y ROI*. Si una herramienta diseñada para eliminar fricción se convierte en un sumidero de tiempo de depuración, debe ser descartada. Los modelos locales <14B aún no poseen la atención sostenida para combinar RAG denso y *Zero-Shot formatting* simultáneamente. Preservar el script como *Art de Coté* guarda las lecciones de Prompt Engineering sin contaminar el núcleo operativo.
+
+**Siguiente paso o deuda:** Auditar los scripts en `laboratorio/scripts_temporales/` para añadir notas de estado y proceder con el Agente Sync SSOT.
+
 ### 2026-05-08 — Fix: Extracción quirúrgica de YAML y neutralización de Recency Bias
 
 **Contexto (Desafío):** El modelo Llama 3 generaba archivos rotos al inyectar relleno conversacional (`Here is the output:`) antes del YAML. Además, sufría de *Recency Bias* (Sesgo de Recencia): al leer la bitácora en el RAG local, ignoraba la nota del usuario y se dedicaba a resumir la última entrada histórica que encontraba.
