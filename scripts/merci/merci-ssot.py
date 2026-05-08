@@ -112,20 +112,9 @@ TU RESPUESTA DEBE EMPEZAR CON EL SÍMBOLO "# " DEL TÍTULO DEL ROADMAP Y TERMINA
             ],
             api_key=api_key
         )
-    except Exception as e_cloud:
-        print(f"  ⚠️ [Merci Warn] Falló Gemini ({e_cloud}). Degradando a modelo local (Llama 3)...")
-        try:
-            respuesta = completion(
-                model="ollama/llama3",
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": prompt}
-                ],
-                api_base="http://localhost:11434"
-            )
-        except Exception as e_local:
-            print(f"  ❌ [Merci Error] Fallo total de IA (Nube y Local): {e_local}")
-            return
+    except Exception as e:
+        print(f"  ❌ [Merci Error] Falló Gemini y el agente no tiene fallback local autorizado: {e}")
+        return
             
     try:
         nuevo_roadmap = clean_markdown(respuesta.choices[0].message.content)

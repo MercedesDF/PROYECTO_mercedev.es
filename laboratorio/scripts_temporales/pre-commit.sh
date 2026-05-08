@@ -1,10 +1,9 @@
+# TODO(Fase 1): Script de shell obsoleto. Sustituido por un archivo pre-commit escrito íntegramente en Python para unificar el lenguaje del ecosistema y no depender de bash.
+
 #!/usr/bin/env sh
 # Instalar (desde la raíz del repo):
 #   chmod +x scripts/merci/pre-commit
 #   ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
-
-# TODO(Fase 1): Script de shell obsoleto. 
-# Sustituido por un archivo pre-commit escrito íntegramente en Python para unificar el lenguaje del ecosistema y no depender de bash.
 
 set -eu
 ROOT=$(git rev-parse --show-toplevel)

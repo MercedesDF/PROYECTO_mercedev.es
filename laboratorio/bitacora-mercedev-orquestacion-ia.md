@@ -39,6 +39,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — Chore: Auditoría y trazabilidad de scripts temporales (Deuda Técnica)
+
+**Contexto (Desafío):** El directorio `laboratorio/scripts_temporales/` almacenaba scripts experimentales o deprecados (`merci-wc-mock.py`, `merci_ingestor.py`, `merci_sitemap.py`, `pre-commit.sh`) que carecían de trazabilidad formal, convirtiéndose en "código zombi" sin contexto de por qué fueron descartados.
+
+**Hecho (Maniobra):** Se inyectaron cabeceras `# TODO(Fase X):...` en la primera línea de los 4 scripts temporales, justificando su estado actual y el motivo de su preservación (Art de Coté) o deprecación.
+
+**Motivo / criterio (Aprendizaje):** *Code Provenance* (Procedencia del Código). Nunca se debe almacenar código sin documentar su propósito o el motivo de su rechazo. Al etiquetarlos explícitamente, se salda la deuda técnica de mantenimiento y se asegura que futuros desarrolladores no intenten integrarlos por error en el orquestador principal.
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para validar la estabilidad del repositorio y empaquetar el commit de cierre de sesión.
+
+### 2026-05-08 — Arch: Erradicación del Fallback Local en Agentes de Gobernanza
+
+**Contexto (Desafío):** Al ejecutar el Agente SSOT con Llama 3 (8B) como fallback, el modelo superó el "Escudo Anti-Destrucción" (Sanity Checks) devolviendo el Roadmap entero, pero falló en el razonamiento semántico: no marcó ninguna tarea como completada y añadió una nota conversacional en inglés al final del documento (`Note: No changes were made...`).
+
+**Hecho (Maniobra):** Se editó manualmente el Roadmap para marcar las tareas completadas y eliminar el ruido del bot. Se eliminó por completo el bloque `try-except` de Degradación Elegante en `scripts/merci/merci-ssot.py`, forzando a que el agente solo opere con Gemini Flash en la nube o falle bloqueando la ejecución.
+
+**Motivo / criterio (Aprendizaje):** *Cloud-Only for Governance*. Tareas de sincronización documental (SSOT) exigen inferencia lógica precisa (conectar "deprecación" en bitácora con `[x]` en roadmap). Los modelos locales pequeños no sirven para gobernanza documental. Fallar estrepitosamente deteniendo el pipeline (Fail-Fast) es infinitamente superior a que un agente "tonto" contamine archivos oficiales creyendo que está ayudando.
+
+**Siguiente paso o deuda:** Mantener `merci-ssot.py` exclusivamente dependiente de la API y auditar los scripts temporales pendientes.
+
 ### 2026-05-08 — Fix: Escudo anti-destrucción (Sanity Checks) en Agente SSOT
 
 **Contexto (Desafío):** Al ejecutar el Agente SSOT en local, Llama 3 (8B) sufrió de "Chatbot Syndrome". En lugar de devolver el documento Markdown completo, generó un resumen conversacional en inglés (`After evaluating...`). Como el script carecía de validación de longitud, sobrescribió y destruyó físicamente el Roadmap.

@@ -1,9 +1,7 @@
+# TODO(Fase 4.3): Script experimental de inyección Headless Mock. Usado para poblar la tienda WooCommerce con productos de prueba en local y validar estilos SASS sin pasar por la GUI de WP. Mantenido como utilidad auxiliar/Art de Coté.
+
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
-# TODO(Fase 4.3): Script experimental de inyección Headless Mock. 
-# Usado para poblar la tienda WooCommerce con productos de prueba en local y validar estilos SASS sin pasar por la GUI de WP. 
-# Mantenido como utilidad auxiliar/Art de Coté.
 
 """
 merci-wc-mock.py — Inyector Headless de Productos para WooCommerce.
