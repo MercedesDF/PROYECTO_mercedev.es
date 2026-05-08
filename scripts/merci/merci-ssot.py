@@ -3,73 +3,119 @@
 """
 merci-ssot.py — Agente Sync SSOT (Fase 3).
 
-Verifica que la última entrada de la bitácora esté reflejada en el Roadmap.
-Si detecta tareas hechas que no están marcadas con [x], avisa al usuario.
+Objetivo: Analiza las últimas entradas de la bitácora activa y verifica si el 
+ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md necesita ser actualizado 
+(marcar tareas como completadas [x] o deprecadas). Si detecta deriva documental, 
+auto-sana el archivo del Roadmap reescribiéndolo automáticamente.
 """
+
 import sys
 from pathlib import Path
+import warnings
+import json
+import urllib.request
+import re
+
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 try:
     from litellm import completion
     import litellm
     litellm.telemetry = False
 except ImportError:
-    print("ℹ️ [Merci SSOT] LiteLLM no instalado. Omitiendo agente.")
+    print("ℹ️ [Merci SSOT] LiteLLM no está instalado. Omitiendo agente SSOT.")
     sys.exit(0)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-BITACORA_PATH = REPO_ROOT / "laboratorio" / "bitacora-mercedev-orquestacion-ia.md"
+ENV_PATH = REPO_ROOT / ".env"
 ROADMAP_PATH = REPO_ROOT / "laboratorio" / "ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md"
+BITACORA_PATH = REPO_ROOT / "laboratorio" / "bitacora-mercedev-orquestacion-ia.md"
 
-def obtener_ultima_entrada() -> str:
-    """Extrae solo el texto de la última entrada cronológica."""
-    if not BITACORA_PATH.exists(): return ""
-    contenido = BITACORA_PATH.read_text(encoding="utf-8")
-    partes = contenido.split("### ")
-    if len(partes) > 1:
-        return "### " + partes[1].split("### ")[0].strip()
-    return ""
+def cargar_api_key():
+    if not ENV_PATH.exists():
+        return None
+    for linea in ENV_PATH.read_text(encoding="utf-8").splitlines():
+        if linea.startswith("GEMINI_API_KEY="):
+            return linea.split("=", 1)[1].strip().strip('"\'')
+    return None
+
+def auto_descubrir_modelo(api_key):
+    url = f"https://generativelanguage.googleapis.com/v1beta/models?key={api_key}"
+    try:
+        with urllib.request.urlopen(url) as response:
+            data = json.loads(response.read().decode("utf-8"))
+            validos = [m["name"].split("/")[-1] for m in data.get("models", []) if "generateContent" in m.get("supportedGenerationMethods", []) and "gemini" in m.get("name", "").lower()]
+            for familia in ["1.5-flash", "1.5-pro"]:
+                for v in validos:
+                    if familia in v: return v
+            return "gemini-1.5-flash"
+    except Exception:
+        return "gemini-1.5-flash"
+
+def clean_markdown(text: str) -> str:
+    """Limpia el código de salida de la IA para que sea Markdown puro."""
+    text = text.strip()
+    if text.startswith("```markdown"):
+        text = text[11:]
+    elif text.startswith("```"):
+        text = text[3:]
+    if text.endswith("```"):
+        text = text[:-3]
+    return text.strip() + "\n"
 
 def main():
-    if not ROADMAP_PATH.exists():
-        print("❌ [Merci Error] No se encuentra el Roadmap.")
-        sys.exit(1)
-        
-    ultima_bitacora = obtener_ultima_entrada()
-    roadmap = ROADMAP_PATH.read_text(encoding="utf-8")
+    print("\n🤖 [Merci SSOT] Analizando deriva documental entre Bitácora y Roadmap...")
     
-    print("🤖 [Merci SSOT] Cruzando datos semánticos entre Bitácora y Roadmap...")
+    if not ROADMAP_PATH.exists() or not BITACORA_PATH.exists():
+        print("  ❌ [Merci Error] No se encuentra el Roadmap o la Bitácora de IA.")
+        return
+
+    roadmap_content = ROADMAP_PATH.read_text(encoding="utf-8")
+    bitacora_full = BITACORA_PATH.read_text(encoding="utf-8")
     
-    prompt = f"""
-Eres un auditor DevSecOps encargado de mantener la Única Fuente de Verdad (SSOT).
-Compara la última acción realizada con el Roadmap del proyecto.
+    # Extraer las últimas entradas de la bitácora (aprox 4000 caracteres) para no saturar tokens
+    entradas = re.split(r'(?=### \d{4}-\d{2}-\d{2})', bitacora_full)
+    bitacora_reciente = "".join(entradas[1:6]) if len(entradas) > 1 else bitacora_full[:4000]
 
-ÚLTIMA ACCIÓN (Bitácora):
-{ultima_bitacora}
+    system_prompt = """Eres el Agente SSOT (Single Source of Truth) de un ecosistema DevSecOps.
+Tu objetivo es evitar la Deriva Documental (Document Drift).
+Recibirás las últimas entradas de la Bitácora y el estado actual del Roadmap en Markdown.
 
-ROADMAP:
-{roadmap}
+REGLAS INNEGOCIABLES:
+1. Evalúa si los hitos logrados en la Bitácora corresponden a tareas no marcadas (- [ ]) en el Roadmap.
+2. Si un agente o tarea fue completado o DEPRECADO (movido a Art de Coté), cambia su estado a `- [x]` en el Roadmap. (Ej: `- [x] Agente Bibliotecario (Deprecado a Art de Coté)`).
+3. Devuelve ÚNICA Y EXCLUSIVAMENTE el código Markdown completo del Roadmap actualizado. Sin comentarios, sin saludos, sin bloques de código extra. Si no hay cambios, devuelve el Roadmap intacto."""
 
-TAREA: ¿Hay alguna tarea descrita como completada en la Bitácora que todavía tenga una casilla vacía '- [ ]' en el Roadmap?
-Si TODO está sincronizado, responde EXACTAMENTE: "✅ SSOT Sincronizado: No hay deriva documental."
-Si falta marcar alguna casilla, responde con una advertencia indicando qué línea exacta debe marcarse con '[x]'.
-Sé extremadamente breve y directo.
-"""
+    prompt = f"--- ESTADO ACTUAL DEL ROADMAP ---\n{roadmap_content}\n\n--- ÚLTIMAS ENTRADAS BITÁCORA ---\n{bitacora_reciente}"
+
+    api_key = cargar_api_key()
+    if not api_key:
+        print("  ⚠️ [Merci Warn] Falta GEMINI_API_KEY. Abortando SSOT.")
+        return
+
+    modelo_activo = auto_descubrir_modelo(api_key)
+    print(f"  🧠 Consultando a {modelo_activo}...")
     
     try:
         respuesta = completion(
-            model="ollama/phi3",
+            model=f"gemini/{modelo_activo}",
             messages=[
-                {"role": "system", "content": "Eres un auditor estricto. Respuestas cortas."},
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt}
             ],
-            api_base="http://localhost:11434",
-            max_tokens=250
+            api_key=api_key
         )
-        resultado = respuesta.choices[0].message.content.strip()
-        print(f"\n{resultado}\n")
-    except Exception as e:
-        print(f"❌ [Merci SSOT] Fallo al consultar Ollama: {e}")
         
+        nuevo_roadmap = clean_markdown(respuesta.choices.message.content)
+        
+        if nuevo_roadmap.strip() != roadmap_content.strip():
+            ROADMAP_PATH.write_text(nuevo_roadmap, encoding="utf-8")
+            print("  ✅ [Éxito] Deriva documental sanada. Roadmap reescrito automáticamente.")
+        else:
+            print("  ✅ [Éxito] El Roadmap ya está perfectamente sincronizado.")
+            
+    except Exception as e:
+        print(f"  ❌ [Merci Error] Fallo en el Agente SSOT: {e}")
+
 if __name__ == "__main__":
     main()

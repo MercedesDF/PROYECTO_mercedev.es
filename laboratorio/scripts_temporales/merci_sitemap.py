@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+# TODO(Fase 3): Intento obsoleto de ingesta de evidencias desde los directorios multimedia del anfitrión (host). 
+# Descartado por depender de rutas absolutas del usuario y crear acoplamiento. 
+# Sustituido por copia manual a .assets-raw/.
+
 """
 merci_sitemap.py — Automatización del mantenimiento del sitemap.xml.
 

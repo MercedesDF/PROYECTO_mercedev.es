@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — Feat: Creación del Agente Sync SSOT (Self-Healing Docs)
+
+**Contexto (Desafío):** Al avanzar rápido en el desarrollo, a menudo se documentan logros o deprecaciones en la bitácora, pero se olvida marcar la casilla `[x]` correspondiente en el Roadmap, generando "Deriva Documental" (Document Drift) y pérdida de la Única Fuente de Verdad (SSOT).
+
+**Hecho (Maniobra):** Se desarrolló `scripts/merci/merci-ssot.py`. El agente extrae los últimos registros de la bitácora y el estado actual del Roadmap, enviándolos a Gemini Flash con la orden estricta de auto-completar las tareas logradas o deprecadas reescribiendo el archivo Markdown.
+
+**Motivo / criterio (Aprendizaje):** *Document as Code & Self-Healing*. La sincronización de estados no debe depender de la memoria humana ni de scripts locales limitados. Delegar el análisis semántico a un modelo de frontera garantiza que nuestro plan de proyecto refleje fielmente la realidad del código en todo momento, curando la documentación automáticamente.
+
+**Siguiente paso o deuda:** Ejecutar el Agente SSOT para que detecte la deprecación del Bibliotecario y actualice el Roadmap.
+
 ### 2026-05-08 — Arch: Deprecación del Agente Bibliotecario (RAG Local) a Art de Coté
 
 **Contexto (Desafío):** A pesar de la agresiva sanitización de salida y la optimización del contexto, el modelo local Llama 3 (8B) continuaba fallando en la generación consistente de cuadernillos con formato YAML estricto (*Context Window Stuffing* y *Recency Bias*). El esfuerzo de domar la IA local añadía más fricción operativa que la redacción manual.
