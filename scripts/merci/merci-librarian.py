@@ -15,6 +15,7 @@ import json
 import urllib.request
 from pathlib import Path
 import warnings
+import re
 
 # Silenciamos advertencias de deprecación de librerías de terceros (ej. google.generativeai) para mantener la consola limpia
 warnings.filterwarnings("ignore", category=FutureWarning)
@@ -62,17 +63,25 @@ def auto_descubrir_modelo(api_key):
     except Exception:
         return "gemini-1.5-flash" # Fallback estricto en caso de error de conexión a la API
 
-def get_bitacora_context() -> str:
-    """Lee las entradas recientes de las bitácoras para dotar de contexto al redactor (RAG Local)."""
+def get_bitacora_context(nota_cruda: str) -> str:
+    """Extrae palabras clave de la nota y filtra entradas relevantes de la bitácora (RAG Optimizado)."""
     bitacoras = [LAB_DIR / "bitacora-mercedev-orquestacion-ia.md", LAB_DIR / "bitacora-mercedev.md"]
     contexto = ""
+    palabras_clave = [p.lower() for p in re.findall(r'\b[a-zA-Z]{5,}\b', nota_cruda)]
+
     for bitacora in bitacoras:
         if bitacora.exists():
             texto = bitacora.read_text(encoding="utf-8", errors="replace")
-            # Tomamos los primeros 6000 caracteres donde están las entradas más recientes (orden inverso)
-            # para no saturar la ventana de contexto del modelo local (8k tokens).
-            contexto += f"\n--- Fragmento reciente de {bitacora.name} ---\n{texto[:6000]}\n"
-    return contexto
+            entradas = re.split(r'(?=### \d{4}-\d{2}-\d{2})', texto)
+            relevantes = []
+            for entrada in entradas:
+                if not entrada.strip(): continue
+                if any(kw in entrada.lower() for kw in palabras_clave):
+                    relevantes.append(entrada.strip())
+                    if len(relevantes) >= 2: break # Solo las 2 más relevantes por archivo
+            if relevantes:
+                contexto += f"\n--- Entradas relevantes de {bitacora.name} ---\n" + "\n\n".join(relevantes) + "\n"
+    return contexto[:3000] # Límite estricto de seguridad para modelos locales
 
 def get_system_prompt() -> str:
     """Extrae el rol innegociable y las reglas editoriales del Agente."""
@@ -83,16 +92,16 @@ def get_system_prompt() -> str:
 
 def clean_markdown(text: str) -> str:
     """
-    QUÉ HACE: Elimina los delimitadores de bloque de código (```markdown) que la IA 
-    suele inyectar alrededor de sus respuestas.
-    POR QUÉ: Garantiza que el archivo resultante tenga el YAML Frontmatter en la primera línea.
+    QUÉ HACE: Elimina texto conversacional previo ("Here is the output:") y delimitadores.
+    POR QUÉ: Garantiza que el archivo comience estrictamente por el YAML Frontmatter (---).
     """
+    # 1. Buscar el inicio real del YAML Frontmatter y amputar la basura conversacional
+    inicio_yaml = text.find("---\n")
+    if inicio_yaml != -1:
+        text = text[inicio_yaml:]
+    
+    # 2. Limpiar cierres de bloque de código al final
     text = text.strip()
-    if text.startswith("```markdown"):
-        text = text[11:].strip()
-    elif text.startswith("```"):
-        text = text[3:].strip()
-        
     if text.endswith("```"):
         text = text[:-3].strip()
         
@@ -131,8 +140,8 @@ def process_note(note_path: Path):
 
     fecha_hoy = datetime.now().strftime("%Y-%m-%d")
     note_content = note_path.read_text(encoding="utf-8", errors="replace")
-    bitacora_context = get_bitacora_context()
-    prompt = f"La fecha actual es {fecha_hoy}. {instrucciones_extra}\n\nREGLA DE EXPANSIÓN (RAG Local): Lee la 'NOTA CRUDA'. Luego, busca en el 'CONTEXTO DE LA BITÁCORA' si hay entradas que hablen del mismo incidente o problema. Si encuentras coincidencias, extrae los detalles técnicos (archivos, comandos, justificaciones) para enriquecer y expandir profesionalmente el documento. Si no hay coincidencias, ciñete a la nota cruda.\n\n--- CONTEXTO DE LA BITÁCORA ---\n{bitacora_context}\n\n--- NOTA CRUDA ---\n{note_content}"
+    bitacora_context = get_bitacora_context(note_content)
+    prompt = f"La fecha actual es {fecha_hoy}. {instrucciones_extra}\n\nREGLA DE EXPANSIÓN (RAG Local): Tu objetivo principal y ÚNICO es desarrollar la 'NOTA CRUDA'. Lee el 'CONTEXTO DE LA BITÁCORA' solo como material de apoyo para extraer nombres de archivos o detalles técnicos. Si la bitácora habla de otra cosa, IGNÓRALA. NO resumas la bitácora.\n\n--- NOTA CRUDA (TEMA PRINCIPAL) ---\n{note_content}\n\n--- CONTEXTO DE LA BITÁCORA (MATERIAL DE APOYO SECUNDARIO) ---\n{bitacora_context}"
     
     # Inyectamos el tipo de documento dinámicamente en el molde mental (System Prompt)
     system_prompt = get_system_prompt().replace('tipo: "cuadernillo"', f'tipo: "{tipo_doc}"')

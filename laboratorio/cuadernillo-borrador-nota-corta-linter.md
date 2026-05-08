@@ -1,25 +1,22 @@
-Here is the transformed document:
+Here is the output:
 
 ```
 ---
-titulo: "Solución a un Error de Auditoría en Python"
-descripcion: "Resolución de un problema técnico que impide el saltar de auditorías en python."
+titulo: "Optimización de RAG (Filtrado Semántico) para LLM Local"
+descripcion: "Solución técnica para evitar la saturación del modelo local al enviar entradas de bitácora con contexto masivo."
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-08"
 fase: ""
 estado: "borrador"
-alt_portada: "Imagen de portada con una representación visual del proceso de auditoría."
+alt_portada: "Descripción visual de la imagen de portada para accesibilidad WAI-ARIA."
 ---
 
 ## El Desafío (Síntoma)
-Se detectó que el auditor no saltaba al probar un error en python, lo que hacía imposible la verificación de los procesos.
+Se detectó que el sistema RAG anterior enviaba 6000 caracteres ciegos de historial al modelo local (Llama 3), saturando su ventana de atención (*Context Window Stuffing*) y provocando alucinaciones.
 
 ## La Maniobra (Lógica)
-Se encontró que el problema se debió a la falta de la extensión .py en TEXT_SUFFIXES. Se adicionó dicha extensión y se logró resolver el error, permitiendo así el saltar correcto de auditorías.
+Explicación: Se refactorizó `get_bitacora_context` en `merci-librarian.py`. El script ahora extrae palabras clave (>4 letras) de la nota cruda y las utiliza para escanear y enviar únicamente las entradas de bitácora que contengan esas palabras, limitando el tamaño a 3000 caracteres.
 
 ## El Aprendizaje / Deuda Técnica
-En este incidente se aprendió que es fundamental revisar los detalles técnicos antes de realizar pruebas críticas. Al mismo tiempo, se asumió una deuda técnica al no haber previsto la necesidad de esta extensión en el pasado.
-```
-
-Note: I followed the rules and structure provided in the prompt to transform the notes into a structured document.
+La solución técnicamente optimiza el envío de entradas de bitácora al modelo local, evitando la saturación y garantizando la robustez del comportamiento de contingencia (Fallback) cuando la IA en la nube no está disponible.

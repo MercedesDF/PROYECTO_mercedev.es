@@ -39,6 +39,36 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — Fix: Extracción quirúrgica de YAML y neutralización de Recency Bias
+
+**Contexto (Desafío):** El modelo Llama 3 generaba archivos rotos al inyectar relleno conversacional (`Here is the output:`) antes del YAML. Además, sufría de *Recency Bias* (Sesgo de Recencia): al leer la bitácora en el RAG local, ignoraba la nota del usuario y se dedicaba a resumir la última entrada histórica que encontraba.
+
+**Hecho (Maniobra):** Se refactorizó `clean_markdown` en `merci-librarian.py` usando `text.find("---\n")` para amputar matemáticamente cualquier texto previo al Frontmatter. Se invirtió la estructura del Prompt, colocando la nota cruda como "Tema Principal" y la bitácora como "Apoyo Secundario" con instrucciones estrictas de exclusión.
+
+**Motivo / criterio (Aprendizaje):** *Aggressive Output Sanitization*. No se puede confiar en que los LLMs (especialmente los entrenados para chat) respeten el formato *Zero-Shot* de forma consistente. La validación no debe ser pasiva (comprobar si empieza por "```"), sino activa (buscar la firma del código y destruir el resto). Controlar el foco de atención mitigando el sesgo de recencia salva la viabilidad del RAG local.
+
+**Siguiente paso o deuda:** Limpiar el archivo corrupto y validar que Llama 3 ahora obedece y redacta sobre el *bug* del linter.
+
+### 2026-05-08 — Feat: Optimización de RAG (Filtrado Semántico) para LLM Local
+
+**Contexto (Desafío):** El sistema RAG anterior enviaba 6000 caracteres ciegos de historial al modelo local (Llama 3), saturando su ventana de atención (*Context Window Stuffing*) y provocando alucinaciones. Un modelo ligero no puede gestionar un contexto masivo al mismo nivel que un modelo de frontera en la nube (Gemini 1.5 Flash).
+
+**Hecho (Maniobra):** Se refactorizó `get_bitacora_context` en `merci-librarian.py`. El script ahora extrae palabras clave (>4 letras) de la nota cruda y las utiliza para escanear y enviar únicamente las entradas de bitácora que contengan esas palabras, limitando el tamaño a 3000 caracteres.
+
+**Motivo / criterio (Aprendizaje):** *Garbage In, Garbage Out*. Extraer solo las "páginas exactas" en lugar de enviar "toda la estantería" desbloquea la capacidad del RAG en hardware local modesto. Esto robustece el comportamiento de contingencia (Fallback) cuando la IA en la nube no está disponible.
+
+**Siguiente paso o deuda:** Validar la promoción del cuadernillo generado por Gemini y avanzar al Agente Sync SSOT.
+
+### 2026-05-08 — Test: Evaluación de Context Window Stuffing y RAG con Gemini
+
+**Contexto (Desafío):** Al ejecutar el RAG local inyectando 6000 caracteres de bitácora + plantillas + nota corta en el modelo local Llama 3 (8B), el modelo colapsó por exceso de contexto (*Context Window Stuffing*), alucinando una reescritura de las instrucciones de la bitácora en inglés.
+
+**Hecho (Maniobra):** Se delegó la misma carga cognitiva al modelo de frontera en la nube (Gemini 1.5 Flash), el cual procesó el RAG de forma inmaculada, conectando los puntos entre la nota corta y el log histórico, redactando un cuadernillo impecable. Se purgó la alucinación del laboratorio.
+
+**Motivo / criterio (Aprendizaje):** *Model Routing & Cognitive Load*. Los modelos locales ligeros (<14B) son excelentes para tareas de formato Zero-Shot o código delimitado, pero su atención se degrada catastróficamente al saturar su ventana de contexto (RAG denso). El enrutamiento de agentes debe derivar tareas de "compresión semántica densa" hacia modelos de frontera (Cloud), reservando el modelo local solo para contingencias simples o análisis de sintaxis corta.
+
+**Siguiente paso o deuda:** Validar este cuadernillo perfecto con `merci promote` y avanzar al siguiente Agente del Roadmap: Sync SSOT.
+
 ### 2026-05-08 — Feat: Inyección de contexto histórico (RAG Local) en Agente Bibliotecario
 
 **Contexto (Desafío):** El modelo local (Llama 3) estructuraba bien las notas cortas gracias a las plantillas (*One-Shot Prompting*), pero el contenido redactado carecía de profundidad técnica. La IA no podía expandir una nota de tres líneas sin inventar datos, ya que desconocía los detalles técnicos subyacentes del incidente.
