@@ -39,6 +39,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — Fix: Escudo anti-destrucción (Sanity Checks) en Agente SSOT
+
+**Contexto (Desafío):** Al ejecutar el Agente SSOT en local, Llama 3 (8B) sufrió de "Chatbot Syndrome". En lugar de devolver el documento Markdown completo, generó un resumen conversacional en inglés (`After evaluating...`). Como el script carecía de validación de longitud, sobrescribió y destruyó físicamente el Roadmap.
+
+**Hecho (Maniobra):** Se restauró el archivo mediante Git. Se inyectó un "Escudo Anti-Alucinaciones" en `scripts/merci/merci-ssot.py` que bloquea la escritura en disco si la salida de la IA es inferior al 50% del tamaño original o si carece del formato Markdown (`# `). Se endureció el prompt para prohibir frases de relleno.
+
+**Motivo / criterio (Aprendizaje):** *Fail-Safe File I/O*. Ningún agente de Inteligencia Artificial debe tener permisos de escritura ciegos sobre el sistema de archivos. Validar matemáticamente que el *output* mantiene proporciones y firmas estructurales similares al *input* es la barrera DevSecOps definitiva contra la destrucción de datos por alucinaciones.
+
+**Siguiente paso o deuda:** Validar que el agente no destruya el archivo y delegar tareas SSOT complejas exclusivamente a modelos de frontera si Llama 3 persiste en resumir.
+
+### 2026-05-08 — Fix: Fallback a Llama 3 y sanitización en Agente SSOT
+
+**Contexto (Desafío):** Al ejecutar el Agente SSOT, Gemini devolvió un error `HTTP 404`, bloqueando la sincronización del Roadmap. Además, el script carecía de un fallback local (Degradación Elegante) y presentaba un bug en la lectura de la respuesta de LiteLLM (`choices.message` en lugar de `choices[0].message`).
+
+**Hecho (Maniobra):** Se refactorizó `scripts/merci/merci-ssot.py` para implementar un bloque `try-except` que delega la tarea a `llama3` local si Gemini falla. Se corrigió el acceso al array de respuestas (`choices[0]`) y se robusteció `clean_markdown()` para amputar el texto conversacional de los modelos locales.
+
+**Motivo / criterio (Aprendizaje):** *Resiliencia de Agentes*. Todo agente autónomo debe tener una vía de escape local si la nube falla. Una tarea simple como cambiar un `[ ]` por un `[x]` está perfectamente dentro de las capacidades lógicas de Llama 3 (8B), haciendo innecesario el bloqueo operativo por caídas de API.
+
+**Siguiente paso o deuda:** Ejecutar `merci ssot` para validar que Llama 3 sincroniza el Roadmap con éxito.
+
 ### 2026-05-08 — Feat: Creación del Agente Sync SSOT (Self-Healing Docs)
 
 **Contexto (Desafío):** Al avanzar rápido en el desarrollo, a menudo se documentan logros o deprecaciones en la bitácora, pero se olvida marcar la casilla `[x]` correspondiente en el Roadmap, generando "Deriva Documental" (Document Drift) y pérdida de la Única Fuente de Verdad (SSOT).

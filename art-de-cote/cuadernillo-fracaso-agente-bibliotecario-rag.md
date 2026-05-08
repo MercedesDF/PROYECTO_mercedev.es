@@ -5,13 +5,10 @@ tipo: "cuadernillo"
 tema: "Inteligencia Artificial y RAG"
 fecha: "2026-05-08"
 fase: "3 (Orquestación de Contenidos)"
-estado: "borrador"
+estado: "publicado"
 alt_portada: "Un cerebro robótico sobrecargado de papeles."
-<!-- linkedin:
-Automatizar la redacción técnica con IA local suena genial, hasta que tu LLM de 8B parámetros colapsa por exceso de contexto. 🤖💥 Hoy relegamos nuestro 'Agente Bibliotecario' al Art de Coté y documentamos por qué el RAG denso y el Zero-Shot formatting estricto siguen siendo territorio exclusivo de la nube. #DevSecOps #LocalAI #Llama3 #PromptEngineering
--->
+<!-- linkedin: ""
 ---
-
 ## El Desafío (Síntoma)
 El objetivo de la Fase 3 era construir un "Agente Bibliotecario" (`merci-librarian.py`) capaz de procesar notas crudas de la autora, cruzar esa información con el registro histórico de la bitácora (RAG Local) y redactar cuadernillos Markdown con formato YAML estricto (Zero-Shot).
 

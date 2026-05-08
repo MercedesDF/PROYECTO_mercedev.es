@@ -54,6 +54,11 @@ def auto_descubrir_modelo(api_key):
 
 def clean_markdown(text: str) -> str:
     """Limpia el código de salida de la IA para que sea Markdown puro."""
+    # Buscar el inicio real del Markdown y amputar la basura conversacional
+    inicio_md = text.find("# ")
+    if inicio_md != -1:
+        text = text[inicio_md:]
+        
     text = text.strip()
     if text.startswith("```markdown"):
         text = text[11:]
@@ -84,7 +89,9 @@ Recibirás las últimas entradas de la Bitácora y el estado actual del Roadmap 
 REGLAS INNEGOCIABLES:
 1. Evalúa si los hitos logrados en la Bitácora corresponden a tareas no marcadas (- [ ]) en el Roadmap.
 2. Si un agente o tarea fue completado o DEPRECADO (movido a Art de Coté), cambia su estado a `- [x]` en el Roadmap. (Ej: `- [x] Agente Bibliotecario (Deprecado a Art de Coté)`).
-3. Devuelve ÚNICA Y EXCLUSIVAMENTE el código Markdown completo del Roadmap actualizado. Sin comentarios, sin saludos, sin bloques de código extra. Si no hay cambios, devuelve el Roadmap intacto."""
+3. Devuelve ÚNICA Y EXCLUSIVAMENTE el código Markdown completo del Roadmap actualizado. 
+PROHIBIDO usar frases como "Here is the updated roadmap" o "After evaluating...". 
+TU RESPUESTA DEBE EMPEZAR CON EL SÍMBOLO "# " DEL TÍTULO DEL ROADMAP Y TERMINAR CON LA ÚLTIMA LÍNEA DEL MISMO."""
 
     prompt = f"--- ESTADO ACTUAL DEL ROADMAP ---\n{roadmap_content}\n\n--- ÚLTIMAS ENTRADAS BITÁCORA ---\n{bitacora_reciente}"
 
@@ -105,8 +112,31 @@ REGLAS INNEGOCIABLES:
             ],
             api_key=api_key
         )
+    except Exception as e_cloud:
+        print(f"  ⚠️ [Merci Warn] Falló Gemini ({e_cloud}). Degradando a modelo local (Llama 3)...")
+        try:
+            respuesta = completion(
+                model="ollama/llama3",
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": prompt}
+                ],
+                api_base="http://localhost:11434"
+            )
+        except Exception as e_local:
+            print(f"  ❌ [Merci Error] Fallo total de IA (Nube y Local): {e_local}")
+            return
+            
+    try:
+        nuevo_roadmap = clean_markdown(respuesta.choices[0].message.content)
         
-        nuevo_roadmap = clean_markdown(respuesta.choices.message.content)
+        # ESCUDO ANTI-ALUCINACIONES (Sanity Checks)
+        if len(nuevo_roadmap) < len(roadmap_content) * 0.5:
+            print("  ❌ [Merci Error] La IA devolvió un resumen en lugar del documento completo. Destrucción evitada.")
+            return
+        if "# " not in nuevo_roadmap:
+            print("  ❌ [Merci Error] La IA no devolvió un formato Markdown válido. Destrucción evitada.")
+            return
         
         if nuevo_roadmap.strip() != roadmap_content.strip():
             ROADMAP_PATH.write_text(nuevo_roadmap, encoding="utf-8")
@@ -115,7 +145,7 @@ REGLAS INNEGOCIABLES:
             print("  ✅ [Éxito] El Roadmap ya está perfectamente sincronizado.")
             
     except Exception as e:
-        print(f"  ❌ [Merci Error] Fallo en el Agente SSOT: {e}")
+        print(f"  ❌ [Merci Error] Fallo procesando la respuesta de la IA: {e}")
 
 if __name__ == "__main__":
     main()

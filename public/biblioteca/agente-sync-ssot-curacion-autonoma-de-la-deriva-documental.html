@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prevención de Fuga de Credenciales en Integración Continua Local — mercedev.es</title>
-    <meta name="description" content="Por qué un archivo .gitignore no es suficiente cuando automatizas commits y cómo crear un escudo activo.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/prevencion-de-fuga-de-credenciales-en-integracion-continua-local.html">
+    <title>Agente Sync SSOT: Curación Autónoma de la Deriva Documental — mercedev.es</title>
+    <meta name="description" content="Cómo delegamos la sincronización de estado entre la bitácora y el roadmap a un LLM para implementar Self-Healing Docs.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/agente-sync-ssot-curacion-autonoma-de-la-deriva-documental.html">
     <link rel="stylesheet" href="/css/main.css?v=1778231368">
     <script src="/js/MerciController.js?v=1777729228" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Prevención de Fuga de Credenciales en Integración Continua Local",
-      "description": "Por qué un archivo .gitignore no es suficiente cuando automatizas commits y cómo crear un escudo activo.",
-      "url": "https://mercedev.es/biblioteca/prevencion-de-fuga-de-credenciales-en-integracion-continua-local.html"
+      "headline": "Agente Sync SSOT: Curación Autónoma de la Deriva Documental",
+      "description": "Cómo delegamos la sincronización de estado entre la bitácora y el roadmap a un LLM para implementar Self-Healing Docs.",
+      "url": "https://mercedev.es/biblioteca/agente-sync-ssot-curacion-autonoma-de-la-deriva-documental.html"
     }
     </script>
 </head>
@@ -46,19 +46,18 @@
         <article class="card card--booklet">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">Prevención de Fuga de Credenciales en Integración Continua Local</h1>
-                <a href="/descargas/prevencion-de-fuga-de-credenciales-en-integracion-continua-local.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">Agente Sync SSOT: Curación Autónoma de la Deriva Documental</h1>
+                <a href="/descargas/agente-sync-ssot-curacion-autonoma-de-la-deriva-documental.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Durante el desarrollo del motor de automatización social (LinkedIn), el script generó un archivo local con el token de acceso (<code>.linkedin_token.json</code>). Dado que el orquestador del proyecto (<code>merci-commit.py</code>) ejecuta un <code>git add .</code> automático para empaquetar los cambios, existía un riesgo crítico e inminente de Fuga de Datos (Data Leak): el token iba a ser inyectado en el control de versiones antes de poder ser excluido manualmente.</p>
+<p>En entornos de desarrollo rápido, es común que la documentación sufra de "Deriva Documental" (<em>Document Drift</em>). Un desarrollador documenta un logro o la deprecación de un sistema en el registro de cambios (bitácora), pero olvida marcar la tarea correspondiente como completada en el plan de proyecto (Roadmap). Esta desconexión destruye la Única Fuente de Verdad (SSOT - Single Source of Truth) del ecosistema.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se detuvo el empaquetado y se aplicó una doble capa de contención (Shift-Left Security):
-1. <strong>Defensa Pasiva:</strong> Se añadió el archivo <code>.linkedin_token.json</code> al <code>.gitignore</code>.
-2. <strong>Defensa Activa (Linter):</strong> Se parcheó el orquestador de auditoría (<code>merci-audit.py</code>) añadiendo la llave maestra a la regla estricta <code>BANNED_TRACKED_FILE</code>. Si en el futuro Git intenta rastrear este archivo, el auditor abortará el commit automáticamente, emitiendo un error fatal.</p>
+<p>Para erradicar este error humano, se desarrolló un Agente de Auto-Sanación (<em>Self-Healing</em>) en Python (<code>merci-ssot.py</code>). Este script extrae de forma automática los últimos registros de la bitácora activa y el estado actual del Roadmap en Markdown.</p>
+<p>A continuación, inyecta ambos contextos en un modelo de lenguaje de frontera en la nube (Gemini 1.5 Flash), instruyéndole bajo un <em>System Prompt</em> estricto para que actúe como un auditor semántico. La IA evalúa si las tareas documentadas en la bitácora justifican marcar casillas de verificación (<code>- [x]</code>) en el Roadmap. Si detecta asimetrías, el agente reescribe físicamente el archivo del Roadmap en el disco duro, corrigiendo la deriva documental al instante.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>En entornos con CI (Continuous Integration - Integración Continua) o automatización de commits, la confianza en el desarrollador no escala. Un archivo <code>.gitignore</code> es una medida pasiva que puede fallar si el archivo ya fue indexado o si se fuerza su inclusión.
-Implementar escudos activos (Linters) que auditen el área de preparación (<em>Stage</em>) de Git buscando credenciales antes de confirmar el empaquetado es la única garantía real de "Zero Trust" (Confianza Cero).</p>
+<p>Este agente consolida el paradigma de <em>Document as Code</em> (Documentación como Código). Las herramientas tradicionales (como <code>grep</code> o expresiones regulares) son incapaces de entender que "Se movió el script al Art de Coté" equivale semánticamente a "Deprecar el Agente Bibliotecario". </p>
+<p>Delegar el análisis semántico a un modelo de Inteligencia Artificial en la nube es la única forma robusta de sincronizar estados lógicos en texto plano. Se confirma que los modelos locales pequeños carecen del contexto necesario para esta tarea, validando el uso de la API de contingencia (<em>Hybrid Stack</em>) para la curación de la Única Fuente de Verdad.</p>
             </div>
         </article>
     </main>

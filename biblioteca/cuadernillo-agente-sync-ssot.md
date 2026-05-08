@@ -5,13 +5,10 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-08"
 fase: "3 (Orquestación de Contenidos)"
-estado: "borrador"
+estado: "publicado"
 alt_portada: "Un robot actualizando un mapa de ruta holográfico."
-<!-- linkedin:
-El código perfecto no sirve de nada si tu documentación miente. 🗺️ Hoy hemos implementado el 'Agente Sync SSOT', una IA que lee nuestra bitácora de desarrollo y actualiza automáticamente las tareas de nuestro Roadmap en Markdown. Adiós a la Deriva Documental. #DevSecOps #DocsAsCode #AI #Automatizacion
--->
+<!-- linkedin: ""
 ---
-
 ## El Desafío (Síntoma)
 En entornos de desarrollo rápido, es común que la documentación sufra de "Deriva Documental" (*Document Drift*). Un desarrollador documenta un logro o la deprecación de un sistema en el registro de cambios (bitácora), pero olvida marcar la tarea correspondiente como completada en el plan de proyecto (Roadmap). Esta desconexión destruye la Única Fuente de Verdad (SSOT - Single Source of Truth) del ecosistema.
 
