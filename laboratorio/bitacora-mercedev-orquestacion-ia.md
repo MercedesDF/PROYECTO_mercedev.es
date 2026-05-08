@@ -39,6 +39,36 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — Feat: Inyección de contexto histórico (RAG Local) en Agente Bibliotecario
+
+**Contexto (Desafío):** El modelo local (Llama 3) estructuraba bien las notas cortas gracias a las plantillas (*One-Shot Prompting*), pero el contenido redactado carecía de profundidad técnica. La IA no podía expandir una nota de tres líneas sin inventar datos, ya que desconocía los detalles técnicos subyacentes del incidente.
+
+**Hecho (Maniobra):** Se implementó un sistema RAG (Retrieval-Augmented Generation) primitivo en `scripts/merci/merci-librarian.py`. El script ahora lee los primeros 6000 caracteres de las bitácoras activas y los inyecta en el prompt, instruyendo a la IA a cruzar la nota cruda con el registro histórico para extraer el contexto técnico ampliado.
+
+**Motivo / criterio (Aprendizaje):** *Context Enrichment & Single Source of Truth*. Una IA redactora sin contexto solo puede parafrasear. Al alimentar a Llama 3 con el historial de desarrollo reciente, le otorgamos la "memoria" del proyecto. Esto permite que el flujo DevSecOps fluya: la autora anota un recordatorio mínimo y la IA usa la bitácora para redactar el documento técnico definitivo, logrando fricción cero.
+
+**Siguiente paso o deuda:** Re-ejecutar `merci librarian` para validar que Llama 3 es capaz de relacionar la nota corta del linter con su entrada detallada en la bitácora.
+
+### 2026-05-08 — Fix: Inyección de plantillas (One-Shot Prompting) en Agente Bibliotecario
+
+**Contexto (Desafío):** Al escalar al modelo local Llama 3 (8B), se constató que, si bien es excelente en compresión semántica y redacción deductiva, tiende a "relajarse" con las instrucciones de formato puro (omitiendo etiquetas YAML o inventando estructuras) cuando opera en modo *Zero-Shot* (sin ejemplos previos).
+
+**Hecho (Maniobra):** Se refactorizó `scripts/merci/merci-librarian.py` para que lea físicamente el contenido de los archivos de plantilla (`docs/plantilla-cuadernillo.md`, `plantilla-proyecto.md` y `plantilla-art-de-cote.md`) e inyecte su estructura directamente en el prompt del usuario como una "Regla Estricta de Formato".
+
+**Motivo / criterio (Aprendizaje):** *In-Context Learning*. Los modelos LLM locales de menos de 70B de parámetros rinden infinitamente mejor si se les proporciona un molde rígido a rellenar ("enseña, no cuentes"). Inyectar la plantilla real en tiempo de compilación garantiza que Llama 3 no tenga margen para la improvisación estructural, blindando la integridad del parser YAML.
+
+**Siguiente paso o deuda:** Re-ejecutar `merci librarian` con la nota corta para validar que ahora genera la deducción correcta pero encapsulada en el YAML estricto.
+
+### 2026-05-08 — Test: Evaluación de Llama 3 con notas de bajo contexto
+
+**Contexto (Desafío):** Tras validar que Llama 3 respeta (en su mayoría) la estructura de los 3 átomos, se plantea la duda de si es capaz de inferir y redactar un cuadernillo completo a partir de una nota extremadamente breve y con muy bajo contexto, actuando como un verdadero agente de expansión de conocimiento.
+
+**Hecho (Maniobra):** Se creó una nota minimalista (`nota-corta-linter.md`) en `laboratorio/notas_rapidas/` sobre un incidente menor (ausencia de `.py` en `TEXT_SUFFIXES`) para forzar al Agente Bibliotecario a deducir el Desafío, la Maniobra y el Aprendizaje con apenas tres líneas de texto crudo.
+
+**Motivo / criterio (Aprendizaje):** *Stress Testing the Prompt*. Un buen agente redactor no solo formatea texto, sino que "descomprime" ideas. Si Llama 3 logra estructurar un cuadernillo coherente infiriendo el aprendizaje arquitectónico a partir de un apunte apresurado, se confirmará que la arquitectura del System Prompt compensa la falta de locuacidad humana.
+
+**Siguiente paso o deuda:** Ejecutar `merci librarian` sobre la nota corta y evaluar el nivel de abstracción del modelo.
+
 ### 2026-05-08 — Feat: Escalado del modelo local a Llama 3 (8B) en Agente Bibliotecario
 
 **Contexto (Desafío):** La API gratuita de Google (Gemini) sigue devolviendo errores `HTTP 404` intermitentes para los alias de la rama `1.5-flash` debido a restricciones regionales o cambios no documentados. Al aplicar la Degradación Elegante, el modelo local `phi3` volvía a alucinar, demostrando ser incapaz de seguir el *System Prompt* estructural.

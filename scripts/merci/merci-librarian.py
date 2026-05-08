@@ -62,6 +62,18 @@ def auto_descubrir_modelo(api_key):
     except Exception:
         return "gemini-1.5-flash" # Fallback estricto en caso de error de conexión a la API
 
+def get_bitacora_context() -> str:
+    """Lee las entradas recientes de las bitácoras para dotar de contexto al redactor (RAG Local)."""
+    bitacoras = [LAB_DIR / "bitacora-mercedev-orquestacion-ia.md", LAB_DIR / "bitacora-mercedev.md"]
+    contexto = ""
+    for bitacora in bitacoras:
+        if bitacora.exists():
+            texto = bitacora.read_text(encoding="utf-8", errors="replace")
+            # Tomamos los primeros 6000 caracteres donde están las entradas más recientes (orden inverso)
+            # para no saturar la ventana de contexto del modelo local (8k tokens).
+            contexto += f"\n--- Fragmento reciente de {bitacora.name} ---\n{texto[:6000]}\n"
+    return contexto
+
 def get_system_prompt() -> str:
     """Extrae el rol innegociable y las reglas editoriales del Agente."""
     if PROMPT_PATH.exists():
@@ -99,20 +111,28 @@ def process_note(note_path: Path):
     prefijo = "cuadernillo-borrador"
     destino_dir = LAB_DIR
     instrucciones_extra = ""
+    plantilla_path = REPO_ROOT / "docs" / "plantilla-cuadernillo.md"
 
     if opcion == "2":
         tipo_doc = "compendio"
         prefijo = "compendio-borrador"
         instrucciones_extra = "ATENCIÓN: Estás redactando un COMPENDIO estratégico de alto nivel. Agrupa los conceptos con visión arquitectónica en lugar de centrarte en un solo bug."
+        plantilla_path = REPO_ROOT / "docs" / "plantilla-proyecto.md"
     elif opcion == "3":
         prefijo = "art-de-cote-borrador"
         destino_dir = LAB_DIR / "art-de-cote"
         destino_dir.mkdir(parents=True, exist_ok=True)
         instrucciones_extra = "ATENCIÓN: Estás redactando un ART DE COTÉ. Enfatiza el valor del código descartado o el experimento realizado para que quede como registro."
-    
+        plantilla_path = REPO_ROOT / "docs" / "plantilla-art-de-cote.md"
+
+    if plantilla_path.exists():
+        plantilla_content = plantilla_path.read_text(encoding="utf-8", errors="replace")
+        instrucciones_extra += f"\n\nREGLA ESTRICTA DE FORMATO: Tu respuesta DEBE ser un calco exacto de la siguiente plantilla. Debes rellenar los valores del YAML Frontmatter y seguir la estructura de cabeceras mostrada a continuación:\n\n{plantilla_content}\n"
+
     fecha_hoy = datetime.now().strftime("%Y-%m-%d")
     note_content = note_path.read_text(encoding="utf-8", errors="replace")
-    prompt = f"La fecha actual es {fecha_hoy}. {instrucciones_extra}\n\nTransforma las siguientes notas en bruto en un documento estructurado:\n\n{note_content}"
+    bitacora_context = get_bitacora_context()
+    prompt = f"La fecha actual es {fecha_hoy}. {instrucciones_extra}\n\nREGLA DE EXPANSIÓN (RAG Local): Lee la 'NOTA CRUDA'. Luego, busca en el 'CONTEXTO DE LA BITÁCORA' si hay entradas que hablen del mismo incidente o problema. Si encuentras coincidencias, extrae los detalles técnicos (archivos, comandos, justificaciones) para enriquecer y expandir profesionalmente el documento. Si no hay coincidencias, ciñete a la nota cruda.\n\n--- CONTEXTO DE LA BITÁCORA ---\n{bitacora_context}\n\n--- NOTA CRUDA ---\n{note_content}"
     
     # Inyectamos el tipo de documento dinámicamente en el molde mental (System Prompt)
     system_prompt = get_system_prompt().replace('tipo: "cuadernillo"', f'tipo: "{tipo_doc}"')
