@@ -39,6 +39,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — Fix: Migración del Agente Bibliotecario a Gemini Flash (Calidad vs. Rendimiento)
+
+**Contexto (Desafío):** La evaluación empírica del Agente Bibliotecario con el modelo local `phi3` reveló una "caída de atención" significativa, resultando en alucinaciones, incumplimiento de la estructura de los 3 átomos y errores en el Frontmatter YAML. Esto comprometía la calidad del conocimiento de la Biblioteca.
+
+**Hecho (Maniobra):** Se ha decidido modificar `scripts/merci/merci-librarian.py` para que utilice el modelo de frontera `gemini-1.5-flash` a través de LiteLLM como modelo por defecto para la generación de cuadernillos.
+
+**Detalle técnico:** Esta decisión prioriza la calidad del output sobre la latencia mínima. Aunque `gemini-1.5-flash` es una API en la nube (lo que introduce latencia de red), ofrece una capacidad superior para seguir instrucciones complejas y adherirse a formatos estrictos. Las cuotas gratuitas de 1500 peticiones diarias y 15 RPM son significativamente más generosas que las de modelos experimentales anteriores, mitigando el riesgo de bloqueos por consumo de tokens para un uso normal. No obstante, se mantendrá la Degradación Elegante ante posibles `HTTP 429`.
+
+**Motivo / criterio (Aprendizaje):** *Quality over Latency & Strategic Model Selection*. En tareas de redacción técnica que exigen alta fidelidad a la estructura y contenido, la calidad del output es innegociable. La experiencia previa con `merci-brain.py` demostró que `gemini-1.5-flash` ofrece un equilibrio óptimo entre coste (gratuito para límites razonables) y rendimiento cognitivo, siendo la mejor opción para la "Cosecha de Conocimiento". El Agnosticismo de Modelos de LiteLLM nos permite pivotar con fricción cero.
+
+**Siguiente paso o deuda:** Implementar el cambio en `merci-librarian.py` y validar la calidad de los cuadernillos generados.
+
 ### 2026-05-08 — Test: Evaluación empírica de capacidades del Agente Bibliotecario (phi3)
 
 **Contexto (Desafío):** Al revisar el resultado de `merci-librarian.py` (`cuadernillo-borrador-nota-gobernanza-ramas-force-push.md`), se constató que el modelo local (`phi3`) falló en la ejecución del *System Prompt*. Ignoró la estructura Markdown de los 3 átomos, colapsó el texto en párrafos planos y alucinó conceptos técnicos peligrosos (ej. requerir "SSH con credenciales OAuth" para proteger ramas).
