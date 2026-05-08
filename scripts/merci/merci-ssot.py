@@ -117,26 +117,17 @@ TU RESPUESTA DEBE EMPEZAR CON EL SÍMBOLO "# " DEL TÍTULO DEL ROADMAP Y TERMINA
             timeout=600
         )
     except Exception as e_cloud:
-        print(f"  ⚠️ [Merci Warn] Falló Gemini ({e_cloud}). Degradando a servidor local LM Studio...")
-        try:
-            respuesta = completion(
-                model="openai/local-model", # LiteLLM usa el prefijo openai/ para hablar con LM Studio
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": prompt}
-                ],
-                api_base="http://localhost:1234/v1",
-                api_key="lm-studio", # Clave dummy obligatoria para el formato OpenAI
-                temperature=0.0,
-                max_tokens=2500,
-                timeout=600
-            )
-        except Exception as e_local:
-            print(f"  ❌ [Merci Error] Fallo total de IA (Nube y Local): Asegúrate de que LM Studio Server está corriendo en el puerto 1234. Detalle: {e_local}")
-            return
+        print(f"  ❌ [Merci Error] Falló Gemini y el agente SSOT requiere la nube para tareas complejas. Detalle: {e_cloud}")
+        return
             
     try:
-        nuevo_roadmap = clean_markdown(respuesta.choices[0].message.content)
+        raw_response = respuesta.choices[0].message.content
+        nuevo_roadmap = clean_markdown(raw_response)
+        
+        # SONDA DE DEPURACIÓN: Guardar la respuesta cruda antes de que actúe el escudo
+        debug_path = REPO_ROOT / "laboratorio" / "DEBUG-ROADMAP.md"
+        debug_path.write_text(raw_response, encoding="utf-8")
+        print(f"  🐞 [Merci Debug] Salida cruda de la IA guardada en: {debug_path.relative_to(REPO_ROOT)}")
         
         # ESCUDO ANTI-ALUCINACIONES (Sanity Checks)
         if len(nuevo_roadmap) < len(roadmap_content) * 0.5:

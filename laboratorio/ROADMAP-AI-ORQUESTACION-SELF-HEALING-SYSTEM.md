@@ -18,11 +18,11 @@
 
 ## Fase 3: Orquestación de Contenidos y Docs (Semanas 5-6)
 
-- [x] Agente Bibliotecario (Deprecado a Art de Coté): Automatizar la creación de cuadernillos en /biblioteca a partir de notas rápidas en Markdown.  
+- [x] 🔴 Agente Bibliotecario (Deprecado a Art de Coté): Automatizar la creación de cuadernillos en /biblioteca a partir de notas rápidas en Markdown.  
 
-- [x] Sync SSOT (Single Source of Truth): Agente que verifique que el README.md y los /docs están siempre sincronizados tras cada cambio de código.  
+- [x] 🔴 Sync SSOT (Single Source of Truth) (Dependencia Cloud Forzada): Agente que verifique que el README.md y los /docs están siempre sincronizados tras cada cambio de código.  
 
-- [-] AI-Changelog: Generación automática de historial de cambios realizados por agentes en /docs/CHANGELOG_AI.md.
+- [x] 🔴 AI-Changelog (Descartado por límites cognitivos locales): Generación automática de historial de cambios realizados por agentes en /docs/CHANGELOG_AI.md.
 
 - [ ] **Pipeline WP → LinkedIn (Automatización Social):** Conectar `merci-wp.py` con `merci-linkedin.py` para que al publicar o actualizar un post en WordPress con `estado: "publicado"`, se dispare automáticamente la publicación del anuncio en LinkedIn. El bloque `<!-- linkedin: -->` del Frontmatter ya contiene el texto del anuncio; el agente debe leerlo y enviarlo sin intervención manual. Prerequisito: revisar el estado del token OIDC (OpenID Connect) almacenado en `.linkedin_token.json` y su caducidad.
 

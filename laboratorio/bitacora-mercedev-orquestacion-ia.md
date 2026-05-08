@@ -39,6 +39,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — Docs: Cierre de Fase 3 y marcado rojo en Roadmap (Límites IA Local)
+
+**Contexto (Desafío):** Tras confirmar empíricamente la incapacidad de los modelos locales (<14B) para gobernar documentos complejos, era necesario reflejar en el Roadmap el fracaso estratégico de los tres agentes generativos propuestos para la Fase 3.
+
+**Hecho (Maniobra):** Se actualizaron las tareas de la Fase 3 en `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`, marcando con `[x] 🔴` el Agente Bibliotecario (deprecado), Sync SSOT (relegado a Cloud puro) y AI-Changelog (descartado).
+
+**Motivo / criterio (Aprendizaje):** *Visualización de la Deuda Técnica y Fail-Fast*. Marcar visualmente en rojo las iniciativas fallidas sirve como recordatorio arquitectónico (Tombstone) de los límites tecnológicos actuales. Evita que en el futuro se intente retomar estas automatizaciones sin un cambio sustancial en el hardware o en la capacidad de los modelos locales.
+
+**Siguiente paso o deuda:** Iniciar el desarrollo del pipeline de automatización social para LinkedIn, conectando `merci-wp.py` con `merci-linkedin.py`.
+
+### 2026-05-08 — Docs: Creación del Compendio Estratégico (Cierre de Fase 3)
+
+**Contexto (Desafío):** Tras los continuos fallos y refactorizaciones en los agentes `merci-librarian.py` y `merci-ssot.py` al intentar utilizar modelos de Inteligencia Artificial locales (Llama 3, Qwen), era imperativo extraer una lección de arquitectura y evitar el síndrome de los costes hundidos.
+
+**Hecho (Maniobra):** Se redactó el activo de conocimiento `laboratorio/compendio-fase-3-gobernanza-ia.md`. El documento consolida las lecciones aprendidas sobre *Context Window Stuffing*, monitorización de red (*tcpdump*), y las limitaciones cognitivas de los Small Language Models (SLMs) en tareas de gobernanza documental.
+
+**Motivo / criterio (Aprendizaje):** *Knowledge Harvesting & Strategic Pivot*. Transformar el fracaso de una automatización en un compendio estratégico aporta más valor a largo plazo que el propio código descartado. Cierra formalmente el debate sobre el *Hybrid Stack*: los modelos locales se limitarán a auditoría de código (Sintaxis) y las APIs en la nube gobernarán los documentos y orquestación de contenidos (Semántica densa).
+
+**Siguiente paso o deuda:** Promover el compendio a la biblioteca estática (`merci promote`), validar con `merci total` y avanzar a la siguiente tarea pendiente del Roadmap (Automatización Social en LinkedIn).
+
 ### 2026-05-08 — QA: Diagnóstico profundo de red local con tcpdump
 
 **Contexto (Desafío):** Era necesario inspeccionar el tráfico exacto entre el orquestador Python y el motor de IA local (LM Studio) para entender por qué los modelos fallan devolviendo respuestas vacías o truncadas a pesar de los ajustes en el código.
