@@ -78,9 +78,9 @@ def main():
     roadmap_content = ROADMAP_PATH.read_text(encoding="utf-8")
     bitacora_full = BITACORA_PATH.read_text(encoding="utf-8")
     
-    # Extraer las últimas entradas de la bitácora (aprox 4000 caracteres) para no saturar tokens
+    # Extraer solo las 2 últimas entradas de la bitácora para proteger la ventana de contexto local (LM Studio)
     entradas = re.split(r'(?=### \d{4}-\d{2}-\d{2})', bitacora_full)
-    bitacora_reciente = "".join(entradas[1:6]) if len(entradas) > 1 else bitacora_full[:4000]
+    bitacora_reciente = "".join(entradas[1:3]) if len(entradas) > 1 else bitacora_full[:2000]
 
     system_prompt = """Eres el Agente SSOT (Single Source of Truth) de un ecosistema DevSecOps.
 Tu objetivo es evitar la Deriva Documental (Document Drift).
@@ -89,9 +89,10 @@ Recibirás las últimas entradas de la Bitácora y el estado actual del Roadmap 
 REGLAS INNEGOCIABLES:
 1. Evalúa si los hitos logrados en la Bitácora corresponden a tareas no marcadas (- [ ]) en el Roadmap.
 2. Si un agente o tarea fue completado o DEPRECADO (movido a Art de Coté), cambia su estado a `- [x]` en el Roadmap. (Ej: `- [x] Agente Bibliotecario (Deprecado a Art de Coté)`).
-3. Devuelve ÚNICA Y EXCLUSIVAMENTE el código Markdown completo del Roadmap actualizado. 
+3. Devuelve ÚNICA Y EXCLUSIVAMENTE el código Markdown completo del Roadmap actualizado. COPIA EL ROADMAP ORIGINAL DE PRINCIPIO A FIN Y APLICA TUS CAMBIOS. NO RESUMAS.
 PROHIBIDO usar frases como "Here is the updated roadmap" o "After evaluating...". 
-TU RESPUESTA DEBE EMPEZAR CON EL SÍMBOLO "# " DEL TÍTULO DEL ROADMAP Y TERMINAR CON LA ÚLTIMA LÍNEA DEL MISMO."""
+TU RESPUESTA DEBE EMPEZAR CON EL SÍMBOLO "# " DEL TÍTULO DEL ROADMAP Y TERMINAR CON LA ÚLTIMA LÍNEA DEL MISMO.
+4. NO uses cadenas de pensamiento (Chain of Thought) ni expliques tu razonamiento. Devuelve DIRECTAMENTE el código Markdown final."""
 
     prompt = f"--- ESTADO ACTUAL DEL ROADMAP ---\n{roadmap_content}\n\n--- ÚLTIMAS ENTRADAS BITÁCORA ---\n{bitacora_reciente}"
 
@@ -110,11 +111,29 @@ TU RESPUESTA DEBE EMPEZAR CON EL SÍMBOLO "# " DEL TÍTULO DEL ROADMAP Y TERMINA
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt}
             ],
-            api_key=api_key
+            api_key=api_key,
+            temperature=0.0,
+            max_tokens=2500,
+            timeout=600
         )
-    except Exception as e:
-        print(f"  ❌ [Merci Error] Falló Gemini y el agente no tiene fallback local autorizado: {e}")
-        return
+    except Exception as e_cloud:
+        print(f"  ⚠️ [Merci Warn] Falló Gemini ({e_cloud}). Degradando a servidor local LM Studio...")
+        try:
+            respuesta = completion(
+                model="openai/local-model", # LiteLLM usa el prefijo openai/ para hablar con LM Studio
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": prompt}
+                ],
+                api_base="http://localhost:1234/v1",
+                api_key="lm-studio", # Clave dummy obligatoria para el formato OpenAI
+                temperature=0.0,
+                max_tokens=2500,
+                timeout=600
+            )
+        except Exception as e_local:
+            print(f"  ❌ [Merci Error] Fallo total de IA (Nube y Local): Asegúrate de que LM Studio Server está corriendo en el puerto 1234. Detalle: {e_local}")
+            return
             
     try:
         nuevo_roadmap = clean_markdown(respuesta.choices[0].message.content)

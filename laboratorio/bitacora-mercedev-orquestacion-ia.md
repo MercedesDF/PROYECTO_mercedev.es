@@ -39,6 +39,109 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — QA: Diagnóstico profundo de red local con tcpdump
+
+**Contexto (Desafío):** Era necesario inspeccionar el tráfico exacto entre el orquestador Python y el motor de IA local (LM Studio) para entender por qué los modelos fallan devolviendo respuestas vacías o truncadas a pesar de los ajustes en el código.
+
+**Hecho (Maniobra):** Se utilizó el comando de rastreo de paquetes de red: `sudo tcpdump -i lo -A port 1234`.
+
+**Motivo / criterio (Aprendizaje):** *Deep Observability*. El comando `tcpdump` escuchando en la interfaz *loopback* (`lo`) en formato texto (`-A`) es la herramienta forense definitiva. Al analizar el payload, reveló que el modelo Qwen 3.5 9B agotaba el límite de contexto físico de 4096 tokens (1785 prompt + 2311 completion = 4096). Además, demostró que la IA ignoraba la orden de "no razonar", gastando 2310 tokens en un monólogo interno (`reasoning_tokens`) y dejando 0 tokens para escribir el documento real.
+
+**Siguiente paso o deuda:** Aceptar que los modelos locales con razonamiento interno forzado no son aptos para tareas de reescritura de documentos largos bajo restricciones severas de RAM (4096 tokens). Asumir la dependencia de Gemini Flash para el Agente SSOT.
+
+### 2026-05-08 — Test: Evaluación de Qwen 3.5 (9B) como motor local para SSOT
+
+**Contexto (Desafío):** En la búsqueda del motor local óptimo para tareas lógicas complejas (como la sincronización del Roadmap) que no agote la memoria del sistema anfitrión, se seleccionó el modelo `qwen/qwen3.5-9b`.
+
+**Hecho (Maniobra):** Se cargó el modelo en LM Studio mediante CLI asegurando el límite estricto de contexto (`lms load qwen/qwen3.5-9b -c 4096`) para compensar el mayor peso de sus 9 billones de parámetros en la RAM.
+
+**Motivo / criterio (Aprendizaje):** *Agnosticismo de Modelos*. Gracias a la capa de abstracción de LiteLLM configurada con el alias universal `"openai/local-model"`, el ecosistema puede pivotar entre diferentes motores de IA locales al instante sin requerir refactorización de código en los scripts de Python. El modelo de 9B ofrece un salto cualitativo en razonamiento deductivo manteniendo la viabilidad en hardware local gracias al *Resource Budgeting* previo.
+
+**Siguiente paso o deuda:** Ejecutar `merci ssot` para certificar que el modelo de 9B es capaz de actualizar el Roadmap respetando las reglas de formato sin saturar el sistema.
+
+### 2026-05-08 — Perf: Prevención de OOM (Out of Memory) en inferencia local
+
+**Contexto (Desafío):** Forzar el tamaño de contexto de LM Studio a 8192 tokens para evitar truncamientos provocaba que el ordenador anfitrión se colgara (OOM - Out of Memory) por agotamiento de RAM/VRAM con el modelo Qwen 7B.
+
+**Hecho (Maniobra):** Se instruyó cargar el modelo localmente vía CLI con un contexto conservador (`lms load <modelo> -c 4096`). En `scripts/merci/merci-ssot.py`, se redujo el parámetro `max_tokens` de 4000 a 2500.
+
+**Motivo / criterio (Aprendizaje):** *Resource Budgeting*. El tamaño de la ventana de contexto exige reserva de RAM inmediata. Si la memoria requerida por los pesos del modelo + el contexto excede la física disponible, el sistema operativo usa *swap* y colapsa. Balancear `max_tokens` en el script (2500 es suficiente para el Roadmap) libera tokens para el prompt dentro de un límite de contexto seguro (4096), evitando que el PC se congele.
+
+**Siguiente paso o deuda:** Levantar el servidor con 4096 tokens, ejecutar `merci ssot` y validar la actualización sin bloqueos de sistema.
+
+### 2026-05-08 — QA: Diagnóstico profundo con tcpdump (Token Limits y Reasoning)
+
+**Contexto (Desafío):** El Agente SSOT con IA local seguía siendo bloqueado por el Escudo Anti-Destrucción. La salida de consola no daba suficiente información sobre la causa raíz del fallo en la API de LM Studio.
+
+**Hecho (Maniobra):** Se ejecutó una captura de red (`sudo tcpdump -i lo -A port 1234`) para interceptar el tráfico HTTP entre el script y el servidor local de IA. Se actualizó el *System Prompt* en `merci-ssot.py` para prohibir explícitamente las cadenas de pensamiento (*Chain of Thought*).
+
+**Detalle técnico:** El comando de monitorización `sudo tcpdump -i lo -A port 1234` intercepta en texto plano (`-A`) todo el tráfico de la interfaz *loopback* (`lo`) en el puerto especificado. Es la herramienta definitiva para auditar el payload JSON exacto (entradas y salidas) que viaja entre los scripts de Python y los motores locales (LM Studio/Ollama) cuando los logs estándar no son suficientes.
+
+**Motivo / criterio (Aprendizaje):** *Deep Observability*. El volcado de red reveló datos espectaculares: el modelo agotó el límite duro de la ventana de contexto (1797 prompt + 2299 completion = 4096 `total_tokens`), abortando por `"finish_reason": "length"`. Además, los 2298 tokens generados fueron consumidos enteramente por el monólogo interno de la IA (`reasoning_tokens`), devolviendo un `content` vacío (`""`). Combinar la ampliación estricta de memoria en la terminal/GUI de LM Studio (8192) con una prohibición de razonamiento en el prompt asegura la entrega íntegra del documento.
+
+**Siguiente paso o deuda:** Recargar el modelo en LM Studio con el nuevo límite de contexto y ejecutar `merci ssot` para validar la escritura del Roadmap.
+
+### 2026-05-08 — Fix: Reducción de contexto y Timeout extendido para IA Local
+
+**Contexto (Desafío):** Al ejecutar el Agente SSOT contra LM Studio (Qwen), el modelo devolvió un texto truncado (activando el escudo anti-destrucción) o generó un `ReadTimeoutError`. Esto ocurrió porque el contexto enviado (Roadmap + 5 entradas de bitácora) saturó la "Context Length" por defecto de LM Studio, y el tiempo de inferencia local superó el tiempo de espera de LiteLLM.
+
+**Hecho (Maniobra):** Se refactorizó `scripts/merci/merci-ssot.py` para limitar la extracción de la bitácora a únicamente las 2 últimas entradas (`entradas[1:3]`). Se inyectó el parámetro `timeout=600` (10 minutos) en las llamadas a `completion()` para soportar hardware más lento.
+
+**Motivo / criterio (Aprendizaje):** *Context Window Management*. Enviar exceso de historial a modelos locales satura su memoria de trabajo (RAM/VRAM), provocando truncamientos catastróficos. Reducir la carga de entrada otorga margen para que el modelo genere la salida completa. Extender los *timeouts* adapta el orquestador a la latencia real de la inferencia local.
+
+**Siguiente paso o deuda:** Validar la escritura completa del Roadmap por parte de Qwen y compilar el proyecto.
+
+### 2026-05-08 — Fix: Prevención de truncamiento y resúmenes en LM Studio
+
+**Contexto (Desafío):** Al ejecutar el Agente SSOT contra LM Studio usando el modelo Qwen 2.5 Coder, el escudo anti-alucinaciones detuvo la ejecución porque la respuesta devuelta por la IA era un resumen o estaba incompleta (`< 50%` del original).
+
+**Hecho (Maniobra):** Se inyectaron los parámetros `temperature=0.0` y `max_tokens=4000` en las llamadas a `completion()` en `scripts/merci/merci-ssot.py`. Además, se reforzó el *System Prompt* con la instrucción explícita: "COPIA EL ROADMAP ORIGINAL DE PRINCIPIO A FIN Y APLICA LOS CAMBIOS. NO RESUMAS."
+
+**Motivo / criterio (Aprendizaje):** *Determinismo y Límites de Inferencia*. Los modelos locales cargados a través de endpoints compatibles con OpenAI a menudo asumen límites de tokens muy bajos por defecto (ej. 256 o 512 tokens), cortando la generación de documentos largos. Forzar el límite máximo (`4000`) asegura la extracción del documento completo, y la temperatura `0.0` anula la "creatividad" destructiva del modelo obligándole a ceñirse al formato.
+
+**Siguiente paso o deuda:** Validar nuevamente la reescritura del Roadmap con `merci ssot` y proceder al `merci total`.
+
+### 2026-05-08 — Fix: Resolución de artefactos GGUF en LM Studio (Hugging Face)
+
+**Contexto (Desafío):** Al intentar descargar el modelo Qwen 2.5 Coder con el ID `lmstudio-community/Qwen2.5-Coder-7B-Instruct-GGUF`, el CLI de LM Studio devolvió el error `Failed to resolve artifact`. Esto ocurre porque el CLI exige una correspondencia exacta con un repositorio existente en Hugging Face, y el repositorio sugerido no existía o había sido renombrado.
+
+**Hecho (Maniobra):** Se instruyó utilizar los repositorios oficiales o los repositorios de cuantizadores verificados en Hugging Face (ej. `Qwen/Qwen2.5-Coder-7B-Instruct-GGUF`).
+
+**Motivo / criterio (Aprendizaje):** *Supply Chain & Dependency Resolution*. Cuando se operan motores de inferencia locales (Headless), la cadena de suministro de modelos es tan crítica como la de paquetes Python (PyPI). Depender de repositorios comunitarios genéricos puede causar fallos de resolución (404). Apuntar directamente a los repositorios oficiales (Qwen) o cuantizadores consolidados garantiza la disponibilidad inmutable del artefacto.
+
+**Siguiente paso o deuda:** Descargar el modelo oficial, arrancar el servidor `lms` y verificar que el comando `merci ssot` se ejecute en la raíz del proyecto.
+
+### 2026-05-08 — Fix: Corrección de comando fantasma en LM Studio (Alucinación)
+
+**Contexto (Desafío):** Al intentar descargar un modelo de IA en modo *Headless*, el CLI devolvió el error `unknown command 'download'`. Se constató que el comando `lms download` sugerido previamente era una alucinación (tanto de Gemini Web como asimilada erróneamente en esta misma bitácora).
+
+**Hecho (Maniobra):** Se corrigió la instrucción operativa al comando oficial y real de LM Studio: `lms get <modelo>`. Adicionalmente, se constató que si el alias corto no es un "staff pick", se debe proveer el ID exacto del repositorio (ej. `lmstudio-community/Qwen2.5-Coder-7B-Instruct-GGUF`) o usar `lms search` previamente. Se ha enmendado retrospectivamente la entrada inferior de la bitácora para purgar el comando fantasma.
+
+**Motivo / criterio (Aprendizaje):** *Verificación Empírica vs. LLM Output*. Las IAs generativas comerciales a menudo alucinan comandos basándose en patrones lógicos (`download`) en lugar de leer la documentación real. En LM Studio CLI, el comando de adquisición sigue el estándar POSIX `get` (como `apt-get`). Confiar ciegamente en un output de chat sin validación empírica en terminal genera deuda de documentación.
+
+**Siguiente paso o deuda:** Descargar el modelo con su ID exacto (ej. `lms get lmstudio-community/Qwen2.5-Coder-7B-Instruct-GGUF`) y levantar el servidor con `lms server start`.
+
+### 2026-05-08 — Conf: Despliegue de LM Studio en modo Headless (CLI-first)
+
+**Contexto (Desafío):** Al migrar a LM Studio, se constató que la versión instalada en el entorno era exclusivamente de terminal (`lms`), sin Interfaz Gráfica de Usuario (GUI). Esto requería adaptar el flujo de trabajo para aprovisionar y servir modelos de IA de forma completamente desatendida.
+
+**Hecho (Maniobra):** Se estandarizó el uso de LM Studio CLI para el ecosistema. Los comandos operativos son: `lms download <modelo>` para descargar el binario, y `lms server start` para levantar el *endpoint* compatible con OpenAI en el puerto 1234.
+**Hecho (Maniobra):** Se estandarizó el uso de LM Studio CLI para el ecosistema. Los comandos operativos son: `lms get <modelo>` para descargar el binario, y `lms server start` para levantar el *endpoint* compatible con OpenAI en el puerto 1234.
+
+**Motivo / criterio (Aprendizaje):** *Headless Operations & CLI-First*. Depender de una GUI rompe la automatización. Operar el motor de inferencia local exclusivamente a través de la terminal certifica que el entorno DevSecOps puede ser portado en el futuro a servidores remotos (VPS) sin entorno de escritorio, garantizando la resiliencia de la infraestructura.
+
+**Siguiente paso o deuda:** Mantener el servidor `lms` corriendo en una terminal en segundo plano y ejecutar `merci ssot` para validar la corrección del Roadmap.
+
+### 2026-05-08 — Feat: Migración de motor local a LM Studio y restauración de Fallback
+
+**Contexto (Desafío):** La dependencia de la API de Gemini (nube) bloqueaba el pipeline por frecuentes errores de cuota (404/429). El uso previo de Ollama limitaba la flexibilidad para intercambiar modelos de forma visual. Se necesitaba un motor de inferencia local más robusto para tareas de redacción y código sin límites.
+
+**Hecho (Maniobra):** Se adoptó LM Studio como motor de inferencia local. Se restauró la lógica de Degradación Elegante (Fallback) en `scripts/merci/merci-ssot.py`, configurando LiteLLM para enrutar las peticiones al servidor compatible con OpenAI de LM Studio (`http://localhost:1234/v1`).
+
+**Motivo / criterio (Aprendizaje):** *Infrastructure Flexibility*. LM Studio levanta una API nativa de OpenAI, lo que encaja perfectamente con nuestra capa de abstracción LiteLLM sin necesidad de reescribir los scripts. Esto permite al usuario cambiar de modelo gráficamente (ej. Qwen para código, Mistral para cuadernillos) dependiendo de la tarea, devolviendo la operatividad local al ecosistema DevSecOps.
+
+**Siguiente paso o deuda:** Mantener el servidor local de LM Studio encendido al ejecutar los agentes y evaluar la recuperación del Agente Bibliotecario con modelos locales más avanzados.
+
 ### 2026-05-08 — Chore: Auditoría y trazabilidad de scripts temporales (Deuda Técnica)
 
 **Contexto (Desafío):** El directorio `laboratorio/scripts_temporales/` almacenaba scripts experimentales o deprecados (`merci-wc-mock.py`, `merci_ingestor.py`, `merci_sitemap.py`, `pre-commit.sh`) que carecían de trazabilidad formal, convirtiéndose en "código zombi" sin contexto de por qué fueron descartados.
