@@ -8,8 +8,6 @@ editorial a través del modelo de IA local (Ollama) y genera cuadernillos
 Markdown estructurados en el directorio de incubación (`laboratorio/`).
 """
 
-# TODO(Fase 3): Script deprecado y movido a scripts temporales. El RAG local con modelos <70B colapsa por exceso de contexto (Context Window Stuffing). Conservado como Art de Coté para referencia de Prompt Engineering avanzado y filtrado semántico.
-
 import os
 import sys
 from datetime import datetime
@@ -22,14 +20,6 @@ import re
 # Silenciamos advertencias de deprecación de librerías de terceros (ej. google.generativeai) para mantener la consola limpia
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-try:
-    from litellm import completion
-    import litellm
-    litellm.telemetry = False  # Telemetría desactivada por DevSecOps
-except ImportError:
-    print("ℹ️ [Merci Librarian] LiteLLM no está instalado. Omitiendo agente bibliotecario.")
-    sys.exit(0)
-
 REPO_ROOT = Path(__file__).resolve().parents[2]
 NOTES_DIR = REPO_ROOT / "laboratorio" / "notas_rapidas"
 PROCESADAS_DIR = NOTES_DIR / "_procesadas"
@@ -37,33 +27,29 @@ LAB_DIR = REPO_ROOT / "laboratorio"
 PROMPT_PATH = REPO_ROOT / "laboratorio" / "prompts" / "prompt-bibliotecario.md"
 ENV_PATH = REPO_ROOT / ".env"
 
-def cargar_api_key():
-    """Lee la clave de Gemini desde el entorno local seguro."""
-    if not ENV_PATH.exists():
-        return None
-    for linea in ENV_PATH.read_text(encoding="utf-8").splitlines():
-        if linea.startswith("GEMINI_API_KEY="):
-            return linea.split("=", 1)[1].strip().strip('"\'')
-    return None
-
-def auto_descubrir_modelo(api_key):
-    """
-    QUÉ HACE: Interroga a Google para saber qué modelos exactos están disponibles.
-    POR QUÉ: Resuelve los errores 404 por restricciones regionales (UE) o cambios
-    de alias en la API, buscando dinámicamente el modelo más rápido permitido.
-    """
-    url = f"https://generativelanguage.googleapis.com/v1beta/models?key={api_key}"
+def consultar_ia_local(prompt, system_prompt):
+    """Realiza una petición POST nativa a la API local de Ollama."""
+    # QUÉ HACE: Envía el prompt y el molde mental (system) al endpoint de la API local de Ollama sin librerías externas.
+    # POR QUÉ: Erradica la dependencia de LiteLLM y la nube, consolidando la arquitectura 100% local.
     try:
-        with urllib.request.urlopen(url) as response:
-            data = json.loads(response.read().decode("utf-8"))
-            validos = [m["name"].split("/")[-1] for m in data.get("models", []) if "generateContent" in m.get("supportedGenerationMethods", []) and "gemini" in m.get("name", "").lower()]
-            # Excluimos 2.0-flash temporalmente porque Google impone límite de cuota 0 en tier gratuito para algunas regiones
-            for familia in ["1.5-flash", "1.5-pro"]:
-                for v in validos:
-                    if familia in v: return v
-            return "gemini-1.5-flash" # Fallback estricto a la rama gratuita garantizada
-    except Exception:
-        return "gemini-1.5-flash" # Fallback estricto en caso de error de conexión a la API
+        local_url = "http://localhost:11434/api/generate"
+        local_payload = {
+            "model": "qwen2.5-coder",
+            "prompt": prompt,
+            "system": system_prompt,
+            "stream": False,
+            "options": {
+                "temperature": 0.0,
+                "num_ctx": 4096
+            }
+        }
+        local_req = urllib.request.Request(local_url, data=json.dumps(local_payload).encode("utf-8"), method="POST")
+        local_req.add_header("Content-Type", "application/json")
+        with urllib.request.urlopen(local_req, timeout=600) as local_response:
+            local_data = json.loads(local_response.read().decode("utf-8"))
+            return local_data["response"].strip()
+    except Exception as e_local:
+        return f"Error HTTP Local: {e_local}"
 
 def get_bitacora_context(nota_cruda: str) -> str:
     """Extrae palabras clave de la nota y filtra entradas relevantes de la bitácora (RAG Optimizado)."""
@@ -143,41 +129,20 @@ def process_note(note_path: Path):
     fecha_hoy = datetime.now().strftime("%Y-%m-%d")
     note_content = note_path.read_text(encoding="utf-8", errors="replace")
     bitacora_context = get_bitacora_context(note_content)
-    prompt = f"La fecha actual es {fecha_hoy}. {instrucciones_extra}\n\nREGLA DE EXPANSIÓN (RAG Local): Tu objetivo principal y ÚNICO es desarrollar la 'NOTA CRUDA'. Lee el 'CONTEXTO DE LA BITÁCORA' solo como material de apoyo para extraer nombres de archivos o detalles técnicos. Si la bitácora habla de otra cosa, IGNÓRALA. NO resumas la bitácora.\n\n--- NOTA CRUDA (TEMA PRINCIPAL) ---\n{note_content}\n\n--- CONTEXTO DE LA BITÁCORA (MATERIAL DE APOYO SECUNDARIO) ---\n{bitacora_context}"
+    prompt = f"La fecha actual es {fecha_hoy}. {instrucciones_extra}\n\nREGLA DE IDIOMA INNEGOCIABLE: Todo el texto generado, incluyendo el mensaje para LinkedIn, DEBE estar redactado exclusivamente en Castellano (Español de España). Queda estrictamente prohibido el uso del inglés.\n\nREGLA DE ESTRUCTURACIÓN (Zero-Hallucination): Tu objetivo principal es DAR FORMATO a la 'NOTA CRUDA' encajándola en la plantilla solicitada. NO inventes código, NO inventes soluciones técnicas ni comandos que no estén explícitamente en la nota o en la bitácora. Limítate a estructurar la información en los '3 átomos' y crear el texto para LinkedIn.\n\n--- NOTA CRUDA (TEMA PRINCIPAL) ---\n{note_content}\n\n--- CONTEXTO DE LA BITÁCORA (MATERIAL DE APOYO SECUNDARIO) ---\n{bitacora_context}"
     
     # Inyectamos el tipo de documento dinámicamente en el molde mental (System Prompt)
     system_prompt = get_system_prompt().replace('tipo: "cuadernillo"', f'tipo: "{tipo_doc}"')
-    api_key = cargar_api_key()
     
-    try:
-        modelo_activo = auto_descubrir_modelo(api_key)
-        print(f"  🧠 [Merci Librarian] Solicitando redacción a Gemini (Modelo auto-descubierto: {modelo_activo})...")
-        respuesta = completion(
-            model=f"gemini/{modelo_activo}",
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": prompt}
-            ],
-            api_key=api_key
-        )
-    except Exception as e_cloud:
-        print(f"  ⚠️ [Merci Warn] Falló Gemini ({e_cloud}). Degradando a modelo local (Llama 3)...")
-        try:
-            respuesta = completion(
-                model="ollama/llama3",
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": prompt}
-                ],
-                api_base="http://localhost:11434",
-                max_tokens=1500
-            )
-        except Exception as e_local:
-            print(f"  ❌ [Merci Error] Fallo total de IA (Nube y Local): {e_local}")
-            return
+    print(f"  🧠 [Merci Librarian] Solicitando redacción a Ollama local (qwen2.5-coder)...")
+    respuesta = consultar_ia_local(prompt, system_prompt)
+    
+    if respuesta.startswith("Error HTTP Local"):
+        print(f"  ❌ [Merci Error] Fallo total de IA Local: {respuesta}")
+        return
             
     try:
-        md_final = clean_markdown(respuesta.choices[0].message.content)
+        md_final = clean_markdown(respuesta)
         output_path = destino_dir / f"{prefijo}-{note_path.stem}.md"
         output_path.write_text(md_final, encoding="utf-8")
         

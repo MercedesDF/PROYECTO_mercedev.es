@@ -24,20 +24,70 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 ```markdown
 ### AAAA-MM-DD — Título corto del cambio o sesión
 
-**Contexto:** (qué querías lograr o qué problema apareció)
+**Contexto:** (objetivo a lograr o problema surgido)
 
 **Hecho:** (lista breve: archivos, fases del roadmap, PR/commit si aplica)
 
-**Detalle técnico:** (comandos, rutas, flags; solo lo que necesites recordar)
+**Detalle técnico:** (comandos, rutas, flags; datos necesarios para el registro)
 
-**Motivo / criterio:** (por qué esta opción y no otra)
+**Motivo / criterio:** (justificación de la decisión arquitectónica tomada)
 
-**Siguiente paso o deuda:** (qué queda pendiente)
+**Siguiente paso o deuda:** (acciones pendientes o próximos hitos)
 ```
 
 ---
 
 ## Registro cronológico
+
+### 2026-05-09 — DevSecOps: Exclusión de documentación de la matriz en Git
+
+**Contexto:** Los documentos operativos internos exclusivos del proyecto matriz (ubicados en `docs/matriz/`) no deben estar expuestos en el repositorio remoto, ya que son manuales privados para el mantenimiento del Boilerplate.
+
+**Hecho:** Se decidió ocultar el directorio `docs/matriz/` del control de versiones añadiéndolo al archivo `.gitignore` y purgando la caché del índice.
+
+**Detalle técnico:** Se añade el patrón `docs/matriz/` al archivo de exclusiones. Al no rastrearse, estos archivos dejarán de existir en el repositorio remoto tras el *push*, pero seguirán intactos en el disco duro local de la autora.
+
+**Motivo / criterio:** *Data Leak Prevention (DLP) y Shift-Left*. Excluir estos archivos desde el origen garantiza que nunca viajen a la nube. Esto simplifica la seguridad y la instanciación, ya que los clones nuevos del repositorio nacerán sin esta carpeta por defecto.
+
+**Siguiente paso o deuda:** Iniciar el diseño del Dashboard de Confianza en Grafana para la Fase 4 de Observabilidad.
+
+### 2026-05-09 — Arch: Pivote del Agente Bibliotecario a Formateador Estricto
+
+**Contexto:** Tras detectar que los SLMs (Small Language Models) locales como Qwen 2.5 Coder alucinan arquitecturas técnicas (ej. scripts en GitHub Actions) al intentar expandir notas crudas, se cuestionó la utilidad real del agente `merci-librarian.py`.
+
+**Hecho:** Se decidió no descartar el script, sino pivotar su propósito. Se modificó el prompt interno de una "Regla de Expansión" a una "Regla de Estructuración Estricta (Zero-Hallucination)".
+
+**Motivo / criterio:** *Zero-Friction Documentation*. El valor real de una IA local no es inventar soluciones que la autora ya conoce, sino eliminar la burocracia del formato (YAML Frontmatter, estructura de 3 átomos, generación de posts para LinkedIn). Al prohibir la alucinación, el agente actúa como un sintetizador perfecto que ahorra minutos de formateo mecánico por cada sesión.
+
+**Siguiente paso o deuda:** Mover el script de vuelta a `scripts/merci/` y arrancar el diseño de la Fase 4 (Observabilidad y SRE IA).
+
+### 2026-05-09 — Milestone: Cierre de Fase 3 (Orquestación de Contenidos) y Evaluación de Release
+
+**Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) tras finalizar la automatización documental y social de la Fase 3 del Roadmap de IA.
+
+**Hecho:** Se ejecutó la lista de verificación obligatoria:
+- [x] **Deuda Técnica:** 0 TODOs bloqueantes. El `merci-librarian.py` deprecado mantiene su justificación como Art de Coté.
+- [x] **Cosecha de Conocimiento:** Compendio estratégico de la Fase 3 redactado y promovido a la Biblioteca.
+- [x] **Auditoría Documental:** Roadmap de IA sincronizado con todas las tareas de la Fase 3 selladas.
+- [x] **Evaluación de Release:** Las profundas modificaciones en `merci-brain.py` (ahora 100% local) y la inclusión de `merci-ssot.py` justifican una nueva versión del Boilerplate.
+- [ ] **Snapshot y Clonado:** Pendiente de ejecución manual.
+- [ ] **Sello Definitivo:** Pendiente de commit atómico.
+
+**Detalle técnico:** Se certifica la erradicación de la dependencia forzosa de la nube en los metadatos estáticos y el blindaje del Agente Auditor contra el ruido de depuración de librerías externas.
+
+**Motivo / criterio:** *Governance y Definition of Done (DoD)*. Sellar formalmente la Fase 3 garantiza que la arquitectura de agentes (Lóbulo Frontal y SSOT) es estable y que el ecosistema no arrastra cabos sueltos estructurales hacia la siguiente fase.
+
+**Siguiente paso o deuda:** Validar la instanciación del Boilerplate, ejecutar el script de backup local y, una vez empaquetado, iniciar el diseño de la Fase 4 (Observabilidad y SRE IA).
+
+### 2026-05-08 — Arch: Pivote de Merci Brain a motor 100% local (Ollama)
+
+**Contexto (Desafío):** El asistente `merci-brain.py` dependía de la API de Gemini en la nube, lo cual introducía latencia artificial de 15 segundos entre peticiones para evitar agotar la cuota (HTTP 429), y complejidad innecesaria en la lógica de autodescubrimiento y fallbacks. Tras el brillante desempeño de `qwen2.5-coder` en local, mantener la dependencia cloud carece de sentido.
+
+**Hecho (Maniobra):** Se refactorizó `scripts/merci/merci-brain.py` erradicando por completo el código de conexión a Gemini, el autodescubridor de modelos y el cargador de variables de entorno de API Keys. Se unificó toda la orquestación de red hacia la nueva función `consultar_ia_local()` apuntando de forma exclusiva a Ollama.
+
+**Motivo / criterio (Aprendizaje):** *Zero Dependencies & Cloud Independence*. Operar la generación de metadatos estáticos con un modelo SLM local elimina las barreras de *Rate Limiting*. Esto permite compilar la base de conocimientos a la máxima velocidad del hardware anfitrión, logrando un entorno verdaderamente autónomo y privado.
+
+**Siguiente paso o deuda:** Iniciar el diseño de la Fase 4: Observabilidad y SRE IA (Dashboard de Confianza).
 
 ### 2026-05-08 — Fix: Alucinación de inercia (Checkbox Hallucination) en Qwen y silenciamiento de LiteLLM
 

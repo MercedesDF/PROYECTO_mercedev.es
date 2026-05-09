@@ -101,6 +101,7 @@ Objetivo: redactar textos claros, humanos y directos, manteniendo rigor técnico
 4. **Mantener precisión técnica:** cuando haya término técnico, explicarlo en lenguaje llano en la misma sección.
 5. **Usar tono impersonal y en infinitivo** en documentación técnica (`README.md`, `docs/`, `laboratorio/`).
 6. **Reservar voz de Merci** para UI y microcopys puntuales, sin invadir toda la página.
+7. **Idioma estricto:** Redactar exclusivamente en Castellano (Español de España), evitando el uso del inglés salvo en expresiones propias del sector editorial en programación.
 
 ### 6.3. Plantilla breve por bloque de contenido
 - **Qué es:** definir en una frase.

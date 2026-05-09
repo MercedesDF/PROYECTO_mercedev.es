@@ -23,20 +23,20 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ### Plantilla para nuevas entradas
 
-Copia el bloque y rellénalo.
+Plantilla base para el registro de sesiones.
 
 ```markdown
 ### AAAA-MM-DD — Título corto del cambio o sesión
 
-**Contexto:** (qué querías lograr o qué problema apareció)
+**Contexto:** (objetivo a lograr o problema surgido)
 
 **Hecho:** (lista breve: archivos, fases del roadmap, PR/commit si aplica)
 
-**Detalle técnico:** (comandos, rutas, flags; solo lo que necesites recordar)
+**Detalle técnico:** (comandos, rutas, flags; datos necesarios para el registro)
 
-**Motivo / criterio:** (por qué esta opción y no otra)
+**Motivo / criterio:** (justificación de la decisión arquitectónica tomada)
 
-**Siguiente paso o deuda:** (qué queda pendiente)
+**Siguiente paso o deuda:** (acciones pendientes o próximos hitos)
 ```
 
 ---

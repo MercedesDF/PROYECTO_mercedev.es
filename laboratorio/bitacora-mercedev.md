@@ -14,25 +14,25 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 1. **Añadir entradas al principio** de la sección “Registro cronológico”, con la plantilla de abajo. El registro es **acumulativo**: lo ya escrito forma parte del historial y **no se reemplaza** por nuevas sesiones (así no se pierde contexto ni fechas).
 2. **Una entrada por sesión o por tema cerrado** (lo que resulte más claro al escribir).
 3. Si algo fue un error o una vulnerabilidad evitada, opcionalmente usar los **tres átomos** del proyecto (Desafío → Maniobra → Aprendizaje/Deuda) en el cuerpo de la entrada.
-4. **Convención de Rutas:** Al hacer referencia a archivos o directorios, usar rutas relativas a la raíz del proyecto, comenzando con `PROYECTO_mercedev.es/` (ej. `PROYECTO_mercedev.es/laboratorio/archivo.md`). No incluir el prefijo absoluto del sistema operativo (`/home/hildegahr/Escritorio/`).
+4. **Convención de Rutas:** Al hacer referencia a archivos o directorios, usar rutas relativas a la raíz del proyecto, comenzando con `PROYECTO_mercedev.es/` (ej. `PROYECTO_mercedev.es/laboratorio/archivo.md`). No incluir el prefijo absoluto del sistema operativo (ej. `/home/tu_usuario/ruta_al_proyecto/`).
 5. **Correcciones excepcionales** (typo, dato incorrecto, redacción de un solo párrafo, retirada de información sensible): editar solo el fragmento necesario o añadir una línea aclaratoria bajo la entrada; evitar reescribir todo el archivo o borrar entradas enteras sin motivo documentado.
 
 ### Plantilla para nuevas entradas
 
-Copia el bloque y rellénalo.
+Plantilla base para el registro de sesiones.
 
 ```markdown
 ### AAAA-MM-DD — Título corto del cambio o sesión
 
-**Contexto:** (qué querías lograr o qué problema apareció)
+**Contexto:** (objetivo a lograr o problema surgido)
 
 **Hecho:** (lista breve: archivos, fases del roadmap, PR/commit si aplica)
 
-**Detalle técnico:** (comandos, rutas, flags; solo lo que necesites recordar)
+**Detalle técnico:** (comandos, rutas, flags; datos necesarios para el registro)
 
-**Motivo / criterio:** (por qué esta opción y no otra)
+**Motivo / criterio:** (justificación de la decisión arquitectónica tomada)
 
-**Siguiente paso o deuda:** (qué queda pendiente)
+**Siguiente paso o deuda:** (acciones pendientes o próximos hitos)
 ```
 
 ---
@@ -1542,7 +1542,6 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** *Knowledge Management*. Transformar incidentes de depuración en material didáctico es un pilar de la filosofía del proyecto. Este cuadernillo servirá como referencia futura para evitar el uso de `!important` o la inyección de estilos en línea que comprometan la UX.
 
 **Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
-**Siguiente paso o deuda:** (Pendiente de instrucción).
 
 ### 2026-04-29 — QA: Selección cromática matemática para estado :visited (WCAG)
 
@@ -1555,7 +1554,6 @@ Copia el bloque y rellénalo.
 **Motivo / criterio:** *Shift-Left Accessibility y Diseño UI*. Las decisiones de color en una arquitectura estricta no se basan únicamente en la estética. Calcular matemáticamente el ratio de contraste antes de inyectar variables en SASS previene fallos tardíos en la auditoría de rendimiento (Fail-Fast).
 
 **Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
-**Siguiente paso o deuda:** (Pendiente de instrucción).
 
 ### 2026-04-29 — Fix: Aplicación de estado :visited en enlaces de cabecera (Tarjetas)
 
@@ -1606,7 +1604,7 @@ Copia el bloque y rellénalo.
 
 **Motivo / criterio:** *UX Copywriting*. El texto de la interfaz es tan importante como la arquitectura subyacente. Aplicar la regla 80/20 (claridad técnica / personalidad) garantiza que el usuario perciba el rigor DevSecOps desde la primera línea que lee.
 
-**Siguiente paso o deuda:** (Pendiente de instrucción).
+**Siguiente paso o deuda:** Iniciar la automatización social para LinkedIn (Fase 8.3).
 
 ### 2026-04-29 — Docs: Auditoría de paridad y actualización a Boilerplate v1.1.0
 
