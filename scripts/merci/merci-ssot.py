@@ -85,43 +85,53 @@ def main():
     entradas = re.split(r'(?=### \d{4}-\d{2}-\d{2})', bitacora_full)
     bitacora_reciente = "".join(entradas[1:3]) if len(entradas) > 1 else bitacora_full[:2000]
 
+    # QUÉ HACE: Amputa matemáticamente todo el texto de la bitácora excepto el bloque "Hecho".
+    # POR QUÉ: Previene la alucinación inercial. Si la IA no lee el bloque "Siguiente paso", es imposible que asuma tareas futuras como completadas.
+    hechos = re.findall(r'\*\*Hecho:\*\*(.*?)(?=\*\*Detalle técnico:|\*\*Motivo / criterio:|\*\*Siguiente paso o deuda:|### |$)', bitacora_reciente, re.DOTALL)
+    bitacora_filtrada = "\n".join([h.strip() for h in hechos]) if hechos else "No hay acciones registradas."
+
     system_prompt = """Eres el Agente SSOT de un ecosistema DevSecOps.
 Tu misión es actualizar el ROADMAP basándote en los últimos avances de la BITÁCORA.
 
 INSTRUCCIONES DE RAZONAMIENTO PREVIO (Piensa paso a paso):
-1. Analiza los bloques "Hecho" o "Contexto" de la Bitácora.
+1. Analiza los "Hechos" extraídos de la Bitácora.
 2. Busca qué tareas pendientes `- [ ]` del Roadmap se corresponden con esos hechos (algo descartado o relegado a cloud también se considera completado).
-3. Escribe en texto plano qué tareas vas a actualizar de `[ ]` a `[x]`. Si se menciona un círculo rojo en la bitácora, añade 🔴.
+3. Escribe en texto plano qué tareas vas a actualizar de `[ ]` a `[x]`. Si no hay evidencia en "Hecho", no marques nada nuevo. Si se menciona un círculo rojo en la bitácora, añade 🔴.
+4. Si NO hay coincidencias, declara explícitamente la palabra clave "SIN_CAMBIOS" y detente por completo.
 
 INSTRUCCIONES DE SALIDA:
-Tras tu razonamiento, imprime todo el código del Roadmap actualizado.
-DEBES REESCRIBIR EL ROADMAP ENTERO DE PRINCIPIO A FIN.
-ASEGÚRATE de haber cambiado físicamente los `- [ ]` por `- [x]` en las líneas que detectaste. ¡NO actúes como una fotocopiadora ciega, aplica los cambios!"""
+- Si hubo avances: Imprime todo el código del Roadmap actualizado. DEBES REESCRIBIR EL ROADMAP ENTERO DE PRINCIPIO A FIN.
+- Si NO hubo avances: NO escribas el Roadmap. Limítate a emitir tu razonamiento y la palabra clave "SIN_CAMBIOS"."""
 
-    prompt = f"--- ESTADO ACTUAL DEL ROADMAP ---\n{roadmap_content}\n\n--- ÚLTIMAS ENTRADAS BITÁCORA ---\n{bitacora_reciente}"
+    prompt = f"--- ESTADO ACTUAL DEL ROADMAP ---\n{roadmap_content}\n\n--- ÚLTIMOS HECHOS EXTRAÍDOS ---\n{bitacora_filtrada}"
 
     api_key = cargar_api_key()
-    if not api_key:
-        print("  ⚠️ [Merci Warn] Falta GEMINI_API_KEY. Abortando SSOT.")
-        return
+    raw_response = None
 
-    modelo_activo = auto_descubrir_modelo(api_key)
-    print(f"  🧠 Consultando a {modelo_activo}...")
-    
-    try:
-        respuesta = completion(
-            model=f"gemini/{modelo_activo}",
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": prompt}
-            ],
-            api_key=api_key,
-            temperature=0.0,
-            max_tokens=4000,
-            timeout=600
-        )
-    except Exception as e_cloud:
-        print(f"  ⚠️ [Merci Warn] Falló Gemini ({e_cloud}). Intentando Fallback local con Ollama (qwen2.5-coder)...")
+    if api_key:
+        modelo_activo = auto_descubrir_modelo(api_key)
+        print(f"  🧠 Consultando a {modelo_activo} en la nube...")
+        try:
+            respuesta = completion(
+                model=f"gemini/{modelo_activo}",
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": prompt}
+                ],
+                api_key=api_key,
+                temperature=0.0,
+                max_tokens=4000,
+                timeout=600
+            )
+            raw_response = respuesta.choices[0].message.content
+        except Exception as e_cloud:
+            print(f"  ⚠️ [Merci Warn] Falló Gemini ({e_cloud}). Intentando Fallback local con Ollama (qwen2.5-coder)...")
+    else:
+        print("  ⚠️ [Merci Warn] Falta GEMINI_API_KEY. Delegando directamente a IA Local (qwen2.5-coder)...")
+
+    if not raw_response:
+        # QUÉ HACE: Delega la tarea a Ollama localmente si no hay API Key o si la nube falla.
+        # POR QUÉ: Garantiza la Degradación Elegante (Graceful Degradation) para que el agente siga operativo offline.
         try:
             respuesta = completion(
                 model="ollama/qwen2.5-coder",
@@ -134,12 +144,16 @@ ASEGÚRATE de haber cambiado físicamente los `- [ ]` por `- [x]` en las líneas
                 max_tokens=4000,
                 timeout=600
             )
+            raw_response = respuesta.choices[0].message.content
         except Exception as e_local:
-            print(f"  ❌ [Merci Error] Falló también el motor local de Ollama. Detalle: {e_local}")
+            print(f"  ❌ [Merci Error] Falló el motor local de Ollama. Detalle: {e_local}")
             return
-            
+
     try:
-        raw_response = respuesta.choices[0].message.content
+        if "SIN_CAMBIOS" in raw_response or "No hay tareas completadas" in raw_response:
+            print("  ℹ️ [Merci Info] Sin avances en roadmap-ai. Ya está perfectamente sincronizado.")
+            return
+
         nuevo_roadmap = clean_markdown(raw_response)
         
         # ESCUDO ANTI-ALUCINACIONES (Sanity Checks)

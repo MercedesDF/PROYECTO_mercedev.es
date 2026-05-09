@@ -11,7 +11,7 @@ Por diseño arquitectónico (Environment Segregation), el núcleo estático (Bib
 **Características:** Contenido fundacional, manuales, proyectos y arte colateral (experimentos). Genera HTML ultrarrápido y PDF descargable.
 
 ### Paso a Paso:
-1. **Incubación:** Crear o editar el documento Markdown (`.md`) dentro de la carpeta `laboratorio/` o sus subdirectorios de incubación. El YAML Frontmatter debe tener `estado: "borrador"`.
+1. **Incubación:** Crear o editar el documento Markdown (`.md`) dentro de la carpeta `laboratorio/` o sus subdirectorios de incubación. Usar `estado: "incubacion"` para documentos en desarrollo (fricción cero en terminal) y cambiar a `estado: "borrador"` cuando estén listos para ser procesados.
 2. **Curación (Promote):** Al estar listo para su publicación, ejecutar en la terminal:
    ```bash
    python3 scripts/merci/merci-promote.py
@@ -30,8 +30,8 @@ Por diseño arquitectónico (Environment Segregation), el núcleo estático (Bib
 **Características:** Contenido dinámico, noticias, reflexiones o novedades rápidas.
 
 ### Paso a Paso:
-1. **Incubación:** Crear el documento Markdown dentro de la zona de pruebas destinada al entorno dinámico (ej. `laboratorio/blog/`). 
-   *Garantizar que el YAML tenga `estado: "publicado"` y un `tema:` que coincida con una categoría existente en el entorno WordPress.*
+1. **Incubación:** Crear el documento Markdown dentro de la zona de pruebas destinada al entorno dinámico (ej. `laboratorio/blog/`). Usar `estado: "incubacion"` mientras se redacta.
+   *Garantizar que el YAML cambie a `estado: "publicado"` (o "borrador" según tu flujo) y tenga un `tema:` que coincida con una categoría existente en el entorno WordPress para promover.*
 2. **Curación (Promote):** Ejecutar `python3 scripts/merci/merci-promote.py` para curar el documento. El script detectará el destino y moverá físicamente el archivo a su carpeta definitiva en la raíz (`blog/`).
 3. **Sincronización Directa (Headless):** Ejecutar el publicador Headless para escanear y sincronizar automáticamente las carpetas dinámicas de la raíz:
    ```bash

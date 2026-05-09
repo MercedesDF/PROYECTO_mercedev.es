@@ -103,8 +103,8 @@ def generar_cerebro_estatico(force_clean=False):
         if url in brain_data and not brain_data[url].startswith("Error HTTP") and not brain_data[url].startswith("[Fallback]"):
             continue
             
-        # Circuit Breaker: Si la cuota ya se agotó en esta ejecución, mantenemos/creamos el fallback en silencio
-        if cuota_agotada:
+        # Circuit Breaker: Si el servidor local falló en esta ejecución, mantenemos/creamos el fallback en silencio
+        if fallo_local:
             if url not in brain_data or brain_data[url].startswith("Error HTTP"):
                 brain_data[url] = f"[Fallback] Bienvenido a la lectura de: {titulo}."
             continue

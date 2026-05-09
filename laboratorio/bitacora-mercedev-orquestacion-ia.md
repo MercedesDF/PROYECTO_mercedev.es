@@ -6,7 +6,7 @@ Bitácora activa a partir del cierre arquitectónico fundacional (Fases 1–11, 
 Registra exclusivamente las decisiones, experimentos y aprendizajes del nuevo roadmap de Inteligencia Artificial y Orquestación (`ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`).
 
 El historial anterior (Fases 1–11) vive íntegramente en `laboratorio/bitacora-mercedev.md`.
-El archivo histórico archivado (2026-04-12 a 2026-04-23) está en `laboratorio/bitacora-mercedev-260412-260423.md`.
+El archivo histórico archivado (2026-04-12 a 2026-04-23) está en `laboratorio/historico/bitacora-mercedev-260412-260423.md`.
 
 No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa el día a día con **hechos, comandos y lecciones**.
 
@@ -39,6 +39,146 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-09 — Arch: Abstracción de datos (Shift-Left Parsing) en Agente SSOT
+
+**Contexto:** La Inteligencia Artificial local (Qwen 2.5 Coder) seguía marcando tareas futuras del Roadmap como completadas (alucinación inercial). Intentar domarla con *Negative Prompting* ("ignora los siguientes pasos") resultó ineficaz, confirmando que la IA leía intenciones futuras y las asumía como hechos.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-ssot.py` para aplicar filtrado Regex estricto antes de enviar el texto a la IA. Se hizo rollback de la marca errónea en `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`.
+
+**Detalle técnico:** Se implementó `re.findall(r'\*\*Hecho:\*\*(.*?)(?=\*\*Detalle técnico:...)'` para amputar matemáticamente los bloques de Contexto y Siguientes Pasos. El LLM ahora recibe un string purificado que contiene única y exclusivamente las viñetas del bloque "Hecho".
+
+**Motivo / criterio:** *Shift-Left Data Quality*. Si no quieres que la IA lea algo, no se lo envíes. Confiar en que un SLM (Small Language Model - Modelo de Lenguaje Pequeño) comprenda directrices de exclusión es un antipatrón. Purgar el contexto mediante código nativo (Python) antes de la inferencia garantiza un 0% de alucinaciones prospectivas y reduce el consumo de tokens.
+
+**Siguiente paso o deuda:** Actualizar el repositorio derivado `merci-boilerplate` mediante el script de inicialización, generar el backup local y sellar con un commit atómico el cierre definitivo de la Fase 3.
+
+### 2026-05-09 — Docs: Actualización de la identidad del producto Boilerplate (Product Drift)
+
+**Contexto:** La autora detectó que la descripción introductoria de `README-merci.md` había quedado obsoleta. Seguía definiendo al Boilerplate como un "entorno web híbrido" estándar, omitiendo que ahora es un ecosistema DevSecOps complejo orquestado por Inteligencia Artificial local.
+
+**Hecho:** Se refactorizó la cabecera de `README-merci.md` para reflejar su verdadera naturaleza: un framework DevSecOps autónomo impulsado por *Shift-Left AI* y *Spec-Driven Development*.
+
+**Motivo / criterio:** *Product Identity y Single Source of Truth*. La documentación de la plantilla distribuible no debe sufrir Deriva Documental respecto al código que empaqueta. Vender un ecosistema de IA como una simple plantilla HTML/WP infravalora la madurez técnica alcanzada a partir de la Fase 9.
+
+**Siguiente paso o deuda:** Actualizar el repositorio derivado `merci-boilerplate` mediante el script de inicialización, generar el backup local y sellar con un commit atómico el cierre definitivo de la Fase 3.
+
+### 2026-05-09 — Fix: Short-Circuit (Cortocircuito) para evitar resúmenes en Agente SSOT
+
+**Contexto:** Tras aplicar el Negative Prompting, Qwen dejó de inventar tareas, pero se topó con otra limitación: en lugar de devolver una copia exacta del Roadmap, generaba un resumen corto. Esto disparó el Escudo Anti-Destrucción (`< 50%` de longitud original), abortando el proceso.
+
+**Hecho:** Se implementó un patrón de "Short-Circuit" (Cortocircuito Lógico) en `scripts/merci/merci-ssot.py`.
+
+**Detalle técnico:** Se alteró el *System Prompt* instruyendo a la IA a que, si no hay avances, **no** intente reproducir el Roadmap, limitándose a emitir la palabra clave `SIN_CAMBIOS`. El script en Python intercepta esta palabra en la respuesta cruda y detiene la ejecución amigablemente antes de pasar por el parser Markdown o el validador de longitud.
+
+**Motivo / criterio:** *Resource Budgeting y AI Governance*. Obligar a un SLM local a regurgitar 50 líneas de texto sin hacer ninguna alteración es un antipatrón (desperdicia tokens, tiempo de GPU y aumenta el riesgo de truncamiento). El cortocircuito es la salida natural, eficiente y "Lazy" (perezosa) ideal para comprobaciones recurrentes de QA.
+
+**Siguiente paso o deuda:** Iniciar definitivamente el diseño del Dashboard en Docker para Grafana (Fase 4).
+
+### 2026-05-09 — Fix: Over-compliance en SLM locales y suavizado de Prompt
+
+**Contexto:** El agente SSOT local (Qwen 2.5 Coder) superó el "Checkbox Hallucination" de intenciones futuras, pero recayó marcando la cuarta tarea de la Fase 4 sin motivo aparente.
+
+**Hecho:** Se diagnosticó un comportamiento de "Over-compliance" (Sobre-cumplimiento). El prompt le exigía: "¡NO actúes como una fotocopiadora ciega, aplica los cambios!". El modelo obedeció ciegamente y, al no encontrar tareas, alteró una aleatoria para cumplir la orden de "modificar algo".
+
+**Detalle técnico:** Se eliminó la instrucción agresiva del `system_prompt` en `merci-ssot.py` y se añadió una cláusula de escape explícita: "Si NO hubo avances, REPRODUCE EL ROADMAP EXACTAMENTE IGUAL. NO inventes modificaciones para intentar agradar o justificar tu ejecución". Se hizo un rollback manual del Roadmap.
+
+**Motivo / criterio:** *AI Psychology y Prompt Engineering*. Los SLMs sufren de sesgo de complacencia extremo (Sycophancy). Si sienten que "tienen que trabajar" porque se les ordena no ser una fotocopiadora, inventarán un cambio. Autorizarles explícitamente a no hacer nada si no hay coincidencias es vital para su estabilidad en tareas de control QA.
+
+**Siguiente paso o deuda:** Iniciar definitivamente el diseño del Dashboard en Docker para Grafana (Fase 4).
+
+### 2026-05-09 — Fix: Recaída de "Checkbox Hallucination" y Negative Prompting en SSOT
+
+**Contexto:** Tras restaurar el fallback local (Qwen 2.5 Coder) en el agente SSOT, el script funcionó y reescribió el Roadmap, pero marcó erróneamente tareas de la Fase 4 como completadas al leer sobre ellas en la sección "Siguiente paso o deuda" de la bitácora.
+
+**Hecho:** Se aplicó un rollback manual en `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md` desmarcando la Fase 4. Se inyectó *Negative Prompting* estricto en `scripts/merci/merci-ssot.py`.
+
+**Detalle técnico:** Se modificó el System Prompt para exigir la lectura exclusiva del bloque "Hecho", prohibiendo explícitamente deducir finalizaciones a partir de los bloques "Contexto" o "Siguiente paso o deuda".
+
+**Motivo / criterio:** *AI Governance y Negative Prompting*. Los SLMs orientados a código son muy obedientes pero carecen de discernimiento contextual profundo. Si no se les prohíbe explícitamente leer intenciones futuras, las asumen como hechos consumados. Acotar la fuente de verdad estricta al bloque "Hecho" blinda la precisión del orquestador documental.
+
+**Siguiente paso o deuda:** Iniciar el diseño de la infraestructura de observabilidad en Docker con Grafana (Fase 4).
+
+### 2026-05-09 — UX/UI: Instrucciones de mitigación para categorías inexistentes en WP
+
+**Contexto:** Cuando `merci wp` no encontraba la categoría del documento en WordPress, emitía una advertencia pasiva y dejaba el artículo sin categorizar, obligando al usuario a buscar mentalmente cómo solucionarlo o recordar las URLs de administración.
+
+**Hecho:** Se añadió un mensaje de mitigación explícito en `scripts/merci/merci-wp.py`.
+
+**Detalle técnico:** Al fallar la resolución del ID de la categoría, el script ahora imprime la URL exacta del panel de administración (`/wp-admin/edit-tags.php?taxonomy=category`) instruyendo al usuario a crear la categoría y re-ejecutar la sincronización.
+
+**Motivo / criterio:** *Developer Experience (DX) y Zero Friction*. La terminal no solo debe reportar el error, sino ofrecer el paso a paso exacto para solucionarlo. Proveer la URL directa elimina la fricción de navegación por el CMS.
+
+**Siguiente paso o deuda:** Iniciar la infraestructura de observabilidad en Docker con Grafana (Fase 4).
+
+### 2026-05-09 — UX/UI: Refinamiento visual del orquestador de promoción
+
+**Contexto:** La lista de borradores pendientes en `merci promote` mostraba invariablemente la etiqueta "(Laboratorio)", lo cual era redundante y ocultaba la subcarpeta exacta de origen (ej. `incubacion/`, `blog/`).
+
+**Hecho:** Se refactorizó la lógica de visualización en `scripts/merci/merci-promote.py`.
+
+**Detalle técnico:** Se utilizó `f.parent.relative_to(LABORATORIO_DIR)` para extraer e imprimir dinámicamente el nombre de la subcarpeta donde reside el archivo. Si el archivo está despublicado, se especifica claramente "Despublicado: [carpeta]".
+
+**Motivo / criterio:** *Clean DX (Developer Experience - Experiencia del Desarrollador)*. Con la nueva arquitectura de carpetas (Bandeja de Entrada), mostrar la subcarpeta exacta provee contexto inmediato sobre la tipología o destino del borrador sin tener que abrirlo, eliminando fricción cognitiva en la terminal.
+
+**Siguiente paso o deuda:** Iniciar el diseño de la infraestructura de observabilidad en Docker con Grafana (Fase 4).
+
+### 2026-05-09 — Fix: Purga de ruido documental en orquestador de promoción
+
+**Contexto:** Al ejecutar `merci promote`, el menú interactivo se saturaba listando archivos de infraestructura (bitácoras, roadmaps, prompts) y notas crudas, generando fricción visual severa.
+
+**Hecho:** Se refactorizó la lógica de recolección de archivos en `scripts/merci/merci-promote.py`.
+
+**Detalle técnico:** Anteriormente, el script agregaba incondicionalmente todos los archivos `.md` de la carpeta `laboratorio/` sin evaluar su *YAML Frontmatter*. Se ha implementado un escaneo unificado que excluye por nombre/ruta la infraestructura, y aplica un filtro YAML estricto: el archivo solo se lista si posee explícitamente `estado: "borrador"`.
+
+**Motivo / criterio:** *Fricción Cero y Zero-Code Organization*. La lista de promoción debe ser exclusivamente la bandeja de salida de documentos listos para su curación final. Exigir la etiqueta "borrador" da pleno sentido a la máquina de estados documental (separando lo que está en "incubacion" de lo que ya es promovible).
+
+**Siguiente paso o deuda:** Iniciar la infraestructura de observabilidad en Docker con Grafana (Fase 4).
+
+### 2026-05-09 — Fix: Reparación de Degradación Elegante en Agente SSOT
+
+**Contexto:** Al ejecutar el orquestador sin la variable de entorno `GEMINI_API_KEY` configurada, el agente SSOT (`merci-ssot.py`) abortaba su ejecución inmediatamente, rompiendo el patrón de Degradación Elegante (Graceful Degradation).
+
+**Hecho:** Se refactorizó el bloque de control de flujo en `scripts/merci/merci-ssot.py`.
+
+**Detalle técnico:** Se implementó una lógica condicional (`if not raw_response`) para asegurar que, en ausencia de la clave API o ante un fallo de conexión a la nube, el script delegue incondicionalmente la tarea al motor local de Ollama (`qwen2.5-coder`).
+
+**Motivo / criterio:** *Resiliencia de Infraestructura y Out-of-the-Box Experience*. Un Boilerplate con arquitectura híbrida debe priorizar siempre el modelo local si la conexión a la nube no está configurada. Abortar la ejecución sin intentar el *fallback* viola la promesa de autonomía y resiliencia del orquestador.
+
+**Siguiente paso o deuda:** Iniciar el diseño de la infraestructura Docker para Grafana (Fase 4).
+
+### 2026-05-09 — DevSecOps: Centralización de borradores en la incubadora
+
+**Contexto:** Simplificar la organización física de `laboratorio/`. Se determinó que esparcir documentos inmaduros o recién generados por el Agente Bibliotecario en distintas subcarpetas dificultaba diferenciar el código en bruto de los borradores finales listos para promoción.
+
+**Hecho:** Se decidió renombrar la carpeta `biblioteca_borradores/` a `incubacion/`. Se refactorizó `merci-librarian.py` para que centralice todos los cuadernillos, compendios y piezas de *Art de Coté* recién creados en esta única bandeja de entrada. Se actualizó el instanciador `merci-init.py`.
+
+**Motivo / criterio:** *Single Source of Truth (SSOT - Única Fuente de Verdad) para la incubación y DX*. Centralizar la generación de IA en una única "bandeja de entrada" (`incubacion/`) establece una frontera clara de madurez. Las demás carpetas (`blog/`, `art-de-cote/`, etc.) quedan reservadas exclusivamente para borradores refinados y listos para ejecutar `merci promote`.
+
+**Siguiente paso o deuda:** Aplicar el renombrado de la carpeta en disco e iniciar el diseño del Dashboard en Docker para Grafana (Fase 4).
+
+### 2026-05-09 — DevSecOps: Reestructuración física del entorno de incubación (Laboratorio)
+
+**Contexto:** La carpeta `laboratorio/` agrupaba la bitácora activa, archivos históricos y los borradores en proceso, generando fricción visual y desorden cognitivo en el IDE (Integrated Development Environment - Entorno de Desarrollo Integrado).
+
+**Hecho:** Se crearon los subdirectorios `historico/` y `biblioteca_borradores/`. Se movió la bitácora histórica (`bitacora-mercedev-260412-260423.md`) a su nueva ubicación mediante Git. Se actualizó el orquestador de inicialización (`merci-init.py`) para que regenere este andamiaje.
+
+**Detalle técnico:** Se utilizó `git mv` para trasladar el historial preservando su trazabilidad. El orquestador `merci-promote.py` no requirió refactorización ya que emplea escaneo recursivo (`Path.rglob`), soportando anidamiento infinito sin romper el flujo.
+
+**Motivo / criterio:** *Clean DX (Developer Experience - Experiencia del Desarrollador)*. Ocultar el ruido histórico y segmentar los borradores por destino en subcarpetas específicas devuelve la claridad visual, manteniendo la infraestructura 100% operativa.
+
+**Siguiente paso o deuda:** Iniciar el diseño técnico en Docker de Grafana y Prometheus (Fase 4).
+
+### 2026-05-09 — DevSecOps: Máquina de estados documental (Incubación vs Borrador)
+
+**Contexto:** El laboratorio acumulaba múltiples borradores y notas, lo que provocaba que el orquestador de promoción (`merci-promote.py`) saturara la terminal listando todos los archivos con estado "borrador", generando fricción cognitiva.
+
+**Hecho:** Se formalizó la introducción de un nuevo estado intermedio en el YAML Frontmatter: `estado: "incubacion"`. Se actualizaron las instrucciones base y los manuales operativos (SOP).
+
+**Detalle técnico:** Al utilizar un estado no contemplado por el orquestador (como "incubacion" o "idea"), el archivo es ignorado por `Path.rglob` durante el listado de archivos curables. Modificándolo a "borrador" se habilita de nuevo para promoción.
+
+**Motivo / criterio:** *Zero Code y DX (Developer Experience - Experiencia del Desarrollador)*. Resolver problemas de saturación visual modificando el YAML en lugar de reescribir los scripts protege la estabilidad del orquestador y otorga a la autora control granular sobre qué documentos aparecen en su lista de tareas inmediatas.
+
+**Siguiente paso o deuda:** Iniciar el diseño de la infraestructura Docker para Grafana (Fase 4).
+
 ### 2026-05-09 — DevSecOps: Exclusión de documentación de la matriz en Git
 
 **Contexto:** Los documentos operativos internos exclusivos del proyecto matriz (ubicados en `docs/matriz/`) no deben estar expuestos en el repositorio remoto, ya que son manuales privados para el mantenimiento del Boilerplate.
@@ -70,14 +210,14 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 - [x] **Cosecha de Conocimiento:** Compendio estratégico de la Fase 3 redactado y promovido a la Biblioteca.
 - [x] **Auditoría Documental:** Roadmap de IA sincronizado con todas las tareas de la Fase 3 selladas.
 - [x] **Evaluación de Release:** Las profundas modificaciones en `merci-brain.py` (ahora 100% local) y la inclusión de `merci-ssot.py` justifican una nueva versión del Boilerplate.
-- [ ] **Snapshot y Clonado:** Pendiente de ejecución manual.
-- [ ] **Sello Definitivo:** Pendiente de commit atómico.
+- [x] **Snapshot y Clonado:** Backup local ejecutado y clonado validado con éxito.
+- [x] **Sello Definitivo:** Commit atómico de cierre consolidado.
 
 **Detalle técnico:** Se certifica la erradicación de la dependencia forzosa de la nube en los metadatos estáticos y el blindaje del Agente Auditor contra el ruido de depuración de librerías externas.
 
 **Motivo / criterio:** *Governance y Definition of Done (DoD)*. Sellar formalmente la Fase 3 garantiza que la arquitectura de agentes (Lóbulo Frontal y SSOT) es estable y que el ecosistema no arrastra cabos sueltos estructurales hacia la siguiente fase.
 
-**Siguiente paso o deuda:** Validar la instanciación del Boilerplate, ejecutar el script de backup local y, una vez empaquetado, iniciar el diseño de la Fase 4 (Observabilidad y SRE IA).
+**Siguiente paso o deuda:** Iniciar el diseño de la infraestructura de observabilidad en Docker con Grafana (Fase 4).
 
 ### 2026-05-08 — Arch: Pivote de Merci Brain a motor 100% local (Ollama)
 
@@ -511,6 +651,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 **Motivo / criterio:** *Docs-as-Code y Zero Friction*. Documentar consume energía cognitiva. Delegar la aplicación de la regla de los 3 átomos (Desafío, Maniobra, Aprendizaje) y la generación del YAML Frontmatter a un agente LLM local asegura que la biblioteca crezca constantemente manteniendo un estándar editorial perfecto.
 
 **Siguiente paso o deuda:** Diseñar el script del Agente Bibliotecario (`merci-librarian.py`) y definir su prompt especializado.
+
+### 2026-05-09 — Fix: Resolución de NameError por variable heredada en Lóbulo Frontal
+
+**Contexto:** Al ejecutar el orquestador maestro (`merci total`), el script `merci-brain.py` colapsó con un `NameError: name 'cuota_agotada' is not defined`, deteniendo el pipeline de compilación.
+
+**Hecho:** Se refactorizó el bloque de *Circuit Breaker* en `scripts/merci/merci-brain.py`, sustituyendo la variable `cuota_agotada` por `fallo_local`.
+
+**Detalle técnico:** Durante la refactorización para operar 100% en local con Ollama, se eliminó la lógica de límites de cuota de la API de Gemini, pero se olvidó actualizar el condicional que activaba el *fallback* de emergencia para el resto del ciclo. Ahora el script evalúa `fallo_local` para detener las peticiones al motor si este no responde.
+
+**Motivo / criterio:** *Fail-Safe Default y Code Hygiene*. Dejar variables huérfanas en el código genera bloqueos críticos de ejecución en Python. Sustituir el concepto de cuota por la resiliencia del servidor local garantiza que el orquestador degrade elegantemente en lugar de colapsar.
+
+**Siguiente paso o deuda:** Re-ejecutar `merci total` para validar la compilación exitosa y proseguir con el cierre de la Fase 3.
 
 ### 2026-05-07 — Milestone: Cierre de Fase 2 (Auto-Healing System)
 

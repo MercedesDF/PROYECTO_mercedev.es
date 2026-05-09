@@ -106,7 +106,10 @@ def process_note(note_path: Path):
     
     tipo_doc = "cuadernillo"
     prefijo = "cuadernillo-borrador"
-    destino_dir = LAB_DIR
+    # QUÉ HACE: Centraliza la salida de todos los documentos en una única bandeja de entrada.
+    # POR QUÉ: Separa los documentos recién creados por la IA de los borradores maduros listos para promoción.
+    destino_dir = LAB_DIR / "incubacion"
+    destino_dir.mkdir(parents=True, exist_ok=True)
     instrucciones_extra = ""
     plantilla_path = REPO_ROOT / "docs" / "plantilla-cuadernillo.md"
 
@@ -117,8 +120,6 @@ def process_note(note_path: Path):
         plantilla_path = REPO_ROOT / "docs" / "plantilla-proyecto.md"
     elif opcion == "3":
         prefijo = "art-de-cote-borrador"
-        destino_dir = LAB_DIR / "art-de-cote"
-        destino_dir.mkdir(parents=True, exist_ok=True)
         instrucciones_extra = "ATENCIÓN: Estás redactando un ART DE COTÉ. Enfatiza el valor del código descartado o el experimento realizado para que quede como registro."
         plantilla_path = REPO_ROOT / "docs" / "plantilla-art-de-cote.md"
 
