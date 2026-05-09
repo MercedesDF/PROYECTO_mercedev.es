@@ -22,6 +22,7 @@ try:
     from litellm import completion
     import litellm
     litellm.telemetry = False
+    litellm.suppress_debug_info = True
 except ImportError:
     print("ℹ️ [Merci SSOT] LiteLLM no está instalado. Omitiendo agente SSOT.")
     sys.exit(0)
@@ -55,7 +56,9 @@ def auto_descubrir_modelo(api_key):
 def clean_markdown(text: str) -> str:
     """Limpia el código de salida de la IA para que sea Markdown puro."""
     # Buscar el inicio real del Markdown y amputar la basura conversacional
-    inicio_md = text.find("# ")
+    inicio_md = text.find("# 🗺️ ROADMAP")
+    if inicio_md == -1:
+        inicio_md = text.find("# ")
     if inicio_md != -1:
         text = text[inicio_md:]
         
@@ -78,21 +81,22 @@ def main():
     roadmap_content = ROADMAP_PATH.read_text(encoding="utf-8")
     bitacora_full = BITACORA_PATH.read_text(encoding="utf-8")
     
-    # Extraer solo las 2 últimas entradas de la bitácora para proteger la ventana de contexto local (LM Studio)
+    # Extraer solo las últimas 2 entradas de la bitácora para ser precisos y evitar diluir el prompt
     entradas = re.split(r'(?=### \d{4}-\d{2}-\d{2})', bitacora_full)
     bitacora_reciente = "".join(entradas[1:3]) if len(entradas) > 1 else bitacora_full[:2000]
 
-    system_prompt = """Eres el Agente SSOT (Single Source of Truth) de un ecosistema DevSecOps.
-Tu objetivo es evitar la Deriva Documental (Document Drift).
-Recibirás las últimas entradas de la Bitácora y el estado actual del Roadmap en Markdown.
+    system_prompt = """Eres el Agente SSOT de un ecosistema DevSecOps.
+Tu misión es actualizar el ROADMAP basándote en los últimos avances de la BITÁCORA.
 
-REGLAS INNEGOCIABLES:
-1. Evalúa si los hitos logrados en la Bitácora corresponden a tareas no marcadas (- [ ]) en el Roadmap.
-2. Si un agente o tarea fue completado o DEPRECADO (movido a Art de Coté), cambia su estado a `- [x]` en el Roadmap. (Ej: `- [x] Agente Bibliotecario (Deprecado a Art de Coté)`).
-3. Devuelve ÚNICA Y EXCLUSIVAMENTE el código Markdown completo del Roadmap actualizado. COPIA EL ROADMAP ORIGINAL DE PRINCIPIO A FIN Y APLICA TUS CAMBIOS. NO RESUMAS.
-PROHIBIDO usar frases como "Here is the updated roadmap" o "After evaluating...". 
-TU RESPUESTA DEBE EMPEZAR CON EL SÍMBOLO "# " DEL TÍTULO DEL ROADMAP Y TERMINAR CON LA ÚLTIMA LÍNEA DEL MISMO.
-4. NO uses cadenas de pensamiento (Chain of Thought) ni expliques tu razonamiento. Devuelve DIRECTAMENTE el código Markdown final."""
+INSTRUCCIONES DE RAZONAMIENTO PREVIO (Piensa paso a paso):
+1. Analiza los bloques "Hecho" o "Contexto" de la Bitácora.
+2. Busca qué tareas pendientes `- [ ]` del Roadmap se corresponden con esos hechos (algo descartado o relegado a cloud también se considera completado).
+3. Escribe en texto plano qué tareas vas a actualizar de `[ ]` a `[x]`. Si se menciona un círculo rojo en la bitácora, añade 🔴.
+
+INSTRUCCIONES DE SALIDA:
+Tras tu razonamiento, imprime todo el código del Roadmap actualizado.
+DEBES REESCRIBIR EL ROADMAP ENTERO DE PRINCIPIO A FIN.
+ASEGÚRATE de haber cambiado físicamente los `- [ ]` por `- [x]` en las líneas que detectaste. ¡NO actúes como una fotocopiadora ciega, aplica los cambios!"""
 
     prompt = f"--- ESTADO ACTUAL DEL ROADMAP ---\n{roadmap_content}\n\n--- ÚLTIMAS ENTRADAS BITÁCORA ---\n{bitacora_reciente}"
 
@@ -113,21 +117,30 @@ TU RESPUESTA DEBE EMPEZAR CON EL SÍMBOLO "# " DEL TÍTULO DEL ROADMAP Y TERMINA
             ],
             api_key=api_key,
             temperature=0.0,
-            max_tokens=2500,
+            max_tokens=4000,
             timeout=600
         )
     except Exception as e_cloud:
-        print(f"  ❌ [Merci Error] Falló Gemini y el agente SSOT requiere la nube para tareas complejas. Detalle: {e_cloud}")
-        return
+        print(f"  ⚠️ [Merci Warn] Falló Gemini ({e_cloud}). Intentando Fallback local con Ollama (qwen2.5-coder)...")
+        try:
+            respuesta = completion(
+                model="ollama/qwen2.5-coder",
+                api_base="http://localhost:11434",
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.0,
+                max_tokens=4000,
+                timeout=600
+            )
+        except Exception as e_local:
+            print(f"  ❌ [Merci Error] Falló también el motor local de Ollama. Detalle: {e_local}")
+            return
             
     try:
         raw_response = respuesta.choices[0].message.content
         nuevo_roadmap = clean_markdown(raw_response)
-        
-        # SONDA DE DEPURACIÓN: Guardar la respuesta cruda antes de que actúe el escudo
-        debug_path = REPO_ROOT / "laboratorio" / "DEBUG-ROADMAP.md"
-        debug_path.write_text(raw_response, encoding="utf-8")
-        print(f"  🐞 [Merci Debug] Salida cruda de la IA guardada en: {debug_path.relative_to(REPO_ROOT)}")
         
         # ESCUDO ANTI-ALUCINACIONES (Sanity Checks)
         if len(nuevo_roadmap) < len(roadmap_content) * 0.5:
@@ -138,10 +151,24 @@ TU RESPUESTA DEBE EMPEZAR CON EL SÍMBOLO "# " DEL TÍTULO DEL ROADMAP Y TERMINA
             return
         
         if nuevo_roadmap.strip() != roadmap_content.strip():
+            # Identificar qué fases han sido actualizadas comparando líneas
+            old_lines = roadmap_content.strip().splitlines()
+            new_lines = nuevo_roadmap.strip().splitlines()
+            fases_modificadas = set()
+            fase_actual = "Fase General"
+            
+            for i, new_line in enumerate(new_lines):
+                if new_line.startswith("## "):
+                    fase_actual = new_line.replace("##", "").strip()
+                if i >= len(old_lines) or new_line != old_lines[i]:
+                    fases_modificadas.add(fase_actual)
+                    
             ROADMAP_PATH.write_text(nuevo_roadmap, encoding="utf-8")
             print("  ✅ [Éxito] Deriva documental sanada. Roadmap reescrito automáticamente.")
+            if fases_modificadas:
+                print(f"  🗺️  Avance registrado en: {', '.join(fases_modificadas)}")
         else:
-            print("  ✅ [Éxito] El Roadmap ya está perfectamente sincronizado.")
+            print("  ℹ️ [Merci Info] Sin avances en roadmap-ai. Ya está perfectamente sincronizado.")
             
     except Exception as e:
         print(f"  ❌ [Merci Error] Fallo procesando la respuesta de la IA: {e}")

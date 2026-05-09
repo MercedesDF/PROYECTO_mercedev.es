@@ -39,6 +39,46 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-08 — Fix: Alucinación de inercia (Checkbox Hallucination) en Qwen y silenciamiento de LiteLLM
+
+**Contexto (Desafío):** Al ejecutar el Agente SSOT con Qwen 2.5 Coder, el modelo actualizó correctamente la Fase 3, pero sufrió una "alucinación por inercia" (Pattern Inertia), marcando prematuramente las tareas de la Fase 4 al seguir el patrón visual de casillas marcadas. Además, la capa de abstracción LiteLLM ensuciaba la terminal con avisos de depuración al realizar la Degradación Elegante.
+
+**Hecho (Maniobra):** Se revirtió la modificación en el Roadmap, desmarcando las casillas de la Fase 4. Se inyectó `litellm.suppress_debug_info = True` en los agentes SSOT y Auditor para silenciar el ruido de la librería. Se revisaron los comentarios descriptivos en `merci-audit.py`.
+
+**Motivo / criterio (Aprendizaje):** *Human-in-the-Loop y Clean DX*. Los Small Language Models (SLMs) son muy susceptibles a continuar patrones visuales repetitivos. La revisión humana final es obligatoria en tareas de gobernanza documental. Ocultar los avisos de soporte de dependencias externas protege la Experiencia del Desarrollador (DX) y el enfoque en consola.
+
+**Siguiente paso o deuda:** Iniciar el diseño arquitectónico de la Fase 4 (Observabilidad y SRE IA).
+
+### 2026-05-08 — Fix: Barrera interactiva (Gatekeeper) en automatización de LinkedIn
+
+**Contexto (Desafío):** Al probar el publicador social, el script funcionó *demasiado* bien. Escaneó el repositorio y encontró cuadernillos y artículos antiguos que estaban "publicados" y tenían la plantilla HTML de LinkedIn, pero carecían del sello `linkedin_id`. Esto provocó la publicación automática y simultánea de tres posts antiguos en la red profesional (Spam accidental).
+
+**Hecho (Maniobra):** Se refactorizó `merci-linkedin.py` implementando un "Gatekeeper" interactivo. El script ahora detecta el post, muestra una previsualización en la terminal y exige confirmación humana explícita (`s/N`) antes de disparar la petición a la API de LinkedIn.
+
+**Motivo / criterio (Aprendizaje):** *Human-in-the-Loop y AI Governance*. La automatización ciega sobre canales públicos es un riesgo crítico. La máquina debe hacer el trabajo pesado (buscar, extraer, formatear y conectarse a la API), pero el humano siempre debe retener la autorización final del disparo para evitar incidentes en producción.
+
+**Siguiente paso o deuda:** Ejecutar el Agente SSOT para que detecte la finalización del publicador social, marcando la última casilla y sellando definitivamente la Fase 3 del Roadmap.
+
+### 2026-05-08 — Feat: Resurrección del Fallback Local en Agente SSOT (Qwen 2.5 Coder)
+
+**Contexto (Desafío):** El Agente de sincronización documental (SSOT) había sido relegado a "Cloud puro" porque los modelos locales anteriores (Llama 3, Phi-3) sufrían del "Síndrome de la Fotocopiadora" (Photocopier Syndrome), limitándose a copiar el Roadmap íntegro sin procesar los cambios lógicos descritos en la bitácora.
+
+**Hecho (Maniobra):** Se reintrodujo la Degradación Elegante en `merci-ssot.py` delegando el fallback local al modelo `ollama/qwen2.5-coder`. Se reescribió el *System Prompt* implementando "Chain of Thought" (Cadena de Pensamiento), obligando al modelo a deducir en texto plano qué tareas `[ ]` debían mutar a `[x]` antes de imprimir el código Markdown.
+
+**Motivo / criterio (Aprendizaje):** *Prompt Engineering y Local Resilience*. Los modelos especializados en código (SLMs) son brillantes en lógica deductiva, pero necesitan "pensar en voz alta" para no entrar en piloto automático al formatear. Combinar esto con la extracción estricta de Markdown (`text.find("# 🗺️ ROADMAP")`) salva el *Hybrid Stack* y permite que el orquestador vuelva a auto-sanarse sin conexión a Internet.
+
+**Siguiente paso o deuda:** Validar el pipeline de automatización social publicando un post de prueba en LinkedIn para cerrar la cuarta y última tarea pendiente de la Fase 3.
+
+### 2026-05-08 — Fix: Refactorización de automatización social (LinkedIn) y resolución de Code Drift
+
+**Contexto (Desafío):** El script de LinkedIn (`merci-linkedin.py`) sufría de Deriva de Código (Code Drift). Seguía exigiendo el campo `wp_id:` en el YAML Frontmatter para poder publicar, el cual fue eliminado del ecosistema en la versión 1.3.1 cuando el orquestador pivotó a la resolución dinámica por *slug*.
+
+**Hecho (Maniobra):** Se refactorizó `merci-linkedin.py` erradicando la dependencia estricta de `wp_id`. Se amplió el escaneo al directorio `biblioteca/` (para permitir la promoción de cuadernillos estáticos) y se implementó el borrado automático del token OIDC cuando la API devuelve un HTTP 401 por caducidad.
+
+**Motivo / criterio (Aprendizaje):** *Single Source of Truth y Fail-Fast*. Los scripts satélite deben evolucionar en paralelo con el núcleo. Eliminar el rastreo de `wp_id` alinea el orquestador social con la Única Fuente de Verdad actual (que basa la publicación en el `estado: "publicado"`). Auto-destruir un token caducado reduce la fricción operativa y obliga a la re-autenticación de forma elegante.
+
+**Siguiente paso o deuda:** Ejecutar el script y validar la publicación automática en LinkedIn con un post de prueba para sellar la Fase 8.
+
 ### 2026-05-08 — Docs: Cierre de Fase 3 y marcado rojo en Roadmap (Límites IA Local)
 
 **Contexto (Desafío):** Tras confirmar empíricamente la incapacidad de los modelos locales (<14B) para gobernar documentos complejos, era necesario reflejar en el Roadmap el fracaso estratégico de los tres agentes generativos propuestos para la Fase 3.
@@ -145,7 +185,6 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Contexto (Desafío):** Al migrar a LM Studio, se constató que la versión instalada en el entorno era exclusivamente de terminal (`lms`), sin Interfaz Gráfica de Usuario (GUI). Esto requería adaptar el flujo de trabajo para aprovisionar y servir modelos de IA de forma completamente desatendida.
 
-**Hecho (Maniobra):** Se estandarizó el uso de LM Studio CLI para el ecosistema. Los comandos operativos son: `lms download <modelo>` para descargar el binario, y `lms server start` para levantar el *endpoint* compatible con OpenAI en el puerto 1234.
 **Hecho (Maniobra):** Se estandarizó el uso de LM Studio CLI para el ecosistema. Los comandos operativos son: `lms get <modelo>` para descargar el binario, y `lms server start` para levantar el *endpoint* compatible con OpenAI en el puerto 1234.
 
 **Motivo / criterio (Aprendizaje):** *Headless Operations & CLI-First*. Depender de una GUI rompe la automatización. Operar el motor de inferencia local exclusivamente a través de la terminal certifica que el entorno DevSecOps puede ser portado en el futuro a servidores remotos (VPS) sin entorno de escritorio, garantizando la resiliencia de la infraestructura.

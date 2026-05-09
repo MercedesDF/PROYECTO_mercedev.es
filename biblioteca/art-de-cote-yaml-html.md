@@ -7,6 +7,7 @@ descripcion: "Cómo superar las limitaciones de parseo en YAML inyectando metada
 alt_portada: "Fragmento de código mostrando un comentario HTML utilizado como almacenamiento de datos."
 fecha: "2026-05-01"
 fase: "8 (Expansión de Contenido)"
+linkedin_id: "urn:li:share:7458645856410472448"
 ---
 
 <!-- linkedin:

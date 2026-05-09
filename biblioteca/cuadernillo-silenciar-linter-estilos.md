@@ -7,6 +7,7 @@ fecha: "2026-05-01"
 fase: "8 (Expansión de Contenido)"
 estado: "publicado"
 alt_portada: "Fragmento de código mostrando un comentario HTML utilizado para silenciar una regla de auditoría estática."
+linkedin_id: "urn:li:share:7458645858687860736"
 ---
 
 <!-- linkedin:

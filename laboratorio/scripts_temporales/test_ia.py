@@ -4,7 +4,7 @@
 test_ia.py — Sonda de validación de conexión con Ollama y LiteLLM.
 
 Objetivo: Comprobar que el entorno virtual de Python puede comunicarse 
-de forma privada y sin latencia con el modelo de IA local (phi3) 
+de forma privada y sin latencia con el modelo de IA local (qwen2.5-coder) 
 ejecutado en el sistema anfitrión.
 """
 
@@ -19,7 +19,7 @@ except ImportError:
     sys.exit(1)
 
 def test_local_llm():
-    print("🚀 Iniciando sonda de conexión con motor Ollama local (Modelo: phi3)...")
+    print("🚀 Iniciando sonda de conexión con motor Ollama local (Modelo: qwen2.5-coder)...")
     
     # QUÉ HACE: Desactiva el envío de métricas de uso a los servidores de LiteLLM.
     # POR QUÉ: DevSecOps y Privacidad. Mantenemos el aislamiento total del proyecto.
@@ -34,7 +34,7 @@ def test_local_llm():
         # QUÉ HACE: Realiza una petición de generación delegando la sintaxis a LiteLLM.
         # POR QUÉ: Permite usar el estándar de la industria mientras apuntamos a nuestro servidor local privado.
         respuesta = completion(
-            model="ollama/phi3",
+            model="ollama/qwen2.5-coder",
             messages=mensajes,
             api_base="http://localhost:11434",
             max_tokens=50
@@ -42,12 +42,12 @@ def test_local_llm():
 
         contenido = respuesta.choices[0].message.content
         print(f"\n✅ [Éxito] Enlace sináptico establecido. Respuesta de la IA:\n")
-        print(f"🤖 phi3: {contenido}\n")
+        print(f"🤖 qwen2.5-coder: {contenido}\n")
 
     except Exception as e:
         print(f"\n❌ [Merci Error] Fallo en la comunicación con Ollama: {e}")
         print("💡 Asegúrate de que el servicio de Ollama está levantado en el sistema anfitrión.")
-        print("💡 Comprueba que el modelo 'phi3' está correctamente descargado ('ollama run phi3').")
+        print("💡 Comprueba que el modelo 'qwen2.5-coder' está correctamente descargado ('ollama run qwen2.5-coder').")
         sys.exit(1)
 
 if __name__ == "__main__":
