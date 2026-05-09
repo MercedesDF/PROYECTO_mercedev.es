@@ -39,6 +39,36 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-09 — Milestone: Cierre definitivo de Fase 3 y Release v1.10.0
+
+**Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para dar por concluida la Fase 3 de Orquestación de Contenidos e iniciar la exportación de la versión 1.10.0 del Boilerplate.
+
+**Hecho:** Se ejecutó y superó la lista de verificación obligatoria:
+- [x] **Deuda Técnica:** 0 TODOs bloqueantes. Patrones de exclusión aplicados (`.privado`).
+- [x] **Cosecha de Conocimiento:** Cuadernillos sobre psicología SLM y patrones Zero-Code curados y promovidos a la Biblioteca.
+- [x] **Auditoría Documental:** Roadmap sincronizado, READMEs actualizados y "Product Drift" corregido.
+- [x] **Evaluación de Release:** `merci-boilerplate` v1.10.0 instanciado limpiamente con el nuevo patrón de "Bandeja de Entrada".
+- [x] **Snapshot:** Backup local ejecutado con éxito (peso optimizado de 2.08 MB).
+- [x] **Sello Definitivo:** Commit atómico de consolidación generado.
+
+**Detalle técnico:** Se comprobó que el script de instanciación purga correctamente el entorno local y crea el nuevo andamiaje de incubación. El orquestador `merci total` finalizó en verde (0 errores) tras resolver todas las colisiones y alucinaciones de IA detectadas en sesiones previas.
+
+**Motivo / criterio:** *Governance y Definition of Done (DoD)*. Sellar formalmente la Fase 3 certifica que el framework DevSecOps es estable, maduro y autosuficiente (operación 100% local con Ollama). Garantiza una base de código inmaculada antes de arrancar la infraestructura en Docker.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4: Observabilidad y SRE IA (Despliegue de Grafana y Prometheus en Docker).
+
+### 2026-05-09 — Perf: Exclusión de la carpeta secreta en backup local
+
+**Contexto:** Al realizar la copia de seguridad final de la Fase 3, el peso del archivo ZIP (ZIP Archive - Archivo ZIP) saltó inesperadamente de 0.35 MB a 7.10 MB.
+
+**Hecho:** Se utilizó el modo `--verbose` (Caja de Cristal) para auditar la ejecución. Se detectó que el aumento se debía a las nuevas imágenes WebP generadas y a la inclusión accidental de la carpeta `.privado/`, la cual contenía capturas de pantalla en formato PNG pesado. Se parcheó `merci-backup.py`.
+
+**Detalle técnico:** Se añadió la ruta `REPO_ROOT / ".privado"` al set `EXCLUDE_PATHS` del script de copias de seguridad para evitar que material privado o crudo de la autora infle el tamaño del empaquetado del código fuente.
+
+**Motivo / criterio:** *Zero Bloat y Transparencia CLI*. El modo detallado cumple su función permitiendo localizar rápidamente a los "polizones" del backup. Excluir documentos privados con imágenes sin comprimir devuelve la eficiencia a la herramienta de contingencia.
+
+**Siguiente paso o deuda:** (Pendiente de instrucción).
+
 ### 2026-05-09 — Arch: Abstracción de datos (Shift-Left Parsing) en Agente SSOT
 
 **Contexto:** La Inteligencia Artificial local (Qwen 2.5 Coder) seguía marcando tareas futuras del Roadmap como completadas (alucinación inercial). Intentar domarla con *Negative Prompting* ("ignora los siguientes pasos") resultó ineficaz, confirmando que la IA leía intenciones futuras y las asumía como hechos.
