@@ -39,6 +39,40 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-10 — Fix: Sincronización de DLP en .gitignore para docs/matriz
+
+**Contexto:** El linter `merci-audit.py` continuaba bloqueando el pipeline con un error `BANNED_TRACKED_FILE` para los manuales de `docs/matriz/`, a pesar de haber purgado la caché de Git previamente.
+
+**Hecho:** Se añadió explícitamente el directorio `docs/matriz/` al archivo `.gitignore`.
+
+**Detalle técnico:** Al no estar en el `.gitignore`, cualquier comando `git add .` ejecutado posteriormente (por ejemplo, durante `merci commit`) volvía a rastrear los archivos automáticamente. La exclusión pasiva es necesaria para acompañar al escudo activo del linter.
+
+**Motivo / criterio:** *Defensa en Profundidad (Defense in Depth)*. El linter actúa como última barrera de defensa (escudo activo), pero Git debe tener la orden explícita (escudo pasivo) para ignorar los archivos en el flujo de trabajo diario y evitar un ciclo infinito de falsos positivos.
+
+**Siguiente paso o deuda:** Realizar la Cosecha Documental de la Fase 3.
+
+### 2026-05-10 — Fix: Preservación de carpeta de Prompts en instanciación
+
+**Contexto:** Al instanciar el Boilerplate (`merci-init.py`), la carpeta `laboratorio/prompts/` se vaciaba por completo. El script borraba el contenido del laboratorio y luego reconstruía la carpeta vacía con un `.gitkeep`, provocando la pérdida de los *System Prompts* de la IA para los nuevos usuarios.
+
+**Hecho:** Se añadió `"prompts"` a la lista de exclusión (`exclude`) de la función `purge_directory` en `scripts/merci/merci-init.py`.
+
+**Detalle técnico:** Se actualizó la llamada a `purge_directory(REPO_ROOT / "laboratorio", exclude=["bitacora-merci-boilerplate.md", "prompts"])`. Esto evita que la guillotina arrase con el subdirectorio de configuración de los agentes.
+
+**Motivo / criterio:** *Data Leak Prevention vs. Configuration Retention*. La purga del laboratorio está diseñada para borrar borradores y notas (para evitar fugas de datos), pero los prompts son archivos de infraestructura y configuración base que deben viajar intactos a los proyectos derivados.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura Docker para Grafana y Prometheus.
+
+### 2026-05-10 — Docs: Release v1.11.0 del Boilerplate (Zero Maintenance & AI Optimization)
+
+**Contexto:** Tras la serie de refactorizaciones profundas (Sitemap dinámico, propagación de Cache Busting, inyección JSON en SSOT y extracción de prompts), el código de la matriz ha divergido positivamente del repositorio público `merci-boilerplate`.
+
+**Hecho:** Se actualizó el `README-merci.md` a la versión `v1.11.0` documentando los avances en automatización pura (Zero Maintenance) y la optimización del uso de LLMs.
+
+**Motivo / criterio:** *Agile Release Pipeline y Configuration Drift*. La Regla 14 exige que toda mejora en el ecosistema de scripts se exporte al boilerplate para evitar la deriva de configuración. Empaquetar estas mejoras sella las deudas técnicas saldadas antes de iniciar la Fase 4 de observabilidad.
+
+**Siguiente paso o deuda:** Ejecutar el SOP de Mantenimiento del Boilerplate (clonación efímera, `merci-init.py`, rsync) y, finalmente, iniciar la Fase 4 con Docker y Grafana.
+
 ### 2026-05-10 — Refactor: Extracción de Prompts a archivos Markdown (Separation of Concerns)
 
 **Contexto:** Se detectó una deuda técnica arquitectónica: los *System Prompts* de los agentes `merci-ssot.py` y `merci-brain.py` estaban "hardcodeados" (incrustados) dentro del código Python, a diferencia de `merci-audit.py` y `merci-librarian.py` que ya leían desde `laboratorio/prompts/`.

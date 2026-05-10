@@ -1,10 +1,16 @@
-# Merci Boilerplate v1.10.0
+# Merci Boilerplate v1.11.0
 
 Un ecosistema DevSecOps autónomo impulsado por Inteligencia Artificial Local (Shift-Left AI) y Desarrollo Guiado por Especificaciones (Spec-Driven Development). 
 
 Combina un orquestador local en Python puro (Sistema Merci) que automatiza la calidad del código, un núcleo estático ultrarrápido (HTML5, SASS, Vanilla JS, BEM) y un motor dinámico aislado opcional (WordPress Headless). Diseñado para alcanzar un rendimiento perfecto (Core Web Vitals 100/100) con 0 dependencias externas bloqueantes en el pipeline.
 
 > 🤖 **Inteligencia y Gobernanza:** El boilerplate incluye agentes de IA locales que auto-reparan código, auto-documentan el Roadmap y generan bases de conocimiento estáticas con coste cero y privacidad total. La justificación de las decisiones DevSecOps reside en la carpeta `/docs`.
+
+## 🚀 Novedades en la v1.11.0 (Zero Maintenance & AI Optimization)
+
+- **Auto-descubrimiento de Sitemap:** `merci-sitemap.py` ahora escanea recursivamente la carpeta `public/` y autogenera el mapa XML desde cero, asignando prioridades dinámicas sin intervención humana.
+- **Propagación de Cache Busting:** `merci-sync-pages.py` sincroniza automáticamente las marcas de tiempo (`?v=TIMESTAMP`) de CSS y JS desde la portada hacia las páginas secundarias, asegurando invalidación de caché global.
+- **Inyección JSON en Agente SSOT:** El orquestador documental ahora utiliza "Targeted Payload Extraction". La IA decide qué tareas completar y devuelve un array JSON, mientras que Python ejecuta el reemplazo matemático, reduciendo el consumo de tokens en un 90% y eliminando el riesgo de mutilación de archivos.
 
 ## 🚀 Novedades en la v1.10.0 (Autonomía Local y Self-Healing Docs)
 

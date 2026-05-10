@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix: Sincronización de DLP en .gitignore para docs/matriz — mercedev.es</title>
+    <meta name="description" content="Se añadió explícitamente el directorio 'docs/matriz/' al archivo '.gitignore' para evitar que Git rastreara los archivos automáticamente y bloqueara el pipeline por DLP.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz.html">
+    <link rel="stylesheet" href="/css/main.css?v=1778417458">
+    <script src="/js/MerciController.js?v=1777729228" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Fix: Sincronización de DLP en .gitignore para docs/matriz",
+      "description": "Se añadió explícitamente el directorio 'docs/matriz/' al archivo '.gitignore' para evitar que Git rastreara los archivos automáticamente y bloqueara el pipeline por DLP.",
+      "url": "https://mercedev.es/biblioteca/fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz.html"
+    }
+    </script>
+</head>
+<body class="page">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
+            <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                <h1 class="home-card__title--highlight">Fix: Sincronización de DLP en .gitignore para docs/matriz</h1>
+                <a href="/descargas/fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <!-- linkedin:
+Se implementó una solución crítica para evitar bucles infinitos y fugas de datos en el flujo de trabajo del proyecto mercedev.es. Añadiendo explícitamente 'docs/matriz/' al archivo '.gitignore', se aseguró que Git no rastreara los archivos automáticamente, lo que permitió superar el bloqueo por DLP. #DevSecOps #Gobernanza
+-->
+
+<h2>El Desafío (Síntoma)</h2>
+<p>Se detectó un fallo bloqueante en bucle con la carpeta privada <code>docs/matriz</code>. A pesar de purgar la caché de Git con <code>git rm --cached</code>, los archivos volvían a aparecer al hacer el siguiente <code>merci commit</code>, lo que provocaba que el Agente Auditor volviera a saltar bloqueando el pipeline por DLP.</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Se añadió explícitamente el directorio <code>docs/matriz/</code> al archivo <code>.gitignore</code>. Esta acción aseguró que Git no rastreara los archivos automáticamente, lo que evitó que el linter <code>merci-audit.py</code> continuara bloqueando el pipeline con un error <code>BANNED_TRACKED_FILE</code>.</p>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Esta solución demuestra la importancia de la Defensa en Profundidad (Defense in Depth). El <code>.gitignore</code> es el escudo pasivo que evita que los archivos sean rastreados accidentalmente, mientras que el linter es el escudo activo que detecta y bloquea posibles fugas de datos. Es crucial que ambos trabajen en tándem para evitar ciclos infinitos de falsos positivos y garantizar la seguridad del flujo de trabajo.</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

@@ -34,5 +34,8 @@
   "/biblioteca/discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh.html": "¿Ya te has preguntado por qué tu editor de código automágicamente activa los entornos virtuales mientras la terminal del sistema no?",
   "/biblioteca/release-pipeline-iterativo-agile-en-despliegue-de-plantillas.html": "¿Iterativo? ¿Agile? ¿Plantillas de Boilerplate? ¡La evolución de la infraestructura como código! 🚀✨",
   "/biblioteca/normalizacion-robusta-de-cadenas-el-poder-de-casefold.html": "Casefold despierta las cadenas ocultas, normalizando textos de formas inesperadas para superar la duplicidad en estanterías del SSG.",
-  "/biblioteca/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.html": "El README.md como código: documentación en constante evolución, la llave de un repositorio saludable."
+  "/biblioteca/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.html": "El README.md como código: documentación en constante evolución, la llave de un repositorio saludable.",
+  "/biblioteca/refactorizacion-de-system-prompts-a-archivos-markdown.html": "Refactorización de prompts a Markdown: ¡Optimiza el ecosistema IA en un estilo literario!",
+  "/biblioteca/fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz.html": "Descubre cómo un simple cambio en .gitignore puede desencadenar una cascada de efectos positivos en tu pipeline DevSecOps, evitando la detección accidental de datos sensibles.",
+  "/biblioteca/optimizacion-del-proceso-de-reescritura-con-ia-para-ssot.html": "Descubre cómo IA y el patrón Decisión vs Ejecución revolucionan la reescritura de archivos para un SSOT óptimo"
 }
