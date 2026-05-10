@@ -20,8 +20,8 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 ASSETS_RAW_DIR = REPO_ROOT / ".assets-raw"
 
 USER_CAPTURE_DIRS = [
-    Path.home() / "Pictures",
-    Path.home() / "Videos",
+    Path.home() / "/Imágenes/Capturas de pantalla",
+    Path.home() / "/Vídeos/Grabaciones de la pantalla",
     Path.home() / "Desktop",
 ]
 

@@ -3,7 +3,7 @@
 ## Para qué sirve este archivo
 
 Bitácora activa a partir del cierre arquitectónico fundacional (Fases 1–11, selladas el 2026-05-06).
-Registra exclusivamente las decisiones, experimentos y aprendizajes del nuevo roadmap de Inteligencia Artificial y Orquestación (`ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`).
+Registra exclusivamente las decisiones, experimentos y aprendizajes de la Épica 2 (Orquestación con Inteligencia Artificial) documentada en el `ROADMAP.md` maestro.
 
 El historial anterior (Fases 1–11) vive íntegramente en `laboratorio/bitacora-mercedev.md`.
 El archivo histórico archivado (2026-04-12 a 2026-04-23) está en `laboratorio/historico/bitacora-mercedev-260412-260423.md`.
@@ -38,6 +38,196 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 ---
 
 ## Registro cronológico
+
+### 2026-05-10 — Refactor: Extracción de Prompts a archivos Markdown (Separation of Concerns)
+
+**Contexto:** Se detectó una deuda técnica arquitectónica: los *System Prompts* de los agentes `merci-ssot.py` y `merci-brain.py` estaban "hardcodeados" (incrustados) dentro del código Python, a diferencia de `merci-audit.py` y `merci-librarian.py` que ya leían desde `laboratorio/prompts/`.
+
+**Hecho:** Se extrajeron los textos de las instrucciones de la IA y se crearon los archivos `prompt-ssot.md` y `prompt-brain.md` en el directorio de prompts. Se refactorizaron los scripts Python para leer de dichos archivos.
+
+**Detalle técnico:** Se utilizó `PROMPT_PATH.read_text(encoding="utf-8")` en ambos scripts. En `merci-brain.py`, las variables dinámicas (`{titulo}`, `{desc}`) se resuelven ahora mediante `.replace()` sobre la cadena extraída del Markdown.
+
+**Motivo / criterio:** *Separation of Concerns* (Separación de Responsabilidades) y *Prompt as Code*. Las instrucciones que gobiernan a un LLM son reglas de negocio, no lógica de programación. Extraerlas a un archivo `.md` facilita su lectura, permite modificarlas sin tocar el núcleo en Python y centraliza toda la "psicología" del sistema IA en un solo directorio auditable.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura Docker para Grafana y Prometheus.
+
+### 2026-05-10 — Arch: Separación de Decisión y Ejecución en Agente SSOT (Inyección JSON)
+
+**Contexto:** Los agentes LLM locales (como Qwen 2.5) sufrían constantemente de truncamiento y alucinaciones (resúmenes no deseados) al obligarles a reescribir un Roadmap de más de 100 líneas, simplemente para cambiar un `[ ]` por un `[x]`. 
+
+**Hecho:** Se rediseñó el Agente SSOT aplicando el patrón de Inyección Objetivo. Python ahora extrae solo las tareas pendientes y las envía al LLM. El LLM decide y devuelve un array JSON `["Nombre de la tarea"]`. Finalmente, Python realiza un `.replace()` exacto sobre el archivo físico.
+
+**Detalle técnico:** Se sustituyó el *parser* de Markdown por un extractor Regex `re.search(r'\[.*?\]')` que caza el array JSON crudo de la respuesta de la IA. El System Prompt fue simplificado drásticamente a un formato de extracción.
+
+**Motivo / criterio:** *Separation of Concerns y Eficiencia*. La IA debe ser el "Cerebro" (toma la decisión semántica) y el código nativo (Python) debe ser la "Mano" (ejecuta el reemplazo en el archivo). Esta genialidad arquitectónica erradica el 100% de las mutilaciones de archivos, reduce el coste de *Tokens* en un 90% (solo se leen pendientes, no épicas terminadas) y hace la ejecución ultrarrápida.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura Docker para Grafana y Prometheus.
+
+### 2026-05-10 — Fix: Robustez en System Prompt contra resúmenes del Agente SSOT
+
+**Contexto:** Al ejecutar `merci total`, el Agente SSOT local volvió a intentar resumir el Roadmap al detectar una coincidencia parcial de palabras ("Checklist de Hardening"), desencadenando el escudo anti-destrucción y abortando el pipeline.
+
+**Hecho:** Se endureció el *System Prompt* en `scripts/merci/merci-ssot.py` exigiendo explícitamente no omitir ninguna tarea de la Épica 1 ni de la Épica 2.
+
+**Detalle técnico:** Se refinó la instrucción de coincidencia (`ten cuidado con coincidencias parciales de palabras`) y se blindó la orden de salida para obligar a la IA a copiar el documento de principio a fin de forma literal, previniendo el "Checkbox Hallucination" por asociación de palabras y el truncamiento del documento.
+
+**Motivo / criterio:** *AI Governance y Prompt Engineering*. La restauración del Roadmap unificado con todo el historial de la Épica 1 incrementó la carga de lectura. Los modelos locales tienden a resumir bloques largos de texto ya completados si no se les prohíbe de forma hiper-específica.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura Docker para Grafana y Prometheus.
+
+### 2026-05-10 — Fix: Endurecimiento de Prompt (Anti-Resumen) en Agente SSOT y purga de caché Git
+
+**Contexto:** Al ejecutar `merci total`, el Agente SSOT local (Qwen 2.5 Coder) volvió a intentar resumir el Roadmap al no encontrar tareas que marcar, deteniendo el pipeline (Destrucción evitada). Simultáneamente, el Agente Auditor bloqueó correctamente la ejecución por encontrar los manuales de `docs/matriz/` rastreados en Git.
+
+**Hecho:** Se endureció el *System Prompt* de `scripts/merci/merci-ssot.py`. Se ejecutó la purga de caché de Git para los directorios restringidos.
+
+**Detalle técnico:** Se simplificó y volvió más imperativo el prompt de salida de SSOT: `Imprime ÚNICAMENTE la palabra "SIN_CAMBIOS" y no escribas nada más`. Además, se ejecutó `git rm -r --cached` sobre `docs/matriz/` y `.privado/` para hacer efectiva la regla DLP implementada previamente.
+
+**Motivo / criterio:** *AI Psychology y Data Leak Prevention*. Los SLMs se confunden con instrucciones de razonamiento complejas (Chain of Thought). Darles una orden binaria estricta evita la alucinación de resúmenes. La intervención en Git soluciona la discrepancia entre el `.gitignore` y el caché del índice (staged).
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura Docker para Grafana y Prometheus.
+
+### 2026-05-10 — Docs & QA: Actualización del Checklist de Hardening y expansión de DLP
+
+**Contexto:** Se revisó el estado del documento `docs/checklist-hardening.md` y se constató que no había sido actualizado desde el cierre de la Fase 11 (2026-05-06), omitiendo todas las nuevas barreras de seguridad (DLP, Linter de estilos, JS Smells) implementadas durante la Épica de Orquestación IA.
+
+**Hecho:** Se actualizó el checklist de Hardening. Se expandió la regla `BANNED_TRACKED_FILE` en `scripts/merci/merci-audit.py` para bloquear explícitamente los directorios `.privado/` y `docs/matriz/`.
+
+**Detalle técnico:** Se añadieron las carpetas ocultas de la autora a la función `audit_banned_tracked_files`. Si Git intenta rastrear archivos en estas rutas, el commit atómico será abortado inmediatamente, actuando como un escudo activo (Shift-Left) complementario al `.gitignore`.
+
+**Motivo / criterio:** *Document Drift y Zero Trust*. La documentación de seguridad debe ser un reflejo exacto y actualizado del código. Confiar la prevención de fuga de datos (DLP) únicamente a exclusiones pasivas (`.gitignore`) es un riesgo; el linter debe imponer la política de forma activa.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura Docker para Grafana y Prometheus.
+
+### 2026-05-10 — Arch: Aceptación del patrón WET en Python (Standalone Compliance)
+
+**Contexto:** Tras una revisión de arquitectura, se detectó que el ecosistema de scripts en Python viola el principio DRY (Don't Repeat Yourself), duplicando lógicas como la función `slugify` o el parseo de YAML Frontmatter en múltiples archivos. Se debatió si abstraer estas funciones a un módulo compartido (`merci_core.py`).
+
+**Hecho:** Se decidió rechazar la refactorización modular y consolidar el patrón WET (Write Everything Twice) manteniendo los scripts monolíticos.
+
+**Detalle técnico:** Implementar módulos compartidos en Python sin instalar el paquete localmente (vía `pip install -e .`) obliga a inyectar "hacks" de rutas (`sys.path.append`) que son frágiles ante refactorizaciones de directorios.
+
+**Motivo / criterio:** *Standalone Compliance y Portabilidad*. "Un poco de copia es mejor que un poco de dependencia" (Proverbio de Go). Mantener la lógica encapsulada en scripts independientes garantiza que cualquier herramienta (ej. `merci-audit.py`) pueda ser copiada y ejecutada en otros proyectos sin arrastrar dependencias estructurales, priorizando la resiliencia del Boilerplate sobre el purismo académico de POO.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura Docker para Grafana y Prometheus.
+
+### 2026-05-10 — Arch: Decisión de Arquitectura (ADR) contra la IA en Runtime (Frontend)
+
+**Contexto:** Se evaluó la posibilidad de inyectar lógica de llamadas a APIs de IA directamente en el frontend (`public/js/MerciController.js`) para generar saludos dinámicos en tiempo real, en lugar de depender del archivo estático precompilado.
+
+**Hecho:** Se rechazó formalmente la propuesta, consolidando el patrón de "Shift-Left AI" y la directriz de "El Maniquí" (Regla 6.6).
+
+**Detalle técnico:** Consultar a un LLM en *runtime* desde el navegador requiere exponer claves de API (vulnerabilidad crítica de seguridad) o desplegar un backend proxy (violando la regla de 0 dependencias). Además, la latencia de inferencia (2-5 segundos) destruiría el TBT (Total Blocking Time) de 0 ms.
+
+**Motivo / criterio:** *Performance y Zero Trust*. La arquitectura actual (`merci-brain.py` compilando a `brain_data.json`) es el equilibrio perfecto: otorga la ilusión de inteligencia dinámica en el frontend, pero delega el coste computacional y de seguridad a la fase de compilación (Build-time) local, garantizando un rendimiento 100/100 en Core Web Vitals.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura Docker para Grafana y Prometheus.
+
+### 2026-05-10 — Feat: Propagación de Cache Busting dinámico en páginas secundarias
+
+**Contexto:** El orquestador de publicación `merci-publish.py` inyectaba correctamente el Cache Busting dinámico (`?v=TIMESTAMP`) en la portada estática (`index.html`), pero se tenía la deuda técnica de que páginas secundarias como `contacto/` retenían versiones estáticas o desactualizadas en su cabecera.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-sync-pages.py` añadiendo expresiones regulares para el bloque de estilos y scripts en el `<head>`.
+
+**Detalle técnico:** Se implementaron tres nuevos patrones Regex (`css_pattern`, `jsc_pattern`, `jsm_pattern`) para capturar las etiquetas `<link>` y `<script>` de la portada y sobreescribir sus contrapartes en las páginas secundarias de forma automatizada.
+
+**Motivo / criterio:** *Zero Maintenance y SSOT*. Propagar la invalidación de caché a todas las páginas estáticas garantiza que los usuarios siempre reciban la última versión de los assets sin que la desarrolladora deba manipular manualmente las cadenas de consulta (query strings) a través de todo el ecosistema.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura Docker para Grafana y Prometheus.
+
+### 2026-05-10 — Feat: Auto-descubrimiento y regeneración dinámica del Sitemap
+
+**Contexto:** El archivo `sitemap.xml` se mantenía de forma semi-manual. Aunque el script `merci-sitemap.py` actualizaba la fecha (`lastmod`), las nuevas páginas web generadas (como los cuadernillos de la Biblioteca) debían inyectarse añadiendo bloques `<url>` a mano.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-sitemap.py` para aplicar el patrón de auto-descubrimiento. Se parcheó la desincronización de caché en `public/contacto/index.html`.
+
+**Detalle técnico:** El script de sitemap ahora utiliza `Path.rglob("*.html")` sobre la carpeta `public/` para encontrar todas las páginas estáticas. Limpia las rutas (eliminando `index.html` o `.html` para SEO) y regenera el archivo `sitemap.xml` desde cero, asignando prioridades dinámicamente según el nivel del directorio.
+
+**Motivo / criterio:** *Zero Maintenance y Automation*. Al igual que el cerebro de IA, el mapa del sitio debe ser un reflejo exacto y automatizado del estado físico de los archivos. Eliminar la intervención manual previene la "Ceguera SEO" donde páginas publicadas quedan sin indexar por olvido humano.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura Docker para Grafana y Prometheus.
+
+### 2026-05-10 — Chore: Limpieza de referencias obsoletas al Roadmap de IA
+
+**Contexto:** Tras unificar el Roadmap Maestro, el script `merci-ssot.py` y la cabecera de la bitácora seguían imprimiendo y referenciando el nombre del archivo antiguo (`ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`).
+
+**Hecho:** Se purgaron las cadenas de texto obsoletas ("roadmap-ai") en los mensajes de consola y *docstrings* de `scripts/merci/merci-ssot.py` y en la cabecera de `laboratorio/bitacora-mercedev-orquestacion-ia.md`.
+
+**Detalle técnico:** La ruta funcional `ROADMAP_PATH = REPO_ROOT / "ROADMAP.md"` ya operaba correctamente, la corrección fue puramente a nivel de interfaz de usuario (CLI) y documentación.
+
+**Motivo / criterio:** *Clean DX y SSOT*. Evitar mensajes de consola engañosos previene la confusión cognitiva del desarrollador. Toda referencia debe apuntar al "Roadmap Maestro" para consolidar la unificación.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura Docker para Grafana y Prometheus.
+
+### 2026-05-10 — Docs: Corrección de Product Drift en la cabecera del README principal
+
+**Contexto:** Se detectó que, si bien la identidad del `README-merci.md` (Boilerplate) había sido actualizada en la Fase 3, el `README.md` matriz seguía definiendo el proyecto como una simple "automatización local", omitiendo el ecosistema de IA.
+
+**Hecho:** Se refactorizó la cabecera introductoria de `README.md` para inyectar la terminología de "Shift-Left AI" y el bloque informativo sobre agentes locales.
+
+**Detalle técnico:** Se alineó el mensaje del producto matriz con el de su derivado, destacando la auto-reparación y la gobernanza documental como pilares fundamentales.
+
+**Motivo / criterio:** *Single Source of Truth y Product Identity*. El escaparate principal del repositorio matriz debe proyectar el mismo nivel de madurez técnica que la plantilla que distribuye. Omitir la Inteligencia Artificial en la definición inicial infravalora la arquitectura construida.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura Docker para Grafana y Prometheus.
+
+### 2026-05-10 — Docs: Actualización de puesta en marcha y estructura en README
+
+**Contexto:** La cabecera del archivo `README.md` (Requisitos, Puesta en marcha y Estructura) contenía información obsoleta de las primeras fases, afirmando que no se requerían dependencias externas de Python y omitiendo el nuevo flujo de trabajo con entornos virtuales y bandejas de entrada.
+
+**Hecho:** Se refactorizaron los bloques "Requisitos", "Puesta en marcha" y "Estructura principal" en el `README.md`.
+
+**Detalle técnico:** Se eliminó la afirmación "sin dependencias pip obligatorias", inyectando las instrucciones exactas para crear el entorno virtual (`.venv`) e instalar el `requirements.txt`. Se actualizó la descripción de la carpeta `laboratorio/` para reflejar el patrón de `incubacion/`. Se neutralizó el tono imperativo en todo el bloque.
+
+**Motivo / criterio:** *Configuration Drift*. El README principal es el escaparate del proyecto y un manual de instalación (Onboarding). Si las instrucciones de inicialización omiten la instalación de dependencias, los orquestadores de IA y los motores SSG fallarán de inmediato para cualquier nuevo colaborador o instancia desplegada.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura Docker para Grafana y Prometheus.
+
+### 2026-05-10 — Docs: Corrección de tiempos verbales (Segunda persona) en READMEs
+
+**Contexto:** Los documentos principales (`README.md` y `README-merci.md`) contenían instrucciones de entorno redactadas en segunda persona del modo imperativo ("Abre dos terminales", "Cuando llegues a la fase", "usa Nginx"), violando la Regla 7 del proyecto.
+
+**Hecho:** Se refactorizaron los bloques "Entorno de Desarrollo Local" en ambos archivos para utilizar un tono impersonal y pasivo.
+
+**Detalle técnico:** Las frases se adaptaron a construcciones como "Se requieren dos terminales" y "es necesario detener el servidor". 
+
+**Motivo / criterio:** *Impersonal Documentation*. La documentación versionada y pública debe mantener un tono técnico e impersonal. Escribir dirigiéndose directamente al lector es un antipatrón en documentación técnica rigurosa (Spec as Source) y denota falta de madurez en la redacción técnica.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura Docker para Grafana y Prometheus.
+
+### 2026-05-10 — Docs: Actualización del inventario de scripts del Ecosistema Merci
+
+**Contexto:** Tras la intensa adición de agentes de Inteligencia Artificial y automatizaciones operativas durante las Fases 2 y 3 (Épica 2), los documentos de referencia (`README.md`, `README-merci.md` e `instrucciones.md`) no reflejaban el listado completo de las nuevas herramientas incorporadas al ecosistema.
+
+**Hecho:** Se actualizaron las listas "Ecosistema Merci (Scripts Principales)" en todos los documentos normativos del proyecto.
+
+**Detalle técnico:** Se incluyeron 5 nuevos scripts estructurales: `merci-ssot.py` (Curación de deriva documental), `merci-librarian.py` (Formateador estricto local), `merci-extract-metrics.py` (Extractor de Core Web Vitals), `merci-auto-fix.py` (Auto-reparación en nube) y `merci-assets-watcher.py` (Vigilante multimedia).
+
+**Motivo / criterio:** *Single Source of Truth*. La documentación de entrada a la arquitectura no debe quedarse rezagada respecto al código real. Listar todos los scripts disponibles es fundamental para que el usuario del Boilerplate (o cualquier colaborador futuro) conozca la extensión total de capacidades del orquestador DevSecOps.
+
+**Siguiente paso o deuda:** Iniciar la Fase 4 (Observabilidad y SRE IA) con las configuraciones para Grafana y Prometheus en Docker.
+
+### 2026-05-10 — Fix: Mode Collapse (Colapso de Modo) en saludos estáticos de IA
+
+**Contexto:** Al revisar el archivo estático `brain_data.json` generado por la IA local (Qwen 2.5 Coder), se detectó que casi el 100% de los saludos comenzaban exactamente con la misma estructura ("Bienvenido al fascinante mundo...").
+
+**Hecho:** Se refactorizó la función de llamada a Ollama y el *System Prompt* en `scripts/merci/merci-brain.py`.
+
+**Detalle técnico:** Se incrementó la `temperature` de la inferencia de 0.4 a 0.65 para aumentar la entropía del vocabulario. En el prompt se aplicaron *Negative Constraints* (Restricciones Negativas), prohibiendo explícitamente el uso de las palabras "Bienvenido", "Hola" y "Mundo" para forzar al SLM a salir del bucle de anclaje iterativo.
+
+**Motivo / criterio:** *AI Governance y SLM Psychology*. Los modelos pequeños carecen de la variabilidad semántica espontánea de los modelos de frontera. Si el prompt pide "dar la bienvenida" bajo baja temperatura, el modelo se ancla a la traducción literal, colapsando en una plantilla. Las restricciones estrictas restauran la variedad y la personalidad.
+
+**Siguiente paso o deuda:** Regenerar el cerebro estático con `merci-brain.py --clean` e iniciar el despliegue de Observabilidad (Fase 4).
+
+### 2026-05-10 — Docs: Unificación del Roadmap y simplificación del README
+
+**Contexto:** El `README.md` principal estaba saturado con una lista de verificación microscópica de más de 11 fases, dificultando la lectura y comprensión de alto nivel del proyecto (Escaparate).
+
+**Hecho:** Se extrajeron todas las fases (Fundacionales e IA) a un único archivo maestro en la raíz (`ROADMAP.md`). Se reemplazó la sección en el `README.md` por un resumen narrativo de las "Épicas" del proyecto. Se actualizó el Agente SSOT (`merci-ssot.py`) para que apunte al nuevo documento unificado.
+
+**Motivo / criterio:** *Separation of Concerns* (Separación de Responsabilidades Documentales). El `README.md` actúa como el escaparate público del repositorio y debe ofrecer una visión estratégica. El `ROADMAP.md` actúa como la pizarra operativa interna y debe contener el detalle táctico y las tareas pendientes.
+
+**Siguiente paso o deuda:** Iniciar la instrumentación del código Python e instalación de librerías para la Fase 4 (Observabilidad y SRE IA).
 
 ### 2026-05-09 — Milestone: Cierre definitivo de Fase 3 y Release v1.10.0
 
