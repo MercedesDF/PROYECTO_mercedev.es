@@ -1,0 +1,36 @@
+version: '3.8'
+
+# QUÉ HACE: Define un clúster aislado con Prometheus (recolección de métricas) y Grafana (visualización).
+# POR QUÉ: Permite monitorizar el ecosistema DevSecOps sin instalar paquetes globales que ensucien el sistema Ubuntu anfitrión (Zero Bloat).
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: merci-prometheus
+    # CRÍTICO EN LINUX: Inyecta el puente de red para que Prometheus (dentro de Docker) 
+    # pueda leer el puerto 8001 de tu localhost (donde Python exportará las métricas).
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: merci-grafana
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    restart: unless-stopped
+
+volumes:
+  prometheus_data:
+  grafana_data:

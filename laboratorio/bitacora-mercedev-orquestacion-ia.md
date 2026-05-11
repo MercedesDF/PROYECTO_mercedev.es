@@ -39,6 +39,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-10 — Feat: Inicio de Fase 4 y despliegue de observabilidad en Docker
+
+**Contexto:** Tras sellar definitivamente la Fase 3 con la Cosecha de Conocimiento, se inicia la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura base para monitorizar el ecosistema DevSecOps.
+
+**Hecho:** Se creó el directorio `observabilidad/` con los archivos `docker-compose.yml` y `prometheus.yml` para instanciar Grafana y Prometheus.
+
+**Detalle técnico:** Se configuraron los puertos `3000` (Grafana) y `9090` (Prometheus) para evitar colisiones con Nginx local. Se inyectó `host.docker.internal:host-gateway` en el contenedor de Prometheus para permitirle raspar métricas desde los scripts Python que se ejecutarán nativamente en el anfitrión Ubuntu.
+
+**Motivo / criterio:** *Zero Bloat y Containerization*. Aislar la infraestructura de observabilidad en contenedores efímeros evita instalar paquetes globales pesados en el sistema anfitrión. Si el experimento de métricas no convence, basta con destruir los contenedores para devolver el sistema a su estado inmaculado.
+
+**Siguiente paso o deuda:** Levantar los contenedores, instalar `prometheus_client` en el entorno virtual de Python e instrumentar el orquestador maestro (`merci-total.py`).
+
 ### 2026-05-10 — Fix: Sincronización de DLP en .gitignore para docs/matriz
 
 **Contexto:** El linter `merci-audit.py` continuaba bloqueando el pipeline con un error `BANNED_TRACKED_FILE` para los manuales de `docs/matriz/`, a pesar de haber purgado la caché de Git previamente.
