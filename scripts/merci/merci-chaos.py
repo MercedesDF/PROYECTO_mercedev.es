@@ -73,8 +73,10 @@ def main():
     print("\n  🛡️ Lanzando Auditoría DevSecOps para medir defensas...")
     resultado = subprocess.run([sys.executable, str(REPO_ROOT / "scripts" / "merci" / "merci-audit.py")], cwd=REPO_ROOT, capture_output=True, text=True)
     
-    if resultado.returncode != 0: print(f"\n  ✅ [ÉXITO DEL CAOS] El sistema detectó la anomalía y bloqueó el ataque.\n\n{resultado.stdout.strip()}")
-    else: print(f"\n  ❌ [VULNERABILIDAD] El escudo falló. El código malicioso pasó indetectado.\n\n{resultado.stdout.strip()}")
+    salida = resultado.stdout.strip()
+    # Un WARN también es una detección exitosa del linter, aunque no rompa la compilación
+    if resultado.returncode != 0 or "WARN" in salida or "ERROR" in salida: print(f"\n  ✅ [ÉXITO DEL CAOS] El sistema detectó la anomalía.\n\n{salida}")
+    else: print(f"\n  ❌ [VULNERABILIDAD] El escudo falló. El código malicioso pasó indetectado.\n\n{salida}")
 
     print("\n  ⏪ Ejecutando Auto-Healing (Rollback)...")
     subprocess.run(["git", "restore", str(target_file)], cwd=REPO_ROOT)

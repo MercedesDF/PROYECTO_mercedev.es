@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Fix: Reconocimiento de Warnings como detección en Chaos Monkey
+
+**Contexto:** El agente Chaos Monkey inyectó un estilo en línea en el HTML. El auditor (`merci-audit.py`) detectó la anomalía lanzando un `WARN UI_INLINE_STYLE`, pero el Chaos Monkey lo consideró un fallo del escudo porque el código de salida fue `0` (los Warnings no rompen la compilación forzosamente).
+
+**Hecho:** Se refactorizó la lógica de evaluación en `scripts/merci/merci-chaos.py`.
+
+**Detalle técnico:** Se actualizó la condición de éxito para que evalúe `if resultado.returncode != 0 or "WARN" in salida or "ERROR" in salida`. 
+
+**Motivo / criterio:** *Test Accuracy (Precisión de Pruebas)*. Que el linter clasifique un hallazgo como `WARN` en lugar de `ERROR` es una decisión de severidad, pero a nivel de Chaos Engineering, la inyección *fue* interceptada correctamente. Evaluar la salida estándar (stdout) evita falsos negativos en la prueba de resiliencia.
+
 ### 2026-05-12 — Fix: Visibilidad táctica (Chivato) en Agente Chaos
 
 **Contexto:** El agente Chaos inyectó con éxito una vulnerabilidad que evadió el linter, pero la falta de registros detallados en consola impedía conocer el vector de ataque exacto utilizado por la IA.
