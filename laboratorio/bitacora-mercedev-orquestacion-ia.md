@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Fix: Blindaje del auditor contra inyección de assets externos
+
+**Contexto:** El Agente Chaos Monkey logró evadir el linter inyectando una hoja de estilos externa (`<link rel="stylesheet" href="https://example.com/injected-style.css?">`) en el archivo `index.html`.
+
+**Hecho:** Se implementó la regla `audit_external_assets` en `scripts/merci/merci-audit.py`.
+
+**Detalle técnico:** El auditor ahora escanea archivos `.html`, `.htm` y `.php` en busca de etiquetas `<script src="http...">` y `<link rel="stylesheet" href="http...">`. Si detecta una URL absoluta que no pertenece a los dominios locales (`mercedev.es` o `localhost`), lanza un `ERROR UI_EXTERNAL_ASSET` bloqueante.
+
+**Motivo / criterio:** *Zero External Dependencies*. La arquitectura estipula una política innegociable de cero dependencias en el frontend para proteger el rendimiento (100/100) y la privacidad. Bloquear cargas externas desde dominios ajenos cierra un vector de Supply Chain Attack y mantiene el cumplimiento arquitectónico de forma automatizada.
+
 ### 2026-05-12 — Fix: Falsos positivos en auditor de scripts en línea
 
 **Contexto:** El linter de seguridad `merci-audit.py` generaba falsos positivos masivos al detectar etiquetas `<script src="...">` vacías y bloques de datos estructurados JSON-LD, duplicando además la salida de los errores.
