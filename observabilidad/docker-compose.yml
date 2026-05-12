@@ -1,5 +1,3 @@
-version: '3.8'
-
 # QUÉ HACE: Define un clúster aislado con Prometheus (recolección de métricas) y Grafana (visualización).
 # POR QUÉ: Permite monitorizar el ecosistema DevSecOps sin instalar paquetes globales que ensucien el sistema Ubuntu anfitrión (Zero Bloat).
 

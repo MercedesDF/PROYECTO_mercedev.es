@@ -39,6 +39,30 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-10 — Chore: Migración a especificación unificada de Docker Compose
+
+**Contexto:** Al levantar el clúster de observabilidad, Docker Compose V2 emitió un `WARN` indicando que el atributo `version` está obsoleto (`the attribute version is obsolete`).
+
+**Hecho:** Se eliminó la línea `version: '3.8'` del archivo `observabilidad/docker-compose.yml`.
+
+**Detalle técnico:** Las versiones modernas del motor utilizan la Especificación de Compose unificada por defecto. Declarar la versión ya no es necesario y genera ruido en la salida estándar de la terminal.
+
+**Motivo / criterio:** *Zero Warnings y Clean DX*. Eliminar atributos obsoletos silencia el ruido en la terminal, manteniendo los logs de infraestructura limpios y alineando el código con los estándares modernos de contenerización.
+
+**Siguiente paso o deuda:** Construir el Dashboard definitivo de "Confianza y Deuda Técnica" en Grafana.
+
+### 2026-05-10 — Feat: Agente SRE y conexión de telemetría a Grafana
+
+**Contexto:** Se requería instrumentar el ecosistema para exponer métricas a Prometheus. Modificar `merci-total.py` habría requerido bloquear el proceso, contraviniendo su naturaleza de orquestador efímero (batch).
+
+**Hecho:** Se creó `scripts/merci/merci-sre.py` utilizando `prometheus_client`. Se conectó Grafana al origen de datos de Prometheus (`http://prometheus:9090`).
+
+**Detalle técnico:** El nuevo agente opera como un demonio en segundo plano (daemon) en el puerto 8001. Escanea periódicamente el `ROADMAP.md` y las carpetas documentales para actualizar los *Gauges* (indicadores) de tareas completadas y volumen de borradores.
+
+**Motivo / criterio:** *Separation of Concerns* (Separación de Responsabilidades) y Observabilidad. Un orquestador CI/CD debe ser rápido y terminar; un agente de telemetría debe ser persistente. Separar ambos procesos respeta la arquitectura y garantiza la ingesta continua de datos por parte de Prometheus.
+
+**Siguiente paso o deuda:** Construir el Dashboard definitivo de "Confianza y Deuda Técnica" en Grafana con estas métricas.
+
 ### 2026-05-10 — Feat: Inicio de Fase 4 y despliegue de observabilidad en Docker
 
 **Contexto:** Tras sellar definitivamente la Fase 3 con la Cosecha de Conocimiento, se inicia la Fase 4 (Observabilidad y SRE IA) desplegando la infraestructura base para monitorizar el ecosistema DevSecOps.

@@ -7,5 +7,5 @@ global:
 scrape_configs:
   - job_name: 'merci_orquestador'
     static_configs:
-      # host.docker.internal permite al contenedor leer el localhost de tu Ubuntu
-      - targets: ['host.docker.internal:8001']
+      # En Linux, 172.17.0.1 es la IP estándar del puente Docker hacia el anfitrión
+      - targets: ['172.17.0.1:8001']

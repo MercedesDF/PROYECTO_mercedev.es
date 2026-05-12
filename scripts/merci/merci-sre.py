@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+merci-sre.py — Agente de Observabilidad y Métricas (Fase 4).
+Expone el estado del ecosistema DevSecOps en el puerto 8001 para Prometheus.
+"""
+
+import time
+import re
+from pathlib import Path
+from prometheus_client import start_http_server, Gauge
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+
+# Declaración de métricas (Gauges: valores que pueden subir y bajar)
+ROADMAP_TASKS = Gauge('merci_roadmap_tareas_total', 'Tareas del Roadmap', ['estado'])
+DOCS_INCUBACION = Gauge('merci_documentos_incubacion_total', 'Borradores en incubación')
+DOCS_BIBLIOTECA = Gauge('merci_documentos_biblioteca_total', 'Documentos publicados en biblioteca')
+
+def actualizar_metricas():
+    # 1. Analizar tareas del Roadmap
+    roadmap_path = REPO_ROOT / "ROADMAP.md"
+    if roadmap_path.exists():
+        content = roadmap_path.read_text(encoding="utf-8")
+        pendientes = len(re.findall(r'- \[ \] ', content))
+        completadas = len(re.findall(r'- \[x\] ', content))
+        ROADMAP_TASKS.labels(estado="pendiente").set(pendientes)
+        ROADMAP_TASKS.labels(estado="completada").set(completadas)
+
+    # 2. Contar documentos en incubación
+    incubacion_dir = REPO_ROOT / "laboratorio" / "incubacion"
+    if incubacion_dir.exists():
+        DOCS_INCUBACION.set(len(list(incubacion_dir.glob("*.md"))))
+
+    # 3. Contar documentos en la biblioteca pública
+    biblioteca_dir = REPO_ROOT / "biblioteca"
+    if biblioteca_dir.exists():
+        DOCS_BIBLIOTECA.set(len(list(biblioteca_dir.glob("*.md"))))
+
+def main():
+    puerto = 8001
+    print(f"👁️  [Merci SRE] Iniciando Agente de Observabilidad en el puerto {puerto}...")
+    start_http_server(puerto, addr="0.0.0.0")
+    while True:
+        actualizar_metricas()
+        time.sleep(5)
+
+if __name__ == "__main__":
+    main()
