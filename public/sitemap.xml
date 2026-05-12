@@ -145,6 +145,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/eliminacion-de-la-version-obsoleta-en-docker-composeyml</loc>
+      <lastmod>2026-05-12</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/normalizacion-robusta-de-cadenas-el-poder-de-casefold</loc>
       <lastmod>2026-05-12</lastmod>
       <changefreq>weekly</changefreq>

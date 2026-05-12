@@ -37,5 +37,6 @@
   "/biblioteca/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.html": "El README.md como código: documentación en constante evolución, la llave de un repositorio saludable.",
   "/biblioteca/refactorizacion-de-system-prompts-a-archivos-markdown.html": "Refactorización de prompts a Markdown: ¡Optimiza el ecosistema IA en un estilo literario!",
   "/biblioteca/fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz.html": "Descubre cómo un simple cambio en .gitignore puede desencadenar una cascada de efectos positivos en tu pipeline DevSecOps, evitando la detección accidental de datos sensibles.",
-  "/biblioteca/optimizacion-del-proceso-de-reescritura-con-ia-para-ssot.html": "Descubre cómo IA y el patrón Decisión vs Ejecución revolucionan la reescritura de archivos para un SSOT óptimo"
+  "/biblioteca/optimizacion-del-proceso-de-reescritura-con-ia-para-ssot.html": "Descubre cómo IA y el patrón Decisión vs Ejecución revolucionan la reescritura de archivos para un SSOT óptimo",
+  "/biblioteca/eliminacion-de-la-version-obsoleta-en-docker-composeyml.html": "Docker Compose V2 desestima versiones obsoletas, evoluciona hacia una configuración más sencilla y eficiente."
 }

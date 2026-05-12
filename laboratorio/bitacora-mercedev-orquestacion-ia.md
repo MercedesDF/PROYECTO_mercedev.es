@@ -39,6 +39,80 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Milestone: Despliegue de Observabilidad y Telemetría SRE (Fase 4)
+
+**Contexto:** Sellar la infraestructura de observabilidad implementada tras lograr la conexión exitosa entre Prometheus, Grafana y el daemon de telemetría de Python.
+
+**Hecho:** Se consolidaron las configuraciones en modo `host` para evadir el NAT de Docker en Linux. Se verificó la ingesta de datos en tiempo real de `merci_roadmap_tareas_total` y métricas documentales.
+
+**Detalle técnico:** La telemetría se extrae del orquestador de forma pasiva a través del puerto 8001. La visualización se delegó a Grafana, permitiendo establecer alertas proactivas ante cuellos de botella documentales sin intervención manual.
+
+**Motivo / criterio:** *Definition of Done (DoD) y SRE*. La arquitectura DevSecOps adquiere madurez de producción cuando su estado es medible y observable desde fuera del entorno de ejecución local. Documentar la infraestructura en Git sella la base de la Fase 4.
+
+**Siguiente paso o deuda:** Empaquetar el commit y exportar el Dashboard de Grafana a JSON como Infraestructura como Código (IaC).
+
+### 2026-05-12 — Arch: Modo Host en Docker para evasión definitiva de NAT/Firewall
+
+**Contexto:** Prometheus en Docker no lograba comunicarse con el Agente SRE en el host, sufriendo errores persistentes de `context deadline exceeded` a pesar de los ajustes de IPs en `docker0` y reglas en UFW. Esto se debe a que `docker compose` crea su propia subred dinámica, complicando el enrutamiento interno en Linux.
+
+**Hecho:** Se implementó `network_mode: "host"` para los contenedores de Grafana y Prometheus en `docker-compose.yml`. Se actualizó el target de Prometheus a `localhost:8001`.
+
+**Detalle técnico:** Al usar la red `host`, los contenedores pierden su aislamiento de red y comparten la pila TCP/IP directamente con la máquina anfitriona (Ubuntu). La dirección `localhost` dentro de Prometheus ahora es literalmente el `localhost` del ordenador, puenteando completamente las redes de Docker y evadiendo el bloqueo de UFW.
+
+**Motivo / criterio:** *Simplicidad Arquitectónica vs Aislamiento*. En un entorno de desarrollo local (Linux), pelear contra el NAT de Docker Compose y UFW para conectar un scraper de métricas con el host es una pérdida de tiempo operativo. Eliminar el aislamiento de red para la telemetría garantiza una conexión 100% nativa y sin fricciones.
+
+### 2026-05-12 — Fix: Corrección de IP de Docker Bridge tras diagnóstico empírico
+
+**Contexto:** A pesar de los ajustes previos, el target de Prometheus seguía en estado `DOWN`. Se realizó una verificación empírica de la IP del puente de Docker en el sistema anfitrión.
+
+**Hecho:** Se ejecutó `ip addr show docker0 | grep inet`, revelando que la IP correcta es `172.17.0.1`, no la `172.18.0.1` asumida previamente. Se ha corregido `prometheus.yml`.
+
+**Detalle técnico:** El diagnóstico previo fue erróneo. La IP del host desde la perspectiva de Docker en este sistema es la estándar `172.17.0.1`. Se ha actualizado el target en `observabilidad/prometheus.yml` a `['172.17.0.1:8001']`.
+
+**Motivo / criterio:** *Empirical Verification over Assumption*. En DevOps, la verificación directa (`ip addr`) siempre prevalece sobre la suposición. Este incidente demuestra la importancia de no asumir IPs de red y de validar la configuración de infraestructura con comandos del sistema operativo.
+
+### 2026-05-12 — Fix: Ajuste de IP de enrutamiento Docker para Prometheus
+
+**Contexto:** El contenedor de Prometheus no lograba alcanzar al agente SRE en el host, mostrando estado `DOWN`. Se descartó el cortafuegos (UFW inactivo) y se detectó que la interfaz `docker0` utilizaba una subred distinta a la estándar.
+
+**Hecho:** Se actualizó el archivo `prometheus.yml` cambiando el target de `172.17.0.1` a `172.18.0.1`.
+
+**Detalle técnico:** Dependiendo de la topología de red del sistema operativo, la IP del puente Docker puede variar. La inspección con `ip addr show docker0` reveló la IP correcta (`172.18.0.1`), restaurando la comunicación bidireccional. Las alertas en consola F12 de Prometheus fueron desestimadas por ser bugs visuales nativos de su interfaz (Mantine UI).
+
+**Motivo / criterio:** *Infrastructure as Code (IaC)*. La configuración de observabilidad debe reflejar la topología real de la red. Ajustar la IP del target soluciona el problema de enrutamiento y permite a Prometheus raspar las métricas expuestas por Python.
+
+### 2026-05-12 — Fix: Hardening de Firewall (UFW) para comunicación Docker-Host
+
+**Contexto:** El target de Prometheus para el agente SRE (`merci-sre.py`) permanecía en estado `DOWN`. Se confirmó que el agente Python servía métricas correctamente en `localhost:8001`, pero el contenedor Docker no podía acceder a él.
+
+**Hecho:** Se aplicó una regla explícita en el cortafuegos de Ubuntu (UFW) para permitir el tráfico desde la subred por defecto de Docker. Se eliminó la configuración `extra_hosts` obsoleta de `docker-compose.yml`.
+
+**Detalle técnico:** Se ejecutó `sudo ufw allow from 172.17.0.0/16 to any port 8001 proto tcp`. Esta regla permite que cualquier contenedor en la red `bridge` por defecto de Docker se comunique con el puerto 8001 del anfitrión, resolviendo el `Connection refused` o `Timeout`.
+
+**Motivo / criterio:** *Network Security y Docker Networking*. Por defecto, UFW bloquea el tráfico entrante, incluyendo el que proviene de la red virtual de Docker. Es necesario crear una regla explícita para abrir el "puente" de comunicación entre el contenedor (Prometheus) y el proceso del anfitrión (el agente SRE).
+
+### 2026-05-12 — Feat: Implementación de Alertas SRE en Grafana
+
+**Contexto:** Con el Dashboard DevSecOps operativo, se requería automatizar la vigilancia de los cuellos de botella documentales para no depender de la observación pasiva de las gráficas.
+
+**Hecho:** Se configuró una regla de alerta unificada en Grafana (`Saturación de Incubadora`).
+
+**Detalle técnico:** La alerta evalúa la métrica `merci_documentos_incubacion_total` de Prometheus. Si el valor de borradores pendientes de curación supera el umbral de `10`, la regla se dispara instantáneamente (Firing), visibilizando el cuello de botella.
+
+**Motivo / criterio:** *Proactive Observability*. Un sistema SRE maduro no espera a que el humano mire el panel de control; avisa cuando los límites operativos definidos se rompen. Esto garantiza que la incubadora no se convierta en un cementerio de borradores olvidados por la IA.
+
+### 2026-05-10 — Feat: Creación del Dashboard de Confianza DevSecOps en Grafana
+
+**Contexto:** Tras levantar Prometheus y Grafana, se requería un panel de control para visualizar la telemetría del ecosistema y evaluar la salud y el rendimiento documental del proyecto.
+
+**Hecho:** Se configuró el "Dashboard DevSecOps Merci" en Grafana con tres paneles de control (*Biblioteca*, *Velocidad del Roadmap* y *En Incubación*).
+
+**Detalle técnico:** Se utilizaron consultas PromQL (`merci_documentos_biblioteca_total`, `merci_roadmap_tareas_total`, `merci_documentos_incubacion_total`) para graficar los indicadores de estado servidos en tiempo real por el daemon `merci-sre.py`.
+
+**Motivo / criterio:** *Observabilidad y SRE*. Un dashboard visual permite detectar cuellos de botella (como la acumulación de borradores) de un solo vistazo, transformando el texto de la terminal en métricas de confianza accionables para gobernar a la IA.
+
+**Siguiente paso o deuda:** Guardar el dashboard como código (Provisioning) o implementar alertas si la incubación se satura.
+
 ### 2026-05-10 — Chore: Migración a especificación unificada de Docker Compose
 
 **Contexto:** Al levantar el clúster de observabilidad, Docker Compose V2 emitió un `WARN` indicando que el atributo `version` está obsoleto (`the attribute version is obsolete`).

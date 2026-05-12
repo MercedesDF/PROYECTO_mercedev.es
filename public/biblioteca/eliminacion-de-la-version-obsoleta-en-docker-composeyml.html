@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El incidente de las ventanas emergentes — mercedev.es</title>
-    <meta name="description" content="Registro de la experiencia de pérdida de control del navegador y la importancia de la configuración de privacidad.">
-    <link rel="canonical" href="https://mercedev.es/art-de-cote/el-incidente-de-las-ventanas-emergentes.html">
+    <title>Eliminación de la versión obsoleta en docker-compose.yml — mercedev.es</title>
+    <meta name="description" content="Se eliminó el atributo 'version' del archivo docker-compose.yml para alinear con las mejores prácticas de Docker Compose V2.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/eliminacion-de-la-version-obsoleta-en-docker-composeyml.html">
     <link rel="stylesheet" href="/css/main.css?v=1778580386">
     <script src="/js/MerciController.js?v=1778479031" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "El incidente de las ventanas emergentes",
-      "description": "Registro de la experiencia de pérdida de control del navegador y la importancia de la configuración de privacidad.",
-      "url": "https://mercedev.es/art-de-cote/el-incidente-de-las-ventanas-emergentes.html"
+      "headline": "Eliminación de la versión obsoleta en docker-compose.yml",
+      "description": "Se eliminó el atributo 'version' del archivo docker-compose.yml para alinear con las mejores prácticas de Docker Compose V2.",
+      "url": "https://mercedev.es/biblioteca/eliminacion-de-la-version-obsoleta-en-docker-composeyml.html"
     }
     </script>
 </head>
@@ -44,23 +44,22 @@
     </header>
     <main class="main--padded section" id="main">
         <article class="card card--booklet">
-            <a href="/art-de-cote/" class="card__back-link">← Volver a Art de Coté</a>
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">El incidente de las ventanas emergentes</h1>
-                <a href="/descargas/el-incidente-de-las-ventanas-emergentes.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">Eliminación de la versión obsoleta en docker-compose.yml</h1>
+                <a href="/descargas/eliminacion-de-la-version-obsoleta-en-docker-composeyml.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
-                <h2>El Desafío (Síntoma)</h2>
-<p>Durante una sesión de trabajo, el navegador comenzó a abrir múltiples ventanas emergentes de terceros sin control aparente. Esto generó una fuerte sensación de vulnerabilidad y la sospecha inicial de haber sufrido una inyección de código malicioso o un hackeo, coincidiendo temporalmente con un bloqueo del sistema operativo.</p>
+                <!-- linkedin:
+Eliminamos el atributo 'version' en docker-compose.yml para alinear con las mejores prácticas de Docker Compose V2. #DevSecOps #Gobernanza #DockerCompose
+-->
+
+<h2>El Desafío (Síntoma)</h2>
+<p>Se detectó que el archivo <code>docker-compose.yml</code> lanzaba un warning advirtiendo que el atributo <code>version</code> está obsoleto. Antiguamente los archivos docker-compose.yml llevaban una cabecera como <code>version: '3.8'</code>, pero ahora las versiones modernas del motor usan la Especificación Unificada de Compose por defecto y ya no es necesario declararlo.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se procedió a auditar el entorno. Primero, se aisló el navegador abriéndolo desde la terminal en un modo seguro sin restaurar pestañas. Posteriormente, al revisar la configuración de privacidad del navegador, se detectó que los permisos para mostrar ventanas emergentes de sitios de terceros estaban habilitados. Se procedió a revocar dichos permisos inmediatamente.</p>
-<h2>El Aprendizaje/Deuda Técnica</h2>
-<p>En momentos de estrés tecnológico, es común establecer saltos lógicos entre síntomas visuales (pop-ups) y fallos del sistema a bajo nivel, asumiendo ataques complejos. Aunque los scripts de terceros generan saturación de recursos y una mala experiencia, no siempre implican una vulneración o "hackeo" real del equipo. </p>
-<p>Esta experiencia refuerza, desde la empatía con el usuario final, el porqué de nuestra arquitectura en el <strong>Merci Boilerplate</strong>:</p>
-<ul>
-<li>La implementación de políticas <strong>CSP (Content Security Policy)</strong> estrictas.</li>
-<li>La prohibición absoluta de inyectar dependencias de terceros o scripts publicitarios que secuestren la experiencia de navegación.</li>
-</ul>
+<p>Se eliminó el atributo <code>version</code> del archivo <code>docker-compose.yml</code>. Se realizó una revisión del archivo para asegurar que no quedaran referencias a versiones obsoletas. El cambio se implementó en la rama principal del repositorio y se ejecutó un <code>git commit</code> con el mensaje "Eliminación del atributo 'version' en docker-compose.yml".</p>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Se aprendió que es importante mantener los archivos de configuración limpios y alineados con las mejores prácticas. La eliminación del atributo <code>version</code> no afectó la funcionalidad del archivo, pero sí mejoró la legibilidad y la mantenibilidad del mismo. No se asumió ninguna deuda técnica para el futuro.</p>
             </div>
         </article>
     </main>
