@@ -39,6 +39,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — UX: Eliminación de la palabra "borrador" en los nombres de archivo generados por el Bibliotecario
+
+**Contexto:** El Agente Bibliotecario (`merci-librarian.py`) añadía el sufijo `-borrador` a los nombres de los archivos generados en la bandeja de incubación (ej. `cuadernillo-borrador-tema.md`), lo que generaba fricción cognitiva al tener que renombrarlos posteriormente.
+
+**Hecho:** Se modificaron los prefijos de salida en `scripts/merci/merci-librarian.py`.
+
+**Detalle técnico:** Se cambió `cuadernillo-borrador` por `cuadernillo`, `compendio-borrador` por `compendio` y `art-de-cote-borrador` por `art-de-cote`.
+
+**Motivo / criterio:** *Fricción Cero y Single Source of Truth*. El nombre del archivo debe representar su contenido temático, mientras que su nivel de madurez o publicación (estado) es responsabilidad exclusiva de los metadatos (YAML). Esto agiliza la curación visual de los archivos en el IDE.
+
+### 2026-05-12 — Fix: Falsos positivos en métrica SRE de promoción (Parsing YAML)
+
+**Contexto:** El Dashboard de Grafana mostraba 6 documentos listos para promoción, mientras que el menú interactivo de `merci promote` solo listaba 3.
+
+**Hecho:** Se refactorizó la extracción de la métrica en `scripts/merci/merci-sre.py` para parsear exclusivamente el YAML Frontmatter.
+
+**Detalle técnico:** La expresión regular anterior leía el archivo Markdown completo. Esto provocaba falsos positivos al encontrar el texto `estado: "borrador"` mencionado literalmente dentro de los registros y explicaciones de las bitácoras. Ahora se extrae primero el bloque entre `---` y se excluyen explícitamente los archivos `bitacora*.md`.
+
+**Motivo / criterio:** *Data Accuracy y CLI Parity*. Para que la telemetría SRE sea confiable, debe ser matemáticamente exacta a lo que ve la herramienta operativa. Aislar el análisis a los metadatos YAML previene que el contenido del documento distorsione las métricas de infraestructura (Efecto de Auto-Referencia).
+
 ### 2026-05-12 — Feat: Métrica SRE exacta para documentos en promoción
 
 **Contexto:** El Dashboard requería visualizar exactamente cuántos archivos están esperando ser procesados por `merci-promote.py` (archivos con `estado: "borrador"`), independientemente de la subcarpeta donde se encuentren. La métrica de incubación previa era insuficiente al estar limitada a una sola carpeta.

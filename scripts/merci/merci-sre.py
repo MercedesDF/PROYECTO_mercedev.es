@@ -38,8 +38,13 @@ def actualizar_metricas():
     if laboratorio_dir.exists():
         borradores = 0
         for md_file in laboratorio_dir.rglob("*.md"):
+            # Excluir bitácoras para evitar falsos positivos
+            if md_file.name.startswith("bitacora"):
+                continue
             try:
-                if re.search(r'estado:\s*["\']borrador["\']', md_file.read_text(encoding="utf-8", errors="ignore")):
+                content = md_file.read_text(encoding="utf-8", errors="ignore")
+                match = re.match(r"^\s*---\r?\n(.*?)\n---", content, re.DOTALL)
+                if match and re.search(r'^estado:\s*["\']borrador["\']', match.group(1), re.MULTILINE | re.IGNORECASE):
                     borradores += 1
             except Exception:
                 pass
