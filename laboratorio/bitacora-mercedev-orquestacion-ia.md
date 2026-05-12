@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Fix: Prevención de alucinaciones de búsqueda en Agente Chaos
+
+**Contexto:** El agente `merci-chaos.py` abortó su ejecución emitiendo `La IA falló en apuntar al código exacto`. El modelo no lograba encontrar la cadena de texto exacta para realizar la inyección del sabotaje en un archivo Python.
+
+**Hecho:** Se refactorizó el archivo rector `prompt-chaos.md` para endurecer las instrucciones de coincidencia y adaptar el ataque al lenguaje objetivo.
+
+**Detalle técnico:** Se añadió la regla innegociable `El valor "buscar" DEBE SER UNA COPIA EXACTA Y LITERAL`. Además, se instruyó al agente para que identifique el lenguaje del archivo (ej. Python vs HTML) antes de decidir el tipo de ataque, previniendo que intente inyectar atributos HTML (como `style`) en código backend puro.
+
+**Motivo / criterio:** *Context Awareness y Robustez*. Si a un LLM se le da un ejemplo de ataque HTML pero se le pasa código Python, su sesgo lo lleva a inventar código para cumplir la orden o a fallar en la búsqueda estricta. Adaptar el contexto alinea al mono del caos con la realidad operativa.
+
 ### 2026-05-12 — Fix: Falso positivo de secretos en el Prompt del Chaos Monkey
 
 **Contexto:** El auditor `merci-audit.py` bloqueó el pipeline al detectar la cadena `AKIAIOSFODNN7EXAMPLE` dentro de `prompt-chaos.md`. <!-- merci-audit:silence-secret -->
