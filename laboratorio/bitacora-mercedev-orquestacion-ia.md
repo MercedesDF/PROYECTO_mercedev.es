@@ -39,6 +39,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Feat: Métrica SRE exacta para documentos en promoción
+
+**Contexto:** El Dashboard requería visualizar exactamente cuántos archivos están esperando ser procesados por `merci-promote.py` (archivos con `estado: "borrador"`), independientemente de la subcarpeta donde se encuentren. La métrica de incubación previa era insuficiente al estar limitada a una sola carpeta.
+
+**Hecho:** Se implementó la métrica `merci_documentos_promocion_total` en `scripts/merci/merci-sre.py`.
+
+**Detalle técnico:** A diferencia de la métrica de incubación, la nueva métrica utiliza `rglob` y Expresiones Regulares (`re.search`) para escanear recursivamente todo el `laboratorio/` buscando la firma YAML `estado: "borrador"`.
+
+**Motivo / criterio:** *Alignment con CLI*. El agente SRE debe medir la realidad de la misma manera que el orquestador la ejecuta. Dado que `merci promote` busca por el estado YAML, la métrica de Grafana debe utilizar exactamente el mismo criterio de filtrado para ser precisa y confiable.
+
+### 2026-05-12 — Feat: Provisioning de Grafana como Infraestructura como Código (IaC)
+
+**Contexto:** Para evitar la pérdida de los paneles de control de Grafana al destruir el contenedor Docker y consolidar el ecosistema bajo el paradigma *IaC*, se requería persistir el Dashboard de Confianza en el repositorio.
+
+**Hecho:** Se implementó el sistema de aprovisionamiento (*Provisioning*) nativo de Grafana. Se crearon los directorios `provisioning/` y `dashboards/` y se actualizaron los volúmenes en `docker-compose.yml`.
+
+**Detalle técnico:** Se configuraron `datasources/prometheus.yaml` y `dashboards/default.yaml`. Al arrancar, el contenedor lee automáticamente estas configuraciones e importa los archivos JSON desde `observabilidad/dashboards/`, eliminando la necesidad de configuración manual a través de la interfaz web.
+
+**Motivo / criterio:** *Infrastructure as Code (IaC) y Zero Maintenance*. Un entorno DevSecOps maduro debe ser capaz de reconstruirse desde cero (Disaster Recovery) sin intervención humana. Configurar Grafana mediante archivos YAML sella la arquitectura SRE en el control de versiones.
+
 ### 2026-05-12 — Milestone: Despliegue de Observabilidad y Telemetría SRE (Fase 4)
 
 **Contexto:** Sellar la infraestructura de observabilidad implementada tras lograr la conexión exitosa entre Prometheus, Grafana y el daemon de telemetría de Python.

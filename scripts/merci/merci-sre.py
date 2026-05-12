@@ -15,6 +15,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 # Declaración de métricas (Gauges: valores que pueden subir y bajar)
 ROADMAP_TASKS = Gauge('merci_roadmap_tareas_total', 'Tareas del Roadmap', ['estado'])
 DOCS_INCUBACION = Gauge('merci_documentos_incubacion_total', 'Borradores en incubación')
+DOCS_PROMOCION = Gauge('merci_documentos_promocion_total', 'Documentos listos para promover (borrador)')
 DOCS_BIBLIOTECA = Gauge('merci_documentos_biblioteca_total', 'Documentos publicados en biblioteca')
 
 def actualizar_metricas():
@@ -31,6 +32,18 @@ def actualizar_metricas():
     incubacion_dir = REPO_ROOT / "laboratorio" / "incubacion"
     if incubacion_dir.exists():
         DOCS_INCUBACION.set(len(list(incubacion_dir.glob("*.md"))))
+
+    # 2.5 Contar documentos listos para promover (estado: "borrador" en todo el laboratorio)
+    laboratorio_dir = REPO_ROOT / "laboratorio"
+    if laboratorio_dir.exists():
+        borradores = 0
+        for md_file in laboratorio_dir.rglob("*.md"):
+            try:
+                if re.search(r'estado:\s*["\']borrador["\']', md_file.read_text(encoding="utf-8", errors="ignore")):
+                    borradores += 1
+            except Exception:
+                pass
+        DOCS_PROMOCION.set(borradores)
 
     # 3. Contar documentos en la biblioteca pública
     biblioteca_dir = REPO_ROOT / "biblioteca"
