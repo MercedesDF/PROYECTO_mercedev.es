@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Feat: Anclaje Semántico (Pistas Explícitas) en Agente SSOT
+
+**Contexto:** Se debatió si sustituir la IA del Agente SSOT por un sistema determinista de expresiones regulares que buscara etiquetas rígidas como "FIN FASE", para ahorrar tokens y simplificar el proceso.
+
+**Hecho:** Se decidió mantener el motor semántico de IA, pero se actualizó `laboratorio/prompts/prompt-ssot.md` instruyendo al modelo a buscar y obedecer "Pistas Explícitas" dejadas por la autora.
+
+**Detalle técnico:** Se añadió la directriz `PISTAS EXPLÍCITAS: Presta especial atención a marcadores humanos como "FIN FASE (Nº)"`. 
+
+**Motivo / criterio:** *Human-in-the-Loop y Semantic Anchoring*. Sustituir la IA por Regex destruye la flexibilidad del lenguaje natural (si la humana comete un error tipográfico, el script falla). Enseñar a la IA a buscar balizas intencionadas combina la robustez determinista con la tolerancia a fallos de la comprensión semántica.
+
 ### 2026-05-12 — Perf: Aceleración del latido SRE (Scrape Interval)
 
 **Contexto:** La actualización de las métricas en Grafana tenía una latencia perceptible de varios segundos que generaba fricción al validar cambios inmediatos en el laboratorio.
