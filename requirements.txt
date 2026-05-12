@@ -19,3 +19,6 @@ litellm==1.35.0
 
 # SDK nativo de Google (requerido por LiteLLM para usar Gemini)
 google-generativeai>=0.5.2
+
+# Exposición de métricas SRE para Grafana/Prometheus (merci-sre.py)
+prometheus-client>=0.20.0

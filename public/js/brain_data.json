@@ -39,5 +39,6 @@
   "/biblioteca/fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz.html": "Descubre cómo un simple cambio en .gitignore puede desencadenar una cascada de efectos positivos en tu pipeline DevSecOps, evitando la detección accidental de datos sensibles.",
   "/biblioteca/optimizacion-del-proceso-de-reescritura-con-ia-para-ssot.html": "Descubre cómo IA y el patrón Decisión vs Ejecución revolucionan la reescritura de archivos para un SSOT óptimo",
   "/biblioteca/eliminacion-de-la-version-obsoleta-en-docker-composeyml.html": "Docker Compose V2 desestima versiones obsoletas, evoluciona hacia una configuración más sencilla y eficiente.",
-  "/biblioteca/metrica-sre-exacta-para-documentos-en-promocion.html": "¿Listo para un viaje por los códigos de SRE?"
+  "/biblioteca/metrica-sre-exacta-para-documentos-en-promocion.html": "¿Listo para un viaje por los códigos de SRE?",
+  "/biblioteca/topologia-de-ia-el-stack-hibrido-en-devsecops.html": "Descubre cómo la inteligencia artificial local y en la nube se fusionan para optimizar procesos de desarrollo y seguridad en pipelines híbridos"
 }

@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Fix: Sincronización de dependencias SRE en requirements.txt
+
+**Contexto:** Tras la creación e implementación del Agente SRE (`merci-sre.py`), el ecosistema local requería la librería externa `prometheus_client`, pero esta no había sido registrada en la lista oficial de dependencias.
+
+**Hecho:** Se añadió `prometheus-client>=0.20.0` al archivo `requirements.txt`.
+
+**Detalle técnico:** Se documentó la dependencia bajo el propósito de exposición de métricas para Grafana/Prometheus, cerrando la brecha de configuración.
+
+**Motivo / criterio:** *Supply Chain Security y Reproducibilidad*. Un proyecto DevSecOps debe ser 100% reproducible al clonarse (Out-of-the-Box Experience). Omitir una dependencia en el archivo de requisitos provoca errores fatales en nuevos entornos y rompe el pipeline de observabilidad. Mantener `requirements.txt` como la Única Fuente de Verdad (SSOT) de la paquetería de Python es innegociable.
+
 ### 2026-05-12 — Feat: Anclaje Semántico (Pistas Explícitas) en Agente SSOT
 
 **Contexto:** Se debatió si sustituir la IA del Agente SSOT por un sistema determinista de expresiones regulares que buscara etiquetas rígidas como "FIN FASE", para ahorrar tokens y simplificar el proceso.

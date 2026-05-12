@@ -103,6 +103,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/topologia-de-ia-el-stack-hibrido-en-devsecops</loc>
+      <lastmod>2026-05-12</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/optimizacion-de-copias-de-seguridad-locales-y-zero-bloat</loc>
       <lastmod>2026-05-12</lastmod>
       <changefreq>weekly</changefreq>
