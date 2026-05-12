@@ -444,6 +444,10 @@ def audit_inline_scripts(state: AuditState, path: Path, text: str) -> None:
         if "application/ld+json" in attrs:
             continue
             
+        # Si tiene atributo 'src', es un script externo, no en línea
+        if "src=" in attrs:
+            continue
+            
         script_content = match.group(2).strip()
         if not script_content:
             continue

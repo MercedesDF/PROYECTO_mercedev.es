@@ -28,6 +28,7 @@ alt_portada: "[Genera una descripción visual técnica detallada para una supues
 3. DEBES CERRAR el bloque YAML con los tres guiones `---` antes de iniciar el cuerpo del documento.
 4. **Idioma:** Absolutamente todo el contenido (título, descripción, texto) debe redactarse en ESPAÑOL (Castellano). Tienes prohibido usar inglés para los títulos.
 5. **Tipología:** El campo `tipo` NO DEBE MODIFICARSE ni ampliarse. Copia exactamente el valor que recibes en el ejemplo superior (no le añadas la palabra "técnico").
+6. **Alt Portada:** TIENES PROHIBIDO copiar el texto por defecto de la plantilla. DEBES INVENTAR una descripción visual única, real y específica que ilustre el contenido técnico del documento.
 
 ## El Desafío (Síntoma)
 [Describe el problema técnico original, el síntoma que se experimentaba o la necesidad arquitectónica basándote en las notas. Redacta en tercera persona/voz pasiva (ej. "Se detectó que...", "Era necesario...")].

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validación de Defensas DevSecOps con Chaos Monkey y merciaudit.py — mercedev.es</title>
-    <meta name="description" content="Se implementó un Chaos Monkey impulsado por IA para validar las defensas DevSecOps, identificando dos lecciones críticas sobre el mecanismo de Rollback y la robustez de las Regex del auditor.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/validacion-de-defensas-devsecops-con-chaos-monkey-y-merciauditpy.html">
+    <title>Actualización de la Política de Seguridad para Prevenir ataques a la cadena de suministro — mercedev.es</title>
+    <meta name="description" content="Se implementó una política de seguridad para bloquear etiquetas &lt;script src=&quot;...&quot;&gt; y &lt;link rel=&quot;stylesheet&quot;&gt; que apunte a dominios externos, protegiendo así la regla arquitectónica de &#x27;Zero Bloat&#x27; y evitando ataques a la cadena de suministro.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/actualizacion-de-la-politica-de-seguridad-para-prevenir-ataques-a-la-cadena-de-suministro.html">
     <link rel="stylesheet" href="/css/main.css?v=1778627365">
     <script src="/js/MerciController.js?v=1778479031" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Validaci\u00f3n de Defensas DevSecOps con Chaos Monkey y merciaudit.py",
-      "description": "Se implement\u00f3 un Chaos Monkey impulsado por IA para validar las defensas DevSecOps, identificando dos lecciones cr\u00edticas sobre el mecanismo de Rollback y la robustez de las Regex del auditor.",
-      "url": "https://mercedev.es/biblioteca/validacion-de-defensas-devsecops-con-chaos-monkey-y-merciauditpy.html"
+      "headline": "Actualizaci\u00f3n de la Pol\u00edtica de Seguridad para Prevenir ataques a la cadena de suministro",
+      "description": "Se implement\u00f3 una pol\u00edtica de seguridad para bloquear etiquetas <script src=\"...\"> y <link rel=\"stylesheet\"> que apunte a dominios externos, protegiendo as\u00ed la regla arquitect\u00f3nica de 'Zero Bloat' y evitando ataques a la cadena de suministro.",
+      "url": "https://mercedev.es/biblioteca/actualizacion-de-la-politica-de-seguridad-para-prevenir-ataques-a-la-cadena-de-suministro.html"
     }
     </script>
 </head>
@@ -46,18 +46,16 @@
         <article class="card card--booklet">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">Validación de Defensas DevSecOps con Chaos Monkey y merciaudit.py</h1>
-                <a href="/descargas/validacion-de-defensas-devsecops-con-chaos-monkey-y-merciauditpy.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">Actualización de la Política de Seguridad para Prevenir ataques a la cadena de suministro</h1>
+                <a href="/descargas/actualizacion-de-la-politica-de-seguridad-para-prevenir-ataques-a-la-cadena-de-suministro.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Se detectó que las defensas DevSecOps del proyecto no eran suficientemente robustas contra ataques impulsados por IA. Específicamente, el linter merciaudit.py no lograba detener vulnerabilidades como estilos en línea o scripts XSS inyectadas por un Chaos Monkey.</p>
+<p>Durante las pruebas finales de Chaos Engineering, se detectó que la IA logró evadir nuestras defensas inyectando una hoja de estilos CSS desde un dominio malicioso externo. Esto comprometía la seguridad del proyecto y violaba la regla arquitectónica de "Zero Bloat".</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se implementó una solución arquitectónica que incluye:
-1. El uso de <code>git restore</code> dentro de un bloque <code>try...finally</code> para garantizar que el código no quede envenenado en caso de interrupciones manuales (Ctrl+C).
-2. La mejora de las Regex del auditor merciaudit.py para cazar etiquetas script maliciosas sin generar falsos positivos con datos estructurados JSON-LD.</p>
+<p>Para proteger contra ataques a la cadena de suministro, se actualizó el Agente Auditor para bloquear cualquier etiqueta <code>&lt;script src="..."&gt;</code> o <code>&lt;link rel="stylesheet"&gt;</code> que apunte a dominios externos (distintos a localhost o mercedev.es). Además, se implementó una mecanismo de degradación elegante ante señales SIGINT (Ctrl+C), cerrando el pipeline con una experiencia de desarrollador (DX) impecable.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Se aprendió que el mecanismo de Rollback debe estar siempre dentro de un bloque <code>try...finally</code> para evitar dejar el código envenenado. Además, las Regex del auditor deben ser lo suficientemente robustas para distinguir entre etiquetas script maliciosas y datos estructurados JSON-LD. Esta solución es la óptima porque garantiza la integridad del código y reduce los falsos positivos, pero se ha asumido una deuda técnica en el futuro debido a la necesidad de mantener y mejorar continuamente estas soluciones.</p>
+<p>Esta solución es la óptima porque asegura que solo se carguen recursos locales, minimizando el riesgo de ataques a la cadena de suministro. La implementación del mecanismo de degradación elegante mejora la experiencia del desarrollador al proporcionar una salida limpia y ordenada en caso de interrupción inesperada.</p>
             </div>
         </article>
     </main>

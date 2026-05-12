@@ -39,6 +39,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Fix: Sanitización de inyecciones HTML y JSON-LD en motor SSG
+
+**Contexto:** El linter de seguridad detectó un script en línea malicioso en el código HTML compilado. El diagnóstico forense reveló que la etiqueta `<script>` y comillas dobles provenían de la descripción en el YAML Frontmatter del documento Markdown, las cuales estaban siendo inyectadas sin escapar en las metaetiquetas y bloques JSON-LD por el generador estático.
+
+**Hecho:** Se implementó sanitización rigurosa de variables en `scripts/merci/merci-publish.py`.
+
+**Detalle técnico:** Se integraron `html.escape(string)` para sanitizar las variables inyectadas en las etiquetas HTML (`<title>`, `<meta name="description">`, `<h1>`) y `json.dumps(string)` para serializar correctamente los valores inyectados en el bloque estructurado `application/ld+json`.
+
+**Motivo / criterio:** *XSS Prevention & Code Hygiene*. Inyectar cadenas de texto crudas provenientes del usuario (o de una IA) directamente en atributos HTML y bloques de script es una vulnerabilidad de inyección crítica. Sanitizar los datos en tiempo de compilación (Build-time) previene la rotura estructural del documento HTML y del JSON (por comillas huérfanas) y neutraliza posibles ataques XSS derivados de los metadatos.
+
+### 2026-05-12 — Fix: Exclusión de scripts con atributo src en auditor de XSS
+
+**Contexto:** El linter de seguridad falló al analizar un documento Markdown compilado a HTML que contenía el texto literal `<script src="...">`. El conversor Markdown lo inyectó como HTML real, y el linter lo confundió con un script en línea malicioso.
+
+**Hecho:** Se refactorizó la función `audit_inline_scripts` en `scripts/merci/merci-audit.py` para ignorar las etiquetas que posean el atributo `src=`.
+
+**Detalle técnico:** Se añadió la condición `if "src=" in attrs: continue`. Un script en línea, por definición, no debe tener un origen externo. Si lo tiene, delega su validación a `audit_external_assets`. Adicionalmente se corrigió el archivo Markdown de la biblioteca escapando las etiquetas como código.
+
+**Motivo / criterio:** *Robustez del Linter y Parsing Markdown*. Evitar falsos positivos generados por colisiones entre texto documentado (Docs-as-Code) y código funcional es vital para no bloquear la publicación de manuales técnicos.
+
 ### 2026-05-12 — Docs: Implementación de Política de Seguridad (SECURITY.md)
 
 **Contexto:** Al auditar la configuración de seguridad de GitHub, se detectó que el repositorio carecía de una política de seguridad formal (Security Policy) y tenía desactivados escudos nativos en la nube (Secret Scanning, Private Reporting).
