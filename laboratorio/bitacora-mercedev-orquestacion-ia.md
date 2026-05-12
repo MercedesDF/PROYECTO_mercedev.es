@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Fix: Actualización de seguridad crítica en LiteLLM (Supply Chain Security)
+
+**Contexto:** Dependabot detectó 11 vulnerabilidades de seguridad (incluyendo RCE, SSRF, DoS y Bypass de Autenticación) en la versión `1.35.0` de `litellm` utilizada en el entorno local y en los workflows de GitHub Actions.
+
+**Hecho:** Se actualizó la dependencia en `requirements.txt` a una versión segura (`>=1.48.0`).
+
+**Detalle técnico:** Se cambió el anclaje estricto `litellm==1.35.0` por `litellm>=1.48.0` para integrar los parches de seguridad liberados por los mantenedores de la librería.
+
+**Motivo / criterio:** *Supply Chain Security*. Un entorno DevSecOps no puede operar con dependencias vulnerables a Ejecución de Código Remoto (RCE) o fugas de credenciales. La actualización erradica el riesgo introducido por terceros, manteniendo el ecosistema blindado.
+
 ### 2026-05-12 — Fix: Permisos estrictos en generación de .env (merci-init.py)
 
 **Contexto:** Al instanciar el Boilerplate en un nuevo directorio, el script `merci-init.py` generaba el archivo `.env` de muestra con los permisos por defecto del sistema operativo (habitualmente `664`). Esto provocaba que la primera ejecución de `merci total` en el clon fallara inmediatamente al chocar contra el escudo activo del Agente de Hardening.
