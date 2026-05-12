@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Fix: Visibilidad táctica (Chivato) en Agente Chaos
+
+**Contexto:** El agente Chaos inyectó con éxito una vulnerabilidad que evadió el linter, pero la falta de registros detallados en consola impedía conocer el vector de ataque exacto utilizado por la IA.
+
+**Hecho:** Se implementó un log de táctica de sabotaje ("chivato") en `scripts/merci/merci-chaos.py`.
+
+**Detalle técnico:** Se añadieron sentencias `print` para exponer en consola los valores `buscar` y `reemplazar` del payload JSON devuelto por el modelo, justo antes de ejecutar la mutación física del archivo objetivo.
+
+**Motivo / criterio:** *Observabilidad en Caos*. El Chaos Engineering carece de valor si no proporciona datos accionables. Conocer exactamente qué línea fue alterada y qué inyectó la IA permite parchear el punto ciego en las reglas del Agente Auditor y cerrar la brecha de seguridad descubierta.
+
 ### 2026-05-12 — Fix: Prevención de alucinaciones de búsqueda en Agente Chaos
 
 **Contexto:** El agente `merci-chaos.py` abortó su ejecución emitiendo `La IA falló en apuntar al código exacto`. El modelo no lograba encontrar la cadena de texto exacta para realizar la inyección del sabotaje en un archivo Python.

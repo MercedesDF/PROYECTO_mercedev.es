@@ -66,6 +66,8 @@ def main():
         print("  ℹ️ [Merci Info] La IA falló en apuntar al código exacto. Abortando."); sys.exit(0)
 
     print(f"  😈 Mutando el archivo (Inyectando vulnerabilidad)...")
+    print(f"     [Táctica] Reemplazó: {sabotajes[0]['buscar']}")
+    print(f"     [Táctica] Por:       {sabotajes[0]['reemplazar']}")
     target_file.write_text(original_content.replace(sabotajes[0]["buscar"], sabotajes[0]["reemplazar"], 1), encoding="utf-8")
 
     print("\n  🛡️ Lanzando Auditoría DevSecOps para medir defensas...")
