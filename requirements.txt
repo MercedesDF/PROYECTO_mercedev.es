@@ -9,10 +9,10 @@ weasyprint==68.1
 Pillow==12.2.0
 
 # Extracción de texto de PDFs de PageSpeed Insights (merci-extract-metrics.py)
-pypdf==5.4.0
+pypdf>=5.5.0
 
 # Librería de conversión Markdown a HTML (merci-publish.py, merci-wp.py)
-markdown==3.8
+markdown>=3.8.1
 
 # Orquestador unificado de IA (Ollama local / Gemini de contingencia)
 litellm>=1.48.0

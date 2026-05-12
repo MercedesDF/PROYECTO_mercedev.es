@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Fix: Actualización de seguridad en pypdf y Markdown (Supply Chain)
+
+**Contexto:** Dependabot reportó 23 vulnerabilidades de severidad moderada y baja asociadas a las dependencias `pypdf` y `Markdown`, principalmente relacionadas con agotamiento de RAM y bucles infinitos (Vectores DoS) al procesar archivos maliciosos.
+
+**Hecho:** Se actualizaron ambas librerías en `requirements.txt` para forzar la instalación de sus respectivos parches de seguridad.
+
+**Detalle técnico:** Se sustituyó el anclaje estricto `pypdf==5.4.0` por `pypdf>=5.5.0`, y `markdown==3.8` por `markdown>=3.8.1`.
+
+**Motivo / criterio:** *Supply Chain Security y Zero Vulnerability Tolerance*. Aunque el entorno local no procesa archivos externos no confiables, mantener dependencias con CVEs (Vulnerabilidades y Exposiciones Comunes) conocidas es un antipatrón en DevSecOps. Utilizar versiones mínimas seguras (`>=`) erradica las alertas automatizadas del repositorio y consolida la postura de seguridad global.
+
 ### 2026-05-12 — Fix: Actualización de seguridad crítica en LiteLLM (Supply Chain Security)
 
 **Contexto:** Dependabot detectó 11 vulnerabilidades de seguridad (incluyendo RCE, SSRF, DoS y Bypass de Autenticación) en la versión `1.35.0` de `litellm` utilizada en el entorno local y en los workflows de GitHub Actions.
