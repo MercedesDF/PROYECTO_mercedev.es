@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Fix: Permisos estrictos en generación de .env (merci-init.py)
+
+**Contexto:** Al instanciar el Boilerplate en un nuevo directorio, el script `merci-init.py` generaba el archivo `.env` de muestra con los permisos por defecto del sistema operativo (habitualmente `664`). Esto provocaba que la primera ejecución de `merci total` en el clon fallara inmediatamente al chocar contra el escudo activo del Agente de Hardening.
+
+**Hecho:** Se añadió la instrucción de permisos restrictivos en `scripts/merci/merci-init.py`.
+
+**Detalle técnico:** Se utiliza `(REPO_ROOT / ".env").chmod(0o600)` condicionado a `os.name != 'nt'` (para evitar fallos en Windows). Esto asegura que el archivo de credenciales nazca blindado a nivel de sistema operativo.
+
+**Motivo / criterio:** *Secure by Default* (Seguro por Defecto) y *Out-of-the-Box Experience*. Un Boilerplate no debe generar archivos inseguros que sus propias herramientas de calidad bloqueen posteriormente. Crear el archivo ya endurecido garantiza una experiencia de primera ejecución inmaculada (cero fricción) para el usuario final.
+
 ### 2026-05-12 — Fix: Métrica SRE de incubación basada en estado YAML
 
 **Contexto:** La métrica `merci_documentos_incubacion_total` de Grafana estaba contando archivos físicos en la carpeta `incubacion/`, lo que generaba duplicidades e inconsistencias si los archivos contenidos tenían el estado "borrador", ya que la otra métrica (`merci_documentos_promocion_total`) sí analizaba los metadatos YAML independientemente del directorio.
