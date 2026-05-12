@@ -144,7 +144,7 @@
         "kind": "Panel",
         "spec": {
           "id": 2,
-          "title": "incubación",
+          "title": "⏳ En Incubación",
           "description": "",
           "links": [],
           "data": {
@@ -209,7 +209,7 @@
                         "color": "green"
                       },
                       {
-                        "value": 80,
+                        "value": 5,
                         "color": "red"
                       }
                     ]
@@ -228,7 +228,7 @@
         "kind": "Panel",
         "spec": {
           "id": 3,
-          "title": "Biblioteca",
+          "title": "📚 Biblioteca",
           "description": "",
           "links": [],
           "data": {
@@ -312,7 +312,7 @@
         "kind": "Panel",
         "spec": {
           "id": 4,
-          "title": "Promote",
+          "title": "🚀 Listos para Promover",
           "description": "",
           "links": [],
           "data": {

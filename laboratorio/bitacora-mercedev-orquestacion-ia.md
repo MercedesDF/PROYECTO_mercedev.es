@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Feat: Agente de Hardening (Auditoría Continua de Seguridad)
+
+**Contexto:** La seguridad en un ecosistema DevSecOps no debe depender exclusivamente de listas de verificación manuales (Checklists). Era necesario automatizar la auditoría de `docs/checklist-hardening.md` para garantizar el cumplimiento continuo de las políticas de infraestructura (Compliance).
+
+**Hecho:** Se desarrolló el agente `scripts/merci/merci-hardening.py`. Completada tarea Hardening Automation.
+
+**Detalle técnico:** El script evalúa empíricamente la postura de seguridad: comprueba que el archivo `.env` mantenga permisos estrictos (`600` en sistemas POSIX), valida que el `.gitignore` contenga las exclusiones DLP críticas, bloquea la exposición accidental de `wp-config.php` y rastrea *Mixed Content* (http://) inyectado en el código fuente estático.
+
+**Motivo / criterio:** *Continuous Compliance* (Cumplimiento Continuo). Traducir un documento de texto a un script ejecutable transforma las intenciones en barreras físicas. Este agente protege el repositorio de vulnerabilidades de configuración que el linter de sintaxis (`merci-audit.py`) no cubre por no ser errores estructurales del lenguaje.
+
 ### 2026-05-12 — Fix: Sincronización de dependencias SRE en requirements.txt
 
 **Contexto:** Tras la creación e implementación del Agente SRE (`merci-sre.py`), el ecosistema local requería la librería externa `prometheus_client`, pero esta no había sido registrada en la lista oficial de dependencias.

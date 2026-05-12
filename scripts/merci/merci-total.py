@@ -40,6 +40,7 @@ PIPELINE = [
     "merci-sitemap.py",
     "merci-ssot.py",
     "merci-audit.py",
+    "merci-hardening.py",
     "merci-linkcheck.py"
 ]
 
