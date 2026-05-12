@@ -64,7 +64,10 @@ def main():
         print(f"  ❌ [Merci Error] Falló el motor local: {e_local}"); sys.exit(1)
 
     if not sabotajes or not sabotajes[0].get("buscar") or sabotajes[0].get("buscar") not in original_content:
-        print("  ℹ️ [Merci Info] La IA falló en apuntar al código exacto. Abortando."); sys.exit(0)
+        print("  ℹ️ [Merci Info] La IA falló en apuntar al código exacto. Abortando.")
+        if sabotajes and sabotajes[0].get("buscar"):
+            print(f"     [Debug] La IA intentó buscar:\n{sabotajes[0].get('buscar')}")
+        sys.exit(0)
 
     print(f"  😈 Mutando el archivo (Inyectando vulnerabilidad)...")
     print(f"     [Táctica] Reemplazó: {sabotajes[0]['buscar']}")

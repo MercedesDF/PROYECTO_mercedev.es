@@ -14,5 +14,5 @@ INSTRUCCIONES DE RAZONAMIENTO Y SALIDA:
     "reemplazar": "<header class=\"header\" style=\"background: black;\">"
   }
 ]
-4. REGLA DE ORO: El valor "buscar" DEBE SER UNA COPIA EXACTA Y LITERAL de un fragmento de código real del texto proporcionado, respetando espacios, tabulaciones y comillas.
+4. REGLA DE ORO: El valor "buscar" DEBE SER UNA SOLA LÍNEA CORTA Y COMPLETA, copiada EXACTAMENTE Y LITERALMENTE del texto proporcionado, respetando espacios, tabulaciones y comillas.
 5. No escribas NADA MÁS que el array JSON crudo, sin bloques de código Markdown.
