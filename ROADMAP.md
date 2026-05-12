@@ -170,6 +170,6 @@
 
 ### Fase 4: Observabilidad y SRE IA
 - [X] Dashboard de Confianza: Implementar Grafana para visualizar cuántos cambios de IA han sido aprobados vs. rechazados.
-- [ ] Chaos Engineering con IA: Script que use la IA para simular fallos en el merci-boilerplate y verificar que el sistema de rollback funciona.
+- [x] Chaos Engineering con IA: Script que use la IA para simular fallos en el merci-boilerplate y verificar que el sistema de rollback funciona.
 - [x] Hardening Automation: Agente que audite el cumplimiento de la docs/checklist-hardening.md de forma continua.
 - [ ] **Evaluación de Tienda WooCommerce (Deuda Fase 4.3):** Estudiar la viabilidad de activar WooCommerce más allá del modo catálogo actual. Evaluar: pasarela de pago compatible con la arquitectura (sin degradar Core Web Vitals), impacto en CSP (Content Security Policy), y si el volumen de productos justifica la complejidad operativa. Decisión de arquitectura previa obligatoria antes de cualquier implementación.
