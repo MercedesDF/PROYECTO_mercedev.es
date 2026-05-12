@@ -9,7 +9,7 @@ weasyprint==68.1
 Pillow==12.2.0
 
 # Extracción de texto de PDFs de PageSpeed Insights (merci-extract-metrics.py)
-pypdf==5.4.0
+pypdf==6.10.2
 
 # Librería de conversión Markdown a HTML (merci-publish.py, merci-wp.py)
 markdown==3.8
