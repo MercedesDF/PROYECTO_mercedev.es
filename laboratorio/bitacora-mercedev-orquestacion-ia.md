@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Fix: Métrica SRE de incubación basada en estado YAML
+
+**Contexto:** La métrica `merci_documentos_incubacion_total` de Grafana estaba contando archivos físicos en la carpeta `incubacion/`, lo que generaba duplicidades e inconsistencias si los archivos contenidos tenían el estado "borrador", ya que la otra métrica (`merci_documentos_promocion_total`) sí analizaba los metadatos YAML independientemente del directorio.
+
+**Hecho:** Se refactorizó la extracción de métricas documentales en `scripts/merci/merci-sre.py`.
+
+**Detalle técnico:** Se eliminó la lectura mediante `.glob` basada en directorios. Ahora, el script escanea el YAML Frontmatter de todos los archivos del laboratorio en un solo barrido I/O y asume la métrica de incubación buscando estrictamente `estado: "incubacion"` mediante Expresiones Regulares.
+
+**Motivo / criterio:** *Coherencia de la Máquina de Estados*. En un sistema "Spec-Driven", la fuente de verdad es el metadato del archivo, no su ubicación física. Basar ambas métricas en el estado YAML unifica la lógica de telemetría y erradica los conteos duplicados.
+
 ### 2026-05-12 — UX/Arch: Desacoplamiento de automatización LinkedIn en Agente Bibliotecario
 
 **Contexto:** El Agente Bibliotecario forzaba la generación de un bloque de LinkedIn (`<!-- linkedin: ... -->`) en cada nuevo documento. Esto provocaba alucinaciones de formato en el modelo local y generaba ruido, ya que no todas las notas internas (ej. decisiones arquitectónicas) requieren un post público en redes sociales.

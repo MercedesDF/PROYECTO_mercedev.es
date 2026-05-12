@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperación de datos y el peligro de los comandos destructivos en Git — mercedev.es</title>
-    <meta name="description" content="Por qué las interfaces gráficas mienten, la terminal dice la verdad, y cómo blindarse antes de reescribir el historial.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git.html">
+    <title>Transformación de Checklist de Seguridad Pasiva en Escudo Activo — mercedev.es</title>
+    <meta name="description" content="Se convierte un checklist de seguridad pasivo en un escudo activo mediante merci-hardening.py, garantizando el Continuous Compliance.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/transformacion-de-checklist-de-seguridad-pasiva-en-escudo-activo.html">
     <link rel="stylesheet" href="/css/main.css?v=1778607978">
     <script src="/js/MerciController.js?v=1778479031" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Recuperación de datos y el peligro de los comandos destructivos en Git",
-      "description": "Por qué las interfaces gráficas mienten, la terminal dice la verdad, y cómo blindarse antes de reescribir el historial.",
-      "url": "https://mercedev.es/biblioteca/recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git.html"
+      "headline": "Transformación de Checklist de Seguridad Pasiva en Escudo Activo",
+      "description": "Se convierte un checklist de seguridad pasivo en un escudo activo mediante merci-hardening.py, garantizando el Continuous Compliance.",
+      "url": "https://mercedev.es/biblioteca/transformacion-de-checklist-de-seguridad-pasiva-en-escudo-activo.html"
     }
     </script>
 </head>
@@ -46,25 +46,16 @@
         <article class="card card--booklet">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">Recuperación de datos y el peligro de los comandos destructivos en Git</h1>
-                <a href="/descargas/recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">Transformación de Checklist de Seguridad Pasiva en Escudo Activo</h1>
+                <a href="/descargas/transformacion-de-checklist-de-seguridad-pasiva-en-escudo-activo.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Durante un intento de purgar material multimedia pesado del historial profundo de Git (reescritura de historial), la carpeta objetivo desapareció repentinamente del explorador de archivos del editor de código (VS Code). Se generó una alerta crítica por posible pérdida de datos no versionados (archivos <em>untracked</em>), asumiendo que el comando de consola había arrasado con el disco duro físico.</p>
+<p>Se detectó que el proyecto tenía un checklist de seguridad pasivo en texto plano, lo que no garantizaba una postura de seguridad real y continuo.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se aplicó ingeniería forense para determinar el estado real de la máquina:
-1. <strong>Descartar la ilusión óptica:</strong> Se utilizó la terminal nativa del sistema (<code>ls -la</code>) para confirmar si la desaparición era real o si la interfaz gráfica (GUI) estaba ocultando los archivos por estar listados en el <code>.gitignore</code>.
-2. <strong>Rastreo de operaciones:</strong> Al confirmar la ausencia física, se dedujo que el comando <code>git rm --cached</code> no era el culpable (pues está diseñado para no tocar el disco). La causa raíz fue una manipulación accidental en la GUI (clic en "Descartar cambios"), la cual elimina archivos físicos sin red de seguridad.
-3. <strong>Rescate:</strong> Se localizaron y restauraron los archivos directamente desde la Papelera de reciclaje del sistema operativo anfitrión (Ubuntu) y, como medida de mitigación futura, se programó un script Python para generar copias de seguridad locales (<code>merci-backup.py</code>).</p>
+<p>Se creó merci-hardening.py, un agente que audita la postura de seguridad real de la infraestructura en local. El script comprueba empíricamente que el archivo .env tenga permisos 600, que el .gitignore contenga reglas DLP críticas, bloquea la exposición de archivos rogue como wp-config.php en la raíz y busca Mixed Content (http://) en el HTML estático.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Este incidente consolida tres reglas de arquitectura operativa innegociables en DevSecOps:</p>
-<ol>
-<li><strong>Las interfaces gráficas mienten; la terminal es la única fuente de verdad.</strong> Los editores de código modernos ocultan información por conveniencia. Ante la duda, el diagnóstico siempre debe realizarse desde una terminal nativa (fuera del IDE).</li>
-<li><strong>Git no protege lo que no conoce.</strong> Operar con archivos <em>untracked</em> (no rastreados) es caminar por la cuerda floja. Si se borran, Git no tiene memoria de ellos para restaurarlos.</li>
-<li><strong>Snapshots antes de la cirugía.</strong> Ejecutar comandos de reescritura de historial (<code>filter-branch</code>, <code>reset --hard</code>) o purgas de caché es una operación "a corazón abierto". Es obligatorio generar un archivo <code>.zip</code> con el estado íntegro del proyecto antes de alterar el motor de control de versiones.</li>
-</ol>
-<p><em>Asumir que las herramientas nos protegen de nosotros mismos es el primer paso hacia el desastre.</em></p>
+<p>Se garantiza el Continuous Compliance de la arquitectura antes de cada commit. La solución es óptima porque automatiza la verificación de seguridad, reduciendo el riesgo de vulnerabilidades y asegurando que los cambios cumplen con las políticas de seguridad establecidas.</p>
             </div>
         </article>
     </main>

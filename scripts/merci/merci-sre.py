@@ -28,14 +28,10 @@ def actualizar_metricas():
         ROADMAP_TASKS.labels(estado="pendiente").set(pendientes)
         ROADMAP_TASKS.labels(estado="completada").set(completadas)
 
-    # 2. Contar documentos en incubación
-    incubacion_dir = REPO_ROOT / "laboratorio" / "incubacion"
-    if incubacion_dir.exists():
-        DOCS_INCUBACION.set(len(list(incubacion_dir.glob("*.md"))))
-
-    # 2.5 Contar documentos listos para promover (estado: "borrador" en todo el laboratorio)
+    # 2. Contar documentos por estado (incubación y promoción) mediante YAML Frontmatter
     laboratorio_dir = REPO_ROOT / "laboratorio"
     if laboratorio_dir.exists():
+        en_incubacion = 0
         borradores = 0
         for md_file in laboratorio_dir.rglob("*.md"):
             # Excluir bitácoras para evitar falsos positivos
@@ -44,10 +40,14 @@ def actualizar_metricas():
             try:
                 content = md_file.read_text(encoding="utf-8", errors="ignore")
                 match = re.match(r"^\s*---\r?\n(.*?)\n---", content, re.DOTALL)
-                if match and re.search(r'^estado:\s*["\']borrador["\']', match.group(1), re.MULTILINE | re.IGNORECASE):
-                    borradores += 1
+                if match:
+                    if re.search(r'^estado:\s*["\']incubacion["\']', match.group(1), re.MULTILINE | re.IGNORECASE):
+                        en_incubacion += 1
+                    elif re.search(r'^estado:\s*["\']borrador["\']', match.group(1), re.MULTILINE | re.IGNORECASE):
+                        borradores += 1
             except Exception:
                 pass
+        DOCS_INCUBACION.set(en_incubacion)
         DOCS_PROMOCION.set(borradores)
 
     # 3. Contar documentos en la biblioteca pública
