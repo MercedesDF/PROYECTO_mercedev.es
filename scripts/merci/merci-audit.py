@@ -427,6 +427,30 @@ def audit_inline_styles(state: AuditState, path: Path, text: str) -> None:
                 )
             )
 
+def audit_inline_scripts(state: AuditState, path: Path, text: str) -> None:
+    """
+    Detecta etiquetas <script> con contenido en línea, que son un riesgo de XSS
+    y violan la Política de Seguridad de Contenido (CSP).
+    """
+    if path.suffix.lower() not in {".html", ".htm", ".php"}:
+        return
+
+    # Busca etiquetas <script> que no sean de tipo JSON-LD y que contengan código.
+    pattern = re.compile(r'<script((?!type=["\']application/ld\+json["\'])[^>]*)>(.+?)</script>', re.IGNORECASE | re.DOTALL)
+    
+    for match in pattern.finditer(text):
+        script_content = match.group(2).strip()
+        if not script_content:
+            continue
+
+        line_number = text.count('\n', 0, match.start()) + 1
+        state.add(
+            Finding(
+                path, line_number, "error", "UI_INLINE_SCRIPT",
+                f"Script en línea detectado: <script>...{script_content[:30]}...</script>. Mover a archivo .js externo."
+            )
+        )
+
 class SeoHTMLParser(HTMLParser):
     """
     Acumula datos mientras el analizador HTML de la librería estándar recorre el documento.
@@ -634,6 +658,8 @@ def run_on_files(paths: Iterable[Path], strict_json_ld: bool) -> AuditState:
         audit_md_acronyms(state, path, text)
         audit_php_smells(state, path, text)
         audit_inline_styles(state, path, text)
+        audit_inline_scripts(state, path, text)
+        audit_inline_scripts(state, path, text)
     return state
 
 

@@ -39,6 +39,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Fix: Blindaje del auditor contra inyección de scripts en línea (XSS)
+
+**Contexto:** El Agente Chaos logró burlar las defensas del sistema inyectando una etiqueta `<script>` con código JavaScript en línea directamente en un archivo HTML. El auditor `merci-audit.py` no detectó esta vulnerabilidad.
+
+**Hecho:** Se ha implementado la nueva función `audit_inline_scripts` en `scripts/merci/merci-audit.py`.
+
+**Detalle técnico:** La función utiliza una expresión regular para detectar cualquier etiqueta `<script>` que contenga código y no sea de tipo `application/ld+json`. Este hallazgo se clasifica como un `ERROR` bloqueante para detener el pipeline inmediatamente.
+
+**Motivo / criterio:** *Shift-Left Security y Hardening*. La inyección de scripts en línea es un vector de ataque XSS (Cross-Site Scripting) clásico. Al enseñar al auditor a detectar y bloquear este antipatrón, se cierra la brecha de seguridad descubierta por el Chaos Monkey y se endurece la postura de seguridad del ecosistema.
+
+### 2026-05-12 — Test: Descubrimiento de vulnerabilidad (Inline JS) mediante Chaos Monkey
+
+**Contexto:** Se ejecutaron pruebas de resiliencia con el Agente Chaos (`merci-chaos.py`). En la primera ronda, el sistema detuvo correctamente una inyección de estilos en línea. En la segunda ronda, la IA inyectó un script malicioso en línea (`<script>alert(...)</script>`) en el `index.html`.
+
+**Hecho:** El ataque evadió el linter (`merci-audit.py`), revelando un punto ciego en las auditorías de seguridad estáticas.
+
+**Detalle técnico:** El auditor falló al no estar configurado para inspeccionar etiquetas `<script>` en línea dentro de los archivos HTML, o al no tener catalogado el `alert()` como función sospechosa en ese contexto.
+
+**Motivo / criterio:** *Chaos Engineering Validation*. Este evento demuestra el inmenso valor de las pruebas proactivas de seguridad. El sistema no falló, sino que cumplió su propósito: descubrir una brecha en las políticas de seguridad (SAST) antes de que un error humano o un ataque real la explote.
+
 ### 2026-05-12 — Fix: Reconocimiento de Warnings como detección en Chaos Monkey
 
 **Contexto:** El agente Chaos Monkey inyectó un estilo en línea en el HTML. El auditor (`merci-audit.py`) detectó la anomalía lanzando un `WARN UI_INLINE_STYLE`, pero el Chaos Monkey lo consideró un fallo del escudo porque el código de salida fue `0` (los Warnings no rompen la compilación forzosamente).
