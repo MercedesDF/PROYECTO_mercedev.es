@@ -105,15 +105,17 @@ El proyecto se divide en grandes "Épicas" arquitectónicas. Puedes consultar el
 - Aplicación estricta de metodologías *Shift-Left Security*, 
 - Integración Continua (CI/CD) y rendimiento extremo, garantizando 100/100 en Core Web Vitals con 0 dependencias externas.
 
-### Épica 2: Orquestación IA & Self-Healing (Fases 1-4) 🚧
+### Épica 2: Orquestación IA & Self-Healing (Fases 1-4) ✅
 
-**Fases 1-3 (Concluidas):** 
+**Fases 1-4 (Concluidas):** 
 Integración de agentes de IA (Small Language Models) operando de forma 100% offline y gratuita (Ollama/LiteLLM). 
 Los agentes auto-reparan el código ante fallos del linter, estructuran cuadernillos, evitan la deriva documental (Document Drift) y automatizan la publicación en redes sociales.
-
-**Fase 4 - Observabilidad y SRE IA (En curso):** 
-Transición de la automatización ciega a la gobernanza empírica basada en datos.
 Despliegue de infraestructura efímera en contenedores Docker (Prometheus + Grafana) para medir la fiabilidad de los agentes de IA, simular caos (Chaos Engineering) y auditar de forma continua el endurecimiento del ecosistema.
+
+### Épica 3: E-commerce Híbrido Extremo 🚧
+
+**Fase 1 (En preparación):**
+Integración de pasarelas de pago (Stripe/PayPal) en WooCommerce manteniendo la política innegociable de 100/100 en Core Web Vitals y TBT 0ms. Esto se logrará aislando los pesados scripts de terceros mediante técnicas avanzadas de carga diferida asíncrona o Web Workers.
 
 
 ## Licencia

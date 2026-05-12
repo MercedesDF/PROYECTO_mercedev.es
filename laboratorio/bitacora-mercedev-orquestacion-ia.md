@@ -39,6 +39,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — UX/Arch: Desacoplamiento de automatización LinkedIn en Agente Bibliotecario
+
+**Contexto:** El Agente Bibliotecario forzaba la generación de un bloque de LinkedIn (`<!-- linkedin: ... -->`) en cada nuevo documento. Esto provocaba alucinaciones de formato en el modelo local y generaba ruido, ya que no todas las notas internas (ej. decisiones arquitectónicas) requieren un post público en redes sociales.
+
+**Hecho:** Se purgaron las instrucciones de generación de LinkedIn en `laboratorio/prompts/prompt-bibliotecario.md` y `scripts/merci/merci-librarian.py`.
+
+**Detalle técnico:** Se eliminó el bloque HTML de ejemplo del prompt maestro y las referencias en el código de Python que ordenaban al modelo generar copy para redes sociales.
+
+**Motivo / criterio:** *YAGNI (You Aren't Gonna Need It) y Desacoplamiento*. La creación de contenido técnico debe estar completamente separada de su distribución social. Forzar a un SLM a hacer de Technical Writer y Copywriter simultáneamente sobrecarga su ventana de atención y rompe formatos. Si la autora desea publicar un post, inyectará el bloque de LinkedIn a posteriori durante la fase de curación manual.
+
+### 2026-05-12 — Fix: Sincronización de estado inicial (incubación) en Agente Bibliotecario
+
+**Contexto:** El Agente Bibliotecario generaba nuevos cuadernillos asignándoles `estado: "borrador"` por defecto. Esto causaba que los archivos recién creados fueran inmediatamente visibles para el orquestador de promoción (`merci-promote.py`), saltándose la fase de curación humana (Máquina de Estados).
+
+**Hecho:** Se actualizó el archivo rector `laboratorio/prompts/prompt-bibliotecario.md`.
+
+**Detalle técnico:** Se reemplazó el valor por defecto en la plantilla YAML a `estado: "incubacion"` y se modificó la Regla Innegociable 2 para prohibir a la IA el uso de otros estados.
+
+**Motivo / criterio:** *State Machine Enforcement (Cumplimiento de Máquina de Estados)*. La arquitectura Zero-Code exige que los documentos inmaduros permanezcan invisibles (incubación) hasta que la autora certifique su validez cambiándolos a "borrador". Actualizar el *System Prompt* alinea la IA con el diseño arquitectónico de fricción cero.
+
 ### 2026-05-12 — Docs: Release v1.12.0 del Boilerplate (SRE, Hardening & Chaos)
 
 **Contexto:** Tras culminar la Fase 4 con la estabilización de los agentes de métricas (SRE), auditoría continua de seguridad (Hardening) e ingeniería del caos (Chaos Monkey), la infraestructura ha alcanzado un nivel de madurez operativa Enterprise-grade.
