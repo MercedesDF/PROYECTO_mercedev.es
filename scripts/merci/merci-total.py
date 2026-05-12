@@ -67,4 +67,8 @@ def main():
     print("\n✅ [Merci Total] ¡Pipeline completado con éxito! Todo optimizado y auditado.")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n🛑 [Merci Total] Orquestación interrumpida por la usuaria. Saliendo limpiamente.")
+        sys.exit(130)

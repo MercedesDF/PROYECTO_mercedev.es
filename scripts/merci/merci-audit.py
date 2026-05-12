@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse
 import ast
 import json
+import os
 import re
 import subprocess
 import sys
@@ -435,10 +436,14 @@ def audit_inline_scripts(state: AuditState, path: Path, text: str) -> None:
     if path.suffix.lower() not in {".html", ".htm", ".php"}:
         return
 
-    # Busca etiquetas <script> que no sean de tipo JSON-LD y que contengan código.
-    pattern = re.compile(r'<script((?!type=["\']application/ld\+json["\'])[^>]*)>(.+?)</script>', re.IGNORECASE | re.DOTALL)
+    # Busca todas las etiquetas <script> y extrae sus atributos y contenido
+    pattern = re.compile(r'<script([^>]*)>(.*?)</script>', re.IGNORECASE | re.DOTALL)
     
     for match in pattern.finditer(text):
+        attrs = match.group(1).lower()
+        if "application/ld+json" in attrs:
+            continue
+            
         script_content = match.group(2).strip()
         if not script_content:
             continue
@@ -659,7 +664,6 @@ def run_on_files(paths: Iterable[Path], strict_json_ld: bool) -> AuditState:
         audit_php_smells(state, path, text)
         audit_inline_styles(state, path, text)
         audit_inline_scripts(state, path, text)
-        audit_inline_scripts(state, path, text)
     return state
 
 
@@ -745,7 +749,7 @@ def print_report(state: AuditState) -> None:
         
         # --- INYECCIÓN DE IA (El Agente Auditor) ---
         # Solo solicitamos sugerencias para errores críticos para no saturar el pre-commit.
-        if item.level == "error" and litellm:
+        if item.level == "error" and litellm and not os.environ.get("MERCI_SKIP_AI"):
             print(f"  🤖 [Merci Brain] Analizando contexto de {item.code}...")
             suggestion = get_ai_suggestion(item)
             if suggestion:

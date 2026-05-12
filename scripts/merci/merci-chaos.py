@@ -7,6 +7,7 @@ ejecutar la auditoría para verificar que el sistema lo detecta, y finalmente
 auto-restaurar el entorno (Rollback).
 """
 
+import os
 import sys
 import subprocess
 import random
@@ -70,16 +71,19 @@ def main():
     print(f"     [Táctica] Por:       {sabotajes[0]['reemplazar']}")
     target_file.write_text(original_content.replace(sabotajes[0]["buscar"], sabotajes[0]["reemplazar"], 1), encoding="utf-8")
 
-    print("\n  🛡️ Lanzando Auditoría DevSecOps para medir defensas...")
-    resultado = subprocess.run([sys.executable, str(REPO_ROOT / "scripts" / "merci" / "merci-audit.py")], cwd=REPO_ROOT, capture_output=True, text=True)
-    
-    salida = resultado.stdout.strip()
-    # Un WARN también es una detección exitosa del linter, aunque no rompa la compilación
-    if resultado.returncode != 0 or "WARN" in salida or "ERROR" in salida: print(f"\n  ✅ [ÉXITO DEL CAOS] El sistema detectó la anomalía.\n\n{salida}")
-    else: print(f"\n  ❌ [VULNERABILIDAD] El escudo falló. El código malicioso pasó indetectado.\n\n{salida}")
-
-    print("\n  ⏪ Ejecutando Auto-Healing (Rollback)...")
-    subprocess.run(["git", "restore", str(target_file)], cwd=REPO_ROOT)
-    print(f"  ✨ {target_file.name} restaurado. Tu proyecto está a salvo.")
+    try:
+        print("\n  🛡️ Lanzando Auditoría DevSecOps para medir defensas...")
+        env_aislado = os.environ.copy()
+        env_aislado["MERCI_SKIP_AI"] = "1"
+        resultado = subprocess.run([sys.executable, str(REPO_ROOT / "scripts" / "merci" / "merci-audit.py")], cwd=REPO_ROOT, capture_output=True, text=True, env=env_aislado)
+        
+        salida = resultado.stdout.strip()
+        # Un WARN también es una detección exitosa del linter, aunque no rompa la compilación
+        if resultado.returncode != 0 or "WARN" in salida or "ERROR" in salida: print(f"\n  ✅ [ÉXITO DEL CAOS] El sistema detectó la anomalía.\n\n{salida}")
+        else: print(f"\n  ❌ [VULNERABILIDAD] El escudo falló. El código malicioso pasó indetectado.\n\n{salida}")
+    finally:
+        print("\n  ⏪ Ejecutando Auto-Healing (Rollback)...")
+        subprocess.run(["git", "restore", str(target_file)], cwd=REPO_ROOT)
+        print(f"  ✨ {target_file.name} restaurado. Tu proyecto está a salvo.")
 
 if __name__ == "__main__": main()

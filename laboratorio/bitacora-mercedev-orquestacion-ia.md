@@ -39,6 +39,46 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Fix: Falsos positivos en auditor de scripts en línea
+
+**Contexto:** El linter de seguridad `merci-audit.py` generaba falsos positivos masivos al detectar etiquetas `<script src="...">` vacías y bloques de datos estructurados JSON-LD, duplicando además la salida de los errores.
+
+**Hecho:** Se refactorizó la expresión regular y la lógica de validación en `audit_inline_scripts`.
+
+**Detalle técnico:** Se cambió la captura de `(.+?)` por `(.*?)` y se extrajo la validación del atributo `type="application/ld+json"` a nivel de Python (`if "application/ld+json" in attrs`) en lugar de usar un *Negative Lookahead* complejo en la Regex. Se eliminó la llamada duplicada a la función en el bucle principal.
+
+**Motivo / criterio:** *Robustez de Regex*. Las expresiones regulares complejas con *lookaheads* negativos son frágiles al parsear HTML, provocando colapsos entre etiquetas adyacentes. Delegar la validación condicional al lenguaje nativo (Python) asegura precisión milimétrica (evitando que el linter confunda datos SEO con ataques XSS).
+
+### 2026-05-12 — Perf: Degradación elegante (SIGINT) en Orquestador Maestro
+
+**Contexto:** Tras analizar el comportamiento de interrupciones manuales (`Ctrl+C`) en `merci-chaos.py`, se auditó el orquestador principal (`merci-total.py`) y se detectó que carecía de manejo para la excepción `KeyboardInterrupt`, lo que provocaba la impresión de trazas de error (Tracebacks) que ensuciaban la terminal.
+
+**Hecho:** Se implementó la captura de excepciones `KeyboardInterrupt` en `scripts/merci/merci-total.py`.
+
+**Detalle técnico:** Se envolvió la llamada a `main()` en un bloque `try-except`. Si el usuario interrumpe la ejecución del pipeline, el script captura la señal, detiene la ejecución en cascada de los subprocesos y sale limpiamente con el código estándar POSIX `130`.
+
+**Motivo / criterio:** *Fail Gracefully & Clean DX*. La regla "Silence is Golden" exige que las salidas de terminal sean siempre legibles y controladas. Un orquestador maestro maduro debe interceptar las interrupciones del usuario y abortar con elegancia, en lugar de colapsar la interfaz con ruidos de depuración del lenguaje.
+
+### 2026-05-12 — Fix: Blindaje del Rollback en Chaos Monkey con bloque finally
+
+**Contexto:** El usuario canceló la ejecución del agente Chaos (`merci-chaos.py`) mediante `Ctrl+C` (`KeyboardInterrupt`) durante la fase de auditoría. Como el script fue interrumpido abruptamente, el proceso de restauración automática (`git restore`) nunca se ejecutó, dejando el código malicioso inyectado físicamente en el repositorio y rompiendo el pipeline de integración.
+
+**Hecho:** Se implementó un bloque `try...finally` en `scripts/merci/merci-chaos.py`.
+
+**Detalle técnico:** Se envolvió la llamada a `merci-audit.py` dentro de un bloque `try`, colocando la rutina de `git restore` en la cláusula `finally`.
+
+**Motivo / criterio:** *Fail-Safe Rollback*. Un agente destructivo debe garantizar el restablecimiento del entorno sin importar las circunstancias. El uso de `finally` asegura a nivel de intérprete Python que la orden de reversión se ejecute incondicionalmente, incluso si el proceso hijo colapsa o el usuario lanza una señal de interrupción del sistema.
+
+### 2026-05-12 — Perf: Silenciamiento de IA en auditoría durante Chaos Engineering
+
+**Contexto:** Al ejecutar `merci-chaos.py`, el proceso parecía congelarse durante la fase de "medir defensas". Esto ocurría porque el auditor detectaba el ataque y automáticamente consultaba al LLM local para sugerir una reparación, bloqueando la consola debido a la captura de salida oculta y duplicando la carga de inferencia local.
+
+**Hecho:** Se implementó la variable de entorno `MERCI_SKIP_AI` para cortocircuitar las sugerencias de la IA en `merci-audit.py`.
+
+**Detalle técnico:** Se modificó `merci-chaos.py` para inyectar `MERCI_SKIP_AI="1"` en el entorno del subproceso `subprocess.run()`. El auditor omite la llamada a Ollama/Gemini si detecta este flag activo.
+
+**Motivo / criterio:** *Resource Budgeting y DX*. El Chaos Monkey solo necesita validar si la defensa se activó (código de salida o WARN), no requiere una guía de reparación generada por IA para un código que será restaurado inmediatamente mediante `git restore`. Silenciar la IA secundaria ahorra recursos de máquina y devuelve la respuesta en milisegundos en lugar de minutos.
+
 ### 2026-05-12 — Fix: Blindaje del auditor contra inyección de scripts en línea (XSS)
 
 **Contexto:** El Agente Chaos logró burlar las defensas del sistema inyectando una etiqueta `<script>` con código JavaScript en línea directamente en un archivo HTML. El auditor `merci-audit.py` no detectó esta vulnerabilidad.
