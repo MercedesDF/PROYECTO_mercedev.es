@@ -23,8 +23,8 @@ def actualizar_metricas():
     roadmap_path = REPO_ROOT / "ROADMAP.md"
     if roadmap_path.exists():
         content = roadmap_path.read_text(encoding="utf-8")
-        pendientes = len(re.findall(r'- \[ \] ', content))
-        completadas = len(re.findall(r'- \[x\] ', content))
+        pendientes = len(re.findall(r'- \[\s*\] ', content))
+        completadas = len(re.findall(r'- \[\s*[xX]\s*\] ', content))
         ROADMAP_TASKS.labels(estado="pendiente").set(pendientes)
         ROADMAP_TASKS.labels(estado="completada").set(completadas)
 

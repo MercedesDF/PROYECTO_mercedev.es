@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Fix: Ceguera sintáctica en métricas SRE del Roadmap
+
+**Contexto:** Las métricas de Grafana para las tareas del Roadmap no reflejaban alteraciones cuando las casillas de verificación contenían espacios adicionales (ej. `[  ]`).
+
+**Hecho:** Se refactorizaron las expresiones regulares en `scripts/merci/merci-sre.py`.
+
+**Detalle técnico:** Se cambió `r'- \[ \] '` por `r'- \[\s*\] '` y `r'- \[x\] '` por `r'- \[\s*[xX]\s*\] '`.
+
+**Motivo / criterio:** *Data Accuracy y Robustez*. Al igual que se corrigió en el Agente SSOT, el agente de observabilidad debe ser tolerante a errores tipográficos humanos (espacios extra o mayúsculas) para garantizar que la telemetría del dashboard DevSecOps sea matemáticamente exacta frente al archivo físico.
+
 ### 2026-05-12 — UX: Eliminación de la palabra "borrador" en los nombres de archivo generados por el Bibliotecario
 
 **Contexto:** El Agente Bibliotecario (`merci-librarian.py`) añadía el sufijo `-borrador` a los nombres de los archivos generados en la bandeja de incubación (ej. `cuadernillo-borrador-tema.md`), lo que generaba fricción cognitiva al tener que renombrarlos posteriormente.
