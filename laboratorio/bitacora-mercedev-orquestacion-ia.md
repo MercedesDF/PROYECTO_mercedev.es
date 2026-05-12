@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Perf: Aceleración del latido SRE (Scrape Interval)
+
+**Contexto:** La actualización de las métricas en Grafana tenía una latencia perceptible de varios segundos que generaba fricción al validar cambios inmediatos en el laboratorio.
+
+**Hecho:** Se redujeron los intervalos de actualización en `merci-sre.py` y `prometheus.yml`.
+
+**Detalle técnico:** Se cambió `time.sleep(5)` por `time.sleep(2)` en Python (frecuencia de generación) y `scrape_interval: 5s` por `2s` en Prometheus (frecuencia de recolección).
+
+**Motivo / criterio:** *Developer Experience (DX) vs Load*. En un entorno de producción masivo, 15s o 30s es la norma para no saturar la CPU. Sin embargo, en un entorno de desarrollo local, reducir el "latido" a 2 segundos proporciona feedback casi en tiempo real sin impacto perceptible en el rendimiento del equipo anfitrión.
+
 ### 2026-05-12 — Fix: Ceguera sintáctica en métricas SRE del Roadmap
 
 **Contexto:** Las métricas de Grafana para las tareas del Roadmap no reflejaban alteraciones cuando las casillas de verificación contenían espacios adicionales (ej. `[  ]`).

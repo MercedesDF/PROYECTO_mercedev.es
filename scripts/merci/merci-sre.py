@@ -61,7 +61,7 @@ def main():
     start_http_server(puerto, addr="0.0.0.0")
     while True:
         actualizar_metricas()
-        time.sleep(5)
+        time.sleep(2)
 
 if __name__ == "__main__":
     try:
