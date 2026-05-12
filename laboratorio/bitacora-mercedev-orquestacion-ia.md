@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Docs: Implementación de Política de Seguridad (SECURITY.md)
+
+**Contexto:** Al auditar la configuración de seguridad de GitHub, se detectó que el repositorio carecía de una política de seguridad formal (Security Policy) y tenía desactivados escudos nativos en la nube (Secret Scanning, Private Reporting).
+
+**Hecho:** Se creó el archivo `SECURITY.md` en la raíz del proyecto para habilitar la postura pública de ciberseguridad.
+
+**Detalle técnico:** El documento define las versiones soportadas y canaliza los reportes de vulnerabilidades a través del "Private Vulnerability Reporting" de GitHub, evitando la exposición de vulnerabilidades *Zero-Day* en el gestor de *Issues* público.
+
+**Motivo / criterio:** *Governance y Defense in Depth*. Aunque el ecosistema cuenta con escudos locales robustos (`merci-audit.py`), la postura DevSecOps requiere aprovechar activamente los escudos de la infraestructura de alojamiento. Establecer una política clara profesionaliza el Boilerplate de cara a la comunidad Open Source.
+
 ### 2026-05-12 — Fix: Actualización de seguridad en pypdf y Markdown (Supply Chain)
 
 **Contexto:** Dependabot reportó 23 vulnerabilidades de severidad moderada y baja asociadas a las dependencias `pypdf` y `Markdown`, principalmente relacionadas con agotamiento de RAM y bucles infinitos (Vectores DoS) al procesar archivos maliciosos.
