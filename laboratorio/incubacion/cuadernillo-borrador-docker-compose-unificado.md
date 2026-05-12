@@ -5,9 +5,10 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-12"
 fase: "Épica 2 - Fase 4 (Observabilidad y SRE IA)"
-estado: "publicado"
+estado: "borrador"
 alt_portada: "Eliminación del atributo 'version' en docker-compose.yml para alinear con las mejores prácticas de Docker Compose V2."
 ---
+
 <!-- linkedin:
 Eliminamos el atributo 'version' en docker-compose.yml para alinear con las mejores prácticas de Docker Compose V2. #DevSecOps #Gobernanza #DockerCompose
 -->

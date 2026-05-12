@@ -4,7 +4,7 @@ descripcion: "Análisis estratégico sobre la viabilidad de los Small Language M
 tipo: "compendio"
 tema: "Inteligencia Artificial y Gobernanza"
 fecha: "2026-05-08"
-fase: "3 (Orquestación de Contenidos)"
+fase: "Épica 2 - Fase 3 (Orquestación de Contenidos)"
 estado: "publicado"
 alt_portada: "Representación arquitectónica de un servidor local colapsando ante un flujo masivo de documentos."
 <!-- linkedin: ""

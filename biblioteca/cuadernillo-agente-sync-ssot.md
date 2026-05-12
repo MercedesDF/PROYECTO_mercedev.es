@@ -4,7 +4,7 @@ descripcion: "Cómo delegamos la sincronización de estado entre la bitácora y 
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-08"
-fase: "3 (Orquestación de Contenidos)"
+fase: "Épica 2 - Fase 3 (Orquestación de Contenidos)"
 estado: "publicado"
 alt_portada: "Un robot actualizando un mapa de ruta holográfico."
 <!-- linkedin: ""

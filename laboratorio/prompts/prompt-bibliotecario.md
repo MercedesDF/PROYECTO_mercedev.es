@@ -17,7 +17,7 @@ descripcion: "[Genera un resumen de una sola línea sobre el problema y la soluc
 tipo: "cuadernillo"
 tema: "[Infiere el tema: ej. Arquitectura, DevSecOps, Frontend, SASS, Automatización]"
 fecha: "[Usa la fecha actual proporcionada en el prompt]"
-fase: "[Infiere la fase del roadmap o déjalo genérico]"
+fase: "[Infiere la fase del roadmap. Usa el formato 'Épica X - Fase Y' (ej. 'Épica 2 - Fase 4')]"
 estado: "borrador"
 alt_portada: "[Genera una descripción visual técnica detallada para una supuesta imagen de cabecera]"
 ---

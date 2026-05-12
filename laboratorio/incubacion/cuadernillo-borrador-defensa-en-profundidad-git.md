@@ -5,9 +5,10 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-10"
 fase: "Épica 2 - Fase 3 (Orquestación de Contenidos)"
-estado: "publicado"
+estado: "borrador"
 alt_portada: "Esquema conceptual de la Defensa en Profundidad mostrando a Git como escudo pasivo y al Linter como escudo activo."
 ---
+
 <!-- linkedin:
 Se implementó una solución crítica para evitar bucles infinitos y fugas de datos en el flujo de trabajo del proyecto mercedev.es. Añadiendo explícitamente 'docs/matriz/' al archivo '.gitignore', se aseguró que Git no rastreara los archivos automáticamente, lo que permitió superar el bloqueo por DLP. #DevSecOps #Gobernanza
 -->

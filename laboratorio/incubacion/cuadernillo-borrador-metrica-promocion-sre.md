@@ -5,9 +5,10 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-12"
 fase: "Épica 2 - Fase 4 (Observabilidad y SRE IA)"
-estado: "publicado"
+estado: "incubacion"
 alt_portada: "Métrica SRE para contar documentos en promoción en el laboratorio."
 ---
+
 <!-- linkedin:
 Se implementó una métrica SRE exacta para contar documentos en promoción en el laboratorio, alineando la telemetría con la realidad operativa. 📊 #DevSecOps #Gobernanza
 -->

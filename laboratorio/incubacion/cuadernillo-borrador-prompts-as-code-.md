@@ -5,9 +5,10 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-10"
 fase: "Épica 2 - Fase 3 (Orquestación de Contenidos)"
-estado: "publicado"
+estado: "borrador"
 alt_portada: "Refactorización de System Prompts a Archivos Markdown para una gestión más limpia y auditable del ecosistema de IA."
 ---
+
 <!-- linkedin:
 Refactorización completa de los System Prompts a archivos Markdown para una gestión más limpia y auditable del ecosistema de IA. #DevSecOps #GobernanzaTecnica
 -->

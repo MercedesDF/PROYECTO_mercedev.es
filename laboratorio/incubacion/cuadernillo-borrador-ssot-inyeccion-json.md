@@ -5,9 +5,10 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-10"
 fase: "Épica 2 - Fase 3 (Orquestación de Contenidos)"
-estado: "publicado"
+estado: "borrador"
 alt_portada: "Optimización del Proceso de Reescritura con IA para SSOT"
 ---
+
 <!-- linkedin:
 Se optimizó el proceso de reescritura en SSOT utilizando un patrón 'Decisión vs Ejecución', reduciendo tokens y eliminando riesgos de alucinaciones. #DevSecOps #Gobernanza
 -->
