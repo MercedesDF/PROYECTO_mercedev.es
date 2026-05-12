@@ -39,6 +39,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-12 — Docs: Release v1.12.0 del Boilerplate (SRE, Hardening & Chaos)
+
+**Contexto:** Tras culminar la Fase 4 con la estabilización de los agentes de métricas (SRE), auditoría continua de seguridad (Hardening) e ingeniería del caos (Chaos Monkey), la infraestructura ha alcanzado un nivel de madurez operativa Enterprise-grade.
+
+**Hecho:** Se actualizó `README-merci.md` a la versión `v1.12.0` documentando el clúster de observabilidad (Prometheus/Grafana) y los agentes de defensa proactiva.
+
+**Detalle técnico:** Se consolida la política de "Infrastructure as Code" (IaC) mediante el aprovisionamiento automático de Grafana y la validación de *Fail-Safe Rollbacks* (`try...finally` en `merci-chaos.py`).
+
+**Motivo / criterio:** *Release Pipeline*. Sellar la v1.12.0 clausura oficialmente la Épica 2 (Orquestación con Inteligencia Artificial). El Boilerplate público hereda ahora capacidades de auto-supervisión y auto-sanación que lo posicionan en la vanguardia del ecosistema DevSecOps.
+
 ### 2026-05-12 — Fix: Blindaje del auditor contra inyección de assets externos
 
 **Contexto:** El Agente Chaos Monkey logró evadir el linter inyectando una hoja de estilos externa (`<link rel="stylesheet" href="https://example.com/injected-style.css?">`) en el archivo `index.html`.
