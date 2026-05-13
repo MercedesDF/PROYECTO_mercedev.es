@@ -253,7 +253,6 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     # CONTROL DE ERRORES: Escritura final en disco (riesgo de permisos I/O)
     try:
         out_path.write_text(html_final, encoding="utf-8")
-        print(f"  ✅ Publicado con éxito: public{base_url_path}{out_filename}")
     except IOError as e:
         print(f"  ❌ Error de permisos al guardar el HTML {out_filename}: {e}")
         return False
@@ -458,6 +457,8 @@ def main(): # type: ignore
         PUBLIC_ART_DE_COTE.mkdir(parents=True, exist_ok=True)
         generar_indice(publicaciones_art, PUBLIC_ART_DE_COTE / "index.html", "Art de Coté", "Índice de scripts experimentales, andamiajes y código colateral.", "Scripts, flujos de automatización y código experimental preservado bajo la filosofía Zero Waste (Cero Desperdicio).", "https://mercedev.es/art-de-cote/", header_html, footer_html, css_version, js_controller_version, js_main_version)
             
+    total_pubs = len(publicaciones_bib) + len(publicaciones_art)
+    print(f"  ✅ {total_pubs} documentos estáticos compilados y publicados exitosamente.")
     print("🚀 [Merci Publish] Pipeline de conversión finalizado.")
 
 if __name__ == "__main__":

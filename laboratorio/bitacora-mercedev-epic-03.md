@@ -38,6 +38,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Feat: Agente Redactor DevRel (merci-blogger.py)
+
+**Contexto:** Se necesitaba automatizar la creación de artículos y anuncios para LinkedIn a partir de notas crudas, manteniendo la separación de roles (Technical Writer vs Copywriter/DevRel) para evitar alucinaciones en modelos locales.
+
+**Hecho:** Se desarrolló `scripts/merci/merci-blogger.py` y su cerebro rector `laboratorio/prompts/prompt-blogger.md`. Se extirpó la dependencia de APIs externas para obligarlo a usar exclusivamente Ollama (`qwen2.5-coder`).
+
+**Detalle técnico:** El script lee una nota cruda, utiliza a Ollama para redactar un post entretenido con un bloque HTML de LinkedIn inyectado y el estado `estado_social: "en_cola"`. Luego guarda el resultado en `incubacion/` y mueve la nota original a `_procesadas/`.
+
+**Motivo / criterio:** *Local AI Content Ops*. Dividir la responsabilidad entre el Bibliotecario (técnico) y el Blogger (marketing) especializa el contexto del SLM. Forzar el uso local (Ollama) garantiza la privacidad total del borrador y coste cero de generación.
+
+### 2026-05-14 — Perf: Minimalismo y patrón "Silence is Golden" en orquestadores
+
+**Contexto:** La ejecución del orquestador maestro (`merci total`) saturaba la consola imprimiendo un mensaje de éxito por cada archivo procesado en SSG (`merci-publish.py`) y WordPress (`merci-wp.py`), generando ruido visual excesivo (45+ líneas).
+
+**Hecho:** Se refactorizaron `scripts/merci/merci-publish.py` y `scripts/merci/merci-wp.py` para suprimir los mensajes individuales de éxito si el proceso transcurre con normalidad.
+
+**Detalle técnico:** Se reemplazó el `print` iterativo por un contador de éxito que emite un único mensaje resumen al finalizar el proceso (ej. `✅ 45 artículos sincronizados masivamente`).
+
+**Motivo / criterio:** *Silence is Golden y Clean DX*. Las herramientas de terminal deben ser silenciosas cuando triunfan y ruidosas solo cuando fallan. Reducir el ruido consolida la visualización de métricas críticas en herramientas de observabilidad como Grafana.
+
 ### 2026-05-14 — Fix: API Drift de Gemini y Validación de Fallback Local en SSOT
 
 **Contexto:** Google modificó la nomenclatura de sus modelos en la API v1beta (forzando sufijos `-latest`), lo que provocó errores HTTP 404 en el Agente SSOT al intentar conectarse a la nube.
