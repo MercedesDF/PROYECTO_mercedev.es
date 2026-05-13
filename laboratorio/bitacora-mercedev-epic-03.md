@@ -38,6 +38,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Fix: Resolucion de fallos End-to-End en encadenamiento (Blogger)
+
+**Contexto:** Al validar el "Agent Chaining" entre el Bibliotecario y el Blogger, el pipeline colapsó con `UnboundLocalError`. Además, la reescritura de los metadatos YAML inyectaba comillas residuales corrompiendo el parser.
+
+**Hecho:** Se refactorizaron las expresiones regulares (`.*?` cambiado por `[^"'\n]*`) en `scripts/merci/merci-blogger.py` y se corrigió el alcance del mensaje de consola para archivar notas.
+
+**Detalle técnico:** La expresión regular *non-greedy* con captura opcional en los extremos provocaba que el reemplazo no consumiera la última comilla escrita por Ollama, concatenando el estado forzado (`"incubacion"incubacion"`). Colocar el mensaje de éxito fuera del ámbito exclusivo de las notas crudas provocaba la llamada a una variable inexistente.
+
+**Motivo / criterio:** *End-to-End QA*. Testear flujos aislados es engañoso. La orquestación revela los límites del código de integración. Estos parches garantizan que la cadena de montaje asuma documentos generados dinámicamente sin bloqueos.
+
 ### 2026-05-14 — Refactor: Estandarización de nomenclatura para artículos del Blog
 
 **Contexto:** Los artículos generados por el Agente Blogger (`merci-blogger.py`) se guardaban en la incubadora únicamente con el título slugificado, rompiendo la consistencia visual y de nomenclatura establecida por el Agente Bibliotecario (que usa prefijos como `cuadernillo-`, `compendio-`, `art-de-cote-`).

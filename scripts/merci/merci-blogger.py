@@ -124,24 +124,24 @@ def main():
     
     # QUÉ HACE: Fuerza matemáticamente los estados YAML con Regex.
     # POR QUÉ: Evita que alucinaciones de la IA (ej. escribir 'promoción') rompan las máquinas de estado.
-    respuesta_texto = re.sub(r'^estado:\s*["\']?.*?["\']?', 'estado: "incubacion"', respuesta_texto, flags=re.MULTILINE)
+    respuesta_texto = re.sub(r'^estado:\s*["\']?[^"\'\n]*["\']?', 'estado: "incubacion"', respuesta_texto, flags=re.MULTILINE)
     if re.search(r'^estado_social:', respuesta_texto, re.MULTILINE):
-        respuesta_texto = re.sub(r'^estado_social:\s*["\']?.*?["\']?', f'estado_social: "{estado_soc_val}"', respuesta_texto, flags=re.MULTILINE)
+        respuesta_texto = re.sub(r'^estado_social:\s*["\']?[^"\'\n]*["\']?', f'estado_social: "{estado_soc_val}"', respuesta_texto, flags=re.MULTILINE)
     else:
         respuesta_texto = re.sub(r'(^estado:\s*["\']?incubacion["\']?)', rf'\1\nestado_social: "{estado_soc_val}"', respuesta_texto, flags=re.MULTILINE)
 
     out_path = INCUBACION_DIR / filename
     out_path.write_text(respuesta_texto, encoding="utf-8")
     
+    print(f"\n  ✅ ¡Artículo redactado con éxito y post encolado!")
+    print(f"  📁 Guardado en: {out_path.relative_to(REPO_ROOT)}")
+
     # Solo archiva la nota original si venía de la carpeta de notas crudas
     if nota_elegida.parent == NOTAS_DIR:
         archivo_dir = NOTAS_DIR / "_procesadas"
         archivo_dir.mkdir(exist_ok=True)
         nota_elegida.rename(archivo_dir / nota_elegida.name)
-    
-    print(f"\n  ✅ ¡Artículo redactado con éxito y post encolado!")
-    print(f"  📁 Guardado en: {out_path.relative_to(REPO_ROOT)}")
-    print(f"  🧹 Nota original movida a: {archivo_dir.relative_to(REPO_ROOT)}")
+        print(f"  🧹 Nota original movida a: {archivo_dir.relative_to(REPO_ROOT)}")
 
 if __name__ == "__main__":
     try:
