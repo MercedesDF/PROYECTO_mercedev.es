@@ -214,7 +214,9 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Contexto:** Se necesitaba desacoplar la generación de artículos de su difusión social para evitar inundar de Spam la red profesional, creando un sistema que dosifique los contenidos asíncronamente (Buffer).
 
-**Hecho:** Se refactorizó `scripts/merci/merci-linkedin.py` como un "Gatekeeper" y se inyectó el metadato `estado_social: "en_cola"` en las plantillas Markdown base (`plantilla-blog.md`, `plantilla-art-de-cote.md`).
+**Hecho:** 
+- Se refactorizó `scripts/merci/merci-linkedin.py` como un "Gatekeeper".
+- Tarea completada: Añadir el campo `estado_social: "en_cola"` al YAML Frontmatter en las plantillas Markdown base (`plantilla-blog.md`, `plantilla-art-de-cote.md`).
 
 **Detalle técnico:** El orquestador social escanea ahora la máquina de estados YAML de todos los documentos, filtra solo los que están `en_cola`, los ordena por antigüedad y extrae únicamente el más antiguo. Tras mostrar una previsualización, exige confirmación humana (`s/N`). Si se publica, sella el YAML actualizándolo a `publicado_linkedin`.
 
