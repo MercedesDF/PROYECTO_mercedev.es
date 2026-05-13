@@ -122,6 +122,7 @@ Plantilla base para el registro de sesiones.
 **Motivo / criterio:** *Trazabilidad y Governance*. Las deudas técnicas no registradas son deudas invisibles. Formalizarlas en el roadmap y en la bitácora garantiza que no se pierdan entre sesiones y que puedan priorizarse en el momento adecuado.
 
 **Siguiente paso o deuda:** Evaluar el estado del Boilerplate en Git (v1.6.1) frente al estado actual del repositorio para determinar si procede una nueva release antes de arrancar el Roadmap de IA.
+
 ### 2026-05-07 — Fix: Resolución de permisos de archivo en configuración de Continue (~/.continue/config.json)
 
 **Contexto (El Desafío):** Al intentar acceder al archivo de configuración de la extensión Continue (`~/.continue/config.json`) para aplicar el modelo `gemini-1.5-flash`, la terminal devolvió un error `zsh: permiso denegado`.

@@ -150,7 +150,7 @@
 
 ---
 
-## ÉPICA 2: ORQUESTACIÓN IA & SELF-HEALING (En curso)
+## ÉPICA 2: ORQUESTACIÓN IA & SELF-HEALING (Concluida)
 
 ### Fase 1: Cimientos y Conectividad 
 - [x] Setup de Modelos (Hybrid Stack): Configurar Ollama para ejecución local y LiteLLM para fallback con Gemini Flash API.
@@ -172,11 +172,26 @@
 - [X] Dashboard de Confianza: Implementar Grafana para visualizar cuántos cambios de IA han sido aprobados vs. rechazados.
 - [x] Chaos Engineering con IA: Script que use la IA para simular fallos en el merci-boilerplate y verificar que el sistema de rollback funciona.
 - [x] Hardening Automation: Agente que audite el cumplimiento de la docs/checklist-hardening.md de forma continua.
-- [x] **Evaluación de Tienda WooCommerce (Deuda Fase 4.3):** Se aprueba la viabilidad técnica asumiendo el reto arquitectónico. La implementación se traslada a la Épica 3.
+- [x] **Evaluación de Tienda WooCommerce (Deuda Fase 4.3):** Se aprueba la viabilidad técnica asumiendo el reto arquitectónico. La implementación se traslada a la Épica 4.
 
 ---
 
-## ÉPICA 3: E-COMMERCE EXTREMO (En preparación)
+## ÉPICA 3: DEVREL & OBSERVABILIDAD AVANZADA (En curso)
+
+### Fase 1: Motor de Difusión y Buffer Social
+- [x] Crear la taxonomía/estantería 'SOS Terminal' dentro de Art de Coté.
+- [x] Definir el Frontmatter base para aislar estos snippets rápidos de los cuadernillos pesados.
+- [ ] Añadir el campo `estado_social: "en_cola"` al YAML Frontmatter.
+- [ ] Refactorizar `merci-linkedin.py` para procesar únicamente 1 publicación en cola por ejecución.
+
+### Fase 2: Observabilidad y Alertas SRE
+- [ ] Instrumentar `merci-sre.py` para medir y exponer a Prometheus la métrica `merci_linkedin_queue_total`.
+- [ ] Configurar alertas nativas en Grafana (Alerting) para enviar un aviso por email si la cola baja de 5 posts.
+- [ ] Integrar métricas de Inteligencia Artificial (fallbacks a la nube, errores del auditor) en Grafana.
+
+---
+
+## ÉPICA 4: E-COMMERCE EXTREMO (En preparación)
 
 ### Fase 1: Pasarela de Pago y Rendimiento Híbrido
 - [ ] Configurar pasarela de pago (Stripe/PayPal) en el entorno aislado.

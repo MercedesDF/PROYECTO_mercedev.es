@@ -95,27 +95,19 @@ python3 scripts/merci/merci-audit.py --strict-json-ld
 
 ## 🗺️ Roadmap y Estado del Proyecto
 
-El proyecto se divide en grandes "Épicas" arquitectónicas. Puedes consultar el progreso detallado y el estado de las tareas individuales en el **Roadmap Maestro (ROADMAP.md)**.
+El proyecto se organiza en grandes "Épicas" arquitectónicas. El desglose detallado de tareas técnicas y métricas reside en el **`ROADMAP.md`** maestro.
 
-### Épica 1: Fundación DevSecOps (Fases 1-11) ✅
+- **Epic-01: Fundación DevSecOps** — Construcción del núcleo estático (100/100), integración Headless CMS y orquestadores locales en Python.
+  - Estado: ✅ Completada (2026-05-06)
 
-**Fases 1-11 (Concluidas):**
-- Construcción del núcleo estático (HTML5, SASS 7-1, Vanilla JS) y los orquestadores locales en Python puro.
-- Integración de WordPress como CMS Headless aislado (Proxy Nginx). 
-- Aplicación estricta de metodologías *Shift-Left Security*, 
-- Integración Continua (CI/CD) y rendimiento extremo, garantizando 100/100 en Core Web Vitals con 0 dependencias externas.
+- **Epic-02: Orquestación IA & Self-Healing** — Agentes locales (Ollama) para auto-reparación, gobernanza documental (SSOT) y observabilidad (SRE/Grafana).
+  - Estado: ✅ Completada (2026-05-13)
 
-### Épica 2: Orquestación IA & Self-Healing (Fases 1-4) ✅
+- **Epic-03: DevRel & Observabilidad Avanzada** — Creación de Buffer Social, máquina de estados para LinkedIn y telemetría de difusión.
+  - Estado: 🚧 Fase 1 en ejecución.
 
-**Fases 1-4 (Concluidas):** 
-Integración de agentes de IA (Small Language Models) operando de forma 100% offline y gratuita (Ollama/LiteLLM). 
-Los agentes auto-reparan el código ante fallos del linter, estructuran cuadernillos, evitan la deriva documental (Document Drift) y automatizan la publicación en redes sociales.
-Despliegue de infraestructura efímera en contenedores Docker (Prometheus + Grafana) para medir la fiabilidad de los agentes de IA, simular caos (Chaos Engineering) y auditar de forma continua el endurecimiento del ecosistema.
-
-### Épica 3: E-commerce Híbrido Extremo 🚧
-
-**Fase 1 (En preparación):**
-Integración de pasarelas de pago (Stripe/PayPal) en WooCommerce manteniendo la política innegociable de 100/100 en Core Web Vitals y TBT 0ms. Esto se logrará aislando los pesados scripts de terceros mediante técnicas avanzadas de carga diferida asíncrona o Web Workers.
+- **Epic-04: E-commerce Híbrido Extremo** — Pasarelas de pago en WooCommerce aisladas con Web Workers (Partytown) para mantener TBT en 0ms.
+  - Estado: ⏳ En cola.
 
 
 ## Licencia

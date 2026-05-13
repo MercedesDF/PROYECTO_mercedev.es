@@ -1,12 +1,11 @@
-# Bitácora del proyecto mercedev.es — Fase: Orquestación con IA
+# Bitácora del proyecto mercedev.es — Épica 2: Orquestación con IA
 
 ## Para qué sirve este archivo
 
-Bitácora activa a partir del cierre arquitectónico fundacional (Fases 1–11, selladas el 2026-05-06).
+Bitácora activa a partir del cierre arquitectónico fundacional (Épica 1, selladas el 2026-05-06).
 Registra exclusivamente las decisiones, experimentos y aprendizajes de la Épica 2 (Orquestación con Inteligencia Artificial) documentada en el `ROADMAP.md` maestro.
 
-El historial anterior (Fases 1–11) vive íntegramente en `laboratorio/bitacora-mercedev.md`.
-El archivo histórico archivado (2026-04-12 a 2026-04-23) está en `laboratorio/historico/bitacora-mercedev-260412-260423.md`.
+El historial anterior (Épica 1) vive íntegramente en `laboratorio/bitacora-mercedev-epic-01.md`.
 
 No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa el día a día con **hechos, comandos y lecciones**.
 
@@ -38,6 +37,45 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 ---
 
 ## Registro cronológico
+
+### 2026-05-13 — Milestone: Cierre definitivo de Fase 4 (Épica 2) y Validación Final
+
+**Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para la Fase 4. Como dicta el método Agile, el cierre no se produjo al empaquetar la primera Release, sino que engloba todas las depuraciones de seguridad posteriores (parches de Dependabot, sanitización de JSON-LD y corrección del instanciador) ejecutadas tras el primer despliegue.
+
+**Hecho:** Se ejecutó la lista de verificación obligatoria de cierre de fase:
+- [x] **1. Deuda Técnica:** 0 TODOs. Vulnerabilidades de dependencias resueltas (Litellm, PyPDF, Markdown), fallos de instanciación reparados y *Fail-Safe Rollback* validado.
+- [x] **2. Cosecha de Conocimiento:** Dashboard DevSecOps persistido como Infraestructura como Código (IaC).
+- [x] **3. Auditoría Documental:** `README-merci.md` actualizado a la versión `v1.12.0` con la nueva arquitectura SRE.
+- [x] **4. Evaluación de Release:** Versión v1.12.0 del Boilerplate empaquetada, instanciada y parcheada contra derivas de configuración en el repositorio público.
+- [x] **5. Snapshot:** Backup local (2.16 MB) generado con éxito.
+- [x] **6. Sello Definitivo:** Commit atómico de consolidación generado en la matriz.
+
+**Detalle técnico:** La validación real de la fase requirió iteraciones críticas en `merci-init.py` (inclusión de `.json` y borrado de `SECURITY.md`) y parches de sanitización HTML, demostrando que el cierre de fase es un proceso vivo y reactivo.
+
+**Motivo / criterio:** *Append-Only Log y Metodología Agile*. Alterar el pasado reescribiendo entradas antiguas deforma la realidad del desarrollo. Documentar el cierre *después* de todas las iteraciones refleja con precisión el ciclo DevSecOps: probar, fallar, reparar y finalmente sellar.
+
+### 2026-05-13 — Milestone: Cierre definitivo de Épica 2 y reestructuración del Roadmap
+
+**Contexto:** Tras subsanar las derivas de configuración en el Boilerplate (requirements.txt, variables JSON, SECURITY.md) y confirmar 0 vulnerabilidades en la cadena de suministro, era imperativo aplicar el *Definition of Done* para la Épica 2 completa y planificar la siguiente etapa.
+
+**Hecho:** 
+- Se marcó la Épica 2 como "(Concluida)" en el `ROADMAP.md`.
+- Se inyectó la nueva "Épica 3: DevRel & Observabilidad Avanzada" desplazando el E-commerce a la Épica 4.
+- Se preparó el entorno para el commit atómico de cierre.
+
+**Motivo / criterio:** *Governance y Definition of Done*. Cerrar formalmente un bloque de trabajo tan denso como la orquestación IA exige sellar la documentación y asegurar que el repositorio remoto refleja el estado inmaculado. La inserción de la Épica 3 responde a la necesidad táctica de construir herramientas de observabilidad social antes de abordar la complejidad de pagos de WooCommerce.
+
+**Siguiente paso o deuda:** Iniciar la Fase 1 de la Épica 3 creando la taxonomía 'SOS Terminal' y su primera píldora de conocimiento.
+
+### 2026-05-12 — Fix: Ajustes finales de instanciación para v1.12.0 (JSON y SECURITY.md)
+
+**Contexto:** Antes de liberar la v1.12.0 del Boilerplate, se auditó el instanciador `merci-init.py` frente a la nueva infraestructura añadida en la Fase 4.
+
+**Hecho:** Se añadió `.json` a las extensiones objetivo (`TARGET_EXTENSIONS`) y se instruyó la eliminación del archivo `SECURITY.md` durante la purga documental.
+
+**Detalle técnico:** Al incluir `.json`, el script de instanciación puede ahora personalizar el archivo de IaC de Grafana (`merci-dashboard.json`), cambiando el título "mercedev" por el nombre del nuevo proyecto. La eliminación de `SECURITY.md` previene que clones derivados hereden la URL de reporte de vulnerabilidades privado (*Private Vulnerability Reporting*) de la autora original.
+
+**Motivo / criterio:** *Out-of-the-Box Experience y Security Segregation*. El Boilerplate debe ser una pizarra en blanco. Heredar enlaces de seguridad ajenos o dashboards con el nombre del autor original genera fricción y rompe la promesa de un ecosistema 100% agnóstico al instanciarse.
 
 ### 2026-05-12 — Fix: Sanitización de inyecciones HTML y JSON-LD en motor SSG
 
