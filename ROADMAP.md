@@ -182,7 +182,7 @@
 - [x] Crear la taxonomía/estantería 'SOS Terminal' dentro de Art de Coté.
 - [x] Definir el Frontmatter base para aislar estos snippets rápidos de los cuadernillos pesados.
 - [ ] Añadir el campo `estado_social: "en_cola"` al YAML Frontmatter.
-- [ ] Refactorizar `merci-linkedin.py` para procesar únicamente 1 publicación en cola por ejecución.
+- [x] Refactorizar `merci-linkedin.py` para procesar únicamente 1 publicación en cola por ejecución.
 
 ### Fase 2: Observabilidad y Alertas SRE
 - [x] Instrumentar `merci-sre.py` para medir y exponer a Prometheus la métrica `merci_linkedin_queue_total`.
@@ -198,3 +198,12 @@
 - [ ] Implementar carga diferida (Lazy Load) o Web Workers (Partytown) para desencolar scripts de terceros del hilo principal.
 - [ ] Ajustar Content Security Policy (CSP) en Nginx para permitir iframes de pago sin degradar el escudo XSS.
 - [ ] Mantener 100/100 en Core Web Vitals (TBT 0ms) durante todo el proceso de *checkout*.
+
+---
+
+## ÉPICA 5: SHOWCASE Y DISTRIBUCIÓN DEL BOILERPLATE (En cola)
+
+### Fase 1: Demostración Interactiva (Live Demo)
+- [ ] Desplegar una instancia pública del Boilerplate vacío para visualización de usuarios.
+- [ ] Evaluar plataformas de despliegue estático de fricción cero (ej. GitHub Pages, subdominio dedicado).
+- [ ] Diseñar flujo de actualización automática del Showcase al lanzar nuevas Releases (v1.x.x).

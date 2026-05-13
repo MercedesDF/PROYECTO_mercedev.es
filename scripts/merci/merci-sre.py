@@ -69,7 +69,7 @@ def actualizar_metricas():
                         yaml_block = match.group(1)
                         # Solo contamos si está publicado y en cola
                         if re.search(r'^estado:\s*["\']publicado["\']', yaml_block, re.MULTILINE | re.IGNORECASE) and \
-                           re.search(r'^estado_social:\s*["\']en_cola["\']', yaml_block, re.MULTILINE | re.IGNORECASE):
+                           re.search(r'^estado_social:\s*["\'](en_cola|aprobado)["\']', yaml_block, re.MULTILINE | re.IGNORECASE):
                             en_cola_social += 1
                 except Exception:
                     pass

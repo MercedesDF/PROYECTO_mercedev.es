@@ -38,6 +38,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Docs: Expansión del Roadmap (Épica 5 - Showcase del Boilerplate)
+
+**Contexto:** Surgió la necesidad de proveer a los futuros usuarios del `merci-boilerplate` una demostración en vivo (Live Demo) para que puedan visualizar el estado inmaculado y purista de la plantilla base antes de clonarla.
+
+**Hecho:** Se inyectó la "Épica 5: Showcase y Distribución del Boilerplate" en el archivo `ROADMAP.md`.
+
+**Detalle técnico:** Se planificó la evaluación de entornos de despliegue estático gratuitos (como GitHub Pages o un subdominio) para alojar la demostración, delegándolo a una fase futura para no saturar el trabajo actual.
+
+**Motivo / criterio:** *Product Marketing y Prevención de Olvidos*. Un repositorio open-source adquiere mucho más valor si posee una representación visual activa. Registrar esta idea formalmente como una nueva Épica evita el "Scope Creep" (añadir tareas no planificadas al sprint actual) y asegura que no se pierda en el olvido.
+
+### 2026-05-14 — Feat: Buffer de Publicación y Aprobación Asíncrona (LinkedIn)
+
+**Contexto:** Publicar inmediatamente desde la terminal rompía la filosofía del "Buffer Social" programado. Se requería una cola asíncrona donde la autora revisa y aprueba los borradores, y un robot independiente los publica poco a poco sin intervención humana.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-linkedin.py` implementando dos modos de ejecución e inyectando un nuevo estado intermedio `estado_social: "aprobado"`.
+
+**Detalle técnico:** Ejecutar `merci linkedin` (Modo Interactivo) ahora itera sobre los posts `en_cola`, los muestra por pantalla y pregunta si se aprueban, cambiando su estado a `aprobado`. Ejecutar `merci linkedin --auto` (Modo Cron) busca el post `aprobado` más antiguo, lo publica silenciosamente en LinkedIn y lo sella como `publicado_linkedin`. Se actualizó la métrica en `merci-sre.py` para sumar tanto lo pendiente de revisión como lo aprobado.
+
+**Motivo / criterio:** *Asynchronous Operations y Fricción Cero*. Separar el momento de la "Curación" del momento de la "Emisión" es la piedra angular del marketing de contenidos. La autora aprueba un lote de artículos rápidamente, y una tarea en segundo plano puede encargarse de disparar el modo `--auto` periódicamente garantizando presencia continua en redes sociales sin carga cognitiva.
+
 ### 2026-05-14 — Docs: Actualización de SOP y Arquitectura de Agentes en manuales
 
 **Contexto:** Tras la profunda reestructuración del flujo de trabajo (introducción de la bandeja unificada `incubacion/`, el enrutamiento inteligente por tema en `merci-promote` y el *Agent Chaining* con `merci-blogger.py`), los documentos fundacionales (`README.md`, `instrucciones.md` y `flujo-publicacion-sop.md`) habían quedado obsoletos (Document Drift).

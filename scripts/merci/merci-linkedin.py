@@ -180,8 +180,8 @@ def publicar_texto_linkedin(access_token, author_urn, texto):
         print(f"❌ Error API LinkedIn: {e.read().decode('utf-8')}")
         return None
 
-def publicar_articulos_pendientes():
-    print("🚀 [Merci LinkedIn] Escaneando artículos subidos a la web...")
+def procesar_linkedin(modo_auto=False):
+    print(f"🚀 [Merci LinkedIn] {'Modo Automático (Cron)' if modo_auto else 'Modo Revisión Interactiva'}...")
     
     token_data = json.loads(TOKEN_PATH.read_text(encoding="utf-8"))
     access_token = token_data.get("access_token")
@@ -193,8 +193,8 @@ def publicar_articulos_pendientes():
     directorios = [REPO_ROOT / "blog", REPO_ROOT / "art-de-cote", REPO_ROOT / "biblioteca"]
     yaml_pattern = re.compile(r"^\s*---\r?\n(.*?)\r?\n---\r?\n", re.DOTALL)
     
-    pendientes_a_publicar = []
-    publicados = 0
+    en_cola = []
+    aprobados = []
     for dir_path in directorios:
         if not dir_path.exists(): continue
         
@@ -214,54 +214,79 @@ def publicar_articulos_pendientes():
             estado_social = re.search(r'^estado_social:\s*["\']?([^"\'\n]+)["\']?', yaml_block, re.MULTILINE)
             fecha = re.search(r'^fecha:\s*["\']?([^"\'\n]+)["\']?', yaml_block, re.MULTILINE)
             
-            # REGLA ESTRICTA: Solo publica si el estado_social es 'en_cola', tiene bloque HTML y no tiene ID
-            is_en_cola = estado_social and estado_social.group(1) == "en_cola"
-            if estado and estado.group(1) == "publicado" and is_en_cola and linkedin_text_match and not linkedin_id:
+            if estado and estado.group(1) == "publicado" and estado_social and linkedin_text_match and not linkedin_id:
+                val_estado_social = estado_social.group(1)
                 fecha_val = fecha.group(1) if fecha else "9999-99-99"
-                pendientes_a_publicar.append({
+                
+                datos_post = {
                     "archivo": archivo,
                     "fecha": fecha_val,
                     "texto_post": linkedin_text_match.group(1).strip(),
                     "yaml_block": yaml_block,
                     "content": content
-                })
+                }
+                
+                if val_estado_social == "en_cola":
+                    en_cola.append(datos_post)
+                elif val_estado_social == "aprobado":
+                    aprobados.append(datos_post)
 
-    if pendientes_a_publicar:
-        # Ordenar por fecha, del más antiguo al más nuevo
-        pendientes_a_publicar.sort(key=lambda x: x["fecha"])
-        
-        # Seleccionamos SÓLO el primero (Buffer: 1 post por ejecución)
-        post_objetivo = pendientes_a_publicar[0]
+    if modo_auto:
+        if not aprobados:
+            print("  🤷‍♀️ Ningún post 'aprobado' en la cola para emitir hoy.")
+            return
+            
+        aprobados.sort(key=lambda x: x["fecha"])
+        post_objetivo = aprobados[0]
         archivo = post_objetivo["archivo"]
         texto_post = post_objetivo["texto_post"]
         yaml_block = post_objetivo["yaml_block"]
         content = post_objetivo["content"]
 
-        print(f"\n  📝 Post más antiguo en cola detectado: {archivo.name} ({post_objetivo['fecha']})")
-        print(f"  📊 Total de posts esperando en la cola: {len(pendientes_a_publicar)}")
-        print(f"  💬 Previsualización: {texto_post[:70]}...")
+        print(f"\n  📝 Emitiendo post más antiguo aprobado: {archivo.name} ({post_objetivo['fecha']})")
         
-        # BARRERA DE SEGURIDAD: Preguntar antes de disparar a la red social
-        confirmacion = input("  👉 ¿Publicar este único post en LinkedIn ahora? (s/N): ").strip().lower()
-        if confirmacion == 's':
-            post_id = publicar_texto_linkedin(access_token, author_urn, texto_post)
+        post_id = publicar_texto_linkedin(access_token, author_urn, texto_post)
+        if post_id:
+            nuevo_yaml = re.sub(r'^estado_social:\s*["\']?aprobado["\']?', 'estado_social: "publicado_linkedin"', yaml_block, flags=re.MULTILINE)
+            nuevo_yaml += f'\nlinkedin_id: "{post_id}"'
+            nuevo_contenido = content.replace(yaml_block, nuevo_yaml)
+            archivo.write_text(nuevo_contenido, encoding="utf-8")
+            print(f"  ✅ ¡Éxito! Post publicado automáticamente.")
+    else:
+        print(f"\n  📊 Estado del Buffer: {len(en_cola)} pendientes de revisión | {len(aprobados)} listos para emisión automática.")
+        
+        if not en_cola:
+            print("  🤷‍♀️ No hay posts nuevos 'en_cola' para revisar.")
+            return
             
-            if post_id:
-                # Inyectamos el sello y cambiamos el estado social
-                nuevo_yaml = re.sub(r'^estado_social:\s*["\']?en_cola["\']?', 'estado_social: "publicado_linkedin"', yaml_block, flags=re.MULTILINE)
-                nuevo_yaml += f'\nlinkedin_id: "{post_id}"'
+        en_cola.sort(key=lambda x: x["fecha"])
+        
+        aprobados_hoy = 0
+        for post in en_cola:
+            archivo = post["archivo"]
+            texto_post = post["texto_post"]
+            yaml_block = post["yaml_block"]
+            content = post["content"]
+            
+            print(f"\n  📝 Revisando: {archivo.name} ({post['fecha']})")
+            print(f"  💬 Previsualización:\n{texto_post}\n")
+            
+            confirmacion = input("  👉 ¿Aprobar este post y moverlo a la cola automática de emisión? (s/N): ").strip().lower()
+            if confirmacion == 's':
+                nuevo_yaml = re.sub(r'^estado_social:\s*["\']?en_cola["\']?', 'estado_social: "aprobado"', yaml_block, flags=re.MULTILINE)
                 nuevo_contenido = content.replace(yaml_block, nuevo_yaml)
                 archivo.write_text(nuevo_contenido, encoding="utf-8")
-                print(f"  ✅ ¡Éxito! Post publicado y estado actualizado a 'publicado_linkedin'.")
-                publicados += 1
-        else:
-            print("  ⏭️ Publicación omitida por el usuario.")
-
-    if publicados == 0:
-        print("  🤷‍♀️ Ningún post fue publicado en esta ejecución.")
+                print(f"  ✅ Post movido a 'aprobado' (en tránsito).")
+                aprobados_hoy += 1
+            else:
+                print("  ⏭️ Omitido.")
+                
+        if aprobados_hoy > 0:
+            print(f"\n  🎉 Has aprobado {aprobados_hoy} post(s). Una tarea Cron los irá publicando poco a poco.")
 
 if __name__ == "__main__":
+    modo_auto = "--auto" in sys.argv or "--cron" in sys.argv
     if not TOKEN_PATH.exists():
         autenticar_linkedin()
     else:
-        publicar_articulos_pendientes()
+        procesar_linkedin(modo_auto)
