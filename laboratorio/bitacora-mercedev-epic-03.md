@@ -38,6 +38,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Fix: Contextualización de prompts en orquestador de promoción
+
+**Contexto:** Al promover artículos del Blog, el asistente interactivo (`merci-promote.py`) solicitaba metadatos innecesarios para un flujo cronológico (como "Tema/Estantería", "Alt de la portada" y "Fase del Roadmap"), generando fricción operativa y bloqueos (por la regla estricta de `alt_portada`).
+
+**Hecho:** Se refactorizó la lógica interactiva en `scripts/merci/merci-promote.py` para adaptar los campos solicitados basándose en el metadato `tema`.
+
+**Detalle técnico:** Se implementó el booleano `es_blog` evaluando si `"blog" in tema_actual.lower()`. Si es verdadero, el script oculta las preguntas estructurales de la biblioteca y puentea el bloqueo innegociable de WAI-ARIA para las portadas, solicitando exclusivamente la descripción y la fecha de publicación.
+
+**Motivo / criterio:** *Fricción Cero y Arquitectura de la Información*. Un blog es un flujo cronológico, no estructural. Exigir estanterías o imágenes obligatorias a un contenido que por naturaleza suele ser de texto rápido añade burocracia innecesaria. Adaptar el orquestador al contexto del documento purifica la Experiencia del Desarrollador (DX).
+
 ### 2026-05-14 — Feat: Escudo de Referencias Cruzadas en Promoción (Shift-Left DAST)
 
 **Contexto:** Al encadenar agentes, el Blogger genera posts de marketing que enlazan a cuadernillos técnicos. Si la autora promovía el post del blog antes que el cuadernillo original, el publicador Headless subiría un artículo a WordPress con un enlace roto (404), rompiendo la experiencia de usuario.

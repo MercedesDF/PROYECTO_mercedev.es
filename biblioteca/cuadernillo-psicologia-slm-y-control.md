@@ -17,7 +17,3 @@ Para domarlos, se implementó el Shift-Left Data Parsing. Se refactorizó el scr
 ## El Aprendizaje / Deuda Técnica
 La solución consiste en purgar el contexto mediante código nativo (Python) antes de la inferencia. Esto garantiza un 0% de alucinaciones prospectivas y permite una mayor confianza en las instrucciones dadas a los SLMs. Se ha asumido una pequeña deuda técnica en términos de mantenimiento del script, pero el beneficio es significativo para la precisión y fiabilidad del sistema.
 ```
-
-<!-- linkedin:
-Domando el sesgo de complacencia en SLMs locales con Shift-Left Data Parsing 🧠🤖 #DevSecOps #GobernanzaTecnica #IA #AlucinaciónInercial
--->

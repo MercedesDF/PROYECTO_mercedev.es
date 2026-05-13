@@ -127,11 +127,22 @@ def main():
     print(f"\n⚙️ Curación de metadatos para: {meta.get('titulo', borrador_elegido.name)}")
     
     # 5. Auditoría interactiva y curación de datos (Shift-Left Quality)
-    # Mostramos el valor actual por defecto. Si el usuario pulsa Enter sin escribir, se conserva.
-    nuevo_tema = input(f"  🏷️  Tema/Estantería [{meta.get('tema', 'General')}]: ").strip() or meta.get('tema', 'General')
+    tema_actual = meta.get('tema', 'General')
+    es_blog = "blog" in tema_actual.lower()
+
+    if not es_blog:
+        nuevo_tema = input(f"  🏷️  Tema/Estantería [{tema_actual}]: ").strip() or tema_actual
+    else:
+        nuevo_tema = tema_actual
+
     nueva_desc = input(f"  📝 Descripción [{meta.get('descripcion', '')}]: ").strip() or meta.get('descripcion', '')
-    nuevo_alt = input(f"  👁️  Alt de la portada [{meta.get('alt_portada', '')}]: ").strip() or meta.get('alt_portada', '')
-    nueva_fase = input(f"  🏗️  Fase del Roadmap [{meta.get('fase', '')}]: ").strip() or meta.get('fase', '')
+
+    if not es_blog:
+        nuevo_alt = input(f"  👁️  Alt de la portada [{meta.get('alt_portada', '')}]: ").strip() or meta.get('alt_portada', '')
+        nueva_fase = input(f"  🏗️  Fase del Roadmap [{meta.get('fase', '')}]: ").strip() or meta.get('fase', '')
+    else:
+        nuevo_alt = meta.get('alt_portada', '')
+        nueva_fase = meta.get('fase', '')
     
     # Al republicar, permitimos conservar la fecha original o sobreescribirla con la actual
     fecha_defecto = meta.get('fecha', '').strip()
@@ -140,16 +151,18 @@ def main():
         
     nueva_fecha = input(f"  📅 Fecha de publicación [{fecha_defecto}]: ").strip() or fecha_defecto
 
-    # Bloqueo estricto si falta el atributo de accesibilidad
-    if not nuevo_alt:
+    # Bloqueo estricto si falta el atributo de accesibilidad (Solo para la Biblioteca/Proyectos)
+    if not es_blog and not nuevo_alt:
         print("  ❌ Error: El texto alternativo 'alt_portada' es obligatorio para mantener el 100/100 en WAI-ARIA.")
         return
 
     # 6. Máquina de Estados: Reconstrucción del YAML definitivo
     meta['tema'] = nuevo_tema
     meta['descripcion'] = nueva_desc
-    meta['alt_portada'] = nuevo_alt
-    meta['fase'] = nueva_fase
+    if not es_blog or nuevo_alt:
+        meta['alt_portada'] = nuevo_alt
+    if not es_blog or nueva_fase:
+        meta['fase'] = nueva_fase
     meta['estado'] = 'publicado'  # Cambio de estado automatizado
     meta['fecha'] = nueva_fecha
 

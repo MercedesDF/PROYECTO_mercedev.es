@@ -10,11 +10,6 @@ fase: "8 (Expansión de Contenido)"
 linkedin_id: "urn:li:share:7458645856410472448"
 ---
 
-<!-- linkedin:
-A veces, la mejor solución a un problema de backend es un "hack" de frontend clásico. Hoy os cuento en Art de Coté cómo usamos comentarios HTML para salvar las limitaciones del formato YAML sin instalar dependencias. 💡
-https://mercedev.es/blog/el-limite-del-yaml-comentarios-html
--->
-
 ## El Desafío (Síntoma)
 En nuestro flujo de automatización, queríamos redactar los posts de LinkedIn directamente en la cabecera YAML de los artículos (usando el formato multilínea `|`). Sin embargo, nuestro parseador de YAML "casero" en Python (basado en divisiones de texto por `:`) destruía los saltos de línea, publicando mensajes vacíos en la red social. Para solucionarlo "correctamente", habríamos tenido que programar un parseador completo o instalar la librería `PyYAML`, rompiendo nuestra estricta regla de 0 dependencias.
 

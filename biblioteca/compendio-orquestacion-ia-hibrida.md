@@ -8,9 +8,6 @@ fase: "Épica 2 - Fase 4 (Observabilidad y SRE IA)"
 estado: "publicado"
 alt_portada: "Esquema de arquitectura mostrando la división entre agentes IA locales (Ollama) y agentes en la nube (Gemini) en el ciclo de vida del software."
 ---
-<!-- linkedin:
-¿IA Local o IA en la Nube? La respuesta es ambas. He documentado la topología de nuestro Stack Híbrido DevSecOps, mostrando cómo delegar tareas tácticas a modelos locales (Ollama) y tareas de gobernanza a la nube (Gemini) para maximizar la privacidad y el rendimiento. 🧠🚀 #DevSecOps #ShiftLeftAI #Ollama #Arquitectura
--->
 
 ## El Desafío (Síntoma)
 

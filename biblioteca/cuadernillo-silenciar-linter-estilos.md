@@ -10,11 +10,6 @@ alt_portada: "Fragmento de código mostrando un comentario HTML utilizado para s
 linkedin_id: "urn:li:share:7458645858687860736"
 ---
 
-<!-- linkedin:
-En DevSecOps, a veces el linter de seguridad es demasiado estricto. Hoy en Art de Coté documentamos cómo crear válvulas de escape elegantes para falsos positivos en auditorías de código. 🛡️
-https://mercedev.es/biblioteca/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos
--->
-
 ## El Desafío (Síntoma)
 Al implementar una nueva regla en el orquestador maestro (`merci-audit.py`) para prohibir y detectar estilos en línea <!-- merci-audit:silence-style -->(`style="..."`), la herramienta bloqueó la compilación de la biblioteca. El diagnóstico reveló un **Falso Positivo Legítimo**: el linter estaba escaneando un artículo técnico que explicaba cómo funciona la especificidad CSS, detectando los bloques de código de ejemplo como violaciones reales de la arquitectura SASS.
 
