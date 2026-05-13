@@ -1,0 +1,6 @@
+Tema: Escribir artículos de marketing con IA 100% local.
+Puntos clave:
+- Acabamos de integrar a Qwen2.5-Coder corriendo con Ollama en nuestro propio equipo para que actúe como DevRel.
+- Ya no necesitamos enviar nuestros borradores a la nube de Google o OpenAI (cero fuga de datos, privacidad total).
+- Hemos separado el rol del Bibliotecario (puramente técnico) del Blogger (marketing) para evitar alucinaciones en modelos pequeños.
+- Esto demuestra que la soberanía tecnológica, el coste cero y el DevSecOps no están reñidos con la automatización de contenidos.

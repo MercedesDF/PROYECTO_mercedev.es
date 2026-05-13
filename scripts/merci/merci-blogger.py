@@ -45,29 +45,48 @@ def main():
     NOTAS_DIR.mkdir(parents=True, exist_ok=True)
     INCUBACION_DIR.mkdir(parents=True, exist_ok=True)
     
-    # QUÉ HACE: Filtra notas ignorando el .gitkeep y la carpeta de procesadas.
-    notas = [f for f in NOTAS_DIR.glob("*") if f.is_file() and f.name != ".gitkeep"]
-    if not notas:
-        print(f"  🤷‍♀️ No hay notas crudas en {NOTAS_DIR.relative_to(REPO_ROOT)}. ¡Escribe algo primero!")
-        sys.exit(0)
-        
-    print("\n  📄 Notas crudas disponibles:")
-    for i, nota in enumerate(notas, 1):
-        print(f"    {i}. {nota.name}")
-        
-    try:
-        seleccion = int(input("\n  👉 Elige el número de la nota a procesar (0 para salir): ").strip())
-        if seleccion == 0: return
-        nota_elegida = notas[seleccion - 1]
-    except (ValueError, IndexError):
-        print("  ❌ Selección inválida.")
-        sys.exit(1)
+    # QUÉ HACE: Acepta un archivo por argumento (encadenamiento de agentes) o busca notas manuales.
+    if len(sys.argv) > 1:
+        nota_elegida = Path(sys.argv[1]).resolve()
+        if not nota_elegida.exists():
+            print(f"  ❌ Error: El documento origen '{nota_elegida.name}' no existe.")
+            sys.exit(1)
+    else:
+        notas = [f for f in NOTAS_DIR.glob("*") if f.is_file() and f.name != ".gitkeep"]
+        if not notas:
+            print(f"  🤷‍♀️ No hay notas crudas en {NOTAS_DIR.relative_to(REPO_ROOT)}. ¡Escribe algo primero!")
+            sys.exit(0)
+            
+        print("\n  📄 Notas crudas disponibles:")
+        for i, nota in enumerate(notas, 1):
+            print(f"    {i}. {nota.name}")
+            
+        try:
+            seleccion = int(input("\n  👉 Elige el número de la nota a procesar (0 para salir): ").strip())
+            if seleccion == 0: return
+            nota_elegida = notas[seleccion - 1]
+        except (ValueError, IndexError):
+            print("  ❌ Selección inválida.")
+            sys.exit(1)
         
     nota_contenido = nota_elegida.read_text(encoding="utf-8")
     if not nota_contenido.strip():
         print("  ❌ La nota está vacía.")
         sys.exit(1)
         
+    # LÓGICA CONDICIONAL: Adaptamos el comportamiento según el origen del documento
+    if nota_elegida.parent != NOTAS_DIR and nota_elegida.suffix == '.md':
+        meta_titulo = re.search(r'^titulo:\s*["\']?([^"\'\n]+)["\']?', nota_contenido, re.MULTILINE)
+        meta_tipo = re.search(r'^tipo:\s*["\']?([^"\'\n]+)["\']?', nota_contenido, re.MULTILINE)
+        if meta_titulo:
+            tipo = meta_tipo.group(1).lower() if meta_tipo else "cuadernillo"
+            titulo_doc = meta_titulo.group(1)
+            base_path = "/art-de-cote/" if tipo == "art-de-cote" else "/biblioteca/"
+            url_promocion = f"https://mercedev.es{base_path}{slugify(titulo_doc)}.html"
+            nota_contenido += f"\n\n--- INSTRUCCIÓN EXTRA INNEGOCIABLE ---\nEl documento original ya está publicado o en proceso. DEBES incluir este enlace exacto al final de tu artículo invitando al lector a leerlo completo: {url_promocion}"
+    elif nota_elegida.parent == NOTAS_DIR:
+        nota_contenido += "\n\n--- INSTRUCCIÓN EXTRA INNEGOCIABLE ---\nEste es un artículo INDEPENDIENTE y directo. Termina el post con una conclusión fuerte o una pregunta a la comunidad. NO invites a leer más información en la biblioteca porque no existe."
+
     print(f"\n  🧠 Redactando artículo a partir de '{nota_elegida.name}'...")
     
     print("  🏠 Consultando a motor local (Ollama - qwen2.5-coder)...")
@@ -99,13 +118,19 @@ def main():
     titulo = titulo_match.group(1) if titulo_match else "articulo-generado"
     filename = slugify(titulo) + ".md"
     
+    # BARRERA SOCIAL: Preguntar si encolamos en LinkedIn
+    encolar = input("\n  👉 ¿Quieres añadir este post a la cola automática de LinkedIn? (s/N): ").strip().lower() == 's'
+    estado_soc_val = "en_cola" if encolar else "ignorado"
+    respuesta_texto = respuesta_texto.replace("{estado_social}", estado_soc_val)
+
     out_path = INCUBACION_DIR / filename
     out_path.write_text(respuesta_texto, encoding="utf-8")
     
-    # Archivar la nota cruda para que no vuelva a molestar
-    archivo_dir = NOTAS_DIR / "_procesadas"
-    archivo_dir.mkdir(exist_ok=True)
-    nota_elegida.rename(archivo_dir / nota_elegida.name)
+    # Solo archiva la nota original si venía de la carpeta de notas crudas
+    if nota_elegida.parent == NOTAS_DIR:
+        archivo_dir = NOTAS_DIR / "_procesadas"
+        archivo_dir.mkdir(exist_ok=True)
+        nota_elegida.rename(archivo_dir / nota_elegida.name)
     
     print(f"\n  ✅ ¡Artículo redactado con éxito y post encolado!")
     print(f"  📁 Guardado en: {out_path.relative_to(REPO_ROOT)}")

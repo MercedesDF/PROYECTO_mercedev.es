@@ -38,6 +38,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Feat: Ruta directa de Marketing en Agente Bibliotecario (Fast Track)
+
+**Contexto:** Se requería una opción para publicar notas rápidas directamente en el Blog y en LinkedIn sin la obligación de generar un documento técnico denso en la Biblioteca (Cuadernillo o Compendio).
+
+**Hecho:** Se implementó una cuarta opción en el menú interactivo de `scripts/merci/merci-librarian.py` para invocar a `merci-blogger.py` de forma directa con la nota cruda. Se modificó el prompt y la lógica del Blogger para que adapte dinámicamente su texto de cierre.
+
+**Detalle técnico:** Si el Blogger recibe un archivo procesado (`.md` fuera de `notas_rapidas`), inyecta la URL canónica y anima a leer la Biblioteca. Si recibe una nota cruda (`.txt` o `.md` desde `notas_rapidas`), omite la URL, no genera errores por falta de metadatos y redacta una conclusión directa. El prompt maestro fue flexibilizado para soportar ambas vías sin alucinaciones.
+
+**Motivo / criterio:** *Fricción Cero y Content Ops*. No toda la actividad de la autora resulta en un manual técnico. Algunas ideas son reflexiones sueltas que merecen un altavoz social. Ofrecer un carril rápido (*Fast Track*) para la generación de marketing puro consolida a los agentes como un equipo de DevRel ágil y desacoplado.
+
+### 2026-05-14 — Feat: Agent Chaining y cálculo dinámico de URLs (Bibliotecario → Blogger)
+
+**Contexto:** Se requería crear una verdadera "Cadena de Montaje" de contenidos. El Bibliotecario redactaba el documento técnico, pero la difusión requería intervención manual para llamar al Blogger y carecía de enlaces automáticos a la obra original.
+
+**Hecho:** Se implementó el encadenamiento de agentes (Agent Chaining) entre `merci-librarian.py` y `merci-blogger.py`. El Blogger ahora calcula la URL canónica de destino y obliga a la IA a incluirla.
+
+**Detalle técnico:** Al finalizar la creación de un documento en la incubadora, el Bibliotecario pregunta si se desea promocionar. Si la respuesta es afirmativa, invoca a `merci-blogger.py` pasándole el archivo generado. El Blogger lee el YAML Frontmatter, calcula la URL final (`/biblioteca/...` o `/art-de-cote/...`), inyecta el enlace en el prompt para la IA y finalmente encola el post para LinkedIn.
+
+**Motivo / criterio:** *Agentic Workflows y Fricción Cero*. Separar roles (Ingeniero vs DevRel) evita alucinaciones en modelos locales. Encadenar su ejecución automatiza todo el proceso (redacción técnica -> redacción marketing -> encolado social) con una sola interacción inicial de la autora y garantiza que los enlaces cruzados sean matemáticamente exactos.
+
 ### 2026-05-14 — Feat: Agente Redactor DevRel (merci-blogger.py)
 
 **Contexto:** Se necesitaba automatizar la creación de artículos y anuncios para LinkedIn a partir de notas crudas, manteniendo la separación de roles (Technical Writer vs Copywriter/DevRel) para evitar alucinaciones en modelos locales.
