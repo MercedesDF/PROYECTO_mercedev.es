@@ -38,6 +38,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Docs: Establecimiento de Anclaje Semántico para el Agente SSOT
+
+**Contexto:** El Agente SSOT (Qwen 2.5 Coder) fallaba al marcar tareas completadas en el Roadmap si la redacción de la bitácora difería del texto original de la tarea, demostrando que opera principalmente por coincidencia de cadenas (*String Matching*) y no por inferencia semántica abstracta.
+
+**Hecho:** Se establece la norma metodológica de "Anclaje Semántico": al documentar el cierre de un hito en la bitácora, el bloque "Hecho" debe incluir textualmente las palabras clave o la frase exacta de la tarea listada en el Roadmap.
+
+**Detalle técnico:** Los SLMs locales carecen de la capacidad de deducción profunda de los modelos de frontera en la nube. Para evitar reescribir el historial o alterar el prompt masivamente, la autora adaptará la descripción del logro para que sirva de baliza (ancla) directamente reconocible por la IA.
+
+**Motivo / criterio:** *AI Governance y SLM Psychology*. Aceptar las limitaciones cognitivas de la IA local y compensarlas con disciplina humana (redactando de forma predecible) es un patrón DevSecOps maduro que garantiza la sincronización documental (SSOT) sin sobreingeniería.
+
 ### 2026-05-14 — Docs: Expansión del Roadmap (Épica 5 - Showcase del Boilerplate)
 
 **Contexto:** Surgió la necesidad de proveer a los futuros usuarios del `merci-boilerplate` una demostración en vivo (Live Demo) para que puedan visualizar el estado inmaculado y purista de la plantilla base antes de clonarla.
