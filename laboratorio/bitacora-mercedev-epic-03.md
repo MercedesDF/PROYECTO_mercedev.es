@@ -38,6 +38,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Feat: Métrica SRE para Buffer de LinkedIn en Grafana
+
+**Contexto:** Era necesario vigilar la cantidad de posts disponibles ("munición") en la cola de LinkedIn para configurar futuras alertas SRE cuando el buffer se estuviera agotando.
+
+**Hecho:** Se instrumentó `scripts/merci/merci-sre.py` inyectando la métrica `merci_linkedin_queue_total`.
+
+**Detalle técnico:** El agente escanea los directorios de producción (`blog`, `biblioteca`, `art-de-cote`) y cuenta cuántos archivos poseen simultáneamente `estado: "publicado"` y `estado_social: "en_cola"`, exponiendo el valor como un *Gauge* a Prometheus.
+
+**Motivo / criterio:** *Observabilidad y DevRel*. Mantener una métrica en tiempo real permite delegar la preocupación de publicar a los sistemas de alerta (Grafana Alerting). Esto concluye formalmente la infraestructura de la Fase 2 (Observabilidad y Alertas SRE).
+
+### 2026-05-14 — Fix: Enrutamiento Dinámico por Tema (SSOT) en Promote
+
+**Contexto:** Los artículos generados por la IA o creados en la nueva bandeja unificada (`laboratorio/incubacion/`) perdieron la capacidad de enrutarse correctamente al ser promovidos. El orquestador `merci-promote.py` decidía el destino basándose en la carpeta de origen, lo que provocaba que todo acabara en la `biblioteca/`.
+
+**Hecho:** Se refactorizó la lógica de enrutamiento en `scripts/merci/merci-promote.py`.
+
+**Detalle técnico:** El destino (`blog/`, `art-de-cote/` o `biblioteca/`) se deduce ahora leyendo el campo `tema:` extraído dinámicamente del YAML Frontmatter.
+
+**Motivo / criterio:** *SSOT (Single Source of Truth)*. La estructura de carpetas local es efímera, pero el metadato es inmutable. Confiar el destino de producción a lo que dicte el YAML Frontmatter permite unificar toda la redacción en una única bandeja de entrada (`incubacion/`) sin fricción operativa.
+
 ### 2026-05-14 — Feat: Ruta directa de Marketing en Agente Bibliotecario (Fast Track)
 
 **Contexto:** Se requería una opción para publicar notas rápidas directamente en el Blog y en LinkedIn sin la obligación de generar un documento técnico denso en la Biblioteca (Cuadernillo o Compendio).

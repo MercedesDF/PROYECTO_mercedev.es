@@ -133,15 +133,15 @@ def main():
     # Ensamblamos el contenido final
     nuevo_contenido = f"{nuevo_yaml}\n{md_body}"
 
-    # 7. Enrutamiento Dinámico: Determinar el destino basado en el origen
-    # QUÉ HACE: Analiza la ruta relativa del archivo para saber a qué directorio pertenece.
-    # POR QUÉ: Permite usar un solo script de curación para la Biblioteca (SSG) y para WordPress.
-    rel_path = borrador_elegido.relative_to(REPO_ROOT)
-    
-    if "blog" in rel_path.parts[:-1]:
+    # 7. Enrutamiento Dinámico: Determinar el destino basado en el metadato 'tema'
+    # QUÉ HACE: Analiza el campo 'tema' del YAML en lugar de la carpeta física de origen.
+    # POR QUÉ: Permite que todos los borradores nazcan en la bandeja unificada (incubacion/) y se enruten mágicamente.
+    tema_normalizado = meta.get('tema', '').lower()
+
+    if "blog" in tema_normalizado:
         directorio_destino = REPO_ROOT / "blog"
         comando_sugerido = "merci wp"
-    elif "art-de-cote" in rel_path.parts[:-1]:
+    elif "art de" in tema_normalizado or "art-de-cote" in tema_normalizado:
         directorio_destino = REPO_ROOT / "art-de-cote"
         comando_sugerido = "merci total"
     else:

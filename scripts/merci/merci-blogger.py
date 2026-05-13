@@ -121,7 +121,14 @@ def main():
     # BARRERA SOCIAL: Preguntar si encolamos en LinkedIn
     encolar = input("\n  👉 ¿Quieres añadir este post a la cola automática de LinkedIn? (s/N): ").strip().lower() == 's'
     estado_soc_val = "en_cola" if encolar else "ignorado"
-    respuesta_texto = respuesta_texto.replace("{estado_social}", estado_soc_val)
+    
+    # QUÉ HACE: Fuerza matemáticamente los estados YAML con Regex.
+    # POR QUÉ: Evita que alucinaciones de la IA (ej. escribir 'promoción') rompan las máquinas de estado.
+    respuesta_texto = re.sub(r'^estado:\s*["\']?.*?["\']?', 'estado: "incubacion"', respuesta_texto, flags=re.MULTILINE)
+    if re.search(r'^estado_social:', respuesta_texto, re.MULTILINE):
+        respuesta_texto = re.sub(r'^estado_social:\s*["\']?.*?["\']?', f'estado_social: "{estado_soc_val}"', respuesta_texto, flags=re.MULTILINE)
+    else:
+        respuesta_texto = re.sub(r'(^estado:\s*["\']?incubacion["\']?)', rf'\1\nestado_social: "{estado_soc_val}"', respuesta_texto, flags=re.MULTILINE)
 
     out_path = INCUBACION_DIR / filename
     out_path.write_text(respuesta_texto, encoding="utf-8")
