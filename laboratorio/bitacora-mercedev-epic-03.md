@@ -84,6 +84,14 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Motivo / criterio:** *Consistency y Fricción Cero*. Mantener un estándar de nomenclatura estricto en la bandeja de entrada unificada (`incubacion/`) permite a la autora identificar instantáneamente la tipología y el destino de un documento con solo mirar su nombre de archivo en el IDE.
 
+### 2026-05-14 — Fix: Enlaces relativos a la raíz en Agent Chaining (Dev/Prod Parity)
+
+**Contexto:** Los artículos promocionales generados por el Blogger incluían una URL absoluta (`https://mercedev.es/...`) hacia el documento técnico original. Esto rompía la experiencia de desarrollo local, ya que al hacer clic en el entorno de pruebas, el usuario era redirigido al servidor de producción donde el documento aún no existía (Error 404).
+
+**Hecho:** Se refactorizó la generación de la variable `url_promocion` en `scripts/merci/merci-blogger.py` para utilizar rutas relativas a la raíz (ej. `/biblioteca/slug.html`).
+
+**Motivo / criterio:** *Agnosticismo de Entorno y Dev/Prod Parity*. El contenido en formato Markdown debe ser independiente del dominio donde se aloje. Utilizar rutas relativas a la raíz garantiza que el enlace resuelva perfectamente a `localhost:8000` durante el desarrollo y a `mercedev.es` en producción, sin necesidad de modificar el código fuente.
+
 ### 2026-05-14 — UX/UI: Rediseño del Blog a formato cronológico puro (Limpieza de index.php)
 
 **Contexto:** La plantilla de WordPress (`index.php`) agrupaba visualmente los posts por categorías, emulando las estanterías de la Biblioteca. Esto rompía el paradigma de un blog tradicional, que debe mostrar un flujo de lectura vertical y cronológico, añadiendo ruido visual a las publicaciones de marketing.

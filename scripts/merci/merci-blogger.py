@@ -82,7 +82,7 @@ def main():
             tipo = meta_tipo.group(1).lower() if meta_tipo else "cuadernillo"
             titulo_doc = meta_titulo.group(1)
             base_path = "/art-de-cote/" if tipo == "art-de-cote" else "/biblioteca/"
-            url_promocion = f"https://mercedev.es{base_path}{slugify(titulo_doc)}.html"
+            url_promocion = f"{base_path}{slugify(titulo_doc)}.html"
             nota_contenido += f"\n\n--- INSTRUCCIÓN EXTRA INNEGOCIABLE ---\nEl documento original ya está publicado o en proceso. DEBES incluir este enlace exacto al final de tu artículo invitando al lector a leerlo completo: {url_promocion}"
     elif nota_elegida.parent == NOTAS_DIR:
         nota_contenido += "\n\n--- INSTRUCCIÓN EXTRA INNEGOCIABLE ---\nEste es un artículo INDEPENDIENTE y directo. Termina el post con una conclusión fuerte o una pregunta a la comunidad. NO invites a leer más información en la biblioteca porque no existe."
