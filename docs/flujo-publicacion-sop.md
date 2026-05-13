@@ -37,7 +37,8 @@ Por diseño arquitectónico (Environment Segregation), el núcleo estático (Bib
    merci wp
    ```
    *(Nota: `merci total` lo hace automáticamente en el pipeline global).*
-4. **Distribución Asíncrona (Buffer Social):** Para liberar posts en LinkedIn de 1 en 1, ejecutar `merci linkedin`. El script actúa como Gatekeeper: selecciona el post más antiguo en cola, exige confirmación humana y sella el YAML a `"publicado_linkedin"`.
+4. **Despliegue a Producción (Contenido Dinámico):** Para enviar los posts a la web pública, edita tu archivo `.env`, comenta las credenciales de `localhost` y descomenta las de producción. Luego, ejecuta de nuevo `merci wp`. Una vez finalizado, recuerda volver a dejar el `.env` apuntando a `localhost`.
+5. **Distribución Asíncrona (Buffer Social):** Para liberar posts en LinkedIn de 1 en 1, ejecutar `merci linkedin`. El script actúa como Gatekeeper: selecciona el post más antiguo en cola, exige confirmación humana y sella el YAML a `"publicado_linkedin"`.
 
 ---
 

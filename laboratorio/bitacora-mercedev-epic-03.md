@@ -38,6 +38,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Docs: Clarificación del SOP de Despliegue para Contenido Dinámico
+
+**Contexto:** Tras una ejecución exitosa del pipeline local, se detectó que los nuevos artículos del blog no aparecían en el servidor de producción. Se diagnosticó una omisión en el procedimiento operativo estándar (SOP) de despliegue.
+
+**Hecho:** Se actualizó `docs/flujo-publicacion-sop.md` para incluir el paso explícito de "conmutar entornos" en el archivo `.env` antes de ejecutar `merci wp` para el despliegue a producción.
+
+**Detalle técnico:** El flujo ahora exige comentar las credenciales de `localhost` y activar las de producción en el `.env` antes de la sincronización Headless. Se documentó la necesidad de revertir este cambio tras el despliegue para mantener `localhost` como el entorno de trabajo por defecto.
+
+**Motivo / criterio:** *Dev/Prod Parity y Fricción Cero*. La arquitectura de aislamiento funciona, pero el proceso manual de despliegue debe ser inequívoco. Documentar el "cambio de vías" en el SOP previene la confusión y asegura que el contenido local se propague a producción de forma controlada y deliberada.
+
 ### 2026-05-14 — Docs: Establecimiento de Anclaje Semántico para el Agente SSOT
 
 **Contexto:** El Agente SSOT (Qwen 2.5 Coder) fallaba al marcar tareas completadas en el Roadmap si la redacción de la bitácora difería del texto original de la tarea, demostrando que opera principalmente por coincidencia de cadenas (*String Matching*) y no por inferencia semántica abstracta.
