@@ -38,6 +38,14 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Test: Validación End-to-End de Máquina de Estados y Agent Chaining
+
+**Contexto:** Tras implementar el encadenamiento de agentes (Bibliotecario -> Blogger) y la métrica de SRE, era vital confirmar que la cadena completa funcionaba sin fricciones y respetando la máquina de estados documental.
+
+**Hecho:** Se ejecutó una prueba limpia partiendo de una nota cruda. El Bibliotecario generó el cuadernillo, el Blogger generó el post de marketing, y se validó que los documentos nacen en `incubacion`.
+
+**Motivo / criterio:** *State Machine Integrity*. Confirmar empíricamente que los documentos en incubación son invisibles para la telemetría de Grafana y la cola de LinkedIn demuestra que la arquitectura es sólida. Un documento solo entra en la cola social cuando la autora lo promueve explícitamente a `publicado`, previniendo la publicación de enlaces rotos (404) hacia la web matriz.
+
 ### 2026-05-14 — Fix: Resolucion de fallos End-to-End en encadenamiento (Blogger)
 
 **Contexto:** Al validar el "Agent Chaining" entre el Bibliotecario y el Blogger, el pipeline colapsó con `UnboundLocalError`. Además, la reescritura de los metadatos YAML inyectaba comillas residuales corrompiendo el parser.

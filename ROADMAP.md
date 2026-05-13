@@ -185,7 +185,7 @@
 - [ ] Refactorizar `merci-linkedin.py` para procesar únicamente 1 publicación en cola por ejecución.
 
 ### Fase 2: Observabilidad y Alertas SRE
-- [ ] Instrumentar `merci-sre.py` para medir y exponer a Prometheus la métrica `merci_linkedin_queue_total`.
+- [x] Instrumentar `merci-sre.py` para medir y exponer a Prometheus la métrica `merci_linkedin_queue_total`.
 - [ ] Configurar alertas nativas en Grafana (Alerting) para enviar un aviso por email si la cola baja de 5 posts.
 - [ ] Integrar métricas de Inteligencia Artificial (fallbacks a la nube, errores del auditor) en Grafana.
 

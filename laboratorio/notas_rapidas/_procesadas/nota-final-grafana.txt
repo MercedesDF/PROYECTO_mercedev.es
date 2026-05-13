@@ -1,0 +1,3 @@
+Desafío: Necesitábamos conectar la cantidad de posts en espera de LinkedIn con Grafana para tener observabilidad real.
+Maniobra: Creamos la métrica merci_linkedin_queue_total en el agente SRE para rastrear los documentos con estado_social en_cola.
+Aprendizaje: Tras depurar el YAML Frontmatter generado por Ollama, logramos un pipeline DevSecOps perfecto donde todo fluye desde la nota rápida hasta el dashboard de métricas.
