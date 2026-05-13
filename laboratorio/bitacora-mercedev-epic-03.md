@@ -38,6 +38,14 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Docs: Actualización de SOP y Arquitectura de Agentes en manuales
+
+**Contexto:** Tras la profunda reestructuración del flujo de trabajo (introducción de la bandeja unificada `incubacion/`, el enrutamiento inteligente por tema en `merci-promote` y el *Agent Chaining* con `merci-blogger.py`), los documentos fundacionales (`README.md`, `instrucciones.md` y `flujo-publicacion-sop.md`) habían quedado obsoletos (Document Drift).
+
+**Hecho:** Se actualizaron los tres documentos maestros añadiendo a `merci-blogger.py` al inventario del ecosistema y reescribiendo el SOP para reflejar las nuevas mecánicas de incubación unificada, validación cruzada y Buffer Social de LinkedIn.
+
+**Motivo / criterio:** *Single Source of Truth (SSOT)*. Una arquitectura brillante no sirve de nada si el manual de operaciones describe un sistema obsoleto. Reflejar el encadenamiento de agentes y las nuevas mecánicas de promoción en el "Runbook" oficial consolida la madurez de la Épica 3 y prepara el terreno para automatizaciones futuras.
+
 ### 2026-05-14 — Fix: Contextualización de prompts en orquestador de promoción
 
 **Contexto:** Al promover artículos del Blog, el asistente interactivo (`merci-promote.py`) solicitaba metadatos innecesarios para un flujo cronológico (como "Tema/Estantería", "Alt de la portada" y "Fase del Roadmap"), generando fricción operativa y bloqueos (por la regla estricta de `alt_portada`).
@@ -101,14 +109,6 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 **Detalle técnico:** Se extirpó el bucle de agrupación por `$tema`, la generación del menú interno (`library-nav`) y la envoltura en cuadrícula (`home-grid`). En su lugar, se implementó un bucle estándar `while (have_posts())` que renderiza las tarjetas apiladas verticalmente en una sola columna con `max-width: 800px` para una legibilidad óptima. También se eliminó el condicional huérfano de `Art de Coté`, puesto que dicha sección ahora es servida al 100% por el motor SSG.
 
 **Motivo / criterio:** *Separation of Concerns* (Separación de responsabilidades). La Biblioteca ordena el conocimiento; el Blog emite novedades. Diferenciar la UI de ambos espacios clarifica la intención de la lectura. Reducir la lógica PHP en el tema acelera el TTFB y simplifica el mantenimiento.
-
-### 2026-05-14 — Docs: Actualización de SOP y Arquitectura de Agentes en manuales
-
-**Contexto:** Tras la profunda reestructuración del flujo de trabajo (introducción de la bandeja unificada `incubacion/`, el enrutamiento inteligente por tema en `merci-promote` y el *Agent Chaining* con `merci-blogger.py`), los documentos fundacionales (`README.md`, `instrucciones.md` y `flujo-publicacion-sop.md`) habían quedado obsoletos (Document Drift).
-
-**Hecho:** Se actualizaron los tres documentos maestros añadiendo a `merci-blogger.py` al inventario del ecosistema y reescribiendo el SOP para reflejar las nuevas mecánicas de incubación unificada, validación cruzada y Buffer Social de LinkedIn.
-
-**Motivo / criterio:** *Single Source of Truth (SSOT)*. Una arquitectura brillante no sirve de nada si el manual de operaciones describe un sistema obsoleto. Reflejar el encadenamiento de agentes y las nuevas mecánicas de promoción en el "Runbook" oficial consolida la madurez de la Épica 3 y prepara el terreno para automatizaciones futuras.
 
 ### 2026-05-14 — Feat: Métrica SRE para Buffer de LinkedIn en Grafana
 
