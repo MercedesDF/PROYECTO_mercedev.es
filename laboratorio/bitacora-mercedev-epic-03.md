@@ -38,6 +38,14 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Refactor: Estandarización de nomenclatura para artículos del Blog
+
+**Contexto:** Los artículos generados por el Agente Blogger (`merci-blogger.py`) se guardaban en la incubadora únicamente con el título slugificado, rompiendo la consistencia visual y de nomenclatura establecida por el Agente Bibliotecario (que usa prefijos como `cuadernillo-`, `compendio-`, `art-de-cote-`).
+
+**Hecho:** Se parcheó `scripts/merci/merci-blogger.py` para inyectar automáticamente el prefijo `blog-` al generar el nombre del archivo físico (`filename = "blog-" + slugify(titulo) + ".md"`).
+
+**Motivo / criterio:** *Consistency y Fricción Cero*. Mantener un estándar de nomenclatura estricto en la bandeja de entrada unificada (`incubacion/`) permite a la autora identificar instantáneamente la tipología y el destino de un documento con solo mirar su nombre de archivo en el IDE.
+
 ### 2026-05-14 — Feat: Métrica SRE para Buffer de LinkedIn en Grafana
 
 **Contexto:** Era necesario vigilar la cantidad de posts disponibles ("munición") en la cola de LinkedIn para configurar futuras alertas SRE cuando el buffer se estuviera agotando.

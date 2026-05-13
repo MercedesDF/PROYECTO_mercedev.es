@@ -116,7 +116,7 @@ def main():
     # Autonombrado (Slugify)
     titulo_match = re.search(r'^titulo:\s*["\']?([^"\'\n]+)["\']?', respuesta_texto, re.MULTILINE)
     titulo = titulo_match.group(1) if titulo_match else "articulo-generado"
-    filename = slugify(titulo) + ".md"
+    filename = "blog-" + slugify(titulo) + ".md"
     
     # BARRERA SOCIAL: Preguntar si encolamos en LinkedIn
     encolar = input("\n  👉 ¿Quieres añadir este post a la cola automática de LinkedIn? (s/N): ").strip().lower() == 's'

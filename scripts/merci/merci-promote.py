@@ -6,6 +6,7 @@ Herramienta interactiva de consola (CLI) para trasladar, curar y estandarizar bo
 """
 
 import re
+import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -163,4 +164,8 @@ def main():
     print(f"  💡 Siguiente paso: Ejecuta '{comando_sugerido}' para aplicar los cambios.")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n  🛑 Operación cancelada por la usuaria.")
+        sys.exit(130)

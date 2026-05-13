@@ -1,0 +1,3 @@
+Desafío: Necesitábamos generar artículos de marketing y anuncios para redes sociales sin enviar nuestros borradores a APIs en la nube por motivos de privacidad (DLP) y costes.
+Maniobra: Implementamos un Agente Blogger local basado en Qwen2.5-Coder y Ollama. Actúa como DevRel. Separamos su rol del Agente Bibliotecario para evitar que el modelo se confunda (alucinaciones) al mezclar redacción técnica estricta con copywriting.
+Aprendizaje: La soberanía tecnológica y el DevSecOps son compatibles con la automatización de marketing. Usar SLMs especializados en tareas concretas (Agentic Workflows) da mejores resultados que un solo modelo generalista.

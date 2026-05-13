@@ -1,0 +1,3 @@
+Desafío: El flujo de creación de contenido estaba fragmentado. El Bibliotecario creaba el documento técnico, pero había que invocar manualmente al Blogger para la promoción, y este no sabía qué URL tendría el documento final.
+Maniobra: Implementamos Agent Chaining (Encadenamiento de Agentes). Ahora el Bibliotecario, al terminar, pregunta si quieres invocar al Blogger. Si aceptas, le pasa el archivo por argumento. El Blogger lee el YAML, deduce la URL final (slugify) e inyecta la directiva para que la IA la incluya en el post promocional.
+Aprendizaje: Encadenar agentes locales reduce la fricción operativa a cero. Cada IA hace solo una tarea bien definida, pasándose el contexto y el control de forma programática mediante Python.
