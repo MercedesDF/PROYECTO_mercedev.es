@@ -38,6 +38,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
   - `merci-brain.py`: Generador de base de conocimientos IA estática (Shift-Left AI).
   - `merci-ssot.py`: Agente híbrido (Cloud/Local) para auditar y auto-sanar la deriva documental.
   - `merci-librarian.py`: Agente Bibliotecario y formateador estricto local (Zero-Hallucination).
+  - `merci-blogger.py`: Agente Redactor DevRel (Agent Chaining) y creador de Ganchos Sociales.
   - `merci-backup.py`: Generador instantáneo de instantáneas locales (ZIP).
   - `merci-init.py`: Inicializador para arrancar nuevos repositorios derivados.
   - `merci-styles.py` y `merci-watcher.py`: Compilador y vigilante de arquitectura SASS 7-1.

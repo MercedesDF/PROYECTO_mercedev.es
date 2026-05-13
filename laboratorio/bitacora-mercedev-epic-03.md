@@ -102,6 +102,14 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Motivo / criterio:** *Separation of Concerns* (Separación de responsabilidades). La Biblioteca ordena el conocimiento; el Blog emite novedades. Diferenciar la UI de ambos espacios clarifica la intención de la lectura. Reducir la lógica PHP en el tema acelera el TTFB y simplifica el mantenimiento.
 
+### 2026-05-14 — Docs: Actualización de SOP y Arquitectura de Agentes en manuales
+
+**Contexto:** Tras la profunda reestructuración del flujo de trabajo (introducción de la bandeja unificada `incubacion/`, el enrutamiento inteligente por tema en `merci-promote` y el *Agent Chaining* con `merci-blogger.py`), los documentos fundacionales (`README.md`, `instrucciones.md` y `flujo-publicacion-sop.md`) habían quedado obsoletos (Document Drift).
+
+**Hecho:** Se actualizaron los tres documentos maestros añadiendo a `merci-blogger.py` al inventario del ecosistema y reescribiendo el SOP para reflejar las nuevas mecánicas de incubación unificada, validación cruzada y Buffer Social de LinkedIn.
+
+**Motivo / criterio:** *Single Source of Truth (SSOT)*. Una arquitectura brillante no sirve de nada si el manual de operaciones describe un sistema obsoleto. Reflejar el encadenamiento de agentes y las nuevas mecánicas de promoción en el "Runbook" oficial consolida la madurez de la Épica 3 y prepara el terreno para automatizaciones futuras.
+
 ### 2026-05-14 — Feat: Métrica SRE para Buffer de LinkedIn en Grafana
 
 **Contexto:** Era necesario vigilar la cantidad de posts disponibles ("munición") en la cola de LinkedIn para configurar futuras alertas SRE cuando el buffer se estuviera agotando.
