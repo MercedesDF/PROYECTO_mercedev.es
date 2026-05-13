@@ -175,6 +175,18 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/integracion-de-qwen25-coder-con-ollama-para-devrel-local</loc>
+      <lastmod>2026-05-13</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://mercedev.es/biblioteca/conectar-la-cantidad-de-posts-en-espera-de-linkedin-con-grafana</loc>
+      <lastmod>2026-05-13</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/la-ceguera-de-taller-y-la-paridad-devprod</loc>
       <lastmod>2026-05-13</lastmod>
       <changefreq>weekly</changefreq>

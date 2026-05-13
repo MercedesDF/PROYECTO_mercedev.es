@@ -38,6 +38,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Feat: Escudo de Referencias Cruzadas en Promoción (Shift-Left DAST)
+
+**Contexto:** Al encadenar agentes, el Blogger genera posts de marketing que enlazan a cuadernillos técnicos. Si la autora promovía el post del blog antes que el cuadernillo original, el publicador Headless subiría un artículo a WordPress con un enlace roto (404), rompiendo la experiencia de usuario.
+
+**Hecho:** Se inyectó un validador de referencias cruzadas en `scripts/merci/merci-promote.py`.
+
+**Detalle técnico:** El script escanea el cuerpo del documento en busca de URLs internas (`https://mercedev.es/biblioteca/...`). Si encuentra alguna, calcula dinámicamente todos los slugs (`slugify`) de los documentos actualmente en producción (`biblioteca/` y `art-de-cote/`). Si el enlace destino no existe en producción, aborta la promoción con un mensaje de bloqueo didáctico.
+
+**Motivo / criterio:** *Shift-Left Quality y Dependency Enforcing*. Prevenir un error antes de que se compile es mejor que detectarlo después. Forzar el orden cronológico de promoción (primero el documento base, luego el marketing) garantiza que WordPress nunca reciba un enlace hacia un recurso estático inexistente.
+
 ### 2026-05-14 — Test: Validación End-to-End de Máquina de Estados y Agent Chaining
 
 **Contexto:** Tras implementar el encadenamiento de agentes (Bibliotecario -> Blogger) y la métrica de SRE, era vital confirmar que la cadena completa funcionaba sin fricciones y respetando la máquina de estados documental.

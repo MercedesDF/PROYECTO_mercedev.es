@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automatización de Cache Busting dinámico en núcleo estático — mercedev.es</title>
-    <meta name="description" content="Resolución de discrepancias visuales por caché agresiva mediante inyección automática de timestamps.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/automatizacion-de-cache-busting-dinamico-en-nucleo-estatico.html">
+    <title>Conectar la Cantidad de Posts en Espera de LinkedIn con Grafana — mercedev.es</title>
+    <meta name="description" content="Se implementó una métrica para rastrear los documentos con estado_social en_cola en el agente SRE.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/conectar-la-cantidad-de-posts-en-espera-de-linkedin-con-grafana.html">
     <link rel="stylesheet" href="/css/main.css?v=1778672381">
     <script src="/js/MerciController.js?v=1778479031" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Automatizaci\u00f3n de Cache Busting din\u00e1mico en n\u00facleo est\u00e1tico",
-      "description": "Resoluci\u00f3n de discrepancias visuales por cach\u00e9 agresiva mediante inyecci\u00f3n autom\u00e1tica de timestamps.",
-      "url": "https://mercedev.es/biblioteca/automatizacion-de-cache-busting-dinamico-en-nucleo-estatico.html"
+      "headline": "Conectar la Cantidad de Posts en Espera de LinkedIn con Grafana",
+      "description": "Se implement\u00f3 una m\u00e9trica para rastrear los documentos con estado_social en_cola en el agente SRE.",
+      "url": "https://mercedev.es/biblioteca/conectar-la-cantidad-de-posts-en-espera-de-linkedin-con-grafana.html"
     }
     </script>
 </head>
@@ -46,21 +46,16 @@
         <article class="card card--booklet">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">Automatización de Cache Busting dinámico en núcleo estático</h1>
-                <a href="/descargas/automatizacion-de-cache-busting-dinamico-en-nucleo-estatico.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">Conectar la Cantidad de Posts en Espera de LinkedIn con Grafana</h1>
+                <a href="/descargas/conectar-la-cantidad-de-posts-en-espera-de-linkedin-con-grafana.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
-                <h1>Automatización de Cache Busting dinámico en núcleo estático</h1>
-<h2>El Desafío (Síntoma)</h2>
-<p>Conocido comúnmente como "La tiranía de la caché". Tras refactorizar una rejilla CSS en SASS de 4 a 5 columnas, el entorno de desarrollo local reflejaba los cambios perfectamente. Sin embargo, al desplegar a producción, los navegadores móviles y el proxy inverso (Varnish) seguían mostrando el diseño antiguo. La solución tradicional era incrementar manualmente la variable de versión (<code>?v=X</code>) en las etiquetas <code>&lt;link&gt;</code> del archivo <code>public/index.html</code>. Esta intervención manual constante generaba fricción operativa severa y un alto riesgo de olvido.</p>
+                <h2>El Desafío (Síntoma)</h2>
+<p>Se detectó que no había una forma de monitorear en tiempo real la cantidad de posts en espera de LinkedIn, lo que dificultaba la observabilidad y gestión de estos documentos.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se refactorizó el orquestador de publicación (<code>merci-publish.py</code>) para que asuma la responsabilidad del versionado durante la fase de Construcción (Build):</p>
-<ol>
-<li><strong>Lectura de Metadatos:</strong> El script lee la fecha exacta de modificación física (<code>st_mtime</code>) de los archivos compilados <code>main.css</code>, <code>main.js</code> y <code>MerciController.js</code>.</li>
-<li><strong>Inyección Quirúrgica:</strong> Mediante expresiones regulares (<code>re.sub</code>), el motor busca el patrón <code>?v=...</code> directamente en el código fuente de <code>public/index.html</code> y reemplaza el número antiguo por el <em>timestamp</em> (marca de tiempo) actualizado (ej. <code>?v=1715086000</code>).</li>
-</ol>
+<p>Se implementó la métrica <code>merci_linkedin_queue_total</code> en el agente SRE para rastrear los documentos con estado_social en_cola. Esto permitió crear una conexión directa entre LinkedIn y Grafana, facilitando la visualización de la cantidad de posts en espera.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p><em>Fricción Cero y Repercusión en Cadena.</em> Tratar la portada (<code>public/index.html</code>) verdaderamente como la Única Fuente de Verdad (SSOT - Single Source of Truth) produce una automatización elegante. Dado que <code>merci-publish.py</code> inyecta la versión actualizada primero, cuando el script secundario <code>merci-sync-pages.py</code> se ejecuta inmediatamente después, recorta ese bloque HTML ya actualizado y lo propaga a páginas estáticas secundarias (como Contacto). Todo el ecosistema queda blindado contra cachés obsoletas sin que el desarrollador haya tenido que teclear un solo número.</p>
+<p>Tras depurar el YAML Frontmatter generado por Ollama, logramos un pipeline DevSecOps perfecto donde todo fluye desde la nota rápida hasta el dashboard de métricas. Esta solución es óptima porque permite una observabilidad real y eficiente de los posts en espera de LinkedIn.</p>
             </div>
         </article>
     </main>

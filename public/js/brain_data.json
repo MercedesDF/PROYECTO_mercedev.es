@@ -43,5 +43,7 @@
   "/biblioteca/topologia-de-ia-el-stack-hibrido-en-devsecops.html": "Descubre cómo la inteligencia artificial local y en la nube se fusionan para optimizar procesos de desarrollo y seguridad en pipelines híbridos",
   "/biblioteca/validacion-de-defensas-devsecops-con-chaos-monkey-y-merciauditpy.html": "Descubre cómo Chaos Monkey e IA transforman defensas DevSecOps, revelando lecciones cruciales para Rollback y Regex robustas en merciaudit.py.",
   "/biblioteca/transformacion-de-checklist-de-seguridad-pasiva-en-escudo-activo.html": "Transforma tu checklist de seguridad en un escudo activo con merci-hardening.py: ¡Seguridad continua, compliance garantizado! 🛡️🚀",
-  "/biblioteca/actualizacion-de-la-politica-de-seguridad-para-prevenir-ataques-a-la-cadena-de-suministro.html": "Política de seguridad anti-XSS y CDN, ¿preparados para un ataque a la cadena de suministro?"
+  "/biblioteca/actualizacion-de-la-politica-de-seguridad-para-prevenir-ataques-a-la-cadena-de-suministro.html": "Política de seguridad anti-XSS y CDN, ¿preparados para un ataque a la cadena de suministro?",
+  "/biblioteca/integracion-de-qwen25-coder-con-ollama-para-devrel-local.html": "Qwen2.5-Coder se junta con Ollama para una DevRel local sin nubes y privacidad garantizada, revolucionando la forma de colaborar.",
+  "/biblioteca/conectar-la-cantidad-de-posts-en-espera-de-linkedin-con-grafana.html": "Visualiza en tiempo real los documentos en espera de LinkedIn con Grafana: un puente entre SRE y análisis de datos!"
 }

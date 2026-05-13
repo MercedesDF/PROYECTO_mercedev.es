@@ -6,6 +6,7 @@ Herramienta interactiva de consola (CLI) para trasladar, curar y estandarizar bo
 """
 
 import re
+import unicodedata
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -18,6 +19,13 @@ DESTINOS_DIR = [
     REPO_ROOT / "blog",
     REPO_ROOT / "art-de-cote"
 ]
+
+def slugify(texto: str) -> str:
+    """Convierte un texto en una cadena segura para URLs (slug)."""
+    texto = str(texto)
+    texto = unicodedata.normalize('NFKD', texto).encode('ascii', 'ignore').decode('ascii')
+    texto = re.sub(r'[^\w\s-]', '', texto.lower())
+    return re.sub(r'[-\s]+', '-', texto).strip('-_')
 
 def main():
     print("🚀 [Merci Promote] Iniciando flujo de promoción de conocimiento...")
@@ -95,6 +103,26 @@ def main():
             key, val = linea.split(":", 1)
             # Limpiamos espacios y comillas residuales
             meta[key.strip()] = val.strip().strip('"\'')
+
+    # 4.5 Escudo de Referencias Cruzadas (Shift-Left DAST)
+    # QUÉ HACE: Bloquea la promoción si el post enlaza a un cuadernillo que aún no ha sido promovido.
+    enlaces_internos = re.findall(r'https://mercedev\.es/(biblioteca|art-de-cote)/([^/]+)\.html', md_body)
+    if enlaces_internos:
+        slugs_produccion = set()
+        for dest in [REPO_ROOT / "biblioteca", REPO_ROOT / "art-de-cote"]:
+            if dest.exists():
+                for f_md in dest.glob("*.md"):
+                    c_md = f_md.read_text(encoding="utf-8", errors="ignore")
+                    m_title = re.search(r"^titulo:\s*[\"']?([^\"'\n]+)[\"']?", c_md, re.MULTILINE)
+                    if m_title:
+                        slugs_produccion.add(slugify(m_title.group(1)))
+        
+        for estanteria, slug_buscado in enlaces_internos:
+            if slug_buscado not in slugs_produccion:
+                print(f"\n  🛑 [Escudo DevSecOps] ¡Promoción Bloqueada por Dependencia!")
+                print(f"  El documento enlaza a un artículo ({slug_buscado}.html) que AÚN NO EXISTE en producción.")
+                print("  👉 Solución: Promueve primero el documento técnico original (cuadernillo/compendio) y luego vuelve a intentar promover este artículo del blog.")
+                return
 
     print(f"\n⚙️ Curación de metadatos para: {meta.get('titulo', borrador_elegido.name)}")
     

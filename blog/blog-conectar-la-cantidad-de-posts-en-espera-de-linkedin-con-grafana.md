@@ -1,12 +1,13 @@
 ---
 titulo: "Conectar la Cantidad de Posts en Espera de LinkedIn con Grafana"
-estado: "borrador"
+estado: "publicado"
 estado_social: "en_cola"
 tema: "Blog"
 fase: "Epic 3 - Fase 1"
 fecha: "2026-05-13"
+descripcion: "Conectar la Cantidad de Posts en Espera de LinkedIn con Grafan"
+alt_portada: "Conectar la Cantidad de Posts en Espera de LinkedIn con Grafan"
 ---
-
 <!-- linkedin:
 ¿Cómo rastrear en tiempo real los posts de LinkedIn? ¡Con esta solución! 📈 #DevSecOps #DesarrolloWeb
 -->

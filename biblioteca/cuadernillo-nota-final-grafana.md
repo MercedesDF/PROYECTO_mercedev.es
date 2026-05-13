@@ -5,10 +5,9 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-13"
 fase: "Epic 3 - Fase 1"
-estado: "borrador"
+estado: "publicado"
 alt_portada: "Diagrama de flujo del pipeline DevSecOps desde la nota hasta el dashboard de métricas."
 ---
-
 ## El Desafío (Síntoma)
 Se detectó que no había una forma de monitorear en tiempo real la cantidad de posts en espera de LinkedIn, lo que dificultaba la observabilidad y gestión de estos documentos.
 

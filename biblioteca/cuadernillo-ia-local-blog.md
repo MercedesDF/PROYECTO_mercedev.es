@@ -5,10 +5,9 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-13"
 fase: "Epic 3 - Fase 1"
-estado: "borrador"
+estado: "publicado"
 alt_portada: "Diagrama de flujo mostrando el proceso de integración de Qwen2.5-Coder con Ollama en el equipo local."
 ---
-
 ## El Desafío (Síntoma)
 Se detectó la necesidad de enviar borradores de artículos de marketing a nubes externas como Google o OpenAI, lo que planteaba problemas de fuga de datos y privacidad.
 
