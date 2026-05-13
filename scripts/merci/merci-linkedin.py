@@ -11,6 +11,7 @@ import json
 import re
 import urllib.request
 import urllib.parse
+import unicodedata
 import webbrowser
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
@@ -18,6 +19,13 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ENV_PATH = REPO_ROOT / ".env"
 TOKEN_PATH = REPO_ROOT / ".linkedin_token.json" # Aquí guardaremos la llave
+
+def slugify(texto: str) -> str:
+    """Convierte un texto en una cadena segura para URLs (slug)."""
+    texto = str(texto)
+    texto = unicodedata.normalize('NFKD', texto).encode('ascii', 'ignore').decode('ascii')
+    texto = re.sub(r'[^\w\s-]', '', texto.lower())
+    return re.sub(r'[-\s]+', '-', texto).strip('-_')
 
 # =========================================================================
 # 1. EL MICRO-SERVIDOR LOCAL (El atrapa-códigos)
@@ -218,10 +226,28 @@ def procesar_linkedin(modo_auto=False):
                 val_estado_social = estado_social.group(1)
                 fecha_val = fecha.group(1) if fecha else "9999-99-99"
                 
+                texto_post_base = linkedin_text_match.group(1).strip()
+                
+                # INYECCIÓN DINÁMICA DE URL: Si no hay link, lo calculamos y añadimos
+                if "http" not in texto_post_base:
+                    tema_match = re.search(r'^tema:\s*["\']?([^"\'\n]+)["\']?', yaml_block, re.MULTILINE)
+                    tema_val = tema_match.group(1).lower() if tema_match else ""
+                    if "blog" in tema_val:
+                        enlace = f"https://mercedev.es/blog/{archivo.stem}/"
+                    else:
+                        titulo_match = re.search(r'^titulo:\s*["\']?([^"\'\n]+)["\']?', yaml_block, re.MULTILINE)
+                        titulo_val = titulo_match.group(1) if titulo_match else archivo.stem
+                        slug = slugify(titulo_val)
+                        base_path = "/art-de-cote/" if "art" in tema_val else "/biblioteca/"
+                        enlace = f"https://mercedev.es{base_path}{slug}.html"
+                    texto_post_final = f"{texto_post_base}\n\n🔗 Lee el artículo completo aquí:\n{enlace}"
+                else:
+                    texto_post_final = texto_post_base
+
                 datos_post = {
                     "archivo": archivo,
                     "fecha": fecha_val,
-                    "texto_post": linkedin_text_match.group(1).strip(),
+                    "texto_post": texto_post_final,
                     "yaml_block": yaml_block,
                     "content": content
                 }

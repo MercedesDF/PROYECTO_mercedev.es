@@ -181,7 +181,7 @@
 ### Fase 1: Motor de Difusión y Buffer Social
 - [x] Crear la taxonomía/estantería 'SOS Terminal' dentro de Art de Coté.
 - [x] Definir el Frontmatter base para aislar estos snippets rápidos de los cuadernillos pesados.
-- [ ] Añadir el campo `estado_social: "en_cola"` al YAML Frontmatter.
+- [x] Añadir el campo `estado_social: "en_cola"` al YAML Frontmatter.
 - [x] Refactorizar `merci-linkedin.py` para procesar únicamente 1 publicación en cola por ejecución.
 
 ### Fase 2: Observabilidad y Alertas SRE

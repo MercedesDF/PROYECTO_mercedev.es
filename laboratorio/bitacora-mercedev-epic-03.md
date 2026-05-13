@@ -38,6 +38,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Feat: Autoinyección de enlaces canónicos en LinkedIn (Call to Action)
+
+**Contexto:** Era necesario definir hacia dónde apuntar el tráfico de LinkedIn (web vs. repositorio) e incluir automáticamente el enlace en la publicación para maximizar la visibilidad del proyecto y la autoridad técnica.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-linkedin.py` para calcular e inyectar dinámicamente el enlace canónico del artículo en el texto del post, si este no contenía ya una URL.
+
+**Detalle técnico:** El script evalúa si el texto en el bloque `<!-- linkedin: -->` contiene "http". Si no lo tiene, deduce la ruta de producción basándose en el YAML Frontmatter (resolviendo `/blog/slug/` para WordPress o `/biblioteca/slug.html` para el motor SSG) y añade un "Call to Action" estandarizado (`🔗 Lee el artículo completo aquí: ...`).
+
+**Motivo / criterio:** *Traffic Routing y Single Source of Truth*. Redirigir el tráfico a `mercedev.es` en lugar de a GitHub demuestra empíricamente el rendimiento extremo (100/100) y la UX, convirtiendo la web en el activo central de marca personal. Automatizar la inserción de la URL garantiza enlaces perfectos sin requerir que la IA o la autora los escriban a mano en la nota original.
+
 ### 2026-05-14 — Docs: Clarificación del SOP de Despliegue para Contenido Dinámico
 
 **Contexto:** Tras una ejecución exitosa del pipeline local, se detectó que los nuevos artículos del blog no aparecían en el servidor de producción. Se diagnosticó una omisión en el procedimiento operativo estándar (SOP) de despliegue.
