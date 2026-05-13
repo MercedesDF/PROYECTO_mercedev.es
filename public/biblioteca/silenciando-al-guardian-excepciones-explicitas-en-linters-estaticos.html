@@ -6,7 +6,7 @@
     <title>Silenciando al Guardián: Excepciones explícitas en linters estáticos — mercedev.es</title>
     <meta name="description" content="Cómo gestionar falsos positivos en herramientas de auditoría de código (QA) mediante directivas de silenciamiento en línea.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos.html">
-    <link rel="stylesheet" href="/css/main.css?v=1778672940">
+    <link rel="stylesheet" href="/css/main.css?v=1778673538">
     <script src="/js/MerciController.js?v=1778479031" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <script type="application/ld+json">
@@ -50,12 +50,7 @@
                 <a href="/descargas/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
-                <!-- linkedin:
-En DevSecOps, a veces el linter de seguridad es demasiado estricto. Hoy en Art de Coté documentamos cómo crear válvulas de escape elegantes para falsos positivos en auditorías de código. 🛡️
-https://mercedev.es/biblioteca/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos
--->
-
-<h2>El Desafío (Síntoma)</h2>
+                <h2>El Desafío (Síntoma)</h2>
 <p>Al implementar una nueva regla en el orquestador maestro (<code>merci-audit.py</code>) para prohibir y detectar estilos en línea <!-- merci-audit:silence-style -->(<code>style="..."</code>), la herramienta bloqueó la compilación de la biblioteca. El diagnóstico reveló un <strong>Falso Positivo Legítimo</strong>: el linter estaba escaneando un artículo técnico que explicaba cómo funciona la especificidad CSS, detectando los bloques de código de ejemplo como violaciones reales de la arquitectura SASS.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Para solucionar esto, se descartó aplicar sobreingeniería a las Expresiones Regulares (RegEx) del auditor (intentar enseñarle a distinguir si el texto estaba dentro de una etiqueta <code>&lt;code&gt;</code> o no). En su lugar, se optó por la simplicidad:</p>

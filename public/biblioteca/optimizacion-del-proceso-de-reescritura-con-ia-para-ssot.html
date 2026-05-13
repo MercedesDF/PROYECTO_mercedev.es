@@ -6,7 +6,7 @@
     <title>Optimización del Proceso de Reescritura con IA para SSOT — mercedev.es</title>
     <meta name="description" content="Se implementó un patrón &#x27;Decisión vs Ejecución&#x27; para reducir tokens y evitar alucinaciones en la reescritura de archivos.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/optimizacion-del-proceso-de-reescritura-con-ia-para-ssot.html">
-    <link rel="stylesheet" href="/css/main.css?v=1778672940">
+    <link rel="stylesheet" href="/css/main.css?v=1778673538">
     <script src="/js/MerciController.js?v=1778479031" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <script type="application/ld+json">
@@ -50,11 +50,7 @@
                 <a href="/descargas/optimizacion-del-proceso-de-reescritura-con-ia-para-ssot.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
-                <!-- linkedin:
-Se optimizó el proceso de reescritura en SSOT utilizando un patrón 'Decisión vs Ejecución', reduciendo tokens y eliminando riesgos de alucinaciones. #DevSecOps #Gobernanza
--->
-
-<h2>El Desafío (Síntoma)</h2>
+                <h2>El Desafío (Síntoma)</h2>
 <p>Se detectó que pedirle a la IA que reescriba un archivo de 200 líneas del Roadmap solo para poner una 'X' era un desperdicio de tokens y causaba alucinaciones, mutilando el archivo truncándolo.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se aplicó un patrón de 'Decisión vs Ejecución' (Targeted Payload Extraction). Ahora Python (la Mano) extrae las tareas pendientes mediante regex, se las pasa a la IA (el Cerebro), y la IA solo devuelve un array JSON con las tareas completadas. Python hace un .replace() matemático en el archivo físico.</p>

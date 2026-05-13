@@ -49,15 +49,12 @@
         $header_title = '';
         $header_desc = '';
 
-        if ( is_category('art-de-cote') ) {
-            $header_title = 'Art de Coté';
-            $header_desc = 'Repositorio de hallazgos y herramientas colaterales. I+D puro convertido en activos técnicos reutilizables.';
-        } elseif ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
+        if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
             $header_title = 'Tienda';
             $header_desc = 'Catálogo de recursos, herramientas y merchandising oficial del entorno Merci Boilerplate.';
         } elseif ( is_home() || is_archive() ) {
             $header_title = 'Blog';
-            $header_desc = 'Bitácora cronológica, diario de desarrollo y artículos generales del ecosistema.';
+            $header_desc = 'Bitácora cronológica, diario de desarrollo y artículos de marketing.';
         }
 
         if ( $header_title ) : 
@@ -80,30 +77,9 @@
                 <?php while ( have_posts() ) : the_post(); ?>
                     <article class="card card--booklet">
                         <?php 
-                        $back_link = '/blog/';
-                        $is_art_de_cote = false;
-                        
-                        // 1. ¿Está asignado directamente?
-                        if ( has_category('art-de-cote') ) {
-                            $is_art_de_cote = true;
-                        } else {
-                            // 2. ¿Pertenece a alguna subcategoría (hija) de Art de Coté?
-                            $art_term = get_category_by_slug('art-de-cote');
-                            if ( $art_term ) {
-                                foreach ( get_the_category() as $cat ) {
-                                    if ( cat_is_ancestor_of( $art_term, $cat ) ) {
-                                        $is_art_de_cote = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        
-                        if ( $is_art_de_cote ) {
-                            $back_link = '/art-de-cote/';
-                        }
+                        $back_link = '/blog/'; // El blog es puramente cronológico
                         ?>
-                        <a href="<?php echo esc_url($back_link); ?>" class="card__back-link">← Volver</a>
+                        <a href="<?php echo esc_url($back_link); ?>" class="card__back-link">← Volver al Blog</a>
                         <header>
                             <?php if ( ! $header_title ) : ?>
                                 <h1 class="home-card__title--highlight"><?php the_title(); ?></h1>
@@ -117,66 +93,20 @@
                     </article>
                 <?php endwhile; ?>
             <?php else : ?>
-                <!-- VISTA DE LISTADO (Grid y Tarjetas) -->
-                <?php
-                // QUÉ HACE: Agrupa los posts de la consulta actual por su subcategoría (tema).
-                $posts_por_tema = array();
-                while ( have_posts() ) {
-                    the_post();
-                    $cats = get_the_category();
-                    $tema = 'General'; // Fallback
-                    foreach ( $cats as $cat ) {
-                        // Ignoramos las categorías estructurales raíz
-                        if ( $cat->slug !== 'art-de-cote' && $cat->slug !== 'blog' && $cat->slug !== 'fichas' ) {
-                            $tema = $cat->name;
-                            break;
-                        }
-                    }
-                    $posts_por_tema[$tema][] = $post;
-                }
-                ?>
-                
-                <!-- QUÉ HACE: Construye el Índice de Contenidos recorriendo el bucle por primera vez -->
-                <nav class="library-nav" aria-label="Índice de artículos">
-                    <h2 class="library-nav__title">Índice de Contenidos</h2>
-                    <ul class="library-nav__list">
-                        <?php foreach ( $posts_por_tema as $tema => $lista_posts ) : ?>
-                            <li class="library-nav__item">
-                                <span class="library-nav__theme-title"><?php echo esc_html($tema); ?></span>
-                                <ul class="library-nav__article-list">
-                                    <?php foreach ( $lista_posts as $p ) : setup_postdata($post = $p); ?>
-                                        <li class="library-nav__article-item">
-                                            <a href="#<?php echo $post->post_name; ?>" class="library-nav__article-link" aria-label="Ir al resumen de: <?php echo esc_attr(get_the_title()); ?>"><?php the_title(); ?></a>
-                                        </li>
-                                    <?php endforeach; wp_reset_postdata(); ?>
-                                </ul>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </nav>
-
-                <!-- QUÉ HACE: Renderiza las secciones agrupadas por tema exactas a la Biblioteca Estática -->
-                <?php foreach ( $posts_por_tema as $tema => $lista_posts ) : ?>
-                    <section class="library-section" id="listado-<?php echo sanitize_title($tema); ?>">
-                        <div class="library-section__header">
-                            <h2 class="library-section__title home-card__title--highlight"><?php echo esc_html($tema); ?></h2>
-                            <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
-                        </div>
-                        <div class="home-grid">
-                        <?php foreach ( $lista_posts as $p ) : setup_postdata($post = $p); ?>
-                            <article class="card card--booklet" id="<?php echo $post->post_name; ?>" style="scroll-margin-top: 100px;">
-                                <header>
-                                    <span class="card__meta"><?php echo get_the_date(); ?> — Cuadernillo</span>
-                                    <h2 class="card__title"><a href="<?php the_permalink(); ?>" aria-label="Leer artículo completo: <?php echo esc_attr(get_the_title()); ?>"><?php the_title(); ?></a></h2>
-                                </header>
-                                <div class="card__content">
-                                    <?php the_excerpt(); ?>
-                                </div>
-                            </article>
-                        <?php endforeach; wp_reset_postdata(); ?>
-                        </div>
-                    </section>
-                <?php endforeach; ?>
+                <!-- VISTA DE LISTADO (Blog Cronológico Vertical) -->
+                <div class="blog-feed" style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 2.5rem;">
+                    <?php while ( have_posts() ) : the_post(); ?>
+                        <article class="card card--booklet" id="post-<?php the_ID(); ?>">
+                            <header>
+                                <span class="card__meta"><?php echo get_the_date(); ?></span>
+                                <h2 class="card__title" style="font-size: 1.8rem; margin-top: 0.5rem;"><a href="<?php the_permalink(); ?>" aria-label="Leer artículo completo: <?php echo esc_attr(get_the_title()); ?>"><?php the_title(); ?></a></h2>
+                            </header>
+                            <div class="card__content" style="margin-top: 1rem;">
+                                <?php the_excerpt(); ?>
+                            </div>
+                        </article>
+                    <?php endwhile; ?>
+                </div>
             <?php endif; ?>
 
         <?php 

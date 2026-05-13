@@ -84,6 +84,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Motivo / criterio:** *Consistency y Fricción Cero*. Mantener un estándar de nomenclatura estricto en la bandeja de entrada unificada (`incubacion/`) permite a la autora identificar instantáneamente la tipología y el destino de un documento con solo mirar su nombre de archivo en el IDE.
 
+### 2026-05-14 — UX/UI: Rediseño del Blog a formato cronológico puro (Limpieza de index.php)
+
+**Contexto:** La plantilla de WordPress (`index.php`) agrupaba visualmente los posts por categorías, emulando las estanterías de la Biblioteca. Esto rompía el paradigma de un blog tradicional, que debe mostrar un flujo de lectura vertical y cronológico, añadiendo ruido visual a las publicaciones de marketing.
+
+**Hecho:** Se refactorizó drásticamente el archivo `src/wp-theme/merci-theme/index.php`.
+
+**Detalle técnico:** Se extirpó el bucle de agrupación por `$tema`, la generación del menú interno (`library-nav`) y la envoltura en cuadrícula (`home-grid`). En su lugar, se implementó un bucle estándar `while (have_posts())` que renderiza las tarjetas apiladas verticalmente en una sola columna con `max-width: 800px` para una legibilidad óptima. También se eliminó el condicional huérfano de `Art de Coté`, puesto que dicha sección ahora es servida al 100% por el motor SSG.
+
+**Motivo / criterio:** *Separation of Concerns* (Separación de responsabilidades). La Biblioteca ordena el conocimiento; el Blog emite novedades. Diferenciar la UI de ambos espacios clarifica la intención de la lectura. Reducir la lógica PHP en el tema acelera el TTFB y simplifica el mantenimiento.
+
 ### 2026-05-14 — Feat: Métrica SRE para Buffer de LinkedIn en Grafana
 
 **Contexto:** Era necesario vigilar la cantidad de posts disponibles ("munición") en la cola de LinkedIn para configurar futuras alertas SRE cuando el buffer se estuviera agotando.

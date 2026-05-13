@@ -6,7 +6,7 @@
     <title>El límite del YAML: Comentarios HTML como almacenamiento de metadatos — mercedev.es</title>
     <meta name="description" content="Cómo superar las limitaciones de parseo en YAML inyectando metadatos multilínea dentro de comentarios HTML nativos.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/el-limite-del-yaml-comentarios-html-como-almacenamiento-de-metadatos.html">
-    <link rel="stylesheet" href="/css/main.css?v=1778672940">
+    <link rel="stylesheet" href="/css/main.css?v=1778673538">
     <script src="/js/MerciController.js?v=1778479031" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <script type="application/ld+json">
@@ -50,12 +50,7 @@
                 <a href="/descargas/el-limite-del-yaml-comentarios-html-como-almacenamiento-de-metadatos.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
-                <!-- linkedin:
-A veces, la mejor solución a un problema de backend es un "hack" de frontend clásico. Hoy os cuento en Art de Coté cómo usamos comentarios HTML para salvar las limitaciones del formato YAML sin instalar dependencias. 💡
-https://mercedev.es/blog/el-limite-del-yaml-comentarios-html
--->
-
-<h2>El Desafío (Síntoma)</h2>
+                <h2>El Desafío (Síntoma)</h2>
 <p>En nuestro flujo de automatización, queríamos redactar los posts de LinkedIn directamente en la cabecera YAML de los artículos (usando el formato multilínea <code>|</code>). Sin embargo, nuestro parseador de YAML "casero" en Python (basado en divisiones de texto por <code>:</code>) destruía los saltos de línea, publicando mensajes vacíos en la red social. Para solucionarlo "correctamente", habríamos tenido que programar un parseador completo o instalar la librería <code>PyYAML</code>, rompiendo nuestra estricta regla de 0 dependencias.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Optamos por el pensamiento lateral (Navaja de Ockham). En lugar de pelear con el YAML de la cabecera, movimos el texto de LinkedIn al <strong>cuerpo</strong> del artículo Markdown, pero escondido dentro de un comentario HTML estándar (<code>&lt;!-- linkedin: ... --&gt;</code>). </p>
