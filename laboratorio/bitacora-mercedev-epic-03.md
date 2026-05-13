@@ -38,6 +38,38 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Fix: API Drift de Gemini y Validación de Fallback Local en SSOT
+
+**Contexto:** Google modificó la nomenclatura de sus modelos en la API v1beta (forzando sufijos `-latest`), lo que provocó errores HTTP 404 en el Agente SSOT al intentar conectarse a la nube.
+
+**Hecho:** Se extirpó la función `auto_descubrir_modelo` de `scripts/merci/merci-ssot.py` anclando el script explícitamente a `gemini-1.5-flash-latest`.
+
+**Detalle técnico:** El incidente validó empíricamente el patrón de Degradación Elegante (Fail Gracefully). Al devolver la API de Google un error 404, el orquestador atrapó la excepción, delegó la tarea a Ollama local (`qwen2.5-coder`) y salvó la compilación del pipeline sin detenerse.
+
+**Motivo / criterio:** *SaaS Volatility y Local Resilience*. Las APIs de IA cambian sus endpoints sin previo aviso. Mantener la resiliencia mediante fallbacks locales asegura que los caprichos de terceros no paralicen el ecosistema de integración continua (CI/CD).
+
+### 2026-05-14 — Fix: Patrón Fail-Fast y Autodescubrimiento en Agente SSOT
+
+**Contexto:** Tras la reestructuración de las bitácoras, el Agente SSOT quedó ciego, pero el orquestador maestro (`merci total`) reportaba "Pipeline completado con éxito". El script estaba tragándose los errores silenciosamente.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-ssot.py` inyectando el autodescubrimiento de bitácoras mediante `glob` y sustituyendo los retornos funcionales (`return`) por salidas fatales (`sys.exit(1)`).
+
+**Detalle técnico:** En Python, usar `return` en el bloque principal devuelve código de salida `0` (éxito). Al mutarlos a `sys.exit(1)`, el orquestador (que usa `subprocess.run(check=True)`) ahora sí atrapa el fallo, colapsa el pipeline inmediatamente y muestra el mensaje rojo de alerta.
+
+**Motivo / criterio:** *Pipeline Integrity*. Un pipeline de integración no puede tolerar fallos silenciosos. Aplicar el patrón Fail-Fast (Fallar rápido) obliga a reparar las deudas técnicas en el momento en que se originan, impidiendo despliegues parciales o rotos.
+
+### 2026-05-14 — Feat: Máquina de Estados para Buffer Social (LinkedIn)
+
+**Contexto:** Se necesitaba desacoplar la generación de artículos de su difusión social para evitar inundar de Spam la red profesional, creando un sistema que dosifique los contenidos asíncronamente (Buffer).
+
+**Hecho:** Se refactorizó `scripts/merci/merci-linkedin.py` como un "Gatekeeper" y se inyectó el metadato `estado_social: "en_cola"` en las plantillas Markdown base (`plantilla-blog.md`, `plantilla-art-de-cote.md`).
+
+**Detalle técnico:** El orquestador social escanea ahora la máquina de estados YAML de todos los documentos, filtra solo los que están `en_cola`, los ordena por antigüedad y extrae únicamente el más antiguo. Tras mostrar una previsualización, exige confirmación humana (`s/N`). Si se publica, sella el YAML actualizándolo a `publicado_linkedin`.
+
+**Motivo / criterio:** *Content Ops y Fricción Cero*. Programar un "Hootsuite" en Python puro dentro del propio código fuente elimina herramientas externas, mantiene control absoluto sobre la cadencia y protege el feed de LinkedIn mediante barreras de confirmación humana.
+
+**Siguiente paso o deuda:** Desarrollar el Agente de Relaciones Públicas (`merci-blogger.py`) para generar los posts de la cola a partir de notas crudas, y configurar la telemetría SRE en Grafana para vigilar la cantidad de munición disponible.
+
 ### 2026-05-14 — Refactor: Reestructuración de bitácoras por Épicas
 
 **Contexto:** Validar el autodescubrimiento del nuevo orquestador de commits tras dividir el historial en múltiples archivos de Épica y organizar la documentación de I+D.

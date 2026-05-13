@@ -8,9 +8,6 @@ fase: "Épica 2 - Fase 4 (Observabilidad y SRE IA)"
 estado: "publicado"
 alt_portada: "Eliminación del atributo 'version' en docker-compose.yml para alinear con las mejores prácticas de Docker Compose V2."
 ---
-<!-- linkedin:
-Eliminamos el atributo 'version' en docker-compose.yml para alinear con las mejores prácticas de Docker Compose V2. #DevSecOps #Gobernanza #DockerCompose
--->
 
 ## El Desafío (Síntoma)
 Se detectó que el archivo `docker-compose.yml` lanzaba un warning advirtiendo que el atributo `version` está obsoleto. Antiguamente los archivos docker-compose.yml llevaban una cabecera como `version: '3.8'`, pero ahora las versiones modernas del motor usan la Especificación Unificada de Compose por defecto y ya no es necesario declararlo.

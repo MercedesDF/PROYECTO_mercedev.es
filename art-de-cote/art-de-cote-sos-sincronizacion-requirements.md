@@ -3,10 +3,11 @@ titulo: "SOS Terminal: Sincronización de requirements.txt sin instanciar"
 descripcion: "Comando salvavidas para parchear la deriva de dependencias seguras en el Boilerplate público directamente desde la matriz."
 tipo: "art-de-cote"
 tema: "SOS Terminal"
-estado: "borrador"
+estado: "publicado"
 alt_portada: "Consola de terminal ejecutando comandos de copia y git push"
+fase: "Varias"
+fecha: "2026-05-13"
 ---
-
 ### El Desafío (Síntoma)
 Dependabot puede lanzar alertas de vulnerabilidad en el repositorio público del Boilerplate si este viajó a la nube con un `requirements.txt` obsoleto antes de que la matriz fuera asegurada. El flujo oficial dicta volver a instanciar el proyecto completo con `merci-init.py`, lo cual es un proceso lento para un solo archivo de configuración.
 

@@ -8,9 +8,6 @@ fase: "Épica 2 - Fase 3 (Orquestación de Contenidos)"
 estado: "publicado"
 alt_portada: "Refactorización de System Prompts a Archivos Markdown para una gestión más limpia y auditable del ecosistema de IA."
 ---
-<!-- linkedin:
-Refactorización completa de los System Prompts a archivos Markdown para una gestión más limpia y auditable del ecosistema de IA. #DevSecOps #GobernanzaTecnica
--->
 
 ## El Desafío (Síntoma)
 Se detectó que los System Prompts de la IA estaban hardcodeados dentro de las entrañas de los scripts de Python como `merci-ssot.py` y `merci-brain.py`. Esto ensucia el código y viola el principio de Separación de Responsabilidades.

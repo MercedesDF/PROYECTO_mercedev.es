@@ -16,7 +16,3 @@ Se implementaron patrones Zero-Code para organizar el laboratorio. Primero, se r
 
 ## El Aprendizaje / Deuda Técnica
 La organización del laboratorio mediante patrones Zero-Code mejoró significativamente la visibilidad y seguridad. La implementación del estado `incubacion` en el YAML Frontmatter facilitó la gestión de los proyectos en diferentes fases. Además, la adopción de DLP evitó posibles fugas de datos sensibles a través del control de versiones.
-
-<!-- linkedin:
-Organizamos nuestro laboratorio con patrones Zero-Code para mejorar la visibilidad y seguridad. 🛠️ #DevSecOps #Gobernanza
--->

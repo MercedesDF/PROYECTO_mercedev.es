@@ -193,6 +193,7 @@ def publicar_articulos_pendientes():
     directorios = [REPO_ROOT / "blog", REPO_ROOT / "art-de-cote", REPO_ROOT / "biblioteca"]
     yaml_pattern = re.compile(r"^\s*---\r?\n(.*?)\r?\n---\r?\n", re.DOTALL)
     
+    pendientes_a_publicar = []
     publicados = 0
     for dir_path in directorios:
         if not dir_path.exists(): continue
@@ -210,29 +211,54 @@ def publicar_articulos_pendientes():
             # NUEVA LÓGICA: Leer el texto de LinkedIn desde un comentario HTML en el cuerpo del Markdown
             linkedin_text_match = re.search(r'<!--\s*linkedin:\s*(.*?)\s*-->', content, re.DOTALL | re.IGNORECASE)
             
-            # REGLA ESTRICTA: Solo publica si está publicado, tiene el bloque HTML y no se ha publicado en LinkedIn antes
-            if estado and estado.group(1) == "publicado" and linkedin_text_match and not linkedin_id:
-                texto_post = linkedin_text_match.group(1).strip()
-                print(f"\n  📝 Post pendiente detectado: {archivo.name}")
-                print(f"  💬 Previsualización: {texto_post[:70]}...")
-                
-                # BARRERA DE SEGURIDAD: Preguntar antes de disparar a la red social
-                confirmacion = input("  👉 ¿Publicar esto en tu perfil de LinkedIn ahora? (s/N): ").strip().lower()
-                if confirmacion == 's':
-                    post_id = publicar_texto_linkedin(access_token, author_urn, texto_post)
-                    
-                    if post_id:
-                        # Inyectamos el sello de LinkedIn en el YAML para no duplicar jamás
-                        nuevo_yaml = yaml_block + f'\nlinkedin_id: "{post_id}"'
-                        nuevo_contenido = content.replace(yaml_block, nuevo_yaml)
-                        archivo.write_text(nuevo_contenido, encoding="utf-8")
-                        print(f"  ✅ ¡Éxito! Post sellado con ID de LinkedIn.")
-                        publicados += 1
-                else:
-                    print("  ⏭️ Publicación omitida por el usuario.")
+            estado_social = re.search(r'^estado_social:\s*["\']?([^"\'\n]+)["\']?', yaml_block, re.MULTILINE)
+            fecha = re.search(r'^fecha:\s*["\']?([^"\'\n]+)["\']?', yaml_block, re.MULTILINE)
+            
+            # REGLA ESTRICTA: Solo publica si el estado_social es 'en_cola', tiene bloque HTML y no tiene ID
+            is_en_cola = estado_social and estado_social.group(1) == "en_cola"
+            if estado and estado.group(1) == "publicado" and is_en_cola and linkedin_text_match and not linkedin_id:
+                fecha_val = fecha.group(1) if fecha else "9999-99-99"
+                pendientes_a_publicar.append({
+                    "archivo": archivo,
+                    "fecha": fecha_val,
+                    "texto_post": linkedin_text_match.group(1).strip(),
+                    "yaml_block": yaml_block,
+                    "content": content
+                })
+
+    if pendientes_a_publicar:
+        # Ordenar por fecha, del más antiguo al más nuevo
+        pendientes_a_publicar.sort(key=lambda x: x["fecha"])
+        
+        # Seleccionamos SÓLO el primero (Buffer: 1 post por ejecución)
+        post_objetivo = pendientes_a_publicar[0]
+        archivo = post_objetivo["archivo"]
+        texto_post = post_objetivo["texto_post"]
+        yaml_block = post_objetivo["yaml_block"]
+        content = post_objetivo["content"]
+
+        print(f"\n  📝 Post más antiguo en cola detectado: {archivo.name} ({post_objetivo['fecha']})")
+        print(f"  📊 Total de posts esperando en la cola: {len(pendientes_a_publicar)}")
+        print(f"  💬 Previsualización: {texto_post[:70]}...")
+        
+        # BARRERA DE SEGURIDAD: Preguntar antes de disparar a la red social
+        confirmacion = input("  👉 ¿Publicar este único post en LinkedIn ahora? (s/N): ").strip().lower()
+        if confirmacion == 's':
+            post_id = publicar_texto_linkedin(access_token, author_urn, texto_post)
+            
+            if post_id:
+                # Inyectamos el sello y cambiamos el estado social
+                nuevo_yaml = re.sub(r'^estado_social:\s*["\']?en_cola["\']?', 'estado_social: "publicado_linkedin"', yaml_block, flags=re.MULTILINE)
+                nuevo_yaml += f'\nlinkedin_id: "{post_id}"'
+                nuevo_contenido = content.replace(yaml_block, nuevo_yaml)
+                archivo.write_text(nuevo_contenido, encoding="utf-8")
+                print(f"  ✅ ¡Éxito! Post publicado y estado actualizado a 'publicado_linkedin'.")
+                publicados += 1
+        else:
+            print("  ⏭️ Publicación omitida por el usuario.")
 
     if publicados == 0:
-        print("  🤷‍♀️ Ningún artículo nuevo pendiente de publicar en LinkedIn.")
+        print("  🤷‍♀️ Ningún post fue publicado en esta ejecución.")
 
 if __name__ == "__main__":
     if not TOKEN_PATH.exists():

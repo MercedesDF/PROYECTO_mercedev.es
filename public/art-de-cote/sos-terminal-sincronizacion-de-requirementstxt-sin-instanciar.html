@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Métrica SRE Exacta para Documentos en Promoción — mercedev.es</title>
-    <meta name="description" content="Se implementó la métrica merci_documentos_promocion_total en merci-sre.py para alinear la telemetría con la realidad operativa.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/metrica-sre-exacta-para-documentos-en-promocion.html">
+    <title>SOS Terminal: Sincronización de requirements.txt sin instanciar — mercedev.es</title>
+    <meta name="description" content="Comando salvavidas para parchear la deriva de dependencias seguras en el Boilerplate público directamente desde la matriz.">
+    <link rel="canonical" href="https://mercedev.es/art-de-cote/sos-terminal-sincronizacion-de-requirementstxt-sin-instanciar.html">
     <link rel="stylesheet" href="/css/main.css?v=1778664730">
     <script src="/js/MerciController.js?v=1778479031" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "M\u00e9trica SRE Exacta para Documentos en Promoci\u00f3n",
-      "description": "Se implement\u00f3 la m\u00e9trica merci_documentos_promocion_total en merci-sre.py para alinear la telemetr\u00eda con la realidad operativa.",
-      "url": "https://mercedev.es/biblioteca/metrica-sre-exacta-para-documentos-en-promocion.html"
+      "headline": "SOS Terminal: Sincronizaci\u00f3n de requirements.txt sin instanciar",
+      "description": "Comando salvavidas para parchear la deriva de dependencias seguras en el Boilerplate p\u00fablico directamente desde la matriz.",
+      "url": "https://mercedev.es/art-de-cote/sos-terminal-sincronizacion-de-requirementstxt-sin-instanciar.html"
     }
     </script>
 </head>
@@ -43,23 +43,30 @@
         </nav>
     </header>
     <main class="main--padded section" id="main">
-        <article class="card card--booklet">
-            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+        <article class="card card--book">
+            <a href="/art-de-cote/" class="card__back-link">← Volver a Art de Coté</a>
             <header>
-                <h1 class="home-card__title--highlight">Métrica SRE Exacta para Documentos en Promoción</h1>
-                <a href="/descargas/metrica-sre-exacta-para-documentos-en-promocion.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">SOS Terminal: Sincronización de requirements.txt sin instanciar</h1>
+                <a href="/descargas/sos-terminal-sincronizacion-de-requirementstxt-sin-instanciar.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
-                <!-- linkedin:
-Se implementó una métrica SRE exacta para contar documentos en promoción en el laboratorio, alineando la telemetría con la realidad operativa. 📊 #DevSecOps #Gobernanza
--->
+                <h3>El Desafío (Síntoma)</h3>
+<p>Dependabot puede lanzar alertas de vulnerabilidad en el repositorio público del Boilerplate si este viajó a la nube con un <code>requirements.txt</code> obsoleto antes de que la matriz fuera asegurada. El flujo oficial dicta volver a instanciar el proyecto completo con <code>merci-init.py</code>, lo cual es un proceso lento para un solo archivo de configuración.</p>
+<h3>La Maniobra (Lógica)</h3>
+<p>Para vulnerabilidades críticas en la cadena de suministro (Supply Chain) de un solo archivo plano, podemos inyectar el archivo saneado de la matriz directamente en el clon temporal del Boilerplate, saltándonos la instanciación destructiva.</p>
+<pre><code class="language-bash"># 1. Copia el archivo sano de tu matriz al boilerplate
+cp &lt;ruta-matriz&gt;/requirements.txt &lt;ruta-boilerplate&gt;/
 
-<h2>El Desafío (Síntoma)</h2>
-<p>Se detectó que Grafana y nuestro CLI hablaban idiomas distintos. <code>merci-promote.py</code> escanea todo el laboratorio buscando archivos con estado 'borrador', pero nuestra métrica SRE antigua solo contaba archivos físicos en la carpeta incubacion/. Para lograr una observabilidad perfecta, era necesario contar con una métrica que reflejara los archivos reales listos para ser promovidos.</p>
-<h2>La Maniobra (Lógica)</h2>
-<p>Se implementó la métrica <code>merci_documentos_promocion_total</code> en <code>scripts/merci/merci-sre.py</code>. Esta nueva métrica utiliza <code>rglob</code> y Expresiones Regulares (<code>re.search</code>) para buscar recursivamente la firma YAML <code>estado: "borrador"</code> en cualquier subcarpeta del laboratorio. Esto alinea la telemetría exacta con la realidad operativa, permitiendo ver en el Dashboard DevSecOps cuántos archivos están realmente listos para ser promovidos.</p>
-<h2>El Aprendizaje / Deuda Técnica</h2>
-<p>La solución es la óptima porque utiliza el mismo criterio de filtrado que <code>merci-promote.py</code>, garantizando consistencia y precisión en la medición. No se ha asumido ninguna deuda técnica significativa para el futuro, ya que la implementación es directa y no requiere cambios adicionales en otros sistemas.</p>
+# 2. Entra en la carpeta del boilerplate
+cd &lt;ruta-boilerplate&gt;/
+
+# 3. Guarda y sube el parche de seguridad
+git add requirements.txt
+git commit -m &quot;Fix: Sincronización de dependencias seguras (Supply Chain)&quot;
+git push
+</code></pre>
+<h3>El Aprendizaje/Deuda Técnica</h3>
+<p><em>Bypass Controlado</em>. Los atajos operativos en DevSecOps están permitidos si, y solo si, la acción <strong>mantiene la paridad exacta</strong> entre la matriz y el Boilerplate. Al copiar literalmente el archivo saneado, garantizamos que ambos ecosistemas operen bajo la misma política de "Zero Vulnerabilities" sin fricción operativa.</p>
             </div>
         </article>
     </main>
