@@ -81,12 +81,12 @@
                     
                     <?php if ( $es_blog_individual ) : ?>
                         <!-- VISTA DE LECTURA LIGERA (Blog DevRel) -->
-                        <article class="blog-post">
-                            <a href="/blog/" class="blog-post__back-link">← Volver al Blog</a>
-                            <header class="blog-post__header">
-                                <h1 class="blog-post__title"><?php the_title(); ?></h1>
+                        <article class="prose">
+                            <a href="/blog/" class="prose__back-link">← Volver al Blog</a>
+                            <header class="prose__header">
+                                <h1 class="prose__title"><?php the_title(); ?></h1>
                             </header>
-                            <div class="blog-post__content">
+                            <div class="prose__content">
                                 <?php the_content(); ?>
                             </div>
                         </article>

@@ -191,6 +191,7 @@
 - [ ] Integrar métricas de Inteligencia Artificial (fallbacks a la nube, errores del auditor) en Grafana.
 - [ ] Implementar un registro privado persistente (`.privado/chaos-audit.log`) para las mutaciones del Agente Chaos.
 - [ ] Instrumentar `merci-sre.py` para exponer el historial de resiliencia de Chaos Engineering hacia Grafana.
+- [ ] Instrumentar la inyección dinámica de telemetría (commits, líneas de doc, versiones) en la página estática "Sobre Mí".
 
 ### Fase 3: Identidad Criptográfica y Privacidad
 - [x] Implementar y estandarizar flujo de Comunicaciones Cifradas (PGP) en el ecosistema.

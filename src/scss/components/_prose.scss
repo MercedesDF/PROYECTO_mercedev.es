@@ -1,7 +1,7 @@
 @use '../abstracts' as *;
 
-/* COMPONENTE: Vista de lectura ligera para el Blog DevRel */
-.blog-post {
+/* COMPONENTE: Vista de lectura ergonómica y texto continuo (Prosa) */
+.prose {
   max-width: 65ch;
   margin: 0 auto;
   padding: 0;

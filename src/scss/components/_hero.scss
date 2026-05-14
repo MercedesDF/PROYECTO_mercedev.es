@@ -66,7 +66,12 @@
         margin-top: 1.5rem;
 
         @media (min-width: 768px) {
-            grid-template-columns: repeat(5, minmax(0, 1fr)); // 5 columnas en escritorio para 10 métricas
+            grid-template-columns: repeat(3, minmax(0, 1fr)); // 5 columnas en escritorio para 10 métricas
+        }
+
+        &--standalone {
+            max-width: 65ch; /* Alineado estrictamente con la caja de lectura del texto */
+            margin: 3rem auto;
         }
     }
 
@@ -74,6 +79,7 @@
         padding: 0.75rem;
         border: 1px solid rgba($color-text-base, 0.1); // Visible en Modo Claro
         border-radius: 4px;
+        text-align: center;
     }
 
     &__metric-label {
@@ -86,8 +92,11 @@
     }
 
     &__metric-value {
-        font-size: 1rem;
-        font-weight: 600;
+        display: block;
+        font-size: 3rem;
+        font-weight: 700;
+        color: $color-primary;
+        line-height: 1.2;
     }
 
     &__dashboard-legend {

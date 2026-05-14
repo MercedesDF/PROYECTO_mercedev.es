@@ -38,6 +38,58 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Refactor: Abstracción semántica del componente de lectura (Prose)
+
+**Contexto:** Se detectó que la página estática del currículum ("Sobre Mí") utilizaba el componente BEM `.blog-post` para renderizar el texto. Aunque reutilizar los estilos de lectura ligera cumplía el principio DRY, el nombre del componente acoplaba semánticamente el diseño al dominio del blog, generando fricción cognitiva.
+
+**Hecho:** Se abstrajo el componente `.blog-post` renombrándolo a `.prose` (Prosa/Texto continuo).
+- Se creó `src/scss/components/_prose.scss` y se eliminó `_blog-post.scss`.
+- Se refactorizaron las etiquetas HTML en `index.php` y `sobre-mi/index.html` para usar las nuevas clases `.prose`, `.prose__content`, etc.
+
+**Motivo / criterio:** *Semantic UI y Agnosticismo de Componentes*. En la metodología BEM estricta, el nombre de un bloque debe describir su función estructural o visual, no su contenido o contexto. Llamarlo `.prose` permite que la ergonomía de lectura perfecta (65ch) pueda reutilizarse en blogs, currículums, manuales o políticas legales sin disonancia semántica.
+
+### 2026-05-14 — UX/UI: Establecimiento de la norma de contención visual (Regla de los 65ch)
+
+**Contexto:** Se detectó una disonancia visual en la página "Sobre Mí". El dashboard de métricas (`max-width: 800px`) era sustancialmente más ancho que los bloques de texto superior e inferior (`max-width: 65ch`), rompiendo la cuadrícula de lectura y dando la sensación de "caja desbordada".
+
+**Hecho:** Se corrigió el archivo `_hero.scss` moviendo el modificador `.hero__dashboard--standalone` a su bloque correspondiente y ajustando su ancho máximo a `65ch`.
+
+**Motivo / criterio:** *Design Consistency (Consistencia de Diseño)*. Se establece la norma de que ningún componente hijo o hermano anidado debe superar el ancho de su contenedor de lectura principal. Alinear todos los elementos centrales a `65ch` garantiza un flujo de lectura armónico y mantiene la atención del usuario sin forzar movimientos oculares periféricos.
+
+### 2026-05-14 — UX/UI: Mejora visual del Dashboard de métricas
+
+**Contexto:** Las métricas del dashboard no destacaban lo suficiente dentro de sus contenedores, restando impacto visual a los logros técnicos.
+
+**Hecho:** Se actualizaron las reglas del componente `.hero__metric` en `_hero.scss` para centrar el contenido y aumentar significativamente el tamaño, peso y color de los valores.
+
+**Motivo / criterio:** *Jerarquía visual*. Los números son el dato duro que demuestra la autoridad técnica. Deben ser el punto focal de la interfaz para que el usuario o reclutador los asimile instantáneamente de un solo vistazo.
+
+### 2026-05-14 — Docs: Refinamiento de veracidad histórica en CV Semántico
+
+**Contexto:** La primera iteración del CV Semántico contenía abstracciones excesivas sobre la experiencia previa de la autora ("enseñando a máquinas a ser precisas"). Era necesario alinear el texto exactamente con el historial laboral real (Ingeniería Técnica, control de obra civil, refinerías, delineación y gestión de proyectos).
+
+**Hecho:** Se actualizó el HTML y el JSON-LD de `public/sobre-mi/index.html` para reflejar la experiencia real en dirección de obra, dosieres de calidad y estructuras industriales.
+
+**Motivo / criterio:** *Transparencia y Autoridad Empírica*. La experiencia real gestionando infraestructuras físicas complejas y elaborando planos "As Built" es la metáfora perfecta para justificar la filosofía *Spec-Driven Development* y el control de calidad estricto (DevSecOps) en el software. La verdad histórica es siempre más potente y vendible que la ficción.
+
+### 2026-05-14 — Fix: Erradicación de estilo en línea en CV Semántico
+
+**Contexto:** Al inyectar el dashboard de métricas en la página estática "Sobre Mí", se incluyó temporalmente un atributo `style="..."` (CSS en línea) que habría violado la regla estricta `UI_INLINE_STYLE`, provocando el bloqueo del pipeline.
+
+**Hecho:** Se extrajo el estilo a un modificador BEM (`.hero__dashboard--standalone`) en `_hero.scss` y se purgaron los atributos `style` del HTML en `public/sobre-mi/index.html`.
+
+**Motivo / criterio:** *QA Assurance y Zero Deuda Técnica*. El pipeline DevSecOps no debe romperse por un fallo de formato visual introducido accidentalmente en un nuevo HTML. Pagar la deuda antes de lanzar el orquestador global protege el flujo de Integración Continua y respeta la arquitectura SASS.
+
+### 2026-05-14 — UX/UI: Reescritura del CV Semántico y proyección de telemetría dinámica
+
+**Contexto:** El texto de la página estática "Sobre Mí" (`public/sobre-mi/index.html`) requería una reescritura para alinearse con el tono autoritario de "Performance Engineer" y reflejar las métricas exactas logradas en la Release v1.13.0 (agentes Python, líneas de documentación, CWV 100/100).
+
+**Hecho:** Se maquetó el nuevo texto utilizando los componentes de lectura ligera (`.blog-post`) y se reutilizó el componente `.hero__dashboard` para exponer las métricas en un formato visual asimilable. Se registró en el Roadmap la tarea de automatizar estos números.
+
+**Detalle técnico:** Se documentó la viabilidad de crear un inyector (SSOT) que escanee el tamaño de las bitácoras (`wc -l`) y el conteo de scripts para rellenar el HTML en tiempo de compilación.
+
+**Motivo / criterio:** *Marketing de Autoridad y SSOT*. Un CV técnico no debe ser un texto estático; debe ser un *dashboard* del profesional. Maquetarlo con las clases del blog asegura legibilidad (65ch) y prepararlo para recibir datos automáticos convierte la página "Sobre Mí" en un artefacto verdaderamente DevSecOps.
+
 ### 2026-05-14 — UX/UI: Purga de tarjetas en Blog Feed y Hero Compacto
 
 **Contexto:** En la vista de listado del blog (`localhost/blog`), los artículos seguían apareciendo con el diseño pesado de cuadernillos ("cartelones") debido a clases CSS residuales en el bucle PHP. Además, el Hero del blog ocupaba demasiado espacio vertical (`40vh`) para el texto que contenía, empujando el contenido útil fuera de la pantalla.
