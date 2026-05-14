@@ -1,7 +1,7 @@
 ---
 titulo: "Conectar la Cantidad de Posts en Espera de LinkedIn con Grafana"
 estado: "publicado"
-estado_social: "en_cola"
+estado_social: "aprobado"
 tema: "Blog"
 fase: "Epic 3 - Fase 1"
 fecha: "2026-05-13"

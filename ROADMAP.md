@@ -183,6 +183,7 @@
 - [x] Definir el Frontmatter base para aislar estos snippets rápidos de los cuadernillos pesados.
 - [x] Añadir el campo `estado_social: "en_cola"` al YAML Frontmatter.
 - [x] Refactorizar `merci-linkedin.py` para procesar únicamente 1 publicación en cola por ejecución.
+- [x] Refinar UI/UX del Blog: Diferenciar visualmente las entradas de los cuadernillos técnicos (lectura ligera).
 
 ### Fase 2: Observabilidad y Alertas SRE
 - [x] Instrumentar `merci-sre.py` para medir y exponer a Prometheus la métrica `merci_linkedin_queue_total`.

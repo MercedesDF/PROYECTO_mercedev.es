@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Única Fuente de Verdad: Resolviendo la Deriva de Slugs entre SSG y CMS — mercedev.es</title>
-    <meta name="description" content="Cómo resolver los conflictos de nomenclatura de URIs cuando se integran generadores estáticos (Python) con motores dinámicos (WordPress).">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms.html">
+    <title>Agent Chaining y Buffer Social: De la Nota a LinkedIn con Fricción Cero — mercedev.es</title>
+    <meta name="description" content="Implementación de flujos de trabajo con múltiples agentes locales y máquinas de estado para la automatización de marketing (Content Ops).">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/agent-chaining-y-buffer-social-de-la-nota-a-linkedin-con-friccion-cero.html">
     <link rel="stylesheet" href="/css/main.css?v=1778754661">
     <script src="/js/MerciController.js?v=1778479031" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "\u00danica Fuente de Verdad: Resolviendo la Deriva de Slugs entre SSG y CMS",
-      "description": "C\u00f3mo resolver los conflictos de nomenclatura de URIs cuando se integran generadores est\u00e1ticos (Python) con motores din\u00e1micos (WordPress).",
-      "url": "https://mercedev.es/biblioteca/unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms.html"
+      "headline": "Agent Chaining y Buffer Social: De la Nota a LinkedIn con Fricci\u00f3n Cero",
+      "description": "Implementaci\u00f3n de flujos de trabajo con m\u00faltiples agentes locales y m\u00e1quinas de estado para la automatizaci\u00f3n de marketing (Content Ops).",
+      "url": "https://mercedev.es/biblioteca/agent-chaining-y-buffer-social-de-la-nota-a-linkedin-con-friccion-cero.html"
     }
     </script>
 </head>
@@ -46,19 +46,16 @@
         <article class="card card--booklet">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                <h1 class="home-card__title--highlight">Única Fuente de Verdad: Resolviendo la Deriva de Slugs entre SSG y CMS</h1>
-                <a href="/descargas/unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <h1 class="home-card__title--highlight">Agent Chaining y Buffer Social: De la Nota a LinkedIn con Fricción Cero</h1>
+                <a href="/descargas/agent-chaining-y-buffer-social-de-la-nota-a-linkedin-con-friccion-cero.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>En nuestra arquitectura híbrida, el orquestador maestro generaba automáticamente versiones en PDF de los artículos dinámicos para que los usuarios pudieran descargarlos. Sin embargo, nuestro rastreador de enlaces (<code>merci-linkcheck.py</code>) detectó masivos errores 404 (Not Found). Python estaba generando PDFs con nombres matemáticamente perfectos (ej. <code>mi-post.pdf</code>), pero WordPress, al detectar títulos similares en su papelera, alteraba silenciosamente los enlaces en producción (ej. <code>mi-post-2</code>). Al diferir los motores de nomenclatura, los botones de descarga de la web apuntaban a archivos que no existían.</p>
+<p>La creación de contenido técnico y su posterior promoción social requerían excesiva intervención manual. Obligar a un único Small Language Model (SLM) local a actuar como ingeniero técnico y como copywriter de marketing simultáneamente provocaba alucinaciones, saturación de la ventana de contexto y pérdida de formato. Además, publicar inmediatamente saturaba las redes sociales.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>En ingeniería de software, cuando integras dos sistemas, solo uno puede ostentar la "Única Fuente de Verdad" (Single Source of Truth - SSOT). </p>
-<p>En lugar de intentar programar en Python el complejo algoritmo de duplicidad de WordPress, invertimos el orden lógico de ejecución en nuestro script publicador Headless (<code>merci-wp.py</code>). En vez de <em>Fabricar PDF -&gt; Publicar en WP</em>, pasamos a <em>Publicar en WP -&gt; Leer respuesta de la API -&gt; Extraer el Slug definitivo -&gt; Fabricar PDF</em>.</p>
+<p>Se implementó el patrón de <strong>Agent Chaining</strong> (Encadenamiento de Agentes). El Agente Bibliotecario (<code>merci-librarian.py</code>) estructura el documento técnico y, al finalizar, invoca programáticamente al Agente Blogger (<code>merci-blogger.py</code>), pasándole el control y calculando matemáticamente la URL canónica de destino. El Blogger redacta un <em>teaser</em> comercial y lo sella en el YAML Frontmatter con el metadato <code>estado_social: "en_cola"</code>. Finalmente, un demonio en el sistema operativo (Cronjob) ejecuta <code>merci-linkedin.py --auto</code> cada 3 días para consumir este <em>Buffer Social</em> de forma asíncrona.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Esta maniobra es un ejemplo de manual de <strong>Tolerancia a Fallos y SSOT</strong>. En un ecosistema acoplado, el sistema que persiste los datos (la base de datos de WordPress) es el que manda sobre las URIs. </p>
-<p>Al retrasar la generación estática hasta recibir la confirmación del servidor dinámico, aseguramos una <strong>Paridad Dev/Prod absoluta</strong>. La automatización no consiste en que un script lo haga todo rápido y a ciegas, sino en que sepa preguntar a las herramientas adecuadas antes de actuar.</p>
-<!-- merci-audit:silence-acronym -->
+<p><em>Separation of Concerns</em> (Separación de Responsabilidades) aplicado a la Inteligencia Artificial. Los modelos locales rinden de manera espectacular cuando se les asigna una micro-tarea con un <em>System Prompt</em> hiperespecializado. Orquestar el flujo conectando agentes a través de scripts en Python y usar el YAML como una Máquina de Estados transforma un simple repositorio de código en una plataforma completa de <em>Developer Relations</em> (DevRel) 100% privada y a coste cero.</p>
             </div>
         </article>
     </main>

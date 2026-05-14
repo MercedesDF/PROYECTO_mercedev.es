@@ -38,6 +38,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Conf: Despliegue de Tarea Cron para Buffer Social
+
+**Contexto:** Tras validar el flujo de aprobación interactiva de posts (`estado_social: "aprobado"`), era necesario automatizar la emisión espaciada hacia LinkedIn sin intervención manual.
+
+**Hecho:** Se configuró una tarea programada nativa en Ubuntu (`crontab`) para ejecutar `merci-linkedin.py --auto` cada 3 días a las 10:00 AM.
+
+**Detalle técnico:** La instrucción `0 10 */3 * *` delega al sistema operativo la ejecución desatendida del script, el cual consume el entorno virtual local de forma absoluta (`.venv/bin/python`) y registra su actividad silenciosamente en un archivo de log (`/tmp/merci_linkedin.log`).
+
+**Motivo / criterio:** *Automation y Fire-and-Forget*. Delegar la ejecución periódica al demonio `cron` del sistema es la vía más robusta y de menor consumo de recursos para tareas programadas (Batch), liberando completamente a la autora de la carga mental de publicar en redes sociales.
+
 ### 2026-05-14 — Feat: Autoinyección de enlaces canónicos en LinkedIn (Call to Action)
 
 **Contexto:** Era necesario definir hacia dónde apuntar el tráfico de LinkedIn (web vs. repositorio) e incluir automáticamente el enlace en la publicación para maximizar la visibilidad del proyecto y la autoridad técnica.
@@ -47,6 +57,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 **Detalle técnico:** El script evalúa si el texto en el bloque `<!-- linkedin: -->` contiene "http". Si no lo tiene, deduce la ruta de producción basándose en el YAML Frontmatter (resolviendo `/blog/slug/` para WordPress o `/biblioteca/slug.html` para el motor SSG) y añade un "Call to Action" estandarizado (`🔗 Lee el artículo completo aquí: ...`).
 
 **Motivo / criterio:** *Traffic Routing y Single Source of Truth*. Redirigir el tráfico a `mercedev.es` en lugar de a GitHub demuestra empíricamente el rendimiento extremo (100/100) y la UX, convirtiendo la web en el activo central de marca personal. Automatizar la inserción de la URL garantiza enlaces perfectos sin requerir que la IA o la autora los escriban a mano en la nota original.
+
+### 2026-05-14 — Docs: Registro de deuda técnica visual para el Blog
+
+**Contexto:** Se ha observado que las entradas individuales del Blog tienen un aspecto visual demasiado denso, asemejándose a los Cuadernillos técnicos de la Biblioteca, lo que contradice el propósito de lectura ligera y marketing (DevRel).
+
+**Hecho:** Se ha registrado la tarea de rediseño UI/UX en la Fase 1 de la Épica 3 del `ROADMAP.md`.
+
+**Motivo / criterio:** *User Experience (UX)*. El diseño debe seguir a la función. Un artículo de marketing o reflexión rápida debe presentar una interfaz con menos carga cognitiva que un manual técnico.
+
+**Siguiente paso o deuda:** Maquetar un estilo más ligero para la vista individual del blog en la próxima sesión.
 
 ### 2026-05-14 — Docs: Clarificación del SOP de Despliegue para Contenido Dinámico
 
