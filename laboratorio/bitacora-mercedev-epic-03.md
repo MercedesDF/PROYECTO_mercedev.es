@@ -38,6 +38,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — UX/UI: Purga de tarjetas en Blog Feed y Hero Compacto
+
+**Contexto:** En la vista de listado del blog (`localhost/blog`), los artículos seguían apareciendo con el diseño pesado de cuadernillos ("cartelones") debido a clases CSS residuales en el bucle PHP. Además, el Hero del blog ocupaba demasiado espacio vertical (`40vh`) para el texto que contenía, empujando el contenido útil fuera de la pantalla.
+
+**Hecho:** Se limpió el HTML del listado en `index.php` erradicando las clases `.card` y delegando el diseño puro a `.blog-feed__article`. Se creó el modificador `.hero--compact` para el banner del blog.
+
+**Detalle técnico:** Se refinaron los estilos en `_blog-feed.scss` aplicando un separador minimalista `border-bottom` en lugar de cajas cerradas. En `_hero.scss`, el modificador `--compact` reduce el `min-height` a `20vh` y optimiza los márgenes.
+
+**Motivo / criterio:** *UI Consistency y Mobile-First*. Si extraemos la vista individual del blog de las tarjetas para aligerar la lectura, el listado general (feed) también debe desprenderse del diseño de "cuadernillo técnico" para mantener la consistencia de marca (DevRel). Un Hero gigante sin dashboard ni llamadas a la acción es peso muerto en la pantalla y daña la UX.
+
 ### 2026-05-14 — UX/UI: Refinamiento semántico del mensaje de error en orquestador maestro
 
 **Contexto:** Cuando el auditor (`merci-audit.py`) u otra herramienta detectaba una infracción y devolvía un código de salida distinto de cero, el orquestador maestro (`merci-total.py`) mostraba el mensaje "El script ha fallado". Semánticamente es incorrecto: el script no falló, sino que cumplió su función de interceptar el error y detener el pipeline.

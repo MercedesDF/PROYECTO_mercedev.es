@@ -48,6 +48,7 @@
         // 1. Inyección de Cabeceras Estilo "Boilerplate" para Vistas Dinámicas
         $header_title = '';
         $header_desc = '';
+        $hero_modifier = '';
 
         if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
             $header_title = 'Tienda';
@@ -55,11 +56,12 @@
         } elseif ( is_home() || is_archive() ) {
             $header_title = 'Blog';
             $header_desc = 'Bitácora cronológica, diario de desarrollo y artículos de marketing.';
+            $hero_modifier = ' hero--compact';
         }
 
         if ( $header_title ) : 
         ?>
-            <section class="hero">
+            <section class="hero<?php echo $hero_modifier; ?>">
                 <h1 class="hero__title"><?php echo $header_title; ?></h1>
                 <p class="hero__subtitle"><?php echo $header_desc; ?></p>
             </section>
@@ -108,12 +110,12 @@
                 <!-- VISTA DE LISTADO (Blog Cronológico Vertical) -->
             <div class="blog-feed">
                     <?php while ( have_posts() ) : the_post(); ?>
-                        <article class="card card--booklet" id="post-<?php the_ID(); ?>">
-                        <header class="card__header">
-                                <span class="card__meta"><?php echo get_the_date(); ?></span>
-                            <h2 class="card__title blog-feed__title"><a href="<?php the_permalink(); ?>" aria-label="Leer artículo completo: <?php echo esc_attr(get_the_title()); ?>"><?php the_title(); ?></a></h2>
-                            </header>
-                        <div class="card__content blog-feed__excerpt">
+                    <article class="blog-feed__article" id="post-<?php the_ID(); ?>">
+                        <header class="blog-feed__header">
+                            <span class="blog-feed__meta"><?php echo get_the_date(); ?></span>
+                            <h2 class="blog-feed__title"><a href="<?php the_permalink(); ?>" aria-label="Leer artículo completo: <?php echo esc_attr(get_the_title()); ?>"><?php the_title(); ?></a></h2>
+                        </header>
+                        <div class="blog-feed__excerpt">
                                 <?php the_excerpt(); ?>
                             </div>
                         </article>
