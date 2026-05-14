@@ -1,0 +1,19 @@
+@use '../abstracts' as *;
+
+/* COMPONENTE: Listado vertical de artículos del blog */
+.blog-feed {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+
+  &__title {
+    font-size: 1.8rem;
+    margin-top: 0.5rem;
+  }
+
+  &__excerpt {
+    margin-top: 1rem;
+  }
+}

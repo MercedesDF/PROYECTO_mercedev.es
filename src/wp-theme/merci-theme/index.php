@@ -75,33 +75,45 @@
             <?php if ( is_singular() ) : ?>
                 <!-- VISTA DE LECTURA (Artículo individual) -->
                 <?php while ( have_posts() ) : the_post(); ?>
-                    <article class="card card--booklet">
-                        <?php 
-                        $back_link = '/blog/'; // El blog es puramente cronológico
-                        ?>
-                        <a href="<?php echo esc_url($back_link); ?>" class="card__back-link">← Volver al Blog</a>
-                        <header>
-                            <?php if ( ! $header_title ) : ?>
-                                <h1 class="home-card__title--highlight"><?php the_title(); ?></h1>
-                            <?php endif; ?>
-                            <!-- El botón enlaza directamente al servidor estático gracias a Nginx -->
-                            <a href="/descargas/<?php echo $post->post_name; ?>.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
-                        </header>
-                        <div class="card__content">
-                            <?php the_content(); ?>
-                        </div>
-                    </article>
+                    <?php $es_blog_individual = is_singular() && has_category('blog'); ?>
+                    
+                    <?php if ( $es_blog_individual ) : ?>
+                        <!-- VISTA DE LECTURA LIGERA (Blog DevRel) -->
+                        <article class="blog-post">
+                            <a href="/blog/" class="blog-post__back-link">← Volver al Blog</a>
+                            <header class="blog-post__header">
+                                <h1 class="blog-post__title"><?php the_title(); ?></h1>
+                            </header>
+                            <div class="blog-post__content">
+                                <?php the_content(); ?>
+                            </div>
+                        </article>
+                    <?php else : ?>
+                        <!-- VISTA DE LECTURA DENSA (Biblioteca / Art de Coté) -->
+                        <article class="card card--booklet">
+                            <a href="/blog/" class="card__back-link">← Volver al Blog</a>
+                        <header class="card__header">
+                                <?php if ( ! $header_title ) : ?>
+                                <h1 class="card__title card__title--highlight"><?php the_title(); ?></h1>
+                                <?php endif; ?>
+                                <a href="/descargas/<?php echo $post->post_name; ?>.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                            </header>
+                            <div class="card__content">
+                                <?php the_content(); ?>
+                            </div>
+                        </article>
+                    <?php endif; ?>
                 <?php endwhile; ?>
             <?php else : ?>
                 <!-- VISTA DE LISTADO (Blog Cronológico Vertical) -->
-                <div class="blog-feed" style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 2.5rem;">
+            <div class="blog-feed">
                     <?php while ( have_posts() ) : the_post(); ?>
                         <article class="card card--booklet" id="post-<?php the_ID(); ?>">
-                            <header>
+                        <header class="card__header">
                                 <span class="card__meta"><?php echo get_the_date(); ?></span>
-                                <h2 class="card__title" style="font-size: 1.8rem; margin-top: 0.5rem;"><a href="<?php the_permalink(); ?>" aria-label="Leer artículo completo: <?php echo esc_attr(get_the_title()); ?>"><?php the_title(); ?></a></h2>
+                            <h2 class="card__title blog-feed__title"><a href="<?php the_permalink(); ?>" aria-label="Leer artículo completo: <?php echo esc_attr(get_the_title()); ?>"><?php the_title(); ?></a></h2>
                             </header>
-                            <div class="card__content" style="margin-top: 1rem;">
+                        <div class="card__content blog-feed__excerpt">
                                 <?php the_excerpt(); ?>
                             </div>
                         </article>

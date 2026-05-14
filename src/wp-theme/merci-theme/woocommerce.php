@@ -53,7 +53,7 @@ $js_main_v = time();
 
     <footer class="footer" style="text-align: left; padding-bottom: 6rem;">
         <div class="footer__text">
-            <a href="#top" style="color: inherit; text-decoration: underline; font-weight: 600; display: inline-block; margin-bottom: 1rem;">↑ Volver arriba</a><br>
+            <a href="#top">↑ Volver arriba</a><br>
             &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
         </div>
     </footer>

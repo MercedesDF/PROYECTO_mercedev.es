@@ -1,0 +1,53 @@
+@use '../abstracts' as *;
+
+/* COMPONENTE: Vista de lectura ligera para el Blog DevRel */
+.blog-post {
+  max-width: 65ch;
+  margin: 0 auto;
+  padding: 0;
+
+  &__back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    color: $color-primary;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+  
+  &__content {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #334155;
+    
+    p, ul, ol, pre { margin-bottom: 1.75rem; }
+    li { margin-bottom: 0.5rem; }
+    
+    img {
+      border-radius: 8px;
+      margin: 2rem 0;
+      max-width: 100%;
+      height: auto;
+    }
+
+    h2 { margin-top: 2.5rem; margin-bottom: 1rem; color: $color-primary; }
+    h3 { margin-top: 1.5rem; margin-bottom: 0.75rem; }
+  }
+}

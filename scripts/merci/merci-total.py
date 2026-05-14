@@ -61,7 +61,7 @@ def main():
             subprocess.run([sys.executable, str(script_path)], check=True)
             print()  # Separador visual entre bloques de ejecución
         except subprocess.CalledProcessError as e:
-            print(f"\n❌ [Merci Total] Pipeline detenido. El script {script} ha fallado.")
+            print(f"\n❌ [Merci Total] Pipeline detenido. El proceso '{script}' reportó errores y bloqueó la ejecución.")
             sys.exit(e.returncode)
             
     print("\n✅ [Merci Total] ¡Pipeline completado con éxito! Todo optimizado y auditado.")
