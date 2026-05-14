@@ -38,6 +38,24 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — Docs: Registro de tarea pendiente (Comunicaciones Cifradas PGP)
+
+**Contexto:** Se recuperó una deuda técnica olvidada: la página de contacto estática ya contaba con un bloque reservado para alojar la clave de comunicación. Era necesario registrar formalmente la implementación del sistema de comunicaciones cifradas (PGP) para no dejar ese aspecto de la plataforma incompleto.
+
+**Hecho:** Se registró la tarea "Comunicaciones Cifradas (PGP)" en el `ROADMAP.md` inaugurando la Fase 3 de la Épica actual.
+
+**Motivo / criterio:** *Zero Trust y Privacidad*. En un entorno DevSecOps, la confidencialidad en la comunicación con la autora es tan vital como la seguridad de la infraestructura. Convertirlo en una tarea rastreable evita que la idea quede en el olvido.
+
+### 2026-05-14 — Docs: Planificación de telemetría y logging privado para Chaos Engineering
+
+**Contexto:** Se detectó que los resultados de resiliencia del Agente Chaos (`merci-chaos.py`) eran efímeros (solo visibles en consola). Para madurar la postura SRE, se requería un registro persistente y visualización en tiempo real de los simulacros de ataque.
+
+**Hecho:** Se registraron nuevas tareas en la Fase 2 de la Épica 3 del `ROADMAP.md` para implementar un log privado y exponer las métricas de Chaos hacia Prometheus/Grafana a través de `merci-sre.py`.
+
+**Detalle técnico:** La bitácora privada de auditoría de resiliencia se alojará en `.privado/` (directorio protegido por la regla DLP del auditor maestro) para evitar exponer los vectores de ataque (payloads de la IA) en el repositorio público.
+
+**Motivo / criterio:** *Deep Observability y Audit Trail*. Un sistema de Chaos Engineering pierde su valor estratégico si sus resultados no se auditan a lo largo del tiempo. Unir estos datos al agente SRE transformará a Grafana en un panel de "Salud y Resiliencia" real.
+
 ### 2026-05-14 — Conf: Despliegue de Tarea Cron para Buffer Social
 
 **Contexto:** Tras validar el flujo de aprobación interactiva de posts (`estado_social: "aprobado"`), era necesario automatizar la emisión espaciada hacia LinkedIn sin intervención manual.
