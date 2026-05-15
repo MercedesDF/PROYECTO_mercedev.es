@@ -38,6 +38,82 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-14 — UX/UI: Separadores editoriales dinámicos (Pseudo-elementos)
+
+**Contexto:** La vista de lectura continua (`.prose`) presentaba una carga visual densa entre secciones. Se sugirió envolver las secciones en `<div>` o utilizar cajas (cards) para añadir líneas divisorias, lo cual habría roto el flujo de generación estándar desde Markdown puro.
+
+**Hecho:** Se implementaron líneas horizontales automáticas mediante pseudo-elementos (`::before`) en `src/scss/components/_prose.scss`.
+
+**Detalle técnico:** Se anclaron las líneas al selector `> h2 ~ h2`. En móvil, se utiliza `border-top`. En escritorio (patrón *Side-Heading* con floats), se proyecta un pseudo-elemento con posicionamiento absoluto y un ancho calculado (`calc(250px + 4rem + 65ch)`) que atraviesa ambas columnas visuales justo en medio del margen superior de separación.
+
+**Motivo / criterio:** *Markdown Purity y Zero HTML Bloat*. Envolver el contenido en `<div>` obliga a escribir HTML crudo en los artículos, arruinando la experiencia de redacción. Extraer la responsabilidad de los separadores 100% a la capa SASS mantiene los documentos limpios y genera una estética editorial (estilo Stripe/Vercel) sin deuda técnica.
+
+### 2026-05-14 — UX/UI: Reescritura fundacional de la Portada (Home)
+
+**Contexto:** El texto de la página de inicio (`public/index.html`) había quedado obsoleto y no reflejaba la magnitud operativa del ecosistema tras las integraciones de IA y Observabilidad, ni proyectaba la autoridad técnica del *Spec-Driven Development*.
+
+**Hecho:** Se reescribió y maquetó la portada integrando el patrón *Editorial Breakout* (`.prose`). Se reubicó el "Engineering Dashboard" como elemento central de la sección superior para maximizar el impacto visual (First Fold).
+
+**Motivo / criterio:** *Product Marketing y Autoridad Empírica*. La portada de un Boilerplate o de un perfil técnico no debe ser un simple saludo; debe ser una demostración de poder. Listar los agentes, las métricas y la filosofía arquitectónica inmediatamente establece el tono DevSecOps del repositorio, diferenciándolo de los portfolios tradicionales.
+
+### 2026-05-14 — Fix: Resolución de colapso de márgenes en Side-Heading
+
+**Contexto:** En la composición a dos columnas (Side-Heading), cuando un `h2` iba seguido inmediatamente de un `h3` (como en "Próximo Destino -> Épica 4"), la línea divisoria se desfasaba y atravesaba el texto. Esto ocurría porque los elementos flotados (`h2`) no colapsan sus márgenes con el contenido previo, mientras que el flujo normal (`h3`) sí lo hace, provocando un desalineamiento vertical en el que el `h2` quedaba más bajo que el `h3`.
+
+**Hecho:** Se sustituyó `margin-top` por `padding-top` en los bloques de separación de la cuadrícula en `src/scss/components/_prose.scss`.
+
+**Detalle técnico:** Se anuló el margen superior (`margin-top: 0`) para `> h2` y su hermano adyacente `> h2 + *`, aplicando en su lugar `padding-top: 4.5rem`. El pseudo-elemento de la línea divisoria se ajustó a `top: 2.25rem` para ubicarse exactamente en medio del *padding*.
+
+**Motivo / criterio:** *CSS Box Model & Margin Collapsing*. Reemplazar márgenes por padding (relleno interno) erradica matemáticamente el fenómeno de colapso de márgenes. Al obligar a ambos elementos (flotado y flujo normal) a utilizar padding para su separación vertical, garantizamos que arranquen exactamente en el mismo píxel de la pantalla, manteniendo la línea divisoria perfectamente centrada y la alineación inquebrantable independientemente de qué etiqueta siga al titular.
+
+### 2026-05-14 — UX/UI: Ajuste de espaciado en Engineering Dashboard
+
+**Contexto:** Existía un hueco visual excesivo entre el Hero de la portada y el bloque de métricas, generado por la suma del padding de la sección y un margen superior desproporcionado (`5rem`) en el componente del dashboard.
+
+**Hecho:** Se redujo el `margin-top` del modificador `.hero__dashboard--standalone` a `1.5rem` en el archivo `src/scss/components/_hero.scss`.
+
+**Motivo / criterio:** *Visual Hierarchy y Whitespace Control*. Un exceso de espacio negativo desconecta semánticamente dos secciones. Reducir la brecha visual agrupa orgánicamente el Hero y el Dashboard como una única entidad informativa (First Fold).
+
+### 2026-05-14 — UX/UI: Sincronización de alineación superior en Side-Heading
+
+**Contexto:** En el patrón de *Side-Heading* (Titulares flotados), el ajuste óptico (`padding-top: 0.3rem`) del `h2` provocaba un desfase visual en la parte superior. Además, los `h3` mantenían márgenes superiores (`2.5rem`) que los desalineaban verticalmente respecto al flujo de los párrafos adjuntos.
+
+**Hecho:** Se refactorizaron los márgenes en `src/scss/components/_prose.scss`.
+- Se eliminó el `padding-top: 0.3rem` de los `h2` para que coincidan en el borde absoluto superior con su contenido adyacente.
+- Se igualó el modelo de caja de `h3` al de los párrafos (`margin-top: 0; margin-bottom: 1.75rem; padding: 0;`).
+
+**Motivo / criterio:** *Alignment & Typography Flow*. Para que un sistema de rejilla asimétrica funcione visualmente, los ejes "top" y "left" deben ser inquebrantables. Obligar a que los subtítulos (`h3`) se comporten estructuralmente como párrafos asegura que la caja delimitadora (Bounding Box) siempre coincida con el titular desplazado (`h2`), logrando un acabado de ingeniería visual perfecto independientemente de cómo comience la sección.
+
+### 2026-05-14 — UX/UI: Refactorización Side-Heading a Floats (Bug de filas Grid)
+
+**Contexto:** Se detectó un efecto indeseado ("H3 solitario") al utilizar CSS Grid Auto-Placement para el patrón *Side-Heading*. Si el titular desplazado (`h2`) ocupaba varias líneas, Grid bloqueaba la altura de toda esa fila, empujando los párrafos siguientes excesivamente hacia abajo y creando grandes vacíos visuales bajo los subtítulos.
+
+**Hecho:** Se reemplazó CSS Grid por un patrón de "Floats Asimétricos" en `src/scss/components/_prose.scss`.
+
+**Detalle técnico:** Se aplicó `margin-left: auto` y `max-width: 65ch` a todos los hijos directos para desplazarlos a la derecha, dejando el canal izquierdo libre. Se aplicó `float: left` y `clear: left` a los `h2` para anclarlos en dicho canal. Se sincronizó el espaciado vertical (`margin-top: 4.5rem`) entre los `h2` y su hermano adyacente (`h2 + *`).
+
+**Motivo / criterio:** *DOM Flow & Component Decoupling*. Los elementos flotados son extraídos del flujo normal de bloques. A diferencia de CSS Grid, que fuerza restricciones horizontales (filas), flotar los encabezados permite que la columna de lectura se empaquete verticalmente de forma compacta y natural, garantizando una lectura fluida independientemente de la longitud del titular izquierdo.
+
+### 2026-05-14 — UX/UI: Evolución a composición "Side-Heading" mediante Grid Auto-Placement
+
+**Contexto:** El patrón "Editorial Breakout" (alineación izquierda a 850px) en la página del CV no equilibraba visualmente el menú superior de 1200px. El texto se sentía largo, estrecho y demasiado escorado a la izquierda, dejando un vacío visual masivo a la derecha en la vista de escritorio.
+
+**Hecho:** Se implementó el patrón *Side-Heading* (Titulares Desplazados) refactorizando el componente `.prose__content` en `src/scss/components/_prose.scss` y actualizando el dashboard en `_hero.scss`.
+
+**Detalle técnico:** Se aplicó `display: grid` a la clase `.prose__content` con `grid-template-columns: 250px minmax(0, 65ch)` y alineación de línea base (`align-items: baseline`). Mediante auto-posicionamiento CSS (`> * { grid-column: 2; }` y `> h2 { grid-column: 1; }`), se forzó a que los títulos `h2` ocupen la columna izquierda y los párrafos la derecha, sin necesidad de alterar una sola línea del marcado HTML.
+
+**Motivo / criterio:** *Semantic UI y Modernidad*. Esta es la composición estándar de las documentaciones corporativas de élite (ej. Stripe, Vercel). Ocupa 1000px para equilibrar el *header*, pero respeta los 65ch de lectura ergonómica. Resolver esto exclusivamente con el motor CSS Grid sin inyectar contenedores `<div>` adicionales preserva un DOM ultraligero y semánticamente puro.
+
+### 2026-05-14 — UX/UI: Transición al patrón "Editorial Breakout"
+
+**Contexto:** Se detectó el "Síndrome de la columna solitaria" en la vista de escritorio. El componente `.prose` constreñía todo el artículo (títulos, imágenes y metadatos) a `65ch`, dejando márgenes laterales masivos respecto al ancho del menú global (`1200px`), generando un diseño largo, estrecho y desconectado de la navegación.
+
+**Hecho:** Se implementó el patrón *Editorial Breakout* en `_prose.scss` y se alineó el dashboard independiente en `_hero.scss`.
+
+**Detalle técnico:** El contenedor `.prose` se expandió a `850px` con alineación izquierda estricta para títulos y cabeceras. La restricción de lectura de `65ch` se movió mediante CSS a los selectores hijos directos (`> p, > ul, > ol`), permitiendo que imágenes y líneas divisorias "rompan" el margen del texto para ocupar los 850px completos. El dashboard `--standalone` se ensanchó también a 850px.
+
+**Motivo / criterio:** *Modern Editorial Design*. Alinear los textos a la izquierda crea un eje visual ordenado y riguroso. Permitir que los elementos estructurales y multimedia ocupen más ancho que la columna de lectura soluciona el desequilibrio de proporciones en PC (Desktop), aportando un acabado *Premium* e ingenieril.
+
 ### 2026-05-14 — Refactor: Abstracción semántica del componente de lectura (Prose)
 
 **Contexto:** Se detectó que la página estática del currículum ("Sobre Mí") utilizaba el componente BEM `.blog-post` para renderizar el texto. Aunque reutilizar los estilos de lectura ligera cumplía el principio DRY, el nombre del componente acoplaba semánticamente el diseño al dominio del blog, generando fricción cognitiva.

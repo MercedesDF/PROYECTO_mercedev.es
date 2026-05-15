@@ -46,5 +46,6 @@
   "/biblioteca/actualizacion-de-la-politica-de-seguridad-para-prevenir-ataques-a-la-cadena-de-suministro.html": "Política de seguridad anti-XSS y CDN, ¿preparados para un ataque a la cadena de suministro?",
   "/biblioteca/integracion-de-qwen25-coder-con-ollama-para-devrel-local.html": "Qwen2.5-Coder se junta con Ollama para una DevRel local sin nubes y privacidad garantizada, revolucionando la forma de colaborar.",
   "/biblioteca/conectar-la-cantidad-de-posts-en-espera-de-linkedin-con-grafana.html": "Visualiza en tiempo real los documentos en espera de LinkedIn con Grafana: un puente entre SRE y análisis de datos!",
-  "/biblioteca/agent-chaining-y-buffer-social-de-la-nota-a-linkedin-con-friccion-cero.html": "Agent Chaining y Buffer Social: Automatiza marketing sin fricción, pasa a LinkedIn."
+  "/biblioteca/agent-chaining-y-buffer-social-de-la-nota-a-linkedin-con-friccion-cero.html": "Agent Chaining y Buffer Social: Automatiza marketing sin fricción, pasa a LinkedIn.",
+  "/biblioteca/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html": "Merci Boilerplate, un ecosistema DevSecOps de pura ingeniería sin overhead, 25 agentes Python y Core Web Vitals al 100%: ¡Prepárate para una recorrida tecnológica sin parangón!"
 }

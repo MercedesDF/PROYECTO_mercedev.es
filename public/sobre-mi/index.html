@@ -8,7 +8,7 @@
     <title>Sobre Mí / CV — mercedev.es</title>
     
     <link rel="icon" href="/favicon.ico?v=3" type="image/x-icon">
-    <link rel="stylesheet" href="/css/main.css?v=1778786279">
+    <link rel="stylesheet" href="/css/main.css?v=1778827381">
     <script src="/js/MerciController.js?v=1778479031" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <link rel="canonical" href="https://mercedev.es/sobre-mi/">
@@ -36,7 +36,7 @@
         "Engineering Project Management",
         "Quality Assurance (QA)"
       ],
-      "description": "Ingeniera Técnica con más de 20 años de experiencia en dirección de obra, control de ejecución y calidad de proyectos industriales. DevSecOps Architect especializada en automatización Python y filosofía Spec as Source. Construye sistemas web auditables y predecibles con 100/100 en Core Web Vitals."
+      "description": "Ingeniera Técnica con más de 20 años de experiencia en de obra, control de ejecución y calidad de proyectos. DevSecOps Architect especializada en automatización Python y filosofía Spec as Source. Construye sistemas web auditables y predecibles con 100/100 en Core Web Vitals."
     }
     </script>
 </head>
@@ -75,49 +75,6 @@
         </section>
 
         <section class="section">
-            <article class="prose">
-                <div class="prose__content">
-                    <h2>👋 Quién Soy</h2>
-                    <p>Soy <strong>Mercedes</strong>, Ingeniera Técnica. Llevo más de 20 años gestionando, planificando y auditando la ejecución de proyectos complejos en la industria y la obra civil—refinerías, desaladoras, infraestructuras. Esa disciplina estricta la aplico hoy al desarrollo web.</p>
-                    <p>No construyo sitios bonitos. Construyo sistemas auditables, predecibles y reproducibles.</p>
-                    <p><em>Este sitio que estás viendo no es un portfolio. Es la evidencia viva de cómo esa filosofía funciona en la web.</em></p>
-
-                    <h2>🔄 El Salto: Industrial → Web → IA</h2>
-                    
-                    <h3>Fase 1: Ingeniería y Obra Civil (2000-2023)</h3>
-                    <p>En la dirección técnica de grandes infraestructuras (ampliación de refinerías, desaladoras, naves industriales), aprendí:</p>
-                    <ul>
-                        <li><strong>Gobernanza sin ambigüedad:</strong> Cada obra se basa en planos (<em>As Built</em>) y dosieres de calidad. Nada se improvisa.</li>
-                        <li><strong>Control de ejecución:</strong> Planificación milimétrica, estimación de proyectos y compras.</li>
-                        <li><strong>Tolerancia al riesgo:</strong> En la industria, una desviación estructural en la base compromete todo el sistema.</li>
-                        <li><strong>Medición real:</strong> Decisiones basadas en números, no en creencias.</li>
-                    </ul>
-                    <p><strong>Mentalidad:</strong> Si no puedes medirlo en campo o justificarlo en el plano, no puedes construirlo con seguridad.</p>
-
-                    <h3>Fase 2: Reconversión IT y Desarrollo Web (2023-2026)</h3>
-                    <p>Trasladé esa mentalidad al desarrollo web. Rápidamente vi problemas:</p>
-                    <ul>
-                        <li>❌ Frameworks pesados por defecto (y nadie mide si lo necesitan).</li>
-                        <li>❌ Decisiones arquitectónicas sin justificación documentada.</li>
-                        <li>❌ Rendimiento prometido pero no auditado en producción real.</li>
-                        <li>❌ Imposible reproducir el flujo exacto (deuda técnica oscura).</li>
-                    </ul>
-                    <p><strong>Decisión:</strong> Construir un sistema que aplicara rigor industrial a la web.<br>
-                    <strong>Resultado:</strong> Merci Boilerplate (v0 → v1.13.0 en tiempo récord).</p>
-
-                    <h3>Fase 3: IA Híbrida Local + Cloud (Mayo 2026)</h3>
-                    <p>La IA no es "usar ChatGPT para generar código". Es orquestación controlada:</p>
-                    <ul>
-                        <li>✅ <strong>IA local (Ollama):</strong> Para procesos privados, 0 ms de latencia.</li>
-                        <li>✅ <strong>IA cloud (Gemini):</strong> Para análisis semánticos complejos.</li>
-                        <li>✅ <strong>Fallback automático:</strong> Sin punto único de fallo.</li>
-                        <li>✅ <strong>Todo documentado y reversible.</strong></li>
-                    </ul>
-                    <p><strong>Mentalidad:</strong> La IA es una herramienta. Las decisiones las toma la ingeniería.</p>
-                </div>
-            </article>
-
-            <!-- Dashboard inyectado en medio del layout -->
             <div class="hero__dashboard hero__dashboard--standalone">
                 <div class="hero__metric">
                     <span class="hero__metric-label">Versiones Release</span>
@@ -143,67 +100,30 @@
 
             <article class="prose">
                 <div class="prose__content">
-                    <h2>🏗️ Lo que Construí: Merci Boilerplate</h2>
-                    <p>No es un "boilerplate random". Es un ecosistema operacional que demuestra que arquitectura seria y rendimiento perfecto son compatibles.</p>
-
-                    <h3>Lo que Lo Diferencia:</h3>
-                    <ol>
-                        <li><strong>Especificaciones Formales (Spec-Driven):</strong> Cada desarrollo comienza con un documento <code>instrucciones.md</code> que define reglas explícitas. No es "hagamos esto y vemos qué pasa". Es "aquí está el contrato". Resultado: cero ambigüedad, máxima velocidad.</li>
-                        <li><strong>Bitácora de Decisiones (Trazabilidad Completa):</strong> 7,900+ líneas documentando cada fase, cada fallo, cada solución. Puedes leer exactamente QUÉ decidimos, CUÁNDO y POR QUÉ. No es "confía en mí". Es "aquí está la prueba".</li>
-                        <li><strong>Reproducibilidad (No es Magia):</strong> Clona <code>merci-boilerplate</code>, ejecuta 4 comandos, y obtienes exactamente esto: 100/100 Core Web Vitals + automatización completa. Cualquier dev puede mantenerlo porque está documentado.</li>
-                        <li><strong>Hybrid Stack IA (Sin Punto Único de Fallo):</strong> Más de 70 ejecuciones de orquestación IA sin colapsos. Ollama (local) ↔ LiteLLM (proxy) ↔ Gemini (cloud). Si falla cloud, sigue funcionando local. Si falla IA, degrada a respuestas estáticas. 0 riesgo operativo.</li>
-                    </ol>
-
-                    <h2>💼 Cómo Trabajo</h2>
-                    <p><strong>Metodología: Spec-Driven + Automatización</strong></p>
-                    <pre><code>1. ESPECIFICACIÓN FORMAL (Definir límites, reglas, objetivos)
-   ↓
-2. ARQUITECTURA DOCUMENTADA (ADRs: Architecture Decision Records)
-   ↓
-3. AUTOMATIZACIÓN EXHAUSTIVA (Agentes haciendo trabajo repetitivo)
-   ↓
-4. MEDICIÓN EMPÍRICA (PageSpeed, auditorías reales, bitácora)
-   ↓
-5. ITERACIÓN RÁPIDA (Releases atómicas continuas)
-   ↓
-6. DOCUMENTACIÓN VIVA (Miles de líneas de historia técnica)</code></pre>
-                    <p><strong>Resultado:</strong> Desarrollo rápido, predecible y auditado.</p>
-
-                    <h2>🎯 Qué Aporto (4 Pilares)</h2>
+                    <h2>Quién Soy</h2>
+                    <p>Soy <strong>Mercedes</strong>, Ingeniera Técnica. Tras más de 20 años gestionando y controlando la ejecución de proyectos complejos en la industria y la obra civil (refinerías, desaladoras, infraestructuras), he trasladado esa disciplina estricta al desarrollo de software.</p>
+                    <p>No construyo "sitios web bonitos". Construyo **sistemas auditables, predecibles y reproducibles** con filosofía <em>Spec-Driven Development</em>.</p>
+                    
+                    <h2>Qué Aporto</h2>
                     <ul>
-                        <li><strong>Reducción de Errores mediante Automatización:</strong> <code>merci-audit.py</code> bloquea secretos, vulnerabilidades y errores sintácticos antes del commit. <code>merci-chaos.py</code> inyecta fallos y valida resiliencia. Resultado: Menos bugs en producción, más confianza operativa.</li>
-                        <li><strong>Control Técnico (No Dependencia Externa):</strong> 0 dependencias bloqueantes en runtime (navegador puro). Stack LEMP estándar. Especificaciones documentadas. Resultado: Flexibilidad, portabilidad, longevidad.</li>
-                        <li><strong>Optimización Real de Rendimiento:</strong> No "promesas de rendimiento". Auditoría empírica con Google. 100/100 Core Web Vitals en producción documentado paso a paso. Resultado: Web extrema sin dependencias pesadas.</li>
-                        <li><strong>Documentación para Escalabilidad:</strong> Bitácora de decisiones, Checklist de hardening, SOP de publicación y Deployment playbook. Resultado: Alguien más puede mantener el sistema sin estar en mi cabeza.</li>
+                        <li><strong>Arquitectura Zero-Bloat:</strong> 0 dependencias bloqueantes, 100/100 Core Web Vitals auditables empíricamente.</li>
+                        <li><strong>Orquestación IA Híbrida:</strong> Integración de Modelos Locales (Ollama) y Cloud (Gemini) en pipelines de Integración Continua (CI/CD).</li>
+                        <li><strong>Gobernanza de Código:</strong> Creación de auditores estáticos (SAST/DAST) y herramientas CLI en Python puro.</li>
+                        <li><strong>Trazabilidad:</strong> Mantenimiento de bitácoras de decisiones (ADRs) y cuadernillos de ingeniería de infraestructura.</li>
                     </ul>
 
-                    <h2>📚 Evidencia: La Biblioteca</h2>
-                    <p>No pido que me creas. Todo está aquí:</p>
-                    <ul>
-                        <li><strong>/docs/</strong> — Arquitectura, decisiones, playbooks.</li>
-                        <li><strong>/laboratorio/</strong> — Miles de líneas de historia técnica.</li>
-                        <li><strong>/scripts/merci/</strong> — 25+ agentes y scripts Python.</li>
-                        <li><strong>merci-boilerplate</strong> — Framework reproducible (clónalo, pruébalo).</li>
-                    </ul>
+                    <h2>Evidencia</h2>
+                    <p>Este sitio no es un portfolio. Es el <a href="/">centro de operaciones</a> activo de mi propio <em>Framework</em>, orquestado por más de 25 agentes de Python y documentado línea a línea en la <a href="/biblioteca/">Biblioteca</a> y en los repositorios de GitHub.</p>
 
-                    <h2>🔮 Próximo Reto: Épica 4 (E-commerce Extremo)</h2>
-                    <p>Después de 2 Épicas cerradas (infraestructura + IA) y una en curso (Observabilidad), el siguiente desafío mayor es: <strong>Mantener 100/100 Core Web Vitals en checkout de e-commerce con Stripe.</strong></p>
-                    <p>Eso implica:</p>
-                    <ul>
-                        <li>CSP estricta + iframes de pago (normalmente incompatibles).</li>
-                        <li>JS de Stripe en Web Worker (TBT 0ms incluso durante transacción).</li>
-                        <li>Validación sin layout shifts.</li>
-                        <li>Graceful degradation si Stripe falla.</li>
-                    </ul>
-                    <p>Es posible. Y lo documentaré.</p>
-
-                    <h2>💼 Modalidad de Trabajo</h2>
+                    <h2>Modalidad de Trabajo</h2>
                     <p><strong>Disponibilidad:</strong> Remoto 100%. Enfoque en proyectos concretos con entregables definidos. Capacidad limitada (trabajo selectivo).</p>
-                    <p><strong>Servicios:</strong> Auditoría técnica, arquitectura spec-driven desde cero, automatización Python (DevSecOps, SRE) y mentoramiento.</p>
-                    <p><strong>Compromisos:</strong> Documentación clara, reproducibilidad, y auditorías empíricas. <em>No hago desarrollo rápido sin documentar ni añado herramientas innecesarias.</em></p>
 
-                    <h2>🤝 Cómo Conectar</h2>
-                    <p>Para proyectos o consultoría: <strong><a href="/contacto/">Contacto</a></strong> o <strong><a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer">LinkedIn</a></strong>.</p>
+                    <h2>Cómo Conectar</h2>
+                    <p>La forma más rápida de hablar de arquitectura y rendimiento es a través de mi red profesional:</p>
+                    <p>
+                        👉 <strong><a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer">Conectar en LinkedIn</a></strong><br>
+                        👉 <strong><a href="/contacto/">Protocolo de Contacto PGP</a></strong>
+                    </p>
                 </div>
             </article>
         </section>

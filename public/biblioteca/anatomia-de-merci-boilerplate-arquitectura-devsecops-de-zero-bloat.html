@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anatomía de Merci Boilerplate: Arquitectura DevSecOps de Zero-Bloat — mercedev.es</title>
+    <meta name="description" content="Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 25 agentes Python y 100/100 Core Web Vitals.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html">
+    <link rel="stylesheet" href="/css/main.css?v=1778827517">
+    <script src="/js/MerciController.js?v=1778479031" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Anatom\u00eda de Merci Boilerplate: Arquitectura DevSecOps de Zero-Bloat",
+      "description": "Descubre las entra\u00f1as t\u00e9cnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 25 agentes Python y 100/100 Core Web Vitals.",
+      "url": "https://mercedev.es/biblioteca/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html"
+    }
+    </script>
+</head>
+<body class="page">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
+            <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--book">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                <h1 class="home-card__title--highlight">Anatomía de Merci Boilerplate: Arquitectura DevSecOps de Zero-Bloat</h1>
+                <a href="/descargas/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <p>La mayoría de plantillas web (boilerplates) actuales te entregan un sitio funcional a costa de inyectar megabytes de librerías en tu navegador, oscurecer la infraestructura y acumular deuda técnica desde el commit cero. </p>
+<p><strong>Merci Boilerplate es lo opuesto.</strong> Lo que comenzó como un proyecto personal para aplicar mis estudios de Ciberseguridad y Automatización en Google, terminó evolucionando hacia un ecosistema operacional completo. </p>
+<p>Nació de una obsesión por el aprendizaje: quería una web segura, sin frameworks que no entendiera (Zero-Bloat), integrando ejercicios de mi máster (una tienda Headless en WordPress) y aplicando metodologías Agile para mantener la deuda técnica a cero en cada fase. Todo guiado por especificaciones formales y documentado en una bitácora inmutable.</p>
+<!-- linkedin: 
+Todo empezó con un objetivo simple: crear mi página web personal mientras estudiaba Ciberseguridad y Automatización en Google. 🛡️🐍
+
+Quería algo seguro, ultraligero y sin frameworks de JavaScript que no entendía. Como estaba aprendiendo, me obsesioné con documentar cada fallo y cada decisión en una bitácora para no perder el progreso. Apliqué lo que aprendía en mis cursos de Agile y Project Management: no avanzar de fase sin dejar la deuda técnica a cero. 
+
+Ese "portfolio simple" escaló. Se convirtió en una arquitectura de 3 capas, integrando un ejercicio de mi máster y más de 25 agentes de Python orquestando todo el ecosistema. 
+
+Hoy, ese proyecto de aprendizaje se ha convertido en **Merci Boilerplate**, un sistema operacional DevSecOps real y en producción:
+
+✅ 100/100 Core Web Vitals
+✅ 0 dependencias externas en el navegador (Zero-Bloat)
+✅ Orquestación IA Híbrida (Local + Cloud)
+
+He liberado las entrañas técnicas y la historia de esta arquitectura en un nuevo "Arte Colateral". 👇
+
+#DevSecOps #Ciberseguridad #Python #WebPerformance #ZeroBloat #Agile #LearningByDoing
+-->
+
+<h2>4 Verdades sobre este Boilerplate</h2>
+<p><strong>1. No es una plantilla visual, es una infraestructura</strong>
+Incluye más de 25 herramientas Python propias para automatizar tareas críticas: auditoría de código, generación SSG, sincronización con CMS, observabilidad de métricas e integración continua de IA.</p>
+<p><strong>2. Hybrid Stack de IA (Sin punto único de fallo)</strong>
+La Inteligencia Artificial está orquestada de forma local y en la nube:
+*   <strong>Ollama (qwen2.5-coder):</strong> Ejecución local con latencia cero y privacidad absoluta de los datos.
+*   <strong>Gemini Flash API:</strong> Análisis semánticos complejos en la nube.
+*   <strong>LiteLLM:</strong> Actúa como proxy agnóstico.
+*   <strong>Graceful degradation:</strong> Si el proveedor Cloud se cae, el sistema local asume el control. Si ambos fallan, el pipeline no colapsa, simplemente se degrada a funciones estáticas.</p>
+<p><strong>3. Arquitectura 3 capas (Completamente aislada)</strong>
+Las tres capas operan en paralelo sin contaminarse, unidas por Symlinks, Nginx y permisos estrictos:
+*   <strong>Capa Estática:</strong> HTML5 Semántico, SASS BEM y Vanilla JS (0 dependencias externas, 0 librerías NPM en <em>runtime</em>).
+*   <strong>Capa Dinámica:</strong> WordPress Headless para gestión de blogs, tiendas o bases de datos complejas.
+*   <strong>Capa de Orquestación:</strong> Agentes autónomos (Self-healing, Auto-documentación).</p>
+<p><strong>4. Gobernanza Operacional Reproducible</strong>
+El repositorio incluye un <em>Deployment Playbook</em> paso a paso para servidores Ubuntu, SOPs (Standard Operating Procedures) de publicación dual y un <em>Checklist</em> de hardening. Todo lo que necesitas para operar en producción como un SRE.</p>
+<h2>El Ecosistema de Agentes</h2>
+<p>El corazón del Boilerplate son sus 25+ agentes programados en Python puro, divididos en tres escuadrones:</p>
+<h3>Auditoría &amp; Seguridad (Escudo Activo)</h3>
+<ul>
+<li><code>merci-audit.py</code>: SAST (Static Application Security Testing) + DLP (Bloquea secretos antes del commit).</li>
+<li><code>merci-hardening.py</code>: Inyección automática de políticas estrictas CSP (Content Security Policy).</li>
+<li><code>merci-chaos.py</code>: Ingeniería del caos. Inyecta vulnerabilidades controladas para validar la resiliencia del sistema.</li>
+<li><code>merci-linkcheck.py</code>: DAST (Dynamic Application Security Testing) que rastrea y bloquea despliegues si detecta enlaces rotos.</li>
+</ul>
+<h3>IA &amp; Orquestación</h3>
+<ul>
+<li><code>merci-brain.py</code>: Base de conocimiento estática (Shift-Left IA) para el asistente web.</li>
+<li><code>merci-ssot.py</code>: Sincronización automática de documentación (Single Source of Truth).</li>
+<li><code>merci-librarian.py</code>: Agente técnico que formatea cuadernillos (Zero-Hallucination).</li>
+<li><code>merci-blogger.py</code>: Agente de marketing para redacción DevRel.</li>
+</ul>
+<h3>Publicación &amp; Contenido</h3>
+<ul>
+<li><code>merci-publish.py</code> y <code>merci-wp.py</code>: Generador estático dual y publicador masivo Headless.</li>
+<li><code>merci-linkedin.py</code>: Buffer asíncrono y motor de autenticación OIDC.</li>
+<li><code>merci-optimizer.py</code>: Escalado y conversión a WebP automática.</li>
+</ul>
+<h2>El Contrato de Desarrollo</h2>
+<p>La filosofía principal de Merci es el <strong>Spec-Driven Development</strong>. Todo clon del repositorio incluye un archivo <code>instrucciones.md</code>. 
+No es una guía de uso, es un "contrato vinculante" que define exactamente qué está permitido hacer (ej. <em>Vanilla JS</em>) y qué está prohibido (ej. <em>Frameworks reactivos o estilos en línea</em>). El orquestador de <em>commits</em> valida estas especificaciones en cada guardado.</p>
+<p>Si estás listo para adoptar una infraestructura donde el rendimiento y la seguridad no son una promesa, sino una métrica auditable, <strong>eres bienvenido a clonarlo</strong>.</p>
+<p>🔗 <strong>Repositorio Oficial de Merci Boilerplate en GitHub</strong>
+https://github.com/MercedesDF/merci-boilerplate</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

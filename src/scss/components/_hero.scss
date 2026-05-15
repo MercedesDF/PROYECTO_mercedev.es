@@ -43,7 +43,6 @@
         padding: $spacing-lg $spacing-md;
 
         .hero__title {
-            font-size: clamp(2rem, 4vw, 3rem);
             margin-bottom: 0;
         }
         
@@ -66,12 +65,13 @@
         margin-top: 1.5rem;
 
         @media (min-width: 768px) {
-            grid-template-columns: repeat(3, minmax(0, 1fr)); // 5 columnas en escritorio para 10 métricas
+            grid-template-columns: repeat(5, minmax(0, 1fr)); // 5 columnas en escritorio para 10 métricas
+            
         }
 
         &--standalone {
-            max-width: 65ch; /* Alineado estrictamente con la caja de lectura del texto */
-            margin: 3rem auto;
+            max-width: 1000px; /* Alineado a la nueva composición de Side-Headings */
+            margin: 1.5rem auto 4rem; /* Top: 1.5rem, Sides: auto, Bottom: 4rem */
         }
     }
 
@@ -84,7 +84,7 @@
 
     &__metric-label {
         display: block;
-        font-size: 0.7rem;
+        font-size: 1rem;
         opacity: 0.6;
         margin-bottom: 0.25rem;
         text-transform: uppercase;
@@ -93,7 +93,7 @@
 
     &__metric-value {
         display: block;
-        font-size: 3rem;
+        font-size: 2rem;
         font-weight: 700;
         color: $color-primary;
         line-height: 1.2;

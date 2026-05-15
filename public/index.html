@@ -15,7 +15,7 @@
     <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon">
     <!-- QUÉ HACE: Cache Busting dinámico incrementado a v14 -->
     <!-- POR QUÉ: Obliga a Varnish y a navegadores móviles a purgar la caché y descargar la nueva rejilla de 5 columnas. -->
-    <link rel="stylesheet" href="/css/main.css?v=1778786279">
+    <link rel="stylesheet" href="/css/main.css?v=1778827517">
     <script src="/js/MerciController.js?v=1778479031" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <link rel="canonical" href="https://mercedev.es">
@@ -57,153 +57,111 @@
     <main class="main" id="main">
 
         <!-- ===================== -->
-        <!-- HERO + ENGINEERING DASHBOARD -->
+        <!-- HERO SECTION          -->
         <!-- ===================== -->
-        <section class="hero" id="hero">
-
-            <h1 class="hero__title">
-                Desarrollo web orientado a rendimiento<br>y automatización
-            </h1>
-
+        <section class="hero">
+            <h1 class="hero__title">mercedev.es</h1>
+            <h2 class="hero__statement">Laboratorio DevSecOps & Performance Engineering</h2>
             <p class="hero__subtitle">
-                Soy Mercedes, Ingeniera Técnica. Diseño sistemas web ligeros, mantenibles y auditables, con foco en rendimiento, automatización en Python y control técnico del ciclo de desarrollo.
+                Este sitio no es un "portfolio bonito". Es un <strong>ecosistema operacional en producción</strong>, gobernado mediante especificaciones formales, 25+ agentes autónomos y orquestación IA híbrida.
             </p>
+            
+            <ul class="hero__highlights">
+                <li>100/100 Core Web Vitals</li>
+                <li>0 Dependencias Externas</li>
+                <li>IA Local (Zero Latency)</li>
+            </ul>
 
-            <p class="hero__subtitle">
-                Trabajo con un enfoque basado en especificaciones (spec-driven), donde la arquitectura se define desde el criterio técnico y no desde la complejidad de las herramientas.
-            </p>
+            <div class="hero__cta">
+                <a href="/sobre-mi/">Conocer a la Arquitecta</a>
+                <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer">Ver Código Fuente</a>
+            </div>
+        </section>
 
-            <p class="hero__subtitle">
-                Resultado: sistemas predecibles, reducción de errores operativos y rendimiento medible en entornos reales.
-            </p>
-
-            <!-- ===================== -->
-            <!-- ENGINEERING DASHBOARD -->
-            <!-- ===================== -->
-            <div class="hero__dashboard" role="group" aria-label="Métricas de rendimiento del sistema">
-
+        <!-- ===================== -->
+        <!-- ENGINEERING DASHBOARD -->
+        <!-- ===================== -->
+        <section class="section">
+            <h2 class="home-section__title">Estadísticas de la página a 15 de mayo de 2026</h2>
+            <div class="hero__dashboard hero__dashboard--standalone" role="group" aria-label="Métricas de rendimiento del sistema">
                 <div class="hero__metric">
                     <span class="hero__metric-label">FCP</span>
                     <span class="hero__metric-value">0.8 s</span>
                 </div>
-
                 <div class="hero__metric">
                     <span class="hero__metric-label">LCP</span>
                     <span class="hero__metric-value">1.1 s</span>
                 </div>
-
                 <div class="hero__metric">
                     <span class="hero__metric-label">INP</span>
                     <span class="hero__metric-value">&lt;100ms</span>
                 </div>
-
                 <div class="hero__metric">
                     <span class="hero__metric-label">CLS</span>
                     <span class="hero__metric-value">0</span>
                 </div>
-
                 <div class="hero__metric">
                     <span class="hero__metric-label">TBT</span>
                     <span class="hero__metric-value">0 ms</span>
                 </div>
-
                 <div class="hero__metric">
                     <span class="hero__metric-label">SI</span>
                     <span class="hero__metric-value">0.8 s</span>
                 </div>
-
                 <div class="hero__metric">
                     <span class="hero__metric-label">Payload</span>
                     <span class="hero__metric-value">&lt;80KB</span>
                 </div>
-
                 <div class="hero__metric">
                     <span class="hero__metric-label">Deps</span>
                     <span class="hero__metric-value">0</span>
                 </div>
-
                 <div class="hero__metric">
                     <span class="hero__metric-label">Automation</span>
-                    <span class="hero__metric-value">8 CLI</span>
+                    <span class="hero__metric-value">25+ CLI</span>
                 </div>
-
                 <div class="hero__metric">
                     <span class="hero__metric-label">Arch</span>
                     <span class="hero__metric-value">3-layer</span>
                 </div>
-
             </div>
 
-            <p class="hero__dashboard-legend">
-                * Datos extraídos de auditorías empíricas en Google PageSpeed Insights (Simulación Móvil 4G). Todos los valores de rendimiento, carga e interactividad se asientan en el rango de excelencia (Verde), certificando una puntuación perfecta de 100/100.
-            </p>
+            <!-- ===================== -->
+            <!-- PROSE (EDITORIAL)     -->
+            <!-- ===================== -->
+            <article class="prose">
+                <div class="prose__content">
+                    
+                    <h2>La Evolución</h2>
+                    <p>La web clásica ha muerto bajo el peso de frameworks gigantescos. Este proyecto nace como una tesis arquitectónica: <strong>demostrar que es posible construir un sistema de automatización y publicación masiva sin inyectar ni una sola dependencia en el navegador del usuario final.</strong></p>
+                    
+                    <h3>El Viaje Operacional</h3>
+                    <p>Desde un servidor en blanco hasta un ecosistema auto-gestionado por IA local:</p>
+                    <pre><code>12 abril 2026  →  Infraestructura base pura
+19 abril 2026  →  Shift-Left IA (Zero Latency)
+26 abril 2026  →  Motor SSG Dual en Python
+03 mayo 2026   →  Agente Bibliotecario + SSOT
+12 mayo 2026   →  Observabilidad SRE + Chaos
+14 mayo 2026   →  Agent Chaining + Buffer Social
+(En curso)     →  Épica 3: Identidad Criptográfica (PGP)
+(Próximo)      →  Épica 4: E-commerce Extremo</code></pre>
 
-        </section>
+                    <h2>Estado de la Infraestructura</h2>
+                    <p>Actualmente, <strong>mercedev.es</strong> se sostiene sobre una arquitectura de 3 capas aisladas mediante proxy inverso (Nginx), gobernadas por más de 25 herramientas DevSecOps escritas en Vanilla Python:</p>
 
-        <!-- ===================== -->
-        <!-- GOBERNANZA -->
-        <!-- ===================== -->
-        <section class="section home-section" id="metodo">
+                    <ul>
+                        <li><strong>Capa Estática:</strong> HTML5 semántico + SASS BEM + Vanilla JS (100/100 Core Web Vitals).</li>
+                        <li><strong>Capa Dinámica:</strong> WordPress Headless acoplado mediante enlaces simbólicos y APIs restrictivas.</li>
+                        <li><strong>Capa IA (Hybrid Stack):</strong> Orquestación Autónoma mediante Ollama (Local) y Gemini Flash (Cloud) con resiliencia <em>Fail-Gracefully</em>.</li>
+                    </ul>
 
-            <h2 class="home-section__title">Gobernanza y decisiones técnicas</h2>
+                    <h2>El Motor: Merci Boilerplate</h2>
+                    <p>Todo el núcleo arquitectónico de este sitio ha sido congelado, purgado de datos personales y empaquetado como una plantilla de código abierto.</p>
+                    <p>Si quieres ver exactamente cómo está construido este sitio por dentro, qué agentes Python incluye y cómo puedes clonarlo para tus propios proyectos, he redactado un "Arte Colateral" detallando sus tripas técnicas.</p>
+                    <p>👉 <a href="/art-de-cote/"><strong>Explorar en Art de Coté: Anatomía de Merci Boilerplate</strong></a></p>
 
-            <div class="home-grid">
-
-                <article class="home-card">
-                    <h3 class="home-card__title">Registros de arquitectura (ADR)</h3>
-                    <p class="home-card__text">
-                        Cada decisión técnica relevante queda documentada y justificada. Esto permite mantener coherencia estructural y trazabilidad completa del sistema a lo largo del tiempo.
-                    </p>
-                </article>
-
-                <article class="home-card">
-                    <h3 class="home-card__title">Laboratorio de experimentación</h3>
-                    <p class="home-card__text">
-                        Entorno controlado donde valido enfoques técnicos antes de incorporarlos al sistema principal, reduciendo riesgos en producción y asegurando estabilidad arquitectónica.
-                    </p>
-                </article>
-
-                <article class="home-card">
-                    <h3 class="home-card__title">Automatización de procesos</h3>
-                    <p class="home-card__text">
-                        Desarrollo herramientas en Python para automatizar generación estática, despliegue, optimización de recursos y flujos repetitivos del sistema.
-                    </p>
-                </article>
-
-            </div>
-        </section>
-
-        <!-- ===================== -->
-        <!-- ARQUITECTURA -->
-        <!-- ===================== -->
-        <section class="section home-section" id="ecosistema">
-
-            <h2 class="home-section__title">Arquitectura de referencia</h2>
-
-            <div class="home-grid">
-
-                <article class="home-card">
-                    <h3 class="home-card__title">Arquitectura estática optimizada</h3>
-                    <p class="home-card__text">
-                        HTML5 semántico, SASS estructurado y JavaScript modular. Sistema optimizado para rendimiento, control y mantenibilidad sin dependencias innecesarias.
-                    </p>
-                </article>
-
-                <article class="home-card">
-                    <h3 class="home-card__title">Integración headless</h3>
-                    <p class="home-card__text">
-                        CMS desacoplado mediante proxy inverso, permitiendo gestión dinámica sin impacto en el rendimiento del núcleo estático ni incremento de superficie de ataque.
-                    </p>
-                </article>
-
-                <article class="home-card">
-                    <h3 class="home-card__title">Perfil técnico estructurado</h3>
-                    <p class="home-card__text">
-                        Exposición del perfil mediante HTML semántico y JSON-LD, optimizado para interpretación por sistemas automatizados sin dependencia de formatos cerrados.
-                    </p>
-                </article>
-
-            </div>
+                </div>
+            </article>
         </section>
 
     </main>

@@ -2,15 +2,17 @@
 
 /* COMPONENTE: Vista de lectura ergonómica y texto continuo (Prosa) */
 .prose {
-  max-width: 65ch;
+  max-width: 1000px; /* Ensanchado a 1000px para equilibrar el menú de navegación */
   margin: 0 auto;
-  padding: 0;
+  padding: 0 1.5rem; /* Seguridad en móviles */
 
   &__back-link {
     display: inline-block;
     margin-bottom: 1.5rem;
     font-size: 0.875rem;
     font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     color: #64748b;
     text-decoration: none;
     transition: color 0.2s ease;
@@ -21,13 +23,13 @@
   }
 
   &__header {
-    text-align: center;
-    margin-bottom: 2rem;
+    text-align: center; /* El título vuelve al centro con autoridad */
+    margin-bottom: 4rem;
   }
 
   &__title {
-    font-size: 2.5rem;
-    color: $color-primary;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: $color-text-base;
     margin-bottom: 0.5rem;
     line-height: 1.2;
   }
@@ -37,7 +39,57 @@
     line-height: 1.8;
     color: #334155;
     
-    p, ul, ol, pre { margin-bottom: 1.75rem; }
+    /* EL PATRÓN "SIDE-HEADING" (Floats Asimétricos) */
+    /* Se reemplaza CSS Grid por Floats para evitar que H2 multilíneas rompan el flujo vertical de la columna derecha */
+    @media (min-width: 1024px) {
+      display: block;
+
+      /* Margen izquierdo fijo para garantizar una alineación vertical estricta. */
+      /* Evita que elementos con fuentes más grandes (h3) desborden hacia la izquierda. */
+      > * {
+        margin-left: calc(250px + 4rem);
+      }
+
+      /* Los H2 se "flotan" en el espacio vacío de la izquierda */
+      > h2 {
+        float: left;
+        clear: left;
+        width: 250px;
+        margin-left: 0;
+        text-align: left; /* Mirando hacia el texto */
+        margin-top: 0; /* Anula margen para usar padding y evitar colapsos dispares */
+        padding-top: 4.5rem; /* Espaciado fijo entre secciones */
+      }
+      
+      /* Sincronizamos el elemento a la derecha del H2 para que bajen juntos matemáticamente */
+      > h2 + * {
+        margin-top: 0;
+        padding-top: 4.5rem;
+      }
+
+      /* Ajuste óptico: al tener la letra más pequeña, reducimos el padding para que alinee visualmente con el texto del h2 */
+      > h2 + h3 {
+        padding-top: 4.15rem;
+      }
+
+      /* El primer H2 y su acompañante no necesitan espaciado superior extra */
+      > h2:first-child,
+      > h2:first-child + * {
+        padding-top: 0;
+      }
+
+      /* Limpieza de floats */
+      &::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+    }
+    
+    > p, > ul, > ol, > pre, > h3 { 
+      margin-bottom: 0.2rem; 
+    }
+
     li { margin-bottom: 0.5rem; }
     
     img {
@@ -45,9 +97,62 @@
       margin: 2rem 0;
       max-width: 100%;
       height: auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
 
-    h2 { margin-top: 2.5rem; margin-bottom: 1rem; color: $color-primary; }
-    h3 { margin-top: 1.5rem; margin-bottom: 0.75rem; }
+    h2 { 
+      color: $color-primary; 
+      font-size: 1.75rem; 
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+      position: relative; /* Anclaje para la línea divisoria */
+      @media (max-width: 1023px) { margin-top: 3.5rem; }
+    }
+
+    /* Separadores horizontales editoriales sin ensuciar el HTML con divs */
+    > h2 ~ h2 {
+      @media (max-width: 1023px) {
+        padding-top: 2rem;
+        border-top: 1px solid rgba($color-text-base, 0.1);
+      }
+
+      @media (min-width: 1024px) {
+        &::before {
+          content: "";
+          position: absolute;
+          top: 2.25rem; /* Exactamente en medio del padding-top de 4.5rem */
+          left: 0;
+          width: calc(250px + 4rem + 65ch); /* Expande la línea sobre ambas columnas */
+          border-top: 1px solid rgba($color-text-base, 0.1);
+        }
+      }
+    }
+
+    h3 { 
+      color: $color-text-base; 
+      font-size: 1.35rem; 
+      margin-top: 1.5rem; 
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  /* Modificador para listas ordenadas con ordinales (1º, 2º...) mediante CSS Counters */
+  &__list--ordinal {
+    list-style-type: none;
+    counter-reset: prose-counter;
+    padding-left: 0;
+
+    li {
+      counter-increment: prose-counter;
+      position: relative;
+      padding-left: 1.75rem;
+
+      &::before {
+        content: counter(prose-counter) "º";
+        position: absolute;
+        left: 0;
+        font-weight: bold;
+      }
+    }
   }
 }
