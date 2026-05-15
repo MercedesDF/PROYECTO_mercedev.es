@@ -1,7 +1,7 @@
 ---
 titulo: "SOS Terminal: Sincronización de requirements.txt sin instanciar"
 descripcion: "Comando salvavidas para parchear la deriva de dependencias seguras en el Boilerplate público directamente desde la matriz."
-tipo: "art-de-cote"
+tipo: "cuadernillo"
 tema: "SOS Terminal"
 estado: "publicado"
 alt_portada: "Consola de terminal ejecutando comandos de copia y git push"

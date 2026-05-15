@@ -38,6 +38,14 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-15 — Docs: Oficialización del manual de Ciclo de Vida y Tipos
+
+**Contexto:** Se redactó una guía maestra explicando la anatomía del YAML Frontmatter y el enrutamiento de la máquina de estados. Inicialmente se planteó guardarlo en `.privado/`, pero se reconoció como un documento estructural vital para futuros usuarios del Boilerplate.
+
+**Hecho:** Se publicó formalmente en `docs/ciclo-de-vida-contenidos.md`.
+
+**Motivo / criterio:** *Knowledge Export (Exportación de Conocimiento)*. Un Boilerplate que depende de metadatos estrictos (SSOT) no puede ocultar las reglas de enrutamiento. Exponer este manual garantiza que cualquier desarrollador entienda cómo gobernar las 3 capas del sistema.
+
 ### 2026-05-15 — UX/UI: Reubicación visual del Badge en Art de Coté
 
 **Contexto:** La "Píldora de Anuncio" (Badge) se inyectaba encima del título principal (H1) en la sección Art de Coté. Visualmente, resultaba más orgánico colocarla como un "Call to Action" al final del Hero.
