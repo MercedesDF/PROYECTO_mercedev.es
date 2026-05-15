@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrategias de Integración Headless: WP y WooCommerce — mercedev.es</title>
+    <meta name="description" content="Resolución de ceguera de proxy, paridad Dev/Prod y sincronización bidireccional en un ecosistema CMS aislado.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/estrategias-de-integracion-headless-wp-y-woocommerce.html">
+    <link rel="stylesheet" href="/css/main.css?v=1778837033">
+    <script src="/js/MerciController.js?v=1778479031" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Estrategias de Integraci\u00f3n Headless: WP y WooCommerce",
+      "description": "Resoluci\u00f3n de ceguera de proxy, paridad Dev/Prod y sincronizaci\u00f3n bidireccional en un ecosistema CMS aislado.",
+      "url": "https://mercedev.es/biblioteca/estrategias-de-integracion-headless-wp-y-woocommerce.html"
+    }
+    </script>
+</head>
+<body class="page">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
+            <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--book">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                <h1 class="home-card__title--highlight">Estrategias de Integración Headless: WP y WooCommerce</h1>
+                <a href="/descargas/estrategias-de-integracion-headless-wp-y-woocommerce.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h1>Estrategias de Integración Headless: WP y WooCommerce</h1>
+<h2>El Desafío (Síntoma)</h2>
+<p>La integración de un CMS (Content Management System) pesado como WordPress (WP) y WooCommerce en un núcleo estático de alto rendimiento (Core Web Vitals 100/100) introdujo múltiples vectores de fallo. Los desafíos documentados incluyeron:</p>
+<ul>
+<li><strong>Ceguera de Proxy:</strong> Varnish y Nginx ofuscaban el protocolo HTTPS y purgaban las cabeceras de autorización estándar, provocando errores de <em>Mixed Content</em> y bloqueos de la API REST (HTTP 401).</li>
+<li><strong>Deriva de Datos (Data Drift):</strong> Diferencias de IDs entre el entorno de desarrollo local y producción generaban conflictos al sincronizar contenido.</li>
+<li><strong>Contaminación de Rendimiento:</strong> WooCommerce inyectaba scripts en línea agresivos (Speculation Rules, fragmentos de carrito AJAX) que violaban la Política de Seguridad de Contenidos (CSP) y hundían el rendimiento móvil.</li>
+</ul>
+<h2>La Maniobra (Lógica)</h2>
+<p>Para domar el CMS, se desplegó una estrategia de defensa en profundidad:</p>
+<ol>
+<li><strong>Bypass de Proxy y SSL:</strong> Se inyectó una cabecera HTTP gemela (<code>X-Authorization</code>) desde el orquestador Python (<code>merci-wp.py</code>) para atravesar Varnish, restaurándola luego a nivel de PHP en el Child Theme. El <em>Mixed Content</em> se resolvió forzando URLs relativas al protocolo (<code>//</code>) y leyendo <code>home_url()</code> en lugar de las variables brutas de servidor (<code>$_SERVER</code>).</li>
+<li><strong>SSOT Dinámico por Slug:</strong> Se erradicó el uso de IDs rígidos. <code>merci-wp.py</code> ahora interroga a la API REST de destino usando el nombre del archivo (slug). Esto logra paridad Dev/Prod absoluta, permitiendo actualizar el mismo archivo local contra diferentes bases de datos sin colisiones.</li>
+<li><strong>Escudo de Rendimiento y Kill-Switch:</strong> Se implementaron bloqueos estrictos en <code>functions.php</code> (desencolado masivo y Whitelist Criptográfico CSP en Nginx). Adicionalmente, el orquestador Python aplica un "Kill-Switch" que expulsa los artículos despublicados (<code>estado: "borrador"</code>) de vuelta al directorio de incubación local, previniendo posts fantasmas.</li>
+</ol>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Aislar un CMS por infraestructura (Proxy Inverso) es solo la mitad del trabajo; la otra mitad es aislarlo lógicamente. Confiar en un "Slug" como identificador universal (Single Source of Truth) desacopla el contenido del estado temporal de cualquier base de datos.</p>
+<h2>Cuadernillos de Referencia (Profundización táctica)</h2>
+<p>Para estudiar las batallas específicas libradas para domar el CMS, consulta:</p>
+<ul>
+<li><a href="/biblioteca/ceguera-de-proxy-y-bypass-en-headless-cms.html">Ceguera de Proxy y Bypass en Headless CMS</a></li>
+<li><a href="/biblioteca/unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms.html">Única Fuente de Verdad: Resolviendo la deriva de slugs entre SSG y CMS</a></li>
+<li><a href="/biblioteca/inyeccion-headless-en-woocommerce-con-python-puro.html">Inyección Headless en WooCommerce con Python Puro</a></li>
+<li><a href="/biblioteca/domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom.html">Domando a WooCommerce: Jerarquía de plantillas en temas custom</a></li>
+</ul>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

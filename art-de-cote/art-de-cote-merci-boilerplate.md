@@ -2,7 +2,7 @@
 titulo: "Anatomía de Merci Boilerplate: Arquitectura DevSecOps de Zero-Bloat"
 descripcion: "Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 25 agentes Python y 100/100 Core Web Vitals."
 estado: "publicado"
-tema: "Merci Boilerplate"
+tema: "Art de Coté"
 estado_social: "pendiente"
 alt_portada: "Esquema conceptual de la arquitectura de 3 capas de Merci Boilerplate."
 fase: "Epic 1 - Fase 10"

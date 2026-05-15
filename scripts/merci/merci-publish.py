@@ -345,6 +345,14 @@ def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, can
             </div>
         </section>"""
                 
+    # QUÉ HACE: Inyecta el "Announcement Badge" dinámicamente solo en la portada de Art de Coté
+    badge_html = ""
+    if title == "Art de Coté":
+        badge_html = """<a href="/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html" class="hero__badge">
+            <span class="hero__badge-tag">Primer Art de Coté</span>
+            Anatomía de Merci Boilerplate →
+        </a>"""
+
     html_final = f"""<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -374,6 +382,7 @@ def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, can
         <section class="hero">
             <h1 class="hero__title">{title_html}</h1>
             <p class="hero__subtitle">{meta_desc_html}</p>
+            {badge_html}
         </section>
         
         <!-- QUÉ HACE: Índice Curado (Table of Contents) autogenerado -->

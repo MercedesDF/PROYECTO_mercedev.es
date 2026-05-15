@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semántica HTML y WAI-ARIA: Roles implícitos y acoplamiento BEM — mercedev.es</title>
+    <meta name="description" content="Por qué los lectores de pantalla ignoran etiquetas aria-label genéricas y el peligro de acoplar bloques BEM.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem.html">
+    <link rel="stylesheet" href="/css/main.css?v=1778837033">
+    <script src="/js/MerciController.js?v=1778479031" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Sem\u00e1ntica HTML y WAI-ARIA: Roles impl\u00edcitos y acoplamiento BEM",
+      "description": "Por qu\u00e9 los lectores de pantalla ignoran etiquetas aria-label gen\u00e9ricas y el peligro de acoplar bloques BEM.",
+      "url": "https://mercedev.es/biblioteca/semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem.html"
+    }
+    </script>
+</head>
+<body class="page">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
+            <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                <h1 class="home-card__title--highlight">Semántica HTML y WAI-ARIA: Roles implícitos y acoplamiento BEM</h1>
+                <a href="/descargas/semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>Durante la auditoría de las últimas vistas (Engineering Dashboard y CV Semántico), surgieron dos incidentes arquitectónicos aparentemente inconexos pero nacidos de la misma causa: la falta de semántica estricta.</p>
+<ol>
+<li><strong>Ceguera de Lector de Pantalla:</strong> Se inyectó un atributo <code>aria-label="Métricas de rendimiento del sistema"</code> a un <code>&lt;div&gt;</code> genérico que actuaba como contenedor del dashboard. Sin embargo, las tecnologías asistivas a menudo lo ignoraban por completo al leer la página.</li>
+<li><strong>Acoplamiento BEM:</strong> Los botones de llamada a la acción (CTA) del Hero en el currículum estaban utilizando la clase <code>.nav__link</code>. Aunque visualmente resolvía el problema temporalmente, ataba el diseño de un componente local a la barra de navegación global de la web.</li>
+</ol>
+<h2>La Maniobra (Lógica)</h2>
+<ol>
+<li><strong>Restauración WAI-ARIA:</strong> Se inyectó explícitamente el atributo <code>role="group"</code> al <code>&lt;div&gt;</code> genérico del dashboard (<code>&lt;div class="hero__dashboard" role="group" aria-label="..."&gt;</code>).</li>
+<li><strong>Desacoplamiento BEM:</strong> Se eliminó la clase <code>.nav__link</code> de los botones del Hero en el HTML. En su lugar, se crearon reglas SASS nativas anidadas dentro de su propio bloque (<code>.hero__cta a</code>) para gobernar su aspecto. Adicionalmente, se restituyó la etiqueta estructural <code>&lt;h2&gt;</code> para la declaración de intenciones en el currículum que había quedado huérfana.</li>
+</ol>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Este incidente refuerza dos reglas fundamentales en el ecosistema:</p>
+<ul>
+<li>
+<p><strong>WAI-ARIA y Elementos Genéricos:</strong> Un <code>aria-label</code> por sí solo no convierte un elemento genérico (<code>div</code>, <code>span</code>) en algo semánticamente relevante. El estándar dictamina que, si un elemento carece de semántica nativa (como sí la tienen <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, o <code>&lt;button&gt;</code>), el navegador y el Árbol de Accesibilidad no le darán un "nombre accesible" a menos que se le asigne un rol válido (como <code>group</code> o <code>region</code>).</p>
+</li>
+<li>
+<p><strong>Principio de Responsabilidad Única en CSS:</strong> Reutilizar clases globales (como <code>.nav__link</code>) para "ahorrar" código en botones aislados es un antipatrón en la metodología BEM. Genera un código frágil: cualquier cambio futuro de espaciado o color en el menú global habría destrozado visualmente los botones de la portada.</p>
+</li>
+</ul>
+<p><em>Si no tiene rol, no existe. Si no es su bloque, no usa su clase.</em></p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

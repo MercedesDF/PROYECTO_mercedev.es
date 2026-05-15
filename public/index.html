@@ -15,7 +15,7 @@
     <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon">
     <!-- QUÉ HACE: Cache Busting dinámico incrementado a v14 -->
     <!-- POR QUÉ: Obliga a Varnish y a navegadores móviles a purgar la caché y descargar la nueva rejilla de 5 columnas. -->
-    <link rel="stylesheet" href="/css/main.css?v=1778827517">
+    <link rel="stylesheet" href="/css/main.css?v=1778837033">
     <script src="/js/MerciController.js?v=1778479031" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <link rel="canonical" href="https://mercedev.es">
@@ -63,7 +63,9 @@
             <h1 class="hero__title">mercedev.es</h1>
             <h2 class="hero__statement">Laboratorio DevSecOps & Performance Engineering</h2>
             <p class="hero__subtitle">
-                Este sitio no es un "portfolio bonito". Es un <strong>ecosistema operacional en producción</strong>, gobernado mediante especificaciones formales, 25+ agentes autónomos y orquestación IA híbrida.
+                Este sitio no es un portfolio convencional<br>
+                <br>
+                Es un <strong>ecosistema operacional en producción</strong><br>Gobernado mediante especificaciones formales, 25+ agentes autónomos y orquestación IA híbrida.
             </p>
             
             <ul class="hero__highlights">
@@ -82,7 +84,7 @@
         <!-- ENGINEERING DASHBOARD -->
         <!-- ===================== -->
         <section class="section">
-            <h2 class="home-section__title">Estadísticas de la página a 15 de mayo de 2026</h2>
+            <h2 class="home-section__title">Auditoría de la web a 15 de mayo de 2026</h2>
             <div class="hero__dashboard hero__dashboard--standalone" role="group" aria-label="Métricas de rendimiento del sistema">
                 <div class="hero__metric">
                     <span class="hero__metric-label">FCP</span>
@@ -125,6 +127,30 @@
                     <span class="hero__metric-value">3-layer</span>
                 </div>
             </div>
+            <h2 class="home-section__title">Métricas del Repositorio</h2>
+            <div class="hero__dashboard hero__dashboard--standalone" role="group" aria-label="Métricas del Repositorio">
+                
+                <div class="hero__metric">
+                    <span class="hero__metric-label">Releases Boilerplate</span>
+                    <span class="hero__metric-value">v1.13.0</span>
+                </div>
+                <div class="hero__metric">
+                    <span class="hero__metric-label">Agentes Python</span>
+                    <span class="hero__metric-value">25+</span>
+                </div>
+                <div class="hero__metric">
+                    <span class="hero__metric-label">Docs (Líneas)</span>
+                    <span class="hero__metric-value">7,900+</span>
+                </div>
+                <div class="hero__metric">
+                    <span class="hero__metric-label">Fases Cerradas</span>
+                    <span class="hero__metric-value">15+</span>
+                </div>
+                <div class="hero__metric">
+                    <span class="hero__metric-label">Core Web Vitals</span>
+                    <span class="hero__metric-value">100/100</span>
+                </div>
+            </div>
 
             <!-- ===================== -->
             <!-- PROSE (EDITORIAL)     -->
@@ -133,32 +159,22 @@
                 <div class="prose__content">
                     
                     <h2>La Evolución</h2>
-                    <p>La web clásica ha muerto bajo el peso de frameworks gigantescos. Este proyecto nace como una tesis arquitectónica: <strong>demostrar que es posible construir un sistema de automatización y publicación masiva sin inyectar ni una sola dependencia en el navegador del usuario final.</strong></p>
+                    <p>La web clásica ha muerto bajo el peso de frameworks gigantescos. Este proyecto nace con la filosofía minimalista, pretendía ser una web sin apenas JS, simple.<br> De ser un proyecto vivo de creación de página web está evolucionado y convirtiéndose en una tesis arquitectónica: <br>
+                        <h3><strong>demuestra que es posible construir un sistema de automatización y publicación masiva sin inyectar ni una sola dependencia en el navegador del usuario final.</strong></h3></p>
                     
-                    <h3>El Viaje Operacional</h3>
-                    <p>Desde un servidor en blanco hasta un ecosistema auto-gestionado por IA local:</p>
-                    <pre><code>12 abril 2026  →  Infraestructura base pura
-19 abril 2026  →  Shift-Left IA (Zero Latency)
-26 abril 2026  →  Motor SSG Dual en Python
-03 mayo 2026   →  Agente Bibliotecario + SSOT
-12 mayo 2026   →  Observabilidad SRE + Chaos
-14 mayo 2026   →  Agent Chaining + Buffer Social
-(En curso)     →  Épica 3: Identidad Criptográfica (PGP)
-(Próximo)      →  Épica 4: E-commerce Extremo</code></pre>
-
                     <h2>Estado de la Infraestructura</h2>
                     <p>Actualmente, <strong>mercedev.es</strong> se sostiene sobre una arquitectura de 3 capas aisladas mediante proxy inverso (Nginx), gobernadas por más de 25 herramientas DevSecOps escritas en Vanilla Python:</p>
 
                     <ul>
-                        <li><strong>Capa Estática:</strong> HTML5 semántico + SASS BEM + Vanilla JS (100/100 Core Web Vitals).</li>
-                        <li><strong>Capa Dinámica:</strong> WordPress Headless acoplado mediante enlaces simbólicos y APIs restrictivas.</li>
-                        <li><strong>Capa IA (Hybrid Stack):</strong> Orquestación Autónoma mediante Ollama (Local) y Gemini Flash (Cloud) con resiliencia <em>Fail-Gracefully</em>.</li>
+                        <li><strong>Capa Estática:</strong> <br> HTML5 semántico + SASS BEM + Vanilla JS (100/100 Core Web Vitals).</li>
+                        <li><strong>Capa Dinámica:</strong><br> WordPress Headless acoplado mediante enlaces simbólicos y APIs restrictivas.</li>
+                        <li><strong>Capa IA (Hybrid Stack):</strong><br> Orquestación Autónoma mediante Ollama (Local) y Gemini Flash (Cloud) con resiliencia <em>Fail-Gracefully</em>.</li>
                     </ul>
 
                     <h2>El Motor: Merci Boilerplate</h2>
                     <p>Todo el núcleo arquitectónico de este sitio ha sido congelado, purgado de datos personales y empaquetado como una plantilla de código abierto.</p>
                     <p>Si quieres ver exactamente cómo está construido este sitio por dentro, qué agentes Python incluye y cómo puedes clonarlo para tus propios proyectos, he redactado un "Arte Colateral" detallando sus tripas técnicas.</p>
-                    <p>👉 <a href="/art-de-cote/"><strong>Explorar en Art de Coté: Anatomía de Merci Boilerplate</strong></a></p>
+                    <p>👉 <a href="/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html"><strong>Explorar en Art de Coté: Anatomía de Merci Boilerplate</strong></a></p>
 
                 </div>
             </article>

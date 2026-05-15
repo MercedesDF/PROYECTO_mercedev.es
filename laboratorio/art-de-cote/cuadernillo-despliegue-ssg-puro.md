@@ -2,9 +2,10 @@
 titulo: "Despliegue SSG Puro con GitHub Actions (rsync)"
 descripcion: "Automatización de despliegue estático mediante CI/CD y justificación de su descarte en arquitecturas híbridas."
 tipo: "cuadernillo"
-tema: "Reflexiones"
+tema: ""
 fecha: "2026-05-05"
-estado: "publicado"
+fase: "11"
+estado: "borrador"
 alt_portada: "Diagrama conceptual mostrando a un agente de GitHub Actions sincronizando archivos mediante rsync a un servidor web."
 ---
 

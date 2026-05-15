@@ -1,5 +1,6 @@
 ---
 titulo: "Título de la entrada del Blog"
+tipo: "articulo"
 estado: "incubacion"
 estado_social: "en_cola"
 tema: "Blog"

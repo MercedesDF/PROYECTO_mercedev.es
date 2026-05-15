@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Biblioteca — mercedev.es</title>
+    <meta name="description" content="Índice de publicaciones técnicas y proyectos de la Biblioteca.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/">
+    <link rel="stylesheet" href="/css/main.css?v=1778837033">
+    <script src="/js/MerciController.js?v=1778479031" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "La Biblioteca - mercedev.es",
+      "description": "\u00cdndice de publicaciones t\u00e9cnicas y proyectos de la Biblioteca.",
+      "url": "https://mercedev.es/biblioteca/"
+    }
+    </script>
+</head>
+<body class="page">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
+            <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main" id="main">
+        <!-- QUÉ HACE: Sección Hero unificada con el resto del ecosistema -->
+        <section class="hero">
+            <h1 class="hero__title">La Biblioteca</h1>
+            <p class="hero__subtitle">Índice de publicaciones técnicas y proyectos de la Biblioteca.</p>
+            
+        </section>
+        
+        <!-- QUÉ HACE: Índice Curado (Table of Contents) autogenerado -->
+        <!-- POR QUÉ: Mejora la UX permitiendo navegación intra-página sin scroll excesivo. -->
+        <nav class="library-nav" aria-label="Índice de estanterías">
+            <h2 class="library-nav__title">Estanterías Temáticas</h2>
+            <ul class="library-nav__list">
+                <li class="library-nav__item">
+                    <a href="#arquitectura-de-software" class="library-nav__theme-title" aria-label="Explorar estantería: arquitectura de software">arquitectura de software</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#normalizacion-robusta-de-cadenas-el-poder-de-casefold" class="library-nav__article-link" aria-label="Ir al resumen de: Normalización Robusta de Cadenas: El Poder de Casefold">Normalización Robusta de Cadenas: El Poder de Casefold</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#el-limite-del-yaml-comentarios-html-como-almacenamiento-de-metadatos" class="library-nav__article-link" aria-label="Ir al resumen de: El límite del YAML: Comentarios HTML como almacenamiento de metadatos">El límite del YAML: Comentarios HTML como almacenamiento de metadatos</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms" class="library-nav__article-link" aria-label="Ir al resumen de: Única Fuente de Verdad: Resolviendo la Deriva de Slugs entre SSG y CMS">Única Fuente de Verdad: Resolviendo la Deriva de Slugs entre SSG y CMS</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="library-nav__item">
+                    <a href="#arquitectura-y-backend" class="library-nav__theme-title" aria-label="Explorar estantería: arquitectura y backend">arquitectura y backend</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#estrategias-de-integracion-headless-wp-y-woocommerce" class="library-nav__article-link" aria-label="Ir al resumen de: Estrategias de Integración Headless: WP y WooCommerce">Estrategias de Integración Headless: WP y WooCommerce</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="library-nav__item">
+                    <a href="#arquitectura-y-frontend" class="library-nav__theme-title" aria-label="Explorar estantería: arquitectura y frontend">arquitectura y frontend</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#ingenieria-de-interfaz-estatica-ssg-python-puro" class="library-nav__article-link" aria-label="Ir al resumen de: Ingeniería de Interfaz Estática (SSG): Python Puro">Ingeniería de Interfaz Estática (SSG): Python Puro</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#automatizacion-de-cache-busting-dinamico-en-nucleo-estatico" class="library-nav__article-link" aria-label="Ir al resumen de: Automatización de Cache Busting dinámico en núcleo estático">Automatización de Cache Busting dinámico en núcleo estático</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="library-nav__item">
+                    <a href="#arquitectura-y-rendimiento" class="library-nav__theme-title" aria-label="Explorar estantería: arquitectura y rendimiento">arquitectura y rendimiento</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#autenticacion-oidc-oauth-20-con-cero-dependencias" class="library-nav__article-link" aria-label="Ir al resumen de: Autenticación OIDC (OAuth 2.0) con Cero Dependencias">Autenticación OIDC (OAuth 2.0) con Cero Dependencias</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#inyeccion-headless-en-woocommerce-con-python-puro" class="library-nav__article-link" aria-label="Ir al resumen de: Inyección Headless en WooCommerce con Python Puro">Inyección Headless en WooCommerce con Python Puro</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#la-guerra-de-la-especificidad-css" class="library-nav__article-link" aria-label="Ir al resumen de: La Guerra de la Especificidad CSS">La Guerra de la Especificidad CSS</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad" class="library-nav__article-link" aria-label="Ir al resumen de: Documentación como Código: El README.md como Única Fuente de Verdad">Documentación como Código: El README.md como Única Fuente de Verdad</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="library-nav__item">
+                    <a href="#automatizacion-y-python" class="library-nav__theme-title" aria-label="Explorar estantería: automatización y python">automatización y python</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#robustez-en-expresiones-regulares-regex-para-automatizacion" class="library-nav__article-link" aria-label="Ir al resumen de: Robustez en Expresiones Regulares (RegEx) para automatización">Robustez en Expresiones Regulares (RegEx) para automatización</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="library-nav__item">
+                    <a href="#devsecops-y-arquitectura" class="library-nav__theme-title" aria-label="Explorar estantería: devsecops y arquitectura">devsecops y arquitectura</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom" class="library-nav__article-link" aria-label="Ir al resumen de: Domando a WooCommerce: Jerarquía de plantillas en temas custom">Domando a WooCommerce: Jerarquía de plantillas en temas custom</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="library-nav__item">
+                    <a href="#devsecops-y-automatizacion" class="library-nav__theme-title" aria-label="Explorar estantería: devsecops y automatización">devsecops y automatización</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#alias-inteligentes-v31-para-ecosistemas-devsecops" class="library-nav__article-link" aria-label="Ir al resumen de: Alias Inteligentes (v3.1) para ecosistemas DevSecOps">Alias Inteligentes (v3.1) para ecosistemas DevSecOps</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#shift-left-ai-inteligencia-artificial-de-cero-latencia" class="library-nav__article-link" aria-label="Ir al resumen de: Shift-Left AI: Inteligencia Artificial de Cero Latencia">Shift-Left AI: Inteligencia Artificial de Cero Latencia</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos" class="library-nav__article-link" aria-label="Ir al resumen de: Silenciando al Guardián: Excepciones explícitas en linters estáticos">Silenciando al Guardián: Excepciones explícitas en linters estáticos</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#optimizacion-de-copias-de-seguridad-locales-y-zero-bloat" class="library-nav__article-link" aria-label="Ir al resumen de: Optimización de Copias de Seguridad Locales y Zero Bloat">Optimización de Copias de Seguridad Locales y Zero Bloat</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh" class="library-nav__article-link" aria-label="Ir al resumen de: Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)">Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="library-nav__item">
+                    <a href="#devsecops-y-gobernanza" class="library-nav__theme-title" aria-label="Explorar estantería: devsecops y gobernanza">devsecops y gobernanza</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#topologia-de-ia-el-stack-hibrido-en-devsecops" class="library-nav__article-link" aria-label="Ir al resumen de: Topología de IA: El Stack Híbrido en DevSecOps">Topología de IA: El Stack Híbrido en DevSecOps</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#arquitectura-y-gobernanza-merci-totalpy-como-ssot" class="library-nav__article-link" aria-label="Ir al resumen de: Arquitectura y Gobernanza: merci-total.py como SSOT">Arquitectura y Gobernanza: merci-total.py como SSOT</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#agent-chaining-y-buffer-social-de-la-nota-a-linkedin-con-friccion-cero" class="library-nav__article-link" aria-label="Ir al resumen de: Agent Chaining y Buffer Social: De la Nota a LinkedIn con Fricción Cero">Agent Chaining y Buffer Social: De la Nota a LinkedIn con Fricción Cero</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#actualizacion-de-la-politica-de-seguridad-para-prevenir-ataques-a-la-cadena-de-suministro" class="library-nav__article-link" aria-label="Ir al resumen de: Actualización de la Política de Seguridad para Prevenir ataques a la cadena de suministro">Actualización de la Política de Seguridad para Prevenir ataques a la cadena de suministro</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#integracion-de-qwen25-coder-con-ollama-para-devrel-local" class="library-nav__article-link" aria-label="Ir al resumen de: Integración de Qwen2.5-Coder con Ollama para DevRel Local">Integración de Qwen2.5-Coder con Ollama para DevRel Local</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#conectar-la-cantidad-de-posts-en-espera-de-linkedin-con-grafana" class="library-nav__article-link" aria-label="Ir al resumen de: Conectar la Cantidad de Posts en Espera de LinkedIn con Grafana">Conectar la Cantidad de Posts en Espera de LinkedIn con Grafana</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#validacion-de-defensas-devsecops-con-chaos-monkey-y-merciauditpy" class="library-nav__article-link" aria-label="Ir al resumen de: Validación de Defensas DevSecOps con Chaos Monkey y merciaudit.py">Validación de Defensas DevSecOps con Chaos Monkey y merciaudit.py</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#metrica-sre-exacta-para-documentos-en-promocion" class="library-nav__article-link" aria-label="Ir al resumen de: Métrica SRE Exacta para Documentos en Promoción">Métrica SRE Exacta para Documentos en Promoción</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#eliminacion-de-la-version-obsoleta-en-docker-composeyml" class="library-nav__article-link" aria-label="Ir al resumen de: Eliminación de la versión obsoleta en docker-compose.yml">Eliminación de la versión obsoleta en docker-compose.yml</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#transformacion-de-checklist-de-seguridad-pasiva-en-escudo-activo" class="library-nav__article-link" aria-label="Ir al resumen de: Transformación de Checklist de Seguridad Pasiva en Escudo Activo">Transformación de Checklist de Seguridad Pasiva en Escudo Activo</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#optimizacion-del-proceso-de-reescritura-con-ia-para-ssot" class="library-nav__article-link" aria-label="Ir al resumen de: Optimización del Proceso de Reescritura con IA para SSOT">Optimización del Proceso de Reescritura con IA para SSOT</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#refactorizacion-de-system-prompts-a-archivos-markdown" class="library-nav__article-link" aria-label="Ir al resumen de: Refactorización de System Prompts a Archivos Markdown">Refactorización de System Prompts a Archivos Markdown</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz" class="library-nav__article-link" aria-label="Ir al resumen de: Fix: Sincronización de DLP en .gitignore para docs/matriz">Fix: Sincronización de DLP en .gitignore para docs/matriz</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#organizacion-del-laboratorio-con-patrones-zero-code" class="library-nav__article-link" aria-label="Ir al resumen de: Organización del Laboratorio con Patrones Zero-Code">Organización del Laboratorio con Patrones Zero-Code</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#domando-el-sycophancy-en-slms-locales-con-shift-left-data-parsing" class="library-nav__article-link" aria-label="Ir al resumen de: Domando el Sycophancy en SLMs locales con Shift-Left Data Parsing">Domando el Sycophancy en SLMs locales con Shift-Left Data Parsing</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#agente-sync-ssot-curacion-autonoma-de-la-deriva-documental" class="library-nav__article-link" aria-label="Ir al resumen de: Agente Sync SSOT: Curación Autónoma de la Deriva Documental">Agente Sync SSOT: Curación Autónoma de la Deriva Documental</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#gestion-de-la-proteccion-de-ramas-y-force-push" class="library-nav__article-link" aria-label="Ir al resumen de: Gestión de la Protección de Ramas y Force Push">Gestión de la Protección de Ramas y Force Push</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem" class="library-nav__article-link" aria-label="Ir al resumen de: Semántica HTML y WAI-ARIA: Roles implícitos y acoplamiento BEM">Semántica HTML y WAI-ARIA: Roles implícitos y acoplamiento BEM</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#ceguera-de-proxy-y-bypass-en-headless-cms" class="library-nav__article-link" aria-label="Ir al resumen de: Ceguera de Proxy y Bypass en Headless CMS">Ceguera de Proxy y Bypass en Headless CMS</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#prevencion-de-fuga-de-credenciales-en-integracion-continua-local" class="library-nav__article-link" aria-label="Ir al resumen de: Prevención de Fuga de Credenciales en Integración Continua Local">Prevención de Fuga de Credenciales en Integración Continua Local</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#la-ceguera-de-taller-y-la-paridad-devprod" class="library-nav__article-link" aria-label="Ir al resumen de: La Ceguera de Taller y la Paridad Dev/Prod">La Ceguera de Taller y la Paridad Dev/Prod</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#prevencion-de-fuga-de-datos-dlp-en-la-creacion-de-boilerplates" class="library-nav__article-link" aria-label="Ir al resumen de: Prevención de Fuga de Datos (DLP) en la creación de Boilerplates">Prevención de Fuga de Datos (DLP) en la creación de Boilerplates</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#prevencion-de-fuga-de-datos-con-ramas-huerfanas-en-git" class="library-nav__article-link" aria-label="Ir al resumen de: Prevención de Fuga de Datos con Ramas Huérfanas en Git">Prevención de Fuga de Datos con Ramas Huérfanas en Git</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#conflictos-masivos-en-git-y-la-estrategia-de-fuerza-bruta-ours" class="library-nav__article-link" aria-label="Ir al resumen de: Conflictos masivos en Git y la estrategia de fuerza bruta (--ours)">Conflictos masivos en Git y la estrategia de fuerza bruta (--ours)</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git" class="library-nav__article-link" aria-label="Ir al resumen de: Recuperación de datos y el peligro de los comandos destructivos en Git">Recuperación de datos y el peligro de los comandos destructivos en Git</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#release-pipeline-iterativo-agile-en-despliegue-de-plantillas" class="library-nav__article-link" aria-label="Ir al resumen de: Release Pipeline Iterativo: Agile en despliegue de plantillas">Release Pipeline Iterativo: Agile en despliegue de plantillas</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="library-nav__item">
+                    <a href="#identidad-y-autoridad-tecnica" class="library-nav__theme-title" aria-label="Explorar estantería: identidad y autoridad técnica">identidad y autoridad técnica</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#el-cv-anti-ats-hablando-el-idioma-nativo-de-las-maquinas" class="library-nav__article-link" aria-label="Ir al resumen de: El CV 'Anti-ATS': Hablando el Idioma Nativo de las Máquinas">El CV 'Anti-ATS': Hablando el Idioma Nativo de las Máquinas</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="library-nav__item">
+                    <a href="#infraestructura-y-automatizacion" class="library-nav__theme-title" aria-label="Explorar estantería: infraestructura y automatización">infraestructura y automatización</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#inyeccion-de-claves-ssh-en-github-actions-anatomia-de-un-despliegue-rsync" class="library-nav__article-link" aria-label="Ir al resumen de: Inyección de Claves SSH en GitHub Actions: Anatomía de un Despliegue rsync">Inyección de Claves SSH en GitHub Actions: Anatomía de un Despliegue rsync</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="library-nav__item">
+                    <a href="#inteligencia-artificial-y-gobernanza" class="library-nav__theme-title" aria-label="Explorar estantería: inteligencia artificial y gobernanza">inteligencia artificial y gobernanza</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#el-limite-cognitivo-por-que-la-ia-local-falla-en-la-gobernanza-documental" class="library-nav__article-link" aria-label="Ir al resumen de: El Límite Cognitivo: Por qué la IA Local Falla en la Gobernanza Documental">El Límite Cognitivo: Por qué la IA Local Falla en la Gobernanza Documental</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="library-nav__item">
+                    <a href="#rendimiento-y-ux" class="library-nav__theme-title" aria-label="Explorar estantería: rendimiento y ux">rendimiento y ux</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#la-tirania-de-la-cache-movil-y-el-cache-busting-dinamico" class="library-nav__article-link" aria-label="Ir al resumen de: La tiranía de la caché móvil y el 'Cache Busting' dinámico">La tiranía de la caché móvil y el 'Cache Busting' dinámico</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="library-nav__item">
+                    <a href="#seguridad-y-arquitectura" class="library-nav__theme-title" aria-label="Explorar estantería: seguridad y arquitectura">seguridad y arquitectura</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#prevencion-de-fugas-de-datos-data-leak-en-empaquetados" class="library-nav__article-link" aria-label="Ir al resumen de: Prevención de Fugas de Datos (Data Leak) en empaquetados">Prevención de Fugas de Datos (Data Leak) en empaquetados</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        
+        
+        <section class="library-section" id="arquitectura-de-software">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#arquitectura-de-software" aria-label="Ver sección: arquitectura de software">arquitectura de software</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
+            </div>
+            <div class="home-grid">
+                
+                <article class="card card--booklet" id="normalizacion-robusta-de-cadenas-el-poder-de-casefold">
+                    <header>
+                        <span class="card__meta">2026-05-05 — Cuadernillo &middot; Fase 11 (CI/CD y Lighthouse)</span>
+                        <h2 class="card__title"><a href="/biblioteca/normalizacion-robusta-de-cadenas-el-poder-de-casefold.html" aria-label="Leer artículo completo: Normalización Robusta de Cadenas: El Poder de Casefold">Normalización Robusta de Cadenas: El Poder de Casefold</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Resolución de duplicidad en estanterías del SSG mediante la normalización de cadenas independientes de capitalización.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="el-limite-del-yaml-comentarios-html-como-almacenamiento-de-metadatos">
+                    <header>
+                        <span class="card__meta">2026-05-01 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/el-limite-del-yaml-comentarios-html-como-almacenamiento-de-metadatos.html" aria-label="Leer artículo completo: El límite del YAML: Comentarios HTML como almacenamiento de metadatos">El límite del YAML: Comentarios HTML como almacenamiento de metadatos</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo superar las limitaciones de parseo en YAML inyectando metadatos multilínea dentro de comentarios HTML nativos.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms">
+                    <header>
+                        <span class="card__meta">2026-05-01 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms.html" aria-label="Leer artículo completo: Única Fuente de Verdad: Resolviendo la Deriva de Slugs entre SSG y CMS">Única Fuente de Verdad: Resolviendo la Deriva de Slugs entre SSG y CMS</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo resolver los conflictos de nomenclatura de URIs cuando se integran generadores estáticos (Python) con motores dinámicos (WordPress).</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="library-section" id="arquitectura-y-backend">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#arquitectura-y-backend" aria-label="Ver sección: arquitectura y backend">arquitectura y backend</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
+            </div>
+            <div class="home-grid">
+                
+                <article class="card card--book" id="estrategias-de-integracion-headless-wp-y-woocommerce">
+                    <header>
+                        <span class="card__meta">2026-05-07 — Compendio &middot; Fase 4</span>
+                        <h2 class="card__title"><a href="/biblioteca/estrategias-de-integracion-headless-wp-y-woocommerce.html" aria-label="Leer artículo completo: Estrategias de Integración Headless: WP y WooCommerce">Estrategias de Integración Headless: WP y WooCommerce</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Resolución de ceguera de proxy, paridad Dev/Prod y sincronización bidireccional en un ecosistema CMS aislado.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="library-section" id="arquitectura-y-frontend">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#arquitectura-y-frontend" aria-label="Ver sección: arquitectura y frontend">arquitectura y frontend</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
+            </div>
+            <div class="home-grid">
+                
+                <article class="card card--book" id="ingenieria-de-interfaz-estatica-ssg-python-puro">
+                    <header>
+                        <span class="card__meta">2026-05-07 — Compendio &middot; Fase 7</span>
+                        <h2 class="card__title"><a href="/biblioteca/ingenieria-de-interfaz-estatica-ssg-python-puro.html" aria-label="Leer artículo completo: Ingeniería de Interfaz Estática (SSG): Python Puro">Ingeniería de Interfaz Estática (SSG): Python Puro</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Patrones de rendimiento, SEO técnico, accesibilidad WAI-ARIA y compilación con cero dependencias.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="automatizacion-de-cache-busting-dinamico-en-nucleo-estatico">
+                    <header>
+                        <span class="card__meta">2026-05-07 — Cuadernillo &middot; Fase 7</span>
+                        <h2 class="card__title"><a href="/biblioteca/automatizacion-de-cache-busting-dinamico-en-nucleo-estatico.html" aria-label="Leer artículo completo: Automatización de Cache Busting dinámico en núcleo estático">Automatización de Cache Busting dinámico en núcleo estático</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Resolución de discrepancias visuales por caché agresiva mediante inyección automática de timestamps.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="library-section" id="arquitectura-y-rendimiento">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#arquitectura-y-rendimiento" aria-label="Ver sección: arquitectura y rendimiento">arquitectura y rendimiento</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
+            </div>
+            <div class="home-grid">
+                
+                <article class="card card--booklet" id="autenticacion-oidc-oauth-20-con-cero-dependencias">
+                    <header>
+                        <span class="card__meta">2026-05-01 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/autenticacion-oidc-oauth-20-con-cero-dependencias.html" aria-label="Leer artículo completo: Autenticación OIDC (OAuth 2.0) con Cero Dependencias">Autenticación OIDC (OAuth 2.0) con Cero Dependencias</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo domar la API de LinkedIn levantando un micro-servidor efímero en Vanilla Python.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="inyeccion-headless-en-woocommerce-con-python-puro">
+                    <header>
+                        <span class="card__meta">2026-04-30 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/inyeccion-headless-en-woocommerce-con-python-puro.html" aria-label="Leer artículo completo: Inyección Headless en WooCommerce con Python Puro">Inyección Headless en WooCommerce con Python Puro</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo publicar productos en la tienda desde la terminal local sin usar el panel de administración de WordPress ni dependencias pesadas.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="la-guerra-de-la-especificidad-css">
+                    <header>
+                        <span class="card__meta">2026-04-29 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/la-guerra-de-la-especificidad-css.html" aria-label="Leer artículo completo: La Guerra de la Especificidad CSS">La Guerra de la Especificidad CSS</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Análisis forense de por qué la pseudo-clase :visited no se aplicaba a los enlaces, y cómo la jerarquía de selectores determina el resultado final.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad">
+                    <header>
+                        <span class="card__meta">2026-04-26 — Cuadernillo &middot; Fase 10 (Empaquetado y Release)</span>
+                        <h2 class="card__title"><a href="/biblioteca/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.html" aria-label="Leer artículo completo: Documentación como Código: El README.md como Única Fuente de Verdad">Documentación como Código: El README.md como Única Fuente de Verdad</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo la desincronización documental genera deuda técnica y rompe la confianza en el repositorio.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="library-section" id="automatizacion-y-python">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#automatizacion-y-python" aria-label="Ver sección: automatización y python">automatización y python</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
+            </div>
+            <div class="home-grid">
+                
+                <article class="card card--booklet" id="robustez-en-expresiones-regulares-regex-para-automatizacion">
+                    <header>
+                        <span class="card__meta">2026-04-26 — Cuadernillo &middot; Fase 10 (Empaquetado y Release)</span>
+                        <h2 class="card__title"><a href="/biblioteca/robustez-en-expresiones-regulares-regex-para-automatizacion.html" aria-label="Leer artículo completo: Robustez en Expresiones Regulares (RegEx) para automatización">Robustez en Expresiones Regulares (RegEx) para automatización</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo un simple guion rompió el orquestador de commits y por qué la Ley de Postel es vital en DevSecOps.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="library-section" id="devsecops-y-arquitectura">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#devsecops-y-arquitectura" aria-label="Ver sección: devsecops y arquitectura">devsecops y arquitectura</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
+            </div>
+            <div class="home-grid">
+                
+                <article class="card card--booklet" id="domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom">
+                    <header>
+                        <span class="card__meta">2026-04-28 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom.html" aria-label="Leer artículo completo: Domando a WooCommerce: Jerarquía de plantillas en temas custom">Domando a WooCommerce: Jerarquía de plantillas en temas custom</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Resolución del secuestro de plantillas por parte de WooCommerce en arquitecturas minimalistas.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="library-section" id="devsecops-y-automatizacion">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#devsecops-y-automatizacion" aria-label="Ver sección: devsecops y automatización">devsecops y automatización</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
+            </div>
+            <div class="home-grid">
+                
+                <article class="card card--book" id="alias-inteligentes-v31-para-ecosistemas-devsecops">
+                    <header>
+                        <span class="card__meta">2026-05-04 — Bitacora &middot; Fase 8.4 (Identidad y Autoridad)</span>
+                        <h2 class="card__title"><a href="/biblioteca/alias-inteligentes-v31-para-ecosistemas-devsecops.html" aria-label="Leer artículo completo: Alias Inteligentes (v3.1) para ecosistemas DevSecOps">Alias Inteligentes (v3.1) para ecosistemas DevSecOps</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Evolución del enrutador Zsh: autodescubrimiento, parámetros infinitos y fallback dinámico de entorno virtual a global.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="shift-left-ai-inteligencia-artificial-de-cero-latencia">
+                    <header>
+                        <span class="card__meta">2026-05-02 — Cuadernillo &middot; Fase 9 (Inteligencia y Autonomía)</span>
+                        <h2 class="card__title"><a href="/biblioteca/shift-left-ai-inteligencia-artificial-de-cero-latencia.html" aria-label="Leer artículo completo: Shift-Left AI: Inteligencia Artificial de Cero Latencia">Shift-Left AI: Inteligencia Artificial de Cero Latencia</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo dotar a un asistente web de IA generativa sin exponer API Keys ni perjudicar el rendimiento (Core Web Vitals).</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos">
+                    <header>
+                        <span class="card__meta">2026-05-01 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos.html" aria-label="Leer artículo completo: Silenciando al Guardián: Excepciones explícitas en linters estáticos">Silenciando al Guardián: Excepciones explícitas en linters estáticos</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo gestionar falsos positivos en herramientas de auditoría de código (QA) mediante directivas de silenciamiento en línea.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="optimizacion-de-copias-de-seguridad-locales-y-zero-bloat">
+                    <header>
+                        <span class="card__meta">2026-04-30 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/optimizacion-de-copias-de-seguridad-locales-y-zero-bloat.html" aria-label="Leer artículo completo: Optimización de Copias de Seguridad Locales y Zero Bloat">Optimización de Copias de Seguridad Locales y Zero Bloat</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo una auditoría en la terminal redujo el peso de los backups en un 99.3% aislando el código fuente de los binarios y el CMS.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh">
+                    <header>
+                        <span class="card__meta">2026-04-24 — Cuadernillo &middot; Fase 7 (Automatización y Clasificación)</span>
+                        <h2 class="card__title"><a href="/biblioteca/discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh.html" aria-label="Leer artículo completo: Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)">Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo resolver la activación de entornos virtuales de Python (.venv) cuando el editor lo hace mágicamente pero la terminal del sistema no.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="library-section" id="devsecops-y-gobernanza">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#devsecops-y-gobernanza" aria-label="Ver sección: devsecops y gobernanza">devsecops y gobernanza</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
+            </div>
+            <div class="home-grid">
+                
+                <article class="card card--book" id="topologia-de-ia-el-stack-hibrido-en-devsecops">
+                    <header>
+                        <span class="card__meta">2026-05-12 — Compendio &middot; Fase Épica 2 - Fase 4 (Observabilidad y SRE IA)</span>
+                        <h2 class="card__title"><a href="/biblioteca/topologia-de-ia-el-stack-hibrido-en-devsecops.html" aria-label="Leer artículo completo: Topología de IA: El Stack Híbrido en DevSecOps">Topología de IA: El Stack Híbrido en DevSecOps</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Mapa arquitectónico de cómo se integran y orquestan los agentes de Inteligencia Artificial locales y en la nube a lo largo del pipeline de desarrollo.</p>
+                    </div>
+                </article>
+                <article class="card card--book" id="arquitectura-y-gobernanza-merci-totalpy-como-ssot">
+                    <header>
+                        <span class="card__meta">2026-05-07 — Compendio &middot; Fase 7</span>
+                        <h2 class="card__title"><a href="/biblioteca/arquitectura-y-gobernanza-merci-totalpy-como-ssot.html" aria-label="Leer artículo completo: Arquitectura y Gobernanza: merci-total.py como SSOT">Arquitectura y Gobernanza: merci-total.py como SSOT</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Consolidación del pipeline DevSecOps local, el patrón Fail-Fast y la orquestación como Única Fuente de Verdad.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="agent-chaining-y-buffer-social-de-la-nota-a-linkedin-con-friccion-cero">
+                    <header>
+                        <span class="card__meta">2026-05-14 — Cuadernillo &middot; Fase Epic 3 - Fase 1</span>
+                        <h2 class="card__title"><a href="/biblioteca/agent-chaining-y-buffer-social-de-la-nota-a-linkedin-con-friccion-cero.html" aria-label="Leer artículo completo: Agent Chaining y Buffer Social: De la Nota a LinkedIn con Fricción Cero">Agent Chaining y Buffer Social: De la Nota a LinkedIn con Fricción Cero</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Implementación de flujos de trabajo con múltiples agentes locales y máquinas de estado para la automatización de marketing (Content Ops).</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="actualizacion-de-la-politica-de-seguridad-para-prevenir-ataques-a-la-cadena-de-suministro">
+                    <header>
+                        <span class="card__meta">2026-05-13 — Cuadernillo &middot; Fase Epic 2 - Fase 4</span>
+                        <h2 class="card__title"><a href="/biblioteca/actualizacion-de-la-politica-de-seguridad-para-prevenir-ataques-a-la-cadena-de-suministro.html" aria-label="Leer artículo completo: Actualización de la Política de Seguridad para Prevenir ataques a la cadena de suministro">Actualización de la Política de Seguridad para Prevenir ataques a la cadena de suministro</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Se implementó una política de seguridad para bloquear etiquetas <script src="..."> y <link rel="stylesheet"> que apunte a dominios externos, protegiendo así la regla arquitectónica de 'Zero Bloat' y evitando ataques a la cadena de suministro.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="integracion-de-qwen25-coder-con-ollama-para-devrel-local">
+                    <header>
+                        <span class="card__meta">2026-05-13 — Cuadernillo &middot; Fase Epic 3 - Fase 1</span>
+                        <h2 class="card__title"><a href="/biblioteca/integracion-de-qwen25-coder-con-ollama-para-devrel-local.html" aria-label="Leer artículo completo: Integración de Qwen2.5-Coder con Ollama para DevRel Local">Integración de Qwen2.5-Coder con Ollama para DevRel Local</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Se describe la implementación exitosa de Qwen2.5-Coder junto con Ollama en el equipo local, eliminando la necesidad de enviar borradores a nubes externas y asegurando la privacidad total.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="conectar-la-cantidad-de-posts-en-espera-de-linkedin-con-grafana">
+                    <header>
+                        <span class="card__meta">2026-05-13 — Cuadernillo &middot; Fase Epic 3 - Fase 1</span>
+                        <h2 class="card__title"><a href="/biblioteca/conectar-la-cantidad-de-posts-en-espera-de-linkedin-con-grafana.html" aria-label="Leer artículo completo: Conectar la Cantidad de Posts en Espera de LinkedIn con Grafana">Conectar la Cantidad de Posts en Espera de LinkedIn con Grafana</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Se implementó una métrica para rastrear los documentos con estado_social en_cola en el agente SRE.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="validacion-de-defensas-devsecops-con-chaos-monkey-y-merciauditpy">
+                    <header>
+                        <span class="card__meta">2026-05-12 — Cuadernillo &middot; Fase Epic 2 - Fase 4</span>
+                        <h2 class="card__title"><a href="/biblioteca/validacion-de-defensas-devsecops-con-chaos-monkey-y-merciauditpy.html" aria-label="Leer artículo completo: Validación de Defensas DevSecOps con Chaos Monkey y merciaudit.py">Validación de Defensas DevSecOps con Chaos Monkey y merciaudit.py</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Se implementó un Chaos Monkey impulsado por IA para validar las defensas DevSecOps, identificando dos lecciones críticas sobre el mecanismo de Rollback y la robustez de las Regex del auditor.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="metrica-sre-exacta-para-documentos-en-promocion">
+                    <header>
+                        <span class="card__meta">2026-05-12 — Cuadernillo &middot; Fase Épica 2 - Fase 4 (Observabilidad y SRE IA)</span>
+                        <h2 class="card__title"><a href="/biblioteca/metrica-sre-exacta-para-documentos-en-promocion.html" aria-label="Leer artículo completo: Métrica SRE Exacta para Documentos en Promoción">Métrica SRE Exacta para Documentos en Promoción</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Se implementó la métrica merci_documentos_promocion_total en merci-sre.py para alinear la telemetría con la realidad operativa.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="eliminacion-de-la-version-obsoleta-en-docker-composeyml">
+                    <header>
+                        <span class="card__meta">2026-05-12 — Cuadernillo &middot; Fase Épica 2 - Fase 4 (Observabilidad y SRE IA)</span>
+                        <h2 class="card__title"><a href="/biblioteca/eliminacion-de-la-version-obsoleta-en-docker-composeyml.html" aria-label="Leer artículo completo: Eliminación de la versión obsoleta en docker-compose.yml">Eliminación de la versión obsoleta en docker-compose.yml</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Se eliminó el atributo 'version' del archivo docker-compose.yml para alinear con las mejores prácticas de Docker Compose V2.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="transformacion-de-checklist-de-seguridad-pasiva-en-escudo-activo">
+                    <header>
+                        <span class="card__meta">2026-05-12 — Cuadernillo &middot; Fase Epic 2 - Fase 4</span>
+                        <h2 class="card__title"><a href="/biblioteca/transformacion-de-checklist-de-seguridad-pasiva-en-escudo-activo.html" aria-label="Leer artículo completo: Transformación de Checklist de Seguridad Pasiva en Escudo Activo">Transformación de Checklist de Seguridad Pasiva en Escudo Activo</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Se convierte un checklist de seguridad pasivo en un escudo activo mediante merci-hardening.py, garantizando el Continuous Compliance.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="optimizacion-del-proceso-de-reescritura-con-ia-para-ssot">
+                    <header>
+                        <span class="card__meta">2026-05-10 — Cuadernillo &middot; Fase Épica 2 - Fase 3 (Orquestación de Contenidos)</span>
+                        <h2 class="card__title"><a href="/biblioteca/optimizacion-del-proceso-de-reescritura-con-ia-para-ssot.html" aria-label="Leer artículo completo: Optimización del Proceso de Reescritura con IA para SSOT">Optimización del Proceso de Reescritura con IA para SSOT</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Se implementó un patrón 'Decisión vs Ejecución' para reducir tokens y evitar alucinaciones en la reescritura de archivos.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="refactorizacion-de-system-prompts-a-archivos-markdown">
+                    <header>
+                        <span class="card__meta">2026-05-10 — Cuadernillo &middot; Fase Épica 2 - Fase 3 (Orquestación de Contenidos)</span>
+                        <h2 class="card__title"><a href="/biblioteca/refactorizacion-de-system-prompts-a-archivos-markdown.html" aria-label="Leer artículo completo: Refactorización de System Prompts a Archivos Markdown">Refactorización de System Prompts a Archivos Markdown</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Se centralizan las instrucciones de la IA en archivos Markdown para mejorar la Separación de Responsabilidades y facilitar la gestión del ecosistema de IA.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz">
+                    <header>
+                        <span class="card__meta">2026-05-10 — Cuadernillo &middot; Fase Épica 2 - Fase 3 (Orquestación de Contenidos)</span>
+                        <h2 class="card__title"><a href="/biblioteca/fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz.html" aria-label="Leer artículo completo: Fix: Sincronización de DLP en .gitignore para docs/matriz">Fix: Sincronización de DLP en .gitignore para docs/matriz</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Se añadió explícitamente el directorio 'docs/matriz/' al archivo '.gitignore' para evitar que Git rastreara los archivos automáticamente y bloqueara el pipeline por DLP.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="organizacion-del-laboratorio-con-patrones-zero-code">
+                    <header>
+                        <span class="card__meta">2026-05-09 — Cuadernillo &middot; Fase Épica 2 - Fase 3 (Orquestación de Contenidos)</span>
+                        <h2 class="card__title"><a href="/biblioteca/organizacion-del-laboratorio-con-patrones-zero-code.html" aria-label="Leer artículo completo: Organización del Laboratorio con Patrones Zero-Code">Organización del Laboratorio con Patrones Zero-Code</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Se describe cómo se organizó el laboratorio para mejorar la visibilidad y seguridad mediante el uso de patrones Zero-Code.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="domando-el-sycophancy-en-slms-locales-con-shift-left-data-parsing">
+                    <header>
+                        <span class="card__meta">2026-05-09 — Cuadernillo &middot; Fase Épica 2 - Fase 3 (Orquestación de Contenidos)</span>
+                        <h2 class="card__title"><a href="/biblioteca/domando-el-sycophancy-en-slms-locales-con-shift-left-data-parsing.html" aria-label="Leer artículo completo: Domando el Sycophancy en SLMs locales con Shift-Left Data Parsing">Domando el Sycophancy en SLMs locales con Shift-Left Data Parsing</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Solución para evitar que los SLMs como Qwen 2.5 Coder inventen pasos futuros al recibir instrucciones.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="agente-sync-ssot-curacion-autonoma-de-la-deriva-documental">
+                    <header>
+                        <span class="card__meta">2026-05-08 — Cuadernillo &middot; Fase Épica 2 - Fase 3 (Orquestación de Contenidos)</span>
+                        <h2 class="card__title"><a href="/biblioteca/agente-sync-ssot-curacion-autonoma-de-la-deriva-documental.html" aria-label="Leer artículo completo: Agente Sync SSOT: Curación Autónoma de la Deriva Documental">Agente Sync SSOT: Curación Autónoma de la Deriva Documental</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo delegamos la sincronización de estado entre la bitácora y el roadmap a un LLM para implementar Self-Healing Docs.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="gestion-de-la-proteccion-de-ramas-y-force-push">
+                    <header>
+                        <span class="card__meta">2026-05-08 — Cuadernillo &middot; Fase 11 (CI/CD Cloud)</span>
+                        <h2 class="card__title"><a href="/biblioteca/gestion-de-la-proteccion-de-ramas-y-force-push.html" aria-label="Leer artículo completo: Gestión de la Protección de Ramas y Force Push">Gestión de la Protección de Ramas y Force Push</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Nota preliminar sobre la colisión entre la protección de ramas en GitHub y la estrategia de force push para ramashuérfanas.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem">
+                    <header>
+                        <span class="card__meta">2026-05-06 — Cuadernillo &middot; Fase 11 (Cierre Arquitectónico)</span>
+                        <h2 class="card__title"><a href="/biblioteca/semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem.html" aria-label="Leer artículo completo: Semántica HTML y WAI-ARIA: Roles implícitos y acoplamiento BEM">Semántica HTML y WAI-ARIA: Roles implícitos y acoplamiento BEM</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Por qué los lectores de pantalla ignoran etiquetas aria-label genéricas y el peligro de acoplar bloques BEM.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="ceguera-de-proxy-y-bypass-en-headless-cms">
+                    <header>
+                        <span class="card__meta">2026-05-02 — Cuadernillo &middot; Fase 9 (Inteligencia y Autonomía)</span>
+                        <h2 class="card__title"><a href="/biblioteca/ceguera-de-proxy-y-bypass-en-headless-cms.html" aria-label="Leer artículo completo: Ceguera de Proxy y Bypass en Headless CMS">Ceguera de Proxy y Bypass en Headless CMS</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo atravesar barreras de seguridad y cachés agresivas (Varnish/OPcache) al conectar un publicador Python con WordPress.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="prevencion-de-fuga-de-credenciales-en-integracion-continua-local">
+                    <header>
+                        <span class="card__meta">2026-05-01 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/prevencion-de-fuga-de-credenciales-en-integracion-continua-local.html" aria-label="Leer artículo completo: Prevención de Fuga de Credenciales en Integración Continua Local">Prevención de Fuga de Credenciales en Integración Continua Local</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Por qué un archivo .gitignore no es suficiente cuando automatizas commits y cómo crear un escudo activo.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="la-ceguera-de-taller-y-la-paridad-devprod">
+                    <header>
+                        <span class="card__meta">2026-04-30 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/la-ceguera-de-taller-y-la-paridad-devprod.html" aria-label="Leer artículo completo: La Ceguera de Taller y la Paridad Dev/Prod">La Ceguera de Taller y la Paridad Dev/Prod</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Por qué desarrollar estilos sin el motor subyacente local genera errores en cascada y cómo evitar la divergencia de infraestructura.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="prevencion-de-fuga-de-datos-dlp-en-la-creacion-de-boilerplates">
+                    <header>
+                        <span class="card__meta">2026-04-30 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/prevencion-de-fuga-de-datos-dlp-en-la-creacion-de-boilerplates.html" aria-label="Leer artículo completo: Prevención de Fuga de Datos (DLP) en la creación de Boilerplates">Prevención de Fuga de Datos (DLP) en la creación de Boilerplates</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Por qué excluir carpetas del borrado en un script de instanciación expone propiedad intelectual y cómo blindar el entorno.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="prevencion-de-fuga-de-datos-con-ramas-huerfanas-en-git">
+                    <header>
+                        <span class="card__meta">2026-04-29 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/prevencion-de-fuga-de-datos-con-ramas-huerfanas-en-git.html" aria-label="Leer artículo completo: Prevención de Fuga de Datos con Ramas Huérfanas en Git">Prevención de Fuga de Datos con Ramas Huérfanas en Git</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo truncar el historial inmutable de un repositorio derivado para evitar exponer la propiedad intelectual de un proyecto matriz.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="conflictos-masivos-en-git-y-la-estrategia-de-fuerza-bruta-ours">
+                    <header>
+                        <span class="card__meta">2026-04-28 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/conflictos-masivos-en-git-y-la-estrategia-de-fuerza-bruta-ours.html" aria-label="Leer artículo completo: Conflictos masivos en Git y la estrategia de fuerza bruta (--ours)">Conflictos masivos en Git y la estrategia de fuerza bruta (--ours)</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo resolver colisiones de fusión destructivas cuando el entorno local es la única fuente de verdad.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git">
+                    <header>
+                        <span class="card__meta">2026-04-27 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git.html" aria-label="Leer artículo completo: Recuperación de datos y el peligro de los comandos destructivos en Git">Recuperación de datos y el peligro de los comandos destructivos en Git</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Por qué las interfaces gráficas mienten, la terminal dice la verdad, y cómo blindarse antes de reescribir el historial.</p>
+                    </div>
+                </article>
+                <article class="card card--booklet" id="release-pipeline-iterativo-agile-en-despliegue-de-plantillas">
+                    <header>
+                        <span class="card__meta">2026-04-27 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/release-pipeline-iterativo-agile-en-despliegue-de-plantillas.html" aria-label="Leer artículo completo: Release Pipeline Iterativo: Agile en despliegue de plantillas">Release Pipeline Iterativo: Agile en despliegue de plantillas</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo gobernar la actualización de un Boilerplate desde un proyecto matriz sin sufrir Deriva de Configuración.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="library-section" id="identidad-y-autoridad-tecnica">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#identidad-y-autoridad-tecnica" aria-label="Ver sección: identidad y autoridad técnica">identidad y autoridad técnica</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
+            </div>
+            <div class="home-grid">
+                
+                <article class="card card--booklet" id="el-cv-anti-ats-hablando-el-idioma-nativo-de-las-maquinas">
+                    <header>
+                        <span class="card__meta">2026-05-05 — Cuadernillo &middot; Fase 11 (CI/CD y Lighthouse)</span>
+                        <h2 class="card__title"><a href="/biblioteca/el-cv-anti-ats-hablando-el-idioma-nativo-de-las-maquinas.html" aria-label="Leer artículo completo: El CV 'Anti-ATS': Hablando el Idioma Nativo de las Máquinas">El CV 'Anti-ATS': Hablando el Idioma Nativo de las Máquinas</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Estrategia para superar los algoritmos de reclutamiento utilizando microdatos estructurados y comunicación en capas.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="library-section" id="infraestructura-y-automatizacion">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#infraestructura-y-automatizacion" aria-label="Ver sección: infraestructura y automatización">infraestructura y automatización</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
+            </div>
+            <div class="home-grid">
+                
+                <article class="card card--booklet" id="inyeccion-de-claves-ssh-en-github-actions-anatomia-de-un-despliegue-rsync">
+                    <header>
+                        <span class="card__meta">2026-05-05 — Cuadernillo &middot; Fase 11 (CI/CD y Lighthouse)</span>
+                        <h2 class="card__title"><a href="/biblioteca/inyeccion-de-claves-ssh-en-github-actions-anatomia-de-un-despliegue-rsync.html" aria-label="Leer artículo completo: Inyección de Claves SSH en GitHub Actions: Anatomía de un Despliegue rsync">Inyección de Claves SSH en GitHub Actions: Anatomía de un Despliegue rsync</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Depuración de errores de autenticación y gestión de secretos para despliegues automatizados mediante CI/CD.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="library-section" id="inteligencia-artificial-y-gobernanza">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#inteligencia-artificial-y-gobernanza" aria-label="Ver sección: inteligencia artificial y gobernanza">inteligencia artificial y gobernanza</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
+            </div>
+            <div class="home-grid">
+                
+                <article class="card card--book" id="el-limite-cognitivo-por-que-la-ia-local-falla-en-la-gobernanza-documental">
+                    <header>
+                        <span class="card__meta">2026-05-08 — Compendio &middot; Fase Épica 2 - Fase 3 (Orquestación de Contenidos)</span>
+                        <h2 class="card__title"><a href="/biblioteca/el-limite-cognitivo-por-que-la-ia-local-falla-en-la-gobernanza-documental.html" aria-label="Leer artículo completo: El Límite Cognitivo: Por qué la IA Local Falla en la Gobernanza Documental">El Límite Cognitivo: Por qué la IA Local Falla en la Gobernanza Documental</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Análisis estratégico sobre la viabilidad de los Small Language Models (SLMs) en tareas de orquestación de contenidos, RAG y sincronización SSOT.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="library-section" id="rendimiento-y-ux">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#rendimiento-y-ux" aria-label="Ver sección: rendimiento y ux">rendimiento y ux</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
+            </div>
+            <div class="home-grid">
+                
+                <article class="card card--booklet" id="la-tirania-de-la-cache-movil-y-el-cache-busting-dinamico">
+                    <header>
+                        <span class="card__meta">2026-04-28 — Cuadernillo &middot; Fase 8 (Expansión de Contenido)</span>
+                        <h2 class="card__title"><a href="/biblioteca/la-tirania-de-la-cache-movil-y-el-cache-busting-dinamico.html" aria-label="Leer artículo completo: La tiranía de la caché móvil y el 'Cache Busting' dinámico">La tiranía de la caché móvil y el 'Cache Busting' dinámico</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo forzar a los navegadores móviles a actualizar CSS y JS en arquitecturas híbridas.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="library-section" id="seguridad-y-arquitectura">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#seguridad-y-arquitectura" aria-label="Ver sección: seguridad y arquitectura">seguridad y arquitectura</a></h2>
+                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
+            </div>
+            <div class="home-grid">
+                
+                <article class="card card--booklet" id="prevencion-de-fugas-de-datos-data-leak-en-empaquetados">
+                    <header>
+                        <span class="card__meta">2026-04-26 — Cuadernillo &middot; Fase 10 (Empaquetado y Release)</span>
+                        <h2 class="card__title"><a href="/biblioteca/prevencion-de-fugas-de-datos-data-leak-en-empaquetados.html" aria-label="Leer artículo completo: Prevención de Fugas de Datos (Data Leak) en empaquetados">Prevención de Fugas de Datos (Data Leak) en empaquetados</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Por qué purgar los artefactos binarios es fundamental al abstraer un Boilerplate agnóstico.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

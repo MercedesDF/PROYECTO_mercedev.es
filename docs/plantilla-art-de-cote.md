@@ -1,5 +1,6 @@
 ---
 titulo: "Título de la exploración o cuadernillo"
+tipo: "cuadernillo"
 estado: "incubacion"
 estado_social: "en_cola"
 tema: "Art de Coté"

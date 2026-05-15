@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimización de Copias de Seguridad Locales y Zero Bloat — mercedev.es</title>
+    <meta name="description" content="Cómo una auditoría en la terminal redujo el peso de los backups en un 99.3% aislando el código fuente de los binarios y el CMS.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/optimizacion-de-copias-de-seguridad-locales-y-zero-bloat.html">
+    <link rel="stylesheet" href="/css/main.css?v=1778837033">
+    <script src="/js/MerciController.js?v=1778479031" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Optimizaci\u00f3n de Copias de Seguridad Locales y Zero Bloat",
+      "description": "C\u00f3mo una auditor\u00eda en la terminal redujo el peso de los backups en un 99.3% aislando el c\u00f3digo fuente de los binarios y el CMS.",
+      "url": "https://mercedev.es/biblioteca/optimizacion-de-copias-de-seguridad-locales-y-zero-bloat.html"
+    }
+    </script>
+</head>
+<body class="page">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
+            <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                <h1 class="home-card__title--highlight">Optimización de Copias de Seguridad Locales y Zero Bloat</h1>
+                <a href="/descargas/optimizacion-de-copias-de-seguridad-locales-y-zero-bloat.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>1. El Desafío (Síntoma)</h2>
+<p>Durante el ciclo de desarrollo, la herramienta local de copias de seguridad (<code>merci-backup.py</code>) estaba generando archivos ZIP con un peso superior a los 50 MB. Para un repositorio compuesto casi exclusivamente por archivos de texto plano (Markdown, HTML, SASS, Python), este tamaño era una anomalía crítica que indicaba la presencia de código "polizón".</p>
+<h2>2. La Maniobra (Lógica)</h2>
+<p>Para descubrir qué se estaba comprimiendo bajo el capó, se implementó un modo de "Caja de Cristal" en el script mediante la bandera <code>--verbose</code> (o <code>-v</code>). Al ejecutarlo, la terminal reveló la causa raíz: se estaba empaquetando la instalación completa de WordPress (<code>public/blog</code>), los binarios autogenerados por el compilador Dart Sass (<code>scripts/merci/bin</code>) y un cementerio de PDFs de auditorías antiguas.</p>
+<p>El fallo residía en la lógica de exclusión. El script ignoraba carpetas por su nombre genérico (ej. <code>backups</code> o <code>.git</code>), pero no se podía añadir la palabra <code>blog</code> a la lista negra porque eso habría destruido el respaldo de los artículos legítimos guardados en <code>laboratorio/blog/</code>.</p>
+<p><strong>La Solución Arquitectónica:</strong>
+Se refactorizó el script para abandonar la coincidencia por cadenas de texto y adoptar un filtrado por <strong>rutas absolutas</strong> usando la librería <code>pathlib</code>:</p>
+<pre><code class="language-python"># Comprobación estricta y quirúrgica
+dirs[:] = [d for d in dirs if (Path(root) / d) not in EXCLUDE_PATHS]
+</code></pre>
+<p>Esto permitió bloquear quirúrgicamente la ruta <code>public/blog</code> (el CMS pesado) salvando <code>laboratorio/blog</code> (nuestro código fuente).</p>
+<h2>3. El Aprendizaje / Deuda Técnica</h2>
+<p>Este incidente refuerza dos grandes lecciones del paradigma DevSecOps:</p>
+<ol>
+<li><strong>Zero Bloat en Disaster Recovery:</strong> Una copia de seguridad de código fuente debe contener exclusivamente el estado inmutable del proyecto. Las dependencias externas, los binarios (Sass) o el CMS (WordPress) se instalan, se regeneran o se gestionan aparte. Tras el parche, el backup se redujo a <strong>0.35 MB (una optimización del 99.3%)</strong>.</li>
+<li><strong>Transparencia de las herramientas CLI:</strong> Toda herramienta de consola (CLI) que realice operaciones destructivas o de I/O masivo debe poseer un modo detallado (<code>--verbose</code>). Un script no debe ser nunca una caja negra; el desarrollador debe poder auditar su comportamiento en tiempo real a través de la salida estándar de la terminal.</li>
+</ol>
+<hr />
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

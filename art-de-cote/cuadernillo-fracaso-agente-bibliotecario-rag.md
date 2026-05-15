@@ -5,9 +5,9 @@ tipo: "cuadernillo"
 tema: "Inteligencia Artificial y RAG"
 fecha: "2026-05-08"
 fase: "3 (Orquestación de Contenidos)"
-estado: "publicado"
+estado: "borrador"
 alt_portada: "Un cerebro robótico sobrecargado de papeles."
-<!-- linkedin: ""
+
 ---
 ## El Desafío (Síntoma)
 El objetivo de la Fase 3 era construir un "Agente Bibliotecario" (`merci-librarian.py`) capaz de procesar notas crudas de la autora, cruzar esa información con el registro histórico de la bitácora (RAG Local) y redactar cuadernillos Markdown con formato YAML estricto (Zero-Shot).

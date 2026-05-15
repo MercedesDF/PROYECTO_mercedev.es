@@ -38,6 +38,66 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-15 — UX/UI: Reubicación visual del Badge en Art de Coté
+
+**Contexto:** La "Píldora de Anuncio" (Badge) se inyectaba encima del título principal (H1) en la sección Art de Coté. Visualmente, resultaba más orgánico colocarla como un "Call to Action" al final del Hero.
+
+**Hecho:** Se refactorizó la plantilla HTML en `scripts/merci/merci-publish.py` moviendo la variable `{badge_html}` al final de la sección. Se ajustaron los márgenes en `src/scss/components/_hero.scss`.
+
+**Motivo / criterio:** *Visual Hierarchy*. El flujo de lectura natural de arriba hacia abajo (Título -> Subtítulo -> Acción) posiciona mejor el elemento interactivo, maximizando su intención de clic (CTR) antes de que el usuario haga scroll hacia la cuadrícula de artículos.
+
+### 2026-05-15 — Arch: Rechazo de menús desplegables e inyección SSG de Badge
+
+**Contexto:** Para dar relevancia al artículo del Boilerplate, se propuso añadir un menú desplegable (Dropdown) al enlace "Art de Coté" en la navegación principal. Paralelamente, se requería automatizar la inyección de la "Píldora de Anuncio" en la cabecera de la sección.
+
+**Hecho:** Se rechazó el diseño de menú desplegable. Se refactorizó `scripts/merci/merci-publish.py` para inyectar dinámicamente el componente HTML `.hero__badge` exclusivamente cuando el motor compila el índice de `Art de Coté`.
+
+**Motivo / criterio:** *WAI-ARIA Strict y Zero-Bloat*. Un menú desplegable accesible requiere JavaScript adicional (gestión de foco, eventos táctiles) y ensucia la UI móvil. Inyectar la píldora nativamente en el *Hero* de la sección destino mediante el motor SSG logra la visibilidad deseada con cero fricción, 0ms de latencia, accesibilidad perfecta y manteniendo el header inmaculado.
+
+### 2026-05-15 — UX/UI: Reubicación de Announcement Badge a Art de Coté
+
+**Contexto:** El "Announcement Badge" (píldora) destacando el artículo del Boilerplate se ubicó inicialmente en la portada (`index.html`), pero restaba el foco global de la landing.
+
+**Hecho:** Se extrajo el componente `.hero__badge` de la portada y se delegó su inyección al orquestador SSG para que aparezca exclusivamente en la sección `Art de Coté`.
+
+**Motivo / criterio:** *Information Architecture*. Mover la píldora a su propia estantería respeta la segregación de entornos. El visitante que entra a la sección "Art de Coté" verá inmediatamente el logro destacado, mientras que el *Home* se mantiene puro como centro de control global.
+
+### 2026-05-15 — UX/UI: Implementación de Announcement Badge en Hero
+
+**Contexto:** Se requería dar la máxima relevancia posible al artículo "Anatomía de Merci Boilerplate" (el primer *Art de Coté*). Mantenerlo al final del texto en la portada diluía su importancia como producto principal derivado del laboratorio. Además, la métrica de `Releases Boilerplate` había quedado huérfana en el bloque de texto.
+
+**Hecho:** Se diseñó el componente `.hero__badge` en `src/scss/components/_hero.scss` y se inyectó en el Hero principal de `public/index.html`. Se movió la métrica de releases de vuelta al dashboard correspondiente y se eliminó el texto redundante al final de la página.
+
+**Motivo / criterio:** *Landing Page Patterns & Visual Hierarchy*. Un "Announcement Badge" (Píldora de anuncio) sobre el H1 es el estándar de la industria (SaaS, Vercel, Stripe) para dirigir tráfico inmediato a nuevos *releases* o artículos fundacionales. Al colocar el enlace en el punto más alto del *First Fold*, garantizamos un CTR (Click-Through Rate) máximo sin sobrecargar la lectura del texto inferior.
+
+### 2026-05-15 — UX/UI: Erradicación de viñetas en listas centradas
+
+**Contexto:** Con el rediseño a formato *Landing Page* (texto centrado a ancho completo), los puntos nativos de las listas (`ul`, `ol`) generaban ruido visual y rompían la simetría horizontal de los bloques.
+
+**Hecho:** Se inyectó `list-style-type: none;` a los elementos de lista dentro del bloque `.prose__content` en `src/scss/components/_prose.scss`.
+
+**Motivo / criterio:** *Minimalismo y Simetría*. Un diseño centrado gana rotundidad y elegancia cuando los elementos se alinean basándose puramente en su tipografía (text-align), sin los marcadores nativos del navegador desplazando el eje visual.
+
+### 2026-05-15 — UX/UI: Refactorización a Landing Page Style (Full Width & Centered)
+
+**Contexto:** El patrón de diseño "Side-Heading" (titulares desplazados) proyectaba un estilo muy de documentación corporativa. Se requería una presencia visual con más pegada, similar a una Landing Page, donde los textos y encabezados ocuparan todo el ancho disponible (1000px, igual que el dashboard) y estuvieran completamente centrados.
+
+**Hecho:** Se refactorizó la arquitectura SASS en `src/scss/components/_prose.scss`.
+- Se eliminó el sistema de *Floats* asimétricos.
+- Se implementó `text-align: center` global para el contenido.
+- Se simplificó la línea divisoria a un `border-top` que hereda orgánicamente el 100% del ancho del contenedor.
+- Se restauró la alineación natural para bloques de código (`<pre>`) y se flexibilizó el contador de las listas ordinales.
+
+**Motivo / criterio:** *Impacto Directo y Simplicidad*. A veces, menos es más. Un diseño centrado a pantalla completa aporta una autoridad inmediata, dirigiendo la atención del usuario en un flujo vertical ininterrumpido que encaja a la perfección con la "potencia" de los dashboards de métricas superiores.
+
+### 2026-05-15 — UX/UI: Ajuste de espaciado inferior en secciones principales
+
+**Contexto:** El espaciado inferior de la clase estructural `.section` resultaba excesivo, dejando un área vacía desproporcionada antes del footer u otras secciones.
+
+**Hecho:** Se redujo el `padding-bottom` de la clase `.section` en `src/scss/components/_section.scss`.
+
+**Motivo / criterio:** *Whitespace Control*. Reducir el espacio final de la sección a una o dos líneas de párrafo (aprox. `1.5rem` - `2rem`) mejora el flujo vertical de la página y compacta el diseño sin generar vacíos estructurales que desconecten visualmente el contenido del pie de página.
+
 ### 2026-05-14 — UX/UI: Separadores editoriales dinámicos (Pseudo-elementos)
 
 **Contexto:** La vista de lectura continua (`.prose`) presentaba una carga visual densa entre secciones. Se sugirió envolver las secciones en `<div>` o utilizar cajas (cards) para añadir líneas divisorias, lo cual habría roto el flujo de generación estándar desde Markdown puro.

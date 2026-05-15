@@ -5,7 +5,7 @@ tipo: "cuadernillo"
 tema: "Art de Coté"
 fecha: "2026-05-06"
 fase: "1"
-estado: "publicado"
+estado: "borrador"
 alt_portada: "Fragmento de código Python mostrando expresiones regulares para extraer métricas web."
 ---
 ## El Desafío (Síntoma)
