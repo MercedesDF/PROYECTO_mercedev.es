@@ -38,6 +38,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-16 — Fix: Exclusión acotada de PDFs locales en Git
+
+**Contexto:** Para evitar subir al repositorio los manuales impresos localmente, se planteó inicialmente una exclusión global de PDFs. Este enfoque fue rechazado porque el motor SSG matriz sí genera y gestiona archivos `.pdf` legítimos para la Biblioteca.
+
+**Hecho:** Se añadió la regla de exclusión estricta `docs/*.pdf` en el archivo `.gitignore` y se enmendó la entrada anterior de la bitácora.
+
+**Motivo / criterio:** *Precisión y Single Source of Truth*. Las reglas globales (como `*.pdf`) son antipatrones que generan falsos negativos, ocultando archivos legítimos de otras capas. Acotar la exclusión al directorio exacto del problema previene efectos secundarios destructivos en la publicación SSG.
+
+**Siguiente paso o deuda:** Promover el nuevo Art de Coté a su estantería definitiva.
+
+### 2026-05-16 — Docs: Conservación de utilidad PDF como Art de Coté
+
+**Contexto:** Se desarrolló un script táctico interactivo (`generar-pdf-docs.py`) para renderizar manuales Markdown a PDF y facilitar su impresión física. No procedía integrarlo en el orquestador SSG matriz.
+
+**Hecho:** Se redactó y guardó un cuadernillo en formato Art de Coté documentando el problema, la solución de aislamiento y salvaguardando el código fuente para el futuro.
+
+**Motivo / criterio:** *Cero Desperdicio (Zero Waste) y Separation of Concerns*. El script es útil operativamente pero no es un componente de despliegue web. Archivar su lógica como píldora de conocimiento evita perder la I+D invertida sin ensuciar la infraestructura *Zero-Bloat* de los orquestadores base.
+
+**Siguiente paso o deuda:** Añadir una regla de exclusión estricta y acotada (`docs/*.pdf`) en `.gitignore` para prevenir fugas de manuales locales, respetando los PDFs que el motor SSG genera legítimamente.
+
 ### 2026-05-16 — SEO: Refinamiento de metadatos estáticos y Open Graph en portada
 
 **Contexto:** La portada requería una actualización en sus metadatos estáticos para reflejar la madurez actual del ecosistema (integración de agentes de Inteligencia Artificial y metodología Spec as Source) y controlar la previsualización de la tarjeta social al ser compartida en LinkedIn.
