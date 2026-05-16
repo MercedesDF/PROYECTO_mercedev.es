@@ -2,7 +2,7 @@
 titulo: "Automatización del Dashboard: Extracción de métricas Core Web Vitals desde PDFs"
 descripcion: "Cómo leer reportes de PageSpeed Insights con Python puro (pypdf) e inyectar las métricas dinámicamente en una portada HTML estática."
 tipo: "cuadernillo"
-tema: "Art de Coté"
+tema: "DevSecOps y Automatización"
 fecha: "2026-05-06"
 fase: "1"
 estado: "borrador"

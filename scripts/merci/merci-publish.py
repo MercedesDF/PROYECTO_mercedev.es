@@ -205,6 +205,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     # QUÉ HACE: Asigna la clase CSS BEM dinámicamente basándose en el atributo 'tipo'.
     # POR QUÉ: Respeta la decisión del autor en el YAML Frontmatter, aplicando degradación elegante.
     clase_css = "card--booklet" if tipo.lower() == "cuadernillo" else "card--book"
+    page_id = "page-art-de-cote" if is_art else "page-biblioteca"
     
     html_final = f"""<!DOCTYPE html>
 <html lang="es">
@@ -227,7 +228,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     }}
     </script>
 </head>
-<body class="page">
+<body class="page" id="{page_id}">
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     {header_html}
     <main class="main--padded section" id="main">
@@ -347,7 +348,9 @@ def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, can
                 
     # QUÉ HACE: Inyecta el "Announcement Badge" dinámicamente solo en la portada de Art de Coté
     badge_html = ""
+    page_id = "page-biblioteca"
     if title == "Art de Coté":
+        page_id = "page-art-de-cote"
         badge_html = """<a href="/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html" class="hero__badge">
             <span class="hero__badge-tag">Primer Art de Coté</span>
             Anatomía de Merci Boilerplate →
@@ -374,7 +377,7 @@ def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, can
     }}
     </script>
 </head>
-<body class="page">
+<body class="page" id="{page_id}">
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     {header_html}
     <main class="main" id="main">

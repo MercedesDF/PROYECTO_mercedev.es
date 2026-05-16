@@ -38,6 +38,30 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-16 — SEO: Refinamiento de metadatos estáticos y Open Graph en portada
+
+**Contexto:** La portada requería una actualización en sus metadatos estáticos para reflejar la madurez actual del ecosistema (integración de agentes de Inteligencia Artificial y metodología Spec as Source) y controlar la previsualización de la tarjeta social al ser compartida en LinkedIn.
+
+**Hecho:** Se actualizaron las metaetiquetas en `public/index.html`.
+- Se reescribió la etiqueta `description` acotándola a un máximo óptimo de 149 caracteres.
+- Se limpiaron comentarios obsoletos y se habilitó explícitamente la etiqueta `robots` con las directivas `index, follow`.
+- Se inyectaron metadatos del protocolo Open Graph (OG) para controlar el título, descripción e imagen visualizada en plataformas sociales.
+
+**Motivo / criterio:** *SEO Técnico y DevRel*. Alinear la meta descripción con el valor técnico real del ecosistema y establecer las tarjetas sociales (Social Cards) garantiza una consistencia visual inquebrantable cuando el agente publicador (`merci-linkedin.py`) dirija el tráfico orgánico de vuelta al núcleo estático.
+
+**Siguiente paso o deuda:** Revisar la implementación del meta viewport y otros metadatos estáticos en las plantillas de los cuadernillos del motor SSG.
+
+### 2026-05-15 — UX/UI: Resaltado de navegación activa (Zero-JS)
+
+**Contexto:** Se perdía la noción de qué sección de la web se estaba visitando (ej. "Sobre Mí"), ya que el menú de navegación no resaltaba el enlace activo. Se solicitó solucionarlo sin inyectar JavaScript para proteger el rendimiento.
+
+**Hecho:** Se implementó un patrón de enrutamiento visual basado en `Body IDs` y selectores de atributos CSS.
+- Se inyectaron `id="page-home"`, `id="page-sobre-mi"`, etc., en las etiquetas `<body>` estáticas.
+- Se refactorizó `scripts/merci/merci-publish.py` para inyectar dinámicamente el `id` según el tema.
+- Se crearon reglas SASS (`#page-home .nav__link[href="/"]`) para aplicar color `$color-primary` al enlace coincidente.
+
+**Motivo / criterio:** *Single Source of Truth y Zero-JS*. Como el bloque `<header>` es idéntico en todas las páginas (sincronizado automáticamente), no es posible añadir una clase `.active` directamente en el HTML del enlace. Delegar el estado activo a la combinación del contexto global (`body id`) con el destino del enlace (`href`) logra un resaltado perfecto, mantenible y con 0 milisegundos de latencia en el navegador.
+
 ### 2026-05-15 — Docs: Oficialización del manual de Ciclo de Vida y Tipos
 
 **Contexto:** Se redactó una guía maestra explicando la anatomía del YAML Frontmatter y el enrutamiento de la máquina de estados. Inicialmente se planteó guardarlo en `.privado/`, pero se reconoció como un documento estructural vital para futuros usuarios del Boilerplate.
