@@ -16,7 +16,7 @@ Por diseño arquitectónico (Environment Segregation), el núcleo estático (Bib
    ```bash
    merci promote
    ```
-   *Nota:* El asistente leerá el campo `tema` del YAML para enrutar mágicamente el archivo a `biblioteca/` o `art-de-cote/`. Validará el SEO, la Accesibilidad y aplicará el Escudo de Referencias Cruzadas (bloqueará si enlaza a contenido no promovido).
+   *Nota:* El asistente leerá el campo `tema` del YAML para enrutar mágicamente el archivo a `biblioteca/` o `art-de-cote/`. Al finalizar con éxito, **te preguntará si deseas invocar al Agente Blogger** para que genere automáticamente el post promocional y lo deje en la incubadora.
 3. **Compilación y QA:** Ejecutar el orquestador maestro para transformar el Markdown en HTML/PDF, actualizar el índice y pasar la auditoría estricta:
    ```bash
    merci total
@@ -30,7 +30,7 @@ Por diseño arquitectónico (Environment Segregation), el núcleo estático (Bib
 **Características:** Contenido dinámico, noticias, reflexiones o novedades rápidas.
 
 ### Paso a Paso:
-1. **Incubación (Agent Chaining):** Tras crear un cuadernillo, el Bibliotecario permite invocar automáticamente al Blogger (`merci-blogger.py`). También se puede lanzar contenido de marketing directo con la opción 4 del Librarian. El Blogger genera el post en `incubacion/` con `estado: "incubacion"` y `estado_social: "en_cola"`. Cambiar el estado a `"borrador"`.
+1. **Incubación:** Nace de la llamada automática de `merci promote` (Agent Chaining) o invocando manualmente a `merci-blogger.py`. El Blogger genera el post en `incubacion/` con `estado: "incubacion"`, `tema: "Blog"` y `estado_social: "en_cola"`. Una vez revisado, cambiar el estado a `"borrador"` y el estado social a `"aprobado"`.
 2. **Curación Minimalista (Promote):** Ejecutar `merci promote`. El orquestador detectará que el tema es "Blog", ocultará las preguntas estructurales burocráticas (Alt de portada, Fase) y lo moverá a la carpeta `blog/` en la raíz.
 3. **Sincronización Directa (Headless WP):** Ejecutar el publicador masivo para enviar los posts a WordPress:
    ```bash

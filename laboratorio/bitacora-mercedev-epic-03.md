@@ -38,6 +38,59 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-16 — DevRel: Visor de Cola Social y Consolidación de Bandeja Unificada
+
+**Contexto:** Se necesitaba una forma rápida de auditar el "Buffer Social" (posts pendientes y aprobados para LinkedIn) sin arrancar orquestadores interactivos. Además, se detectó que los scripts de publicación SSG y WP expulsaban los borradores a rutas relativas obsoletas en lugar de a la nueva bandeja de incubación.
+
+**Hecho:** 
+- Se creó `scripts/merci/merci-queue.py` para monitorizar el estado del buffer social y desacoplar la nomenclatura de UX.
+- Se modificó la nomenclatura visual ("Pendientes de Revisión" vs "En el Buffer") para evitar disonancia cognitiva con el metadato interno `en_cola`.
+- Se parchearon `merci-wp.py` y `merci-publish.py` para que las despublicaciones regresen incondicionalmente a `laboratorio/incubacion/`.
+
+**Motivo / criterio:** *Developer Experience (DX) y SSOT*. Desacoplar el estado interno de la presentación al usuario elimina la confusión operativa. Consolidar la reubicación de archivos asegura que todo el contenido inmaduro (o expulsado) reside en un único punto bajo el control centralizado de los Agentes.
+
+**Siguiente paso o deuda:** Cierre oficial de la Fase 1. El siguiente paso es iniciar la Fase 2 (Observabilidad y Alertas SRE) configurando notificaciones nativas en Grafana.
+
+### 2026-05-16 — UX/UI: Refactorización de estilos en línea en el Hero (BEM)
+
+**Contexto:** Se necesitaba destacar con color la sílaba "dev" en el logotipo principal de la portada sin introducir atributos `style="..."` en el HTML, para no violar la regla de Cero Deuda Técnica ni depender de los marcadores de silenciamiento del linter (`<!-- merci-audit:silence-style -->`).
+
+**Hecho:** Se implementó el modificador BEM `.hero__highlight` en `src/scss/components/_hero.scss` consumiendo la variable `$color-primary`, y se aplicó al `<span>` correspondiente en `public/index.html`.
+
+**Motivo / criterio:** *Single Source of Truth y Zero Deuda Técnica*. Centralizar el color en la capa SASS asegura que, si el tono naranja cambia en el futuro en el archivo de variables, el logotipo se actualizará automáticamente sin necesidad de editar código HTML estático. Mantiene el DOM inmaculado y el auditor de código libre de excepciones innecesarias.
+
+**Siguiente paso o deuda:** Recompilar el CSS maestro y empaquetar los cambios en el commit atómico.
+
+### 2026-05-16 — Arch: Escudo Anti-Duplicidad y Consolidación de Estados (DevRel)
+
+**Contexto:** Con la orquestación asíncrona completada, surgía el riesgo de generar contenido de marketing duplicado o enviar múltiples peticiones de publicación a los canales externos (WordPress, LinkedIn) sobre el mismo documento por error humano.
+
+**Hecho:** Se implementó un escudo de prevención en `merci-blogger.py` para bloquear la generación de artículos si ya existe un post con el mismo nombre en la ruta de producción (`blog/`). Se documentaron y confirmaron las barreras intrínsecas del sistema (Resolución dinámica por slug en WP, sellado de `estado_social` en LinkedIn).
+
+**Motivo / criterio:** *Idempotencia y Fail-Safe*. Un ecosistema automatizado debe ser idempotente; ejecutar el pipeline de publicación varias veces sobre un mismo activo no debe tener efectos secundarios (spam o duplicidad). Confiar en la resolución de base de datos (WP) y en los metadatos YAML locales blinda la cadena de suministro de contenido previniendo el error humano.
+
+**Siguiente paso o deuda:** Configurar las alertas nativas en Grafana para monitorizar la cola de publicaciones de LinkedIn.
+
+### 2026-05-16 — Arch: Reubicación de Agent Chaining (Promote -> Blogger)
+
+**Contexto:** El flujo anterior encadenaba el Agente Bibliotecario con el Blogger, lo que generaba artículos de marketing sobre borradores inmaduros y aumentaba la carga cognitiva en la fase de incubación.
+
+**Hecho:** Se reubicó conceptual y operativamente el *Agent Chaining*. Ahora `merci-promote.py` es quien invoca a `merci-blogger.py` tras promover con éxito un documento a la Biblioteca o Art de Coté. Se actualizó el flujo SOP y se forzó `tema: "Blog"` en el output del Blogger.
+
+**Motivo / criterio:** *Just-in-Time Marketing*. Redactar el material promocional solo cuando el documento técnico es definitivo y está en su ruta canónica garantiza que el contenido de LinkedIn refleje la versión final, previniendo incoherencias y respetando el ciclo de vida real de los contenidos.
+
+**Siguiente paso o deuda:** Validar el nuevo flujo completo promocionando un artículo estático.
+
+### 2026-05-16 — Feat: Content Repurposing interactivo en Agente Blogger
+
+**Contexto:** Se requería que el Agente Blogger pudiera ejecutarse a demanda para explorar la `biblioteca/` y `art-de-cote/`. El objetivo estratégico es aplicar el patrón *Content Repurposing*: cada pieza de documentación (SSOT) debe poder transformarse en un artículo resumido para el blog cronológico y generar simultáneamente su gancho publicitario para LinkedIn.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-blogger.py` añadiendo un menú interactivo de selección recursiva (`rglob`). Se corrigió el cálculo de la URL canónica promocional para que dependa del metadato `tema` en lugar del `tipo`.
+
+**Motivo / criterio:** *DevRel y Create Once, Publish Everywhere (COPE)*. La documentación estricta es la única fuente de verdad. Reutilizar activos técnicos densos transformándolos a voluntad en píldoras de marketing maximiza el retorno de inversión (ROI) del esfuerzo de ingeniería, consolidando la autoridad técnica de la autora en múltiples canales con fricción cero.
+
+**Siguiente paso o deuda:** Configurar alertas nativas en Grafana para monitorizar la cola de publicaciones de LinkedIn.
+
 ### 2026-05-16 — Fix: Exclusión acotada de PDFs locales en Git
 
 **Contexto:** Para evitar subir al repositorio los manuales impresos localmente, se planteó inicialmente una exclusión global de PDFs. Este enfoque fue rechazado porque el motor SSG matriz sí genera y gestiona archivos `.pdf` legítimos para la Biblioteca.

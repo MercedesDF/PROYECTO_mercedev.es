@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador PDF Interactivo para Documentación Interna — mercedev.es</title>
+    <meta name="description" content="Script táctico para renderizar manuales Markdown a PDF listos para imprimir, aislado del orquestador maestro SSG.">
+    <link rel="canonical" href="https://mercedev.es/art-de-cote/generador-pdf-interactivo-para-documentacion-interna.html">
+    <link rel="stylesheet" href="/css/main.css?v=1778923058">
+    <script src="/js/MerciController.js?v=1778479031" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Generador PDF Interactivo para Documentaci\u00f3n Interna",
+      "description": "Script t\u00e1ctico para renderizar manuales Markdown a PDF listos para imprimir, aislado del orquestador maestro SSG.",
+      "url": "https://mercedev.es/art-de-cote/generador-pdf-interactivo-para-documentacion-interna.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-art-de-cote">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
+            <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/art-de-cote/" class="card__back-link">← Volver a Art de Coté</a>
+            <header>
+                <h1 class="home-card__title--highlight">Generador PDF Interactivo para Documentación Interna</h1>
+                <a href="/descargas/generador-pdf-interactivo-para-documentacion-interna.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>Durante el desarrollo del ecosistema, surgió la necesidad operativa de imprimir físicamente los manuales estructurales (como el ciclo de vida del YAML Frontmatter) para consulta rápida en el escritorio.</p>
+<p>Sin embargo, el motor de generación estática (SSG) de <code>merci-publish.py</code> está diseñado exclusivamente para renderizar y enrutar HTML optimizado hacia la red pública. Acoplar una librería de generación de PDFs dentro del orquestador principal habría supuesto una violación al principio de Responsabilidad Única (<em>Single Responsibility Principle</em>) y habría introducido dependencias pesadas (<code>weasyprint</code>) en un entorno que busca el "Zero Bloat".</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Para resolver la fricción sin comprometer la arquitectura, se diseñó un script táctico e independiente (<code>generar-pdf-docs.py</code>). Esta utilidad escanea de forma autónoma el directorio <code>docs/</code>, despliega un menú interactivo en la terminal y convierte el documento seleccionado a un PDF limpio.</p>
+<p>El script inyecta un CSS atómico basado en las variables visuales del proyecto matriz para asegurar consistencia corporativa incluso en papel. Al ser una herramienta puramente colateral, se ejecuta bajo demanda desde <code>laboratorio/scripts_temporales/</code>.</p>
+<pre><code class="language-python">#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import sys
+from pathlib import Path
+
+try:
+    import markdown
+    from weasyprint import HTML
+except ImportError:
+    print(&quot;❌ Error: Faltan las dependencias. Ejecuta 'pip install markdown weasyprint'&quot;)
+    sys.exit(1)
+
+REPO_ROOT = Path(__file__).resolve().parents
+DOCS_DIR = REPO_ROOT / &quot;docs&quot;
+
+def main():
+    md_files = list(DOCS_DIR.glob(&quot;*.md&quot;))
+    if not md_files:
+        print(f&quot;❌ Error: No se encontraron archivos Markdown en {DOCS_DIR.relative_to(REPO_ROOT)}&quot;)
+        sys.exit(1)
+
+    print(&quot;📄 Archivos disponibles en docs/:&quot;)
+    for i, filepath in enumerate(md_files, 1):
+        print(f&quot;  {i}. {filepath.name}&quot;)
+
+    try:
+        opcion = int(input(&quot;\n👉 Elige el número del archivo que quieres imprimir: &quot;))
+        if opcion &lt; 1 or opcion &gt; len(md_files):
+            raise ValueError
+    except ValueError:
+        print(&quot;❌ Opción no válida. Operación abortada.&quot;)
+        sys.exit(1)
+
+    md_file = md_files[opcion - 1]
+    pdf_file = md_file.with_suffix(&quot;.pdf&quot;)
+
+    md_content = md_file.read_text(encoding=&quot;utf-8&quot;)
+    html_content = markdown.markdown(md_content, extensions=['fenced_code', 'tables'])
+
+    html_string = f&quot;&quot;&quot;
+    &lt;!DOCTYPE html&gt;
+    &lt;html lang=&quot;es&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;style&gt;
+            @page {{ size: A4; margin: 2.5cm; }}
+            body {{ font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif; line-height: 1.6; color: #334155; }}
+            h1, h2, h3 {{ color: #ea580c; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.3em; }}
+            pre {{ background: #f1f5f9; padding: 1em; border-radius: 4px; white-space: pre-wrap; font-size: 0.9em; }}
+            code {{ font-family: monospace; background: #f1f5f9; padding: 0.2em 0.4em; border-radius: 3px; font-size: 0.9em; }}
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;{html_content}&lt;/body&gt;
+    &lt;/html&gt;
+    &quot;&quot;&quot;
+    HTML(string=html_string).write_pdf(pdf_file)
+    print(f&quot;✅ Éxito. PDF generado listo para imprimir en: {pdf_file.relative_to(REPO_ROOT)}&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Las herramientas de "usar y tirar" o de conveniencia local no deben formar parte del pipeline CI/CD ni del orquestador. Mantenerlas como scripts efímeros respeta la pureza de la infraestructura base, pero preservar su código como un activo en la Biblioteca (Art de Coté) garantiza que el conocimiento invertido no se evapore y pueda ser reaprovechado en futuras necesidades.</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

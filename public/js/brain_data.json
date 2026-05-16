@@ -47,5 +47,9 @@
   "/biblioteca/integracion-de-qwen25-coder-con-ollama-para-devrel-local.html": "Qwen2.5-Coder se junta con Ollama para una DevRel local sin nubes y privacidad garantizada, revolucionando la forma de colaborar.",
   "/biblioteca/conectar-la-cantidad-de-posts-en-espera-de-linkedin-con-grafana.html": "Visualiza en tiempo real los documentos en espera de LinkedIn con Grafana: un puente entre SRE y análisis de datos!",
   "/biblioteca/agent-chaining-y-buffer-social-de-la-nota-a-linkedin-con-friccion-cero.html": "Agent Chaining y Buffer Social: Automatiza marketing sin fricción, pasa a LinkedIn.",
-  "/biblioteca/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html": "Merci Boilerplate, un ecosistema DevSecOps de pura ingeniería sin overhead, 25 agentes Python y Core Web Vitals al 100%: ¡Prepárate para una recorrida tecnológica sin parangón!"
+  "/biblioteca/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html": "Merci Boilerplate, un ecosistema DevSecOps de pura ingeniería sin overhead, 25 agentes Python y Core Web Vitals al 100%: ¡Prepárate para una recorrida tecnológica sin parangón!",
+  "/biblioteca/despliegue-ssg-puro-con-github-actions-rsync.html": "Despliegue SSG Puro con GitHub Actions (rsync): Automatiza el arte de la publicación web, sin complicaciones ni sobrecarga. ¡Es hora de ver lo que los robots pueden hacer por ti! 🤖🚀",
+  "/biblioteca/el-colapso-del-rag-local-limites-cognitivos-en-modelos-pequenos-8b.html": "El Colapso del RAG Local demuestra cómo los LLMs pequeños se abruman ante excesos de contexto, revelando limitaciones en su arquitectura cognitiva.",
+  "/biblioteca/sos-terminal-sincronizacion-de-requirementstxt-sin-instanciar.html": "SOS Terminal: Sincronización de requirements.txt sin instanciar - ¿Listo para la próxima evolución en seguridad y eficiencia de los Boilerplates públicos?",
+  "/biblioteca/automatizacion-del-dashboard-extraccion-de-metricas-core-web-vitals-desde-pdfs.html": "Descubre cómo extraer Core Web Vitals de PDFs y dinamizar tu Dashboard con Python puro y pypdf - ¡un viaje por los mundos del rendimiento web!"
 }

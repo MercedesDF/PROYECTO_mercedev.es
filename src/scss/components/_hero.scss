@@ -48,6 +48,10 @@
         }
     }
 
+    &__highlight {
+        color: $color-primary;
+    }
+
     &__title {
         font-size: clamp(2rem, 5vw, 4rem);
         margin-bottom: $spacing-md;

@@ -2,7 +2,7 @@
 titulo: "Prueba de Integración: WP y LinkedIn"
 descripcion: "Validando el pipeline de publicación automatizada End-to-End."
 fecha: "2026-05-08"
-estado: "publicado"
+estado: "incubacion"
 estado_social: "en_cola"
 tipo: "articulo"
 tema: "DevSecOps"

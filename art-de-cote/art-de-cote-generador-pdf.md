@@ -4,11 +4,10 @@ descripcion: "Script táctico para renderizar manuales Markdown a PDF listos par
 tipo: "cuadernillo"
 tema: "Art de Coté"
 fecha: "2026-05-16"
-fase: "11"
-estado: "borrador"
+fase: "Epic 3 - Fase 1"
+estado: "publicado"
 alt_portada: "Terminal mostrando un menú interactivo para seleccionar archivos Markdown y convertirlos a formato PDF."
 ---
-
 ## El Desafío (Síntoma)
 
 Durante el desarrollo del ecosistema, surgió la necesidad operativa de imprimir físicamente los manuales estructurales (como el ciclo de vida del YAML Frontmatter) para consulta rápida en el escritorio.

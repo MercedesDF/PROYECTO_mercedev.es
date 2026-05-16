@@ -8,6 +8,7 @@ Herramienta interactiva de consola (CLI) para trasladar, curar y estandarizar bo
 import re
 import unicodedata
 import sys
+import subprocess
 from datetime import datetime
 from pathlib import Path
 
@@ -203,6 +204,17 @@ def main():
         print(f"\n✅ Republicación exitosa. El borrador fue actualizado en: {directorio_destino.name}/{destino.name}")
         
     print(f"  💡 Siguiente paso: Ejecuta '{comando_sugerido}' para aplicar los cambios.")
+
+    # 9. Agent Chaining: Invocar al Agente Blogger
+    if not es_blog:
+        respuesta = input("\n  🤖 ¿Deseas invocar al Agente Blogger para generar un post promocional? (s/N): ").strip().lower()
+        if respuesta == 's':
+            script_blogger = REPO_ROOT / "scripts" / "merci" / "merci-blogger.py"
+            if script_blogger.exists():
+                print(f"  🚀 Transfiriendo contexto al Agente Blogger...")
+                subprocess.run([sys.executable, str(script_blogger), str(destino)])
+            else:
+                print("  ❌ Error: No se encontró el script merci-blogger.py en la ruta esperada.")
 
 if __name__ == "__main__":
     try:

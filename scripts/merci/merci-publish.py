@@ -115,10 +115,9 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
             
         # QUÉ HACE: Expulsa físicamente el archivo origen hacia el entorno de incubación.
         # POR QUÉ: Principio de segregación de entornos. La biblioteca no admite borradores.
-        rel_path = filepath.relative_to(REPO_ROOT)
-        destino_laboratorio = REPO_ROOT / "laboratorio" / rel_path
+        destino_laboratorio = REPO_ROOT / "laboratorio" / "incubacion" / filepath.name
         destino_laboratorio.parent.mkdir(parents=True, exist_ok=True)
-        print(f"  🔙 Expulsando (Estado: {estado}): Moviendo '{filepath.name}' de vuelta al laboratorio.")
+        print(f"  🔙 Expulsando (Estado: {estado}): Moviendo '{filepath.name}' de vuelta a laboratorio/incubacion/")
         try:
             shutil.move(str(filepath), str(destino_laboratorio))
         except Exception as e:

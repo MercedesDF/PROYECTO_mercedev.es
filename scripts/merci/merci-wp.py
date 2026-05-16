@@ -271,11 +271,10 @@ def publicar_en_wordpress(filepath: str, creds: dict, verbose: bool = False):
             # QUÉ HACE: Expulsa físicamente el archivo origen hacia el entorno de incubación si es borrador.
             # POR QUÉ: Paridad de flujos. Mantiene las carpetas dinámicas raíz exclusivas para contenido en producción.
             if estado != "publicado" and not target_path.is_relative_to(REPO_ROOT / "laboratorio"):
-                rel_path = target_path.relative_to(REPO_ROOT)
-                destino_lab = REPO_ROOT / "laboratorio" / rel_path
+                destino_lab = REPO_ROOT / "laboratorio" / "incubacion" / target_path.name
                 destino_lab.parent.mkdir(parents=True, exist_ok=True)
                 shutil.move(str(target_path), str(destino_lab))
-                print(f"  🔙 Expulsando (Estado: {estado}): Moviendo '{target_path.name}' de vuelta a laboratorio/{rel_path.parent.name}/")
+                print(f"  🔙 Expulsando (Estado: {estado}): Moviendo '{target_path.name}' de vuelta a laboratorio/incubacion/")
             
     except HTTPError as e:
         error_info = e.read().decode("utf-8")

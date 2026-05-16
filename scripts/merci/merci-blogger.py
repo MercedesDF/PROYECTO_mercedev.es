@@ -52,17 +52,33 @@ def main():
             print(f"  ❌ Error: El documento origen '{nota_elegida.name}' no existe.")
             sys.exit(1)
     else:
-        notas = [f for f in NOTAS_DIR.glob("*") if f.is_file() and f.name != ".gitkeep"]
+        print("\n  ¿De dónde quieres extraer el contenido base para el post?")
+        print("  [1] Notas Rápidas (laboratorio/notas_rapidas) [Defecto]")
+        print("  [2] Biblioteca (biblioteca/)")
+        print("  [3] Art de Coté (art-de-cote/)")
+        
+        opcion = input("  👉 Elige una opción [1]: ").strip() or "1"
+        
+        if opcion == "2":
+            target_dir = REPO_ROOT / "biblioteca"
+            notas = sorted(list(target_dir.rglob("*.md")), key=lambda x: x.name)
+        elif opcion == "3":
+            target_dir = REPO_ROOT / "art-de-cote"
+            notas = sorted(list(target_dir.rglob("*.md")), key=lambda x: x.name)
+        else:
+            target_dir = NOTAS_DIR
+            notas = sorted([f for f in target_dir.glob("*") if f.is_file() and f.name != ".gitkeep"], key=lambda x: x.name)
+            
         if not notas:
-            print(f"  🤷‍♀️ No hay notas crudas en {NOTAS_DIR.relative_to(REPO_ROOT)}. ¡Escribe algo primero!")
+            print(f"  🤷‍♀️ No hay documentos en {target_dir.relative_to(REPO_ROOT)}.")
             sys.exit(0)
             
-        print("\n  📄 Notas crudas disponibles:")
+        print(f"\n  📄 Documentos disponibles en {target_dir.name}:")
         for i, nota in enumerate(notas, 1):
             print(f"    {i}. {nota.name}")
             
         try:
-            seleccion = int(input("\n  👉 Elige el número de la nota a procesar (0 para salir): ").strip())
+            seleccion = int(input("\n  👉 Elige el número del documento a procesar (0 para salir): ").strip())
             if seleccion == 0: return
             nota_elegida = notas[seleccion - 1]
         except (ValueError, IndexError):
@@ -75,16 +91,25 @@ def main():
         sys.exit(1)
         
     # LÓGICA CONDICIONAL: Adaptamos el comportamiento según el origen del documento
-    if nota_elegida.parent != NOTAS_DIR and nota_elegida.suffix == '.md':
+    es_nota_rapida = nota_elegida.is_relative_to(NOTAS_DIR)
+    
+    if not es_nota_rapida and nota_elegida.suffix == '.md':
         meta_titulo = re.search(r'^titulo:\s*["\']?([^"\'\n]+)["\']?', nota_contenido, re.MULTILINE)
-        meta_tipo = re.search(r'^tipo:\s*["\']?([^"\'\n]+)["\']?', nota_contenido, re.MULTILINE)
+        meta_tema = re.search(r'^tema:\s*["\']?([^"\'\n]+)["\']?', nota_contenido, re.MULTILINE)
+        
         if meta_titulo:
-            tipo = meta_tipo.group(1).lower() if meta_tipo else "cuadernillo"
             titulo_doc = meta_titulo.group(1)
-            base_path = "/art-de-cote/" if tipo == "art-de-cote" else "/biblioteca/"
+            tema = meta_tema.group(1).lower() if meta_tema else ""
+            
+            # Determinamos la URL canónica real basándonos en el tema o la ruta física
+            if "art de cot" in tema or "art-de-cote" in tema or "art-de-cote" in nota_elegida.parts:
+                base_path = "/art-de-cote/"
+            else:
+                base_path = "/biblioteca/"
+                
             url_promocion = f"{base_path}{slugify(titulo_doc)}.html"
             nota_contenido += f"\n\n--- INSTRUCCIÓN EXTRA INNEGOCIABLE ---\nEl documento original ya está publicado o en proceso. DEBES incluir este enlace exacto al final de tu artículo invitando al lector a leerlo completo: {url_promocion}"
-    elif nota_elegida.parent == NOTAS_DIR:
+    elif es_nota_rapida:
         nota_contenido += "\n\n--- INSTRUCCIÓN EXTRA INNEGOCIABLE ---\nEste es un artículo INDEPENDIENTE y directo. Termina el post con una conclusión fuerte o una pregunta a la comunidad. NO invites a leer más información en la biblioteca porque no existe."
 
     print(f"\n  🧠 Redactando artículo a partir de '{nota_elegida.name}'...")
@@ -113,13 +138,34 @@ def main():
         respuesta_texto = respuesta_texto[:-3]
     respuesta_texto = respuesta_texto.strip()
     
+    # Limpieza estricta: Amputar texto conversacional antes del YAML Frontmatter
+    inicio_yaml = respuesta_texto.find("---\n")
+    if inicio_yaml != -1:
+        respuesta_texto = respuesta_texto[inicio_yaml:]
+    
     # Autonombrado (Slugify)
     titulo_match = re.search(r'^titulo:\s*["\']?([^"\'\n]+)["\']?', respuesta_texto, re.MULTILINE)
     titulo = titulo_match.group(1) if titulo_match else "articulo-generado"
     filename = "blog-" + slugify(titulo) + ".md"
     
+    # ESCUDO ANTI-DUPLICIDAD: Evitar generar marketing redundante
+    post_en_produccion = REPO_ROOT / "blog" / filename
+    if post_en_produccion.exists():
+        print(f"\n  🛑 [Escudo DevRel] Operación abortada.")
+        print(f"  Ya existe un post promocional publicado en: {post_en_produccion.relative_to(REPO_ROOT)}")
+        print(f"  👉 Si quieres relanzarlo a redes, edita ese archivo cambiando `estado_social: \"aprobado\"`.")
+        sys.exit(0)
+    elif (INCUBACION_DIR / filename).exists():
+        print(f"\n  ⚠️ Nota: Ya existe un borrador llamado '{filename}' en incubación. Se sobrescribirá.")
+
     # BARRERA SOCIAL: Preguntar si encolamos en LinkedIn
-    encolar = input("\n  👉 ¿Quieres añadir este post a la cola automática de LinkedIn? (s/N): ").strip().lower() == 's'
+    while True:
+        respuesta_encolar = input("\n  👉 ¿Quieres añadir este post a la cola automática de LinkedIn? (s/N): ").strip().lower()
+        if respuesta_encolar in ['s', 'n', '']:
+            encolar = (respuesta_encolar == 's')
+            break
+        print("  ❌ Opción no válida. Por favor, responde con 's' o 'n'.")
+        
     estado_soc_val = "en_cola" if encolar else "ignorado"
     
     # QUÉ HACE: Fuerza matemáticamente los estados YAML con Regex.
@@ -130,14 +176,23 @@ def main():
     else:
         respuesta_texto = re.sub(r'(^estado:\s*["\']?incubacion["\']?)', rf'\1\nestado_social: "{estado_soc_val}"', respuesta_texto, flags=re.MULTILINE)
 
+    # FUERZA MATEMÁTICA: Aseguramos que el post vaya destinado a WordPress
+    if re.search(r'^tema:', respuesta_texto, re.MULTILINE):
+        respuesta_texto = re.sub(r'^tema:\s*["\']?[^"\'\n]*["\']?', 'tema: "Blog"', respuesta_texto, flags=re.MULTILINE)
+    else:
+        respuesta_texto = re.sub(r'(^estado:\s*["\']?incubacion["\']?)', r'\1\ntema: "Blog"', respuesta_texto, flags=re.MULTILINE)
+
     out_path = INCUBACION_DIR / filename
     out_path.write_text(respuesta_texto, encoding="utf-8")
     
-    print(f"\n  ✅ ¡Artículo redactado con éxito y post encolado!")
+    if encolar:
+        print(f"\n  ✅ ¡Artículo redactado con éxito y post encolado!")
+    else:
+        print(f"\n  ✅ ¡Artículo redactado con éxito (no encolado en LinkedIn)!")
     print(f"  📁 Guardado en: {out_path.relative_to(REPO_ROOT)}")
 
     # Solo archiva la nota original si venía de la carpeta de notas crudas
-    if nota_elegida.parent == NOTAS_DIR:
+    if es_nota_rapida:
         archivo_dir = NOTAS_DIR / "_procesadas"
         archivo_dir.mkdir(exist_ok=True)
         nota_elegida.rename(archivo_dir / nota_elegida.name)

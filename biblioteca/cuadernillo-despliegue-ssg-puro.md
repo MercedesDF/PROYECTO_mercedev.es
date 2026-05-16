@@ -5,10 +5,9 @@ tipo: "cuadernillo"
 tema: "Infraestructura y Despliegue"
 fecha: "2026-05-05"
 fase: "11"
-estado: "borrador"
+estado: "publicado"
 alt_portada: "Diagrama conceptual mostrando a un agente de GitHub Actions sincronizando archivos mediante rsync a un servidor web."
 ---
-
 ## El Desafío (Síntoma)
 
 Durante la Fase 11 de maduración del ecosistema, se buscó automatizar el despliegue del código hacia el servidor de producción utilizando CI/CD (Continuous Integration / Continuous Deployment - Integración Continua / Despliegue Continuo). El objetivo era compilar el SSG (Static Site Generation - Generación de Sitios Estáticos) en la nube y enviar los archivos listos a través de SSH (Secure Shell).

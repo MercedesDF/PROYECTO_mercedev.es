@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrutamiento Visual Zero-JS mediante Body IDs — mercedev.es</title>
+    <meta name="description" content="Técnica para resaltar dinámicamente enlaces activos en menús de sitios estáticos utilizando atributos SASS combinados y 0ms de latencia JavaScript.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/enrutamiento-visual-zero-js-mediante-body-ids.html">
+    <link rel="stylesheet" href="/css/main.css?v=1778923058">
+    <script src="/js/MerciController.js?v=1778479031" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Enrutamiento Visual Zero-JS mediante Body IDs",
+      "description": "T\u00e9cnica para resaltar din\u00e1micamente enlaces activos en men\u00fas de sitios est\u00e1ticos utilizando atributos SASS combinados y 0ms de latencia JavaScript.",
+      "url": "https://mercedev.es/biblioteca/enrutamiento-visual-zero-js-mediante-body-ids.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
+            <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                <h1 class="home-card__title--highlight">Enrutamiento Visual Zero-JS mediante Body IDs</h1>
+                <a href="/descargas/enrutamiento-visual-zero-js-mediante-body-ids.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>En una arquitectura SSG (Static Site Generation - Generación de Sitios Estáticos) donde el menú principal (<code>&lt;header&gt;</code>) se extrae de un archivo base y se inyecta en el resto de páginas de forma idéntica, resultaba imposible añadir la clase <code>.active</code> directamente en el HTML del enlace activo. La solución tradicional requiere utilizar JavaScript cliente para leer <code>window.location.pathname</code>, lo que introduce latencia, aumenta el peso del DOM y viola la política estricta de Cero Dependencias del proyecto.</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Se aplicó un patrón de enrutamiento puramente basado en CSS (Cascading Style Sheets) nativo. El orquestador Python, al compilar la vista estática, inyecta un identificador único en la etiqueta global del documento (ej. <code>&lt;body id="page-sobre-mi"&gt;</code>) basándose en el contexto del archivo.</p>
+<p>Posteriormente, en la arquitectura SASS, se utilizan selectores descendentes de atributo combinado para interceptar el enlace que coincide con el ID de la página actual: <code>#page-sobre-mi .nav__link[href="/sobre-mi/"] { color: $color-primary; }</code>.</p>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>El motor nativo CSS es invariablemente más rápido y eficiente que cualquier ejecución del DOM mediante JavaScript. Delegar el estado global de la aplicación a identificadores en el contenedor raíz (<code>&lt;body&gt;</code>) preserva la inmutabilidad y la pureza del componente <code>&lt;header&gt;</code>, logrando un resaltado contextual perfecto sin comprometer la métrica de 100/100 en el Total Blocking Time (TBT).</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>
