@@ -67,6 +67,10 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 - `merci-extract-metrics.py`: Extractor de métricas Core Web Vitals desde PDFs de PageSpeed Insights.
 - `merci-styles.py` y `merci-watcher.py`: Compilador SASS 7-1 local y vigilante en tiempo real.
 - `merci-optimizer.py` y `merci-assets-watcher.py`: Optimizador WebP y agente vigilante de activos multimedia en segundo plano.
+- `merci-sre.py`: Demonio de telemetría pasiva para la ingesta de datos en Prometheus y Grafana.
+- `merci-hardening.py`: Agente de auditoría continua de seguridad pasiva e infraestructura.
+- `merci-chaos.py`: Agente de Chaos Engineering con IA local para inyección y validación de vulnerabilidades.
+- `merci-queue.py`: Visor de terminal interactivo para monitorizar el estado del buffer social.
 
 ## Entorno de Desarrollo Local
 Para mantener la separación de responsabilidades y la alta velocidad, el desarrollo se divide en dos fases con ecosistemas distintos:
@@ -105,9 +109,12 @@ El proyecto se organiza en grandes "Épicas" arquitectónicas. El desglose detal
   - Estado: ✅ Completada (2026-05-13)
 
 - **Epic-03: DevRel & Observabilidad Avanzada** — Creación de Buffer Social, máquina de estados para LinkedIn y telemetría de difusión.
-  - Estado: 🚧 Fase 1 en ejecución.
+  - Estado: 🚧 Fase 2 en ejecución.
 
 - **Epic-04: E-commerce Híbrido Extremo** — Pasarelas de pago en WooCommerce aisladas con Web Workers (Partytown) para mantener TBT en 0ms.
+  - Estado: ⏳ En cola.
+
+- **Epic-05: Showcase y Distribución del Boilerplate** — Demostración interactiva y despliegue automatizado de la plantilla pública.
   - Estado: ⏳ En cola.
 
 

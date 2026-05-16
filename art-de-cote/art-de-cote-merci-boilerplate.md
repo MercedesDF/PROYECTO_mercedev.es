@@ -3,25 +3,25 @@ titulo: "Anatomía de Merci Boilerplate: Arquitectura DevSecOps de Zero-Bloat"
 descripcion: "Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 25 agentes Python y 100/100 Core Web Vitals."
 estado: "publicado"
 tema: "Art de Coté"
-estado_social: "pendiente"
+estado_social: "en_cola"
 alt_portada: "Esquema conceptual de la arquitectura de 3 capas de Merci Boilerplate."
 fase: "Epic 1 - Fase 10"
 fecha: "2026-05-15"
 ---
-La mayoría de plantillas web (boilerplates) actuales te entregan un sitio funcional a costa de inyectar megabytes de librerías en tu navegador, oscurecer la infraestructura y acumular deuda técnica desde el commit cero. 
+La mayoría de plantillas web (boilerplates) actuales entregan un sitio funcional a costa de inyectar megabytes de librerías en el navegador, oscurecer la infraestructura y acumular deuda técnica desde el commit cero. 
 
-**Merci Boilerplate es lo opuesto.** Lo que comenzó como un proyecto personal para aplicar mis estudios de Ciberseguridad y Automatización en Google, terminó evolucionando hacia un ecosistema operacional completo. 
+**Merci Boilerplate es lo opuesto.** Lo que comenzó como un proyecto de investigación para aplicar metodologías de Ciberseguridad y Automatización, terminó evolucionando hacia un ecosistema operacional completo. 
 
-Nació de una obsesión por el aprendizaje: quería una web segura, sin frameworks que no entendiera (Zero-Bloat), integrando ejercicios de mi máster (una tienda Headless en WordPress) y aplicando metodologías Agile para mantener la deuda técnica a cero en cada fase. Todo guiado por especificaciones formales y documentado en una bitácora inmutable.
+El sistema surgió del rigor académico: se requería una arquitectura segura, sin frameworks opacos (Zero-Bloat), integrando sistemas Headless y aplicando metodologías Agile para mantener la deuda técnica a cero en cada fase. Todo guiado por especificaciones formales y documentado en una bitácora inmutable.
 
 <!-- linkedin: 
-Todo empezó con un objetivo simple: crear mi página web personal mientras estudiaba Ciberseguridad y Automatización en Google. 🛡️🐍
+Todo empezó con un objetivo simple: crear mi página web personal mientras termino un Máster en desarrollo web y estudio Ciberseguridad y Automatización en Google. 🛡️🐍
 
-Quería algo seguro, ultraligero y sin frameworks de JavaScript que no entendía. Como estaba aprendiendo, me obsesioné con documentar cada fallo y cada decisión en una bitácora para no perder el progreso. Apliqué lo que aprendía en mis cursos de Agile y Project Management: no avanzar de fase sin dejar la deuda técnica a cero. 
+Quería algo seguro, ultraligero y sin frameworks de JavaScript que no llegaban a resultarme cómodos. Como estoy aprendiendo de forma continua, me obsesioné con documentar cada fallo y cada decisión en una bitácora para no perder el progreso. He aplicado lo que he aprendido en mis cursos de Agile y Project Management: no avanzar de fase sin dejar la deuda técnica a cero. 
 
-Ese "portfolio simple" escaló. Se convirtió en una arquitectura de 3 capas, integrando un ejercicio de mi máster y más de 25 agentes de Python orquestando todo el ecosistema. 
+Este "portfolio simple" escaló. Se convirtió en una arquitectura de 3 capas, integrando un ejercicio de mi máster y más de 25 agentes de Python orquestando todo el ecosistema. 
 
-Hoy, ese proyecto de aprendizaje se ha convertido en **Merci Boilerplate**, un sistema operacional DevSecOps real y en producción:
+Hoy, el alma de ese proyecto vivo de aprendizaje que es mi página web se ha convertido en **Merci Boilerplate**, un sistema operacional DevSecOps real y en producción:
 
 ✅ 100/100 Core Web Vitals
 ✅ 0 dependencias externas en el navegador (Zero-Bloat)
@@ -35,23 +35,34 @@ He liberado las entrañas técnicas y la historia de esta arquitectura en un nue
 ## 4 Verdades sobre este Boilerplate
 
 **1. No es una plantilla visual, es una infraestructura**
+
 Incluye más de 25 herramientas Python propias para automatizar tareas críticas: auditoría de código, generación SSG, sincronización con CMS, observabilidad de métricas e integración continua de IA.
 
 **2. Hybrid Stack de IA (Sin punto único de fallo)**
+
 La Inteligencia Artificial está orquestada de forma local y en la nube:
+
 *   **Ollama (qwen2.5-coder):** Ejecución local con latencia cero y privacidad absoluta de los datos.
+
 *   **Gemini Flash API:** Análisis semánticos complejos en la nube.
+
 *   **LiteLLM:** Actúa como proxy agnóstico.
+
 *   **Graceful degradation:** Si el proveedor Cloud se cae, el sistema local asume el control. Si ambos fallan, el pipeline no colapsa, simplemente se degrada a funciones estáticas.
 
 **3. Arquitectura 3 capas (Completamente aislada)**
+
 Las tres capas operan en paralelo sin contaminarse, unidas por Symlinks, Nginx y permisos estrictos:
+
 *   **Capa Estática:** HTML5 Semántico, SASS BEM y Vanilla JS (0 dependencias externas, 0 librerías NPM en *runtime*).
+
 *   **Capa Dinámica:** WordPress Headless para gestión de blogs, tiendas o bases de datos complejas.
+
 *   **Capa de Orquestación:** Agentes autónomos (Self-healing, Auto-documentación).
 
 **4. Gobernanza Operacional Reproducible**
-El repositorio incluye un *Deployment Playbook* paso a paso para servidores Ubuntu, SOPs (Standard Operating Procedures) de publicación dual y un *Checklist* de hardening. Todo lo que necesitas para operar en producción como un SRE.
+
+El repositorio incluye un *Deployment Playbook* paso a paso para servidores Ubuntu, SOPs (Standard Operating Procedures) de publicación dual y un *Checklist* de hardening. Todo lo necesario para operar en producción bajo estándares SRE.
 
 ## El Ecosistema de Agentes
 
@@ -80,6 +91,7 @@ La filosofía principal de Merci es el **Spec-Driven Development**. Todo clon de
 No es una guía de uso, es un "contrato vinculante" que define exactamente qué está permitido hacer (ej. *Vanilla JS*) y qué está prohibido (ej. *Frameworks reactivos o estilos en línea*). El orquestador de *commits* valida estas especificaciones en cada guardado.
 
 Si estás listo para adoptar una infraestructura donde el rendimiento y la seguridad no son una promesa, sino una métrica auditable, **eres bienvenido a clonarlo**.
+Para aquellos entornos donde el rendimiento y la seguridad no son una promesa, sino una métrica auditable, el repositorio base se encuentra disponible para su clonación y estudio.
 
 🔗 **Repositorio Oficial de Merci Boilerplate en GitHub**
 https://github.com/MercedesDF/merci-boilerplate

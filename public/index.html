@@ -26,7 +26,7 @@
     <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon">
     <!-- QUÉ HACE: Cache Busting dinámico incrementado a v14 -->
     <!-- POR QUÉ: Obliga a Varnish y a navegadores móviles a purgar la caché y descargar la nueva rejilla de 5 columnas. -->
-    <link rel="stylesheet" href="/css/main.css?v=1778923058">
+    <link rel="stylesheet" href="/css/main.css?v=1778973389">
     <script src="/js/MerciController.js?v=1778479031" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <link rel="canonical" href="https://mercedev.es">
@@ -52,7 +52,7 @@
             <span class="header__toggle-icon"></span>
         </button>
         <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
-            <a href="/" class="nav__link">Home</a>
+            <a href="/" class="nav__link nav__link--active" aria-current="page">Home</a>
             <a href="/biblioteca/" class="nav__link">Biblioteca</a>
             <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
             <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
@@ -72,11 +72,11 @@
         <!-- ===================== -->
         <section class="hero">
             <h1 class="hero__title">merce<span class="hero__highlight">dev</span>.es</h1>
-            <h2 class="hero__statement">Laboratorio DevSecOps & Performance Engineering</h2>
+            <h2 class="hero__statement">proyecto vivo en producción</h2>
             <p class="hero__subtitle">
                 Este sitio no es un portfolio convencional<br>
                 <br>
-                Es un <strong>ecosistema operacional en producción</strong><br>Gobernado mediante especificaciones formales, 25+ agentes autónomos y orquestación IA híbrida.
+                Es un <strong>ecosistema operacional en producción</strong><br>gobernado mediante especificaciones formales, 25+ agentes autónomos y orquestación IA híbrida.
             </p>
             
             <ul class="hero__highlights">
@@ -86,7 +86,7 @@
             </ul>
 
             <div class="hero__cta">
-                <a href="/sobre-mi/">Conocer a la Arquitecta</a>
+                <a href="/sobre-mi/">¿quieres conocerme?</a>
                 <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer">Ver Código Fuente</a>
             </div>
         </section>
@@ -170,8 +170,11 @@
                 <div class="prose__content">
                     
                     <h2>La Evolución</h2>
-                    <p>La web clásica ha muerto bajo el peso de frameworks gigantescos. Este proyecto nace con la filosofía minimalista, pretendía ser una web sin apenas JS, simple.<br> De ser un proyecto vivo de creación de página web está evolucionado y convirtiéndose en una tesis arquitectónica: <br>
-                        <h3><strong>demuestra que es posible construir un sistema de automatización y publicación masiva sin inyectar ni una sola dependencia en el navegador del usuario final.</strong></h3></p>
+                    <p>La web clásica ha muerto bajo el peso de frameworks gigantescos.<br> Este proyecto nace con la filosofía minimalista <em><a href="https://motherfuckingwebsite.com/">Motherfucking Website</a></em>
+                        <br>
+                         Pretende ser una web sin apenas JS y partiendo como mi web personal<br> 
+                         está transformándose continuamente y convirtiéndose en una tesis arquitectónica viva: <br>
+                        <h3><strong>Demuestra que es posible construir un sistema de automatización y publicación masiva sin inyectar ni una sola dependencia en el navegador del usuario final.</strong></h3></p>
                     
                     <h2>Estado de la Infraestructura</h2>
                     <p>Actualmente, <strong>mercedev.es</strong> se sostiene sobre una arquitectura de 3 capas aisladas mediante proxy inverso (Nginx), gobernadas por más de 25 herramientas DevSecOps escritas en Vanilla Python:</p>

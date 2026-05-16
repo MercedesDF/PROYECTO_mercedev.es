@@ -51,5 +51,9 @@
   "/biblioteca/despliegue-ssg-puro-con-github-actions-rsync.html": "Despliegue SSG Puro con GitHub Actions (rsync): Automatiza el arte de la publicación web, sin complicaciones ni sobrecarga. ¡Es hora de ver lo que los robots pueden hacer por ti! 🤖🚀",
   "/biblioteca/el-colapso-del-rag-local-limites-cognitivos-en-modelos-pequenos-8b.html": "El Colapso del RAG Local demuestra cómo los LLMs pequeños se abruman ante excesos de contexto, revelando limitaciones en su arquitectura cognitiva.",
   "/biblioteca/sos-terminal-sincronizacion-de-requirementstxt-sin-instanciar.html": "SOS Terminal: Sincronización de requirements.txt sin instanciar - ¿Listo para la próxima evolución en seguridad y eficiencia de los Boilerplates públicos?",
-  "/biblioteca/automatizacion-del-dashboard-extraccion-de-metricas-core-web-vitals-desde-pdfs.html": "Descubre cómo extraer Core Web Vitals de PDFs y dinamizar tu Dashboard con Python puro y pypdf - ¡un viaje por los mundos del rendimiento web!"
+  "/biblioteca/automatizacion-del-dashboard-extraccion-de-metricas-core-web-vitals-desde-pdfs.html": "Descubre cómo extraer Core Web Vitals de PDFs y dinamizar tu Dashboard con Python puro y pypdf - ¡un viaje por los mundos del rendimiento web!",
+  "/biblioteca/patron-cope-y-agent-chaining-para-just-in-time-marketing.html": "Integración automática de contenidos para marketing Just-in-Time, un viaje por COPE y Agent Chaining en DevRel. ¿Listo para la reutilización de IA?",
+  "/biblioteca/css-box-model-y-el-colapso-de-margenes-en-disenos-asimetricos.html": "CSS Box Model y el Colapso de Márgenes desafían los patrones asimétricos; rellena con padding para dominar el layout vertical.",
+  "/biblioteca/enrutamiento-visual-zero-js-mediante-body-ids.html": "Desbloquea la magia del enrutamiento visual sin JavaScript gracias a Body IDs y SASS, ¡una técnica sorprendente para optimizar tu sitio web!",
+  "/biblioteca/idempotencia-en-orquestadores-sociales-escudo-anti-duplicidad.html": "Idempotencia en orquestadores sociales: Evita enviar peticiones duplicadas sin esfuerzo extra. ¡Es como tener un escudo anti-duplicidad personalizado! 🛡️💻"
 }

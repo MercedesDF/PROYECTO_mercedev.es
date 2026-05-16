@@ -16,7 +16,7 @@ $js_main_v = time();
     <script src="/js/main.js?v=<?php echo $js_main_v; ?>" defer></script>
     <?php wp_head(); ?>
 </head>
-<body <?php body_class('theme-body page'); ?>>
+<body id="page-tienda" <?php body_class('theme-body page'); ?>>
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     <header class="header">
         <a href="/" class="header__brand">

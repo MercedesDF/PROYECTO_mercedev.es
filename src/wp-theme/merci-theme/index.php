@@ -21,7 +21,15 @@
     wp_head(); 
     ?>
 </head>
-<body <?php body_class('theme-body page'); ?>>
+<?php
+$body_id = 'page-blog';
+if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
+    $body_id = 'page-tienda';
+} elseif ( is_category('art-de-cote') || (is_singular() && has_category('art-de-cote')) ) {
+    $body_id = 'page-art-de-cote';
+}
+?>
+<body id="<?php echo $body_id; ?>" <?php body_class('theme-body page'); ?>>
 
     <!-- Ancla invisible WAI-ARIA para Volver Arriba -->
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>

@@ -6,7 +6,7 @@
     <title>Anatomía de Merci Boilerplate: Arquitectura DevSecOps de Zero-Bloat — mercedev.es</title>
     <meta name="description" content="Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 25 agentes Python y 100/100 Core Web Vitals.">
     <link rel="canonical" href="https://mercedev.es/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html">
-    <link rel="stylesheet" href="/css/main.css?v=1778923058">
+    <link rel="stylesheet" href="/css/main.css?v=1778973389">
     <script src="/js/MerciController.js?v=1778479031" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <script type="application/ld+json">
@@ -29,7 +29,7 @@
             <span class="header__toggle-icon"></span>
         </button>
         <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
-            <a href="/" class="nav__link">Home</a>
+            <a href="/" class="nav__link nav__link--active" aria-current="page">Home</a>
             <a href="/biblioteca/" class="nav__link">Biblioteca</a>
             <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
             <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
@@ -50,17 +50,17 @@
                 <a href="/descargas/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
-                <p>La mayoría de plantillas web (boilerplates) actuales te entregan un sitio funcional a costa de inyectar megabytes de librerías en tu navegador, oscurecer la infraestructura y acumular deuda técnica desde el commit cero. </p>
-<p><strong>Merci Boilerplate es lo opuesto.</strong> Lo que comenzó como un proyecto personal para aplicar mis estudios de Ciberseguridad y Automatización en Google, terminó evolucionando hacia un ecosistema operacional completo. </p>
-<p>Nació de una obsesión por el aprendizaje: quería una web segura, sin frameworks que no entendiera (Zero-Bloat), integrando ejercicios de mi máster (una tienda Headless en WordPress) y aplicando metodologías Agile para mantener la deuda técnica a cero en cada fase. Todo guiado por especificaciones formales y documentado en una bitácora inmutable.</p>
+                <p>La mayoría de plantillas web (boilerplates) actuales entregan un sitio funcional a costa de inyectar megabytes de librerías en el navegador, oscurecer la infraestructura y acumular deuda técnica desde el commit cero. </p>
+<p><strong>Merci Boilerplate es lo opuesto.</strong> Lo que comenzó como un proyecto de investigación para aplicar metodologías de Ciberseguridad y Automatización, terminó evolucionando hacia un ecosistema operacional completo. </p>
+<p>El sistema surgió del rigor académico: se requería una arquitectura segura, sin frameworks opacos (Zero-Bloat), integrando sistemas Headless y aplicando metodologías Agile para mantener la deuda técnica a cero en cada fase. Todo guiado por especificaciones formales y documentado en una bitácora inmutable.</p>
 <!-- linkedin: 
-Todo empezó con un objetivo simple: crear mi página web personal mientras estudiaba Ciberseguridad y Automatización en Google. 🛡️🐍
+Todo empezó con un objetivo simple: crear mi página web personal mientras termino un Máster en desarrollo web y estudio Ciberseguridad y Automatización en Google. 🛡️🐍
 
-Quería algo seguro, ultraligero y sin frameworks de JavaScript que no entendía. Como estaba aprendiendo, me obsesioné con documentar cada fallo y cada decisión en una bitácora para no perder el progreso. Apliqué lo que aprendía en mis cursos de Agile y Project Management: no avanzar de fase sin dejar la deuda técnica a cero. 
+Quería algo seguro, ultraligero y sin frameworks de JavaScript que no llegaban a resultarme cómodos. Como estoy aprendiendo de forma continua, me obsesioné con documentar cada fallo y cada decisión en una bitácora para no perder el progreso. He aplicado lo que he aprendido en mis cursos de Agile y Project Management: no avanzar de fase sin dejar la deuda técnica a cero. 
 
-Ese "portfolio simple" escaló. Se convirtió en una arquitectura de 3 capas, integrando un ejercicio de mi máster y más de 25 agentes de Python orquestando todo el ecosistema. 
+Este "portfolio simple" escaló. Se convirtió en una arquitectura de 3 capas, integrando un ejercicio de mi máster y más de 25 agentes de Python orquestando todo el ecosistema. 
 
-Hoy, ese proyecto de aprendizaje se ha convertido en **Merci Boilerplate**, un sistema operacional DevSecOps real y en producción:
+Hoy, el alma de ese proyecto vivo de aprendizaje que es mi página web se ha convertido en **Merci Boilerplate**, un sistema operacional DevSecOps real y en producción:
 
 ✅ 100/100 Core Web Vitals
 ✅ 0 dependencias externas en el navegador (Zero-Bloat)
@@ -72,21 +72,39 @@ He liberado las entrañas técnicas y la historia de esta arquitectura en un nue
 -->
 
 <h2>4 Verdades sobre este Boilerplate</h2>
-<p><strong>1. No es una plantilla visual, es una infraestructura</strong>
-Incluye más de 25 herramientas Python propias para automatizar tareas críticas: auditoría de código, generación SSG, sincronización con CMS, observabilidad de métricas e integración continua de IA.</p>
-<p><strong>2. Hybrid Stack de IA (Sin punto único de fallo)</strong>
-La Inteligencia Artificial está orquestada de forma local y en la nube:
-*   <strong>Ollama (qwen2.5-coder):</strong> Ejecución local con latencia cero y privacidad absoluta de los datos.
-*   <strong>Gemini Flash API:</strong> Análisis semánticos complejos en la nube.
-*   <strong>LiteLLM:</strong> Actúa como proxy agnóstico.
-*   <strong>Graceful degradation:</strong> Si el proveedor Cloud se cae, el sistema local asume el control. Si ambos fallan, el pipeline no colapsa, simplemente se degrada a funciones estáticas.</p>
-<p><strong>3. Arquitectura 3 capas (Completamente aislada)</strong>
-Las tres capas operan en paralelo sin contaminarse, unidas por Symlinks, Nginx y permisos estrictos:
-*   <strong>Capa Estática:</strong> HTML5 Semántico, SASS BEM y Vanilla JS (0 dependencias externas, 0 librerías NPM en <em>runtime</em>).
-*   <strong>Capa Dinámica:</strong> WordPress Headless para gestión de blogs, tiendas o bases de datos complejas.
-*   <strong>Capa de Orquestación:</strong> Agentes autónomos (Self-healing, Auto-documentación).</p>
-<p><strong>4. Gobernanza Operacional Reproducible</strong>
-El repositorio incluye un <em>Deployment Playbook</em> paso a paso para servidores Ubuntu, SOPs (Standard Operating Procedures) de publicación dual y un <em>Checklist</em> de hardening. Todo lo que necesitas para operar en producción como un SRE.</p>
+<p><strong>1. No es una plantilla visual, es una infraestructura</strong></p>
+<p>Incluye más de 25 herramientas Python propias para automatizar tareas críticas: auditoría de código, generación SSG, sincronización con CMS, observabilidad de métricas e integración continua de IA.</p>
+<p><strong>2. Hybrid Stack de IA (Sin punto único de fallo)</strong></p>
+<p>La Inteligencia Artificial está orquestada de forma local y en la nube:</p>
+<ul>
+<li>
+<p><strong>Ollama (qwen2.5-coder):</strong> Ejecución local con latencia cero y privacidad absoluta de los datos.</p>
+</li>
+<li>
+<p><strong>Gemini Flash API:</strong> Análisis semánticos complejos en la nube.</p>
+</li>
+<li>
+<p><strong>LiteLLM:</strong> Actúa como proxy agnóstico.</p>
+</li>
+<li>
+<p><strong>Graceful degradation:</strong> Si el proveedor Cloud se cae, el sistema local asume el control. Si ambos fallan, el pipeline no colapsa, simplemente se degrada a funciones estáticas.</p>
+</li>
+</ul>
+<p><strong>3. Arquitectura 3 capas (Completamente aislada)</strong></p>
+<p>Las tres capas operan en paralelo sin contaminarse, unidas por Symlinks, Nginx y permisos estrictos:</p>
+<ul>
+<li>
+<p><strong>Capa Estática:</strong> HTML5 Semántico, SASS BEM y Vanilla JS (0 dependencias externas, 0 librerías NPM en <em>runtime</em>).</p>
+</li>
+<li>
+<p><strong>Capa Dinámica:</strong> WordPress Headless para gestión de blogs, tiendas o bases de datos complejas.</p>
+</li>
+<li>
+<p><strong>Capa de Orquestación:</strong> Agentes autónomos (Self-healing, Auto-documentación).</p>
+</li>
+</ul>
+<p><strong>4. Gobernanza Operacional Reproducible</strong></p>
+<p>El repositorio incluye un <em>Deployment Playbook</em> paso a paso para servidores Ubuntu, SOPs (Standard Operating Procedures) de publicación dual y un <em>Checklist</em> de hardening. Todo lo necesario para operar en producción bajo estándares SRE.</p>
 <h2>El Ecosistema de Agentes</h2>
 <p>El corazón del Boilerplate son sus 25+ agentes programados en Python puro, divididos en tres escuadrones:</p>
 <h3>Auditoría &amp; Seguridad (Escudo Activo)</h3>
@@ -112,7 +130,8 @@ El repositorio incluye un <em>Deployment Playbook</em> paso a paso para servidor
 <h2>El Contrato de Desarrollo</h2>
 <p>La filosofía principal de Merci es el <strong>Spec-Driven Development</strong>. Todo clon del repositorio incluye un archivo <code>instrucciones.md</code>. 
 No es una guía de uso, es un "contrato vinculante" que define exactamente qué está permitido hacer (ej. <em>Vanilla JS</em>) y qué está prohibido (ej. <em>Frameworks reactivos o estilos en línea</em>). El orquestador de <em>commits</em> valida estas especificaciones en cada guardado.</p>
-<p>Si estás listo para adoptar una infraestructura donde el rendimiento y la seguridad no son una promesa, sino una métrica auditable, <strong>eres bienvenido a clonarlo</strong>.</p>
+<p>Si estás listo para adoptar una infraestructura donde el rendimiento y la seguridad no son una promesa, sino una métrica auditable, <strong>eres bienvenido a clonarlo</strong>.
+Para aquellos entornos donde el rendimiento y la seguridad no son una promesa, sino una métrica auditable, el repositorio base se encuentra disponible para su clonación y estudio.</p>
 <p>🔗 <strong>Repositorio Oficial de Merci Boilerplate en GitHub</strong>
 https://github.com/MercedesDF/merci-boilerplate</p>
             </div>

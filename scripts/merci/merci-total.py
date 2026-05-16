@@ -23,11 +23,13 @@ SCRIPTS_DIR = Path(__file__).resolve().parent
 # 4. WP Headless: Sincroniza los markdowns locales dinámicos hacia WordPress.
 # 5. Sync Pages: Propaga el header/footer maestro a las páginas secundarias.
 # 6. Extract Metrics: Inyecta las últimas estadísticas de PageSpeed Insight en home.
+# 7. Brain: Genera el JSON estático con respuestas contextuales de IA.
 # --- FASE DE QA (QUALITY ASSURANCE) ---
-# 7. SSOT: Agente que sincroniza el Roadmap.
 # 8. Sitemap: Escanea todos los HTML finales generados y actualiza el mapa XML.
-# 9. Audit: Auditoría estricta de seguridad, SEO y sintaxis sobre el código final.
-# 10. Linkcheck: Rastreo dinámico de enlaces rotos sobre el HTML final compilado.
+# 9. SSOT: Agente que sincroniza el Roadmap.
+# 10. Audit: Auditoría estricta de seguridad, SEO y sintaxis sobre el código final.
+# 11. Hardening: Audita la postura de seguridad de la infraestructura y el repositorio.
+# 12. Linkcheck: Rastreo dinámico de enlaces rotos sobre el HTML final compilado.
 
 PIPELINE = [
     "merci-optimizer.py",
