@@ -188,6 +188,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
 </body>
 </html>"""
 
+    pdf_download_link = ""
     # QUÉ HACE: Renderiza el PDF inyectando el base_url hacia la carpeta public/.
     # POR QUÉ: Sin el base_url, WeasyPrint no puede resolver rutas absolutas como /assets/images/... 
     # y las imágenes del Markdown aparecerían rotas o invisibles en el PDF descargable.
@@ -195,6 +196,8 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     if HTML:
         try:
             HTML(string=pdf_html_content, base_url=str(REPO_ROOT / "public")).write_pdf(out_pdf_path)
+            if out_pdf_path.exists():
+                pdf_download_link = f'\n                <a href="/descargas/{out_pdf_filename}" class="card__download" download>📄 Descargar Edición PDF</a>'
         except Exception as e:
             print(f"  ❌ Error crítico al generar PDF para {filepath.name}. Comprueba las imágenes: {e}")
             # Continuamos con el proceso aunque falle el PDF para no dejar a la web sin HTML
@@ -234,8 +237,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
         <article class="card {clase_css}">
             <a href="{base_url_path}" class="card__back-link">{back_text}</a>
             <header>
-                <h1 class="home-card__title--highlight">{titulo_html}</h1>
-                <a href="/descargas/{out_pdf_filename}" class="card__download" download>📄 Descargar Edición PDF</a>
+                    <h1 class="home-card__title--highlight">{titulo_html}</h1>{pdf_download_link}
             </header>
             <div class="card__content">
                 {html_content}

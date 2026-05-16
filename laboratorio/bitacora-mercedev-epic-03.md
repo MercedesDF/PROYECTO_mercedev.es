@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-16 — Fix: Degradación Elegante en generación de PDFs (WeasyPrint)
+
+**Contexto:** El rastreador dinámico de enlaces (`merci-linkcheck.py`) reportaba errores 404 (`Failed to load resource`) debido a enlaces rotos en los botones de descarga de PDF. Esto sucedía porque el orquestador (`merci-publish.py`) inyectaba incondicionalmente el enlace al PDF en el DOM, incluso cuando la librería `weasyprint` no estaba instalada o fallaba al renderizar el archivo.
+
+**Hecho:** Se implementó una inyección condicional del enlace de descarga HTML en `scripts/merci/merci-publish.py`.
+
+**Detalle técnico:** Se inicializa `pdf_download_link = ""` y solo se le asigna el bloque de código `<a href="/descargas/...">` si la llamada a WeasyPrint se ejecuta con éxito y el comando `out_pdf_path.exists()` confirma que el archivo físico fue creado en disco. Este enlace condicionado se inyecta luego dinámicamente junto al `<h1>`.
+
+**Motivo / criterio:** *Fail Gracefully (Degradación Elegante) y Shift-Left DAST*. Si el entorno local carece de dependencias pesadas, el generador estático debe sobrevivir y publicar el HTML intacto sin generar "enlaces fantasma". Condicionar la UI a la existencia física del recurso erradica los 404 detectados por el linter dinámico y mantiene la promesa de 0 dependencias bloqueantes.
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para compilar el HTML, limpiar los enlaces rotos y empaquetar el commit de la sesión.
+
 ### 2026-05-16 — DevRel: Visor de Cola Social y Consolidación de Bandeja Unificada
 
 **Contexto:** Se necesitaba una forma rápida de auditar el "Buffer Social" (posts pendientes y aprobados para LinkedIn) sin arrancar orquestadores interactivos. Además, se detectó que los scripts de publicación SSG y WP expulsaban los borradores a rutas relativas obsoletas en lugar de a la nueva bandeja de incubación.
