@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consolidación del Enrutamiento Zero-JS: Limpieza de Clases Legacy — mercedev.es</title>
+    <meta name="description" content="Refactorización para delegar el resaltado de enlaces activos exclusivamente a la hoja de estilos mediante Body IDs, eliminando mutaciones del DOM.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.html">
+    <link rel="stylesheet" href="/css/main.css?v=1779007394">
+    <script src="/js/MerciController.js?v=1778974789" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Consolidaci\u00f3n del Enrutamiento Zero-JS: Limpieza de Clases Legacy",
+      "description": "Refactorizaci\u00f3n para delegar el resaltado de enlaces activos exclusivamente a la hoja de estilos mediante Body IDs, eliminando mutaciones del DOM.",
+      "url": "https://mercedev.es/biblioteca/consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
+            <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Consolidación del Enrutamiento Zero-JS: Limpieza de Clases Legacy</h1>
+                <a href="/descargas/consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>A pesar de haber implementado una arquitectura SASS basada en selectores de Body IDs (ej. <code>#page-home</code>) para manejar el resaltado visual del menú, el enlace activo fallaba en las páginas estáticas (Home, Sobre Mí, Contacto). El problema radicaba en la pervivencia de código <em>legacy</em>: la clase <code>nav__link--active</code> seguía incrustada en el archivo <code>index.html</code> original y el script de sincronización de páginas intentaba reescribirla dinámicamente en tiempo de compilación, interfiriendo con la lógica de la hoja de estilos.</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Se ejecutó una limpieza estructural (Zero-JS Routing). Primero, se eliminó la clase <code>nav__link--active</code> y el atributo de accesibilidad <code>aria-current="page"</code> quemados en el archivo maestro de la portada. Segundo, se purgó la lógica de mutación de cadenas (uso de <code>replace()</code>) en <code>merci-sync-pages.py</code>, permitiendo que el bloque <code>&lt;header&gt;</code> se clone de manera 100% literal e inmaculada hacia todas las páginas secundarias estáticas.</p>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Delegar la responsabilidad del estado de la interfaz de usuario (UI) puramente a la hoja de estilos es la máxima expresión de "Single Source of Truth". Modificar el DOM mediante scripts de compilación para alterar clases activas añade complejidad innecesaria. Al mantener el <code>&lt;header&gt;</code> idéntico en todo el ecosistema estático y dejar que el CSS resuelva el estado activo en base al contexto (<code>body id</code>), se logra un enrutamiento visual de latencia cero y se reduce radicalmente la deuda técnica.</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

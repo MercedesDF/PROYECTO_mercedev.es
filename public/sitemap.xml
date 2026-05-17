@@ -55,6 +55,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/sanitizacion-de-metadatos-yaml-prevencion-xss-y-rotura-del-dom</loc>
+      <lastmod>2026-05-17</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/el-limite-cognitivo-por-que-la-ia-local-falla-en-la-gobernanza-documental</loc>
       <lastmod>2026-05-17</lastmod>
       <changefreq>weekly</changefreq>
@@ -242,6 +248,12 @@
    </url>
    <url>
       <loc>https://mercedev.es/biblioteca/semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem</loc>
+      <lastmod>2026-05-17</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://mercedev.es/biblioteca/consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy</loc>
       <lastmod>2026-05-17</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.7</priority>

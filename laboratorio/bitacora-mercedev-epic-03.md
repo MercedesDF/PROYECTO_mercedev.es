@@ -38,6 +38,20 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-17 — Fix: Restauración de enrutamiento Zero-JS y menú móvil
+
+**Contexto:** Tras la limpieza de las clases *legacy* del `<header>`, el resaltado visual del menú dejó de funcionar en las páginas estáticas manuales (Portada, Sobre Mí, Contacto). Simultáneamente, el menú hamburguesa móvil no respondía debido a que los dispositivos conservaban versiones cacheadas del DOM y los scripts.
+
+**Hecho:**
+- Se inyectaron explícitamente los atributos `id="page-home"`, `id="page-sobre-mi"` y `id="page-contacto"` en las etiquetas `<body>` de sus respectivos archivos estáticos.
+- Se ejecutó el orquestador global `merci total` para forzar el *Cache Busting* dinámico (`?v=...`) y propagar el nuevo estado.
+
+**Detalle técnico:** La arquitectura Zero-JS depende de selectores CSS combinados (ej. `#page-home .nav__link[href="/"]`). Sin el ID en el `<body>`, la regla SASS carecía de anclaje contextual en las rutas manuales. La ejecución del orquestador generó nuevas marcas de tiempo en los recursos estáticos, obligando a los navegadores móviles a purgar la caché y recuperar la funcionalidad del `main.js`.
+
+**Motivo / criterio:** *Context-Awareness y Cache Invalidation*. La interfaz de usuario debe proveer su propio contexto semántico al CSS para evitar dependencias de scripts que muten el DOM. Confiar la purga de caché móvil al versionado dinámico del orquestador asegura que los parches estructurales se propaguen instantáneamente a todos los usuarios (Paridad de Entornos).
+
+**Siguiente paso o deuda:** Validar analíticas en producción y transicionar hacia la Fase 2 de la Épica 3 (Alertas SRE en Grafana).
+
 ### 2026-05-17 — Refactor: Consolidación de enrutamiento Zero-JS y limpieza legacy
 
 **Contexto:** A pesar de haber implementado el enrutamiento visual mediante Body IDs, las páginas estáticas no resaltaban correctamente el enlace activo en el menú. Esto se debía a que `public/index.html` y el sincronizador de páginas seguían conservando e inyectando la clase quemada `nav__link--active`, interfiriendo con la nueva arquitectura CSS.

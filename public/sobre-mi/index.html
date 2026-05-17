@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <!-- QUÉ HACE: Meta descripción enfocada a reclutadores técnicos e indexación. -->
-    <meta name="description" content="Perfil técnico y currículum semántico de Mercedes Domínguez, AI Systems Architect & DevSecOps Lead. Especialista en Spec-Driven Development y arquitecturas de 0 dependencias.">
+    <meta name="description" content="Perfil técnico y currículum semántico de Mercedes Domínguez, AI Systems Architect & DevSecOps Lead. Especialista en Spec-Driven Development, SRE y arquitecturas de cero dependencias.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre Mí / CV — mercedev.es</title>
     
     <link rel="icon" href="/favicon.ico?v=3" type="image/x-icon">
-    <link rel="stylesheet" href="/css/main.css?v=1778974529">
-    <script src="/js/MerciController.js?v=1778479031" defer></script>
+    <link rel="stylesheet" href="/css/main.css?v=1779007394">
+    <script src="/js/MerciController.js?v=1778974789" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <link rel="canonical" href="https://mercedev.es/sobre-mi/">
 
@@ -40,7 +40,7 @@
     }
     </script>
 </head>
-<body class="page">
+<body class="page" id="page-sobre-mi">
     <!-- Ancla invisible WAI-ARIA -->
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     
@@ -57,7 +57,7 @@
             <a href="/biblioteca/" class="nav__link">Biblioteca</a>
             <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
             <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
-            <a href="/sobre-mi/" class="nav__link nav__link--active" aria-current="page">Sobre Mí</a>
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
             <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
             <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
             <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
@@ -70,37 +70,54 @@
     <main class="main" id="main">
 
         <section class="hero">
-            <h1 class="hero__title">mercedes domínguez - mercedev</h1>
-            <p class="hero__subtitle"><em>Gobernar la incertidumbre mediante documentación clara, automatización exhaustiva y medición real.</em></p>
-        </section>
+            <h1 class="hero__title">sobre<span class="hero__highlight">mí</span></h1>
+            <h2 class="hero__statement">Mercedes Domínguez — mercedev</h2>
+            
+            <p class="hero__subtitle">
+                <strong>Ingeniería estructural aplicada al código.</strong><br>
+                <br>
+                Especialista en DevSecOps, automatización en Python y diseño de arquitecturas AI Stack de alto rendimiento con cero dependencias.
+            </p>
+            
+            <ul class="hero__highlights">
+                <li>20+ Años de Gestión Técnica</li>
+                <li>Filosofía Spec as Source</li>
+                <li>Automatización Nativa</li>
+            </ul>
+
+            <div class="hero__cta">
+                <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer">Contactar en LinkedIn</a>
+                <a href="#prose">Leer Manifiesto</a>
+            </div>
+        </section>  
 
         <section class="section">
 
             <article class="prose">
                 <div class="prose__content">
-                    <h2>Quién Soy</h2>
-                    <p>Soy Ingeniera Técnica Forestal. Durante más de 20 años he gestionado la ejecución y calidad en proyectos de obra civil e industrial (refinerías, desaladoras, grandes infraestructuras), evolucionando desde delineante hasta jefa de producción. Esa disciplina técnica y la obsesión por el control de procesos me han traído hasta aquí: la arquitectura de software y la ingeniería de rendimiento.</p>
-                    <p>La adopción de modelos de Inteligencia Artificial combinada con la estricta filosofía <em>Spec-Driven Development</em> me ha permitido orquestar este ecosistema web desde cero. Este proyecto es la demostración empírica de que, aplicando rigor metodológico y documentando cada paso en una bitácora inmutable, se pueden construir sistemas auditables, seguros y reproducibles en menos de dos meses.</p>
-                    <h2>Qué Aporto</h2>
+                    
+                    <h1>Sobre Mí / Infraestructura Humana</h1>
+                    <p>No concibo el desarrollo de software como la simple acumulación de librerías. Tras más de 20 años coordinando proyectos de ingeniería técnica en sectores industriales y obra civil, aplico esa misma rigurosidad estructural al código.</p>
+                    
+                    <h3><strong>Mi filosofía: Spec as Source. Diseñar la especificación formal antes de tirar una sola línea. Automatizar para eliminar el error humano.</strong></h3>
+
+                    <h2>Stack & Especialización</h2>
+                    <p>Me muevo en el terminal (Zsh) y construyo sistemas bajo la premisa de rendimiento nativo y cero paja arquitectónica (Zero-Bloat):</p>
+
                     <ul>
-                        <li><strong>Arquitectura Zero-Bloat</strong><br> 0 dependencias bloqueantes, 100/100 Core Web Vitals auditables empíricamente.</li>
-                        <li><strong>Orquestación IA Híbrida</strong><br> Integración de Modelos Locales (Ollama) y Cloud (Gemini) en pipelines de Integración Continua (CI/CD).</li>
-                        <li><strong>Gobernanza de Código</strong><br> Creación de auditores estáticos (SAST/DAST) y herramientas CLI en Python puro.</li>
-                        <li><strong>Trazabilidad</strong><br> Mantenimiento de bitácoras de decisiones (ADRs) y cuadernillos de ingeniería de infraestructura.</li>
+                        <li><strong>DevSecOps & SRE:</strong> Automatización pura con Vanilla Python, orquestación de despliegues, auditorías automatizadas de seguridad y control estricto de Git workflows.</li>
+                        <li><strong>Arquitectura AI Stack:</strong> Hibridación de sistemas autónomos. Integración y despliegue de modelos locales (Ollama) acoplados con APIs cloud eficientes.</li>
+                        <li><strong>Frontend Semántico:</strong> Desarrollo basado en estándares puros: HTML5 estricto, SASS estructurado bajo metodología BEM y Vanilla JavaScript.</li>
                     </ul>
 
-                    <h2>Evidencia</h2>
-                    <p>Este sitio no es un portfolio. Es el <a href="/">centro de operaciones</a> activo de mi propio <em>Framework</em>, orquestado por más de 25 agentes de Python y documentado línea a línea en la <a href="/biblioteca/">Biblioteca</a> y en los repositorios de GitHub.</p>
+                    <h2>La Transición Estructural</h2>
+                    <p>La ingeniería civil me enseñó que los cimientos sostienen todo el sistema. En el desarrollo de software, esos cimientos son la mantenibilidad, la velocidad de carga y la resiliencia del entorno de producción.</p>
+                    <p>Este espacio, gobernado por herramientas automatizadas que yo misma he programado (como el ecosistema *Merci*), es la prueba en vivo de esa mentalidad.</p>
 
-                    <h2>Modalidad de Trabajo</h2>
-                    <p><strong>Disponibilidad:</strong> Remoto 100%. Enfoque en proyectos concretos con entregables definidos. Capacidad limitada (trabajo selectivo).</p>
+                    <h2>¿Hablamos?</h2>
+                    <p>Si buscas un perfil técnico que no dependa de recetas prefabricadas, que entienda la infraestructura desde la raíz y que diseñe soluciones optimizadas para el rendimiento real, mi terminal está abierto.</p>
+                    <p>👉 <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer"><strong>Conectar en LinkedIn</strong></a> o revisa el motor de este sitio en <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer"><strong>Merci Boilerplate</strong></a>.</p>
 
-                    <h2>Cómo Conectar</h2>
-                    <p>La forma más rápida de hablar de arquitectura y rendimiento es a través de mi red profesional:</p>
-                    <p>
-                        👉 <strong><a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer">Conectar en LinkedIn</a></strong><br>
-                        👉 <strong><a href="/contacto/">Protocolo de Contacto PGP</a></strong>
-                    </p>
                 </div>
             </article>
         </section>

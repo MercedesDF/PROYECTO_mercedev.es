@@ -6,7 +6,7 @@
     <title>La Biblioteca — mercedev.es</title>
     <meta name="description" content="Índice de publicaciones técnicas y proyectos de la Biblioteca.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/">
-    <link rel="stylesheet" href="/css/main.css?v=1778974529">
+    <link rel="stylesheet" href="/css/main.css?v=1779007394">
     <script src="/js/MerciController.js?v=1778974789" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <script type="application/ld+json">
@@ -29,7 +29,7 @@
             <span class="header__toggle-icon"></span>
         </button>
         <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
-            <a href="/" class="nav__link nav__link--active" aria-current="page">Home</a>
+            <a href="/" class="nav__link">Home</a>
             <a href="/biblioteca/" class="nav__link">Biblioteca</a>
             <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
             <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
@@ -261,6 +261,9 @@
                     <a href="#ingenieria-de-interfaz-estatica" class="library-nav__theme-title" aria-label="Explorar estantería: ingeniería de interfaz estática">ingeniería de interfaz estática</a>
                     <ul class="library-nav__article-list">
                         <li class="library-nav__article-item">
+                            <a href="#consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy" class="library-nav__article-link" aria-label="Ir al resumen de: Consolidación del Enrutamiento Zero-JS: Limpieza de Clases Legacy">Consolidación del Enrutamiento Zero-JS: Limpieza de Clases Legacy</a>
+                        </li>
+                        <li class="library-nav__article-item">
                             <a href="#css-box-model-y-el-colapso-de-margenes-en-disenos-asimetricos" class="library-nav__article-link" aria-label="Ir al resumen de: CSS Box Model y el Colapso de Márgenes en Diseños Asimétricos">CSS Box Model y el Colapso de Márgenes en Diseños Asimétricos</a>
                         </li>
                         <li class="library-nav__article-item">
@@ -295,6 +298,9 @@
                 <li class="library-nav__item">
                     <a href="#seguridad-y-arquitectura" class="library-nav__theme-title" aria-label="Explorar estantería: seguridad y arquitectura">seguridad y arquitectura</a>
                     <ul class="library-nav__article-list">
+                        <li class="library-nav__article-item">
+                            <a href="#sanitizacion-de-metadatos-yaml-prevencion-xss-y-rotura-del-dom" class="library-nav__article-link" aria-label="Ir al resumen de: Sanitización de Metadatos YAML: Prevención XSS y Rotura del DOM">Sanitización de Metadatos YAML: Prevención XSS y Rotura del DOM</a>
+                        </li>
                         <li class="library-nav__article-item">
                             <a href="#prevencion-de-fugas-de-datos-data-leak-en-empaquetados" class="library-nav__article-link" aria-label="Ir al resumen de: Prevención de Fugas de Datos (Data Leak) en empaquetados">Prevención de Fugas de Datos (Data Leak) en empaquetados</a>
                         </li>
@@ -859,6 +865,15 @@
             </div>
             <div class="home-grid">
                 
+                <article class="card card--booklet" id="consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy">
+                    <header>
+                        <span class="card__meta">2026-05-17 — Cuadernillo &middot; Fase Épica 3 - Fase 1</span>
+                        <h2 class="card__title"><a href="/biblioteca/consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.html" aria-label="Leer artículo completo: Consolidación del Enrutamiento Zero-JS: Limpieza de Clases Legacy">Consolidación del Enrutamiento Zero-JS: Limpieza de Clases Legacy</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Refactorización para delegar el resaltado de enlaces activos exclusivamente a la hoja de estilos mediante Body IDs, eliminando mutaciones del DOM.</p>
+                    </div>
+                </article>
                 <article class="card card--booklet" id="css-box-model-y-el-colapso-de-margenes-en-disenos-asimetricos">
                     <header>
                         <span class="card__meta">2026-05-16 — Cuadernillo &middot; Fase Épica 3 - Fase 1</span>
@@ -940,6 +955,15 @@
             </div>
             <div class="home-grid">
                 
+                <article class="card card--booklet" id="sanitizacion-de-metadatos-yaml-prevencion-xss-y-rotura-del-dom">
+                    <header>
+                        <span class="card__meta">2026-05-17 — Cuadernillo &middot; Fase Épica 3 - Fase 1</span>
+                        <h2 class="card__title"><a href="/biblioteca/sanitizacion-de-metadatos-yaml-prevencion-xss-y-rotura-del-dom.html" aria-label="Leer artículo completo: Sanitización de Metadatos YAML: Prevención XSS y Rotura del DOM">Sanitización de Metadatos YAML: Prevención XSS y Rotura del DOM</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Cómo el escapado de caracteres HTML en metadatos YAML previene inyecciones XSS y asegura la integridad del DOM en generadores estáticos.</p>
+                    </div>
+                </article>
                 <article class="card card--booklet" id="prevencion-de-fugas-de-datos-data-leak-en-empaquetados">
                     <header>
                         <span class="card__meta">2026-04-26 — Cuadernillo &middot; Fase 10 (Empaquetado y Release)</span>

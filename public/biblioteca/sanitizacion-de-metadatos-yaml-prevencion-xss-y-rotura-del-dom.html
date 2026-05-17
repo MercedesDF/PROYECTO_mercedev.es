@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanitización de Metadatos YAML: Prevención XSS y Rotura del DOM — mercedev.es</title>
+    <meta name="description" content="Cómo el escapado de caracteres HTML en metadatos YAML previene inyecciones XSS y asegura la integridad del DOM en generadores estáticos.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/sanitizacion-de-metadatos-yaml-prevencion-xss-y-rotura-del-dom.html">
+    <link rel="stylesheet" href="/css/main.css?v=1779007394">
+    <script src="/js/MerciController.js?v=1778974789" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Sanitizaci\u00f3n de Metadatos YAML: Prevenci\u00f3n XSS y Rotura del DOM",
+      "description": "C\u00f3mo el escapado de caracteres HTML en metadatos YAML previene inyecciones XSS y asegura la integridad del DOM en generadores est\u00e1ticos.",
+      "url": "https://mercedev.es/biblioteca/sanitizacion-de-metadatos-yaml-prevencion-xss-y-rotura-del-dom.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la futura ruta de tu Perfil Semántico (Anti-ATS) -->
+            <!-- POR QUÉ: Integra tu autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Sanitización de Metadatos YAML: Prevención XSS y Rotura del DOM</h1>
+                <a href="/descargas/sanitizacion-de-metadatos-yaml-prevencion-xss-y-rotura-del-dom.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>Durante la generación del índice de la Biblioteca, la página estática dejó de cargar repentinamente y el contenido inferior desapareció. El problema se originó porque el campo <code>descripcion</code> de un artículo contenía etiquetas HTML literales (como <code>&lt;script src="..."&gt;</code>). Al inyectarse este texto "crudo" en la plantilla del SSG, el navegador lo interpretó como código ejecutable real, rompiendo la estructura del DOM al carecer de etiquetas de cierre adecuadas. Adicionalmente, esto abría una brecha de seguridad para ataques de Cross-Site Scripting (XSS).</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Se implementó un patrón de sanitización estricta ("Shift-Left Security") en los orquestadores <code>merci-publish.py</code> y <code>merci-wp.py</code>. Se utilizó la función nativa <code>html.escape()</code> de Python para procesar todos los campos de texto menores extraídos del YAML Frontmatter (título, descripción, fase, tipo, volumen, fecha) antes de su interpolación en las plantillas f-string de HTML y en la compilación de PDFs.</p>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Confiar ciegamente en las entradas de datos, incluso cuando provienen de archivos Markdown locales redactados por el propio equipo, es un antipatrón arquitectónico. Las etiquetas literales pueden destruir interfaces visuales o romper generadores de PDF dependientes de etiquetas (como WeasyPrint). Sanitizar en tiempo de compilación (Build Time) cierra permanentemente la vía de inyección secundaria, demostrando que la seguridad debe aplicarse desde la extracción del dato y no solo en el entorno de ejecución del cliente.</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>
