@@ -38,6 +38,20 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-17 — Docs: Actualización de Shadow Docs y directrices para Release v1.13.0
+
+**Contexto:** Antes de instanciar y exportar la versión 1.13.0 del Boilerplate a GitHub, era imperativo actualizar la documentación base y las políticas de arquitectura para que los proyectos derivados hereden el blindaje XSS y el patrón de enrutamiento Zero-JS.
+
+**Hecho:**
+- Se actualizaron los manuales maestros (`README.md` y `README-merci.md`).
+- Se modificaron las directrices en `instrucciones.md` e `instrucciones-merci.md`.
+
+**Detalle técnico:** Se añadió explícitamente la obligación de sanitizar cadenas provenientes de metadatos (`html.escape`) en la regla de "Seguridad Shift-Left" y se elevó a canon arquitectónico el "Enrutamiento Visual Zero-JS" basado en Body IDs. Se oficializó el cierre de la Fase 1 de la Épica 3 en el Roadmap.
+
+**Motivo / criterio:** *Knowledge Export y Governance*. Exportar una plantilla sin actualizar sus normas de uso provoca Deriva de Configuración. La documentación (Shadow Docs) debe actuar como un reflejo exacto y normativo de las decisiones de ingeniería implementadas en el código.
+
+**Siguiente paso o deuda:** Desplegar en producción, certificar las métricas Core Web Vitals en PageSpeed Insights e iniciar la Fase 2 (Alertas SRE en Grafana).
+
 ### 2026-05-17 — Fix: Restauración de enrutamiento Zero-JS y menú móvil
 
 **Contexto:** Tras la limpieza de las clases *legacy* del `<header>`, el resaltado visual del menú dejó de funcionar en las páginas estáticas manuales (Portada, Sobre Mí, Contacto). Simultáneamente, el menú hamburguesa móvil no respondía debido a que los dispositivos conservaban versiones cacheadas del DOM y los scripts.

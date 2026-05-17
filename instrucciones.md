@@ -22,7 +22,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 ### 2.1. Núcleo Estático (Frontend y Rendimiento)
 - **HTML5:** Semántica estricta y microdatos (JSON-LD) para SEO técnico.
 - **CSS3:** Metodología BEM (Block, Element, Modifier - Modificador de Elemento de Bloque) y arquitectura **SASS 7-1**. Compilación optimizada a un único archivo.
-- **JavaScript (Vanilla):** Paradigma *Motherfucker*. Implementación asíncrona, POO, principios SOLID y 0 dependencias externas.
+- **JavaScript (Vanilla) & Zero-JS Routing:** Paradigma *Motherfucker*. Implementación asíncrona, principios SOLID y 0 dependencias externas. El resaltado de enlaces y el estado activo del menú se delega 100% a la hoja de estilos mediante *Body IDs*, eliminando mutaciones del DOM.
 
 ### 2.2. Automatización y Control (Backend / DevSecOps local)
 - **Entorno:** Terminal **zsh** en sistema **Ubuntu**.
