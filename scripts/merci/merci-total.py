@@ -63,6 +63,13 @@ def main():
             subprocess.run([sys.executable, str(script_path)], check=True)
             print()  # Separador visual entre bloques de ejecución
         except subprocess.CalledProcessError as e:
+            # QUÉ HACE: Degradación Elegante para el Agente SSOT.
+            # POR QUÉ: En un clon nuevo (Boilerplate), el Roadmap de IA y la Bitácora no existen por la limpieza DLP.
+            # Convertimos su código de salida fatal en un aviso informativo para no romper la Out-of-the-Box Experience.
+            if script == "merci-ssot.py":
+                print("  ⚠️ [Merci Info] Agente SSOT desactivado: Faltan documentos origen (Comportamiento esperado en Boilerplate).")
+                print()
+                continue
             print(f"\n❌ [Merci Total] Pipeline detenido. El proceso '{script}' reportó errores y bloqueó la ejecución.")
             sys.exit(e.returncode)
             

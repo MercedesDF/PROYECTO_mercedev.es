@@ -188,7 +188,7 @@
 
 ### Fase 2: Observabilidad y Alertas SRE
 - [x] Instrumentar `merci-sre.py` para medir y exponer a Prometheus la métrica `merci_linkedin_queue_total`.
-- [ ] Configurar alertas nativas en Grafana (Alerting) para enviar un aviso por email si la cola baja de 5 posts.
+- [x] Configurar alertas nativas en Grafana (Alerting) para enviar un aviso por email si la cola baja de 5 posts.
 - [ ] Integrar métricas de Inteligencia Artificial (fallbacks a la nube, errores del auditor) en Grafana.
 - [ ] Implementar un registro privado persistente (`.privado/chaos-audit.log`) para las mutaciones del Agente Chaos.
 - [ ] Instrumentar `merci-sre.py` para exponer el historial de resiliencia de Chaos Engineering hacia Grafana.
