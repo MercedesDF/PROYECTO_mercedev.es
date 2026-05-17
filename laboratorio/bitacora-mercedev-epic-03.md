@@ -38,6 +38,46 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-17 — Refactor: Consolidación de enrutamiento Zero-JS y limpieza legacy
+
+**Contexto:** A pesar de haber implementado el enrutamiento visual mediante Body IDs, las páginas estáticas no resaltaban correctamente el enlace activo en el menú. Esto se debía a que `public/index.html` y el sincronizador de páginas seguían conservando e inyectando la clase quemada `nav__link--active`, interfiriendo con la nueva arquitectura CSS.
+
+**Hecho:**
+- Se eliminó la clase `nav__link--active` y el atributo `aria-current="page"` del enlace "Home" en `public/index.html`.
+- Se purgó la lógica de reemplazo y mutación dinámica de clases en `scripts/merci/merci-sync-pages.py`.
+
+**Detalle técnico:** El bloque `<header>` ahora se clona de forma 100% literal a todas las páginas secundarias estáticas. El resaltado recae exclusivamente en la combinación del selector CSS (ej. `#page-home .nav__link[href="/"]`) activado por el ID del `<body>`.
+
+**Motivo / criterio:** *Single Source of Truth y Zero-JS*. Delegar el estado activo puramente a la hoja de estilos elimina la necesidad de modificar el DOM en tiempo de compilación. Mantener el `<header>` inmaculado y unificado en todo el ecosistema estático reduce la complejidad estructural.
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para propagar el header limpio al resto de páginas estáticas.
+
+### 2026-05-17 — Fix: Sanitización de metadatos YAML (Prevención XSS y DOM Breakage)
+
+**Contexto:** Los artículos que contenían etiquetas HTML literales en sus descripciones o títulos (ej. `<script src="...">`) provocaban que el navegador las interpretara como código real al renderizar el índice de la Biblioteca, rompiendo el DOM y deteniendo la carga del resto de la página. Además, existía riesgo de inyección y rotura del compilador al generar los PDFs.
+
+**Hecho:**
+- Se inyectó `html.escape()` en `scripts/merci/merci-publish.py` y `scripts/merci/merci-wp.py` para todos los campos provenientes del YAML Frontmatter (título, descripción, fase, tipo, volumen, fecha).
+- Se restituyeron los comentarios arquitectónicos (QUÉ HACE / POR QUÉ) documentando el blindaje.
+
+**Detalle técnico:** Se convirtieron los caracteres especiales (`<`, `>`, `&`, `"`) a entidades HTML seguras antes de interpolarlos en las f-strings que construyen las tarjetas HTML de los índices y el código fuente procesado por WeasyPrint.
+
+**Motivo / criterio:** *Shift-Left Security y Robustez*. Confiar ciegamente en el input del usuario (incluso si es la propia autora redactando un Markdown local) es un antipatrón. Sanitizar las cadenas de texto en el momento de la extracción asegura que el SSG y el CMS generen siempre un código inofensivo y a prueba de roturas visuales.
+
+**Siguiente paso o deuda:** Compilar el núcleo estático con `merci total` y verificar la correcta visualización de las tarjetas previamente afectadas.
+
+### 2026-05-16 — Fix: Silenciado de advertencia visual en consola (Merci UI)
+
+**Contexto:** La consola del navegador mostraba una advertencia (`warn`) constante en páginas donde el asistente no debía instanciarse ("Contenedor #merci-ui no encontrado"), y un error 404 por un recurso (imagen) huérfano. En entornos DevSecOps, este "ruido" ensucia la depuración e invisibiliza los errores reales de producción.
+
+**Hecho:** Se rebajó la severidad del mensaje en `public/js/MerciController.js` de `console.warn` a `console.debug`. Se diagnosticó el error 404 como un "falso positivo" de desarrollo derivado de una inyección de imagen sin compilar.
+
+**Detalle técnico:** Al utilizar `console.debug`, la ejecución sigue cayendo en el `return` silencioso que apaga al asistente, pero el mensaje queda oculto en la terminal del navegador a menos que el usuario active explícitamente el nivel de filtrado "Verbose/Depuración".
+
+**Motivo / criterio:** *Degradación Elegante (Fail Gracefully) y Clean Console*. Que el asistente no se instancie en ciertas vistas no es un error ni un riesgo, es un comportamiento intencionado. Emitir una advertencia (amarilla) por un diseño arquitectónico exitoso es un anti-patrón de observabilidad.
+
+**Siguiente paso o deuda:** Identificar exactamente qué imagen es la que genera el 404 para proveerla o compilarla correctamente.
+
 ### 2026-05-16 — Fix: Degradación Elegante en generación de PDFs (WeasyPrint)
 
 **Contexto:** El rastreador dinámico de enlaces (`merci-linkcheck.py`) reportaba errores 404 (`Failed to load resource`) debido a enlaces rotos en los botones de descarga de PDF. Esto sucedía porque el orquestador (`merci-publish.py`) inyectaba incondicionalmente el enlace al PDF en el DOM, incluso cuando la librería `weasyprint` no estaba instalada o fallaba al renderizar el archivo.

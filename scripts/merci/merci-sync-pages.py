@@ -91,15 +91,8 @@ def main():
         target_url = "/" if page_name == target_path.name else f"/{page_name}/"
         
         target_html = target_path.read_text(encoding="utf-8")
-        
-        # QUÉ HACE: Desplaza dinámicamente el estado activo (Zero-JS).
-        # POR QUÉ: Resolvemos el resaltado en la compilación (Build Time), eliminando bloqueos de renderizado.
-        header_adaptado = header_content.replace(' nav__link--active', '').replace(' aria-current="page"', '')
-        search_str = f'href="{target_url}" class="nav__link"'
-        replace_str = f'href="{target_url}" class="nav__link nav__link--active" aria-current="page"'
-        header_adaptado = header_adaptado.replace(search_str, replace_str)
 
-        nuevo_html = replace_block(target_html, header_pattern, header_adaptado, "Header")
+        nuevo_html = replace_block(target_html, header_pattern, header_content, "Header")
         nuevo_html = replace_block(nuevo_html, footer_pattern, footer_content, "Footer")
         nuevo_html = replace_block(nuevo_html, aside_pattern, aside_content, "Aside (Merci)")
         nuevo_html = replace_block(nuevo_html, css_pattern, css_content, "CSS Cache Busting")
