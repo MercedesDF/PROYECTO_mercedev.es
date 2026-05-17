@@ -38,6 +38,20 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-17 — Arch: Estrategia de métricas JSON y cierre de Fase 1
+
+**Contexto:** Con el descubrimiento de los reportes JSON crudos de WebPageTest/Lighthouse, se planteó la necesidad de refactorizar el extractor de métricas (`merci-extract-metrics.py`). Surgió el debate arquitectónico sobre cómo gestionar múltiples reportes (Portada, Blog, Tienda) en el dashboard de producción.
+
+**Hecho:**
+- Se decidió posponer la refactorización para evitar el *Scope Creep* (desvío de alcance) y cerrar limpiamente la Fase 1 de la Épica 3.
+- Se añadió la tarea de refactorización al Roadmap dentro de la Fase 2 (Observabilidad Avanzada).
+
+**Detalle técnico:** La estrategia futura ("Dashboard Contextual" o "Worst-Case Flex") implicará que el script escanee múltiples archivos `.json` y asigne las métricas correspondientes, priorizando exponer el rendimiento de la Tienda como prueba empírica de la resiliencia de la arquitectura híbrida bajo estrés.
+
+**Motivo / criterio:** *Project Management y Scope Creep*. Congelar el alcance es vital en ingeniería. Si una fase cumple sus objetivos de negocio (en este caso, blindaje XSS y enrutamiento Zero-JS), debe cerrarse. Añadir mejoras no críticas sobre la marcha es una fuente principal de regresiones.
+
+**Siguiente paso o deuda:** Iniciar la Fase 2 de la Épica 3, abordando las Alertas SRE en Grafana y la reescritura del extractor a JSON.
+
 ### 2026-05-17 — Docs: Actualización de Shadow Docs y directrices para Release v1.13.0
 
 **Contexto:** Antes de instanciar y exportar la versión 1.13.0 del Boilerplate a GitHub, era imperativo actualizar la documentación base y las políticas de arquitectura para que los proyectos derivados hereden el blindaje XSS y el patrón de enrutamiento Zero-JS.

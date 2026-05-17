@@ -108,8 +108,8 @@ El proyecto se organiza en grandes "Épicas" arquitectónicas. El desglose detal
 - **Epic-02: Orquestación IA & Self-Healing** — Agentes locales (Ollama) para auto-reparación, gobernanza documental (SSOT) y observabilidad (SRE/Grafana).
   - Estado: ✅ Completada (2026-05-13)
 
-- **Epic-03: DevRel & Observabilidad Avanzada** — Creación de Buffer Social, DevRel, telemetría y consolidación de arquitectura Zero-JS.
-  - Estado: ✅ Fase 1 completada. 🚧 Fase 2 en ejecución (Alertas SRE en Grafana).
+- **Epic-03: DevRel & Observabilidad Avanzada** — Creación de Buffer Social, DevRel, telemetría, consolidación Zero-JS y automatización de métricas JSON.
+  - Estado: ✅ Fase 1 completada. 🚧 Fase 2 en ejecución (Alertas SRE en Grafana y Refactor de Extractor JSON).
 
 - **Epic-04: E-commerce Híbrido Extremo** — Pasarelas de pago en WooCommerce aisladas con Web Workers (Partytown) para mantener TBT en 0ms.
   - Estado: ⏳ En cola.
