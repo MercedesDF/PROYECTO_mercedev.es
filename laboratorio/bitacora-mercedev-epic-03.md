@@ -38,6 +38,35 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-17 — QA: Purga de comentarios personales y ajustes de accesibilidad (Anclas)
+
+**Contexto:** Se detectaron comentarios en segunda persona en los archivos HTML y SASS (violando la Regla 7 de documentación impersonal). Además, los enlaces ancla (como el índice de la biblioteca) quedaban ocultos bajo el *header* fijo y el enlace del CV semántico estaba roto.
+
+**Hecho:**
+- Se eliminaron los comentarios en segunda persona en `public/index.html`, `public/sobre-mi/index.html` y `src/scss/base/_reset.scss`.
+- Se implementó `scroll-margin-top: 120px` global para elementos con `[id]` en `_reset.scss`.
+- Se reparó el ancla `#prose` y se actualizó el microcopy a "Conocer mi enfoque técnico" en el CV Semántico.
+
+**Motivo / criterio:** *Code Hygiene y Accesibilidad UI*. El código de producción debe ser completamente impersonal y agnóstico. Resolver el solapamiento del header mediante `scroll-margin-top` repara la navegación nativa sin ensuciar el DOM.
+
+**Siguiente paso o deuda:** Iniciar la Fase 2 de la Épica 3: Configurar alertas nativas en Grafana (Alerting) para el buffer social.
+
+### 2026-05-17 — Milestone: Cierre de Fase 1 (Épica 3) y Validación del Definition of Done
+
+**Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para dar por concluida la Fase 1 de la Épica 3 (Motor de Difusión y Buffer Social), asegurando la higiene del ecosistema antes de avanzar a la observabilidad avanzada en Grafana.
+
+**Hecho:** Se ejecutó la lista de verificación obligatoria de cierre de fase:
+- [x] **1. Deuda Técnica:** 0 TODOs. Visor de terminal interactivo (`merci-queue.py`) y buffer social implementados con éxito.
+- [x] **2. Cosecha de Conocimiento:** Taxonomía "SOS Terminal" definida y documentada.
+- [x] **3. Auditoría Documental:** `ROADMAP.md` y `README.md` sincronizados reflejando la Fase 1 como completada.
+- [x] **4. Evaluación de Release:** No se requiere empaquetado del Boilerplate en este punto (herramientas locales de DevRel).
+- [x] **5. Snapshot:** Backup local ejecutado para respaldar el buffer social.
+- [x] **6. Sello Definitivo:** Commit atómico de consolidación preparado.
+
+**Motivo / criterio:** *Governance y Definition of Done*. Sellar formalmente la Fase 1 certifica que las herramientas base de DevRel están operativas y blindadas.
+
+**Siguiente paso o deuda:** Iniciar la Fase 2 de la Épica 3: Configurar alertas nativas en Grafana (Alerting).
+
 ### 2026-05-17 — Fix: Degradación Elegante de Agente SSOT en Boilerplate
 
 **Contexto:** Al instanciar el Boilerplate y ejecutar la auditoría de QA (`merci total`), el pipeline colapsaba con un error fatal emitido por `merci-ssot.py` al no encontrar el Roadmap ni la Bitácora de IA de la matriz original (los cuales fueron purgados intencionalmente por `merci-init.py` por DLP).
