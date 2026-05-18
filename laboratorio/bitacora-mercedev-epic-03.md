@@ -38,6 +38,21 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-18 — Refactorización arquitectónica del README.md (Evolución a Framework Enterprise)
+
+**Contexto:** El documento principal del repositorio (`README.md`) mantenía un tono de portafolio o página web personal que ya no representaba la madurez tecnológica alcanzada por el ecosistema. La existencia de 25 agentes en Python, capacidades de auto-sanación (Self-Healing) y orquestación DevSecOps local requería una presentación formal acorde a un framework de nivel Enterprise.
+
+**Hecho:** 
+- Se reescribió y reestructuró por completo el archivo `README.md`.
+- Se integró un diagrama de flujo de arquitectura ASCII y se categorizaron los agentes del Sistema Merci en tablas de dominio.
+- Se consolidaron las instrucciones de instalación, auditoría estática y hooks de pre-commit.
+
+**Detalle técnico:** Se preservaron fragmentos críticos del documento anterior (hook de pre-commit y directrices de desarrollo local) fusionándolos con la nueva estructura de presentación técnica.
+
+**Motivo / criterio:** *Single Source of Truth y Brand Identity*. El código base exige una presentación documental alineada con su complejidad técnica. Mitigar el "síndrome del impostor documental" asegura que cualquier evaluador que clone el repositorio lo aborde desde la perspectiva correcta de ingeniería de software.
+
+**Siguiente paso o deuda:** Iniciar la ejecución técnica de la Fase 2 de la Épica 3 (Observabilidad y Alertas SRE). El siguiente paso lógico es configurar las alertas nativas en Grafana para enviar avisos ante vaciados en la cola de publicaciones sociales, o bien, instrumentar la telemetría del Agente Chaos en `merci-sre.py` para visualizar su historial de resiliencia.
+
 ### 2026-05-17 — Milestone: Cierre de Fase 1 (Épica 3) y Validación del Definition of Done
 
 **Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para dar por concluida la Fase 1 de la Épica 3 (Motor de Difusión y Buffer Social), asegurando la higiene del ecosistema antes de avanzar a la observabilidad avanzada en Grafana.

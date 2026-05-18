@@ -1,24 +1,134 @@
 # mercedev.es
 
-Base de conocimiento y centro de operaciones DevSecOps de Mercedes. Un ecosistema autónomo impulsado por Inteligencia Artificial Local (Shift-Left AI) y Desarrollo Guiado por Especificaciones (Spec-Driven Development).
+Repositorio oficial de mercedev.es
 
-Repositorio del sitio **mercedev.es**: combina un núcleo estático ultrarrápido (100/100 Core Web Vitals), una biblioteca de Decisiones de Arquitectura (ADRs) y un orquestador local en Python puro (**Sistema Merci**) con agentes de IA integrados para auto-reparación y gobernanza documental.
+Plataforma experimental DevSecOps construida con Python puro, generación estática, automatización operativa e Inteligencia Artificial local.
 
-> 🤖 **Inteligencia y Gobernanza:** El ecosistema incluye agentes de IA locales que auto-reparan código, auto-documentan el Roadmap y generan bases de conocimiento estáticas con coste cero y privacidad total. La justificación de las decisiones DevSecOps reside en la carpeta `/docs` y en la bitácora activa.
+El proyecto combina:
+- Núcleo web ultraligero (100/100 Core Web Vitals).
+- Arquitectura Zero-JS crítica.
+- Gobernanza documental SSOT (Single Source of Truth).
+- Agentes IA locales.
+- Automatización DevRel.
+- Observabilidad SRE.
+- Auditoría continua.
+- Generación estática reproducible.
+
+Todo bajo una filosofía de Shift-Left AI, privacidad local, mínima dependencia externa, máxima trazabilidad, automatización incremental y documentación viva.
+
+## ¿Qué es mercedev.es?
+
+mercedev.es no es únicamente una web. Es un ecosistema operativo de ingeniería que integra:
+
+`desarrollo → auditoría → validación → documentación → publicación → observabilidad → auto-reparación`
+
+Todo el flujo se gobierna mediante tooling propio en Python y agentes IA locales. El objetivo del proyecto es experimentar con IA aplicada a ingeniería real, automatización gobernada, pipelines reproducibles, arquitectura estática extrema, *self-healing documentation*, DevSecOps ligero y conocimiento técnico persistente.
+
+### Arquitectura General
+
+```text
+Developer
+   ↓
+merci-total
+   ↓
+Audit / Hardening
+   ↓
+SSOT / Self-Healing Docs
+   ↓
+Static Build
+   ↓
+Publish / Promotion
+   ↓
+Telemetry / Monitoring
+```
+
+## Características principales
+
+**Núcleo estático ultrarrápido**
+HTML estático optimizado, compilación SASS 7-1 local, WebP automatizado, enrutamiento Zero-JS crítico, CLS = 0 y TBT = 0. Arquitectura orientada a la estabilidad visual.
+
+**Inteligencia Artificial local**
+Los agentes IA funcionan localmente mediante Ollama y tooling Python propio. Capacidades actuales: auto-reparación de código, sincronización documental SSOT, validación estructural, automatización DevRel, generación de contenido técnico, auditoría contextual y *Agent Chaining* (workflows encadenados). Todo el procesamiento crítico se mantiene local para garantizar privacidad y trazabilidad.
+
+**Gobernanza documental**
+La documentación forma parte activa del sistema. El ecosistema mantiene Decisiones de Arquitectura (ADRs), un roadmap vivo, bitácoras técnicas, sincronización SSOT, validación estructural y control activo contra la deriva documental.
+
+**DevSecOps ligero**
+El proyecto prioriza la automatización reproducible, auditoría continua, reducción de la superficie de ataque, observabilidad progresiva y mínima complejidad operativa, sin depender de infraestructura pesada de terceros.
+
+## Estructura principal
+
+| Ruta | Contenido |
+|------|-----------|
+| `docs/` | Estrategia y directrices |
+| `biblioteca/` | Documentación técnica definitiva (por estanterías) |
+| `laboratorio/` | I+D, bandeja de entrada (`incubacion/`) y bitácoras activas del proyecto |
+| `scripts/merci/` | Ecosistema DevSecOps local en Python puro |
+| `assets/` | Multimedia optimizado para producción |
+| `public/` | Raíz del documento del sitio estático (HTML, `robots.txt`, `sitemap.xml`; enlaces a `assets/`) |
+| `.assets-raw/` | Originales sin procesar en el entorno local; Git ignora el contenido salvo `.gitkeep` (PSD/RAW/vídeo no van al remoto) |
+
+## Ecosistema Merci
+
+### Core Pipeline
+| Script | Función |
+|--------|---------|
+| `merci-total.py` | Orquestador maestro |
+| `merci-audit.py` | Auditoría estática y bloqueo de secretos |
+| `merci-commit.py` | Commits atómicos guiados |
+| `merci-init.py` | Instanciador de nuevos repositorios |
+
+### IA & Gobernanza
+| Script | Función |
+|--------|---------|
+| `merci-brain.py` | Orquestador IA Shift-Left |
+| `merci-ssot.py` | Self-Healing Docs |
+| `merci-librarian.py` | Curación documental Zero-Hallucination |
+| `merci-auto-fix.py` | Auto-reparación CI |
+
+### Publishing & DevRel
+| Script | Función |
+|--------|---------|
+| `merci-publish.py` | Generación estática |
+| `merci-promote.py` | Promoción automatizada |
+| `merci-linkedin.py` | Publicación LinkedIn vía OIDC |
+| `merci-wp.py` | Publicación Headless WordPress |
+
+### Observabilidad & Seguridad
+| Script | Función |
+|--------|---------|
+| `merci-sre.py` | Telemetría Prometheus/Grafana |
+| `merci-hardening.py` | Auditoría continua |
+| `merci-chaos.py` | Chaos Engineering local |
+| `merci-linkcheck.py` | Validación de enlaces |
 
 ## Requisitos
 
-- **Python 3.10+** (requiere entorno virtual para dependencias de IA, SSG y optimización).
-- **Git** y un intérprete de comandos compatible (**sh**, **bash** o **zsh**) para la integración de hooks.
+- Python 3.10+
+- Git
+- Shell compatible (bash, zsh o sh)
 
 ## Puesta en marcha
 
 ```bash
 git clone git@github.com:MercedesDF/PROYECTO_mercedev.es.git
 cd PROYECTO_mercedev.es
+
 python3 -m venv .venv
 source .venv/bin/activate
+
 pip install -r requirements.txt
+```
+
+### Primer arranque y auditoría
+
+Ejecución del pipeline completo:
+```bash
+python3 scripts/merci/merci-total.py
+```
+
+Auditoría estática aislada:
+```bash
 python3 scripts/merci/merci-audit.py
 ```
 
