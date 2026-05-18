@@ -1,3 +1,8 @@
+<!--
+Historial de modificaciones:
+- Última modificación el 2026-05-18 (Fase 2 - Épica 3)
+-->
+
 # mercedev.es
 
 Repositorio oficial de mercedev.es

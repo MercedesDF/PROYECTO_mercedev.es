@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+# Historial de modificaciones:
+# - Última modificación el 2026-05-18 (Fase 2 - Épica 3)
+
 """
 merci-linkedin.py — Motor de automatización social (Fase 8.3).
 Arquitectura OIDC (Three-legged OAuth) con 0 dependencias externas.

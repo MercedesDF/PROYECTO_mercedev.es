@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+# Historial de modificaciones:
+# - Última modificación el 2026-05-18 (Fase 2 - Épica 3)
+
 """
 merci-init.py — Inicializador del Boilerplate (Fase 10).
 Escanea el repositorio recién clonado, purga los datos de origen (mercedev)

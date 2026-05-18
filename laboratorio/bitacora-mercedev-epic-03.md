@@ -1,3 +1,8 @@
+<!--
+Historial de modificaciones:
+- Última modificación el 2026-05-18 (Fase 2 - Épica 3)
+-->
+
 # Bitácora del proyecto mercedev.es — Épica 3: DevRel & Observabilidad Avanzada
 
 ## Para qué sirve este archivo
@@ -37,6 +42,33 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 ---
 
 ## Registro cronológico
+
+### 2026-05-18 — Cierre de Instrumentación de Trazabilidad Histórica (Regla 17)
+
+**Contexto:** Tras haber inyectado las cabeceras de trazabilidad en los documentos maestros y los agentes Python principales, era necesario liquidar la deuda técnica restante aplicando la misma instrumentación a los scripts auxiliares del ecosistema para cerrar la etapa de preparación.
+
+**Hecho:**
+- Se ha ejecutado una inyección masiva de la cabecera de historial de modificaciones (con fecha normalizada ISO 8601) en los 11 scripts restantes de la carpeta `scripts/merci/`.
+- Archivos afectados: `merci-assets-watcher.py`, `merci-backup.py`, `merci-extract-metrics.py`, `merci-init.py`, `merci-linkcheck.py`, `merci-optimizer.py`, `merci-queue.py`, `merci-sitemap.py`, `merci-styles.py`, `merci-sync-pages.py`, `merci-watcher.py`.
+- Todos los prompts
+- Resto de documentación
+
+**Motivo / criterio:** *Data Foundation y QA*. Con esta acción se completa al 100% la base de datos de fechas en el código fuente. El ecosistema está ahora preparado para el desarrollo del detector de "Deriva Documental" (`audit_document_drift`), ya que todas las piezas de código y documentación poseen la metainformación necesaria para ser comparadas.
+
+**Siguiente paso o deuda:** Iniciar el diseño conceptual de la regla `audit_document_drift` dentro del linter maestro (`merci-audit.py`) para que emita advertencias (`WARN`) cuando un script se modifique sin que su documentación lo haga.
+
+### 2026-05-18 — Regla de Trazabilidad Histórica y Prevención de Deriva Documental
+
+**Contexto:** Se detectó la pérdida de la costumbre de registrar las fechas de modificación y fases en la cabecera de los archivos, lo cual dificulta la evaluación humana rápida de la vigencia de un documento. Además, surgió la necesidad de utilizar estos datos para prevenir la desincronización entre el código y los manuales operativos.
+
+**Hecho:**
+- Se añadió la Regla 17 en `instrucciones.md` que obliga a incluir un bloque de historial de modificaciones al inicio de cada archivo.
+- Se inyectó este nuevo bloque (mediante comentarios HTML invisibles para el SSG) en los archivos maestros (`README.md`, `README-merci.md`, `ROADMAP.md` e `instrucciones.md`).
+- Se documentó en el Roadmap la futura creación de un escudo activo para detectar Deriva Documental (Document Drift).
+
+**Motivo / criterio:** *Document as Code y Shift-Left QA*. Mantener un registro cronológico de alteraciones dentro del propio archivo no solo asiste a la memoria humana, sino que asienta la base de datos estructural para que los linters comparen las fechas de los scripts frente a la documentación oficial, bloqueando el pipeline o emitiendo alertas SRE si un script se actualiza pero su manual no.
+
+**Siguiente paso o deuda:** Continuar instrumentando este nuevo bloque de metadatos en el resto de scripts Python y documentos del proyecto, y planificar la lógica del detector en `merci-audit.py` o `merci-sre.py`.
 
 ### 2026-05-18 — Refactorización arquitectónica del README.md (Evolución a Framework Enterprise)
 

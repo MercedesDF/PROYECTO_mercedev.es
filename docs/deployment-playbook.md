@@ -1,3 +1,8 @@
+<!--
+Historial de modificaciones:
+- Última modificación el 2026-05-18 (Fase 2 - Épica 3)
+-->
+
 # Deployment Playbook (Manual de Despliegue)
 
 Este documento define el proceso estandarizado para desplegar la arquitectura híbrida **Merci Boilerplate** en un entorno de producción Ubuntu limpio. Inicia desde la adquisición del dominio hasta la verificación final.

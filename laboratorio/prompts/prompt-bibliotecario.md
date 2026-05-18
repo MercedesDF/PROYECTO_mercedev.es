@@ -1,3 +1,8 @@
+<!--
+Historial de modificaciones:
+- Última modificación el 2026-05-18 (Fase 2 - Épica 3)
+-->
+
 # Prompt del Agente Bibliotecario (Generador de Cuadernillos)
 
 Este documento define el comportamiento del Agente encargado de transformar notas crudas en documentación técnica (Docs-as-Code) lista para la Biblioteca o Art de Coté.

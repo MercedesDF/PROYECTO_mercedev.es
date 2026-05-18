@@ -1,3 +1,8 @@
+<!--
+Historial de modificaciones:
+- Última modificación el 2026-05-18 (Fase 2 - Épica 3)
+-->
+
 # 🗺️ ROADMAP MAESTRO: Ecosistema mercedev.es
 
 Única Fuente de Verdad (SSOT) del avance del proyecto y de las automatizaciones DevSecOps.
@@ -192,6 +197,7 @@
 - [ ] Integrar métricas de Inteligencia Artificial (fallbacks a la nube, errores del auditor) en Grafana.
 - [ ] Implementar un registro privado persistente (`.privado/chaos-audit.log`) para las mutaciones del Agente Chaos.
 - [ ] Instrumentar `merci-sre.py` para exponer el historial de resiliencia de Chaos Engineering hacia Grafana.
+- [ ] Desarrollar detector de "Deriva Documental" cruzando las fechas de cabecera de scripts vs documentación.
 - [ ] Instrumentar la inyección dinámica de telemetría (commits, líneas de doc, versiones) en la página estática "Sobre Mí".
 
 ### Fase 3: Identidad Criptográfica y Privacidad
