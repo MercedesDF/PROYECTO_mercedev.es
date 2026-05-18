@@ -31,9 +31,10 @@ SCRIPTS_DIR = Path(__file__).resolve().parent
 # --- FASE DE QA (QUALITY ASSURANCE) ---
 # 8. Sitemap: Escanea todos los HTML finales generados y actualiza el mapa XML.
 # 9. SSOT: Agente que sincroniza el Roadmap.
-# 10. Audit: Auditoría estricta de seguridad, SEO y sintaxis sobre el código final.
-# 11. Hardening: Audita la postura de seguridad de la infraestructura y el repositorio.
-# 12. Linkcheck: Rastreo dinámico de enlaces rotos sobre el HTML final compilado.
+# 10. Drift: Detecta asimetrías de fechas entre manuales y código fuente.
+# 11. Audit: Auditoría estricta de seguridad, SEO y sintaxis sobre el código final.
+# 12. Hardening: Audita la postura de seguridad de la infraestructura y el repositorio.
+# 13. Linkcheck: Rastreo dinámico de enlaces rotos sobre el HTML final compilado.
 
 PIPELINE = [
     "merci-optimizer.py",
@@ -45,6 +46,7 @@ PIPELINE = [
     "merci-brain.py",
     "merci-sitemap.py",
     "merci-ssot.py",
+    "merci-drift.py",
     "merci-audit.py",
     "merci-hardening.py",
     "merci-linkcheck.py"

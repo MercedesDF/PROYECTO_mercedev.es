@@ -43,6 +43,21 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-18 — Creación del Agente de Deriva Documental (Merci Drift)
+
+**Contexto:** Se necesitaba automatizar la detección de desincronización entre las actualizaciones de código y los manuales operativos principales, alertando sobre actualizaciones de scripts que carecieran de su correspondiente documentación, todo ello sin bloquear el flujo estricto de Git.
+
+**Hecho:**
+- Se desarrolló el agente independiente `scripts/merci/merci-drift.py`.
+- Se integró su llamada en la fase de QA del orquestador maestro `merci-total.py`.
+- Se ubicó su archivo de salida (`.drift_report.json`) en la carpeta `observabilidad/`.
+
+**Detalle técnico:** El script extrae las fechas normalizadas (ISO 8601) de las cabeceras de `README.md` e `instrucciones.md` (Regla 17), identifica la fecha de referencia y la compara iterativamente contra todos los agentes. Si un código es más reciente que los manuales, lanza un `WARN` informativo y registra el desvío en el JSON.
+
+**Motivo / criterio:** *Single Responsibility Principle (SRP) y Separation of Concerns*. Aislar esta lógica de `merci-audit.py` evita falsos positivos que bloqueen el *pre-commit*. Además, enviar el JSON directamente a `observabilidad/` mantiene la infraestructura SRE centralizada y deja el laboratorio libre de archivos de telemetría.
+
+**Siguiente paso o deuda:** Instrumentar `merci-sre.py` para que lea `.drift_report.json` y exponga la métrica `merci_document_drift_total` a Prometheus/Grafana.
+
 ### 2026-05-18 — Cierre de Instrumentación de Trazabilidad Histórica (Regla 17)
 
 **Contexto:** Tras haber inyectado las cabeceras de trazabilidad en los documentos maestros y los agentes Python principales, era necesario liquidar la deuda técnica restante aplicando la misma instrumentación a los scripts auxiliares del ecosistema para cerrar la etapa de preparación.
