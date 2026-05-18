@@ -1,5 +1,5 @@
 <!--
-Historial de modificaciones:
+Historial de modificaciones de la plantilla:
 - Última modificación el 2026-05-18 (Fase 2 - Épica 3)
 -->
 

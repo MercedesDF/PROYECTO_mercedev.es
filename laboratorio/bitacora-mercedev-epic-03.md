@@ -43,6 +43,82 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-18 — Arch: Clarificación del alcance de la Regla 17 (Trazabilidad)
+
+**Contexto:** Se detectó una sobre-aplicación de la Regla 17 al inyectar el historial de modificaciones en plantillas de contenido (`plantilla-*.md`), lo cual generaba redundancia con el campo `fecha:` del YAML Frontmatter.
+
+**Hecho:** Se ha purgado el historial de los cuadernillos y se ha re-inyectado en las plantillas de `docs/` con un comentario clarificador: `<!-- Historial de modificaciones de la plantilla: ... -->`.
+
+**Detalle técnico:** La Regla 17 está diseñada para rastrear la deriva entre **código** (scripts `.py`) y **manuales operativos** (`README.md`, `instrucciones.md`). Las plantillas de contenido, al ser parte de la infraestructura documental, sí deben llevar este historial para saber cuándo cambió su estructura, pero el contenido generado a partir de ellas (los cuadernillos) no.
+
+**Motivo / criterio:** *Separation of Concerns y SSOT*. El historial de un documento de contenido lo dicta su campo `fecha:`. El historial de una plantilla de infraestructura lo dicta la cabecera de la Regla 17. Esta distinción evita la contaminación de datos y mantiene la integridad del sistema de detección de deriva.
+
+**Siguiente paso o deuda:** Iniciar la implementación del log privado para el Agente Chaos (`.privado/chaos-audit.log`).
+
+### 2026-05-18 — Fix: Purga de historial de modificaciones redundante en contenidos
+
+**Contexto:** Se detectó que la cabecera de "Historial de modificaciones" (Regla 17) fue inyectada erróneamente en cuadernillos y plantillas de contenido (`plantilla-blog.md`, `plantilla-cuadernillo.md`, etc.), generando duplicidad de datos.
+
+**Hecho:** Se eliminó el bloque `<!-- Historial de modificaciones... -->` de todas las plantillas de contenido en `/docs` y del último cuadernillo generado (`cuadernillo-resolucion-404-headless-y-wcag-aria.md`).
+
+**Detalle técnico:** La Regla 17 de prevención de Deriva Documental aplica a manuales operativos (`README.md`, `instrucciones.md`) y scripts. Los contenidos narrativos o técnicos (cuadernillos, posts) ya poseen su campo `fecha` integrado dentro del YAML Frontmatter.
+
+**Motivo / criterio:** *Single Source of Truth (SSOT)*. Si un archivo ya cuenta con un campo nativo y estructurado (`fecha` en YAML) para registrar su vigencia, añadir un bloque secundario de historial en comentarios HTML introduce redundancia, riesgo de desincronización y ruido innecesario en los documentos.
+
+**Siguiente paso o deuda:** Iniciar la implementación del log privado para el Agente Chaos (`.privado/chaos-audit.log`).
+
+### 2026-05-18 — Cosecha de Conocimiento: Resolución de 404s y WCAG
+
+**Contexto:** Tras solucionar el bloqueo del rastreador dinámico por los enlaces rotos a PDFs fantasma y la ambigüedad WAI-ARIA en los títulos de los artículos, era necesario documentar las lecciones arquitectónicas aprendidas.
+
+**Hecho:** Se redactó el cuadernillo `cuadernillo-resolucion-404-headless-y-wcag-aria.md` y se almacenó en la bandeja de `incubacion/`.
+
+**Detalle técnico:** El documento explica la implementación del patrón de dos pasos en `merci-wp.py` (crear post -> intentar PDF -> inyectar enlace) para garantizar SSOT, y la inyección de la variable de fecha en los `aria-label` de `index.php` y `merci-publish.py` para asegurar unicidad accesible.
+
+**Motivo / criterio:** *Knowledge Harvesting y Docs-as-Code*. Las resoluciones de incidentes (especialmente las detectadas por nuestro propio tooling DAST) contienen un inmenso valor técnico. Convertirlas en un cuadernillo garantiza que la solución se convierta en parte de la Biblioteca y evite repetir los mismos antipatrones en el futuro.
+
+**Siguiente paso o deuda:** Iniciar la implementación del log privado para el Agente Chaos (`.privado/chaos-audit.log`).
+
+### 2026-05-18 — Fix: Resolución de 404s en PDFs y enlaces ambiguos WCAG
+
+**Contexto:** El pipeline `merci total` fue bloqueado por el rastreador dinámico (`merci-linkcheck.py`) al detectar dos problemas críticos: enlaces rotos (404) a PDFs de WordPress y una violación de accesibilidad (WAI-ARIA) por `aria-label` duplicados en artículos con el mismo título.
+
+**Hecho:**
+- Se refactorizó `merci-wp.py` para aplicar un patrón de dos pasos en la publicación Headless.
+- Se refactorizó `merci-publish.py` y `index.php` para inyectar la fecha en los `aria-label`.
+
+**Detalle técnico:** El publicador de WordPress ahora crea el post, genera el PDF y solo si tiene éxito, realiza una segunda petición a la API para actualizar el post e inyectar el enlace de descarga. Para la accesibilidad, se añadió la fecha de publicación al `aria-label` (ej. `Leer artículo: Título (Fecha)`) para garantizar su unicidad.
+
+**Motivo / criterio:** *Single Source of Truth y Shift-Left Accessibility*. El nuevo flujo de `merci-wp.py` garantiza que es matemáticamente imposible que exista un enlace a un PDF que no se ha generado. Añadir la dimensión temporal al `aria-label` resuelve la colisión de accesibilidad sin alterar el título visible.
+
+**Siguiente paso o deuda:** Iniciar el diseño y registro del log privado para el Agente Chaos.
+
+### 2026-05-18 — Fix: Prevención de enlaces ambiguos WAI-ARIA (WCAG)
+
+**Contexto:** El rastreador dinámico (`merci-linkcheck.py`) bloqueó el pipeline al detectar múltiples artículos de prueba en el blog con el mismo título, lo que generaba enlaces con el mismo `aria-label` apuntando a destinos distintos (infracción de accesibilidad WCAG).
+
+**Hecho:**
+- Se refactorizó la inyección de atributos `aria-label` en `scripts/merci/merci-publish.py` para el motor SSG.
+- Se ordenó la purga manual de "Posts Zombis" en la base de datos local de WordPress.
+
+**Detalle técnico:** Se ha inyectado la variable de fecha (`pub_fecha_html`) dentro de la cadena del "Nombre Accesible" (ej. `aria-label="Leer artículo completo: [Título] ([Fecha])"`). Al añadir la dimensión temporal, garantizamos que el atributo sea único incluso si el título se repite.
+
+**Motivo / criterio:** *Shift-Left Accessibility*. Evitar que dos enlaces suenen igual para un lector de pantalla es obligatorio para el 100/100 en Core Web Vitals. Purgar los "Posts Zombis" del CMS (posts cuyo Markdown origen ya no existe) previene los errores 404 de archivos PDF eliminados por el *Clean Build*.
+
+**Siguiente paso o deuda:** Aplicar esta misma inyección de fecha en el `aria-label` del Child Theme de WordPress (`index.php`) e iniciar el log privado para el Agente Chaos.
+
+### 2026-05-18 — Fix: Sincronización de PDF en Headless CMS (SSOT)
+
+**Contexto:** El rastreador de enlaces (`merci-linkcheck.py`) detectó errores 404 en los PDFs de los posts de WordPress. El tema generaba los enlaces de descarga, pero la creación del archivo físico en `merci-wp.py` podía fallar o no ejecutarse, rompiendo la sincronía.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-wp.py` para aplicar un patrón de dos pasos y tomar control absoluto del enlace.
+
+**Detalle técnico:** El script ahora realiza una primera petición para publicar el contenido y obtener el `slug` definitivo. Luego, intenta generar el PDF. Solo si el PDF se crea con éxito, realiza una segunda petición a la API para actualizar el post e inyectar el enlace de descarga directamente en el `post_content`.
+
+**Motivo / criterio:** *Single Source of Truth (SSOT) y Resiliencia*. El orquestador Headless, y no el tema, debe ser la única fuente de verdad sobre la existencia de un artefacto. Este flujo de dos pasos garantiza que es matemáticamente imposible que el frontend muestre un enlace a un PDF que no se ha generado, erradicando los 404.
+
+**Siguiente paso o deuda:** Investigar la causa del error WCAG de enlaces ambiguos, probablemente por títulos de post duplicados.
+
 ### 2026-05-18 — Docs: Reestructuración de métricas SRE en el Roadmap
 
 **Contexto:** Era necesario alinear las tareas del `ROADMAP.md` con las decisiones arquitectónicas recientes sobre el "Engineering Dashboard" local, detallando las métricas exactas que el agente SRE procesa (Content Ops, Gobernanza, Deriva).

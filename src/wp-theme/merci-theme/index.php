@@ -121,7 +121,7 @@ if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
                     <article class="blog-feed__article" id="post-<?php the_ID(); ?>">
                         <header class="blog-feed__header">
                             <span class="blog-feed__meta"><?php echo get_the_date(); ?></span>
-                            <h2 class="blog-feed__title"><a href="<?php the_permalink(); ?>" aria-label="Leer artículo completo: <?php echo esc_attr(get_the_title()); ?>"><?php the_title(); ?></a></h2>
+                            <h2 class="blog-feed__title"><a href="<?php the_permalink(); ?>" aria-label="Leer artículo completo: <?php echo esc_attr(get_the_title()); ?> (<?php echo esc_attr(get_the_date()); ?>)"><?php the_title(); ?></a></h2>
                         </header>
                         <div class="blog-feed__excerpt">
                                 <?php the_excerpt(); ?>

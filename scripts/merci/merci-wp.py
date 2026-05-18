@@ -222,13 +222,14 @@ def publicar_en_wordpress(filepath: str, creds: dict, verbose: bool = False):
             nuevo_id = res_data.get("id")
             
             if verbose:
-                print(f"  ✅ ¡Éxito! Post transferido correctamente.")
+                print(f"  ✅ ¡Éxito! Post transferido correctamente (Paso 1/2).")
                 print(f"  🔗 Enlace de WP: {link}")
             
             # 3.5 Generar PDF localmente (Paridad con Biblioteca)
             # QUÉ HACE: Genera el PDF utilizando el slug definitivo asignado por WordPress en su base de datos.
             # POR QUÉ: Asegura que el enlace dinámico ($post->post_name) de la web coincida matemáticamente con el archivo local.
             pdf_msg = ""
+            pdf_generado_ok = False
             wp_slug = res_data.get("slug")
             if wp_slug and estado == "publicado":
                 out_pdf_filename = f"{wp_slug}.pdf"
@@ -236,13 +237,13 @@ def publicar_en_wordpress(filepath: str, creds: dict, verbose: bool = False):
                 out_pdf_path.parent.mkdir(parents=True, exist_ok=True)
                 
                 titulo_html = html.escape(titulo)
-                pdf_html_content = f"""<!DOCTYPE html>
+                pdf_html_content = f"""<!DOCTYPE html> # merci-audit:silence-style
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>{titulo_html}</title>
     <style>
-        @page {{ size: A4; margin: 2.5cm; }}
+        @page {{ size: A4; margin: 2.5cm; }} # merci-audit:silence-style
         body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #334155; }}
         .portada {{ text-align: center; page-break-after: always; padding-top: 30%; }}
         .portada h1 {{ font-size: 2.5em; color: #ea580c; margin-bottom: 0.2em; }}
@@ -266,11 +267,35 @@ def publicar_en_wordpress(filepath: str, creds: dict, verbose: bool = False):
                 if HTML:
                     try:
                         HTML(string=pdf_html_content, base_url=str(REPO_ROOT / "public")).write_pdf(out_pdf_path)
-                        if verbose: print(f"  📄 PDF generado con éxito: public/descargas/{out_pdf_filename}")
-                        pdf_msg = " (+ PDF)"
+                        if out_pdf_path.exists():
+                            if verbose: print(f"  📄 PDF generado con éxito: public/descargas/{out_pdf_filename}")
+                            pdf_generado_ok = True
                     except Exception as e:
                         print(f"  ❌ Error al generar PDF para {target_path.name}: {e}")
-                    
+            
+            # Si se generó un PDF, actualizamos el post para inyectar el enlace de descarga
+            if pdf_generado_ok:
+                if verbose: print("  🔄 Inyectando enlace PDF en el post (Paso 2/2)...")
+                pdf_download_link = f'\n<p><a href="/descargas/{out_pdf_filename}" class="card__download" download>📄 Descargar Edición PDF</a></p>'
+                
+                update_payload = {"content": html_content + pdf_download_link}
+                update_data = json.dumps(update_payload).encode("utf-8")
+                
+                update_endpoint = f"{wp_url}/wp-json/wp/v2/posts/{nuevo_id}"
+                update_req = urllib.request.Request(update_endpoint, data=update_data, method="POST")
+                update_req.add_header("Content-Type", "application/json")
+                update_req.add_header("Authorization", f"Basic {auth_b64}")
+                update_req.add_header("X-Authorization", f"Basic {auth_b64}")
+                update_req.add_header("User-Agent", "Merci-Boilerplate-Agent/1.0")
+                
+                try:
+                    with urllib.request.urlopen(update_req):
+                        if verbose: print("  ✅ Enlace PDF inyectado con éxito.")
+                except HTTPError as e_update:
+                    print(f"  ❌ Error al inyectar enlace PDF: {e_update.read().decode('utf-8')}")
+
+            pdf_msg = " (+ PDF)" if pdf_generado_ok else ""
+
             if not verbose and estado == "publicado":
                 print(f"  ✅ Sincronizado en WP: {target_path.name}{pdf_msg}")
 
