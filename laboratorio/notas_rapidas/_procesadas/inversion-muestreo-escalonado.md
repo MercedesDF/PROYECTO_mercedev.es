@@ -1,0 +1,5 @@
+El Desafío: El dashboard de Grafana tardaba mucho en actualizar los estados documentales (incubación, promoción) al interactuar con los agentes. Esto generaba fricción (peor DX) porque estas son las métricas que más fluctúan al crear contenido.
+
+La Maniobra: Se invirtió la lógica del Muestreo Escalonado (Staggered Sampling) en `merci-sre.py`. Ahora la función `actualizar_estado_documental` escanea los YAML Frontmatter cada segundo, mientras que la lectura de los JSON (deriva, duración) se ejecuta cada 10 segundos (`ticks % 10 == 0`).
+
+El Aprendizaje: Priorizar la Experiencia del Autor (Author Experience) sobre la optimización pura de I/O de disco. En hardware moderno (SSD), escanear directorios locales cada segundo tiene un coste marginal que se compensa ampliamente con un dashboard reactivo en tiempo real.

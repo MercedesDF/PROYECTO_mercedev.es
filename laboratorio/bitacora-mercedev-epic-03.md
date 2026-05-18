@@ -43,6 +43,60 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-18 — Docs: Reestructuración de métricas SRE en el Roadmap
+
+**Contexto:** Era necesario alinear las tareas del `ROADMAP.md` con las decisiones arquitectónicas recientes sobre el "Engineering Dashboard" local, detallando las métricas exactas que el agente SRE procesa (Content Ops, Gobernanza, Deriva).
+
+**Hecho:** Se actualizaron las subtareas de la Fase 2 de la Épica 3 en el `ROADMAP.md`.
+
+**Detalle técnico:** Se desglosaron las métricas de estado documental, tareas, deriva y pipeline. Se añadió explícitamente la tarea pendiente de exportar el dashboard vía Provisioning (IaC) para asegurar la infraestructura.
+
+**Motivo / criterio:** *Single Source of Truth*. El Roadmap debe reflejar con precisión matemática qué variables estamos telemetrizando en lugar de agrupar todo en una tarea genérica, lo cual permite evaluar la carga del agente y la cobertura real de nuestra observabilidad.
+
+**Siguiente paso o deuda:** Iniciar el log privado para el Agente Chaos o exportar la configuración de Grafana vía Provisioning.
+
+### 2026-05-18 — Fix: Detección inteligente de post promocional en Promote
+
+**Contexto:** Al promover un cuadernillo que ya había pasado por el Agente Bibliotecario (quien ya pregunta y lanza al Blogger para crear el anuncio de LinkedIn), el orquestador de promoción volvía a preguntar si se deseaba invocar al Blogger, generando fricción y riesgo de sobrescribir el post promocional ya curado en la incubadora.
+
+**Hecho:** Se implementó un escudo de detección en `scripts/merci/merci-promote.py`.
+
+**Detalle técnico:** Antes de lanzar la pregunta interactiva, el script escanea las carpetas `incubacion/` y `blog/` buscando si algún archivo Markdown con `tema: "Blog"` contiene en su cuerpo la URL canónica exacta del documento que se está promoviendo. Si la encuentra, asume que el encadenamiento ya ocurrió y omite la pregunta automáticamente.
+
+**Motivo / criterio:** *Developer Experience (DX) e Idempotencia*. El ecosistema debe tener "conciencia" de las acciones realizadas por otros agentes en la cadena de montaje. Eliminar prompts redundantes purifica el flujo de terminal y protege el trabajo asíncrono ya generado por la IA en fases previas.
+
+**Siguiente paso o deuda:** Iniciar el diseño y registro del log privado para el Agente Chaos.
+
+### 2026-05-18 — Inversión del Muestreo Escalonado (Optimización de DX)
+
+**Contexto:** Se requería que las métricas de estado documental (transición de YAML de incubación a promoción) se reflejaran instantáneamente en Grafana al usar agentes interactivos como `merci-promote` o `merci-blogger`. El Muestreo Escalonado original priorizaba la lectura de JSON y relegaba el escaneo de Markdowns a intervalos largos para ahorrar I/O.
+
+**Hecho:**
+- Se invirtió la prioridad en el bucle principal de `scripts/merci/merci-sre.py`.
+- Se renombraron semánticamente las funciones a `actualizar_estado_documental` y `actualizar_metricas_pipeline`.
+
+**Detalle técnico:** El escaneo recursivo de Markdowns se ejecuta ahora cada segundo (`ticks`), mientras que la lectura de los archivos `.json` de métricas de compilación se aplaza mediante `ticks % 10 == 0` (cada 10 segundos). 
+
+**Motivo / criterio:** *Developer Experience (DX) vs I/O Cost*. Aunque leer directorios iterativamente tiene un coste de disco mayor que leer un archivo plano, en un entorno de desarrollo local moderno con SSDs este coste es marginal. El valor de obtener feedback visual "en tiempo real" en el dashboard SRE mientras se gobierna la máquina de estados compensa sobradamente el uso de recursos.
+
+**Siguiente paso o deuda:** Iniciar el diseño y registro del log privado para el Agente Chaos.
+
+### 2026-05-18 — Instrumentación SRE (Deriva Documental y Tiempo de Pipeline)
+
+**Contexto:** Era necesario inyectar en Prometheus los datos de la Deriva Documental generados previamente. Además, surgió el requisito de medir la latencia total del orquestador (`merci-total.py`) para detectar degradaciones de rendimiento en nuestro propio *tooling*. Había que evitar que la alta frecuencia de refresco de estas métricas saturara la CPU local.
+
+**Hecho:**
+- Se implementó la lógica de cronómetro en `merci-total.py` volcando el resultado en `.pipeline_duration.json`.
+- Se añadieron las métricas `merci_document_drift_total` y `merci_pipeline_duration_seconds` en `merci-sre.py`.
+- Se refactorizó el bucle del agente SRE aplicando "Muestreo Escalonado" (*Staggered Sampling*).
+- Se marcaron los hitos como completados en el `ROADMAP.md`.
+
+**Detalle técnico:** El agente `merci-sre.py` ahora corre en un ciclo de 1 segundo (`ticks`). Las métricas de archivo plano (JSON) se consultan instantáneamente en cada iteración, mientras que el rastreo recursivo de archivos Markdown pesados (Roadmap, Incubación, Biblioteca) se retrasa intencionalmente mediante un operador módulo (`if ticks % 10 == 0`), ejecutándose solo una vez cada 10 segundos.
+
+**Motivo / criterio:** *Resource Budgeting y Developer Experience*. Monitorizar el tiempo de nuestro propio pipeline asegura que la automatización no se convierta en un cuello de botella. Separar las frecuencias de refresco según el coste de I/O permite telemetría "casi en tiempo real" sin sacrificar los recursos de la máquina anfitriona.
+
+**Siguiente paso o deuda:** Desplegar estas nuevas métricas en el Panel de Control visual de Grafana y configurar las alertas automatizadas.
+
 ### 2026-05-18 — Creación del Agente de Deriva Documental (Merci Drift)
 
 **Contexto:** Se necesitaba automatizar la detección de desincronización entre las actualizaciones de código y los manuales operativos principales, alertando sobre actualizaciones de scripts que carecieran de su correspondiente documentación, todo ello sin bloquear el flujo estricto de Git.

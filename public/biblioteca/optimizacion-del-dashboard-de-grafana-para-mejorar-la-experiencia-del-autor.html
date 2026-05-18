@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimización del Dashboard de Grafana para Mejorar la Experiencia del Autor — mercedev.es</title>
+    <meta name="description" content="Se implementó una solución que reduce el tiempo de respuesta en el dashboard de Grafana al actualizar los estados documentales.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/optimizacion-del-dashboard-de-grafana-para-mejorar-la-experiencia-del-autor.html">
+    <link rel="stylesheet" href="/css/main.css?v=1779089992">
+    <script src="/js/MerciController.js?v=1778974789" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Optimizaci\u00f3n del Dashboard de Grafana para Mejorar la Experiencia del Autor",
+      "description": "Se implement\u00f3 una soluci\u00f3n que reduce el tiempo de respuesta en el dashboard de Grafana al actualizar los estados documentales.",
+      "url": "https://mercedev.es/biblioteca/optimizacion-del-dashboard-de-grafana-para-mejorar-la-experiencia-del-autor.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Optimización del Dashboard de Grafana para Mejorar la Experiencia del Autor</h1>
+                <a href="/descargas/optimizacion-del-dashboard-de-grafana-para-mejorar-la-experiencia-del-autor.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>Se detectó que el dashboard de Grafana tardaba mucho en actualizar los estados documentales (incubación, promoción) al interactuar con los agentes. Esto generaba fricción (peor DX) porque estas son las métricas que más fluctúan al crear contenido.</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Se invirtió la lógica del Muestreo Escalonado (Staggered Sampling) en <code>merci-sre.py</code>. Ahora la función <code>actualizar_estado_documental</code> escanea los YAML Frontmatter cada segundo, mientras que la lectura de los JSON (deriva, duración) se ejecuta cada 10 segundos (<code>ticks % 10 == 0</code>).</p>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Priorizar la Experiencia del Autor (Author Experience) sobre la optimización pura de I/O de disco. En hardware moderno (SSD), escanear directorios locales cada segundo tiene un coste marginal que se compensa ampliamente con un dashboard reactivo en tiempo real.</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

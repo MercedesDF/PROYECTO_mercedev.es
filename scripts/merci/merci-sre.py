@@ -11,6 +11,7 @@ Expone el estado del ecosistema DevSecOps en el puerto 8001 para Prometheus.
 
 import time
 import re
+import json
 from pathlib import Path
 from prometheus_client import start_http_server, Gauge
 
@@ -22,8 +23,29 @@ DOCS_INCUBACION = Gauge('merci_documentos_incubacion_total', 'Borradores en incu
 DOCS_PROMOCION = Gauge('merci_documentos_promocion_total', 'Documentos listos para promover (borrador)')
 DOCS_BIBLIOTECA = Gauge('merci_documentos_biblioteca_total', 'Documentos publicados en biblioteca')
 LINKEDIN_QUEUE = Gauge('merci_linkedin_queue_total', 'Publicaciones en cola para LinkedIn')
+DOCUMENT_DRIFT = Gauge('merci_document_drift_total', 'Archivos con deriva documental')
+PIPELINE_DURATION = Gauge('merci_pipeline_duration_seconds', 'Tiempo de ejecución de merci-total.py')
 
-def actualizar_metricas():
+def actualizar_metricas_pipeline():
+    """Lectura de JSON (Deriva y Duración). Se refrescan periódicamente (cada 10s)."""
+    drift_path = REPO_ROOT / "observabilidad" / ".drift_report.json"
+    if drift_path.exists():
+        try:
+            data = json.loads(drift_path.read_text(encoding="utf-8"))
+            DOCUMENT_DRIFT.set(len(data))
+        except Exception:
+            pass
+
+    duration_path = REPO_ROOT / "observabilidad" / ".pipeline_duration.json"
+    if duration_path.exists():
+        try:
+            data = json.loads(duration_path.read_text(encoding="utf-8"))
+            PIPELINE_DURATION.set(data.get("duration_seconds", 0.0))
+        except Exception:
+            pass
+
+def actualizar_estado_documental():
+    """Lectura de Markdown y YAML Frontmatter. Se refresca cada segundo para feedback instantáneo."""
     # 1. Analizar tareas del Roadmap
     roadmap_path = REPO_ROOT / "ROADMAP.md"
     if roadmap_path.exists():
@@ -83,9 +105,18 @@ def main():
     puerto = 8001
     print(f"👁️  [Merci SRE] Iniciando Agente de Observabilidad en el puerto {puerto}...")
     start_http_server(puerto, addr="0.0.0.0")
+    
+    ticks = 0
     while True:
-        actualizar_metricas()
-        time.sleep(2)
+        # QUÉ HACE: Muestreo Escalonado orientado a la Experiencia de Autor (Author Experience).
+        # POR QUÉ: Prioriza ver en tiempo real los cambios de estado (YAML) al usar merci-promote o merci-blogger.
+        actualizar_estado_documental()
+        
+        if ticks % 10 == 0:
+            actualizar_metricas_pipeline()
+            
+        ticks += 1
+        time.sleep(1)
 
 if __name__ == "__main__":
     try:

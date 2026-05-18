@@ -192,12 +192,15 @@ Historial de modificaciones:
 - [x] Crear visor de terminal (`merci-queue.py`) para monitorizar el estado del buffer social y desacoplar la nomenclatura de UX.
 
 ### Fase 2: Observabilidad y Alertas SRE
-- [x] Instrumentar `merci-sre.py` para medir y exponer a Prometheus la métrica `merci_linkedin_queue_total`.
-- [ ] Configurar alertas nativas en Grafana (Alerting) para enviar un aviso por email si la cola baja de 5 posts.
-- [ ] Integrar métricas de Inteligencia Artificial (fallbacks a la nube, errores del auditor) en Grafana.
+- [x] Instrumentar métricas DevRel y Content Ops (`merci_linkedin_queue_total`, `merci_documentos_incubacion_total`, `merci_documentos_promocion_total`, `merci_documentos_biblioteca_total`).
+- [x] Desarrollar detector de "Deriva Documental" cruzando las fechas de cabecera de scripts vs documentación.
+- [x] Instrumentar métricas de Gobernanza Documental (`merci_document_drift_total`, `merci_roadmap_tareas_total`).
+- [x] Medir el tiempo de ejecución global del pipeline DevSecOps (`merci_pipeline_duration_seconds`).
+- [ ] Exportar y persistir el "Engineering Dashboard" de Grafana en el repositorio mediante Provisioning (IaC).
+- [ ] Configurar alertas nativas en Grafana (Alerting) para la cola social (vaciado) y la incubadora (saturación).
 - [ ] Implementar un registro privado persistente (`.privado/chaos-audit.log`) para las mutaciones del Agente Chaos.
 - [ ] Instrumentar `merci-sre.py` para exponer el historial de resiliencia de Chaos Engineering hacia Grafana.
-- [ ] Desarrollar detector de "Deriva Documental" cruzando las fechas de cabecera de scripts vs documentación.
+- [ ] Integrar métricas de Inteligencia Artificial (fallbacks a la nube, errores del auditor) en Grafana.
 - [ ] Instrumentar la inyección dinámica de telemetría (commits, líneas de doc, versiones) en la página estática "Sobre Mí".
 
 ### Fase 3: Identidad Criptográfica y Privacidad
