@@ -44,6 +44,30 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-19 — Fix: Resolución de autenticación SMTP y parsing de .env en Docker
+
+**Contexto:** Al configurar las alertas de correo en Grafana, el contenedor falló al leer las variables del `.env` debido a comillas dobles conflictivas, y posteriormente Google bloqueó la conexión SMTP por el uso de contraseñas estándar.
+
+**Hecho:** Se purgaron las comillas del archivo `.env` para adaptarlo al parser de Docker Compose y se generó una "Contraseña de aplicación" (App Password) de 16 caracteres en Google, logrando el envío exitoso del correo de prueba de Grafana.
+
+**Detalle técnico:** El parser de archivos `.env` de Docker Compose es propenso a errores de sintaxis (`unterminated quoted value`) si se usan comillas innecesarias. Asimismo, las políticas Zero Trust de Google bloquean accesos SMTP básicos si hay 2FA activa, requiriendo tokens de aplicación.
+
+**Motivo / criterio:** *Troubleshooting y Hardening Operativo*. Documentar las fricciones de configuración con infraestructuras de terceros (Docker y Google) previene horas de depuración en futuros despliegues o reinstalaciones del ecosistema.
+
+**Siguiente paso o deuda:** Ejecutar el `merci commit` de cierre de sesión e iniciar la fase de Chaos Engineering.
+
+### 2026-05-19 — Feat: Configuración de SMTP para alertas SRE (Email)
+
+**Contexto:** Se requería que Grafana notificara proactivamente las alertas DevSecOps (Saturación de Incubadora y Cola de LinkedIn) a un canal externo, seleccionando el correo electrónico como medio principal de comunicación.
+
+**Hecho:** Se vinculó el archivo `.env` maestro al servicio de Grafana dentro de `observabilidad/docker-compose.yml`. Se dio por completado el hito de las alertas en el `ROADMAP.md`.
+
+**Detalle técnico:** Grafana Dockerizado carece de servidor de correo interno. Al inyectar las credenciales SMTP como variables de entorno a través del archivo seguro, instruimos al contenedor para que actúe como cliente SMTP, permitiendo el envío de correos sin comitear contraseñas al repositorio.
+
+**Motivo / criterio:** *Proactive Observability & Shift-Left Security*. Un sistema de alertas no sirve si la autora tiene que estar mirando proactivamente el panel de control. Delegar el aviso al correo electrónico integra las alertas críticas en el flujo de trabajo diario con fricción cero, y utilizar el `.env` blinda las credenciales de correo.
+
+**Siguiente paso o deuda:** Iniciar la Fase 2 (Logs y telemetría de Chaos Engineering).
+
 ### 2026-05-19 — Feat: Persistencia de Dashboard Grafana como IaC (Provisioning)
 
 **Contexto:** El panel de control DevSecOps personalizado vivía en la memoria efímera del contenedor de Grafana, con riesgo de pérdida ante reinicios o destrucción del entorno.
