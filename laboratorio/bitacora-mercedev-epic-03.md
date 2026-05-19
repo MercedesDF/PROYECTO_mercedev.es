@@ -1,6 +1,7 @@
 <!--
 Historial de modificaciones:
-- Última modificación el 2026-05-18 (Fase 2 - Épica 3)
+- Última modificación el 2026-05-19 (Fase 2 - Épica 3)
+- modificado el 2026-05-18 (Fase 2 - Épica 3)
 -->
 
 # Bitácora del proyecto mercedev.es — Épica 3: DevRel & Observabilidad Avanzada
@@ -42,6 +43,78 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 ---
 
 ## Registro cronológico
+
+### 2026-05-19 — Docs: Cosecha de conocimiento sobre Agent Chaining
+
+**Contexto:** Era necesario documentar formalmente la I+D realizada para automatizar el traspaso de contexto entre el Agente Bibliotecario y el Agente Blogger, cerrando la brecha de deuda técnica documental.
+
+**Hecho:** Se redactó y guardó en incubación el cuadernillo `art-de-cote-agent-chaining-bibliotecario-blogger.md`.
+
+**Detalle técnico:** El documento expone la problemática del colapso de modo en LLMs locales pequeños y la solución arquitectónica de separar responsabilidades, pasando la URL canónica calculada programáticamente como contexto al segundo agente mediante argumentos de Python.
+
+**Motivo / criterio:** *Zero Waste*. Toda I+D o experimentación que optimice el ecosistema DevSecOps debe preservarse en la Biblioteca o Art de Coté.
+
+**Siguiente paso o deuda:** Promover el cuadernillo a producción y generar el commit atómico de cierre de sesión.
+
+### 2026-05-19 — Docs: Gobernanza del Buffer Social y Manipulación del Tiempo (SOP)
+
+**Contexto:** El Procedimiento Operativo Estándar (SOP) de publicación carecía de instrucciones precisas sobre la administración de la cola asíncrona de redes sociales (LinkedIn) y la estrategia de fechas frente a actualizaciones de contenido.
+
+**Hecho:** Se actualizaron las directrices en `docs/flujo-publicacion-sop.md`.
+
+**Detalle técnico:** Se documentó el flujo declarativo del buffer social (`estado_social: "aprobado"` o `""` para cancelar el post). Además, se introdujo el concepto de "Actualización Silenciosa" (mantener la fecha original) frente a "Actualización Visible" (cambiar a fecha de hoy) alterando manualmente el YAML Frontmatter.
+
+**Motivo / criterio:** *Governance y SSOT*. El control del tiempo reside en los archivos Markdown, no en el CMS. Documentar el Buffer y las actualizaciones silenciosas previene desincronizaciones en la publicación y otorga a la autora control absoluto sobre la cadencia y frescura del contenido.
+
+**Siguiente paso o deuda:** Desplegar estas mejoras documentales con el próximo commit atómico.
+
+### 2026-05-19 — Feat: Accesibilidad cognitiva transversal (TL;DR no técnico)
+
+**Contexto:** Para evitar que la Biblioteca se convierta en un silo exclusivo de ingenieros, se requería que cada documento técnico incorporase una conclusión asimilable para perfiles de negocio, marketing o producto.
+
+**Hecho:** Se refactorizó el Agente Bibliotecario (`laboratorio/prompts/prompt-bibliotecario.md`) para inyectar obligatoriamente la sección "Resumiendo (Lenguaje no técnico)". Se aplicó el formato retroactivamente al cuadernillo en incubación sobre 404 y WAI-ARIA.
+
+**Detalle técnico:** El agente ahora tiene instrucciones estrictas para redactar un párrafo final en lenguaje llano, evitando tecnicismos y priorizando analogías simples.
+
+**Motivo / criterio:** *Inclusión y DevRel*. Un ecosistema maduro es capaz de explicar problemas complejos a audiencias mixtas, incrementando el valor y el alcance de los documentos técnicos (Docs-as-Code).
+
+**Siguiente paso o deuda:** Validar la generación de esta nueva sección en futuros volcados de notas.
+
+### 2026-05-19 — Refactor: Evolución del Agente Blogger a perfil DevRel (Storytelling)
+
+**Contexto:** El Agente Blogger estaba produciendo artículos para el blog que resultaban ser calcos planos de los documentos técnicos originales (copiando "Desafío", "Maniobra"). Esto restaba valor narrativo al blog y generaba anuncios en LinkedIn carentes de contexto para la audiencia general.
+
+**Hecho:** Se reescribió `laboratorio/prompts/prompt-blogger.md` imponiendo reglas estrictas de "Storytelling Técnico" y reescritura. Se refactorizó manualmente el post en incubación sobre la resolución de 404s.
+
+**Detalle técnico:** Se prohibió al SLM (Small Language Model) calcar encabezados técnicos. Se le ordenó iniciar con un dolor (*pain-point*) narrativo, inyectar líneas de contexto específicas en el anuncio de LinkedIn, eliminar el uso de primera persona plural y apuntar el *Call to Action* exclusivamente hacia la lectura del "cuadernillo" técnico.
+
+**Motivo / criterio:** *Content Repurposing (Reutilización de contenido)*. El blog no debe ser un espejo exacto de la biblioteca, sino un embudo de marketing (DevRel) que narra la solución desde el dolor del desarrollador y dirige tráfico al documento fundacional para ver el código en detalle.
+
+**Siguiente paso o deuda:** Promover y publicar los borradores pendientes e iniciar la Fase 2 (Alertas SRE en Grafana).
+
+### 2026-05-19 — Fix: Actualización de Trazabilidad Histórica en plantillas y SOP
+
+**Contexto:** Tras modificar las plantillas de prompts de los agentes y el manual operativo `flujo-publicacion-sop.md`, se omitió actualizar la cabecera de la Regla 17, generando Deriva Documental (Document Drift).
+
+**Hecho:** Se inyectó o actualizó el bloque de comentarios HTML con el Historial de Modificaciones y fechas en formato ISO 8601 para los tres archivos modificados hoy.
+
+**Detalle técnico:** La Regla 17 exige que el campo "Última modificación" se actualice y que la fecha anterior pase a formar parte del registro histórico (`- modificado el YYYY-MM-DD...`).
+
+**Motivo / criterio:** *Data Foundation y Prevención de Deriva Documental*. Mantener este historial al día es el pilar sobre el que trabaja el script auditor `merci-drift.py` para asegurar que el código y sus reglas asociadas maduren en paralelo.
+
+**Siguiente paso o deuda:** Ejecutar el orquestador maestro para consolidar el commit atómico de la sesión de hoy.
+
+### 2026-05-18 — Arch: Clarificación sobre Artefactos de Telemetría Dinámicos
+
+**Contexto:** Se observó que los archivos `.pipeline_duration.json` y `.drift_report.json` no existían físicamente en el repositorio, lo que podría causar confusión al configurar los paneles de Grafana.
+
+**Hecho:** Se ha documentado que estos archivos son artefactos generados dinámicamente por el pipeline y no son archivos versionados.
+
+**Detalle técnico:** `merci-total.py` y `merci-drift.py` son los responsables de crear estos reportes en la carpeta `observabilidad/` durante su ejecución. El agente `merci-sre.py` está diseñado para manejar su ausencia de forma segura mediante comprobaciones `path.exists()`, evitando errores si el pipeline no se ha ejecutado.
+
+**Motivo / criterio:** *Separation of Code and State (Separación de Código y Estado)*. Los artefactos de telemetría son estado, no código. Excluirlos de Git mantiene el repositorio limpio, evita conflictos de fusión en archivos que cambian constantemente y asegura que las métricas reflejen siempre la última ejecución real del pipeline.
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para generar los artefactos y validar su correcta lectura en el dashboard de Grafana.
 
 ### 2026-05-18 — Arch: Clarificación del alcance de la Regla 17 (Trazabilidad)
 
