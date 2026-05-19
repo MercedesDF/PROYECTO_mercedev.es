@@ -44,6 +44,30 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-19 — Feat: Persistencia de Dashboard Grafana como IaC (Provisioning)
+
+**Contexto:** El panel de control DevSecOps personalizado vivía en la memoria efímera del contenedor de Grafana, con riesgo de pérdida ante reinicios o destrucción del entorno.
+
+**Hecho:** Se exportó el modelo JSON del panel completo (colores, umbrales y alertas) y se guardó en `observabilidad/dashboards/merci-dashboard.json`.
+
+**Detalle técnico:** Grafana está configurado nativamente (vía `default.yaml` y volúmenes de Docker) para leer y aprovisionar automáticamente cualquier archivo JSON en esa ruta al arrancar. El panel exportado incluye las alertas SRE nativas (Saturación de Incubadora y Buffer de LinkedIn) y las métricas hiper-rápidas a 1 segundo de resolución.
+
+**Motivo / criterio:** *Infrastructure as Code (IaC) y Zero Maintenance*. Los dashboards no son simples vistas, son parte de la infraestructura DevSecOps. Versionarlos en Git asegura que el entorno de observabilidad sea 100% reproducible (Disaster Recovery) sin necesidad de configuraciones manuales tras un despliegue en limpio.
+
+**Siguiente paso o deuda:** Ejecutar `merci commit` atómico de cierre de sesión. Queda pendiente configurar canales de notificación externa (Telegram/Email) para las alertas de Grafana.
+
+### 2026-05-19 — Feat: Expansión de telemetría SRE para Blog y Art de Coté
+
+**Contexto:** El dashboard de Grafana necesitaba reflejar la totalidad de la "fábrica de contenidos", pero el agente SRE solo estaba configurado para contar los documentos de la biblioteca.
+
+**Hecho:** Se añadieron las métricas `merci_documentos_art_de_cote_total` y `merci_documentos_blog_total` en `scripts/merci/merci-sre.py`.
+
+**Detalle técnico:** Se replicó la lógica de lectura de directorios (glob) para las carpetas `art-de-cote` y `blog` en la función `actualizar_estado_documental()`. Las nuevas métricas se conectaron inmediatamente a Grafana mediante visualizaciones de tipo 'Stat'.
+
+**Motivo / criterio:** *Observabilidad Completa*. Tener visibilidad sobre todos los canales de publicación permite medir el esfuerzo real de DevRel y mantener el ecosistema equilibrado, consolidando el panel como el centro de mando unificado.
+
+**Siguiente paso o deuda:** Exportar el Dashboard de Grafana a JSON para persistirlo como Infraestructura como Código (IaC).
+
 ### 2026-05-19 — Fix: Generación de artefacto de telemetría de duración
 
 **Contexto:** La métrica de la duración del pipeline (`merci_pipeline_duration_seconds`) siempre devolvía nulo (o cero) en Grafana porque el orquestador maestro no estaba generando el artefacto físico esperado por el Agente SRE.

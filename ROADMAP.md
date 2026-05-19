@@ -196,7 +196,7 @@ Historial de modificaciones:
 - [x] Desarrollar detector de "Deriva Documental" cruzando las fechas de cabecera de scripts vs documentación.
 - [x] Instrumentar métricas de Gobernanza Documental (`merci_document_drift_total`, `merci_roadmap_tareas_total`).
 - [x] Medir el tiempo de ejecución global del pipeline DevSecOps (`merci_pipeline_duration_seconds`).
-- [ ] Exportar y persistir el "Engineering Dashboard" de Grafana en el repositorio mediante Provisioning (IaC).
+- [x] Exportar y persistir el "Engineering Dashboard" de Grafana en el repositorio mediante Provisioning (IaC).
 - [ ] Configurar alertas nativas en Grafana (Alerting) para la cola social (vaciado) y la incubadora (saturación).
 - [ ] Implementar un registro privado persistente (`.privado/chaos-audit.log`) para las mutaciones del Agente Chaos.
 - [ ] Instrumentar `merci-sre.py` para exponer el historial de resiliencia de Chaos Engineering hacia Grafana.

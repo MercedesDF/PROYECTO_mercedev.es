@@ -116,16 +116,10 @@ def main():
     print(f"👁️  [Merci SRE] Iniciando Agente de Observabilidad en el puerto {puerto}...")
     start_http_server(puerto, addr="0.0.0.0")
     
-    ticks = 0
     while True:
-        # QUÉ HACE: Muestreo Escalonado orientado a la Experiencia de Autor (Author Experience).
-        # POR QUÉ: Prioriza ver en tiempo real los cambios de estado (YAML) al usar merci-promote o merci-blogger.
+        # QUÉ HACE: Muestreo continuo "hiper-rápido" (1s) para todas las métricas.
         actualizar_estado_documental()
-        
-        if ticks % 10 == 0:
-            actualizar_metricas_pipeline()
-            
-        ticks += 1
+        actualizar_metricas_pipeline()
         time.sleep(1)
 
 if __name__ == "__main__":
