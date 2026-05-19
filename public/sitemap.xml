@@ -67,6 +67,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/resolucion-de-404s-headless-y-enlaces-ambiguos-wai-aria</loc>
+      <lastmod>2026-05-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/automatizacion-de-cache-busting-dinamico-en-nucleo-estatico</loc>
       <lastmod>2026-05-19</lastmod>
       <changefreq>weekly</changefreq>

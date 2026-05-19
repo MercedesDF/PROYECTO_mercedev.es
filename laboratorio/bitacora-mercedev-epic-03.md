@@ -44,6 +44,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-19 — Fix: Generación de artefacto de telemetría de duración
+
+**Contexto:** La métrica de la duración del pipeline (`merci_pipeline_duration_seconds`) siempre devolvía nulo (o cero) en Grafana porque el orquestador maestro no estaba generando el artefacto físico esperado por el Agente SRE.
+
+**Hecho:** Se inyectó la lógica de cronómetro (`time.time()`) y generación del archivo `.pipeline_duration.json` en `scripts/merci/merci-total.py`.
+
+**Detalle técnico:** El script ahora calcula la duración total de la ejecución sincrónica de todo el pipeline y vuelca el resultado en un archivo JSON dentro del directorio `observabilidad/` antes de salir exitosamente.
+
+**Motivo / criterio:** *Data Completeness*. Para que la infraestructura SRE ofrezca una visión real de la degradación o mejora del rendimiento del ecosistema, los orquestadores efímeros deben dejar un rastro de estado (artefacto) que el recolector pasivo pueda ingerir.
+
+**Siguiente paso o deuda:** Iniciar la Fase 2 configurando las reglas nativas de Alerting en Grafana (Umbrales de Incubación y Buffer Social).
+
 ### 2026-05-19 — Docs: Cosecha de conocimiento sobre Agent Chaining
 
 **Contexto:** Era necesario documentar formalmente la I+D realizada para automatizar el traspaso de contexto entre el Agente Bibliotecario y el Agente Blogger, cerrando la brecha de deuda técnica documental.

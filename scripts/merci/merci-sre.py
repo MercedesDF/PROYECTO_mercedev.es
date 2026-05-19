@@ -22,6 +22,8 @@ ROADMAP_TASKS = Gauge('merci_roadmap_tareas_total', 'Tareas del Roadmap', ['esta
 DOCS_INCUBACION = Gauge('merci_documentos_incubacion_total', 'Borradores en incubación')
 DOCS_PROMOCION = Gauge('merci_documentos_promocion_total', 'Documentos listos para promover (borrador)')
 DOCS_BIBLIOTECA = Gauge('merci_documentos_biblioteca_total', 'Documentos publicados en biblioteca')
+DOCS_ART_DE_COTE = Gauge('merci_documentos_art_de_cote_total', 'Documentos publicados en art-de-cote')
+DOCS_BLOG = Gauge('merci_documentos_blog_total', 'Documentos publicados en blog')
 LINKEDIN_QUEUE = Gauge('merci_linkedin_queue_total', 'Publicaciones en cola para LinkedIn')
 DOCUMENT_DRIFT = Gauge('merci_document_drift_total', 'Archivos con deriva documental')
 PIPELINE_DURATION = Gauge('merci_pipeline_duration_seconds', 'Tiempo de ejecución de merci-total.py')
@@ -77,10 +79,18 @@ def actualizar_estado_documental():
         DOCS_INCUBACION.set(en_incubacion)
         DOCS_PROMOCION.set(borradores)
 
-    # 3. Contar documentos en la biblioteca pública
+    # 3. Contar documentos en producción (biblioteca, art-de-cote, blog)
     biblioteca_dir = REPO_ROOT / "biblioteca"
     if biblioteca_dir.exists():
         DOCS_BIBLIOTECA.set(len(list(biblioteca_dir.glob("*.md"))))
+        
+    art_de_cote_dir = REPO_ROOT / "art-de-cote"
+    if art_de_cote_dir.exists():
+        DOCS_ART_DE_COTE.set(len(list(art_de_cote_dir.glob("*.md"))))
+        
+    blog_dir = REPO_ROOT / "blog"
+    if blog_dir.exists():
+        DOCS_BLOG.set(len(list(blog_dir.glob("*.md"))))
 
     # 4. Contar publicaciones en cola para LinkedIn
     directorios_sociales = [REPO_ROOT / "blog", REPO_ROOT / "art-de-cote", REPO_ROOT / "biblioteca"]

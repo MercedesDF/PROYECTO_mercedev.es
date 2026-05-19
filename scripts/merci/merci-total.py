@@ -13,11 +13,14 @@ optimización y auditoría del proyecto. Excluye scripts interactivos
 """
 
 import subprocess
+import time
+import json
 import sys
 from pathlib import Path
 
 # Definimos la ruta base donde residen los scripts
 SCRIPTS_DIR = Path(__file__).resolve().parent
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 # Pipeline de ejecución secuencial. El orden es estricto por arquitectura:
 # --- FASE DE CONSTRUCCIÓN (BUILD) ---
@@ -53,6 +56,7 @@ PIPELINE = [
 ]
 
 def main():
+    start_time = time.time()
     print("🚀 [Merci Total] Iniciando orquestación del pipeline DevSecOps...\n")
     
     for script in PIPELINE:
@@ -79,7 +83,14 @@ def main():
             print(f"\n❌ [Merci Total] Pipeline detenido. El proceso '{script}' reportó errores y bloqueó la ejecución.")
             sys.exit(e.returncode)
             
-    print("\n✅ [Merci Total] ¡Pipeline completado con éxito! Todo optimizado y auditado.")
+    end_time = time.time()
+    duration = end_time - start_time
+    
+    obs_dir = REPO_ROOT / "observabilidad"
+    obs_dir.mkdir(exist_ok=True)
+    (obs_dir / ".pipeline_duration.json").write_text(json.dumps({"duration_seconds": duration}, indent=2), encoding="utf-8")
+    
+    print(f"\n✅ [Merci Total] ¡Pipeline completado con éxito en {duration:.2f}s! Todo optimizado y auditado.")
 
 if __name__ == "__main__":
     try:
