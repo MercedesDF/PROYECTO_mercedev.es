@@ -38,6 +38,7 @@ ENV_FILE = REPO_ROOT / ".env"
 WP_DIRS = [
     REPO_ROOT / "blog"
 ]
+SYNC_CACHE_PATH = REPO_ROOT / "observabilidad" / ".wp_sync.json"
 
 def slugify(texto: str) -> str:
     """
@@ -122,7 +123,7 @@ def obtener_id_por_slug(wp_url, auth_b64, slug):
         pass
     return None
 
-def publicar_en_wordpress(filepath: str, creds: dict, verbose: bool = False):
+def publicar_en_wordpress(filepath: str, creds: dict, sync_cache: dict, verbose: bool = False):
     """
     QUÉ HACE: Lee un archivo Markdown, extrae su contenido y metadatos, y lo sincroniza
     con la base de datos de WordPress correspondiente según el entorno activo.
@@ -136,6 +137,13 @@ def publicar_en_wordpress(filepath: str, creds: dict, verbose: bool = False):
         print(f"  ❌ Error: No se encontró el archivo '{target_path.name}'.")
         return False
         
+    # Caché Incremental: Evita llamadas de red si el archivo no ha sido modificado localmente
+    file_key = str(target_path.relative_to(REPO_ROOT))
+    # Usamos int() para evitar pérdida de precisión de microsegundos al serializar en JSON
+    md_mtime = int(target_path.stat().st_mtime)
+    if file_key in sync_cache and sync_cache[file_key] >= md_mtime:
+        return True
+
     wp_url = creds.get("WP_URL", "").rstrip("/")
     wp_user = creds.get("WP_USER", "")
     wp_password = creds.get("WP_APP_PASSWORD", "")
@@ -308,6 +316,9 @@ def publicar_en_wordpress(filepath: str, creds: dict, verbose: bool = False):
                 shutil.move(str(target_path), str(destino_lab))
                 print(f"  🔙 Expulsando (Estado: {estado}): Moviendo '{target_path.name}' de vuelta a laboratorio/incubacion/")
             
+            # Registrar sincronización exitosa en la caché
+            sync_cache[file_key] = md_mtime
+            
     except HTTPError as e:
         error_info = e.read().decode("utf-8")
         print(f"  ❌ Error HTTP {e.code}: {e.reason}")
@@ -329,15 +340,22 @@ if __name__ == "__main__":
         print("❌ [Merci WP] Error: Faltan credenciales completas en tu archivo .env.")
         sys.exit(1)
         
+    sync_cache = {}
+    if SYNC_CACHE_PATH.exists():
+        try:
+            sync_cache = json.loads(SYNC_CACHE_PATH.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            pass
+
     # QUÉ HACE: Si se pasa un argumento, procesa ese archivo o carpeta. Si no, sincroniza masivamente.
     # POR QUÉ: Permite sincronizaciones atómicas globales (SSOT) evitando la deriva de configuración.
     if len(args) > 0:
         target = Path(args[0]).resolve()
         if target.is_dir():
             for md_file in target.rglob("*.md"):
-                publicar_en_wordpress(str(md_file), creds, is_verbose)
+                publicar_en_wordpress(str(md_file), creds, sync_cache, is_verbose)
         else:
-            publicar_en_wordpress(str(target), creds, is_verbose)
+            publicar_en_wordpress(str(target), creds, sync_cache, is_verbose)
     else:
         if is_verbose:
             print("🔄 Sincronización masiva de carpetas dinámicas detectada...")
@@ -345,8 +363,11 @@ if __name__ == "__main__":
             if wp_dir.exists():
                 if is_verbose: print(f"\n📂 Escaneando directorio: {wp_dir.name}/")
                 for md_file in wp_dir.rglob("*.md"):
-                    publicar_en_wordpress(str(md_file), creds, is_verbose)
+                    publicar_en_wordpress(str(md_file), creds, sync_cache, is_verbose)
             else:
                 if is_verbose: print(f"\n⚠️  Directorio no encontrado: {wp_dir.name}/. Omitiendo.")
                 
+    SYNC_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    SYNC_CACHE_PATH.write_text(json.dumps(sync_cache, indent=2), encoding="utf-8")
+
     print("\n✅ [Merci WP] Sincronización finalizada.")

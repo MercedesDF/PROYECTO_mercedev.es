@@ -38,6 +38,40 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Sincronización Incremental en Optimizador de Imágenes
+
+**Contexto:** El Profiler detectó que `merci-optimizer.py` consumía ~2.25s en cada ejecución del pipeline maestro reprocesando imágenes estáticas de `.assets-raw/` hacia WebP, independientemente de si habían sido modificadas.
+
+**Hecho:** Se implementó una validación de caché física (`st_mtime`) en `scripts/merci/merci-optimizer.py`.
+
+**Detalle técnico:** El script ahora compara la fecha de modificación física de la imagen origen con la del artefacto WebP base generado en la carpeta `assets/images/`. Si el artefacto WebP existe y es más reciente o igual (usando truncamiento a enteros `int()`), se aplica un salto incondicional (`continue`), evadiendo el costoso proceso en memoria de la librería Pillow.
+
+**Motivo / criterio:** *Performance Driven Development*. Volver a codificar multimedia inmutable destruye el ciclo de retroalimentación de Integración Continua. Esta optimización es la pieza final para asegurar un pipeline maestro de latencia ultrabaja, consolidando el paradigma de compilación incremental en todos los agentes críticos.
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 de la Épica 3 (Comunicaciones Cifradas PGP).
+
+### 2026-05-20 — Hotfix: Pérdida de precisión (Float) en caché JSON de WordPress
+
+**Contexto:** Tras implementar la caché incremental en `merci-wp.py`, el orquestador seguía tardando ~2.90s en el segundo pase. La caché nunca acertaba (Cache Miss continuo).
+
+**Hecho:** Se aplicó un truncamiento a enteros (`int()`) al calcular `st_mtime` en `scripts/merci/merci-wp.py`.
+
+**Detalle técnico:** El sistema operativo devuelve la fecha de modificación física como un *float* con precisión de microsegundos (ej. `1716301234.1234567`). Al serializar este dato en `.wp_sync.json`, la librería JSON de Python trunca ligeramente los decimales (IEEE 754). Al volver a leerlo, el valor en caché era infinitesimalmente menor que el archivo en disco, provocando que la condición de frescura fallara siempre.
+
+**Motivo / criterio:** *Data Serialization & Precision*. Comparar *floats* crudos tras un ciclo de escritura/lectura en texto plano (JSON) es un antipatrón. Truncar a segundos exactos (`int`) elimina la fricción de precisión y permite que el patrón *Cache Hit* funcione a la perfección, restaurando los 0.05s de ejecución.
+
+### 2026-05-20 — Sincronización Incremental en WordPress Headless
+
+**Contexto:** El Profiler mostró que el Agente de WordPress (`merci-wp.py`) consumía ~2.7 segundos en cada compilación debido a las llamadas de red incondicionales a la API REST de WordPress para verificar categorías, posts y regenerar PDFs, incluso sobre artículos no modificados.
+
+**Hecho:** Se implementó una **Caché Incremental** local basada en la fecha de modificación (`st_mtime`) de los archivos `.md`.
+
+**Detalle técnico:** Se creó un archivo de estado persistente `.wp_sync.json` en la carpeta `observabilidad/`. El script `merci-wp.py` compara el `st_mtime` actual del Markdown contra la marca de tiempo almacenada en caché. Si el archivo no ha sufrido alteraciones desde su último despliegue exitoso, aborta instantáneamente la ejecución de red (bypass de API).
+
+**Motivo / criterio:** *Performance Driven Development*. Al igual que se optimizó el motor estático (SSG), interrogar a la red innecesariamente para sincronizar datos inmutables destruye la Experiencia de Desarrolladora (DX). Mitigar las peticiones GET/POST ociosas promete reducir los 2.7 segundos de espera a nulos milisegundos.
+
+**Siguiente paso o deuda:** Ejecutar un último `merci total` para poblar la nueva caché y confirmar la caída del tiempo, antes de dar el salto al diseño PGP de la Fase 3.
+
 ### 2026-05-20 — Refinamiento editorial DevRel y purga de posts zombis
 
 **Contexto:** La IA estaba generando textos promocionales para LinkedIn utilizando plural corporativo ("nosotros") y preguntas retóricas, violando la Guía de Voz del proyecto. Adicionalmente, el renombramiento de los archivos del blog provocó que `merci-wp.py` duplicara las entradas en WordPress, generando "posts zombis" y un error WAI-ARIA (enlaces ambiguos) en el linter.
