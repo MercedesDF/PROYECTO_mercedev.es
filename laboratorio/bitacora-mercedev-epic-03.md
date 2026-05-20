@@ -44,6 +44,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Manejo de Estado Vacío en el Compilador de Glosario
+
+**Contexto:** Previsión ante escenarios donde el archivo maestro `glosario-tecnico.json` esté completamente vacío (ej. nuevo clon del proyecto o reinicio de la base de datos documental).
+
+**Hecho:** Modificada la lógica de renderizado en `merci-glosario.py`.
+
+**Detalle técnico:** Se añadió una validación defensiva (`if not terminos:`) que intercepta el estado vacío antes de iterar. En lugar de generar un Markdown roto, inyecta un *placeholder* elegante en cursiva.
+
+**Motivo / criterio:** *Fail-Gracefully y Resiliencia UI*. Garantizar que el artefacto compilado (`glosario-tecnico.md`) mantenga siempre un formato visual impecable para su lectura, incluso en ausencia total de datos en el SSOT.
+
+**Siguiente paso o deuda:** Ninguna.
+
 ### 2026-05-20 — Observabilidad SRE: Métrica del Glosario
 
 **Contexto:** Para evaluar la velocidad de asimilación documental y rellenar el Dashboard de Confianza en Grafana, era necesario cuantificar el estado del Glosario Técnico en tiempo real.

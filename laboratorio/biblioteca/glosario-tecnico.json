@@ -3206,11 +3206,13 @@
     }
   },
   "ignorados": [
+    "AAAA-MM-",
     "ADR",
     "AI-",
     "AI-Changelog",
+    "AKIA merci-audit:silence-secret",
+    "AKIAIOSFODNN7EXAMPLE merci-audit:silence-secret",
     "ALL",
-    "AAAA-MM-",
     "APLICA",
     "ASCII",
     "Anti-Duplicidad",

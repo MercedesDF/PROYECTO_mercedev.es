@@ -112,23 +112,27 @@ def compile_markdown(state_data):
     md += "## Índice Alfabético\n\n"
     
     terminos = state_data.get("terminos", {})
-    # Orden alfabético forzado (Case-Insensitive)
-    for term_name in sorted(terminos.keys(), key=lambda x: x.lower()):
-        t = terminos[term_name]
-        md += f"### {term_name}\n"
-        md += f"**Inglés:** {t.get('ingles', term_name)}\n"
-        md += f"**Español:** {t.get('espanol', term_name)}\n\n"
-        md += f"**Definición:** {t.get('definicion', '')}\n\n"
-        
-        apariciones = t.get("apariciones", {})
-        if apariciones:
-            md += "**Apariciones en Bitácoras:**\n"
-            for fname in sorted(apariciones.keys()):
-                # Ordenar las líneas (L1, L2, L10) numéricamente
-                lines_sorted = sorted(apariciones[fname], key=lambda x: int(x[1:]) if x[1:].isdigit() else 0)
-                md += f"- `{fname}`: {', '.join(lines_sorted)}\n"
+    
+    if not terminos:
+        md += "*Aún no se han consolidado términos técnicos en el glosario. El Agente Autónomo está a la espera de procesar la próxima remesa de la bitácora.*\n\n"
+    else:
+        # Orden alfabético forzado (Case-Insensitive)
+        for term_name in sorted(terminos.keys(), key=lambda x: x.lower()):
+            t = terminos[term_name]
+            md += f"### {term_name}\n"
+            md += f"**Inglés:** {t.get('ingles', term_name)}\n"
+            md += f"**Español:** {t.get('espanol', term_name)}\n\n"
+            md += f"**Definición:** {t.get('definicion', '')}\n\n"
             
-        md += "\n---\n"
+            apariciones = t.get("apariciones", {})
+            if apariciones:
+                md += "**Apariciones en Bitácoras:**\n"
+                for fname in sorted(apariciones.keys()):
+                    # Ordenar las líneas (L1, L2, L10) numéricamente
+                    lines_sorted = sorted(apariciones[fname], key=lambda x: int(x[1:]) if x[1:].isdigit() else 0)
+                    md += f"- `{fname}`: {', '.join(lines_sorted)}\n"
+                
+            md += "\n---\n"
         
     with open(GLOSSARY_MD, 'w', encoding='utf-8') as f:
         f.write(md)
