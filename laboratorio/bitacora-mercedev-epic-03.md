@@ -1,10 +1,3 @@
-<!--
-Historial de modificaciones:
-- Última modificación el 2026-05-20 (Fase 2 - Épica 3)
-- modificado el 2026-05-19 (Fase 2 - Épica 3)
-- modificado el 2026-05-18 (Fase 2 - Épica 3)
--->
-
 # Bitácora del proyecto mercedev.es — Épica 3: DevRel & Observabilidad Avanzada
 
 ## Para qué sirve este archivo
@@ -44,6 +37,21 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 ---
 
 ## Registro cronológico
+
+### 2026-05-20 — Erradicación de la Regla 17 (Cero Mantenimiento Documental)
+
+**Contexto:** La reciente refactorización del detector de deriva (Merci Drift) para auditar la fecha física (`st_mtime`) del sistema operativo volvió obsoletas las cabeceras de historial de modificaciones mantenidas manualmente. Mantenerlas generaba ruido visual y "código muerto" (Dead Code) en la documentación.
+
+**Hecho:** 
+- Se purgó el bloque de historial de modificaciones de todos los scripts Python del ecosistema (`merci-*.py`).
+- Se eliminaron las cabeceras HTML de historial en los documentos maestros (`README.md`, `ROADMAP.md`, `SECURITY.md`, bitácoras).
+- Se erradicó oficialmente la Regla 17 del archivo de directrices `instrucciones.md`.
+
+**Detalle técnico:** Se realizó una limpieza profunda en las primeras líneas de más de 15 archivos clave del repositorio, eliminando la dependencia de comentarios de texto para el control de la frescura de los archivos.
+
+**Motivo / criterio:** *Zero Maintenance (Cero Mantenimiento) y Clean Code*. La eliminación de tareas repetitivas y propensas a errores humanos (como actualizar una fecha en texto plano) es el núcleo de la filosofía DevSecOps. Al delegar la auditoría temporal al sistema operativo, el código base se vuelve más limpio y la infraestructura más resiliente.
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para asegurar que el pipeline compila correctamente sin las cabeceras y realizar el commit atómico final de la sesión.
 
 ### 2026-05-20 — Refactorización de Merci Drift a fecha física (st_mtime)
 

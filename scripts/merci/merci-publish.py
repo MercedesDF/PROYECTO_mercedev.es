@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Historial de modificaciones:
-# - Última modificación el 2026-05-20 16:34 (Fase 2 - Épica 3)
-
 """
 merci-publish.py — Orquestador maestro de publicación (Fase 7.1).
 Transforma documentos Markdown de la biblioteca en páginas HTML estáticas.

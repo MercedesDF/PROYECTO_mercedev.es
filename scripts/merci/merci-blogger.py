@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Historial de modificaciones:
-# - Última modificación el 2026-05-20 16:34 (Fase 2 - Épica 3)
-
 """
 merci-blogger.py — Agente Redactor DevRel (Fase 1: Motor de Difusión).
 Transforma notas crudas en artículos atractivos para el blog y

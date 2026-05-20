@@ -1,8 +1,3 @@
-<!--
-Historial de modificaciones:
-- Última modificación el 2026-05-18 (Fase 2 - Épica 3)
--->
-
 # Merci Boilerplate v1.13.0
 
 Un ecosistema DevSecOps autónomo impulsado por Inteligencia Artificial Local (Shift-Left AI) y Desarrollo Guiado por Especificaciones (Spec-Driven Development). 
