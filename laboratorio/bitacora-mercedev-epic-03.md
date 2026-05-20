@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Retrospectiva y Cosecha de Conocimiento (Fase 2 - Épica 3)
+
+**Contexto:** Tras un intento de cierre prematuro de la Fase 2, la Arquitecta del proyecto (mercedev) detuvo el proceso aplicando la Regla 7 (Definition of Done). Faltaba realizar la Cosecha de Conocimiento, la auditoría documental final y la validación en producción antes de empaquetar el Boilerplate.
+
+**Hecho:** 
+- Se invalidó el cierre de fase en `README.md`.
+- Se redactó el activo de conocimiento `laboratorio/incubacion/cuadernillo-arquitectura-zero-maintenance.md` documentando los saltos arquitectónicos de la sesión (Compilación Incremental, `st_mtime` y Supply Chain Security).
+
+**Motivo / criterio:** *Rigor Metodológico*. Una fase no se cierra cuando el código funciona en local. Se cierra cuando el conocimiento ha sido destilado, la documentación pública (`docs/`) ha sido actualizada, y el despliegue en producción (incluidas las métricas de Lighthouse) certifica la viabilidad de la Release (v1.14.0) del Boilerplate.
+
+**Siguiente paso o deuda:** Desplegar en producción, auditar Core Web Vitals, actualizar los manuales maestros en `docs/` para la v1.14.0 del Boilerplate, ejecutar el Backup y realizar el Sello Definitivo (Commit).
+
 ### 2026-05-20 — Decisión de Arquitectura (ADR): Extirpación de la Deriva Temporal
 
 **Contexto:** La auditoría de fecha física (`st_mtime`) en `merci-drift.py` demostró generar fricción operativa (Falsos Positivos) si la desarrolladora modificaba un script de Python inmediatamente después de haber actualizado los manuales, obligando a ejecutar comandos `touch` manualmente para silenciar el pipeline.
