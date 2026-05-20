@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "archivo": "merci-glosario.py",
+    "fecha_script": "2026-05-20"
+  },
+  {
+    "archivo": "merci-sre.py",
+    "fecha_script": "2026-05-20"
+  },
+  {
+    "archivo": "merci-total.py",
+    "fecha_script": "2026-05-20"
+  }
+]

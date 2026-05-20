@@ -1,6 +1,7 @@
 <!--
 Historial de modificaciones:
-- Última modificación el 2026-05-19 (Fase 2 - Épica 3)
+- Última modificación el 2026-05-20 (Fase 2 - Épica 3)
+- modificado el 2026-05-19 (Fase 2 - Épica 3)
 - modificado el 2026-05-18 (Fase 2 - Épica 3)
 -->
 
@@ -43,6 +44,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 ---
 
 ## Registro cronológico
+
+### 2026-05-20 13:03 — Mejora de Resolución en Detector de Deriva Documental
+
+**Contexto:** El detector `merci-drift.py` usaba exclusivamente fecha (`YYYY-MM-DD`) como unidad de comparación. Esto creó un punto ciego: si un script se modificaba varias veces en el mismo día, la segunda modificación no se detectará como deriva porque tanto el código como los manuales maestros ya tendrán fecha de hoy.
+
+**Hecho:** Actualización de `merci-drift.py` para soportar resolución de fecha y hora (`YYYY-MM-DD HH:MM`).
+
+**Detalle técnico:** Se refactorizaron la expresión regular `DATE_PATTERN` (grupo de hora opcional `(?:\s\d{2}:\d{2})?`) y la función `extraer_fecha()` para parsear con doble formato: `%Y-%m-%d %H:%M` si hay hora, o `%Y-%m-%d` (asumiendo `00:00`) si no la hay. El cambio es completamente retrocompatible con los ~30 scripts del repositorio que aún solo tienen fecha.
+
+**Motivo / criterio:** *Granularidad de Observabilidad*. En una sesión de desarrollo intensa (como la de hoy), con múltiples scripts modificados sucesivamente, la resolución de día era insuficiente. La resolución horaria convierte al detector en un verdadero centinela de jornada.
+
+**Siguiente paso o deuda:** A partir de hoy, los archivos en desarrollo activo llevarán marca de tiempo completa. Los archivos estáticos pueden mantener solo la fecha.
 
 ### 2026-05-20 — Creación de Cuadernillo: Arquitectura de PDFs en Frío
 

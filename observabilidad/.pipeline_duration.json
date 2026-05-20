@@ -1,3 +1,19 @@
 {
-  "duration_seconds": 21.701267957687378
+  "duration_seconds": 21.849202632904053,
+  "breakdown": {
+    "merci-optimizer.py": 2.2305192947387695,
+    "merci-styles.py": 0.053418874740600586,
+    "merci-publish.py": 8.518479108810425,
+    "merci-wp.py": 2.6057026386260986,
+    "merci-sync-pages.py": 0.017862558364868164,
+    "merci-extract-metrics.py": 0.2058112621307373,
+    "merci-brain.py": 0.033750057220458984,
+    "merci-glosario.py": 0.058031558990478516,
+    "merci-sitemap.py": 0.0179598331451416,
+    "merci-ssot.py": 3.5003035068511963,
+    "merci-drift.py": 0.0211942195892334,
+    "merci-audit.py": 3.2938592433929443,
+    "merci-hardening.py": 0.018295764923095703,
+    "merci-linkcheck.py": 1.2730257511138916
+  }
 }

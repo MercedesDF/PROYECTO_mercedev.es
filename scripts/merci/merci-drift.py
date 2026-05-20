@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Historial de modificaciones:
-# - Última modificación el 2026-05-18 (Fase 2 - Épica 3)
+# - Última modificación el 2026-05-20 13:03 (Fase 2 - Épica 3)
 
 """
 merci-drift.py — Detector de Deriva Documental (Document Drift).
@@ -27,7 +27,8 @@ MANUALES_MAESTROS = [
     REPO_ROOT / "instrucciones.md"
 ]
 
-DATE_PATTERN = re.compile(r"- Última modificación el (\d{4}-\d{2}-\d{2})")
+# El grupo de hora (HH:MM) es opcional para mantener retrocompatibilidad con scripts que solo tienen fecha.
+DATE_PATTERN = re.compile(r"- Última modificación el (\d{4}-\d{2}-\d{2}(?:\s\d{2}:\d{2})?)")
 
 def extraer_fecha(filepath: Path) -> datetime | None:
     """Extrae la fecha normalizada de la cabecera del archivo."""
@@ -37,7 +38,13 @@ def extraer_fecha(filepath: Path) -> datetime | None:
     match = DATE_PATTERN.search(content)
     if match:
         try:
-            return datetime.strptime(match.group(1), "%Y-%m-%d")
+            valor = match.group(1)
+            # Si la cadena incluye hora, la parsea completa. Si no, asume 00:00
+            # para no romper archivos que aún solo tienen fecha (Retrocompatibilidad).
+            if len(valor) > 10:
+                return datetime.strptime(valor, "%Y-%m-%d %H:%M")
+            else:
+                return datetime.strptime(valor, "%Y-%m-%d")
         except ValueError:
             return None
     return None
