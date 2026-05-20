@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Historial de modificaciones:
-# - Última modificación el 2026-05-18 (Fase 2 - Épica 3)
-
 """
 merci-styles.py — Compilador SASS Standalone.
 Descarga Dart Sass si no existe y compila src/scss/main.scss a public/css/main.css.

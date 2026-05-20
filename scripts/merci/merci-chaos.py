@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Historial de modificaciones:
-# - Última modificación el 2026-05-18 (Fase 2 - Épica 3)
-
 """
 merci-chaos.py — Agente de Chaos Engineering (Epic 2 Fase 4).
 Objetivo: Simular una mutación o sabotaje en el código fuente utilizando IA,
@@ -18,7 +15,10 @@ import random
 import re
 import json
 from pathlib import Path
+import logging
 try:
+    os.environ["LITELLM_LOCAL_MODEL_COST_MAP"] = "True"
+    logging.getLogger('LiteLLM').setLevel(logging.ERROR)
     from litellm import completion
     import litellm
     litellm.telemetry = False

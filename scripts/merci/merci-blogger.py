@@ -11,8 +11,12 @@ import sys
 import re
 from datetime import datetime
 from pathlib import Path
+import os
+import logging
 
 try:
+    os.environ["LITELLM_LOCAL_MODEL_COST_MAP"] = "True"
+    logging.getLogger('LiteLLM').setLevel(logging.ERROR)
     from litellm import completion
     import litellm
     litellm.telemetry = False

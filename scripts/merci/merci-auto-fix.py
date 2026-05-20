@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Historial de modificaciones:
-# - Última modificación el 2026-05-18 (Fase 2 - Épica 3)
-
 """
 merci-auto-fix.py — Agente Autónomo de Reparación en CI/CD (Fase 2).
 
@@ -17,8 +14,11 @@ import sys
 import subprocess
 import re
 from pathlib import Path
+import logging
 
 try:
+    os.environ["LITELLM_LOCAL_MODEL_COST_MAP"] = "True"
+    logging.getLogger('LiteLLM').setLevel(logging.ERROR)
     from litellm import completion
     import litellm
     litellm.telemetry = False  # Telemetría desactivada por DevSecOps

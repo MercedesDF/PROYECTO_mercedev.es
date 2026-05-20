@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Silenciado global de telemetría y precios de LiteLLM (Silence is Golden)
+
+**Contexto:** La librería LiteLLM intentaba descargar mapas de precios desde GitHub en cada ejecución, lo que generaba advertencias de timeout (`The handshake operation timed out`) al operar offline o con latencia de red, ensuciando la consola y violando el principio de *Silence is Golden*.
+
+**Hecho:** Se inyectaron variables de entorno y reglas de silenciado en el *logger* de LiteLLM para todos los agentes en la nube e interactivos (`merci-ssot.py`, `merci-blogger.py`, `merci-chaos.py` y `merci-auto-fix.py`).
+
+**Detalle técnico:** Se implementó `os.environ["LITELLM_LOCAL_MODEL_COST_MAP"] = "True"` y `logging.getLogger('LiteLLM').setLevel(logging.ERROR)` antes de la importación de la librería en cada agente, forzando el uso del mapa de precios local.
+
+**Motivo / criterio:** *Developer Experience (DX) y Zero Trust*. Un ecosistema diseñado para operar con Modelos Locales Pequeños (SLMs) como Ollama a coste cero no debe intentar contactar con APIs externas para calcular costes. Silenciar la librería devuelve el control absoluto de la salida estándar (stdout) al orquestador maestro, garantizando una terminal inmaculada.
+
+**Siguiente paso o deuda:** Ejecutar `merci commit` para empaquetar atómicamente todas las mejoras de la sesión.
+
 ### 2026-05-20 — Erradicación de la Regla 17 (Cero Mantenimiento Documental)
 
 **Contexto:** La reciente refactorización del detector de deriva (Merci Drift) para auditar la fecha física (`st_mtime`) del sistema operativo volvió obsoletas las cabeceras de historial de modificaciones mantenidas manualmente. Mantenerlas generaba ruido visual y "código muerto" (Dead Code) en la documentación.
