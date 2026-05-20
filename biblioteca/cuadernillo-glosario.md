@@ -5,10 +5,9 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-20"
 fase: "Épica 3 - Fase 2"
-estado: "incubacion"
+estado: "publicado"
 alt_portada: "Diagrama de arquitectura mostrando bitácoras alimentando un archivo JSON, que a su vez se compila en Markdown."
 ---
-
 ## El Desafío (Síntoma)
 
 A medida que el Agente Autónomo del glosario extraía e inyectaba nuevas definiciones técnicas (DevSecOps) directamente en el archivo Markdown (`glosario-tecnico.md`), se hicieron evidentes dos problemas estructurales:
@@ -27,3 +26,7 @@ Se refactorizó el script `merci-glosario.py` abandonando la inyección directa 
 
 *   **JSON sobre Markdown para Agentes:** Cuando un Agente Autónomo tiene permisos de escritura continua, el formato de almacenamiento de estado debe ser estricto (JSON o Base de Datos). Dejar que un LLM manipule código Markdown interactivo o en bruto introduce Deuda Técnica impredecible. 
 *   **Aislamiento del Origen:** Consolidar el paradigma de que "los archivos .md finales son de solo lectura (compilados)" simplifica el mantenimiento. Si el Markdown se corrompe por acción humana, la próxima ejecución del Build lo restaurará instantáneamente desde el JSON.
+
+## Resumen
+
+Antes, nuestra Inteligencia Artificial escribía el diccionario técnico directamente sobre la página final, lo que a veces causaba errores visuales si la IA se equivocaba con el formato o la puntuación. Para solucionarlo, ahora la IA guarda las definiciones en un "cajón de datos" estructurado e invisible. Luego, nuestro sistema actúa como una imprenta mecánica: coge esos datos seguros y fabrica la página perfecta y ordenada alfabéticamente desde cero cada vez. Así nos aseguramos de que el resultado nunca se rompa visualmente, por mucho que la IA se equivoque.

@@ -2,7 +2,7 @@
 titulo: "Optimización del Dashboard de Grafana para Mejorar la Experiencia del Autor"
 descripción: "Se implementó una solución que reduce el tiempo de respuesta en el dashboard de Grafana al actualizar los estados documentales."
 estado: "publicado"
-estado_social: "en_cola"
+estado_social: "aprobado"
 tema: "Blog"
 fase: "Epic 3 - Fase 2"
 fecha: "2026-05-18"

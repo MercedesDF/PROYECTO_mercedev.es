@@ -38,6 +38,21 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Refactorización de nomenclaturas (Paridad Documento-Blog)
+
+**Contexto:** Los artículos de marketing generados por el Agente Blogger recibían nombres de archivo basados en su título (*slugify*). Esto causaba una desconexión visual severa en el explorador de archivos frente a sus cuadernillos de origen (ej. `blog-automatizacion-extendida.md` vs `cuadernillo-glosario.md`), generando fricción cognitiva.
+
+**Hecho:** 
+- Se modificó el título del blog de "Zero Maintenance" para unificarlo exactamente con su cuadernillo.
+- Se ordenó el renombrado físico (`mv`) de los borradores de blog en incubación para heredar el nombre base de sus cuadernillos.
+- Se refactorizó `scripts/merci/merci-blogger.py` para heredar sistemáticamente el nombre de archivo del documento padre.
+
+**Detalle técnico:** En el Agente Blogger, se implementó una evaluación de prefijos (`cuadernillo-`, `compendio-`, `art-de-cote-`). Si la nota origen posee estos prefijos estructurales, el script genera el archivo de salida sustituyéndolos por `blog-` (ej. `blog-glosario.md`), puenteando la función `slugify`.
+
+**Motivo / criterio:** *Developer Experience (DX) y Mapeo 1:1*. La relación entre un activo técnico y su post promocional debe ser evidente a simple vista. Heredar el nombre base del archivo elimina el esfuerzo mental de relacionar contenidos, facilitando enormemente la curación en la bandeja de incubación.
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 de la Épica 3 (Comunicaciones Cifradas PGP).
+
 ### 2026-05-20 — Retrospectiva y Cosecha de Conocimiento (Fase 2 - Épica 3)
 
 **Contexto:** Tras un intento de cierre prematuro de la Fase 2, la Arquitecta del proyecto (mercedev) detuvo el proceso aplicando la Regla 7 (Definition of Done). Faltaba realizar la Cosecha de Conocimiento, la auditoría documental final y la validación en producción antes de empaquetar el Boilerplate.

@@ -5,10 +5,9 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-19"
 fase: "Épica 3 - Fase 2"
-estado: "incubacion"
+estado: "publicado"
 alt_portada: "Esquema visual de dos nodos de procesamiento pasándose un bloque de datos iluminado a través de un canal directo."
 ---
-
 ## El Desafío (Síntoma)
 
 Se detectó una fricción operativa significativa en el flujo de creación de contenido. Aunque el Agente Bibliotecario automatizaba la redacción técnica estructurada, el proceso posterior de promoción estaba fragmentado. 

@@ -59,5 +59,9 @@
   "/biblioteca/sanitizacion-de-metadatos-yaml-prevencion-xss-y-rotura-del-dom.html": "Sanitizar metadatos YAML es el truco para bloquear XSS y proteger el DOM, ¡siempre un paso adelante en la batalla digital! 🛡️🚀",
   "/biblioteca/consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.html": "Descubre cómo Merci optimiza el rendimiento web mediante un enfoque innovador de CSS y Body IDs, eliminando el uso innecesario del DOM para resaltar enlaces activos.",
   "/biblioteca/optimizacion-del-dashboard-de-grafana-para-mejorar-la-experiencia-del-autor.html": "Mejora la UX de los autores con esta optimización del dashboard de Grafana, ¡reduciendo tiempos de respuesta y aumentando la velocidad al actualizar estados documentales!",
-  "/biblioteca/resolucion-de-404s-headless-y-enlaces-ambiguos-wai-aria.html": "Descubre cómo optimizar PDFs mediante enlaces dinámicos y WCAG: un viaje al mundo de la accesibilidad web"
+  "/biblioteca/resolucion-de-404s-headless-y-enlaces-ambiguos-wai-aria.html": "Descubre cómo optimizar PDFs mediante enlaces dinámicos y WCAG: un viaje al mundo de la accesibilidad web",
+  "/biblioteca/arquitectura-zero-maintenance-compilacion-incremental-y-st_mtime.html": "¿Listos para una viaje tecnológico por la eficiencia del sistema operativo? 🚀💻",
+  "/biblioteca/compilacion-en-frio-la-superioridad-del-ssg-frente-al-pdf-dinamico.html": "SSG vs PDF Dinámico: La magia del Build-Time en DevSecOps",
+  "/biblioteca/agent-chaining-encadenamiento-automatico-entre-agentes-de-redaccion-y-marketing.html": "Agent Chaining: El encadenamiento automático entre IA de redacción y marketing, eliminando fricción operativa y pasando contexto dinámicamente entre agentes.",
+  "/biblioteca/automatizacion-extendida-compilador-data-driven-para-la-biblioteca.html": "Automatización extendida: Compilador data-driven para biblioteca, transformando el agente autónomo en un SSOT determinista."
 }

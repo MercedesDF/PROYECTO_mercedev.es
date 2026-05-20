@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitectura Zero Maintenance: Compilación Incremental y st_mtime — mercedev.es</title>
+    <meta name="description" content="Evolución del pipeline maestro DevSecOps. De la fuerza bruta del Clean Build a la eficiencia del Mark &amp; Sweep y la auditoría física del sistema operativo.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/arquitectura-zero-maintenance-compilacion-incremental-y-st_mtime.html">
+    <link rel="stylesheet" href="/css/main.css?v=1779317710">
+    <script src="/js/MerciController.js?v=1778974789" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Arquitectura Zero Maintenance: Compilaci\u00f3n Incremental y st_mtime",
+      "description": "Evoluci\u00f3n del pipeline maestro DevSecOps. De la fuerza bruta del Clean Build a la eficiencia del Mark & Sweep y la auditor\u00eda f\u00edsica del sistema operativo.",
+      "url": "https://mercedev.es/biblioteca/arquitectura-zero-maintenance-compilacion-incremental-y-st_mtime.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Arquitectura Zero Maintenance: Compilación Incremental y st_mtime</h1>
+                <a href="/descargas/arquitectura-zero-maintenance-compilacion-incremental-y-st_mtime.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>A medida que el ecosistema documental de mercedev.es crecía, el orquestador maestro (<code>merci-total.py</code>) comenzó a mostrar signos de fatiga, superando los 20 segundos de tiempo de ejecución. </p>
+<p>La inyección del <em>Profiler</em> reveló que el 90% de este tiempo (aprox. 8.5 segundos) era consumido por el motor de Generación de Sitios Estáticos (SSG) al compilar PDFs mediante WeasyPrint. El sistema operaba bajo un patrón <strong>Clean Build</strong>: en cada ejecución, eliminaba a ciegas todos los archivos generados y los volvía a renderizar desde cero, independientemente de si el documento original (Markdown) había sido modificado o no. </p>
+<p>Paralelamente, las herramientas de auditoría documental dependían de metadatos mantenidos manualmente por los humanos (fechas escritas en comentarios de texto) para calcular la deriva documental, provocando constantes falsos negativos por olvidos.</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Se ejecutó una refactorización transversal hacia el paradigma <strong>Zero Maintenance</strong> (Cero Mantenimiento Humano) e <strong>Incremental Build</strong> (Construcción Incremental):</p>
+<ol>
+<li><strong>Adopción de la verdad física (<code>st_mtime</code>):</strong> Se erradicó la dependencia de las fechas manuales en los archivos de código. El detector de deriva y el motor SSG ahora interrogan directamente al Sistema Operativo para obtener la fecha inmutable de modificación física del archivo (<code>st_mtime</code>).</li>
+<li><strong>Patrón Cache Hit:</strong> El orquestador compara el <code>st_mtime</code> del PDF de salida frente al Markdown de origen. Si el origen no ha cambiado, se aborta la costosa llamada de renderizado (Cache Hit), reduciendo el tiempo de proceso de ese archivo a casi 0 milisegundos.</li>
+<li><strong>Recolección de Basura (Mark &amp; Sweep):</strong> Para evitar la acumulación de archivos "zombis" (PDFs/HTMLs cuyos Markdowns originales han sido borrados o renombrados), se implementó un <em>Garbage Collector</em> diferido. Durante la compilación, el script rastrea los archivos generados válidos en un <code>set()</code>. Al finalizar, itera sobre los directorios públicos y ejecuta un <code>unlink()</code> exclusivamente sobre los archivos huérfanos.</li>
+<li><strong>Supply Chain Security:</strong> Se endureció el Agente Auditor implementando el módulo nativo <code>ast</code> (Abstract Syntax Tree). En lugar de depender de expresiones regulares falibles, el auditor disecciona la gramática de los scripts <code>.py</code> para bloquear cualquier importación que no figure en una lista blanca estricta (Zero Trust).</li>
+</ol>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p><strong>El rendimiento no se optimiza con hardware, se optimiza con arquitectura.</strong></p>
+<p>Migrar del <em>Clean Build</em> al <em>Incremental Build</em> redujo el tiempo de compilación del SSG de 8.46s a <strong>0.41s</strong> (una mejora del 95%), logrando que el pipeline maestro completo caiga por debajo de la barrera psicológica de los 10 segundos (Sub-10s).</p>
+<p>Auditar la verdad física (<code>st_mtime</code>) y erradicar las cabeceras manuales demostró que el verdadero <strong>DevSecOps</strong> es aquel que elimina la carga cognitiva del desarrollador. Si una herramienta requiere que el humano introduzca datos redundantes para funcionar, la herramienta está mal diseñada.</p>
+<p>Queda como conocimiento consolidado que la Inteligencia Artificial (SLMs), si bien es excepcional para razonar sobre código (como demostró el <em>Chaos Monkey</em>), añade una latencia inaceptable al ciclo crítico de Integración Continua (CI). Tareas de sincronización determinista, como la actualización del Roadmap o la recolección de métricas, deben delegarse incondicionalmente a código nativo (Python puro) para mantener la Experiencia de Desarrolladora (DX) intacta.</p>
+<h2>Resumen</h2>
+<p>A medida que la web crecía, el sistema tardaba cada vez más en actualizarse porque borraba y volvía a construir todos los archivos desde cero ante cualquier pequeño cambio, por mínimo que fuera. Le hemos enseñado al sistema a mirar la fecha física en la que se guardó cada archivo en el disco duro. Ahora, el sistema solo actualiza lo que realmente se ha tocado y hace una "limpieza de basura" automática al final. Hemos pasado de esperar casi 10 segundos a que los cambios sean casi instantáneos, sin que ninguna persona tenga que acordarse de anotar o modificar fechas a mano.</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

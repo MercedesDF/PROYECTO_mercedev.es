@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Chaining: Encadenamiento Automático entre Agentes de Redacción y Marketing — mercedev.es</title>
+    <meta name="description" content="Cómo el patrón Agent Chaining elimina la fricción operativa pasando el contexto dinámicamente entre agentes de IA.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/agent-chaining-encadenamiento-automatico-entre-agentes-de-redaccion-y-marketing.html">
+    <link rel="stylesheet" href="/css/main.css?v=1779317710">
+    <script src="/js/MerciController.js?v=1778974789" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Agent Chaining: Encadenamiento Autom\u00e1tico entre Agentes de Redacci\u00f3n y Marketing",
+      "description": "C\u00f3mo el patr\u00f3n Agent Chaining elimina la fricci\u00f3n operativa pasando el contexto din\u00e1micamente entre agentes de IA.",
+      "url": "https://mercedev.es/biblioteca/agent-chaining-encadenamiento-automatico-entre-agentes-de-redaccion-y-marketing.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Agent Chaining: Encadenamiento Automático entre Agentes de Redacción y Marketing</h1>
+                <a href="/descargas/agent-chaining-encadenamiento-automatico-entre-agentes-de-redaccion-y-marketing.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>Se detectó una fricción operativa significativa en el flujo de creación de contenido. Aunque el Agente Bibliotecario automatizaba la redacción técnica estructurada, el proceso posterior de promoción estaba fragmentado. </p>
+<p>Era necesario invocar manualmente al Agente Blogger en una sesión separada para generar el contenido de marketing social (DevRel). Adicionalmente, el Blogger operaba a ciegas respecto a la ubicación final del documento, lo que imposibilitaba inyectar automáticamente la URL canónica (destino del post promocional) y aumentaba el riesgo de enlaces rotos o desincronizados.</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Se implementó el patrón de Agent Chaining (Encadenamiento de Agentes) mediante orquestación en Python. </p>
+<p>La arquitectura se modificó para que el Agente Bibliotecario actúe como nodo de origen. Al finalizar la generación y validación del documento técnico, el script evalúa el estado del proceso y solicita confirmación interactiva. Si se aprueba la promoción, el Bibliotecario invoca directamente al Agente Blogger pasándole la ruta absoluta del archivo recién creado como argumento. A su vez, el Blogger fue refactorizado para ingerir este contexto: extrae el YAML Frontmatter del archivo entrante, aplica una función de <em>slugify</em> al título y deduce matemáticamente cuál será la URL final del documento estático. Esta URL se inyecta dinámicamente como directiva en el prompt del modelo local, forzando a la IA a incluirla en el bloque de anuncio.</p>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<ul>
+<li>
+<p><strong>Separation of Concerns en Modelos Locales:</strong> Forzar a un único SLM (Small Language Model - Modelo de Lenguaje Pequeño) a ser ingeniero técnico y redactor publicitario simultáneamente provoca alucinaciones (colapso de modo). Separarlos en dos agentes de propósito único garantiza calidad extrema en ambos frentes.</p>
+</li>
+<li>
+<p><strong>Fricción Cero mediante Context Passing:</strong> Encadenar agentes locales reduce la fricción operativa a cero. Cada IA hace solo una tarea bien definida, pasándose el contexto exacto y el control de forma programática mediante Python sin requerir interacciones manuales de extracción e inyección de datos.</p>
+</li>
+</ul>
+<h2>Resumen</h2>
+<p>Anteriormente, al finalizar la redacción de un manual técnico con la primera Inteligencia Artificial, era necesario abrir una herramienta distinta, ordenar la escritura de un anuncio para redes sociales y buscar manualmente el enlace final de la página para pegarlo en el texto. Con la nueva arquitectura, se ha creado una "cadena de montaje": en cuanto la primera IA termina su trabajo técnico, le pasa automáticamente el relevo a la segunda IA (la de marketing), calculando e inyectando por sí misma el enlace definitivo para que el anuncio se guarde perfectamente conectado, eliminando cualquier intervención humana intermedia.</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>

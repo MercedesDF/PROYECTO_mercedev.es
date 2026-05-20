@@ -2,11 +2,12 @@
 titulo: "Arquitectura Zero Maintenance: Compilación Incremental y st_mtime"
 descripcion: "Evolución del pipeline maestro DevSecOps. De la fuerza bruta del Clean Build a la eficiencia del Mark & Sweep y la auditoría física del sistema operativo."
 tema: "DevSecOps y Gobernanza"
-estado: "incubacion"
-fase: "2"
+estado: "publicado"
+tipo: "cuadernillo"
+fecha: "2026-05-20"
+fase: "Epic 3 - Fase 2"
 alt_portada: "Diagrama conceptual ilustrando el paso de la compilación destructiva (Clean Build) a la recolección de basura selectiva (Mark & Sweep) en un pipeline estático."
 ---
-
 ## El Desafío (Síntoma)
 
 A medida que el ecosistema documental de mercedev.es crecía, el orquestador maestro (`merci-total.py`) comenzó a mostrar signos de fatiga, superando los 20 segundos de tiempo de ejecución. 
@@ -33,3 +34,7 @@ Migrar del *Clean Build* al *Incremental Build* redujo el tiempo de compilación
 Auditar la verdad física (`st_mtime`) y erradicar las cabeceras manuales demostró que el verdadero **DevSecOps** es aquel que elimina la carga cognitiva del desarrollador. Si una herramienta requiere que el humano introduzca datos redundantes para funcionar, la herramienta está mal diseñada.
 
 Queda como conocimiento consolidado que la Inteligencia Artificial (SLMs), si bien es excepcional para razonar sobre código (como demostró el *Chaos Monkey*), añade una latencia inaceptable al ciclo crítico de Integración Continua (CI). Tareas de sincronización determinista, como la actualización del Roadmap o la recolección de métricas, deben delegarse incondicionalmente a código nativo (Python puro) para mantener la Experiencia de Desarrolladora (DX) intacta.
+
+## Resumen
+
+A medida que la web crecía, el sistema tardaba cada vez más en actualizarse porque borraba y volvía a construir todos los archivos desde cero ante cualquier pequeño cambio, por mínimo que fuera. Le hemos enseñado al sistema a mirar la fecha física en la que se guardó cada archivo en el disco duro. Ahora, el sistema solo actualiza lo que realmente se ha tocado y hace una "limpieza de basura" automática al final. Hemos pasado de esperar casi 10 segundos a que los cambios sean casi instantáneos, sin que ninguna persona tenga que acordarse de anotar o modificar fechas a mano.

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatización Extendida: Compilador Data-Driven para la Biblioteca — mercedev.es</title>
+    <meta name="description" content="Evolución del agente autónomo hacia una arquitectura JSON (SSOT) para la compilación determinista del conocimiento.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/automatizacion-extendida-compilador-data-driven-para-la-biblioteca.html">
+    <link rel="stylesheet" href="/css/main.css?v=1779317710">
+    <script src="/js/MerciController.js?v=1778974789" defer></script>
+    <script src="/js/main.js?v=1777153888" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Automatizaci\u00f3n Extendida: Compilador Data-Driven para la Biblioteca",
+      "description": "Evoluci\u00f3n del agente aut\u00f3nomo hacia una arquitectura JSON (SSOT) para la compilaci\u00f3n determinista del conocimiento.",
+      "url": "https://mercedev.es/biblioteca/automatizacion-extendida-compilador-data-driven-para-la-biblioteca.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Automatización Extendida: Compilador Data-Driven para la Biblioteca</h1>
+                <a href="/descargas/automatizacion-extendida-compilador-data-driven-para-la-biblioteca.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>A medida que el Agente Autónomo del glosario extraía e inyectaba nuevas definiciones técnicas (DevSecOps) directamente en el archivo Markdown (<code>glosario-tecnico.md</code>), se hicieron evidentes dos problemas estructurales:
+1. <strong>Fragilidad de Formato:</strong> La Inteligencia Artificial, a pesar de usar Prompts estrictos, ocasionalmente sufría "alucinaciones de formato" (devolviendo <code>**Término**</code> en vez de <code>### Término</code>). Un simple error tipográfico de la IA rompía la visualización del documento.
+2. <strong>Desalineación Filosófica:</strong> El glosario Markdown estaba siendo tratado como una base de datos cuando, en realidad, en nuestro ecosistema SSG, la <em>Única Fuente de Verdad</em> es la bitácora de documentación. El glosario no debe ser un documento de trabajo, sino un <em>Art de Coté</em> (artefacto compilado).</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Se refactorizó el script <code>merci-glosario.py</code> abandonando la inyección directa en Markdown en favor de un enfoque <strong>Data-Driven (Basado en JSON)</strong>:</p>
+<ol>
+<li><strong>Estado JSON Maestro:</strong> Se extrajo el histórico completo hacia un nuevo archivo <code>glosario-tecnico.json</code>. Este JSON almacena los términos, definiciones, el registro de archivos origen, y una <em>lista negra</em> de términos descartados.</li>
+<li><strong>IA Determinista:</strong> Se configuró el cliente HTTP para requerir explícitamente <code>format: "json"</code> a la API de Ollama. La IA ahora no devuelve texto libre, sino un objeto estructurado predecible e imposible de romper visualmente.</li>
+<li><strong>Compilación Dinámica (Build-Time):</strong> El script ahora opera como un compilador. Tras sincronizar los nuevos términos con el JSON, genera y sobrescribe el archivo <code>glosario-tecnico.md</code> desde cero. Esto garantiza que el artefacto resultante esté matemáticamente ordenado (alfabéticamente) y formateado de forma impecable en cada ejecución del pipeline (<code>merci-total.py</code>).</li>
+</ol>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<ul>
+<li><strong>JSON sobre Markdown para Agentes:</strong> Cuando un Agente Autónomo tiene permisos de escritura continua, el formato de almacenamiento de estado debe ser estricto (JSON o Base de Datos). Dejar que un LLM manipule código Markdown interactivo o en bruto introduce Deuda Técnica impredecible. </li>
+<li><strong>Aislamiento del Origen:</strong> Consolidar el paradigma de que "los archivos .md finales son de solo lectura (compilados)" simplifica el mantenimiento. Si el Markdown se corrompe por acción humana, la próxima ejecución del Build lo restaurará instantáneamente desde el JSON.</li>
+</ul>
+<h2>Resumen</h2>
+<p>Antes, nuestra Inteligencia Artificial escribía el diccionario técnico directamente sobre la página final, lo que a veces causaba errores visuales si la IA se equivocaba con el formato o la puntuación. Para solucionarlo, ahora la IA guarda las definiciones en un "cajón de datos" estructurado e invisible. Luego, nuestro sistema actúa como una imprenta mecánica: coge esos datos seguros y fabrica la página perfecta y ordenada alfabéticamente desde cero cada vez. Así nos aseguramos de que el resultado nunca se rompa visualmente, por mucho que la IA se equivoque.</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" loading="lazy">
+        </button>
+    </aside>
+</body>
+</html>
