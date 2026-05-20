@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "archivo": "merci-audit.py",
+    "motivos": "Temporal: 2026-05-20 20:35 > Manuales: 2026-05-20 20:25"
+  },
+  {
+    "archivo": "merci-total.py",
+    "motivos": "Temporal: 2026-05-20 20:35 > Manuales: 2026-05-20 20:25"
+  }
+]

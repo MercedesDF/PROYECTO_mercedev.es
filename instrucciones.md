@@ -10,8 +10,8 @@ Al usar acrónimos, definir seguidamente su significado en inglés y español. S
 ## 1. Filosofía del Proyecto (El Núcleo Operativo)
 - **Contenido > Diseño:** Enfoque minimalista inspirado en *motherfuckingwebsite.com*. Prioridad absoluta al rendimiento (Core Web Vitals: 100/100) y a la accesibilidad.
 - **Gestión del Conocimiento (La Biblioteca):** Se descarta el concepto de "blog" tradicional. La "Biblioteca" es el núcleo de la documentación técnica y el activo principal.
-- **Trazabilidad del Error:** Cada vulnerabilidad, error o decisión técnica compleja se documenta como un activo de valor siguiendo la estructura de 3 átomos:
-  1. **El Desafío (Síntoma):** Definición del problema técnico o requisito encontrado durante el desarrollo.
+- **Trazabilidad del Error (Divulgación Responsable):** Cada vulnerabilidad o decisión técnica se documenta como un activo de valor en 3 átomos. *Regla DevSecOps:* "Documenta la cura en público, mantén el veneno en privado". Nunca se expone el payload exacto o un vector no parcheado en la bitácora pública; para los datos forenses crudos se utiliza el directorio `.privado/`.
+  1. **El Desafío (Síntoma):** Definición abstraída del problema técnico o vulnerabilidad encontrada.
   2. **La Maniobra (Lógica):** Arquitectura y solución técnica implementada.
   3. **El Aprendizaje/Deuda Técnica:** Efectos secundarios, refactorizaciones futuras o lecciones aprendidas.
 - **Compendios Estratégicos:** Documentos de alto nivel (tipo `compendio`) que agrupan y sintetizan múltiples lecciones tácticas (cuadernillos) en una visión arquitectónica global. Disponen de trato preferencial en el índice de la Biblioteca.

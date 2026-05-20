@@ -164,7 +164,7 @@
 
 ### Fase 3: Orquestación de Contenidos y Docs
 - [x] Agente Bibliotecario (Zero-Hallucination): Rescatado como orquestador 100% local. Transforma notas crudas en documentos YAML perfectamente estructurados sin inventar código.
-- [x] Sync SSOT (Self-Healing Docs): Agente híbrido (Cloud/Local con Qwen 2.5) que verifica y auto-sana la deriva documental mediante Shift-Left Parsing.
+- [x] 🔴 Sync SSOT (Self-Healing Docs): Deprecado y relegado a Art de Coté. La latencia y la imprecisión de los SLMs no justifican la automatización.
 - [x] 🔴 AI-Changelog (descartado por límites cognitivos locales): Generación automática de historial de cambios realizados por agentes en /docs/CHANGELOG_AI.md.
 - [x] Pipeline WP → LinkedIn (Automatización Social): Conectar `merci-wp.py` con `merci-linkedin.py` para que al publicar o actualizar un post en WordPress se dispare automáticamente a LinkedIn.
 
@@ -193,8 +193,14 @@
 - [x] Medir el tiempo de ejecución global del pipeline DevSecOps (`merci_pipeline_duration_seconds`).
 - [x] Exportar y persistir el "Engineering Dashboard" de Grafana en el repositorio mediante Provisioning (IaC).
 - [x] Configurar alertas nativas en Grafana (Alerting) para la cola social (vaciado) y la incubadora (saturación).
-- [ ] Implementar un registro privado persistente (`.privado/chaos-audit.log`) para las mutaciones del Agente Chaos.
-- [ ] Instrumentar `merci-sre.py` para exponer el historial de resiliencia de Chaos Engineering hacia Grafana.
+- [x] Refactorización del motor SSG a Compilación Incremental (Mark & Sweep) reduciendo el tiempo de build en un 95%.
+- [x] Migración del detector de deriva (Merci Drift) a auditoría de fecha física (`st_mtime`) y semántica pura.
+- [x] Erradicación de la Regla 17 (Cero mantenimiento humano de fechas en cabeceras de código).
+- [x] Silenciado de telemetría y llamadas externas de LiteLLM (Silence is Golden) en todo el ecosistema.
+- [x] Descubrimiento y parcheo de vulnerabilidad *Supply Chain* en importaciones Python mediante Chaos Engineering.
+- [x] Aislamiento del Agente Chaos (Chaos Monkey) fuera del pipeline maestro CI/CD para proteger el rendimiento.
+- [x] Implementar un registro privado persistente (`.privado/chaos-audit.log`) para las mutaciones del Agente Chaos.
+- [x] Instrumentar `merci-sre.py` para exponer el historial de resiliencia de Chaos Engineering hacia Grafana.
 - [ ] Integrar métricas de Inteligencia Artificial (fallbacks a la nube, errores del auditor) en Grafana.
 - [ ] Instrumentar la inyección dinámica de telemetría (commits, líneas de doc, versiones) en la página estática "Sobre Mí".
 

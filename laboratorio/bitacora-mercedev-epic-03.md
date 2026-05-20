@@ -38,6 +38,54 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Hito: Pipeline maestro Sub-10s (9.39s)
+
+**Contexto:** Tras la serie de refactorizaciones arquitectónicas (Compilación Incremental en SSG, extirpación del Agente SSOT y silenciado de telemetría), era necesario evaluar el impacto de estas decisiones en la Experiencia de Desarrolladora (DX).
+
+**Hecho:** Se registró un tiempo récord de 9.39s en la ejecución completa del orquestador `merci total` (abarcando la ejecución de 13 scripts en cadena).
+
+**Detalle técnico:** La caída drástica en la latencia es consecuencia directa de dos maniobras: 1) El salto de un paradigma *Clean Build* a un *Incremental Build* en el SSG (0.41s), y 2) La eliminación de la inferencia de Inteligencia Artificial (SLM) en el ciclo crítico de Integración Continua (deprecación del Agente SSOT).
+
+**Motivo / criterio:** *Performance Driven Development*. Un ciclo de retroalimentación (feedback loop) ultrarrápido es la piedra angular del desarrollo ágil. Bajar de la barrera psicológica de los 10 segundos garantiza que la ejecución de la auditoría y construcción no interrumpa el estado de flujo cognitivo (Flow State) de la desarrolladora.
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 de la Épica 3 (Comunicaciones Cifradas PGP).
+
+### 2026-05-20 — Decisión de Arquitectura (ADR): Deprecación del Agente SSOT
+
+**Contexto:** El agente `merci-ssot.py` consumía excesivo tiempo de inferencia en el pipeline maestro (~2-3.5s) y demostró ser propenso a imprecisiones (falsos positivos/negativos) al actualizar el Roadmap, violando el principio de "Zero Friction" y "Performance Driven Development".
+
+**Hecho:** Se deprecó formalmente el Agente SSOT, retirándolo del orquestador `merci-total.py` y marcándolo como experimento fallido (🔴) en el `ROADMAP.md`. Su código será preservado en Art de Coté.
+
+**Detalle técnico:** Se eliminó `merci-ssot.py` del array `PIPELINE` de `merci-total.py` y se suprimió su cláusula de degradación elegante. Se inyectó la corrección faltante en `merci-audit.py` (función `audit_python_imports`) que había bloqueado el compilador en la ejecución previa.
+
+**Motivo / criterio:** *Fail-Fast y Kill Your Darlings*. Si una automatización diseñada para ahorrar esfuerzo requiere constante supervisión, añade latencia inaceptable al ciclo CI/CD local y compromete la integridad documental (SSOT), debe ser extirpada. Modificar un archivo Markdown manualmente es más eficiente y preciso que depender de la inferencia de un Small Language Model (SLM) en este contexto específico.
+
+**Siguiente paso o deuda:** Validar la limpieza del pipeline maestro y continuar hacia la Fase 3 (Comunicaciones Cifradas PGP).
+
+### 2026-05-20 — Decisión de Arquitectura (ADR): Aislamiento del Chaos Monkey
+
+**Contexto:** Tras el éxito del Agente Chaos (`merci-chaos.py`), se debatió su posible inclusión dentro del orquestador maestro local (`merci-total.py`) para automatizar las pruebas de resiliencia en cada ciclo de compilación.
+
+**Hecho:** Se rechazó formalmente la integración, consolidando al Chaos Monkey como una herramienta de ejecución manual o asíncrona (Cron/CI).
+
+**Detalle técnico:** `merci-total.py` es un pipeline de Integración Continua (CI) diseñado para ejecutarse en segundos y validar el estado *actual* del código. Inyectar `merci-chaos.py` implicaría invocar inferencia de LLM (Ollama), mutación física de archivos y subprocesos de auditoría en cada guardado, duplicando la latencia del pipeline y abriendo vectores de colisión I/O si el `git restore` falla.
+
+**Motivo / criterio:** *Separation of Concerns y Performance Driven Development*. Las pruebas de resiliencia (Chaos Engineering) auditan la *infraestructura de defensa*, no la corrección del código de la aplicación. Deben ejecutarse fuera del ciclo crítico de construcción (Build) para proteger el ciclo de retroalimentación ultrarrápido (Developer Experience) y evitar envenenar las métricas SRE con falsos positivos repetitivos.
+
+**Siguiente paso o deuda:** Mantener la ejecución manual (`merci chaos`) e iniciar el diseño de las Comunicaciones Cifradas PGP (Fase 3).
+
+### 2026-05-20 — Descubrimiento de vulnerabilidad Supply Chain vía Chaos Monkey
+
+**Contexto:** Al ejecutar el Agente Chaos (`merci-chaos.py`), la IA logró mutar el código inyectando una dependencia falsa (`import malicious_markdown` en lugar de `import markdown`). El orquestador de seguridad (`merci-audit.py`) falló en detectarlo, revelando un punto ciego crítico frente a ataques a la cadena de suministro (Supply Chain).
+
+**Hecho:** Se implementó la regla `audit_python_imports` en el Agente Auditor (`scripts/merci/merci-audit.py`).
+
+**Detalle técnico:** La nueva regla utiliza la librería nativa `ast` (Abstract Syntax Tree) para parsear todos los nodos de importación (`Import` e `ImportFrom`) de los scripts `.py`. Valida la raíz del módulo contra la lista de la librería estándar (`sys.stdlib_module_names`) y una "Lista Blanca" estricta de las 7 dependencias de terceros autorizadas en el `requirements.txt`.
+
+**Motivo / criterio:** *Zero Trust y Supply Chain Security*. Un ecosistema puede estar blindado contra XSS o inyección SQL, pero si el código importa una librería maliciosa no registrada, el servidor queda comprometido (RCE). Que el Chaos Monkey haya encontrado esta fisura justifica por sí solo su existencia en la arquitectura.
+
+**Siguiente paso o deuda:** Ejecutar nuevamente `merci chaos` para comprobar si el escudo actualizado bloquea la mutación de módulos.
+
 ### 2026-05-20 — Telemetría y persistencia privada para Chaos Engineering
 
 **Contexto:** Las pruebas de resiliencia del Agente Chaos (`merci-chaos.py`) eran efímeras (solo visibles en consola). Para completar el Dashboard DevSecOps, se requería almacenar los resultados de las mutaciones de la IA e inyectarlos en Prometheus sin exponer los vectores de ataque en Git.

@@ -47,7 +47,6 @@ PIPELINE = [
     "merci-brain.py",
     "merci-glosario.py",
     "merci-sitemap.py",
-    "merci-ssot.py",
     "merci-drift.py",
     "merci-audit.py",
     "merci-hardening.py",
@@ -77,15 +76,6 @@ def main():
             script_durations[script] = script_end - script_start
             print()  # Separador visual entre bloques de ejecución
         except subprocess.CalledProcessError as e:
-            # QUÉ HACE: Degradación Elegante para el Agente SSOT.
-            # POR QUÉ: En un clon nuevo (Boilerplate), el Roadmap de IA y la Bitácora no existen por la limpieza DLP.
-            # Convertimos su código de salida fatal en un aviso informativo para no romper la Out-of-the-Box Experience.
-            if script == "merci-ssot.py":
-                print("  ⚠️ [Merci Info] Agente SSOT desactivado: Faltan documentos origen (Comportamiento esperado en Boilerplate).")
-                script_end = time.time()
-                script_durations[script] = script_end - script_start
-                print()
-                continue
             print(f"\n❌ [Merci Total] Pipeline detenido. El proceso '{script}' reportó errores y bloqueó la ejecución.")
             sys.exit(e.returncode)
             
