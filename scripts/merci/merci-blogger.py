@@ -32,6 +32,7 @@ INCUBACION_DIR = REPO_ROOT / "laboratorio" / "incubacion"
 def slugify(texto: str) -> str:
     import unicodedata
     texto = str(texto)
+    texto = re.sub(r'[—–]', '-', texto)
     texto = unicodedata.normalize('NFKD', texto).encode('ascii', 'ignore').decode('ascii')
     texto = re.sub(r'[^\w\s-]', '', texto.lower())
     return re.sub(r'[-\s]+', '-', texto).strip('-_')

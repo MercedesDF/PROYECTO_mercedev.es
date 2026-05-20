@@ -44,6 +44,8 @@ def slugify(texto: str) -> str:
     asegurando que las URLs públicas sean siempre limpias, sin acentos ni espacios.
     """
     texto = str(texto)
+    # Reemplazar guiones tipográficos por guion estándar ANTES de la limpieza ASCII
+    texto = re.sub(r'[—–]', '-', texto)
     # Normaliza eliminando acentos (ej. á -> a, ñ -> n)
     texto = unicodedata.normalize('NFKD', texto).encode('ascii', 'ignore').decode('ascii')
     # Elimina caracteres que no sean alfanuméricos, espacios o guiones

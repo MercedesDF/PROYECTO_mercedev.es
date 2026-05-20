@@ -72,7 +72,7 @@ def main():
     pending_list_str = "\n".join([f"- {t}" for t in pending_tasks])
 
     # Extraer solo las últimas 2 entradas de la bitácora para ser precisos y evitar diluir el prompt
-    entradas = re.split(r'(?=### \d{4}-\d{2}-\d{2})', bitacora_full)
+    entradas = re.split(r'(?=### \d{4}-\d{2}-\d{2}(?:\s\d{2}:\d{2})?)', bitacora_full)
     bitacora_reciente = "".join(entradas[1:3]) if len(entradas) > 1 else bitacora_full[:2000]
 
     # QUÉ HACE: Amputa matemáticamente todo el texto de la bitácora excepto el bloque "Hecho".

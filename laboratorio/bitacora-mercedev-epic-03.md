@@ -45,6 +45,21 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Robustez global en Regex y Ley de Postel (Tolerancia a guiones y horas)
+
+**Contexto:** La mejora de resolución horaria implementada en la bitácora rompió los agentes que particionan el texto basándose en fechas estrictas (`YYYY-MM-DD`). Adicionalmente, se descubrió un *bug* silencioso: el uso de guiones tipográficos (`—`, `–`) en los títulos generaba URLs (slugs) malformadas en el SSG y WordPress, ya que la normalización ASCII los eliminaba antes de procesarlos.
+
+**Hecho:** 
+- Se refactorizaron las expresiones regulares en `merci-commit.py`, `merci-ssot.py` y `merci-librarian.py` para hacer opcional la hora.
+- Se parcheó la función `slugify()` en todos los scripts de publicación (`merci-publish.py`, `merci-brain.py`, `merci-wp.py`, etc.) para preprocesar y estandarizar guiones.
+- Se flexibilizó `merci-drift.py` para admitir cualquier tipo de guion en las cabeceras.
+
+**Detalle técnico:** Se inyectó el grupo de no captura opcional `(?:\s\d{2}:\d{2})?` en los patrones de partición (`re.split`) y búsqueda (`re.search`) de fechas. En las funciones `slugify()`, se añadió el paso `re.sub(r'[—–]', '-', texto)` justo antes de `unicodedata.normalize('NFKD', texto).encode('ascii', 'ignore')`, preservando el delimitador en la URI resultante.
+
+**Motivo / criterio:** *Ley de Postel (Principio de Robustez)*. "Sé conservador en lo que envías, pero liberal en lo que aceptas". Flexibilizar las expresiones regulares de entrada previene que el pipeline de 25+ agentes colapse por variaciones tipográficas naturales o al incrementar la resolución de la observabilidad (añadir horas).
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para regenerar todos los slugs estáticos correctamente, validando la resiliencia del pipeline maestro, y hacer el commit de cierre de sesión.
+
 ### 2026-05-20 13:03 — Mejora de Resolución en Detector de Deriva Documental
 
 **Contexto:** El detector `merci-drift.py` usaba exclusivamente fecha (`YYYY-MM-DD`) como unidad de comparación. Esto creó un punto ciego: si un script se modificaba varias veces en el mismo día, la segunda modificación no se detectará como deriva porque tanto el código como los manuales maestros ya tendrán fecha de hoy.

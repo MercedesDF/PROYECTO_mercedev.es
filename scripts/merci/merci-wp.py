@@ -49,6 +49,7 @@ def slugify(texto: str) -> str:
     y consistentes independientemente de cómo el autor nombre sus archivos en el sistema operativo.
     """
     texto = str(texto)
+    texto = re.sub(r'[—–]', '-', texto)
     texto = unicodedata.normalize('NFKD', texto).encode('ascii', 'ignore').decode('ascii')
     texto = re.sub(r'[^\w\s-]', '', texto.lower())
     return re.sub(r'[-\s]+', '-', texto).strip('-_')

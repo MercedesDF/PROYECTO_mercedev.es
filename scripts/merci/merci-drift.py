@@ -28,7 +28,7 @@ MANUALES_MAESTROS = [
 ]
 
 # El grupo de hora (HH:MM) es opcional para mantener retrocompatibilidad con scripts que solo tienen fecha.
-DATE_PATTERN = re.compile(r"- Última modificación el (\d{4}-\d{2}-\d{2}(?:\s\d{2}:\d{2})?)")
+DATE_PATTERN = re.compile(r"[-—–]\s*Última modificación el (\d{4}-\d{2}-\d{2}(?:\s\d{2}:\d{2})?)")
 
 def extraer_fecha(filepath: Path) -> datetime | None:
     """Extrae la fecha normalizada de la cabecera del archivo."""
