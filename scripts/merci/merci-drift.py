@@ -39,7 +39,8 @@ def main():
         sys.exit(0) # Salida limpia para no bloquear el pipeline
 
     fecha_referencia = max(fechas_manuales)
-    readme_content = (REPO_ROOT / "README.md").read_text(encoding="utf-8", errors="ignore") if (REPO_ROOT / "README.md").exists() else ""
+    # Extraer el contenido de todos los manuales maestros para comprobación semántica estricta
+    manuales_textos = {m.name: (m.read_text(encoding="utf-8", errors="ignore") if m.exists() else "") for m in MANUALES_MAESTROS}
 
     archivos_en_deriva = []
     for s in SCRIPTS_DIR.glob("*.py"):
@@ -49,11 +50,12 @@ def main():
         
         # 1. Deriva Temporal (Fecha)
         if fecha_script and fecha_script > fecha_referencia:
-            motivos.append(f"Temporal: {fecha_script.strftime('%Y-%m-%d %H:%M')} > Manual: {fecha_referencia.strftime('%Y-%m-%d %H:%M')}")
+            motivos.append(f"Temporal: {fecha_script.strftime('%Y-%m-%d %H:%M')} > Manuales: {fecha_referencia.strftime('%Y-%m-%d %H:%M')}")
             
-        # 2. Deriva Semántica (Presencia en README)
-        if s.name not in readme_content:
-            motivos.append("Semántica: No mencionado en README.md")
+        # 2. Deriva Semántica (Presencia en manuales maestros)
+        faltantes = [nombre for nombre, contenido in manuales_textos.items() if s.name not in contenido]
+        if faltantes:
+            motivos.append(f"Semántica: No mencionado en {', '.join(faltantes)}")
             
         if motivos:
             archivos_en_deriva.append({"archivo": s.name, "motivos": " | ".join(motivos)})

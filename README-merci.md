@@ -162,6 +162,7 @@ Este boilerplate incluye su propia cadena de suministro CI/CD (Continuous Integr
 - `merci-brain.py`: Generador de base de conocimientos estática (Shift-Left AI).
 - `merci-ssot.py`: Agente Sync SSOT (Self-Healing Docs) para la curación autónoma de la deriva documental.
 - `merci-librarian.py`: Agente Bibliotecario (Zero-Hallucination) para el formateo estricto de cuadernillos.
+- `merci-glosario.py`: Compilador de Glosario Autónomo (Data-Driven).
 - `merci-publish.py` y `merci-promote.py`: Motor SSG (Static Site Generation - Generación de Sitios Estáticos) y curación de contenidos.
 - `merci-backup.py`: Creación instantánea de copias de seguridad locales en formato ZIP.
 - `merci-optimizer.py` y `merci-assets-watcher.py`: Optimizador WebP y agente vigilante de activos multimedia en segundo plano.

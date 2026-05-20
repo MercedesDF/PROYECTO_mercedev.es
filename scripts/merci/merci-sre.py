@@ -26,6 +26,7 @@ DOCUMENT_DRIFT = Gauge('merci_document_drift_total', 'Archivos con deriva docume
 PIPELINE_DURATION = Gauge('merci_pipeline_duration_seconds', 'Tiempo de ejecución de merci-total.py')
 PIPELINE_SCRIPT_DURATION = Gauge('merci_pipeline_script_duration_seconds', 'Tiempo de ejecución por script', ['script'])
 GLOSARIO_TERMS = Gauge('merci_glosario_terminos_total', 'Número total de términos definidos en el glosario JSON')
+CHAOS_EVENTS = Gauge('merci_chaos_events_total', 'Resultados de los simulacros del Chaos Monkey', ['resultado'])
 
 def actualizar_metricas_pipeline():
     """Lectura de JSON (Deriva y Duración). Se refrescan periódicamente (cada 10s)."""
@@ -48,6 +49,19 @@ def actualizar_metricas_pipeline():
             for script_name, s_duration in breakdown.items():
                 PIPELINE_SCRIPT_DURATION.labels(script=script_name).set(s_duration)
                 
+        except Exception:
+            pass
+
+def actualizar_metricas_chaos():
+    """Lectura del log privado de resiliencia (Chaos Engineering)."""
+    chaos_path = REPO_ROOT / ".privado" / "chaos-audit.json"
+    if chaos_path.exists():
+        try:
+            data = json.loads(chaos_path.read_text(encoding="utf-8"))
+            detectados = sum(1 for item in data if item.get("defensa_exitosa", False))
+            indetectados = len(data) - detectados
+            CHAOS_EVENTS.labels(resultado="detectado").set(detectados)
+            CHAOS_EVENTS.labels(resultado="indetectado").set(indetectados)
         except Exception:
             pass
 
@@ -134,6 +148,7 @@ def main():
         # QUÉ HACE: Muestreo continuo "hiper-rápido" (1s) para todas las métricas.
         actualizar_estado_documental()
         actualizar_metricas_pipeline()
+        actualizar_metricas_chaos()
         time.sleep(1)
 
 if __name__ == "__main__":

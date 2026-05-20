@@ -38,6 +38,47 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Telemetría y persistencia privada para Chaos Engineering
+
+**Contexto:** Las pruebas de resiliencia del Agente Chaos (`merci-chaos.py`) eran efímeras (solo visibles en consola). Para completar el Dashboard DevSecOps, se requería almacenar los resultados de las mutaciones de la IA e inyectarlos en Prometheus sin exponer los vectores de ataque en Git.
+
+**Hecho:** 
+- Se instrumentó `merci-chaos.py` para escribir un registro estructurado en `.privado/chaos-audit.json` tras cada ataque.
+- Se refactorizó el agente de telemetría `merci-sre.py` inyectando la métrica `merci_chaos_events_total` etiquetada por el resultado (`detectado` o `indetectado`).
+
+**Detalle técnico:** Se utilizó la carpeta `.privado/` ya que está cubierta por las reglas de Prevención de Fuga de Datos (DLP) del linter y el `.gitignore`. El agente SRE lee este JSON cada segundo y expone la suma de defensas exitosas y vulnerabilidades para que Grafana pueda renderizarlas.
+
+**Motivo / criterio:** *Deep Observability y Zero Trust*. Si las herramientas de seguridad no dejan un rastro de auditoría persistente (Audit Trail), es imposible medir matemáticamente la evolución de la postura de seguridad del proyecto a lo largo del tiempo.
+
+**Siguiente paso o deuda:** Vincular la métrica expuesta a los paneles de Grafana y realizar el commit atómico de cierre de sesión.
+
+### 2026-05-20 — Corrección de Deriva Semántica en directrices base
+
+**Contexto:** El refinamiento del agente de deriva documental detectó que los scripts `merci-drift.py` y `merci-queue.py` estaban documentados en los READMEs públicos pero no en el archivo normativo interno (`instrucciones.md`).
+
+**Hecho:** 
+- Se inyectaron las descripciones de `merci-drift.py` y `merci-queue.py` en la sección del Ecosistema Merci de `instrucciones.md`.
+
+**Detalle técnico:** La modificación sanea la Deriva Semántica reportada por el propio agente de deriva, alineando las fuentes de verdad internas con el escaparate público.
+
+**Motivo / criterio:** *Single Source of Truth*. Todos los agentes operativos deben estar rigurosamente listados en las directrices base para mantener la coherencia arquitectónica y satisfacer la auditoría semántica que se ha fortificado en esta sesión.
+
+**Siguiente paso o deuda:** Iniciar el diseño y registro en la bitácora privada de auditoría para el Chaos Engineering.
+
+### 2026-05-20 — Refinamiento del Detector de Deriva Semántica y Documentación de Glosario
+
+**Contexto:** El agente `merci-drift.py` arrojó una advertencia de deriva semántica generalizada ("No mencionado en README.md") para `merci-glosario.py`. Se requería mayor granularidad para que el detector especificase exactamente en qué manual maestro falta la documentación del script, y saldar la deuda técnica de `merci-glosario.py`.
+
+**Hecho:** 
+- Se refactorizó `merci-drift.py` para iterar y comprobar la existencia semántica en todos los `MANUALES_MAESTROS` (`README.md`, `instrucciones.md`), reportando los archivos exactos faltantes.
+- Se documentó oficialmente el script `merci-glosario.py` en `README.md`, `README-merci.md` e `instrucciones.md`.
+
+**Detalle técnico:** En `merci-drift.py`, se reemplazó la validación estática contra un único texto por una comprensión de diccionario que lee todos los manuales de referencia. La lista de motivos ahora acumula `f"Semántica: No mencionado en {{', '.join(faltantes)}}"`.
+
+**Motivo / criterio:** *Precisión de Observabilidad*. Decir "Falta en el manual" es insuficiente cuando el ecosistema posee múltiples fuentes de verdad normativas (Boilerplate vs Matriz vs Instrucciones). Indicar el archivo exacto reduce la fricción operativa (DX) al depurar.
+
+**Siguiente paso o deuda:** Iniciar el diseño y registro en la bitácora privada de auditoría para el Chaos Engineering.
+
 ### 2026-05-20 — Evolución a Deriva Semántica (Detección de omisiones en manuales)
 
 **Contexto:** Se detectó un punto ciego en el detector de deriva documental (`merci-drift.py`). Al silenciar la alerta de deriva "tocando" (`touch`) los manuales para actualizar su fecha física, eludimos la comprobación temporal, pero ocultamos el hecho de que el script nuevo (`merci-drift.py`) jamás había sido documentado textualmente en el `README.md`.

@@ -38,6 +38,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
   - `merci-brain.py`: Generador de base de conocimientos IA estática (Shift-Left AI).
   - `merci-ssot.py`: Agente híbrido (Cloud/Local) para auditar y auto-sanar la deriva documental.
   - `merci-librarian.py`: Agente Bibliotecario y formateador estricto local (Zero-Hallucination).
+  - `merci-glosario.py`: Compilador de Glosario Autónomo (Data-Driven).
   - `merci-blogger.py`: Agente Redactor DevRel (Agent Chaining) y creador de Ganchos Sociales.
   - `merci-backup.py`: Generador instantáneo de instantáneas locales (ZIP).
   - `merci-init.py`: Inicializador para arrancar nuevos repositorios derivados.
@@ -48,6 +49,8 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
   - `merci-sre.py`: Demonio de telemetría pasiva para la ingesta de datos en Prometheus y Grafana.
   - `merci-hardening.py`: Agente de auditoría continua de seguridad pasiva e infraestructura.
   - `merci-chaos.py`: Agente de Chaos Engineering con IA local para inyección y validación de vulnerabilidades.
+  - `merci-drift.py`: Detector de Deriva Documental temporal y semántica.
+  - `merci-queue.py`: Visor de terminal interactivo para monitorizar el estado del buffer social.
   - `merci-total.py`: Orquestador maestro que ejecuta el pipeline completo (Build y QA) con patrón Fail-Fast.
 
 ### 2.3. Capa de Contenidos Dinámicos
