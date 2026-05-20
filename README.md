@@ -101,6 +101,7 @@ El proyecto prioriza la automatización reproducible, auditoría continua, reduc
 | `merci-hardening.py` | Auditoría continua |
 | `merci-chaos.py` | Chaos Engineering local |
 | `merci-linkcheck.py` | Validación de enlaces |
+| `merci-drift.py` | Detección de deriva documental |
 
 ## Requisitos
 
@@ -180,6 +181,7 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 - `merci-sre.py`: Demonio de telemetría pasiva para la ingesta de datos en Prometheus y Grafana.
 - `merci-hardening.py`: Agente de auditoría continua de seguridad pasiva e infraestructura.
 - `merci-chaos.py`: Agente de Chaos Engineering con IA local para inyección y validación de vulnerabilidades.
+- `merci-drift.py`: Detector de Deriva Documental temporal y semántica.
 - `merci-queue.py`: Visor de terminal interactivo para monitorizar el estado del buffer social.
 
 ## Entorno de Desarrollo Local

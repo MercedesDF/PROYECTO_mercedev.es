@@ -38,6 +38,34 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Evolución a Deriva Semántica (Detección de omisiones en manuales)
+
+**Contexto:** Se detectó un punto ciego en el detector de deriva documental (`merci-drift.py`). Al silenciar la alerta de deriva "tocando" (`touch`) los manuales para actualizar su fecha física, eludimos la comprobación temporal, pero ocultamos el hecho de que el script nuevo (`merci-drift.py`) jamás había sido documentado textualmente en el `README.md`.
+
+**Hecho:** 
+- Se refactorizó `merci-drift.py` para implementar **Deriva Semántica**, cruzando el nombre físico de los scripts contra el contenido de `README.md`.
+- Se documentó oficialmente `merci-drift.py` en `README.md`, `README-merci.md` e `instrucciones.md` para saldar la deuda detectada.
+
+**Detalle técnico:** Además de comparar el `st_mtime`, el agente ahora itera sobre `SCRIPTS_DIR.glob("*.py")` evaluando `if s.name not in readme_content:`. Si un script existe en el disco pero su nombre no aparece textualmente en el manual público, se levanta una bandera de advertencia semántica.
+
+**Motivo / criterio:** *Auditoría de Presencia vs Auditoría Temporal*. Un archivo puede ser modificado recientemente sin haber sido documentado. Escanear el contenido real de los manuales garantiza que ningún agente pase desapercibido en la arquitectura pública del proyecto.
+
+**Siguiente paso o deuda:** Iniciar el diseño y registro en la bitácora privada de auditoría para el Chaos Engineering.
+
+### 2026-05-20 — Refactorización a Compilación Incremental (Mark & Sweep)
+
+**Contexto:** El Profiler de `merci-total.py` expuso un cuello de botella crítico de ~8.5 segundos en `merci-publish.py`. El diagnóstico reveló que el motor SSG operaba bajo el patrón *Clean Build* (borrando a ciegas y recreando todos los PDFs pesados mediante WeasyPrint en cada ejecución, incluso los artículos no modificados).
+
+**Hecho:** 
+- Se refactorizaron `merci-publish.py` y `merci-wp.py` para implementar una **Compilación Incremental** basada en la caché física del sistema operativo (`st_mtime`).
+- Se sustituyó la purga inicial a ciegas por un algoritmo *Mark & Sweep* (Garbage Collection) diferido al final del ciclo.
+
+**Detalle técnico:** Los scripts ahora comparan la fecha de modificación del PDF generado contra su Markdown de origen. Si el PDF es más reciente, se aborta la pesada llamada a WeasyPrint (Cache Hit). Para evitar archivos fantasma (zombis) si la autora renombra documentos, el script rastrea en un `set()` de Python los HTML y PDFs legítimos, y ejecuta un `unlink()` sobre los huérfanos residuales al finalizar el proceso.
+
+**Motivo / criterio:** *Performance Driven Development*. Ejecutar cálculos costosos (renderizado PDF) sobre activos inmutables es ineficiente. Cambiar a una arquitectura incremental retiene los beneficios de seguridad de la compilación estática (Cold Compilation), pero reduce el tiempo de ejecución local en casi un 90%.
+
+**Siguiente paso o deuda:** Iniciar el diseño y registro en la bitácora privada de auditoría para el Chaos Engineering.
+
 ### 2026-05-20 — Silenciado global de telemetría y precios de LiteLLM (Silence is Golden)
 
 **Contexto:** La librería LiteLLM intentaba descargar mapas de precios desde GitHub en cada ejecución, lo que generaba advertencias de timeout (`The handshake operation timed out`) al operar offline o con latencia de red, ensuciando la consola y violando el principio de *Silence is Golden*.

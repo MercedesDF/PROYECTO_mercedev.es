@@ -172,6 +172,7 @@ Este boilerplate incluye su propia cadena de suministro CI/CD (Continuous Integr
 - `merci-styles.py` y `merci-watcher.py`: Compilador y vigilante de SASS local.
 - `merci-linkedin.py`: Motor de autenticación OIDC (OpenID Connect) y publicación automatizada en LinkedIn.
 - `merci-init.py`: Inicializador destructivo para nuevos proyectos.
+- `merci-drift.py`: Detector de Deriva Documental temporal y semántica.
 
 ---
 *Desarrollado bajo licencia MIT.*

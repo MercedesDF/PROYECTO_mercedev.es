@@ -39,9 +39,24 @@ def main():
         sys.exit(0) # Salida limpia para no bloquear el pipeline
 
     fecha_referencia = max(fechas_manuales)
-    archivos_en_deriva = [{"archivo": s.name, "fecha_script": extraer_fecha(s).strftime("%Y-%m-%d %H:%M")} 
-                          for s in SCRIPTS_DIR.glob("*.py") 
-                          if extraer_fecha(s) and extraer_fecha(s) > fecha_referencia]
+    readme_content = (REPO_ROOT / "README.md").read_text(encoding="utf-8", errors="ignore") if (REPO_ROOT / "README.md").exists() else ""
+
+    archivos_en_deriva = []
+    for s in SCRIPTS_DIR.glob("*.py"):
+        if s.name == "__init__.py": continue
+        motivos = []
+        fecha_script = extraer_fecha(s)
+        
+        # 1. Deriva Temporal (Fecha)
+        if fecha_script and fecha_script > fecha_referencia:
+            motivos.append(f"Temporal: {fecha_script.strftime('%Y-%m-%d %H:%M')} > Manual: {fecha_referencia.strftime('%Y-%m-%d %H:%M')}")
+            
+        # 2. Deriva Semántica (Presencia en README)
+        if s.name not in readme_content:
+            motivos.append("Semántica: No mencionado en README.md")
+            
+        if motivos:
+            archivos_en_deriva.append({"archivo": s.name, "motivos": " | ".join(motivos)})
 
     DRIFT_REPORT_PATH.parent.mkdir(exist_ok=True)
     DRIFT_REPORT_PATH.write_text(json.dumps(archivos_en_deriva, indent=2), encoding="utf-8")
@@ -49,9 +64,9 @@ def main():
     if archivos_en_deriva:
         print(f"  ⚠️ [ADVERTENCIA] Deriva Documental detectada en {len(archivos_en_deriva)} script(s).")
         for item in archivos_en_deriva:
-            print(f"     - {item['archivo']} (Código: {item['fecha_script']} > Manual: {fecha_referencia.strftime('%Y-%m-%d %H:%M')})")
+            print(f"     - {item['archivo']} ({item['motivos']})")
     else:
-        print("  ✅ [Éxito] Sincronización perfecta. Ningún script es más reciente que los manuales.")
+        print("  ✅ [Éxito] Sincronización perfecta. Ningún script es más reciente que los manuales y todos están documentados.")
 
 if __name__ == "__main__":
     main()

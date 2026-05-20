@@ -263,13 +263,16 @@ def publicar_en_wordpress(filepath: str, creds: dict, verbose: bool = False):
 </body>
 </html>"""
                 if HTML:
-                    try:
-                        HTML(string=pdf_html_content, base_url=str(REPO_ROOT / "public")).write_pdf(out_pdf_path)
-                        if out_pdf_path.exists():
-                            if verbose: print(f"  📄 PDF generado con éxito: public/descargas/{out_pdf_filename}")
-                            pdf_generado_ok = True
-                    except Exception as e:
-                        print(f"  ❌ Error al generar PDF para {target_path.name}: {e}")
+                    if out_pdf_path.exists() and out_pdf_path.stat().st_mtime >= target_path.stat().st_mtime:
+                        pdf_generado_ok = True
+                    else:
+                        try:
+                            HTML(string=pdf_html_content, base_url=str(REPO_ROOT / "public")).write_pdf(out_pdf_path)
+                            if out_pdf_path.exists():
+                                if verbose: print(f"  📄 PDF generado con éxito: public/descargas/{out_pdf_filename}")
+                                pdf_generado_ok = True
+                        except Exception as e:
+                            print(f"  ❌ Error al generar PDF para {target_path.name}: {e}")
             
             # Si se generó un PDF, actualizamos el post para inyectar el enlace de descarga
             if pdf_generado_ok:

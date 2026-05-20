@@ -50,22 +50,26 @@ def slugify(texto: str) -> str:
     # Reemplaza múltiples espacios o guiones por un solo guion
     return re.sub(r'[-\s]+', '-', texto).strip('-_')
 
-def limpiar_directorio_salida():
+def limpiar_archivos_zombis(archivos_validos: set):
     """
-    QUÉ HACE: Purga exclusivamente los archivos .html y .pdf generados en ejecuciones anteriores.
-    POR QUÉ: Implementa un patrón 'Clean Build' automático. Previene la acumulación de archivos 'zombis' 
-    si un documento Markdown origen es renombrado o eliminado de la biblioteca.
+    QUÉ HACE: Patrón Mark and Sweep (Garbage Collection). Borra archivos que ya no tienen un Markdown origen.
+    POR QUÉ: Permite la 'Compilación Incremental' reteniendo PDFs cacheados, pero erradica 
+    archivos zombis si la autora renombra o elimina un documento.
     """
-    print("🧹 [Merci Publish] Limpiando compilaciones anteriores (Clean Build)...")
+    zombis = 0
     for directorio in [PUBLIC_BIBLIOTECA, PUBLIC_ART_DE_COTE, PUBLIC_DESCARGAS]:
         if not directorio.exists():
             continue
         for item in directorio.iterdir():
             if item.is_file() and item.suffix in {'.html', '.pdf'}:
-                try:
-                    item.unlink()
-                except OSError as e:
-                    print(f"  ⚠️ No se pudo borrar {item.name}: {e}")
+                if item.resolve() not in archivos_validos:
+                    try:
+                        item.unlink()
+                        zombis += 1
+                    except OSError:
+                        pass
+    if zombis > 0:
+        print(f"  🧹 [Merci Publish] Purga Incremental: {zombis} artefacto(s) zombi(s) eliminado(s).")
 
 def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: int, js_c_v: int, js_m_v: int):
     content = filepath.read_text(encoding="utf-8")
@@ -205,14 +209,20 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     # y las imágenes del Markdown aparecerían rotas o invisibles en el PDF descargable.
     # CONTROL DE ERRORES: WeasyPrint es propenso a fallar si las imágenes anidadas están corruptas.
     if HTML:
-        try:
-            HTML(string=pdf_html_content, base_url=str(REPO_ROOT / "public")).write_pdf(out_pdf_path)
-            if out_pdf_path.exists():
+            pdf_generado = False
+            # Caché Incremental: Solo compilamos si el PDF no existe o el Markdown fuente es más reciente
+            if out_pdf_path.exists() and out_pdf_path.stat().st_mtime >= filepath.stat().st_mtime:
+                pdf_generado = True
+            else:
+                try:
+                    HTML(string=pdf_html_content, base_url=str(REPO_ROOT / "public")).write_pdf(out_pdf_path)
+                    if out_pdf_path.exists():
+                        pdf_generado = True
+                except Exception as e:
+                    print(f"  ❌ Error crítico al generar PDF para {filepath.name}: {e}")
+                    
+            if pdf_generado:
                 pdf_download_link = f'\n                <a href="/descargas/{out_pdf_filename}" class="card__download" download>📄 Descargar Edición PDF</a>'
-        except Exception as e:
-            print(f"  ❌ Error crítico al generar PDF para {filepath.name}. Comprueba las imágenes: {e}")
-            # Continuamos con el proceso aunque falle el PDF para no dejar a la web sin HTML
-            pass
 
     # 5. Generar el HTML final inyectando las clases BEM estructurales
     # QUÉ HACE: Asigna la clase CSS BEM dinámicamente basándose en el atributo 'tipo'.
@@ -278,7 +288,9 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
         "tipo": tipo,
         "fecha": meta.get("fecha", "1970-01-01"),
         "tema": tema,
-        "fase": fase
+        "fase": fase,
+        "out_html_path": out_path,
+        "out_pdf_path": out_pdf_path
     }
 
 def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, canonical_url, header_html, footer_html, css_v: int, js_c_v: int, js_m_v: int):
@@ -431,8 +443,8 @@ def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, can
 def main(): # type: ignore
     print("🚀 [Merci Publish] Iniciando orquestador de publicación...")
     
-    # 0. Limpieza previa (Evitar archivos zombis)
-    limpiar_directorio_salida()
+    # Set para rastrear archivos legítimos y purgar zombis al final (Garbage Collection)
+    archivos_validos = set()
     
     # QUÉ HACE: Implementa "Cache Busting" dinámico usando la fecha de modificación del archivo.
     # POR QUÉ: Obliga a los navegadores móviles a descargar la última versión de los assets.
