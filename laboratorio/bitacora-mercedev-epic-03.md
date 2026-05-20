@@ -44,6 +44,42 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Creación de Cuadernillo: Arquitectura de PDFs en Frío
+
+**Contexto:** Tras analizar las métricas del Profiler de `merci-total.py`, se debatió la posibilidad de optimizar el tiempo de compilación local (~8 segundos dedicados casi íntegramente al renderizado de PDFs) migrando a una generación dinámica (Server-Side) o en el cliente (Client-Side).
+
+**Hecho:** Creación del cuadernillo técnico `cuadernillo-pdf-estatico.md` en la incubadora.
+
+**Detalle técnico:** Se documentó la justificación arquitectónica para mantener la "Compilación en Frío" (Build-Time Generation) como el estándar del proyecto. Se detallan los riesgos de romper el paradigma *Zero-JS* (cliente) o de introducir vulnerabilidades de Denegación de Servicio DoS (servidor).
+
+**Motivo / criterio:** *Gestión de la Deuda Técnica e Ingeniería Segura*. Es crucial que los desarrolladores comprendan que el tiempo de espera en el entorno local (Dev) es un sacrificio consciente para garantizar que el artefacto en producción (Prod) tenga un coste computacional cero y una seguridad inviolable (SSG).
+
+**Siguiente paso o deuda:** Mantener el modelo estático. Si en el futuro el tiempo de compilación local resulta inasumible, la optimización propuesta en el cuadernillo será implementar cachés basadas en hash SHA sobre los archivos origen.
+
+### 2026-05-20 — Observabilidad Local: Profiling de Ejecución en Pipeline Maestro
+
+**Contexto:** El pipeline maestro (`merci-total.py`) reportaba un tiempo global de ejecución superior a 20 segundos, generando incertidumbre sobre qué subprocesos estaban actuando como cuello de botella (específicamente la latencia del agente de IA local).
+
+**Hecho:** Implementación de un *Profiler* nativo dentro de `merci-total.py`.
+
+**Detalle técnico:** Se inyectaron marcas de tiempo (`time.time()`) envolviendo la ejecución de cada script del pipeline mediante `subprocess.run()`. Los tiempos se recolectan en un diccionario y se imprimen formateados como una tabla de desglose al concluir el flujo.
+
+**Motivo / criterio:** *Transparencia y Developer Experience (DX)*. En DevSecOps no se puede optimizar lo que no se mide. Un desglose exacto permite al desarrollador aislar el "peaje" de inferencia de Ollama frente al coste real de la compilación estática SSG.
+
+**Siguiente paso o deuda:** Ninguna.
+
+### 2026-05-20 — Manejo de Falsos Positivos en el Auditor de Seguridad (DevSecOps)
+
+**Contexto:** El hook de seguridad (`merci-audit.py`) bloqueó un commit legítimo al detectar el término técnico "AKIAIOSFODNN7EXAMPLE" dentro del array de `glosario-tecnico.json`, asumiendo que era una fuga de credenciales reales de AWS. *(Nota: Esta misma línea tuvo que ser parcheada de urgencia porque el implacable auditor volvió a bloquear el commit al leerla)* <!-- merci-audit:silence-secret -->
+
+**Hecho:** Restauración del término original inyectando la etiqueta de exclusión `merci-audit:silence-secret` *inline*.
+
+**Detalle técnico:** Se restituyó la clave dentro de la matriz JSON adjuntándole el sufijo explícito de silencio (`"AKIAIOSFODNN7EXAMPLE merci-audit:silence-secret"`). Como el auditor escanea línea por línea, detecta la firma de autorización en el mismo string y omite la alerta.
+
+**Motivo / criterio:** *Fidelidad Documental y Gobernanza*. En arquitecturas maduras, los falsos positivos en documentación técnica no se deben "censurar" ni borrar (pérdida de trazabilidad). La práctica correcta es educar al auditor mediante etiquetas de silencio.
+
+**Siguiente paso o deuda:** Ninguna.
+
 ### 2026-05-20 — Manejo de Estado Vacío en el Compilador de Glosario
 
 **Contexto:** Previsión ante escenarios donde el archivo maestro `glosario-tecnico.json` esté completamente vacío (ej. nuevo clon del proyecto o reinicio de la base de datos documental).

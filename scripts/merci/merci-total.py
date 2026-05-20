@@ -61,6 +61,8 @@ def main():
     start_time = time.time()
     print("🚀 [Merci Total] Iniciando orquestación del pipeline DevSecOps...\n")
     
+    script_durations = {}
+    
     for script in PIPELINE:
         script_path = SCRIPTS_DIR / script
         
@@ -69,10 +71,13 @@ def main():
             sys.exit(1)
             
         print(f"▶️ Ejecutando: {script} ...")
+        script_start = time.time()
         try:
             # check=True garantiza el patrón "Fail-Fast": si un script falla, 
             # el orquestador aborta inmediatamente sin ejecutar los siguientes.
             subprocess.run([sys.executable, str(script_path)], check=True)
+            script_end = time.time()
+            script_durations[script] = script_end - script_start
             print()  # Separador visual entre bloques de ejecución
         except subprocess.CalledProcessError as e:
             # QUÉ HACE: Degradación Elegante para el Agente SSOT.
@@ -80,6 +85,8 @@ def main():
             # Convertimos su código de salida fatal en un aviso informativo para no romper la Out-of-the-Box Experience.
             if script == "merci-ssot.py":
                 print("  ⚠️ [Merci Info] Agente SSOT desactivado: Faltan documentos origen (Comportamiento esperado en Boilerplate).")
+                script_end = time.time()
+                script_durations[script] = script_end - script_start
                 print()
                 continue
             print(f"\n❌ [Merci Total] Pipeline detenido. El proceso '{script}' reportó errores y bloqueó la ejecución.")
@@ -90,9 +97,21 @@ def main():
     
     obs_dir = REPO_ROOT / "observabilidad"
     obs_dir.mkdir(exist_ok=True)
-    (obs_dir / ".pipeline_duration.json").write_text(json.dumps({"duration_seconds": duration}, indent=2), encoding="utf-8")
+    
+    # Exportar tanto el total como el desglose SRE
+    pipeline_data = {
+        "duration_seconds": duration,
+        "breakdown": script_durations
+    }
+    (obs_dir / ".pipeline_duration.json").write_text(json.dumps(pipeline_data, indent=2), encoding="utf-8")
     
     print(f"\n✅ [Merci Total] ¡Pipeline completado con éxito en {duration:.2f}s! Todo optimizado y auditado.")
+    
+    print("\n⏱️  Desglose de Tiempos de Ejecución:")
+    print("-" * 40)
+    for s_name, s_time in script_durations.items():
+        print(f"  {s_name:<25} : {s_time:>5.2f}s")
+    print("-" * 40)
 
 if __name__ == "__main__":
     try:

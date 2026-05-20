@@ -27,6 +27,7 @@ DOCS_BLOG = Gauge('merci_documentos_blog_total', 'Documentos publicados en blog'
 LINKEDIN_QUEUE = Gauge('merci_linkedin_queue_total', 'Publicaciones en cola para LinkedIn')
 DOCUMENT_DRIFT = Gauge('merci_document_drift_total', 'Archivos con deriva documental')
 PIPELINE_DURATION = Gauge('merci_pipeline_duration_seconds', 'Tiempo de ejecución de merci-total.py')
+PIPELINE_SCRIPT_DURATION = Gauge('merci_pipeline_script_duration_seconds', 'Tiempo de ejecución por script', ['script'])
 GLOSARIO_TERMS = Gauge('merci_glosario_terminos_total', 'Número total de términos definidos en el glosario JSON')
 
 def actualizar_metricas_pipeline():
@@ -44,6 +45,12 @@ def actualizar_metricas_pipeline():
         try:
             data = json.loads(duration_path.read_text(encoding="utf-8"))
             PIPELINE_DURATION.set(data.get("duration_seconds", 0.0))
+            
+            # Exponer desglose por script
+            breakdown = data.get("breakdown", {})
+            for script_name, s_duration in breakdown.items():
+                PIPELINE_SCRIPT_DURATION.labels(script=script_name).set(s_duration)
+                
         except Exception:
             pass
 
