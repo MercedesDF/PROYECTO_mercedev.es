@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Decisión de Arquitectura (ADR): Extirpación de la Deriva Temporal
+
+**Contexto:** La auditoría de fecha física (`st_mtime`) en `merci-drift.py` demostró generar fricción operativa (Falsos Positivos) si la desarrolladora modificaba un script de Python inmediatamente después de haber actualizado los manuales, obligando a ejecutar comandos `touch` manualmente para silenciar el pipeline.
+
+**Hecho:** Se refactorizó `merci-drift.py` para erradicar completamente la comprobación temporal.
+
+**Detalle técnico:** Se eliminó la extracción de `st_mtime` y la lógica comparativa. El agente ahora actúa exclusivamente como un "Auditor Semántico", garantizando únicamente que el nombre del script exista textualmente en el `README.md` y en las `instrucciones.md`.
+
+**Motivo / criterio:** *Developer Experience (DX) vs Purismo*. La auditoría basada en tiempo asume un flujo "en cascada" (documentar siempre después de codificar). En flujos iterativos ágiles, este orden fluctúa. Retener la validación semántica salva la esencia de la herramienta (evitar agentes no documentados) eliminando la penalización temporal injusta.
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 de la Épica 3 (Comunicaciones Cifradas PGP).
+
 ### 2026-05-20 — Métrica de "Días Activos" y cuadratura del Dashboard
 
 **Contexto:** Las métricas de autoridad extraídas del proyecto (Commits, Líneas de Doc) mostraban volúmenes que podían resultar abrumadores. Además, el layout del dashboard en la página "Sobre Mí" requería un quinto elemento para cuadrar la distribución visual del Grid/Flexbox sin recurrir a CSS adicional. Se planteó contar el tiempo real de desarrollo.
