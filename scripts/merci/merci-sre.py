@@ -27,6 +27,7 @@ DOCS_BLOG = Gauge('merci_documentos_blog_total', 'Documentos publicados en blog'
 LINKEDIN_QUEUE = Gauge('merci_linkedin_queue_total', 'Publicaciones en cola para LinkedIn')
 DOCUMENT_DRIFT = Gauge('merci_document_drift_total', 'Archivos con deriva documental')
 PIPELINE_DURATION = Gauge('merci_pipeline_duration_seconds', 'Tiempo de ejecución de merci-total.py')
+GLOSARIO_TERMS = Gauge('merci_glosario_terminos_total', 'Número total de términos definidos en el glosario JSON')
 
 def actualizar_metricas_pipeline():
     """Lectura de JSON (Deriva y Duración). Se refrescan periódicamente (cada 10s)."""
@@ -48,6 +49,15 @@ def actualizar_metricas_pipeline():
 
 def actualizar_estado_documental():
     """Lectura de Markdown y YAML Frontmatter. Se refresca cada segundo para feedback instantáneo."""
+    # 0. Glosario JSON
+    glosario_json_path = REPO_ROOT / "laboratorio" / "biblioteca" / "glosario-tecnico.json"
+    if glosario_json_path.exists():
+        try:
+            data = json.loads(glosario_json_path.read_text(encoding="utf-8"))
+            GLOSARIO_TERMS.set(len(data.get("terminos", {})))
+        except Exception:
+            pass
+            
     # 1. Analizar tareas del Roadmap
     roadmap_path = REPO_ROOT / "ROADMAP.md"
     if roadmap_path.exists():

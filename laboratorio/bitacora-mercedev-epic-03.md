@@ -44,6 +44,36 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Observabilidad SRE: Métrica del Glosario
+
+**Contexto:** Para evaluar la velocidad de asimilación documental y rellenar el Dashboard de Confianza en Grafana, era necesario cuantificar el estado del Glosario Técnico en tiempo real.
+
+**Hecho:** Se instrumentó el agente de telemetría (`merci-sre.py`) y se ejecutó un procesamiento masivo (Bulk Load) de la cola de términos.
+
+**Detalle técnico:** 
+- Inyectada la métrica `merci_glosario_terminos_total` (tipo Gauge) en `merci-sre.py`. El agente ahora escanea el archivo `glosario-tecnico.json` cada segundo y expone el total de keys hacia el clúster de Prometheus (puerto 8001).
+- Se ejecutó un bucle Bash desatendido para liquidar la "deuda técnica" del backlog heredado de 87 términos, completando la base de datos JSON en una sola sesión sin sobrecargar el pipeline `merci-total`.
+
+**Motivo / criterio:** *Observabilidad y Zero-Maintenance*. Las métricas de infraestructura no deben interferir con los pipelines de CI. Leer la longitud del JSON desde el demonio SRE independiente garantiza que Grafana esté actualizado en tiempo real sin ralentizar el ecosistema de compilación.
+
+**Siguiente paso o deuda:** Vincular la métrica expuesta a un panel en el Dashboard SRE de Grafana.
+
+### 2026-05-20 — Refactorización Arquitectónica: Glosario Data-Driven (JSON)
+
+**Contexto:** Necesidad de alinear la arquitectura del glosario autónomo con la filosofía del proyecto: la documentación en crudo (bitácoras) es la Única Fuente de la Verdad (SSOT). El Markdown del glosario no debe considerarse un archivo de trabajo, sino un artefacto compilado.
+
+**Hecho:** Migración del estado del agente autónomo a JSON (`glosario-tecnico.json`) y generación dinámica de `glosario-tecnico.md` en Build-Time (Fase 2 - Épica 3).
+
+**Detalle técnico:** 
+- Ejecutado script *one-off* para volcar el histórico a JSON.
+- Refactorizado `scripts/merci/merci-glosario.py` para comunicarse con la API de Ollama exigiendo salida estructurada (`format: "json"`).
+- Eliminación de `.glosario_ignore.txt`. Ahora los términos rechazados se guardan en el array `ignorados` del JSON maestro.
+- El script sobrescribe `glosario-tecnico.md` forzando ordenación alfabética perfecta.
+
+**Motivo / criterio:** Robustez matemática. Reemplazar el frágil parseo de Markdown por un flujo JSON estructurado elimina los fallos de formato y alinea el script con el paradigma SSG (Static Site Generation).
+
+**Siguiente paso o deuda:** El ecosistema de automatización documental está finalizado.
+
 ### 2026-05-20 — Automatización Extendida: Delegación de Glosario a IA Local
 
 **Contexto:** Necesidad de un sistema *Zero-Friction* para enriquecer continuamente el glosario técnico utilizando los modelos de lenguaje locales (Ollama) sin romper el formato estándar.
@@ -52,8 +82,8 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Detalle técnico:** 
 - Creación de `laboratorio/prompts/prompt-glosario.md` con reglas estrictas de formato.
-- Creación de `laboratorio/scripts_temporales/merci-glosario-ai.py` que recibe argumentos CLI, consulta a Ollama y hace un anexo seguro (*append*) a `glosario-tecnico.md`.
-- Creación del cuadernillo `laboratorio/incubacion/cuadernillo-glosario-ai.md` documentando el desafío y la maniobra.
+- Creación de `scripts/merci/merci-glosario.py` que recibe argumentos CLI, consulta a Ollama y hace un anexo seguro (*append*) a `glosario-tecnico.md`.
+- Creación del cuadernillo `laboratorio/incubacion/cuadernillo-glosario.md` documentando el desafío y la maniobra.
 
 **Motivo / criterio:** Mantener viva la base de conocimiento delegando la carga operativa repetitiva a la IA, asegurando mediante un System Prompt estricto que no haya "alucinaciones" de formato.
 

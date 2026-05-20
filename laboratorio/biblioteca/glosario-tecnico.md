@@ -5,7 +5,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 ## Índice Alfabético
 
 ### AJAX
-**Inglés:** Asynchronous JavaScript and XML  
+**Inglés:** Asynchronous JavaScript and XML
 **Español:** JavaScript y XML Asíncronos
 
 **Definición:** Técnica de desarrollo web para crear aplicaciones interactivas mediante la recarga asíncrona de datos sin actualizar la página completa.
@@ -14,8 +14,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L3315, L3465, L3467, L3470, L4980, L4990
 
 ---
+### AKIA
+**Inglés:** Access Key ID
+**Español:** Identificador de Clave de Acceso
+
+**Definición:** Clave única utilizada para autenticar solicitudes a AWS (Amazon Web Services).
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-02.md`: L286
+
+---
 ### Anti-Alucinaciones
-**Inglés:** Anti-Hallucinations  
+**Inglés:** Anti-Hallucinations
 **Español:** Anti-Alucinaciones
 
 **Definición:** Técnicas y prompts en modelos de IA para evitar que generen respuestas falsas o inventadas basadas en falta de contexto.
@@ -24,8 +34,26 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1130
 
 ---
+### Anti-Duplicidad
+**Inglés:** Anti-Duplication
+**Español:** Antiduplicación
+
+**Definición:** Técnica utilizada para prevenir la creación de contenido duplicado en un sistema, lo que mejora el rendimiento y reduce la redundancia.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-03.md`: L544
+
+---
+### Anti-Proxy
+**Inglés:** 
+**Español:** 
+
+**Definición:** 
+
+
+---
 ### API
-**Inglés:** Application Programming Interface  
+**Inglés:** Application Programming Interface
 **Español:** Interfaz de Programación de Aplicaciones
 
 **Definición:** Conjunto de reglas y especificaciones que las aplicaciones siguen para comunicarse entre sí.
@@ -37,7 +65,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Append-Only
-**Inglés:** Append-Only  
+**Inglés:** Append-Only
 **Español:** Solo-Adición
 
 **Definición:** Patrón de diseño de bases de datos o logs donde los nuevos datos solo pueden ser añadidos al final, impidiendo modificaciones o borrados de datos existentes.
@@ -48,7 +76,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### ARIA
-**Inglés:** Accessible Rich Internet Applications  
+**Inglés:** Accessible Rich Internet Applications
 **Español:** Aplicaciones de Internet Ricas y Accesibles
 
 **Definición:** Conjunto de atributos que definen formas de hacer que el contenido y las aplicaciones web sean más accesibles para personas con discapacidades.
@@ -58,7 +86,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Arquitectura
-**Inglés:** Architecture  
+**Inglés:** Architecture
 **Español:** Arquitectura
 
 **Definición:** Diseño estructural de alto nivel de un sistema de software, la selección de herramientas y los patrones de integración.
@@ -70,7 +98,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### ATS
-**Inglés:** Applicant Tracking System  
+**Inglés:** Applicant Tracking System
 **Español:** Sistema de Seguimiento de Candidatos
 
 **Definición:** Software de recursos humanos que gestiona el proceso de reclutamiento. El CV suele optimizarse para pasar los filtros de los ATS.
@@ -80,7 +108,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Auto-Healing
-**Inglés:** Auto-Healing  
+**Inglés:** Auto-Healing
 **Español:** Auto-Recuperación
 
 **Definición:** Capacidad de un sistema para detectar fallos y aplicar medidas correctivas de forma automática sin intervención humana.
@@ -90,7 +118,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Backend
-**Inglés:** Backend  
+**Inglés:** Backend
 **Español:** Backend
 
 **Definición:** Parte de una aplicación de software que se ejecuta en el servidor (procesamiento, bases de datos, APIs), invisible para el usuario final.
@@ -101,7 +129,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### BEM
-**Inglés:** Block, Element, Modifier  
+**Inglés:** Block, Element, Modifier
 **Español:** Bloque, Elemento, Modificador
 
 **Definición:** Metodología de nomenclatura para clases CSS que facilita la creación de componentes reutilizables y el mantenimiento del código front-end.
@@ -112,7 +140,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### BOM
-**Inglés:** Browser Object Model  
+**Inglés:** Browser Object Model
 **Español:** Modelo de Objetos del Navegador
 
 **Definición:** Jerarquía de objetos proporcionada por el navegador web que permite a JavaScript interactuar con el navegador, más allá del documento HTML (DOM).
@@ -121,8 +149,38 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L1648, L1654
 
 ---
+### CAMBIOS
+**Inglés:** Changes
+**Español:** Cambios
+
+**Definición:** Operaciones que modifican el estado actual de un sistema, incluyendo la adición, eliminación o modificación de archivos y configuraciones.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-02.md`: L1060
+
+---
+### CHMOD
+**Inglés:** Change Mode
+**Español:** Modificar Modo
+
+**Definición:** Comando utilizado en sistemas Unix/Linux para cambiar los permisos de acceso a archivos y directorios.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L3856
+
+---
+### CHOWN
+**Inglés:** Change Owner
+**Español:** Cambiar Propietario
+
+**Definición:** Comando utilizado en sistemas Unix/Linux para cambiar el propietario y el grupo de un archivo o directorio.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L3856
+
+---
 ### CI/CD
-**Inglés:** Continuous Integration / Continuous Deployment  
+**Inglés:** Continuous Integration / Continuous Deployment
 **Español:** Integración Continua / Despliegue Continuo
 
 **Definición:** Prácticas de automatización en el desarrollo de software para integrar código y desplegar a producción de manera frecuente y confiable.
@@ -134,7 +192,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Ciberseguridad
-**Inglés:** Cybersecurity  
+**Inglés:** Cybersecurity
 **Español:** Ciberseguridad
 
 **Definición:** Práctica de proteger sistemas, redes y programas de ataques digitales y accesos no autorizados.
@@ -144,7 +202,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### CLI
-**Inglés:** Command-Line Interface  
+**Inglés:** Command-Line Interface
 **Español:** Interfaz de Línea de Comandos
 
 **Definición:** Interfaz de usuario que se navega interactuando mediante comandos de texto en lugar de una interfaz gráfica (GUI).
@@ -155,7 +213,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### CLI-First
-**Inglés:** CLI-First  
+**Inglés:** CLI-First
 **Español:** Primero la CLI
 
 **Definición:** Filosofía de desarrollo donde se prioriza la creación y exposición de funcionalidades a través de la línea de comandos antes que interfaces visuales.
@@ -165,7 +223,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### CLS
-**Inglés:** Cumulative Layout Shift  
+**Inglés:** Cumulative Layout Shift
 **Español:** Cambio Acumulativo de Diseño
 
 **Definición:** Métrica de Core Web Vitals que mide la estabilidad visual de una página web; un CLS bajo indica que los elementos no saltan inesperadamente.
@@ -175,7 +233,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### CMS
-**Inglés:** Content Management System  
+**Inglés:** Content Management System
 **Español:** Sistema de Gestión de Contenidos
 
 **Definición:** Software que permite a los usuarios crear, gestionar y modificar contenido en un sitio web sin necesidad de conocimientos técnicos profundos.
@@ -187,7 +245,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### COEP
-**Inglés:** Cross-Origin Embedder Policy  
+**Inglés:** Cross-Origin Embedder Policy
 **Español:** Política de Incrustación de Origen Cruzado
 
 **Definición:** Cabecera HTTP de seguridad que previene que un documento cargue recursos de orígenes distintos a menos que estos lo permitan explícitamente.
@@ -197,7 +255,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### COOP
-**Inglés:** Cross-Origin Opener Policy  
+**Inglés:** Cross-Origin Opener Policy
 **Español:** Política de Apertura de Origen Cruzado
 
 **Definición:** Cabecera HTTP de seguridad que aísla el contexto de navegación del documento de otros documentos originados en distintos dominios para mitigar ataques como Spectre.
@@ -206,8 +264,38 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L3362, L3364, L3369
 
 ---
+### COPIA
+**Inglés:** Copy
+**Español:** Copia
+
+**Definición:** Proceso de crear una copia exacta de un archivo o directorio.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-02.md`: L276, L1060
+
+---
+### CREATE
+**Inglés:** CREATE
+**Español:** CREAR
+
+**Definición:** Acción de crear o generar algo nuevo.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L4788, L4789
+
+---
+### CRLF
+**Inglés:** Carriage Return Line Feed
+**Español:** Retorno de carro y avance de línea
+
+**Definición:** Secuencia de caracteres utilizada en los protocolos de red para indicar el final de una línea. En el contexto de la seguridad web, puede ser utilizado por hackers para realizar ataques de inyección SQL.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L1654
+
+---
 ### Cross-Site
-**Inglés:** Cross-Site  
+**Inglés:** Cross-Site
 **Español:** Sitio Cruzado
 
 **Definición:** Hace referencia a interacciones o ataques (como XSS o CSRF) que involucran múltiples dominios o sitios web.
@@ -218,7 +306,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### CSP
-**Inglés:** Content Security Policy  
+**Inglés:** Content Security Policy
 **Español:** Política de Seguridad de Contenido
 
 **Definición:** Capa de seguridad adicional que ayuda a detectar y mitigar ataques como Cross-Site Scripting (XSS) y la inyección de datos.
@@ -227,8 +315,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L119, L3146, L3211, L3219, L3235, L3239, L3242, L3248, L3254, L3257, L3277, L3279, L3293, L3299, L3305, L3307, L3313, L3315, L3350, L3354, L3362, L3364, L3368, L3372, L3484, L4162, L4598, L4906, L4914, L4920, L4925, L4929
 
 ---
+### CTR
+**Inglés:** Counter Mode
+**Español:** Modo Contador
+
+**Definición:** Método de cifrado en el que un contador se incrementa continuamente y se utiliza como una clave única para cada bloque de datos. Se utiliza comúnmente en protocolos de red seguros.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-03.md`: L648, L672
+
+---
 ### CVE
-**Inglés:** Common Vulnerabilities and Exposures  
+**Inglés:** Common Vulnerabilities and Exposures
 **Español:** Vulnerabilidades y Exposiciones Comunes
 
 **Definición:** Diccionario público de vulnerabilidades de ciberseguridad conocidas, cada una identificada con un código único (ej. CVE-2021-44228).
@@ -238,7 +336,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### CWV
-**Inglés:** Core Web Vitals  
+**Inglés:** Core Web Vitals
 **Español:** Métricas Web Principales
 
 **Definición:** Conjunto de métricas estandarizadas de Google que miden la experiencia del usuario (velocidad de carga, interactividad y estabilidad visual).
@@ -248,7 +346,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### DAST
-**Inglés:** Dynamic Application Security Testing  
+**Inglés:** Dynamic Application Security Testing
 **Español:** Prueba Dinámica de Seguridad de Aplicaciones
 
 **Definición:** Pruebas de seguridad tipo caja negra que interactúan con una aplicación web en ejecución para encontrar vulnerabilidades.
@@ -258,8 +356,28 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L211, L486, L959
 
 ---
+### DATABASE
+**Inglés:** Database
+**Español:** Base de Datos
+
+**Definición:** Colección organizada de información que se almacena y gestiona mediante un sistema de gestión de bases de datos. Es crucial para la seguridad de los sistemas, ya que puede ser el objetivo de ataques como inyecciones SQL.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L4788
+
+---
+### DEBE
+**Inglés:** MUST
+**Español:** DEBE
+
+**Definición:** Indica una necesidad o requisito esencial que debe cumplirse.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-02.md`: L276
+
+---
 ### DevSecOps
-**Inglés:** Development, Security, and Operations  
+**Inglés:** Development, Security, and Operations
 **Español:** Desarrollo, Seguridad y Operaciones
 
 **Definición:** Filosofía que integra la seguridad como una responsabilidad compartida en todo el ciclo de vida del desarrollo TI, desde la planificación inicial hasta la producción.
@@ -271,7 +389,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### DLP
-**Inglés:** Data Loss Prevention  
+**Inglés:** Data Loss Prevention
 **Español:** Prevención de Pérdida de Datos
 
 **Definición:** Estrategias y herramientas para asegurar que los datos sensibles o confidenciales de una organización no se pierdan, se filtren o sean accedidos sin autorización.
@@ -282,8 +400,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L384, L867
 
 ---
+### DNI
+**Inglés:** National Identification Number
+**Español:** Número de Identificación Nacional
+
+**Definición:** Identificador único asignado a los ciudadanos y residentes de un país, utilizado para la identificación oficial.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L1177
+
+---
 ### DNS
-**Inglés:** Domain Name System  
+**Inglés:** Domain Name System
 **Español:** Sistema de Nombres de Dominio
 
 **Definición:** El directorio telefónico de Internet. Traduce nombres de dominios legibles por humanos a direcciones IP comprensibles por máquinas.
@@ -293,7 +421,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### DOM
-**Inglés:** Document Object Model  
+**Inglés:** Document Object Model
 **Español:** Modelo de Objetos del Documento
 
 **Definición:** Representación en árbol de la estructura de un documento HTML/XML, permitiendo a los lenguajes de programación manipular su contenido, estructura y estilo.
@@ -303,8 +431,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L426, L434, L448, L452, L454, L480, L509, L709, L719, L831
 
 ---
+### DOMINIO
+**Inglés:** Domain
+**Español:** Dominio
+
+**Definición:** Un espacio de nombres en Internet que agrupa una colección de recursos y permite su acceso a través de un nombre único.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L2297, L3153
+
+---
 ### DRY
-**Inglés:** Don't Repeat Yourself  
+**Inglés:** Don't Repeat Yourself
 **Español:** No Te Repitas
 
 **Definición:** Principio de desarrollo de software orientado a reducir la repetición de patrones de software, abstrayendo componentes lógicos o de datos.
@@ -316,7 +454,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### E2EE
-**Inglés:** End-to-End Encryption  
+**Inglés:** End-to-End Encryption
 **Español:** Cifrado de Extremo a Extremo
 
 **Definición:** Sistema de comunicación donde solo los usuarios que se comunican pueden leer los mensajes, previniendo interceptaciones por terceros.
@@ -326,7 +464,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Endpoints
-**Inglés:** Endpoints  
+**Inglés:** Endpoints
 **Español:** Puntos de Terminación
 
 **Definición:** Las URLs de una API que actúan como puntos de acceso para interactuar con los recursos o funciones del servidor.
@@ -337,8 +475,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L1081
 
 ---
+### ES6
+**Inglés:** ECMAScript 2015
+**Español:** ECMAScript 2015
+
+**Definición:** Versión de ECMAScript que introdujo nuevas características y mejoras en JavaScript, como variables let y const, plantillas literales, funciones flecha, clases, módulos, etc.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L2123
+
+---
 ### Fail-Fast
-**Inglés:** Fail-Fast  
+**Inglés:** Fail-Fast
 **Español:** Fallo Rápido
 
 **Definición:** Patrón de diseño donde el sistema reporta inmediatamente cualquier condición que pueda indicar un fallo (como parámetros inválidos), en lugar de intentar continuar con un estado erróneo.
@@ -350,7 +498,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Fail-Gracefully
-**Inglés:** Fail-Gracefully  
+**Inglés:** Fail-Gracefully
 **Español:** Fallo Elegante
 
 **Definición:** Capacidad de un sistema de manejar un error no crítico sin detener por completo el servicio, mostrando un mensaje amigable o recurriendo a opciones de respaldo (fallbacks).
@@ -360,7 +508,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### FCP
-**Inglés:** First Contentful Paint  
+**Inglés:** First Contentful Paint
 **Español:** Primer Despliegue de Contenido
 
 **Definición:** Métrica de rendimiento web que mide el tiempo desde que la página comienza a cargar hasta que se renderiza el primer bloque de texto o imagen.
@@ -369,8 +517,28 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L158, L160, L163, L938, L1818, L2111
 
 ---
+### FLUSH
+**Inglés:** Flush
+**Español:** Vaciar o limpiar
+
+**Definición:** Proceso de vaciar completamente un buffer o memoria temporal para asegurar que todos los datos sean procesados y liberados.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L4791
+
+---
+### FPM
+**Inglés:** FastCGI Process Manager
+**Español:** Administrador de Procesos FastCGI
+
+**Definición:** Software que gestiona el ciclo de vida de los procesos FastCGI, optimizando la eficiencia y escalabilidad del servidor web.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L4106, L4772, L4819
+
+---
 ### Frontend
-**Inglés:** Frontend  
+**Inglés:** Frontend
 **Español:** Frontend
 
 **Definición:** Parte del software o sitio web con la que los usuarios interactúan directamente en el navegador (HTML, CSS, JS).
@@ -382,7 +550,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### GDPR
-**Inglés:** General Data Protection Regulation  
+**Inglés:** General Data Protection Regulation
 **Español:** Reglamento General de Protección de Datos
 
 **Definición:** Normativa europea sobre la privacidad y seguridad de los datos personales.
@@ -391,8 +559,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L1403
 
 ---
+### GET
+**Inglés:** GET
+**Español:** Obtener
+
+**Definición:** Método HTTP utilizado para solicitar datos de un servidor.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L1796
+
+---
 ### GGUF
-**Inglés:** GPT-Generated Unified Format  
+**Inglés:** GPT-Generated Unified Format
 **Español:** Formato Unificado Generado por GPT
 
 **Definición:** Formato de archivo optimizado utilizado para distribuir y ejecutar modelos de lenguaje localmente, con mejor soporte para CPU/GPU que versiones anteriores como GGML.
@@ -401,8 +579,30 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1066, L1068, L1070, L1080, L1084
 
 ---
+### GUI
+**Inglés:** Graphical User Interface
+**Español:** Interfaz Gráfica de Usuario
+
+**Definición:** Una forma visual y gráfica que permite a los usuarios interactuar con un sistema o aplicación, permitiendo realizar tareas sin necesidad de comandos de texto.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L986, L1237, L1965, L2456, L3584, L4054, L5376
+- `bitacora-mercedev-epic-02.md`: L1042, L1088, L1092
+
+---
+### HEALING
+**Inglés:** Healing
+**Español:** Cura
+
+**Definición:** Proceso de recuperación y mitigación de vulnerabilidades o incidentes en sistemas, con el objetivo de mantener la seguridad y la continuidad del servicio.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L118, L119, L325, L373, L399, L415
+- `bitacora-mercedev-epic-02.md`: L644, L758, L804, L988, L1415, L1465, L1480, L1574
+
+---
 ### HSTS
-**Inglés:** HTTP Strict Transport Security  
+**Inglés:** HTTP Strict Transport Security
 **Español:** Seguridad de Transporte Estricta HTTP
 
 **Definición:** Cabecera de seguridad que obliga a los navegadores a conectarse a un sitio web únicamente a través de HTTPS, evitando ataques de degradación de seguridad (downgrade).
@@ -412,7 +612,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### HTML5
-**Inglés:** HyperText Markup Language 5  
+**Inglés:** HyperText Markup Language 5
 **Español:** Lenguaje de Marcado de Hipertexto 5
 
 **Definición:** Quinta revisión importante del estándar HTML, introduciendo soporte nativo para multimedia, semántica mejorada y acceso a APIs del navegador.
@@ -422,7 +622,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### In-Context
-**Inglés:** In-Context Learning  
+**Inglés:** In-Context Learning
 **Español:** Aprendizaje en Contexto
 
 **Definición:** Técnica utilizada en Modelos de Lenguaje Grandes (LLMs) para que resuelvan una tarea nueva basándose únicamente en las instrucciones y ejemplos proporcionados dentro del prompt.
@@ -432,7 +632,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### INP
-**Inglés:** Interaction to Next Paint  
+**Inglés:** Interaction to Next Paint
 **Español:** Interacción al Siguiente Renderizado
 
 **Definición:** Métrica principal de Core Web Vitals que mide la latencia global y capacidad de respuesta de la interfaz tras interacciones del usuario.
@@ -441,8 +641,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L160, L3400, L3484, L4984
 
 ---
+### ISO
+**Inglés:** International Organization for Standardization
+**Español:** Organización Internacional de Normalización
+
+**Definición:** Estándar global para sistemas de gestión de la calidad, seguridad y eficiencia operativa.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-03.md`: L206, L365, L376
+
+---
 ### JSON-LD
-**Inglés:** JavaScript Object Notation for Linked Data  
+**Inglés:** JavaScript Object Notation for Linked Data
 **Español:** Notación de Objetos JavaScript para Datos Enlazados
 
 **Definición:** Formato ligero basado en JSON para serializar y estructurar metadatos semánticos SEO, facilitando su indexación por motores de búsqueda (ej. Schema.org).
@@ -454,7 +664,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### JWT
-**Inglés:** JSON Web Token  
+**Inglés:** JSON Web Token
 **Español:** Token Web JSON
 
 **Definición:** Estándar abierto (RFC 7519) que define una forma compacta y autónoma de transmitir información segura entre partes en formato JSON, usado habitualmente en autenticación.
@@ -464,7 +674,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### LCP
-**Inglés:** Largest Contentful Paint  
+**Inglés:** Largest Contentful Paint
 **Español:** Despliegue del Contenido Más Grande
 
 **Definición:** Métrica principal de rendimiento (Core Web Vitals) que mide cuánto tiempo tarda en renderizarse el elemento más grande (imagen o bloque de texto) visible en pantalla.
@@ -474,7 +684,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### LEMP
-**Inglés:** Linux, Nginx, MySQL, PHP  
+**Inglés:** Linux, Nginx, MySQL, PHP
 **Español:** Linux, Nginx, MySQL, PHP
 
 **Definición:** Pila (Stack) de software libre usada para alojar aplicaciones web dinámicas de alto rendimiento, como WordPress. La 'E' viene de Engine-X (Nginx).
@@ -483,8 +693,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L3773, L4101, L4120, L4124, L4148, L4152, L4742, L4797, L4802, L4817
 
 ---
+### LICENSE
+**Inglés:** License
+**Español:** Licencia
+
+**Definición:** Contrato legal que permite el uso de software o contenido protegido por derechos de autor.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L4580, L5602
+
+---
 ### LLM
-**Inglés:** Large Language Model  
+**Inglés:** Large Language Model
 **Español:** Modelo de Lenguaje Grande
 
 **Definición:** Sistema de inteligencia artificial entrenado con inmensas cantidades de texto, diseñado para comprender y generar lenguaje natural de forma autónoma.
@@ -493,8 +713,38 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L222, L278, L542, L548, L550, L612, L760, L1082, L1176, L1212, L1294, L1330, L1341, L1353, L1363
 
 ---
+### MIME
+**Inglés:** Multipurpose Internet Mail Extensions
+**Español:** Extensiones de Internet Multipropósito
+
+**Definición:** Formato de archivo utilizado para identificar el tipo de datos que se están transmitiendo en la web.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L3374, L3618, L3620, L3626
+
+---
+### MIT
+**Inglés:** Massachusetts Institute of Technology
+**Español:** Massachusetts Institute of Technology
+
+**Definición:** Universidad estadounidense conocida por su contribución a la investigación y el desarrollo de tecnologías.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L4580, L4584
+
+---
+### MP4
+**Inglés:** MPEG-4 Part 14
+**Español:** MPEG-4 Parte 14
+
+**Definición:** Formato de archivo multimedia que utiliza la codificación MPEG-4 para almacenar video y audio.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L5245
+
+---
 ### MVP
-**Inglés:** Minimum Viable Product  
+**Inglés:** Minimum Viable Product
 **Español:** Producto Mínimo Viable
 
 **Definición:** Versión de un nuevo producto que incluye solo las características esenciales necesarias para validar una idea de negocio y recabar feedback temprano de los usuarios iniciales.
@@ -504,8 +754,38 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1408
 
 ---
+### NAT
+**Inglés:** Network Address Translation
+**Español:** Traducción de Direcciones de Red
+
+**Definición:** Tecnología que permite que varios dispositivos en una red local compartan una única dirección IP pública al conectarse a Internet.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-02.md`: L394, L402, L410
+
+---
+### NPM
+**Inglés:** Node Package Manager
+**Español:** Gestor de Paquetes de Node.js
+
+**Definición:**  Herramienta para gestionar paquetes y módulos JavaScript en proyectos basados en Node.js.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L833, L1834, L4175, L5429
+
+---
+### NXDOMAIN
+**Inglés:** Non-Existent Domain
+**Español:** Dominio No Existente
+
+**Definición:**  Código de error que indica que un dominio solicitado no existe en el sistema DNS.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L3562, L3564
+
+---
 ### OIDC
-**Inglés:** OpenID Connect  
+**Inglés:** OpenID Connect
 **Español:** Conexión OpenID
 
 **Definición:** Capa de identidad construida sobre el protocolo OAuth 2.0 que permite a los clientes verificar la identidad del usuario a través de un proveedor de autorización de confianza.
@@ -516,7 +796,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### OOM
-**Inglés:** Out of Memory  
+**Inglés:** Out of Memory
 **Español:** Falta de Memoria
 
 **Definición:** Estado donde el sistema operativo o contenedor agota toda su memoria RAM disponible, provocando habitualmente que un gestor detenga forzosamente el proceso (OOM Killer).
@@ -526,8 +806,39 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1024, L1026
 
 ---
+### PGP
+**Inglés:** Pretty Good Privacy
+**Español:** Privacidad Aceptable
+
+**Definición:** Protocolo de cifrado y autenticación digital que garantiza la privacidad, integridad y confidencialidad en las comunicaciones electrónicas.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L1355, L1401
+- `bitacora-mercedev-epic-03.md`: L900, L902, L904
+
+---
+### PII
+**Inglés:** Personally Identifiable Information
+**Español:** Información Personalmente Identificable
+
+**Definición:** Datos que pueden ser utilizados para identificar a una persona individual, como nombre completo, dirección de correo electrónico o número de identificación.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L478
+
+---
+### PIPELINE
+**Inglés:** Pipeline
+**Español:** Pipeline
+
+**Definición:** Proceso automatizado que permite la integración y entrega continua del código fuente a un entorno de producción, incluyendo pruebas y despliegue.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L704, L1628, L1928
+
+---
 ### POO
-**Inglés:** Object-Oriented Programming (OOP)  
+**Inglés:** Object-Oriented Programming (OOP)
 **Español:** Programación Orientada a Objetos
 
 **Definición:** Paradigma de programación basado en el concepto de 'objetos', que combinan datos (atributos) y procedimientos (métodos).
@@ -537,8 +848,28 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L602
 
 ---
+### POST
+**Inglés:** POST
+**Español:** POST
+
+**Definición:** Método HTTP utilizado para enviar datos al servidor para crear o actualizar un recurso.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L962, L1016, L1175, L1189, L1241, L1796, L4982
+
+---
+### PUT
+**Inglés:** HTTP PUT
+**Español:** Método HTTP PUT
+
+**Definición:** Un método de solicitud HTTP que se utiliza para actualizar o crear un recurso en el servidor.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L962, L1016
+
+---
 ### RAG
-**Inglés:** Retrieval-Augmented Generation  
+**Inglés:** Retrieval-Augmented Generation
 **Español:** Generación Aumentada por Recuperación
 
 **Definición:** Arquitectura de IA que combina un LLM con la búsqueda en una base de conocimiento externa y actualizada antes de generar una respuesta, reduciendo las alucinaciones.
@@ -548,7 +879,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### RCE
-**Inglés:** Remote Code Execution  
+**Inglés:** Remote Code Execution
 **Español:** Ejecución de Código Remoto
 
 **Definición:** Vulnerabilidad crítica de ciberseguridad donde un atacante puede ejecutar comandos en el sistema de la víctima o servidor de manera remota a través de internet.
@@ -558,8 +889,21 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L122, L128
 
 ---
+### README
+**Inglés:** Read Me
+**Español:** Instrucciones de Lectura
+
+**Definición:** Un archivo de texto que contiene información sobre cómo usar o configurar un proyecto, generalmente en formato Markdown.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L104, L119, L264, L318, L343, L395, L408, L450, L474, L575, L587, L655, L669, L815, L816, L906, L1028, L1070, L1130, L1372, L1385, L1615, L1794, L1943, L1955, L1990, L2002, L2014, L2030, L2329, L2339, L2341, L2542, L2545, L2570, L2574, L2575, L2669, L2737, L2749, L2832, L3209, L3485, L3868, L4146, L4340, L4511, L4581, L4596, L4610, L4624, L4637, L4652, L4817, L4844, L4846, L4885, L5142, L5209, L5217, L5456, L5500, L5592, L5602, L5604, L5616
+- `bitacora-mercedev-epic-02.md`: L48, L174, L528, L654, L656, L658, L666, L668, L670, L674, L680, L692, L714, L716, L718, L720, L768, L770, L1322, L1343
+- `bitacora-mercedev-epic-03.md`: L232, L244, L365, L391, L398, L400, L403, L420, L462, L990
+- `bitacora-merci-boilerplate.md`: L15
+
+---
 ### REST
-**Inglés:** Representational State Transfer  
+**Inglés:** Representational State Transfer
 **Español:** Transferencia de Estado Representacional
 
 **Definición:** Estilo de arquitectura de software para el diseño de APIs web, utilizando métodos HTTP estándar de forma sin estado (stateless).
@@ -569,7 +913,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### ROI
-**Inglés:** Return on Investment  
+**Inglés:** Return on Investment
 **Español:** Retorno de la Inversión
 
 **Definición:** Métrica de rendimiento financiero utilizada para evaluar la eficiencia o rentabilidad de una inversión respecto al coste.
@@ -580,8 +924,29 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L539
 
 ---
+### RPC
+**Inglés:** Remote Procedure Call
+**Español:** Llamada a Procedimiento Remoto
+
+**Definición:** Protocolo que permite la ejecución de procedimientos en un servidor remoto, como parte de una arquitectura distribuida.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L4598, L4887, L4889
+
+---
+### RPM
+**Inglés:** Red Hat Package Manager
+**Español:** Administrador de Paquetes Red Hat
+
+**Definición:** Sistema de gestión de paquetes utilizado en sistemas operativos basados en Red Hat, que facilita la instalación, actualización y eliminación de software.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L142, L748, L762, L776
+- `bitacora-mercedev-epic-02.md`: L1282
+
+---
 ### SASS
-**Inglés:** Syntactically Awesome Style Sheets  
+**Inglés:** Syntactically Awesome Style Sheets
 **Español:** Hojas de Estilo Sintácticamente Increíbles
 
 **Definición:** Preprocesador de CSS avanzado que añade variables, anidación, mixins y funciones para escribir estilos más ordenados y mantenibles.
@@ -593,7 +958,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### SAST
-**Inglés:** Static Application Security Testing  
+**Inglés:** Static Application Security Testing
 **Español:** Prueba Estática de Seguridad de Aplicaciones
 
 **Definición:** Análisis de seguridad ('caja blanca') que escanea automáticamente el código fuente en reposo en busca de vulnerabilidades antes de que la aplicación sea compilada.
@@ -603,8 +968,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L248
 
 ---
+### SECURITY
+**Inglés:** Security
+**Español:** Seguridad
+
+**Definición:** La práctica de proteger sistemas, aplicaciones y datos contra amenazas externas e internas.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-02.md`: L53, L59, L70, L74, L76, L100, L104
+
+---
 ### Self-Healing
-**Inglés:** Self-Healing  
+**Inglés:** Self-Healing
 **Español:** Auto-Sanación / Auto-Recuperación
 
 **Definición:** Arquitecturas y scripts dotados con IA o mecanismos de control para diagnosticar problemas operativos, reiniciar servicios, corregir configuraciones o restaurar el sistema sin intervención humana.
@@ -616,7 +991,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### SEO
-**Inglés:** Search Engine Optimization  
+**Inglés:** Search Engine Optimization
 **Español:** Optimización para Motores de Búsqueda
 
 **Definición:** Conjunto de prácticas para mejorar la visibilidad técnica, la velocidad y la estructura semántica de una página web en buscadores orgánicos.
@@ -627,8 +1002,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L563, L572
 
 ---
+### SHA
+**Inglés:** Secure Hash Algorithm
+**Español:** Algoritmo de Resumen Seguro
+
+**Definición:** Algoritmo utilizado para generar un resumen único y seguro de datos, comúnmente usado en la verificación de integridad.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L3225, L3235, L3257
+
+---
 ### Shift-Left
-**Inglés:** Shift-Left  
+**Inglés:** Shift-Left
 **Español:** Mover a la Izquierda
 
 **Definición:** Estrategia DevSecOps que consiste en integrar las pruebas de calidad y seguridad lo antes posible (hacia el principio / la izquierda) en el ciclo de desarrollo, en vez de dejarlas para el final.
@@ -640,7 +1025,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Shift-Right
-**Inglés:** Shift-Right  
+**Inglés:** Shift-Right
 **Español:** Mover a la Derecha
 
 **Definición:** Práctica de realizar pruebas y monitorización de seguridad de manera continua en un entorno de producción o post-despliegue, complementaria a Shift-Left.
@@ -650,7 +1035,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Short-Circuit
-**Inglés:** Short-Circuit Evaluation  
+**Inglés:** Short-Circuit Evaluation
 **Español:** Evaluación de Cortocircuito
 
 **Definición:** Técnica donde las sentencias condicionales u operacionales de código se detienen y retornan un valor tempranamente si la respuesta definitiva ya ha sido hallada, mejorando el rendimiento y reduciendo el cómputo.
@@ -659,8 +1044,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L776, L780
 
 ---
+### SIGINT
+**Inglés:** Signal Intelligence
+**Español:** Inteligencia por Señales
+
+**Definición:** Técnicas utilizadas para recopilar información sobre los sistemas, actividades y movimientos de otros países a través del análisis de señales.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-02.md`: L200
+
+---
 ### SLM
-**Inglés:** Small Language Model  
+**Inglés:** Small Language Model
 **Español:** Modelo de Lenguaje Pequeño
 
 **Definición:** Modelos de IA más compactos que un LLM, diseñados para realizar tareas específicas de lenguaje en entornos con recursos limitados (Edge o hardware local).
@@ -670,8 +1065,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L149, L919, L1061
 
 ---
+### SMTP
+**Inglés:** Simple Mail Transfer Protocol
+**Español:** Protocolo Simple de Transferencia de Correo Electrónico
+
+**Definición:** Protocolo utilizado para enviar correos electrónicos en Internet, asegurando que los mensajes se envíen y reciban correctamente.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-03.md`: L94, L96, L100, L106, L112
+
+---
 ### SOLID
-**Inglés:** SOLID Principles  
+**Inglés:** SOLID Principles
 **Español:** Principios SOLID
 
 **Definición:** Acronimo de 5 principios de diseño en programación orientada a objetos orientados a crear software robusto y fácil de mantener (Single responsibility, Open-closed, Liskov, Interface, Dependency inversion).
@@ -682,7 +1087,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Spec-Driven
-**Inglés:** Specification-Driven  
+**Inglés:** Specification-Driven
 **Español:** Dirigido por Especificaciones
 
 **Definición:** Paradigma de desarrollo donde el diseño y codificación del software se guía y valida estrictamente a partir de un archivo o estándar de especificaciones formales.
@@ -693,8 +1098,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L667, L763
 
 ---
+### SQL
+**Inglés:** Structured Query Language
+**Español:** Lenguaje de Consulta Estructurada
+
+**Definición:** Lenguaje utilizado para gestionar y manipular bases de datos relacionales. Permite crear, modificar y consultar datos en una base de datos.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L1716, L4786
+
+---
 ### SRE
-**Inglés:** Site Reliability Engineering  
+**Inglés:** Site Reliability Engineering
 **Español:** Ingeniería de Confiabilidad del Sitio
 
 **Definición:** Disciplina que incorpora aspectos de ingeniería de software a operaciones TI para asegurar que los sistemas altamente escalables sean estables, rápidos y confiables.
@@ -705,7 +1120,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### SRP
-**Inglés:** Single Responsibility Principle  
+**Inglés:** Single Responsibility Principle
 **Español:** Principio de Responsabilidad Única
 
 **Definición:** Primer principio SOLID; establece que una clase, módulo o función debe tener una, y solo una, razón para cambiar.
@@ -715,7 +1130,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### SSG
-**Inglés:** Static Site Generation  
+**Inglés:** Static Site Generation
 **Español:** Generación de Sitios Estáticos
 
 **Definición:** Arquitectura donde las páginas HTML se pre-renderizan completamente en tiempo de compilación (build time), resultando en sitios ultra rápidos y seguros sin bases de datos en producción.
@@ -727,7 +1142,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### SSOT
-**Inglés:** Single Source of Truth  
+**Inglés:** Single Source of Truth
 **Español:** Única Fuente de Verdad
 
 **Definición:** Práctica de estructurar datos e información en un proyecto para que exista en un solo lugar. Todo elemento que necesite dicha información debe consumirla de este único punto, evitando inconsistencias.
@@ -739,7 +1154,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### SSRF
-**Inglés:** Server-Side Request Forgery  
+**Inglés:** Server-Side Request Forgery
 **Español:** Falsificación de Petición del Lado del Servidor
 
 **Definición:** Vulnerabilidad web mediante la cual un atacante induce al servidor para realizar peticiones HTTP hacia un dominio arbitrario (habitualmente la red interna que no está expuesta a internet).
@@ -749,7 +1164,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### TBT
-**Inglés:** Total Blocking Time  
+**Inglés:** Total Blocking Time
 **Español:** Tiempo Total de Bloqueo
 
 **Definición:** Métrica de rendimiento que mide el tiempo total en milisegundos en el que la página web estuvo bloqueada respondiendo a tareas que evitaron una respuesta ágil a las entradas del usuario.
@@ -759,8 +1174,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L612
 
 ---
+### TCP
+**Inglés:** Transmission Control Protocol
+**Español:** Protocolo de Control de Transmisión
+
+**Definición:** Un protocolo de red que proporciona una conexión orientada y confiable entre dos puntos finales.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-02.md`: L408
+
+---
 ### TDD
-**Inglés:** Test-Driven Development  
+**Inglés:** Test-Driven Development
 **Español:** Desarrollo Guiado por Pruebas
 
 **Definición:** Metodología de software donde las pruebas unitarias se escriben y fallan intencionadamente antes de que se desarrolle el código necesario para aprobarlas.
@@ -770,7 +1195,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### TLS
-**Inglés:** Transport Layer Security  
+**Inglés:** Transport Layer Security
 **Español:** Seguridad de la Capa de Transporte
 
 **Definición:** Protocolo criptográfico ampliamente adoptado que proporciona comunicaciones seguras por una red informática, sucediendo al obsoleto SSL.
@@ -780,7 +1205,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### TTFB
-**Inglés:** Time to First Byte  
+**Inglés:** Time to First Byte
 **Español:** Tiempo hasta el Primer Byte
 
 **Definición:** Métrica que indica el tiempo que tarda un navegador en recibir el primer byte de respuesta tras hacer una petición HTTP al servidor, reflejando el rendimiento del backend.
@@ -790,8 +1215,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L1011
 
 ---
+### TTL
+**Inglés:** Time To Live
+**Español:** Tiempo de Vida
+
+**Definición:** Duración durante la cual un recurso o dato es válido antes de que expire.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L4120
+
+---
 ### UFW
-**Inglés:** Uncomplicated Firewall  
+**Inglés:** Uncomplicated Firewall
 **Español:** Cortafuegos Descomplicado
 
 **Definición:** Interfaz de gestión para el control de cortafuegos IPTables orientada a la simplicidad y facilidad de uso en sistemas operativos Linux.
@@ -800,8 +1235,39 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L404, L408, L410, L424, L432, L436, L440
 
 ---
+### UNA
+**Inglés:** Uniform Resource Name
+**Español:** Nombre de Recurso Uniforme
+
+**Definición:** Identificador único para un recurso en una red, similar a la URL pero sin necesidad de acceso a Internet.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-02.md`: L276
+
+---
+### URI
+**Inglés:** Uniform Resource Identifier
+**Español:** Identificador de Recurso Uniforme
+
+**Definición:** Dirección única que identifica un recurso en una red, como una página web o un archivo.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L1215, L1229, L3812, L3823, L4900, L4902
+
+---
+### VPS
+**Inglés:** Virtual Private Server
+**Español:** Servidor Virtual Privado
+
+**Definición:** Un servidor virtual que proporciona un entorno de computación dedicado y aislado, donde los usuarios pueden ejecutar sus propias aplicaciones con recursos separados.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-01.md`: L397, L4093, L4122, L4124
+- `bitacora-mercedev-epic-02.md`: L1092
+
+---
 ### WAF
-**Inglés:** Web Application Firewall  
+**Inglés:** Web Application Firewall
 **Español:** Cortafuegos de Aplicaciones Web
 
 **Definición:** Filtro o escudo de seguridad situado frente a aplicaciones web para monitorear y bloquear tráfico malicioso originado por vulnerabilidades de aplicación.
@@ -811,7 +1277,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### WAI-ARIA
-**Inglés:** Web Accessibility Initiative - Accessible Rich Internet Applications  
+**Inglés:** Web Accessibility Initiative - Accessible Rich Internet Applications
 **Español:** Iniciativa de Accesibilidad Web - Aplicaciones de Internet Ricas y Accesibles
 
 **Definición:** Especificación técnica de la W3C que proporciona una ontología de roles, estados y propiedades del HTML para que tecnologías asistivas comprendan las interfaces web modernas.
@@ -822,7 +1288,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### WCAG
-**Inglés:** Web Content Accessibility Guidelines  
+**Inglés:** Web Content Accessibility Guidelines
 **Español:** Pautas de Accesibilidad al Contenido en la Web
 
 **Definición:** Conjunto de estándares internacionales desarrollados a través del consorcio W3C para hacer el contenido web más accesible para personas con discapacidades.
@@ -833,7 +1299,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### WET
-**Inglés:** Write Everything Twice  
+**Inglés:** Write Everything Twice
 **Español:** Escribe Todo Dos Veces (o We Enjoy Typing)
 
 **Definición:** Anti-patrón de desarrollo opuesto a DRY, caracterizado por una alta repetición innecesaria y duplicación de lógica idéntica en distintas partes del código.
@@ -843,7 +1309,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### XSS
-**Inglés:** Cross-Site Scripting  
+**Inglés:** Cross-Site Scripting
 **Español:** Secuencias de Comandos en Sitios Cruzados
 
 **Definición:** Ataque cibernético en el cual scripts maliciosos son inyectados y ejecutados en el navegador del usuario a través de páginas web aparentemente confiables.
@@ -855,7 +1321,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### YAGNI
-**Inglés:** You Aren't Gonna Need It  
+**Inglés:** You Aren't Gonna Need It
 **Español:** No Lo Vas A Necesitar
 
 **Definición:** Principio ágil de Extreme Programming que dicta que no debe añadirse ninguna funcionalidad al código fuente hasta que sea estrictamente requerida, previniendo sobre-ingeniería prematura.
@@ -865,7 +1331,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Zero-Bloat
-**Inglés:** Zero-Bloat  
+**Inglés:** Zero-Bloat
 **Español:** Cero Excesos
 
 **Definición:** Filosofía arquitectónica para aplicaciones web y software centrada en enviar al usuario solo el código y los activos estrictamente necesarios, eliminando librerías innecesarias o componentes sobrepesados.
@@ -875,7 +1341,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Zero-Code
-**Inglés:** Zero-Code  
+**Inglés:** Zero-Code
 **Español:** Cero Código (No-Code)
 
 **Definición:** Plataformas o herramientas de desarrollo que permiten a personas no técnicas crear software y aplicaciones con interfaces visuales en lugar de escribir código a mano.
@@ -885,7 +1351,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Zero-Day
-**Inglés:** Zero-Day Vulnerability  
+**Inglés:** Zero-Day Vulnerability
 **Español:** Vulnerabilidad de Día Cero
 
 **Definición:** Un fallo de seguridad informático desconocido o aún sin parche oficial por parte del proveedor del software. Los atacantes lo explotan el 'día cero' del conocimiento de la brecha.
@@ -895,7 +1361,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Zero-Friction
-**Inglés:** Zero-Friction  
+**Inglés:** Zero-Friction
 **Español:** Cero Fricción
 
 **Definición:** Diseño de experiencia de usuario (UX) o procesos de despliegue donde cada paso y obstáculo redundante es automatizado o simplificado al máximo.
@@ -905,7 +1371,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Zero-Hallucination
-**Inglés:** Zero-Hallucination  
+**Inglés:** Zero-Hallucination
 **Español:** Cero Alucinaciones
 
 **Definición:** Un objetivo en arquitecturas basadas en IA donde el modelo (como un LLM) recibe sistemas de guardia o técnicas RAG severas para que matemáticamente no pueda inventar hechos fuera del alcance provisto.
@@ -915,7 +1381,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ---
 ### Zero-JS
-**Inglés:** Zero-JS  
+**Inglés:** Zero-JS
 **Español:** Cero JavaScript
 
 **Definición:** Paradigma extremo de desarrollo web frontend que persigue la construcción interactiva e interfaces ricas utilizando exclusivamente recursos nativos de HTML y CSS, en favor del rendimiento y seguridad absolutos.
@@ -924,8 +1390,18 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L406, L412, L418, L424, L432, L438, L448, L576, L585
 
 ---
+### Zero-Maintenance
+**Inglés:** Cero Mantenimiento
+**Español:** Sin Mantenimiento
+
+**Definición:** Proceso o sistema que requiere prácticamente ninguna intervención humana una vez implementado.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-03.md`: L57
+
+---
 ### Zero-Shot
-**Inglés:** Zero-Shot Learning  
+**Inglés:** Zero-Shot Learning
 **Español:** Aprendizaje de Cero Disparos
 
 **Definición:** La capacidad de un modelo de IA de resolver una tarea requerida para la que no fue entrenado con ejemplos previos, confiando puramente en su instrucción de entrada general.

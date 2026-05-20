@@ -31,13 +31,14 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 # 5. Sync Pages: Propaga el header/footer maestro a las páginas secundarias.
 # 6. Extract Metrics: Inyecta las últimas estadísticas de PageSpeed Insight en home.
 # 7. Brain: Genera el JSON estático con respuestas contextuales de IA.
+# 8. Glosario AI: Agente autónomo que auto-completa definiciones DevSecOps (Shift-Left).
 # --- FASE DE QA (QUALITY ASSURANCE) ---
-# 8. Sitemap: Escanea todos los HTML finales generados y actualiza el mapa XML.
-# 9. SSOT: Agente que sincroniza el Roadmap.
-# 10. Drift: Detecta asimetrías de fechas entre manuales y código fuente.
-# 11. Audit: Auditoría estricta de seguridad, SEO y sintaxis sobre el código final.
-# 12. Hardening: Audita la postura de seguridad de la infraestructura y el repositorio.
-# 13. Linkcheck: Rastreo dinámico de enlaces rotos sobre el HTML final compilado.
+# 9. Sitemap: Escanea todos los HTML finales generados y actualiza el mapa XML.
+# 10. SSOT: Agente que sincroniza el Roadmap.
+# 11. Drift: Detecta asimetrías de fechas entre manuales y código fuente.
+# 12. Audit: Auditoría estricta de seguridad, SEO y sintaxis sobre el código final.
+# 13. Hardening: Audita la postura de seguridad de la infraestructura y el repositorio.
+# 14. Linkcheck: Rastreo dinámico de enlaces rotos sobre el HTML final compilado.
 
 PIPELINE = [
     "merci-optimizer.py",
@@ -47,6 +48,7 @@ PIPELINE = [
     "merci-sync-pages.py",
     "merci-extract-metrics.py",
     "merci-brain.py",
+    "merci-glosario.py",
     "merci-sitemap.py",
     "merci-ssot.py",
     "merci-drift.py",
