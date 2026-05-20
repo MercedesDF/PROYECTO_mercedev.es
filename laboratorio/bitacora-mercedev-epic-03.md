@@ -44,6 +44,37 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Automatización Extendida: Delegación de Glosario a IA Local
+
+**Contexto:** Necesidad de un sistema *Zero-Friction* para enriquecer continuamente el glosario técnico utilizando los modelos de lenguaje locales (Ollama) sin romper el formato estándar.
+
+**Hecho:** Creados script en Python y cuadernillo Art de Coté (Fase 2 - Épica 3).
+
+**Detalle técnico:** 
+- Creación de `laboratorio/prompts/prompt-glosario.md` con reglas estrictas de formato.
+- Creación de `laboratorio/scripts_temporales/merci-glosario-ai.py` que recibe argumentos CLI, consulta a Ollama y hace un anexo seguro (*append*) a `glosario-tecnico.md`.
+- Creación del cuadernillo `laboratorio/incubacion/cuadernillo-glosario-ai.md` documentando el desafío y la maniobra.
+
+**Motivo / criterio:** Mantener viva la base de conocimiento delegando la carga operativa repetitiva a la IA, asegurando mediante un System Prompt estricto que no haya "alucinaciones" de formato.
+
+**Siguiente paso o deuda:** Implementar reordenación alfabética automática en el script de IA y considerar integrarlo como comando oficial (`merci-brain`).
+
+### 2026-05-20 — Análisis Estático y Extracción del Glosario Técnico
+
+**Contexto:** Se necesitaba consolidar un glosario técnico avanzado a partir de la terminología empleada a lo largo de las bitácoras del proyecto (Épicas 1, 2 y 3).
+
+**Hecho:** Script de extracción, filtrado y generación de archivo (Fase 2 - Épica 3).
+
+**Detalle técnico:** 
+- Script Python analizó >800 KB de las tres bitácoras mediante regex, extrayendo 1431 términos en `scratch/raw_terms.json`.
+- Filtrado intensivo a 80 conceptos intermedio/avanzado (DevSecOps, AI, Rendimiento).
+- Generación de `laboratorio/biblioteca/glosario-tecnico.md` con definiciones técnicas, traducciones de acrónimos y trazabilidad de las líneas en las bitácoras.
+- Revisión adicional automatizada en archivos `.md` de raíz y `docs/` sin hallar nuevos términos DevSecOps ausentes.
+
+**Motivo / criterio:** Crear la "Única Fuente de Verdad" (SSOT) terminológica de la Biblioteca de manera programática, en vez de manual, para evitar omisiones y asegurar precisión.
+
+**Siguiente paso o deuda:** Crear herramientas automatizadas para que la IA asista en añadir términos futuros al glosario.
+
 ### 2026-05-19 — Fix: Resolución de autenticación SMTP y parsing de .env en Docker
 
 **Contexto:** Al configurar las alertas de correo en Grafana, el contenedor falló al leer las variables del `.env` debido a comillas dobles conflictivas, y posteriormente Google bloqueó la conexión SMTP por el uso de contraseñas estándar.
