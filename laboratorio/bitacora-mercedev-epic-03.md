@@ -38,6 +38,21 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Refinamiento editorial DevRel y purga de posts zombis
+
+**Contexto:** La IA estaba generando textos promocionales para LinkedIn utilizando plural corporativo ("nosotros") y preguntas retóricas, violando la Guía de Voz del proyecto. Adicionalmente, el renombramiento de los archivos del blog provocó que `merci-wp.py` duplicara las entradas en WordPress, generando "posts zombis" y un error WAI-ARIA (enlaces ambiguos) en el linter.
+
+**Hecho:** 
+- Se endurecieron las directrices Zero-Shot en `laboratorio/prompts/prompt-blogger.md`.
+- Se curaron manualmente los 4 borradores de LinkedIn en `incubacion/` (tono y formato de enlaces).
+- Se eliminaron 4 posts zombis duplicados directamente desde la base de datos local de WordPress.
+
+**Detalle técnico:** Se instruyó explícitamente a la IA el uso obligatorio de voz pasiva o estilo impersonal. La purga manual en WP resolvió el bloqueo del orquestador `merci-total.py`, el cual había sido detenido por `merci-linkcheck.py` al detectar colisiones de `aria-label` en enlaces con el mismo texto pero distinto destino (slug viejo vs nuevo).
+
+**Motivo / criterio:** *Brand Identity y Data Drift*. Un tono editorial riguroso proyecta mayor autoridad técnica (Performance Engineer). La purga manual en el CMS es el Procedimiento Operativo Estándar (SOP) aceptado para resolver la deriva de datos en arquitecturas Headless unidireccionales tras renombrar archivos físicos.
+
+**Siguiente paso o deuda:** Iniciar el diseño del sistema de Comunicaciones Cifradas (PGP) correspondiente a la Fase 3.
+
 ### 2026-05-20 — Refactorización de nomenclaturas (Paridad Documento-Blog)
 
 **Contexto:** Los artículos de marketing generados por el Agente Blogger recibían nombres de archivo basados en su título (*slugify*). Esto causaba una desconexión visual severa en el explorador de archivos frente a sus cuadernillos de origen (ej. `blog-automatizacion-extendida.md` vs `cuadernillo-glosario.md`), generando fricción cognitiva.
