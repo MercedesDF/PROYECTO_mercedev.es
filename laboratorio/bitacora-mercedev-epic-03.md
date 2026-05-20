@@ -45,6 +45,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Refactorización de Merci Drift a fecha física (st_mtime)
+
+**Contexto:** La dependencia de metadatos de texto (Regla 17) para el cálculo de deriva generaba falsos negativos si la desarrolladora modificaba el código pero olvidaba actualizar la fecha de modificación en la cabecera.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-drift.py` eliminando el análisis de expresiones regulares (RegEx) en favor de la lectura de la fecha de modificación física (`st_mtime`) del sistema operativo.
+
+**Detalle técnico:** Se reemplazó todo el bloque de extracción de texto por `datetime.fromtimestamp(filepath.stat().st_mtime)`. La salida del informe y de la consola se formateó a `%Y-%m-%d %H:%M` para aprovechar la resolución exacta de minutos proporcionada por el sistema.
+
+**Motivo / criterio:** *Single Source of Truth y Zero Trust*. Confiar en que el humano declare el estado (escribiendo la fecha manualmente) es frágil. Leer directamente la huella inmutable del sistema de archivos garantiza una auditoría infalible del estado real de los documentos, logrando un *Zero Maintenance* en el rastreo de deriva durante el desarrollo local.
+
+**Siguiente paso o deuda:** Validar la precisión del nuevo agente de deriva ejecutando `merci drift` y consolidar los cambios en el repositorio.
+
 ### 2026-05-20 — Robustez global en Regex y Ley de Postel (Tolerancia a guiones y horas)
 
 **Contexto:** La mejora de resolución horaria implementada en la bitácora rompió los agentes que particionan el texto basándose en fechas estrictas (`YYYY-MM-DD`). Adicionalmente, se descubrió un *bug* silencioso: el uso de guiones tipográficos (`—`, `–`) en los títulos generaba URLs (slugs) malformadas en el SSG y WordPress, ya que la normalización ASCII los eliminaba antes de procesarlos.

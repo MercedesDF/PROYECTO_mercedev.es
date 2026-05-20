@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Historial de modificaciones:
-# - Última modificación el 2026-05-20 13:03 (Fase 2 - Épica 3)
+# - Última modificación el 2026-05-20 16:34 (Fase 2 - Épica 3)
 
 """
 merci-drift.py — Detector de Deriva Documental (Document Drift).
@@ -27,27 +27,11 @@ MANUALES_MAESTROS = [
     REPO_ROOT / "instrucciones.md"
 ]
 
-# El grupo de hora (HH:MM) es opcional para mantener retrocompatibilidad con scripts que solo tienen fecha.
-DATE_PATTERN = re.compile(r"[-—–]\s*Última modificación el (\d{4}-\d{2}-\d{2}(?:\s\d{2}:\d{2})?)")
-
 def extraer_fecha(filepath: Path) -> datetime | None:
-    """Extrae la fecha normalizada de la cabecera del archivo."""
+    """Extrae la fecha física de modificación del archivo en el sistema operativo (st_mtime)."""
     if not filepath.exists():
         return None
-    content = filepath.read_text(encoding="utf-8", errors="ignore")
-    match = DATE_PATTERN.search(content)
-    if match:
-        try:
-            valor = match.group(1)
-            # Si la cadena incluye hora, la parsea completa. Si no, asume 00:00
-            # para no romper archivos que aún solo tienen fecha (Retrocompatibilidad).
-            if len(valor) > 10:
-                return datetime.strptime(valor, "%Y-%m-%d %H:%M")
-            else:
-                return datetime.strptime(valor, "%Y-%m-%d")
-        except ValueError:
-            return None
-    return None
+    return datetime.fromtimestamp(filepath.stat().st_mtime)
 
 def main():
     print("🕵️‍♂️  [Merci Drift] Analizando deriva documental entre código y manuales...")
@@ -58,7 +42,7 @@ def main():
         sys.exit(0) # Salida limpia para no bloquear el pipeline
 
     fecha_referencia = max(fechas_manuales)
-    archivos_en_deriva = [{"archivo": s.name, "fecha_script": extraer_fecha(s).strftime("%Y-%m-%d")} 
+    archivos_en_deriva = [{"archivo": s.name, "fecha_script": extraer_fecha(s).strftime("%Y-%m-%d %H:%M")} 
                           for s in SCRIPTS_DIR.glob("*.py") 
                           if extraer_fecha(s) and extraer_fecha(s) > fecha_referencia]
 
@@ -68,7 +52,7 @@ def main():
     if archivos_en_deriva:
         print(f"  ⚠️ [ADVERTENCIA] Deriva Documental detectada en {len(archivos_en_deriva)} script(s).")
         for item in archivos_en_deriva:
-            print(f"     - {item['archivo']} (Código: {item['fecha_script']} > Manual: {fecha_referencia.strftime('%Y-%m-%d')})")
+            print(f"     - {item['archivo']} (Código: {item['fecha_script']} > Manual: {fecha_referencia.strftime('%Y-%m-%d %H:%M')})")
     else:
         print("  ✅ [Éxito] Sincronización perfecta. Ningún script es más reciente que los manuales.")
 

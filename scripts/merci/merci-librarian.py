@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Historial de modificaciones:
-# - Última modificación el 2026-05-18 (Fase 2 - Épica 3)
+# - Última modificación el 2026-05-20 16:34 (Fase 2 - Épica 3)
 
 """
 merci-librarian.py — Agente Bibliotecario (Fase 3).
