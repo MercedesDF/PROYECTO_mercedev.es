@@ -199,10 +199,10 @@
 - [x] Silenciado de telemetría y llamadas externas de LiteLLM (Silence is Golden) en todo el ecosistema.
 - [x] Descubrimiento y parcheo de vulnerabilidad *Supply Chain* en importaciones Python mediante Chaos Engineering.
 - [x] Aislamiento del Agente Chaos (Chaos Monkey) fuera del pipeline maestro CI/CD para proteger el rendimiento.
-- [x] Implementar un registro privado persistente (`.privado/chaos-audit.log`) para las mutaciones del Agente Chaos.
+- [x] Implementar un registro privado persistente (`.privado/chaos-audit.json`) para las mutaciones del Agente Chaos.
 - [x] Instrumentar `merci-sre.py` para exponer el historial de resiliencia de Chaos Engineering hacia Grafana.
-- [ ] Integrar métricas de Inteligencia Artificial (fallbacks a la nube, errores del auditor) en Grafana.
-- [ ] Instrumentar la inyección dinámica de telemetría (commits, líneas de doc, versiones) en la página estática "Sobre Mí".
+- [x] Integrar métricas de Inteligencia Artificial (fallbacks a la nube, errores del auditor) en Grafana.
+- [x] Instrumentar la inyección dinámica de telemetría (commits, líneas de doc, versiones) en la página estática "Sobre Mí" y Portada.
 
 ### Fase 3: Identidad Criptográfica y Privacidad
 - [ ] Implementar y estandarizar flujo de Comunicaciones Cifradas (PGP) en el ecosistema.

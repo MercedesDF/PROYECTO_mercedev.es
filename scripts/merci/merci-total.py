@@ -44,6 +44,7 @@ PIPELINE = [
     "merci-wp.py",
     "merci-sync-pages.py",
     "merci-extract-metrics.py",
+    "merci-telemetry.py",
     "merci-brain.py",
     "merci-glosario.py",
     "merci-sitemap.py",

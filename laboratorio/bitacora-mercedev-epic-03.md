@@ -38,6 +38,48 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-20 — Métrica de "Días Activos" y cuadratura del Dashboard
+
+**Contexto:** Las métricas de autoridad extraídas del proyecto (Commits, Líneas de Doc) mostraban volúmenes que podían resultar abrumadores. Además, el layout del dashboard en la página "Sobre Mí" requería un quinto elemento para cuadrar la distribución visual del Grid/Flexbox sin recurrir a CSS adicional. Se planteó contar el tiempo real de desarrollo.
+
+**Hecho:** 
+- Se inyectó la quinta métrica "Días Activos" en el HTML de `sobre-mi/index.html`.
+- Se refactorizó `merci-telemetry.py` para calcular los días de trabajo efectivo extrayéndolos de Git.
+
+**Detalle técnico:** La nueva función `get_active_days()` ejecuta `git log --format='%cd' --date=short | sort -u | wc -l`. Esto agrupa el historial de Git por fechas exactas y cuenta las líneas resultantes. 
+
+**Motivo / criterio:** *Data Integrity & UI/UX*. Contar días naturales desde el inicio del proyecto es injusto y falso si hay pausas. Contar "días con al menos un commit" refleja matemáticamente los días de trabajo efectivo reales (Esfuerzo). Resolver un problema de maquetación CSS aportando un dato de valor empírico es el epítome de la ingeniería eficiente.
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 de la Épica 3 (Comunicaciones Cifradas PGP).
+
+### 2026-05-20 — Integración SRE de métricas de IA y Calidad (Auditor)
+
+**Contexto:** Para completar la infraestructura de observabilidad del Dashboard DevSecOps en Grafana, se requería monitorizar los fallos del linter (errores y advertencias) y las contingencias del Lóbulo Frontal de IA (Fallbacks).
+
+**Hecho:** 
+- Se instrumentó `merci-audit.py` para exportar silenciosamente un archivo `.audit_report.json` en la carpeta de observabilidad.
+- Se añadieron las métricas `merci_audit_errors_total`, `merci_audit_warnings_total` y `merci_ai_fallbacks_total` en `merci-sre.py`.
+
+**Detalle técnico:** El agente de telemetría ahora lee periódicamente tanto el JSON generado por el auditor como el archivo `brain_data.json` estático, contando las respuestas que comienzan con `[Fallback]`. Estas métricas quedan expuestas en el puerto 8001.
+
+**Motivo / criterio:** *Deep Observability*. Conocer la cantidad de advertencias acumuladas (Deuda Técnica) y las veces que la IA local ha fallado permite establecer alertas proactivas para el mantenimiento del ecosistema, sin necesidad de ejecutar los comandos en terminal.
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 de la Épica 3 (Comunicaciones Cifradas PGP).
+
+### 2026-05-20 — Automatización de telemetría del proyecto en Dashboards
+
+**Contexto:** Los HTMLs estáticos de la portada (`index.html`) y el currículum semántico (`sobre-mi/index.html`) contenían métricas del proyecto (Commits, Agentes, Líneas de documentación, Release) hardcodeadas. Era necesario automatizar su cálculo para que la UI refleje fielmente la envergadura viva del repositorio en cada compilación.
+
+**Hecho:** 
+- Creado el script `scripts/merci/merci-telemetry.py`.
+- Integrado dinámicamente en la constante `PIPELINE` del orquestador maestro (`merci-total.py`).
+
+**Detalle técnico:** El nuevo agente invoca a `git rev-list` de forma nativa para contar los commits, itera el directorio `scripts/merci/` para contar agentes operativos y suma las líneas físicas de todos los archivos `.md` excluyendo entornos virtuales para obtener el volumen documental. Utiliza Expresiones Regulares flexibles para inyectar estos datos en los `span` correspondientes del HTML basándose en sus etiquetas BEM.
+
+**Motivo / criterio:** *Data Completeness y Fricción Cero*. Un Engineering Dashboard no debe tener datos estáticos que dependan de la memoria humana para actualizarse. Calcular e inyectar estos datos en Build-time certifica empíricamente la autoridad técnica y el tamaño del ecosistema en tiempo real, operando en cliente con latencia 0ms.
+
+**Siguiente paso o deuda:** Continuar con la configuración SRE para los fallos de la IA en Grafana.
+
 ### 2026-05-20 — Hito: Pipeline maestro Sub-10s (9.39s)
 
 **Contexto:** Tras la serie de refactorizaciones arquitectónicas (Compilación Incremental en SSG, extirpación del Agente SSOT y silenciado de telemetría), era necesario evaluar el impacto de estas decisiones en la Experiencia de Desarrolladora (DX).

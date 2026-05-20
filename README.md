@@ -91,6 +91,7 @@ El proyecto prioriza la automatización reproducible, auditoría continua, reduc
 | Script | Función |
 |--------|---------|
 | `merci-publish.py` | Generación estática |
+| `merci-telemetry.py` | Inyección de métricas del repo |
 | `merci-promote.py` | Promoción automatizada |
 | `merci-linkedin.py` | Publicación LinkedIn vía OIDC |
 | `merci-wp.py` | Publicación Headless WordPress |
@@ -178,6 +179,7 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 - `merci-linkedin.py`: Motor de autenticación OIDC (OpenID Connect) y publicación automatizada en LinkedIn.
 - `merci-wp.py`: Publicador Headless para WordPress vía API REST.
 - `merci-extract-metrics.py`: Extractor de métricas Core Web Vitals desde PDFs de PageSpeed Insights.
+- `merci-telemetry.py`: Inyector dinámico de telemetría del proyecto (Commits, Agentes, Docs).
 - `merci-styles.py` y `merci-watcher.py`: Compilador SASS 7-1 local y vigilante en tiempo real.
 - `merci-optimizer.py` y `merci-assets-watcher.py`: Optimizador WebP y agente vigilante de activos multimedia en segundo plano.
 - `merci-sre.py`: Demonio de telemetría pasiva para la ingesta de datos en Prometheus y Grafana.

@@ -27,6 +27,9 @@ PIPELINE_DURATION = Gauge('merci_pipeline_duration_seconds', 'Tiempo de ejecuci�
 PIPELINE_SCRIPT_DURATION = Gauge('merci_pipeline_script_duration_seconds', 'Tiempo de ejecución por script', ['script'])
 GLOSARIO_TERMS = Gauge('merci_glosario_terminos_total', 'Número total de términos definidos en el glosario JSON')
 CHAOS_EVENTS = Gauge('merci_chaos_events_total', 'Resultados de los simulacros del Chaos Monkey', ['resultado'])
+AI_FALLBACKS = Gauge('merci_ai_fallbacks_total', 'Respuestas de IA en modo contingencia (Fallback)')
+AUDIT_ERRORS = Gauge('merci_audit_errors_total', 'Errores bloqueantes detectados por el linter')
+AUDIT_WARNS = Gauge('merci_audit_warnings_total', 'Advertencias detectadas por el linter')
 
 def actualizar_metricas_pipeline():
     """Lectura de JSON (Deriva y Duración). Se refrescan periódicamente (cada 10s)."""
@@ -62,6 +65,26 @@ def actualizar_metricas_chaos():
             indetectados = len(data) - detectados
             CHAOS_EVENTS.labels(resultado="detectado").set(detectados)
             CHAOS_EVENTS.labels(resultado="indetectado").set(indetectados)
+        except Exception:
+            pass
+
+def actualizar_metricas_ia_y_auditoria():
+    """Lectura de fallbacks del Lóbulo Frontal y reportes del Auditor."""
+    brain_path = REPO_ROOT / "public" / "js" / "brain_data.json"
+    if brain_path.exists():
+        try:
+            data = json.loads(brain_path.read_text(encoding="utf-8"))
+            fallbacks = sum(1 for v in data.values() if str(v).startswith("[Fallback]"))
+            AI_FALLBACKS.set(fallbacks)
+        except Exception:
+            pass
+            
+    audit_path = REPO_ROOT / "observabilidad" / ".audit_report.json"
+    if audit_path.exists():
+        try:
+            data = json.loads(audit_path.read_text(encoding="utf-8"))
+            AUDIT_ERRORS.set(data.get("errors", 0))
+            AUDIT_WARNS.set(data.get("warnings", 0))
         except Exception:
             pass
 
@@ -149,6 +172,7 @@ def main():
         actualizar_estado_documental()
         actualizar_metricas_pipeline()
         actualizar_metricas_chaos()
+        actualizar_metricas_ia_y_auditoria()
         time.sleep(1)
 
 if __name__ == "__main__":

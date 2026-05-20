@@ -879,6 +879,15 @@ def main(argv: Optional[list[str]] = None) -> int:
 
     print_report(state)
 
+    # Exportar métricas para Grafana (Agente SRE)
+    try:
+        obs_dir = REPO_ROOT / "observabilidad"
+        obs_dir.mkdir(exist_ok=True)
+        report_data = {"errors": len(state.errors), "warnings": len(state.warns)}
+        (obs_dir / ".audit_report.json").write_text(json.dumps(report_data), encoding="utf-8")
+    except Exception:
+        pass
+
     if state.warns:
         print(
             f"\nResumen: {len(state.errors)} error(es), {len(state.warns)} advertencia(s).",
