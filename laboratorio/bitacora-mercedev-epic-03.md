@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Sec: Hardening SEO (Bloqueo de directivas noindex) tras ataque Chaos
+
+**Contexto:** Un simulacro continuo del Agente Chaos inyectó la etiqueta `<meta name="robots" content="noindex, nofollow">` en la portada. El auditor estático (`merci-audit.py`) no lo detectó, exponiendo una vulnerabilidad que podría destruir el posicionamiento (SEO) del proyecto si se despliega en producción.
+
+**Hecho:** Se añadió la regla `SEO_NOINDEX` a la clase `SeoHTMLParser` en `scripts/merci/merci-audit.py`.
+
+**Detalle técnico:** El parser HTML evalúa el atributo `content` de las etiquetas `<meta name="robots">`. Si detecta las subcadenas `noindex` o `nofollow`, inyecta un error bloqueante en el pipeline.
+
+**Motivo / criterio:** *Shift-Left SEO*. Un error humano o una inyección maliciosa de `noindex` tiene consecuencias catastróficas inmediatas en producción. Las herramientas SAST (Static Application Security Testing) también deben proteger el negocio (SEO), no solo el código. Los otros ataques de la IA (cambios de texto o imágenes falsas) demostraron los límites del análisis estático, justificando la existencia paralela del rastreador dinámico DAST (`merci-linkcheck`).
+
+**Siguiente paso o deuda:** Validar la nueva regla con un ataque manual y dar por concluida la sesión.
+
 ### 2026-05-21 — Sec: Hardening del auditor contra inyección de imágenes externas
 
 **Contexto:** El Agente Chaos demostró que el linter `merci-audit.py` permitía la inyección de imágenes externas (ej. `<meta property="og:image" content="https://fakeurl.com/...">` o `<img>`), ya que la regla `audit_external_assets` solo bloqueaba scripts y hojas de estilo.

@@ -551,6 +551,8 @@ class SeoHTMLParser(HTMLParser):
         self.description: Optional[str] = None
         self.canonical: Optional[str] = None
         self.json_ld_scripts = 0
+        self.has_noindex = False
+        self.noindex_content = ""
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, Optional[str]]]) -> None:
         # Normalizamos nombres de atributos a minúsculas para comparar sin sorpresas.
@@ -570,6 +572,10 @@ class SeoHTMLParser(HTMLParser):
 
             if name == "description" and content:
                 self.description = content
+                
+            if name == "robots" and ("noindex" in content.lower() or "nofollow" in content.lower()):
+                self.has_noindex = True
+                self.noindex_content = content
             if name == "viewport":
                 self.has_viewport = True
 
@@ -632,6 +638,17 @@ def audit_html_seo(state: AuditState, path: Path, text: str, strict_json_ld: boo
         return
 
     title_text = "".join(parser.title_chunks).strip()
+
+    if parser.has_noindex:
+        state.add(
+            Finding(
+                path,
+                1,
+                "error",
+                "SEO_NOINDEX",
+                f'Detectada directiva robots destructiva: "{parser.noindex_content}". Peligro de desindexación.',
+            )
+        )
 
     if not parser.html_lang:
         state.add(Finding(path, 1, "error", "SEO_LANG", 'Falta atributo lang en <html lang="...">.'))
