@@ -38,6 +38,48 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Fix: Falso positivo visual y purga de estilos en línea en merci-init
+
+**Contexto:** El orquestador `merci total` bloqueó la ejecución de la matriz levantando 3 errores `UI_INLINE_STYLE`. El linter detectó el atributo `style="text-align: center;"` inyectado dentro de las plantillas "Vite-style" recién generadas en `merci-init.py`.
+
+**Hecho:** Se purgaron los atributos `style` redundantes de las plantillas HTML inyectadas por el script `scripts/merci/merci-init.py`.
+
+**Detalle técnico:** La clase `.prose__content` ya posee la regla `text-align: center;` de forma global en `_prose.scss` desde el rediseño a formato Landing Page. La inyección en línea era, por tanto, código muerto y una violación a la regla de estilo.
+
+**Motivo / criterio:** *QA Assurance y Zero Deuda Técnica*. El linter cumple su función como escudo activo. Resolver este fallo eliminando la redundancia en lugar de silenciar al auditor demuestra la robustez del ecosistema SASS.
+
+**Siguiente paso o deuda:** Re-ejecutar `merci total` para confirmar el 0/0 en auditoría y sellar el commit.
+
+### 2026-05-21 — UX/DX: Inyección de plantillas "Vite-style" en instanciación (merci-init)
+
+**Contexto:** Al instanciar el Boilerplate, el script intentaba limpiar la portada, el CV y el contacto usando expresiones regulares frágiles dependientes del texto exacto de la autora. Además, el usuario recibía páginas vacías o con restos de la identidad original, empeorando la Experiencia del Desarrollador (DX).
+
+**Hecho:** Se refactorizó `scripts/merci/merci-init.py`. Se programó el borrado incondicional del bloque `<main id="main">` y se sustituyó por plantillas genéricas de bienvenida (estilo Vite o Next.js) que indican al nuevo usuario qué archivo exacto editar para empezar.
+
+**Detalle técnico:** Se reemplazó el `re.sub` basado en textos literales por patrones estructurales (`<main[^>]*id="main"[^>]*>.*?</main>`). Se confirmó que páginas SSG (Biblioteca, Blog) no requieren este parche porque el script ya arrasa físicamente con sus archivos Markdown de origen (`purge_directory`), garantizando que nazcan limpias.
+
+**Motivo / criterio:** *Developer Experience (DX) y DLP Matemático*. Borrar el contenedor principal por completo garantiza 0% de fuga de datos (Data Leak) sin importar si la autora cambia una coma en su HTML en el futuro. Entregar una página "Hola Mundo" con instrucciones eleva la plantilla a nivel *Enterprise*.
+
+**Siguiente paso o deuda:** Ejecutar el empaquetado final de la release v1.14.0 y comenzar la Fase 3 (PGP).
+
+### 2026-05-21 — DevSecOps: Auditoría DLP extrema en Boilerplate (Fugas silenciosas)
+
+**Contexto:** Antes de exportar la versión 1.14.0, se realizó una auditoría profunda de Prevención de Fuga de Datos (DLP) sobre el script `merci-init.py` simulando clones en entornos nuevos para asegurar que la identidad de la autora original no se filtrase en el código base.
+
+**Hecho:** Se resolvieron múltiples vectores residuales de fuga de datos (Data Leaks) y derivas (Drifts) en `scripts/merci/merci-init.py`:
+- **SEO Drift:** Se añadió purga del `sitemap.xml` original y expansión de extensiones (`.txt`, `.xml`).
+- **Fuga Visual y de Identidad:** Se blindó el borrado de `docs/matriz/`, `.privado/`, la carpeta temporal `scratch/`, e inyección a `N/D` a los Dashboards de métricas. Reparada la metaetiqueta `author` y el logo con `<span>` anidado.
+- **Bug de Exclusión:** Se corrigió un bug silencioso en `os.walk` donde excluir `.git` excluía accidentalmente `.github`, dejando flujos CI/CD huérfanos.
+- **Protección de Atribución:** Se blindaron temporalmente los enlaces a GitHub y LinkedIn de la autora antes del barrido general para proteger sus créditos publicitarios legítimos.
+- **Evidencias y Glosario:** Se añadieron las carpetas `evidencias/` y `biblioteca/` al regenerador de andamiajes para evitar que Git falle en entornos nuevos. Se reseteó el `ROADMAP.md` a un estado en blanco.
+- **Bug de merci-commit:** Se renombró el "Shadow Doc" `bitacora-merci-boilerplate.md` al nuevo *slug* del usuario para evitar que el orquestador de commits colapse en su primera ejecución.
+
+**Detalle técnico:** Uso intensivo de `Path.parts` para la exclusión precisa de carpetas. Uso de placeholders protectores (`%%PROTECT_GITHUB_USER%%`) antes del `replace_in_files` global.
+
+**Motivo / criterio:** *Zero Trust y Privacy by Design*. Asumir que "buscar y reemplazar un nombre" es suficiente es el primer paso hacia una brecha de privacidad. Un script destructivo de inicialización debe reconstruir el andamiaje del framework con precisión milimétrica para que el proyecto hijo sea matemáticamente independiente del padre.
+
+**Siguiente paso o deuda:** Sellar la sesión con `merci commit` e instanciar la `v1.14.0`.
+
 ### 2026-05-21 — Fix: Ceguera de Varnish (CloudPanel) en despliegue de métricas
 
 **Contexto:** Tras compilar la web localmente y sincronizar con producción (`git push` / `git pull`), las nuevas métricas del proyecto inyectadas en la portada (`index.html`) y el currículum (`sobre-mi/index.html`) no se actualizaban en el navegador del usuario final.
