@@ -9,10 +9,35 @@ Este documento define las reglas de arquitectura e interacción de esta plantill
 ## 2. Stack Tecnológico y Arquitectura
 - **Núcleo Estático:** HTML5 semántico, SASS 7-1 (BEM (Block, Element, Modifier - Modificador de Elemento de Bloque)) compilado localmente y Vanilla JS (0 dependencias).
 - **Sistema "Merci":** Automatización local DevSecOps basada en scripts puros de Python 3.10+ en la carpeta `/scripts/merci/`.
+  - `merci-audit.py`: Auditoría estática y bloqueo de secretos.
+  - `merci-auto-fix.py`: Agente autónomo de auto-reparación.
+  - `merci-commit.py`: Empaquetado atómico de commits.
+  - `merci-total.py`: Orquestador maestro del pipeline.
+  - `merci-brain.py`: Lóbulo frontal de Inteligencia Artificial.
+  - `merci-ssot.py`: Curación autónoma de la deriva documental.
+  - `merci-librarian.py`: Agente Bibliotecario (Zero-Hallucination).
+  - `merci-glosario.py`: Compilador de Glosario Autónomo.
+  - `merci-blogger.py`: Agente Redactor DevRel.
+  - `merci-publish.py` y `merci-promote.py`: Motor SSG y promoción de contenidos.
+  - `merci-sync-pages.py`: Sincronizador de estructuras comunes estáticas.
+  - `merci-sitemap.py` y `merci-linkcheck.py`: Rastreador dinámico (DAST) y mapa XML.
+  - `merci-backup.py`: Generador de instantáneas.
+  - `merci-init.py`: Inicializador destructivo.
+  - `merci-linkedin.py`: Publicación en LinkedIn.
+  - `merci-wp.py`: Sincronizador Headless para WordPress.
+  - `merci-extract-metrics.py`: Extractor automatizado de métricas.
+  - `merci-telemetry.py`: Inyector dinámico de telemetría.
+  - `merci-styles.py` y `merci-watcher.py`: Compilador SASS local.
+  - `merci-optimizer.py` y `merci-assets-watcher.py`: Procesamiento WebP.
+  - `merci-sre.py`: Telemetría pasiva para Prometheus y Grafana.
+  - `merci-hardening.py`: Auditoría continua de seguridad.
+  - `merci-chaos.py`: Chaos Engineering con IA local.
+  - `merci-drift.py`: Detector de Deriva Documental.
+  - `merci-queue.py`: Visor de terminal interactivo para el buffer social.
 - **Capa Dinámica:** WordPress aislado (`/blog`) sirviendo como CMS (Content Management System - Sistema de Gestión de Contenidos) headless bajo Nginx proxy inverso, sin invadir `/public`.
 
 ## 3. Reglas de Interacción y Código
-1. **Seguridad Shift-Left:** Todo el código debe pasar obligatoriamente por `python3 scripts/merci/merci-audit.py` antes del commit. Cualquier cadena inyectada dinámicamente en el HTML debe ser sanitizada previamente (`html.escape`) para evitar ataques XSS y roturas de DOM.
+1. **Seguridad Shift-Left:** Todo el código debe pasar obligatoriamente por `python3 scripts/merci/merci-audit.py` antes del commit. Cualquier cadena inyectada dinámicamente en el HTML debe ser sanitizada previamente (`html.escape`) para evitar ataques XSS y roturas del DOM (Document Object Model - Modelo de Objetos del Documento).
 2. **Manejo de Errores:** Todo código debe incluir gestión de excepciones para evitar colapsos silentes.
 3. **Bitácora Obligatoria:** `merci-commit.py` bloqueará los empaquetados si no se ha documentado el cambio cronológicamente en la bitácora del laboratorio.
 4. **Copias de Seguridad (Disaster Recovery):** Utilizar `python3 scripts/merci/merci-backup.py` antes de cualquier operación destructiva o reescritura de historial.

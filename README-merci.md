@@ -26,7 +26,7 @@ Combina un orquestador local en Python puro (Sistema Merci) que automatiza la ca
 - **Rutas Relativas Agnósticas:** Todos los enlaces inter-documentales generados por la IA utilizan rutas relativas a la raíz (ej. `/biblioteca/...`), garantizando la paridad Dev/Prod y eliminando errores 404 en el entorno de desarrollo local.
 - **Rediseño UI/UX del Blog:** Refactorización de `index.php` para el Child Theme de WordPress. Se purga la vista de estanterías en favor de un diseño vertical, cronológico y minimalista adaptado a la lectura de marketing y DevRel.
 - **Enrutamiento Zero-JS:** El resaltado visual del menú de navegación se delega al 100% a la hoja de estilos SASS mediante identificadores de contexto (`body id`), erradicando clases legacy y dependencias de scripts.
-- **Blindaje Anti-XSS (Shift-Left Security):** Los metadatos extraídos del YAML Frontmatter son sanitizados nativamente (`html.escape`) antes de inyectarse en la generación SSG o PDF, previniendo roturas del DOM e inyecciones de código.
+- **Blindaje Anti-XSS (Shift-Left Security):** Los metadatos extraídos del YAML Frontmatter son sanitizados nativamente (`html.escape`) antes de inyectarse en la generación SSG o PDF, previniendo roturas del DOM (Document Object Model - Modelo de Objetos del Documento) e inyecciones de código.
 
 ## 🚀 Novedades en la v1.12.0 (SRE, Hardening & Chaos Engineering)
 

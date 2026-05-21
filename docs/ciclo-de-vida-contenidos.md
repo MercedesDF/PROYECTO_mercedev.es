@@ -5,7 +5,7 @@ Este documento explica cómo el *YAML Frontmatter* actúa como el "volante" del 
 ## 1. Anatomía del YAML (El DNI del Documento)
 
 *   `titulo`: El nombre humano. *El motor SSG lo convierte automáticamente en URL (ej. `mi-titulo.html`).*
-*   `descripcion`: Se inyecta en la etiqueta `<meta name="description">` y en el JSON-LD para el SEO, y sirve de resumen en las tarjetas.
+*   `descripcion`: Se inyecta en la etiqueta `<meta name="description">` y en el JSON-LD (JavaScript Object Notation for Linked Data - Notación de Objetos JavaScript para Datos Enlazados) para el SEO, y sirve de resumen en las tarjetas.
 *   `tipo`: Define el diseño CSS (Metodología BEM). 
     *   `"cuadernillo"`: Se le aplica la clase `.card--booklet` (diseño fluido azul). 
     *   `"proyecto"` o `"compendio"`: Se aplica `.card--book` (diseño sólido verde). 

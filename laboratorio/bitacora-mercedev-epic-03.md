@@ -38,6 +38,19 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Fix: Saneamiento de Deriva Documental y Acrónimos en Boilerplate
+
+**Contexto:** Al clonar la versión exportada v1.14.0 del Boilerplate y ejecutar `merci total` en un entorno limpio, se levantaron 22 advertencias de Deriva Documental en el orquestador (`merci-drift.py` no encontraba los scripts en `instrucciones.md`) y 3 advertencias de acrónimos no expandidos (`DOM` y `JSON-LD`).
+
+**Hecho:**
+- Se inyectó la lista completa de agentes del Ecosistema Merci en `instrucciones-merci.md` (Shadow Doc).
+- Se expandió el acrónimo `DOM` en `README-merci.md` e `instrucciones-merci.md`.
+- *(Se expandió manualmente `JSON-LD` en `docs/ciclo-de-vida-contenidos.md`).*
+
+**Motivo / criterio:** *QA Assurance y Out-of-the-Box Experience*. Una plantilla debe compilar a 0/0 (Cero Errores, Cero Advertencias) en el primer segundo tras clonarla. Eliminar estas fricciones documentales garantiza que el usuario experimente la "filosofía Merci" de Cero Deuda Técnica sin recibir avisos de problemas heredados.
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 de la Épica 3 (Comunicaciones Cifradas PGP).
+
 ### 2026-05-21 — Fix: Falso positivo visual y purga de estilos en línea en merci-init
 
 **Contexto:** El orquestador `merci total` bloqueó la ejecución de la matriz levantando 3 errores `UI_INLINE_STYLE`. El linter detectó el atributo `style="text-align: center;"` inyectado dentro de las plantillas "Vite-style" recién generadas en `merci-init.py`.
