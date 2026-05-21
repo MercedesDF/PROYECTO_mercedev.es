@@ -225,7 +225,7 @@ El proyecto se organiza en grandes "Épicas" arquitectónicas. El desglose detal
   - Estado: ✅ Completada (2026-05-13)
 
 - **Epic-03: DevRel & Observabilidad Avanzada** — Creación de Buffer Social, DevRel, telemetría, consolidación Zero-JS y automatización de métricas JSON.
-  - Estado: ✅ Fase 1 completada. 🚧 Fase 2 en ejecución (Telemetría de proyecto y Alertas SRE en Grafana).
+  - Estado: ✅ Fase 1 completada. ✅ Fase 2 completada. 🔜 Fase 3 en preparación (Comunicaciones Cifradas PGP).
 
 - **Epic-04: E-commerce Híbrido Extremo** — Pasarelas de pago en WooCommerce aisladas con Web Workers (Partytown) para mantener TBT en 0ms.
   - Estado: ⏳ En cola.

@@ -1,8 +1,3 @@
-<!--
-Historial de modificaciones:
-- Última modificación el 2026-05-19 (Fase 2 - Épica 3)
-- modificado el 2026-05-18 (Fase 2 - Épica 3)
--->
 
 # Prompt del Agente Bibliotecario (Generador de Cuadernillos)
 

@@ -21,14 +21,15 @@ Este documento define las reglas de arquitectura e interacción de esta plantill
 7. **Filosofía de Dependencias:**
    - **Runtime (Navegador):** 0 dependencias externas. Prohibido inyectar librerías JS o CSS externas.
    - **Build-time (Pipeline):** Se permiten librerías Python para automatización, auditoría y compilación. Estas deben gestionarse siempre dentro de un entorno virtual (`.venv`) y estar declaradas en `requirements.txt`.
-7. **Higiene de Importaciones (PEP 8):** Todas las importaciones en scripts Python deben declararse estrictamente al principio del archivo. Queda terminantemente prohibido realizar importaciones en medio del código.
+8. **Higiene de Importaciones (PEP 8):** Todas las importaciones en scripts Python deben declararse estrictamente al principio del archivo. Queda terminantemente prohibido realizar importaciones en medio del código.
+9. **Blindaje Supply Chain (Cadena de Suministro):** La regla `audit_python_imports` del auditor valida mediante AST (Abstract Syntax Tree - Árbol de Sintaxis Abstracta) que todas las importaciones pertenezcan a la `stdlib` o a la lista blanca de `requirements.txt`. No incluir librerías no declaradas.
 
 ## 4. Flujo Maestro de Publicación (SOP Dual)
 El ecosistema cuenta con un flujo estático (SSG) y otro dinámico (Headless WP).
 
 **Para la Biblioteca (Núcleo Estático):**
 1. **Sincronización:** `git pull` para evitar conflictos con el servidor remoto.
-2. **Incubación:** Crear un `.md` en `laboratorio/` con `estado: "borrador"`.
+2. **Incubación:** Crear un `.md` en `laboratorio/incubacion/` con `estado: "incubacion"`. Una vez revisado, cambiar a `estado: "borrador"`.
 3. **Curación:** Ejecutar `python3 scripts/merci/merci-promote.py` para curarlo y moverlo a la `biblioteca/`.
 4. **QA y Compilación:** Ejecutar `python3 scripts/merci/merci-total.py` (compila SSG, sincroniza páginas y audita el código resultante).
 
@@ -43,6 +44,7 @@ El ecosistema cuenta con un flujo estático (SSG) y otro dinámico (Headless WP)
 - **Accesibilidad Nativa:** Toda la UI (User Interface - Interfaz de Usuario) debe ser navegable mediante Tabulador y usar etiquetas semánticas (WAI-ARIA).
 - **Focus Management:** No se debe usar `tabindex="-1"` en el `body`.
 - **Enrutamiento Visual Zero-JS:** El resaltado de enlaces activos se maneja exclusivamente a través de CSS mediante el uso semántico del atributo `id` de la etiqueta `<body>`.
+- **Caché Multi-Entorno (Headless WP):** El archivo `observabilidad/.wp_sync.json` almacena la clave `_entorno` (valor del `WP_URL`). Al cambiar el entorno en `.env`, la caché se invalida automáticamente. No purgar el JSON manualmente salvo en el primer arranque de un proyecto nuevo.
 
 ## 6. Protocolo Estricto de Cierre de Fase (Definition of Done)
 Antes de dar por concluida una funcionalidad mayor o transicionar a un nuevo hito, se recomienda ejecutar este checklist para asegurar la higiene del repositorio:

@@ -1,13 +1,14 @@
 {
-  "blog/blog-pdf-estatico.md": 1779317657.0200613,
-  "blog/2026-05-01-anuncio.md": 1777712012.2282538,
-  "blog/blog-optimizacion-del-dashboard-de-grafana-para-mejorar-la-experiencia-del-autor.md": 1779316687.1391861,
-  "blog/blog-sanitizacion-de-metadatos-yaml-prevencion-xss-y-rotura-del-dom.md": 1779004483.3366628,
-  "blog/blog-anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.md": 1778970786.2576182,
-  "blog/post-prueba-automatizacion.md": 1779091890.2601948,
-  "blog/blog-resolucion-de-404s-headless-y-enlaces-ambiguos-wai-aria.md": 1779168311.2375574,
-  "blog/blog-agent-chaining-bibliotecario-blogger.md": 1779317669.8003619,
-  "blog/blog-glosario.md": 1779317676.3710635,
-  "blog/blog-arquitectura-zero-maintenance.md": 1779317638.1655884,
-  "blog/blog-consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.md": 1779004485.3611705
+  "_entorno": "https://mercedev.es/blog",
+  "blog/blog-pdf-estatico.md": 1779317657,
+  "blog/2026-05-01-anuncio.md": 1777712012,
+  "blog/blog-optimizacion-del-dashboard-de-grafana-para-mejorar-la-experiencia-del-autor.md": 1779316687,
+  "blog/blog-sanitizacion-de-metadatos-yaml-prevencion-xss-y-rotura-del-dom.md": 1779004483,
+  "blog/blog-anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.md": 1778970786,
+  "blog/post-prueba-automatizacion.md": 1779091890,
+  "blog/blog-resolucion-de-404s-headless-y-enlaces-ambiguos-wai-aria.md": 1779168311,
+  "blog/blog-agent-chaining-bibliotecario-blogger.md": 1779317669,
+  "blog/blog-glosario.md": 1779317676,
+  "blog/blog-arquitectura-zero-maintenance.md": 1779317638,
+  "blog/blog-consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.md": 1779004485
 }

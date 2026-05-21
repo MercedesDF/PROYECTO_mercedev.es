@@ -1,7 +1,3 @@
-<!--
-Historial de modificaciones:
-- Última modificación el 2026-05-19 (Fase 2 - Épica 3)
--->
 
 # SOP: Flujo de Publicación Dual (SSG y Headless WP)
 
@@ -42,7 +38,7 @@ Por diseño arquitectónico (Environment Segregation), el núcleo estático (Bib
    merci wp
    ```
    *(Nota: `merci total` lo hace automáticamente en el pipeline global).*
-4. **Despliegue a Producción (Contenido Dinámico):** Para enviar los posts a la web pública, edita tu archivo `.env`, comenta las credenciales de `localhost` y descomenta las de producción. Luego, ejecuta de nuevo `merci wp`. Una vez finalizado, recuerda volver a dejar el `.env` apuntando a `localhost`.
+4. **Despliegue a Producción (Contenido Dinámico):** Para enviar los posts a la web pública, edita tu archivo `.env` y cambia el `WP_URL` a las credenciales de producción. Luego ejecuta de nuevo `merci wp`. La caché multi-entorno detectará automáticamente el cambio de destino e invalidará el registro, forzando la sincronización completa hacia producción sin necesidad de purgar nada manualmente.
 5. **Gobernanza del Buffer Social (LinkedIn):** La gestión de la cola de redes es puramente declarativa a través de los archivos Markdown:
    *   **Monitorizar cola:** Ejecutar `merci queue` para visualizar qué artículos están aprobados o pendientes en el buffer.
    *   **Editar publicación:** Modificar libremente el texto dentro del bloque `<!-- linkedin: ... -->` en el archivo `.md`.

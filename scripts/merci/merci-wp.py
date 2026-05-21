@@ -347,6 +347,19 @@ if __name__ == "__main__":
         except json.JSONDecodeError:
             pass
 
+    # QUÉ HACE: Invalida la caché si el entorno destino (WP_URL) ha cambiado desde el último ciclo.
+    # POR QUÉ: La caché registra mtime de archivos locales, no el destino al que se subieron.
+    # Cambiar de local a producción sin invalidar la caché provoca que el script omita todos
+    # los archivos silenciosamente (Cache Hit falso). Guardar el entorno activo como clave
+    # centinela (_entorno) permite detectar y descartar la caché de forma automática.
+    entorno_activo = creds.get("WP_URL", "")
+    if sync_cache.get("_entorno") != entorno_activo:
+        print(f"🔄 [Merci WP] Entorno cambiado a '{entorno_activo}'. Invalidando caché de sincronización...")
+        sync_cache = {"_entorno": entorno_activo}
+    else:
+        # Asegurar que la clave centinela está presente aunque la caché sea antigua
+        sync_cache.setdefault("_entorno", entorno_activo)
+
     # QUÉ HACE: Si se pasa un argumento, procesa ese archivo o carpeta. Si no, sincroniza masivamente.
     # POR QUÉ: Permite sincronizaciones atómicas globales (SSOT) evitando la deriva de configuración.
     if len(args) > 0:
@@ -367,6 +380,10 @@ if __name__ == "__main__":
             else:
                 if is_verbose: print(f"\n⚠️  Directorio no encontrado: {wp_dir.name}/. Omitiendo.")
                 
+    # QUÉ HACE: Persiste la clave centinela junto con los registros de mtime.
+    # POR QUÉ: Garantiza que en el próximo ciclo el script compare el entorno guardado
+    # con el activo y descarte la caché si ha habido un cambio de entorno.
+    sync_cache["_entorno"] = entorno_activo
     SYNC_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
     SYNC_CACHE_PATH.write_text(json.dumps(sync_cache, indent=2), encoding="utf-8")
 

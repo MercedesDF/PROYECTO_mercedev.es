@@ -36,7 +36,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
   - `merci-publish.py` y `merci-promote.py`: Motor SSG y asistente interactivo de enrutamiento contextual.
   - `merci-sync-pages.py`: Sincronizador de estructuras comunes estáticas (SSOT).
   - `merci-brain.py`: Generador de base de conocimientos IA estática (Shift-Left AI).
-  - `merci-ssot.py`: Agente híbrido (Cloud/Local) para auditar y auto-sanar la deriva documental.
+  - `merci-ssot.py`: Agente híbrido (Cloud/Local) para auditar y auto-sanar la deriva documental. *(Art de Coláteral: Deprecado del pipeline activo en ADR-04 por latencia de inferencia. Preservado como experimento reutilizable.)*
   - `merci-librarian.py`: Agente Bibliotecario y formateador estricto local (Zero-Hallucination).
   - `merci-glosario.py`: Compilador de Glosario Autónomo (Data-Driven).
   - `merci-blogger.py`: Agente Redactor DevRel (Agent Chaining) y creador de Ganchos Sociales.
@@ -62,8 +62,8 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 ## 3. Estructura de Directorios Aprobada
 - `/docs`: Estrategia y directrices.
 - `/biblioteca`: Repositorio de conocimiento organizado por estanterías temáticas.
-- `/laboratorio`: I+D, proyectos en fase de desarrollo, scripts experimentales y **bitácora de proyecto** (`bitacora-mercedev.md`).
-- /scripts/merci: Utilidades de automatización en Python.
+- `/laboratorio`: I+D, proyectos en fase de desarrollo, scripts experimentales, bandeja de entrada unificada (`incubacion/`) y **bitácoras de proyecto** por Épica (`bitacora-mercedev-epic-NN.md`).
+- `/scripts/merci`: Utilidades de automatización en Python.
 - `/.assets-raw`: Área **local** para multimedia original sin procesar. Los originales **no se versionan** en Git (solo el marcador `.gitkeep` y la regla en `.gitignore`); el flujo previsto es generar salida en `/assets` (p. ej. con `merci-optimizer.py`).
 - `/assets`: Multimedia optimizado para producción.
 - `/public`: **Raíz del documento** del núcleo estático servido en producción (p. ej. `index.html`, `robots.txt`, `sitemap.xml` en la Fase 2). Las rutas a multimedia publicado apuntan a `/assets/`. Los sistemas dinámicos WordPress (`/blog`, `/tienda`) **no** viven bajo esta carpeta; se integran aparte en la Fase 4.
@@ -74,7 +74,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 3. **Control de Comprensión:** Validación de conceptos antes de proceder.
 4. **Seguridad Shift-Left:** Mitigación de vulnerabilidades desde la fase de diseño.
 5. **Manejo de Errores:** Todo código debe incluir gestión de excepciones para evitar colapsos.
-6. **Bitácora en laboratorio:** Mantener actualizado `laboratorio/bitacora-mercedev.md` con el contexto de cada sesión o tema cerrado (qué se hizo, por qué, comandos o rutas útiles). Las entradas del **registro cronológico** se **añaden siempre al principio del archivo** (orden cronológico inverso: lo más reciente arriba) para facilitar consulta inmediata del último estado. No se sustituye ni se borra el texto ya archivado salvo corrección puntual (p. ej. dato erróneo o material sensible), dejando claro en la propia entrada el motivo. Sirve de memoria para el desarrollador y, al concluir el proyecto, de borrador curado para trasladar piezas definitivas a `biblioteca/`, usando la plantilla y los criterios descritos en ese archivo.
+6. **Bitácora en laboratorio:** Mantener actualizadas las bitácoras por Épica (`laboratorio/bitacora-mercedev-epic-NN.md`) con el contexto de cada sesión o tema cerrado (qué se hizo, por qué, comandos o rutas útiles). Las entradas del **registro cronológico** se **añaden siempre al principio del archivo** (orden cronológico inverso: lo más reciente arriba) para facilitar consulta inmediata del último estado. No se sustituye ni se borra el texto ya archivado salvo corrección puntual (p. ej. dato erróneo o material sensible), dejando claro en la propia entrada el motivo. Sirve de memoria para el desarrollador y, al concluir la Épica, de borrador curado para trasladar piezas definitivas a `biblioteca/`, usando la plantilla y los criterios descritos en ese archivo.
 7. **Documentación versionada impersonal:** En archivos del repositorio visibles al público (`README.md`, `docs/`, `laboratorio/`, públicos, etc.) no deben figurar recordatorios en segunda persona ni “notas al autor” (p. ej. “cuando tengas tiempo añade…”). Ese tipo de seguimiento vive **fuera del repo** (agenda, notas privadas, issue tracker). El texto en Git debe leerse bien a un colaborador o visitante anónimo.
 8. **Redacción impersonal en laboratorio:** En `laboratorio/` usar estilo impersonal. Para los hechos consumados usar pasado en voz pasiva/impersonal (p. ej. "Se validaron los metadatos", "Se documentó la deuda"), y reservar el infinitivo exclusivamente para objetivos, tareas pendientes o siguientes pasos (p. ej. "Siguiente paso: Validar metadatos"). Evitar redacción en primera/segunda persona.
 9. **Notas de implementación futura en código:** Permitir comentarios breves de pendiente técnico solo cuando aporten contexto de arquitectura o fase. Usar formato estable `TODO(Fase X): ...`, referenciar archivo/función objetivo y criterio de cierre, y eliminar la nota al implementar el hito correspondiente. Evitar comentarios obvios o demasiado genéricos.
@@ -85,19 +85,16 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 14. **Gobernanza del Release Pipeline (Agile Boilerplate):** Toda mejora o parche detectado en el repositorio hijo (`merci-boilerplate`) debe corregirse **siempre** en el proyecto matriz (`mercedev.es`). El ciclo de actualización iterativo es innegociable: Clonar matriz en local temporal -> Ejecutar `merci-init.py` -> Sincronizar hacia el boilerplate (`rsync` excluyendo `.git`, manuales y `README.md`) -> Ejecutar QA (`merci-total`) -> Si hay fallo, descartar el clon, corregir en la matriz y reiniciar el ciclo -> Si es exitoso, commitear y hacer push en el boilerplate. Esto evita la Deriva de Configuración (Configuration Drift).
 15. **Ritmo y Autorización Estricta (Anti-Anticipación):** Está terminantemente PROHIBIDO escupir o adelantar código de una fase o tarea que no haya sido explícitamente iniciada y autorizada por la desarrolladora. El ritmo y la dirección los marca única y exclusivamente la autora. **SIN EMBARGO**, al redactar la bitácora, el asistente **DEBE SIEMPRE proponer explícitamente la siguiente fase o hito del Roadmap** en el apartado "Siguiente paso o deuda". Expresiones pasivas como "Pendiente de instrucción" no son válidas; se debe sugerir el próximo paso lógico para guiar el proyecto, pero sin generar el código de dicho paso hasta recibir luz verde.
 16. **Higiene de Importaciones (PEP 8):** Todas las importaciones de módulos deben declararse estrictamente al principio del archivo (Top-level imports). Queda terminantemente prohibido realizar importaciones en medio del código o dentro de funciones (salvo excepciones críticas documentadas por dependencias circulares).
+17. **Blindaje Supply Chain (Cadena de Suministro):** La regla `audit_python_imports` valida mediante AST (Abstract Syntax Tree - Árbol de Sintaxis Abstracta) que todas las importaciones Python pertenezcan a la `stdlib` o a la lista blanca declarada en `requirements.txt`. No se deben incluir librerías no declaradas en el entorno virtual.
+18. **Caché Multi-Entorno (`merci-wp.py`):** El fichero `observabilidad/.wp_sync.json` almacena la clave centinela `_entorno` (valor del `WP_URL` activo). Al cambiar el entorno en `.env`, la caché se invalida automáticamente. No purgar el fichero manualmente en proyectos en curso.
 
-## 5. Fases de Implementación (Roadmap)
-- **Fase 1: Infraestructura y Automatización Base.** Zsh, directorios y `merci-audit.py`.
-- **Fase 2: Arquitectura Semántica y SEO Técnico.** HTML5, JSON-LD e indexación.
-- **Fase 3: Ingeniería de Estilos.** SASS 7-1, BEM, Mobile First y `merci-optimizer.py`.
-- **Fase 4: Integración de Sistemas Dinámicos.** WordPress, WooCommerce (catálogo merchandising Merci) y Child Theme.
-- **Fase 5: Quality Assurance y Hardening.** CSP, endurecimiento de WP y Git Hooks.
-- **Fase 6: Despliegue y Auditoría Final.** Paso a producción, Web Vitals y documentación del proceso.
-- **Fase 7: Automatización y Clasificación.** Sistema de publicación automatizada, plantillas de libros y Producto Merci (Fase 7.5).
-- **Fase 8: Expansión de Contenido y Contexto Inteligente.** Enrutamiento por contexto de Merci y ciclo de migración de la bitácora.
-- **Fase 9: Inteligencia y Autonomía.** Expansión de las capacidades de Merci mediante integración con modelos de IA (segura y con degradación elegante).
-- **Fase 10: Empaquetado y Ecosistema.** Creación de scripts de instanciación para nuevos proyectos y release 1.0.0 del Boilerplate.
-- **Fase 11: Integración Continua (CI/CD Cloud).** Automatización de auditorías con GitHub Actions, monitorización con Lighthouse CI y plantillas de contribución (Issue Templates).
+## 5. Hoja de Ruta (Roadmap Activo)
+
+El roadmap del proyecto se gobierna mediante **Épicas arquitectónicas** de duración variable, cada una con sus Fases internas y su propia bitácora en `laboratorio/`.
+
+**Fuente canónica:** [`ROADMAP.md`](./ROADMAP.md)
+
+Las decisiones que afectan a la arquitectura base (cambios de stack, nuevos agentes, restricciones de seguridad) deben reflejarse, además, en este documento (§2 y §4) como reglas permanentes.
 
 ## 6. Guía de Voz Editorial (Merci)
 Objetivo: redactar textos claros, humanos y directos, manteniendo rigor técnico y evitando tono publicitario.
@@ -139,7 +136,7 @@ Objetivo: redactar textos claros, humanos y directos, manteniendo rigor técnico
 - **Separación de Lógica (El Maniquí):** El frontend (`MerciController.js`) actúa únicamente como una máquina de estados de UI. Si en el futuro Merci requiere "inteligencia" (respuestas generadas por IA o bases de datos), la carga computacional debe ocurrir en el backend o en el orquestador SSG local, enviando al frontend estático únicamente los textos ya procesados.
 
 ## 7. Protocolo Estricto de Cierre de Fase (Definition of Done)
-Antes de dar por concluida una Fase del Roadmap y transicionar a la siguiente, es OBLIGATORIO ejecutar este checklist de 5 pasos para asegurar la higiene del repositorio:
+Antes de dar por concluida una Fase del Roadmap y transicionar a la siguiente, es OBLIGATORIO ejecutar este checklist de 6 pasos para asegurar la higiene del repositorio:
 
 1. **Conciliación de Deuda Técnica:** ¿Queda algún `TODO` en el código, algún error silenciado temporalmente o una vulnerabilidad asumida? Se deben resolver ahora o quedar explícitamente registrados en la bitácora como deuda técnica justificada.
 2. **Cosecha de Conocimiento:** ¿Están creados todos los cuadernillos de los desafíos superados (incluyendo los aprendizajes extraídos al saldar la deuda técnica del paso 1)? Deben ser curados (`merci promote`) y compilados (`merci total`).

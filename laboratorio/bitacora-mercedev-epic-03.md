@@ -38,6 +38,61 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Cosecha de Conocimiento: Auditoría Documental Fase 2 (Épica 3)
+
+**Contexto:** Con la sincronización Headless restablecida y la Fase 2 de la Épica 3 operativa, se procedió a la Cosecha de Conocimiento formal: auditoría y actualización de toda la capa documental del proyecto (docs, prompts, instrucciones y README del Boilerplate) para reflejar el estado arquitectónico real acumulado desde la v1.13.
+
+**Hecho:** Se auditaron y actualizaron en una sola sesión los siguientes artefactos:
+
+*Documentos `docs/`:*
+- `checklist-hardening.md`: Añadidos dos controles DevSecOps nuevos (`audit_python_imports` Supply Chain y Caché Multi-Entorno `merci-wp.py`). Pie de página actualizado a Épica 3 / 2026-05-21.
+- `ciclo-de-vida-contenidos.md`: Corregida referencia obsoleta a `wp_id` (eliminado desde v1.3+). El flujo dinámico ahora describe la resolución por slug y la caché incremental.
+- `deployment-playbook.md`, `flujo-publicacion-sop.md`, `integracion-wordpress.md`: Purgados los bloques `<!-- Historial de modificaciones -->` residuales de la Regla 17 (ADR-06). En `flujo-publicacion-sop.md` se actualizó además el paso 4 del Flujo 2: la nota "recuerda volver a localhost" fue eliminada porque la caché multi-entorno lo gestiona automáticamente.
+
+*Prompts (`laboratorio/prompts/`):*
+- `prompt-bibliotecario.md`, `prompt-sistema-base.md`, `prompt-chaos.md`, `prompt-brain.md`: Purgadas cabeceras Regla 17 residuales.
+- `prompt-blogger.md`: Cabecera Regla 17 purgada y corregido bug tipográfico crítico en el campo `fase:` del YAML de salida (comillas dobles desparejadas que podían romper el parseo del agente).
+
+*`instrucciones-merci.md` (plantilla Boilerplate):*
+- Corregida numeración duplicada de la Regla 7 (renumerada a 8 y 9).
+- Corregido el estado inicial en el flujo de publicación: nace en `"incubacion"` en `laboratorio/incubacion/`, no en `"borrador"`.
+- Añadida restricción de Caché Multi-Entorno (`observabilidad/.wp_sync.json` con clave `_entorno`).
+
+*`instrucciones.md` (biblia de mercedev.es):*
+- `merci-ssot.py` marcado como Art de Coté / Deprecado (ADR-04).
+- `§3 Estructura`: actualizada referencia de bitácora única a bitácoras por Épica; añadida `incubacion/`; corregido formato de `/scripts/merci`.
+- `§4 Reglas`: actualizada la Regla 6 (bitácora por Épica), añadidas Reglas 17 y 18 (Supply Chain y Caché Multi-Entorno).
+- `§5 Roadmap`: sustituido el listado estático de 11 fases históricas por una sección compacta SSOT que referencia `ROADMAP.md` como fuente canónica. Motivo: el §5 estático violaba el principio SSOT del propio proyecto; las 11 fases ya eran arqueología del proceso fundacional.
+- `§7 Definition of Done`: corregido encabezado de "5 pasos" a "6 pasos" (el checklist siempre tuvo 6 ítems).
+
+*`README-merci.md` (Boilerplate):*
+- Bumpeada versión a `v1.14.0`.
+- Añadida sección `## 🚀 Novedades en la v1.14.0` encima de la v1.13.0 (sin modificar las versiones anteriores).
+- Añadidos tres nuevos agentes al listado del ecosistema: `merci-blogger.py`, `merci-queue.py`, `merci-telemetry.py`.
+
+**Motivo / criterio:** *Configuration Drift en documentación*. La arquitectura evoluciona rápidamente entre Épicas; sin una cosecha sistemática, los documentos de referencia (instrucciones, prompts, docs) se convierten en documentación mentirosa, más peligrosa que la ausencia de documentación. Esta sesión cierra la deuda documental acumulada entre las Épicas 2 y 3.
+
+**Siguiente paso o deuda:** Proceder al cierre formal de la Fase 2 de la Épica 3: Snapshot (`merci backup`) y Sello Definitivo (`merci commit`). Después, extracción del Boilerplate v1.14.0 siguiendo el SOP de `docs/matriz/mantenimiento-boilerplate-sop.md`.
+
+### 2026-05-21 — Fix: Invalidación automática de caché al cambiar de entorno (WP Multi-Entorno)
+
+**Contexto:** Al cambiar la variable `WP_URL` del `.env` de `http://localhost/blog` a `https://mercedev.es/blog` para sincronizar los artículos hacia producción, el script `merci-wp.py` omitía todos los archivos del directorio `blog/` sin emitir ningún error. La terminal mostraba "Escaneando directorio: blog/" seguido de silencio total.
+
+**Hecho:** Se identificó el origen del bloqueo silencioso y se aplicó un fix arquitectónico en `scripts/merci/merci-wp.py`. Se añadió la clave centinela `_entorno` en el archivo `observabilidad/.wp_sync.json`.
+
+**Detalle técnico:** La caché incremental (`observabilidad/.wp_sync.json`) almacena los `mtime` de los archivos Markdown sincronizados para evitar llamadas de red innecesarias. Al cambiar el `WP_URL` del `.env`, los archivos físicos en disco no se modifican, por lo que la condición de comparación `sync_cache[file_key] >= md_mtime` devuelve `True` para todos los archivos, abortando la ejecución de red con `return True` (línea 145). El fix persiste el `WP_URL` activo como clave `_entorno` dentro del propio JSON de caché. Al inicio de cada ejecución, el script compara `sync_cache.get("_entorno")` con el `WP_URL` leído del `.env`; si difieren, descarta el diccionario completo y arranca con una caché limpia.
+
+```json
+{
+  "_entorno": "https://mercedev.es/blog",
+  "blog/archivo.md": 1779317657
+}
+```
+
+**Motivo / criterio:** *Cache Invalidation y Developer Experience (DX)*. La caché incremental optimiza las llamadas de red, pero carecía de conciencia del entorno destino. Un `Cache Hit` válido para `localhost` es un `Cache Hit` falso para producción: el artefacto no existe en el servidor remoto. Blindar la caché con la clave centinela hace que la invalidación sea automática y transparent al cambiar de contexto, eliminando la necesidad de purgar manualmente `wp_sync.json`.
+
+**Siguiente paso o deuda:** Continuar y cerrar formalmente la Fase 2 de la Épica 3. Siguiente hito lógico: ejecutar `merci total` para poblar la caché de producción, verificar la subida de los artículos en `https://mercedev.es/blog` y proceder al Protocolo de Cierre de Fase (Definition of Done) antes de iniciar la Fase 3 (Comunicaciones Cifradas PGP).
+
 ### 2026-05-20 — Sincronización Incremental en Optimizador de Imágenes
 
 **Contexto:** El Profiler detectó que `merci-optimizer.py` consumía ~2.25s en cada ejecución del pipeline maestro reprocesando imágenes estáticas de `.assets-raw/` hacia WebP, independientemente de si habían sido modificadas.
