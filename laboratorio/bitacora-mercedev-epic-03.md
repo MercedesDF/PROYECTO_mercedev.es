@@ -38,6 +38,30 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Docs: Resolución de Deriva Documental en merci-deploy
+
+**Contexto:** El orquestador maestro detectó mediante `merci-drift.py` que el nuevo script `merci-deploy.py` no estaba documentado en los manuales maestros (`README.md`, `instrucciones.md`).
+
+**Hecho:** Se inyectó la descripción del agente de despliegue remoto en las listas de ambos documentos.
+
+**Detalle técnico:** Se añadió explícitamente a los manuales de la matriz pero se omitió deliberadamente de `README-merci.md` e `instrucciones-merci.md` (Shadow Docs). Al ser un script de uso exclusivo del entorno de producción de la autora que se destruye durante la instanciación (`merci-init.py`), no debe figurar en la documentación del Boilerplate público.
+
+**Motivo / criterio:** *Zero Document Drift*. Mantener el ecosistema 100% documentado previene la aparición de "código fantasma" o herramientas huérfanas, garantizando que el orquestador termine su validación estática sin emitir advertencias.
+
+**Siguiente paso o deuda:** Reejecutar `merci total` para verificar el pipeline limpio a cero advertencias y sellar los cambios.
+
+### 2026-05-21 — Perf/DevRel: Creación de Agente de Despliegue Remoto (CD Local)
+
+**Contexto:** Tras sincronizar el código con producción (`git push`), el proceso exigía conexión SSH manual (`git pull`) y purga de caché interactiva (Varnish) desde el panel gráfico de CloudPanel, introduciendo fricción en la Experiencia de Desarrollador (DX).
+
+**Hecho:** Se desarrolló el agente `scripts/merci/merci-deploy.py`. Se añadió a la regla de exclusión DLP (Data Leak Prevention) en `merci-init.py` para evitar que viaje en el Boilerplate.
+
+**Detalle técnico:** El script utiliza `subprocess` para enviar comandos mediante SSH seguro. Primero dispara `git pull` en la carpeta raíz del proyecto y posteriormente invoca a `wp varnish purge` utilizando el WP-CLI integrado nativamente en el entorno aislado de WordPress de CloudPanel, logrando el vaciado de la RAM sin requerir permisos de superusuario (`root`).
+
+**Motivo / criterio:** *Continuous Deployment (CD) Zero-Friction*. Automatizar el último eslabón de la cadena de suministro elimina la necesidad de interactuar con la infraestructura del servidor mediante interfaces gráficas. Que el script se destruya al clonarse el Boilerplate garantiza que los metadatos de conexión (usuario/host) permanezcan como infraestructura privada de la matriz.
+
+**Siguiente paso o deuda:** Validar la purga remota tras realizar un cambio visual en el entorno de desarrollo.
+
 ### 2026-05-21 — Perf: Asignación de Fetch Priority para mitigar colisión de LCP
 
 **Contexto:** Al erradicar el `loading="lazy"` del avatar para cumplir la regla de Lighthouse, la imagen comenzó a descargarse de forma temprana (Eager). A pesar de pesar solo 4 KB tras la corrección del optimizador, abría un nuevo *stream* HTTP/2 que competía con `main.css` y la renderización del texto, retrasando el First Contentful Paint (FCP) y bajando la nota a 98/100 en simulación 4G.

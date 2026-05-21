@@ -95,6 +95,7 @@ El proyecto prioriza la automatización reproducible, auditoría continua, reduc
 | `merci-promote.py` | Promoción automatizada |
 | `merci-linkedin.py` | Publicación LinkedIn vía OIDC |
 | `merci-wp.py` | Publicación Headless WordPress |
+| `merci-deploy.py` | Despliegue remoto y purga de caché (Varnish) |
 
 ### Observabilidad & Seguridad
 | Script | Función |
@@ -178,6 +179,7 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 - `merci-init.py`: Instanciador destructivo para nuevos repositorios derivados.
 - `merci-linkedin.py`: Motor de autenticación OIDC (OpenID Connect) y publicación automatizada en LinkedIn.
 - `merci-wp.py`: Publicador Headless para WordPress vía API REST.
+- `merci-deploy.py`: Agente de Despliegue Remoto (CD Local) para sincronización SSH y purga de Varnish.
 - `merci-extract-metrics.py`: Extractor de métricas Core Web Vitals desde PDFs de PageSpeed Insights.
 - `merci-telemetry.py`: Inyector dinámico de telemetría del proyecto (Commits, Agentes, Docs).
 - `merci-styles.py` y `merci-watcher.py`: Compilador SASS 7-1 local y vigilante en tiempo real.

@@ -6,7 +6,7 @@
     <title>Agent Chaining: Encadenamiento Automático entre Agentes de Redacción y Marketing — mercedev.es</title>
     <meta name="description" content="Cómo el patrón Agent Chaining elimina la fricción operativa pasando el contexto dinámicamente entre agentes de IA.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/agent-chaining-encadenamiento-automatico-entre-agentes-de-redaccion-y-marketing.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779383322">
+    <link rel="stylesheet" href="/css/main.css?v=1779396410">
     <script src="/js/MerciController.js?v=1778974789" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
     <script type="application/ld+json">
@@ -23,7 +23,7 @@
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     <header class="header">
         <a href="/" class="header__brand">
-            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="high">
         </a>
         <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
             <span class="header__toggle-icon"></span>
@@ -90,7 +90,7 @@
         </div>
         <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
         <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
-            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" fetchpriority="low" decoding="async">
         </button>
     </aside>
 </body>
