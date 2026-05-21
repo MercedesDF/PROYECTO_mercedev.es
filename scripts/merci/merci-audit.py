@@ -495,7 +495,7 @@ def audit_inline_scripts(state: AuditState, path: Path, text: str) -> None:
 
 def audit_external_assets(state: AuditState, path: Path, text: str) -> None:
     """
-    Detecta cargas de recursos externos (CSS, JS) en HTML, violando la regla
+    Detecta cargas de recursos externos (CSS, JS, Imágenes) en HTML, violando la regla
     de cero dependencias externas (Zero Bloat).
     """
     if path.suffix.lower() not in {".html", ".htm", ".php"}:
@@ -517,6 +517,22 @@ def audit_external_assets(state: AuditState, path: Path, text: str) -> None:
         if "stylesheet" in full_tag and "mercedev.es" not in url and "localhost" not in url:
             line_number = text.count('\n', 0, match.start()) + 1
             state.add(Finding(path, line_number, "error", "UI_EXTERNAL_ASSET", f"CSS externo detectado: {url[:30]}..."))
+                
+    # Buscar imágenes externas
+    img_pattern = re.compile(r'<img[^>]*\bsrc\s*=\s*["\'](https?://[^"\']+)["\']', re.IGNORECASE)
+    for match in img_pattern.finditer(text):
+        url = match.group(1)
+        if "mercedev.es" not in url and "localhost" not in url:
+            line_number = text.count('\n', 0, match.start()) + 1
+            state.add(Finding(path, line_number, "error", "UI_EXTERNAL_ASSET", f"Imagen externa detectada: {url[:30]}..."))
+            
+    # Buscar metadatos con URLs externas (ej. og:image)
+    meta_pattern = re.compile(r'<meta[^>]*\bcontent\s*=\s*["\'](https?://[^"\']+)["\']', re.IGNORECASE)
+    for match in meta_pattern.finditer(text):
+        url = match.group(1)
+        if "mercedev.es" not in url and "localhost" not in url:
+            line_number = text.count('\n', 0, match.start()) + 1
+            state.add(Finding(path, line_number, "error", "UI_EXTERNAL_ASSET", f"Meta URL externa detectada: {url[:30]}..."))
 
 class SeoHTMLParser(HTMLParser):
     """

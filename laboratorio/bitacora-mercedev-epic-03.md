@@ -38,6 +38,30 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Sec: Hardening del auditor contra inyección de imágenes externas
+
+**Contexto:** El Agente Chaos demostró que el linter `merci-audit.py` permitía la inyección de imágenes externas (ej. `<meta property="og:image" content="https://fakeurl.com/...">` o `<img>`), ya que la regla `audit_external_assets` solo bloqueaba scripts y hojas de estilo.
+
+**Hecho:** Se amplió la regla `audit_external_assets` en `scripts/merci/merci-audit.py` para detectar y bloquear URLs absolutas no autorizadas en etiquetas de imagen y metadatos.
+
+**Detalle técnico:** Se añadirán nuevos patrones de búsqueda en el auditor para interceptar atributos `src=` en `<img>` y `content=` en `<meta>`. Si el enlace apunta hacia el exterior y no contiene los dominios permitidos (`mercedev.es`, `localhost`), el pipeline se abortará devolviendo `ERROR UI_EXTERNAL_ASSET`.
+
+**Motivo / criterio:** *Zero External Dependencies*. Aunque las imágenes no ejecutan código remoto (RCE), permitirlas abre la puerta a rastreadores de terceros (Tracking Pixels) y viola el principio de 0 dependencias externas, impactando en la privacidad del usuario y en los Core Web Vitals.
+
+**Siguiente paso o deuda:** Re-ejecutar el Agente Chaos para confirmar el bloqueo exitoso de la inyección de imágenes.
+
+### 2026-05-21 — Fix: Evasión de telemetría en validación Git del Chaos Monkey
+
+**Contexto:** Al ejecutar un bucle de estrés continuo de Chaos Engineering (5 rondas), el agente abortaba a partir de la tercera ronda indicando un entorno Git sucio. El diagnóstico forense demostró que el auditor (`merci-audit.py`) había interceptado exitosamente un ataque XSS, generando su reporte de telemetría en `observabilidad/.audit_report.json`. El Chaos Monkey interpretaba este artefacto como un cambio sin guardar en el código base.
+
+**Hecho:** Se refactorizó la validación `git status` en `scripts/merci/merci-chaos.py`.
+
+**Detalle técnico:** Se implementó un filtro por comprensión (`[line for line in... if "observabilidad/" not in line]`) sobre la salida *porcelain* de Git. Ahora el agente ignora las alteraciones en los directorios de telemetría y logs privados, abortando únicamente si detecta cambios en el código fuente.
+
+**Motivo / criterio:** *Test Resilience*. Las herramientas de estrés deben poder operar en bucle continuo (Continuous Testing). Evitar que la propia telemetría generada por las defensas del sistema bloquee la siguiente ronda de ataques garantiza que la automatización de QA sea infalible y autónoma.
+
+**Siguiente paso o deuda:** Ninguno. El Chaos Monkey está listo para operaciones de estrés masivo.
+
 ### 2026-05-21 — Sec: Hardening de conexión SSH en agente de despliegue
 
 **Contexto:** La directiva `StrictHostKeyChecking=no` utilizada para evadir el prompt interactivo de SSH exponía el orquestador de despliegue a posibles ataques Man-in-the-Middle (MitM), ya que aceptaría indiscriminadamente cualquier cambio futuro en la huella del servidor.
