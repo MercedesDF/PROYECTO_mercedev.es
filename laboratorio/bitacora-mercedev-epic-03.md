@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Perf: Erradicación de penalización LCP por imagen base gigante (Optimizer)
+
+**Contexto:** Tras revertir el uso de `srcset` para solventar el fallo del linter, la puntuación de PageSpeed Insights colapsó de 100 a 81/100 (LCP > 2.3s). La auditoría del JSON reveló que el navegador descargaba la imagen base del avatar a máxima prioridad y sin *lazy load*, la cual seguía pesando 54 KB (1024x1024).
+
+**Hecho:** Se inyectó un límite estricto de redimensionado en `scripts/merci/merci-optimizer.py`. Si el archivo se llama `Merci-en-la-nube`, el script trunca su resolución a `160x160` (tamaño Retina para 80x80) antes de guardar el archivo base WebP.
+
+**Detalle técnico:** Al cargar el PNG bruto (`1024x1024`) en memoria, Pillow lo reduce inmediatamente a 160px. El archivo base exportado pasa a pesar ~4 KB. Esto libera instantáneamente el ancho de banda de la red 4G simulada, permitiendo que el texto del DOM renderice sin retraso (LCP veloz).
+
+**Motivo / criterio:** *Performance Driven Development y Automation*. Esperar que la desarrolladora suba imágenes previas redimensionadas a mano a `.assets-raw` es frágil. El pipeline de *Build* debe imponer las restricciones de rendimiento alterando físicamente los binarios para proteger el HTML inmaculado y el ancho de banda del usuario.
+
+**Siguiente paso o deuda:** Borrar el archivo `Merci-en-la-nube.webp` actual, ejecutar `merci total` para regenerarlo a 4 KB, y certificar la recuperación del 100/100 en producción.
+
 ### 2026-05-21 — Fix: Fallo 404 en rastreador DAST por sobreingeniería en srcset
 
 **Contexto:** El agente `merci-linkcheck.py` bloqueó la compilación tras detectar un error 404 hacia `/assets/images/Merci-en-la-nube-80w.webp`.

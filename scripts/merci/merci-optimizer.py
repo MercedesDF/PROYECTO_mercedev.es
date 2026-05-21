@@ -63,6 +63,13 @@ def optimize_images(verbose=False):
                 elif img.mode != 'RGB':
                     img = img.convert('RGB')
 
+                # QUÉ HACE: Escudo protector de rendimiento para avatares de la UI.
+                # POR QUÉ: Evita que el HTML cargue una imagen base de 1024px (54KB) "Above the Fold",
+                # lo cual destruye el LCP en redes 4G. 160px garantiza calidad Retina con un peso mínimo (~4KB).
+                if "Merci-en-la-nube" in image_path.name and img.width > 160:
+                    aspect_ratio = img.height / img.width
+                    img = img.resize((160, int(160 * aspect_ratio)), Image.Resampling.LANCZOS)
+
                 # Siempre generar una versión base optimizada al tamaño original
                 img.save(base_output, "WEBP", quality=WEBP_QUALITY)
                 if verbose:
