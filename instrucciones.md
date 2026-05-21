@@ -46,6 +46,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
   - `merci-linkedin.py`: Motor de autenticación OIDC (OpenID Connect) y publicación automatizada en LinkedIn.
   - `merci-wp.py`: Sincronizador Headless para inyección masiva en WordPress vía API REST.
   - `merci-deploy.py`: Agente de Despliegue Remoto para sincronización SSH y purga de Varnish en producción.
+  - `merci-completo.py`: Orquestador Supremo DevSecOps que encadena QA, commit atómico y despliegue a producción.
   - `merci-extract-metrics.py`: Extractor automatizado de métricas Core Web Vitals desde PDFs.
   - `merci-telemetry.py`: Inyector dinámico de telemetría del proyecto (Commits, Agentes, Docs).
   - `merci-sre.py`: Demonio de telemetría pasiva para la ingesta de datos en Prometheus y Grafana.

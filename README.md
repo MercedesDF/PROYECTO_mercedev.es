@@ -77,6 +77,7 @@ El proyecto prioriza la automatización reproducible, auditoría continua, reduc
 | `merci-audit.py` | Auditoría estática y bloqueo de secretos |
 | `merci-commit.py` | Commits atómicos guiados |
 | `merci-init.py` | Instanciador de nuevos repositorios |
+| `merci-completo.py` | Orquestador Supremo DevSecOps (QA -> Commit -> Deploy) |
 
 ### IA & Gobernanza
 | Script | Función |
@@ -180,6 +181,7 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 - `merci-linkedin.py`: Motor de autenticación OIDC (OpenID Connect) y publicación automatizada en LinkedIn.
 - `merci-wp.py`: Publicador Headless para WordPress vía API REST.
 - `merci-deploy.py`: Agente de Despliegue Remoto (CD Local) para sincronización SSH y purga de Varnish.
+- `merci-completo.py`: Orquestador Supremo DevSecOps que encadena QA, commit atómico y despliegue a producción.
 - `merci-extract-metrics.py`: Extractor de métricas Core Web Vitals desde PDFs de PageSpeed Insights.
 - `merci-telemetry.py`: Inyector dinámico de telemetría del proyecto (Commits, Agentes, Docs).
 - `merci-styles.py` y `merci-watcher.py`: Compilador SASS 7-1 local y vigilante en tiempo real.
