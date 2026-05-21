@@ -38,6 +38,30 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — UX/DX: Creación de tutorial nativo PGP en la Biblioteca
+
+**Contexto:** En la iteración anterior, se enlazaron herramientas externas (Thunderbird, GnuPG) en la página de Contacto para asistir a los usuarios que no sabían usar PGP. Esto derivaba tráfico fuera del sitio web y rompía la filosofía de retención de la Biblioteca.
+
+**Hecho:** Se redactó `laboratorio/incubacion/cuadernillo-tutorial-cifrado-pgp.md` y se enlazó internamente desde `public/contacto/index.html`.
+
+**Detalle técnico:** El tutorial abarca soluciones con fricción cero (Thunderbird), extensiones de navegador (Mailvelope) y CLI puro (GnuPG). La página de contacto ahora redirige hacia el HTML compilado internamente.
+
+**Motivo / criterio:** *Docs-as-Code y User Retention*. Redactar documentación propia en lugar de delegar el aprendizaje a terceros demuestra autoridad técnica, mejora el SEO interno mediante *cross-linking* y retiene al visitante dentro del ecosistema *mercedev.es*.
+
+**Siguiente paso o deuda:** Promover el nuevo cuadernillo (`merci promote`), ejecutar la compilación (`merci total`) y sellar la fase con `merci commit`.
+
+### 2026-05-21 — UX/UI: Asistencia cognitiva para el uso de PGP en Contacto
+
+**Contexto:** La página de contacto ofrecía la clave pública PGP pero asumía que el 100% de los visitantes poseía los conocimientos técnicos para importarla y cifrar un mensaje, generando fricción para usuarios menos experimentados.
+
+**Hecho:** Se añadió un bloque de asistencia `<small>` en `public/contacto/index.html` con enlaces a software estándar (Thunderbird / OpenPGP).
+
+**Detalle técnico:** Se integraron enlaces externos con los atributos de seguridad `target="_blank" rel="noopener noreferrer"` respetando la política de cero dependencias internas.
+
+**Motivo / criterio:** *Accesibilidad Cognitiva y UX*. Proveer seguridad criptográfica no debe convertirse en una barrera elitista. Guiar al usuario hacia las herramientas correctas mejora la tasa de adopción de comunicaciones seguras sin comprometer el minimalismo de la página.
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para validar el HTML y realizar el commit atómico.
+
 ### 2026-05-21 — UX/UI: Simplificación de telemetría en portada (Separation of Concerns)
 
 **Contexto:** Se detectaron desincronizaciones en el Dashboard de métricas del repositorio (líneas de código, releases) que estaba duplicado tanto en la portada (`index.html`) como en el currículum (`sobre-mi/index.html`). 

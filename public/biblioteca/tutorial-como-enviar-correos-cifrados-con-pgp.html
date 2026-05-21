@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Domando a WooCommerce: Jerarquía de plantillas en temas custom — mercedev.es</title>
-    <meta name="description" content="Resolución del secuestro de plantillas por parte de WooCommerce en arquitecturas minimalistas.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom.html">
+    <title>Tutorial: Cómo enviar correos cifrados con PGP — mercedev.es</title>
+    <meta name="description" content="Guía paso a paso para proteger tus comunicaciones por correo electrónico utilizando cifrado asimétrico PGP.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/tutorial-como-enviar-correos-cifrados-con-pgp.html">
     <link rel="stylesheet" href="/css/main.css?v=1779365275">
     <script src="/js/MerciController.js?v=1778974789" defer></script>
     <script src="/js/main.js?v=1777153888" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Domando a WooCommerce: Jerarqu\u00eda de plantillas en temas custom",
-      "description": "Resoluci\u00f3n del secuestro de plantillas por parte de WooCommerce en arquitecturas minimalistas.",
-      "url": "https://mercedev.es/biblioteca/domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom.html"
+      "headline": "Tutorial: C\u00f3mo enviar correos cifrados con PGP",
+      "description": "Gu\u00eda paso a paso para proteger tus comunicaciones por correo electr\u00f3nico utilizando cifrado asim\u00e9trico PGP.",
+      "url": "https://mercedev.es/biblioteca/tutorial-como-enviar-correos-cifrados-con-pgp.html"
     }
     </script>
 </head>
@@ -46,19 +46,37 @@
         <article class="card card--booklet">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                    <h1 class="home-card__title--highlight">Domando a WooCommerce: Jerarquía de plantillas en temas custom</h1>
-                <a href="/descargas/domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                    <h1 class="home-card__title--highlight">Tutorial: Cómo enviar correos cifrados con PGP</h1>
+                <a href="/descargas/tutorial-como-enviar-correos-cifrados-con-pgp.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
-                <h2>El Desafío (Síntoma)</h2>
-<p>Al integrar la tienda en la arquitectura híbrida, WooCommerce destruyó por completo el diseño estructural del proyecto. La página de la tienda carecía de cabecera (<code>&lt;header&gt;</code>), pie de página (<code>&lt;footer&gt;</code>) y CSS, rompiendo la experiencia de usuario. El plugin ignoraba el archivo <code>index.php</code> del Child Theme y escupía un HTML desnudo.</p>
-<h2>La Maniobra (Lógica)</h2>
-<p>Se requirieron dos acciones simultáneas para recuperar el control arquitectónico:
-1. <strong>Declaración de soporte:</strong> Se inyectó <code>add_theme_support('woocommerce')</code> en el archivo <code>functions.php</code>. Esto desactiva el mecanismo de autodefensa del plugin.
-2. <strong>Envoltorio explícito:</strong> Se creó el archivo <code>woocommerce.php</code> en la raíz del tema, replicando la estructura HTML monolítica del proyecto (<code>&lt;body&gt;&lt;header&gt;...&lt;/header&gt;&lt;main&gt;</code>) e inyectando la función <code>woocommerce_content()</code> en el interior del bloque deseado.</p>
-<h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Los sistemas dinámicos complejos o CMS (Content Management System - Sistema de Gestión de Contenidos) como WordPress poseen jerarquías de plantillas (Template Hierarchy) estrictas. Si un tema <em>custom</em> o un Boilerplate minimalista no declara sus intenciones explícitamente mediante <em>hooks</em>, los plugins asumen que el tema es incapaz de renderizarlos y ejecutan rutinas de <em>fallback</em> invasivas. </p>
-<p>Mantener el control de la capa visual en ecosistemas híbridos exige dominar y neutralizar estas inyecciones por defecto, como también se demostró al purgar el CSS basura inyectado por los bloques de WooCommerce (<code>wp_dequeue_style('wc-blocks-style')</code>) para proteger las métricas de rendimiento 100/100.</p>
+                <h2>El concepto (Sin tecnicismos)</h2>
+<p>El cifrado PGP (Pretty Good Privacy) funciona con un sistema de "dos llaves" (criptografía asimétrica):
+1. <strong>La Llave Pública:</strong> Es como un buzón abierto. Cualquiera puede usarla para meter un mensaje y cerrarlo. Se puede compartir libremente.
+2. <strong>La Llave Privada:</strong> Es la única que puede abrir ese buzón. Nunca se comparte y está protegida por contraseña.</p>
+<p>Cuando descargas mi llave pública desde la página de contacto, tu ordenador la usa para "cerrar" el mensaje. Una vez cifrado, ni siquiera tú puedes volver a leerlo. Solo yo, con mi llave privada, podré descifrarlo al recibirlo.</p>
+<h2>Opción 1: Mozilla Thunderbird (La más fácil)</h2>
+<p>Thunderbird es un gestor de correo gratuito que trae PGP integrado de fábrica.
+1. Descarga e instala <a href="https://www.thunderbird.net/">Thunderbird</a>.
+2. Configura tu cuenta de correo habitual (Gmail, Outlook, etc.).
+3. Ve a <strong>Herramientas &gt; Administrador de claves OpenPGP</strong>.
+4. Selecciona <strong>Archivo &gt; Importar clave(s) pública(s) de un archivo</strong> y elige el archivo <code>llave-publica.asc</code> que descargaste de mi web.
+5. Al redactar un nuevo mensaje para mí, activa el botón <strong>Cifrar</strong> en la barra superior. ¡Listo!</p>
+<h2>Opción 2: Correo web (Gmail/Outlook) con Mailvelope</h2>
+<p>Si prefieres seguir usando tu correo directamente desde el navegador:
+1. Instala la extensión gratuita Mailvelope para Chrome, Edge o Firefox.
+2. Abre las opciones de la extensión y ve al <strong>Administrador de Claves</strong>.
+3. Haz clic en <strong>Importar</strong> y sube el archivo <code>llave-publica.asc</code>.
+4. Cuando abras Gmail o Outlook, verás el icono de Mailvelope integrado en el editor de mensajes. Úsalo para escribir y cifrar el correo antes de darle a enviar.</p>
+<h2>Opción 3: Terminal (Para ingenieros)</h2>
+<p>Si ya usas GnuPG en tu sistema Linux o macOS:</p>
+<pre><code class="language-bash"># 1. Importa la clave
+gpg --import llave-publica.asc
+
+# 2. Cifra tu mensaje (genera un archivo .asc)
+gpg --encrypt --armor --recipient mercedev@mercedev.es mensaje.txt
+</code></pre>
+<p>Copia el bloque de texto cifrado resultante y pégalo en un correo normal.</p>
             </div>
         </article>
     </main>

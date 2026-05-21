@@ -301,6 +301,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/tutorial-como-enviar-correos-cifrados-con-pgp</loc>
+      <lastmod>2026-05-21</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/validacion-de-defensas-devsecops-con-chaos-monkey-y-merciauditpy</loc>
       <lastmod>2026-05-21</lastmod>
       <changefreq>weekly</changefreq>
