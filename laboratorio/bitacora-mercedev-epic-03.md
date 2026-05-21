@@ -38,6 +38,22 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Milestone: Cierre definitivo de Fase 2 (Épica 3) y Evaluación de Release
+
+**Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para dar por concluida la Fase 2 de Observabilidad Avanzada, tras haber exportado el Boilerplate y resuelto las derivas documentales en el entorno limpio.
+
+**Hecho:** Se ejecutó la lista de verificación obligatoria de cierre de fase:
+- [x] **1. Deuda Técnica:** 0 TODOs bloqueantes. Regresión de rendimiento en `merci-glosario.py` (6s -> 0.02s) solventada.
+- [x] **2. Cosecha de Conocimiento:** Documentadas directrices de plantillas (Vite-style) y purga de redundancias SASS.
+- [x] **3. Auditoría Documental:** `ROADMAP.md` refleja la Fase 2 como completada. Se invirtió el orden de las Épicas 4 y 5.
+- [x] **4. Evaluación de Release:** Versión `v1.14.0` de la plantilla empaquetada e instanciada con éxito en un clon de prueba (OOBE a 0 errores / 0 advertencias).
+- [x] **5. Snapshot:** Backup local ejecutado y validado (`merci_backup_20260521_111312.zip` con un peso ultra-optimizado de 2.40 MB).
+- [x] **6. Sello Definitivo:** Commit atómico de consolidación generado.
+
+**Motivo / criterio:** *Governance y Definition of Done (DoD)*. Sellar formalmente la Fase 2 certifica que el ecosistema cuenta con telemetría en tiempo real y rutinas de prevención de fuga de datos (DLP) de nivel Enterprise, dejando la arquitectura lista para la implementación criptográfica PGP.
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 de la Épica 3: Identidad Criptográfica y Privacidad (Comunicaciones Cifradas PGP).
+
 ### 2026-05-21 — Perf: Extirpación de inferencia IA en orquestador de Glosario
 
 **Contexto:** El pipeline maestro `merci total` experimentó una regresión de rendimiento severa (~6.08s) en el clon de instanciación debido a que `merci-glosario.py` intentaba inferir nuevos términos detectados con IA de forma sincrónica durante la compilación CI/CD.
