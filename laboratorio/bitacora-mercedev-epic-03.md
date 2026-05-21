@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Perf: Truncamiento Retina en logotipo principal para recuperar 100/100
+
+**Contexto:** Lighthouse penalizó el rendimiento móvil con un 99/100. El análisis demostró que el logotipo principal (`logo.webp`) se estaba sirviendo a su resolución original (731px, ~15 KB), a pesar de renderizarse a 263px en el HTML. En una red 4G simulada, esos 10 KB de sobrepeso en el Largest Contentful Paint (LCP) introducen latencia innecesaria.
+
+**Hecho:** Se inyectó una segunda regla de truncamiento en `scripts/merci/merci-optimizer.py`. Si la imagen procesada es el `logo`, se redimensiona a un máximo de 526px (Retina 2x para 263px).
+
+**Detalle técnico:** Se aplica el mismo principio de "Escudo de Rendimiento" que al avatar del asistente. Cortar la resolución de la imagen base al tamaño útil máximo elimina el desperdicio de red sin requerir el uso complejo y frágil del atributo `srcset`.
+
+**Motivo / criterio:** *Micro-optimización de LCP*. Enviar píxeles que el dispositivo no necesita renderizar destruye el presupuesto de rendimiento. La automatización en Build-Time asegura que el binario resultante sea matemáticamente perfecto para la etiqueta HTML, salvando la puntuación de Core Web Vitals.
+
+**Siguiente paso o deuda:** Borrar el `logo.webp` antiguo, ejecutar `merci total` para regenerarlo más ligero y validar en producción.
+
 ### 2026-05-21 — Docs: Resolución de Deriva Documental en merci-deploy
 
 **Contexto:** El orquestador maestro detectó mediante `merci-drift.py` que el nuevo script `merci-deploy.py` no estaba documentado en los manuales maestros (`README.md`, `instrucciones.md`).

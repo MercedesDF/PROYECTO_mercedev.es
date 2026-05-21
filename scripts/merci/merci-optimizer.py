@@ -70,6 +70,13 @@ def optimize_images(verbose=False):
                     aspect_ratio = img.height / img.width
                     img = img.resize((160, int(160 * aspect_ratio)), Image.Resampling.LANCZOS)
 
+                # QUÉ HACE: Escudo protector de rendimiento para el logotipo principal (LCP).
+                # POR QUÉ: El logotipo se muestra en el DOM a 263x65. Cargar el original (731px)
+                # desperdicia ancho de banda en 4G. 526px garantiza Retina 2x con el mínimo peso.
+                if "logo" in image_path.name.lower() and img.width > 526:
+                    aspect_ratio = img.height / img.width
+                    img = img.resize((526, int(526 * aspect_ratio)), Image.Resampling.LANCZOS)
+
                 # Siempre generar una versión base optimizada al tamaño original
                 img.save(base_output, "WEBP", quality=WEBP_QUALITY)
                 if verbose:
