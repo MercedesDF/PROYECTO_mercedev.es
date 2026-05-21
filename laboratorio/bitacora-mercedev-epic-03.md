@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Docs: Planificación de Compendio Final y Arranque de Fase 3 (PGP)
+
+**Contexto:** Iniciamos la Fase 3 (Identidad Criptográfica y Privacidad PGP), la última etapa técnica de la Épica 3. Conscientes del inmenso volumen de I+D generado a lo largo de esta épica (DevRel autónomo, observabilidad SRE en Grafana, DLP matemático e integraciones de IA local), es necesario planificar la síntesis de este conocimiento antes de clausurarla.
+
+**Hecho:** Se agendó formalmente la creación de un "Compendio Estratégico" de la Épica 3 como hito final del cierre.
+
+**Detalle técnico:** No se redactará el documento en este momento. Se utiliza la entrada de la bitácora actual como mecanismo de *Reminder* estructural (Deuda Positiva).
+
+**Motivo / criterio:** *Knowledge Harvesting y Gestión de Proyectos*. Un compendio consolida la visión de alto nivel. Agendarlo explícitamente antes de entrar en "modo túnel" con la criptografía y las claves PGP garantiza que el cierre de la épica incluirá la retrospectiva y el conocimiento no se disipará.
+
+**Siguiente paso o deuda:** Abordar la implementación de la clave pública PGP en la página de Contacto (Fase 3) y, tras su validación, redactar el compendio estratégico de toda la Épica 3.
+
 ### 2026-05-21 — Milestone: Cierre definitivo de Fase 2 (Épica 3) y Evaluación de Release
 
 **Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para dar por concluida la Fase 2 de Observabilidad Avanzada, tras haber exportado el Boilerplate y resuelto las derivas documentales en el entorno limpio.
