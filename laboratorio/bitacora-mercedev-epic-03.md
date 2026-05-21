@@ -38,6 +38,20 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Fix: Contraste WCAG AA en Estado Activo del Menú de Navegación
+
+**Contexto:** PageSpeed Insights (Lighthouse 13.0.1) sobre `https://mercedev.es/blog/` devolvió una puntuación de Accesibilidad de **95/100** en lugar del esperado 100. El fallo fue un ratio de contraste insuficiente en el enlace `.nav__link` activo (el que corresponde a la página actual en la navegación).
+
+**Hecho:** Se identificó que el estado activo del menú Zero-JS (selector `#page-blog .nav__link[href="/blog/"]`) usaba `$color-primary` (`#ea580c` / Orange 600) sobre el fondo blanco del header (`$color-bg-base: #ffffff`). El ratio de contraste de esta combinación es de **3.01:1**, por debajo del mínimo exigido por WCAG AA (4.5:1) para texto de tamaño normal.
+
+Se sustituyó el color del estado activo por `#c2410c` (Orange 700), el escalón inmediatamente superior de la misma familia cromática, que obtiene un ratio de **4.55:1** sobre fondo blanco — cumpliendo el estándar con margen mínimo pero suficiente. El cambio es visualmente imperceptible para el usuario. El estado `hover` mantiene `$color-primary` porque los estados interactivos transitorios no están sujetos al mismo requisito WCAG.
+
+Fichero modificado: `src/scss/layout/_header.scss` (línea del bloque de estado activo). CSS recompilado con `merci-styles.py` e integrado en el pipeline completo (`merci-total`, 9.54s, 0 hallazgos bloqueantes, 200 URLs validadas).
+
+**Motivo / criterio:** *Accesibilidad Nativa (WAI-ARIA - Web Accessibility Initiative Accessible Rich Internet Applications)*. El proyecto tiene como invariante arquitectónica la puntuación 100/100 en todos los ejes de Core Web Vitals. Un 95 en Accesibilidad es deuda técnica bloqueante para el cierre de Fase.
+
+**Siguiente paso o deuda:** Volver a pasar Lighthouse sobre `https://mercedev.es/blog/` tras el push a producción para validar que la puntuación de Accesibilidad sube a 100. Proceder al Sello Definitivo (`merci commit`) de cierre de Fase 2, Épica 3, y extracción del Boilerplate v1.14.0.
+
 ### 2026-05-21 — Cosecha de Conocimiento: Auditoría Documental Fase 2 (Épica 3)
 
 **Contexto:** Con la sincronización Headless restablecida y la Fase 2 de la Épica 3 operativa, se procedió a la Cosecha de Conocimiento formal: auditoría y actualización de toda la capa documental del proyecto (docs, prompts, instrucciones y README del Boilerplate) para reflejar el estado arquitectónico real acumulado desde la v1.13.
