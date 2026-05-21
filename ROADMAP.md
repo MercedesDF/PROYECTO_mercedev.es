@@ -176,7 +176,7 @@
 
 ---
 
-## ÉPICA 3: DEVREL & OBSERVABILIDAD AVANZADA (En curso)
+## ÉPICA 3: DEVREL & OBSERVABILIDAD AVANZADA (Concluida)
 
 ### Fase 1: Motor de Difusión y Buffer Social
 - [x] Crear la taxonomía/estantería 'SOS Terminal' dentro de Art de Coté.
@@ -206,7 +206,7 @@
 - [x] Aclarar en la leyenda del dashboard de la portada (`index.html`) que las métricas perfectas (100/100) corresponden a la simulación móvil (Mobile-First).
 
 ### Fase 3: Identidad Criptográfica y Privacidad
-- [ ] Implementar y estandarizar flujo de Comunicaciones Cifradas (PGP) en el ecosistema.
+- [x] Implementar y estandarizar flujo de Comunicaciones Cifradas (PGP) en el ecosistema.
 
 ---
 

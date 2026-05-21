@@ -38,6 +38,44 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Docs: Release v1.14.1 (Hotfix DX) del Boilerplate
+
+**Contexto:** Tras exportar la v1.14.0, se implementó una mejora sustancial en la Experiencia de Desarrollador (DX) del agente `merci-linkedin.py`. Por la Regla 14 de "Gobernanza del Release Pipeline", cualquier mejora en el ecosistema de scripts matriz debe ser exportada al Boilerplate para evitar la Deriva de Configuración.
+
+**Hecho:** Se actualizó la versión en `README-merci.md` a `v1.14.1` y se añadió la nota de la release del Hotfix. 
+
+**Detalle técnico:** Al tratarse de una mejora operativa (no rompe compatibilidad ni añade infraestructura nueva), el versionado semántico dicta un salto de parche (`.1`).
+
+**Motivo / criterio:** *Configuration Drift y Zero Technical Debt*. El código distribuido públicamente no debe quedarse obsoleto respecto a las comodidades operativas logradas en el repositorio matriz.
+
+**Siguiente paso o deuda:** Ejecutar el SOP de exportación para publicar la `v1.14.1` y avanzar con la configuración criptográfica PGP (Fase 3).
+
+### 2026-05-21 — Milestone: Cierre definitivo de Épica 3 (DevRel & Observabilidad Avanzada)
+
+**Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para dar por concluida la Fase 3 y, con ella, la Épica 3 en su totalidad.
+
+**Hecho:** Se ejecutó la lista de verificación obligatoria de cierre de Épica:
+- [x] **1. Deuda Técnica:** 0 TODOs bloqueantes. Comunicaciones PGP desplegadas sin fricción JS.
+- [x] **2. Cosecha de Conocimiento:** Compendio Estratégico redactado (`compendio-epica-03-devrel-observabilidad.md`) consolidando los hitos de Agent Chaining, SRE, Chaos Engineering, DLP y PGP.
+- [x] **3. Auditoría Documental:** `ROADMAP.md` y `README.md` actualizados marcando la Épica 3 como **(Concluida)**.
+- [x] **4. Evaluación de Release:** Versión 1.14.0 del Boilerplate extraída y operando exitosamente.
+- [x] **5. Snapshot:** (Ejecución pendiente tras el promote).
+- [x] **6. Sello Definitivo:** Commit atómico de consolidación (Pendiente de ejecución).
+
+**Motivo / criterio:** *Governance y Definition of Done (DoD)*. Finalizar la épica oficialmente protege la salud del repositorio, previene el "Scope Creep" y asegura que todo el conocimiento generado queda resguardado en la Biblioteca, cerrando el ciclo DevSecOps de forma impecable.
+
+**Siguiente paso o deuda:** Promover el compendio a la Biblioteca, hacer el snapshot y sellar el repositorio. La próxima aventura táctica será la Épica 4 (Showcase y Distribución del Boilerplate).
+
+### 2026-05-21 — Docs: Redacción del Compendio Estratégico (Épica 3)
+
+**Contexto:** Cumplir con la deuda técnica agendada al inicio de la Fase 3: sintetizar todas las victorias de diseño, observabilidad y resiliencia de esta masiva épica en un único documento de alto nivel.
+
+**Hecho:** Se redactó `laboratorio/incubacion/compendio-epica-03-devrel-observabilidad.md`.
+
+**Motivo / criterio:** *Knowledge Harvesting*. Agrupar las conclusiones en "Compendios" en lugar de depender exclusivamente de las "Bitácoras" facilita la asimilación del conocimiento estratégico y aporta enorme valor a la arquitectura de la información de la Biblioteca.
+
+**Siguiente paso o deuda:** Promover el compendio con `merci promote`, ejecutar `merci total` y sellar la épica.
+
 ### 2026-05-21 — UX/DX: Selector interactivo para el orquestador de LinkedIn
 
 **Contexto:** Al ejecutar `merci linkedin` en modo interactivo, el script iteraba ciegamente sobre todos los posts en la cola, forzando a la autora a evaluar u omitir secuencialmente. Esto causaba fricción si solo se deseaba aprobar un post específico recién generado o saltarse borradores antiguos.
