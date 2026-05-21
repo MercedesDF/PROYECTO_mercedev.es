@@ -347,6 +347,7 @@ def main():
     # QUÉ HACE: Elimina el flujo de despliegue automático a producción.
     # POR QUÉ: Prevención de acoplamiento. El Boilerplate es agnóstico y no debe heredar rutinas de CD con rutas hardcodeadas de la matriz.
     (REPO_ROOT / ".github" / "workflows" / "deploy.yml").unlink(missing_ok=True)
+    (REPO_ROOT / "scripts" / "merci" / "merci-deploy.py").unlink(missing_ok=True)
 
     # QUÉ HACE: Reconstruye las carpetas estructurales (Matriz y Laboratorio).
     # POR QUÉ: Recrearlas vacías garantiza que no haya fugas de datos (borradores antiguos)

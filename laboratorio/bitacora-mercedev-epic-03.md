@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Perf: Asignación de Fetch Priority para mitigar colisión de LCP
+
+**Contexto:** Al erradicar el `loading="lazy"` del avatar para cumplir la regla de Lighthouse, la imagen comenzó a descargarse de forma temprana (Eager). A pesar de pesar solo 4 KB tras la corrección del optimizador, abría un nuevo *stream* HTTP/2 que competía con `main.css` y la renderización del texto, retrasando el First Contentful Paint (FCP) y bajando la nota a 98/100 en simulación 4G.
+
+**Hecho:** Se implementaron los atributos HTML nativos de prioridad de red y decodificación. Se añadió `fetchpriority="high"` al logotipo principal, y `fetchpriority="low" decoding="async"` al avatar del asistente en todas las plantillas (estáticas y PHP).
+
+**Detalle técnico:** `fetchpriority="low"` instruye al navegador para descargar el recurso sin retrasar el hilo de parser, imitando la contención del ancho de banda que ofrecía `lazy` pero sin violar la regla de validación de Lighthouse para el primer pantallazo (Above the Fold). `decoding="async"` delega la decodificación de la imagen fuera del hilo principal (Main Thread), logrando un TBT perfecto.
+
+**Motivo / criterio:** *Micro-optimización de Performance*. En redes móviles lentas, el orden de llegada de los paquetes es crítico. Micro-gestionar la cascada de peticiones del navegador asegura que los recursos LCP tengan prioridad absoluta de ancho de banda.
+
+**Siguiente paso o deuda:** Desplegar en producción, purgar Varnish y celebrar el 100/100 definitivo.
+
 ### 2026-05-21 — Perf: Erradicación de penalización LCP por imagen base gigante (Optimizer)
 
 **Contexto:** Tras revertir el uso de `srcset` para solventar el fallo del linter, la puntuación de PageSpeed Insights colapsó de 100 a 81/100 (LCP > 2.3s). La auditoría del JSON reveló que el navegador descargaba la imagen base del avatar a máxima prioridad y sin *lazy load*, la cual seguía pesando 54 KB (1024x1024).
