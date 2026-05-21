@@ -157,7 +157,7 @@ if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
             <span class="merci-ui__message-text"></span>
         </div>
         <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
-            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube-80w.webp" srcset="/assets/images/Merci-en-la-nube-80w.webp 1x, /assets/images/Merci-en-la-nube-160w.webp 2x" alt="Interactuar con Merci" width="80" height="80">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80">
         </button>
     </aside>
 

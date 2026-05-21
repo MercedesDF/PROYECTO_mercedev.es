@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Fix: Fallo 404 en rastreador DAST por sobreingeniería en srcset
+
+**Contexto:** El agente `merci-linkcheck.py` bloqueó la compilación tras detectar un error 404 hacia `/assets/images/Merci-en-la-nube-80w.webp`.
+
+**Hecho:** Se revirtió el uso de `srcset` en el componente del avatar (`index.html`, etc.) volviendo a apuntar incondicionalmente a `Merci-en-la-nube.webp`. Se limpió la rutina de conservación en `merci-init.py`.
+
+**Detalle técnico:** El optimizador no generaba las sub-versiones (`80w`) si la imagen original en bruto no superaba cierto tamaño o formato, provocando enlaces rotos pre-compilados. Para un recurso de apenas 5 KB, escalar imágenes es sobreingeniería (Premature Optimization).
+
+**Motivo / criterio:** *KISS (Keep It Simple, Stupid) y Fail-Fast*. El rastreador DAST demostró su valor previniendo que un HTML roto subiera a producción. Revertir a la imagen estática base garantiza resiliencia y mantiene el rendimiento impecable sin introducir fragilidad al pipeline.
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para validar el Fix, realizar el commit atómico y cerrar la sesión.
+
 ### 2026-05-21 — Fix: Fuga de datos en instanciación por ausencia de id en main
 
 **Contexto:** Al clonar e instanciar el Boilerplate, la página `contacto/index.html` no era anonimizada por el script `merci-init.py`, filtrando la clave PGP personal y el correo de la autora al nuevo usuario.
