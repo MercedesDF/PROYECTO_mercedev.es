@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Arch: Migración de extractor de métricas de PDF a JSON
+
+**Contexto:** El agente `merci-extract-metrics.py` generaba ruido constante en la terminal (falsos positivos de métricas faltantes como INP y debugs) debido a la inherente fragilidad de extraer texto bruto de un documento PDF.
+
+**Hecho:** Se establece la decisión arquitectónica (ADR) de abandonar el parseo de PDFs para PageSpeed Insights y transicionar a la ingesta directa de reportes en formato `.json`.
+
+**Detalle técnico:** La exportación JSON de PageSpeed provee un árbol de datos estructurado y determinista. Esto erradicará la dependencia de complejas expresiones regulares (RegEx) y abrirá la puerta a extraer métricas mucho más completas y precisas.
+
+**Motivo / criterio:** *Data Reliability y Clean DX*. Extraer datos de un PDF es un antipatrón si se dispone de un JSON nativo. Eliminar el parser de PDF silenciará las advertencias en la terminal, mejorará el rendimiento del script y blindará la telemetría.
+
+**Siguiente paso o deuda:** Refactorizar `merci-extract-metrics.py` para que ingiera los archivos `.json` e iniciar la Épica 4 (Showcase).
+
 ### 2026-05-21 — Sec: Hardening SEO (Bloqueo de directivas noindex) tras ataque Chaos
 
 **Contexto:** Un simulacro continuo del Agente Chaos inyectó la etiqueta `<meta name="robots" content="noindex, nofollow">` en la portada. El auditor estático (`merci-audit.py`) no lo detectó, exponiendo una vulnerabilidad que podría destruir el posicionamiento (SEO) del proyecto si se despliega en producción.
