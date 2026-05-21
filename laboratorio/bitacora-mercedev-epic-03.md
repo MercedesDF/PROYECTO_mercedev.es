@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Fix: Fuga de datos en instanciación por ausencia de id en main
+
+**Contexto:** Al clonar e instanciar el Boilerplate, la página `contacto/index.html` no era anonimizada por el script `merci-init.py`, filtrando la clave PGP personal y el correo de la autora al nuevo usuario.
+
+**Hecho:** Se inyectó `id="main"` en la etiqueta `<main>` de `public/contacto/index.html`. Se refactorizaron las expresiones regulares en `scripts/merci/merci-init.py` para que atrapen la etiqueta `<main>` independientemente de si tiene el atributo `id`.
+
+**Detalle técnico:** El script exigía `<main[^>]*id="main"[^>]*>` para vaciar el contenido, pero la página de contacto solo tenía `<main class="main">`. Ampliar la regex a `<main[^>]*>` soluciona la ceguera del orquestador. Se corrigió un error de indentación en la escritura de `sobre-mi` y el texto de bienvenida obsoleto de la portada.
+
+**Motivo / criterio:** *Data Leak Prevention (DLP) y Robustez Regex*. Asumir que todas las páginas tienen exactamente los mismos atributos HTML genera fisuras de seguridad. Las herramientas destructivas deben operar con patrones flexibles para garantizar el vaciado incondicional del contenido.
+
+**Siguiente paso o deuda:** Re-instanciar el Boilerplate y comprobar que los índices nacen inmaculados.
+
 ### 2026-05-21 — Perf/UX: Soporte Retina Automatizado (srcset) y resoluciones avatar
 
 **Contexto:** El avatar del asistente cargaba el archivo base original sin redimensionar, provocando penalización. Se requería automatizar las resoluciones para pantallas de alta densidad (Retina) sin cargar datos extra a móviles estándar.

@@ -106,7 +106,7 @@ def anonimizar_portada(nuevo_dominio: str):
             <div class="prose__content">
                 <h2>¡Bienvenido a tu Boilerplate DevSecOps!</h2>
                 <p>Esta plataforma ha sido instanciada con éxito y el código base está listo para ti.</p>
-                <p>Arriba puedes ver los Dashboards de rendimiento en tiempo real calculados por el agente <code>merci-telemetry.py</code>. Este espacio es tuyo para presentar tu proyecto o tesis de ingeniería.</p>
+                <p>Arriba puedes ver el Dashboard de rendimiento calculado empíricamente. Este espacio es tuyo para presentar tu proyecto o tesis de ingeniería.</p>
                 <p>👉 Edita el bloque <code>&lt;article class="prose"&gt;</code> en <code>public/index.html</code> para comenzar a construir tu identidad.</p>
             </div>
         </article>"""
@@ -162,8 +162,8 @@ def anonimizar_paginas_secundarias(nuevo_nombre: str, nuevo_dominio: str):
             </article>
         </section>
     </main>"""
-        content = re.sub(r'<main[^>]*id="main"[^>]*>.*?</main>', nuevo_main_cv, content, flags=re.DOTALL | re.IGNORECASE)
-    cv_path.write_text(content, encoding="utf-8")
+        content = re.sub(r'<main[^>]*>.*?</main>', nuevo_main_cv, content, flags=re.DOTALL | re.IGNORECASE)
+        cv_path.write_text(content, encoding="utf-8")
         
     # 2. Página: Contacto
     contacto_path = REPO_ROOT / "public" / "contacto" / "index.html"
@@ -184,7 +184,7 @@ def anonimizar_paginas_secundarias(nuevo_nombre: str, nuevo_dominio: str):
             </article>
         </section>
     </main>"""
-        content = re.sub(r'<main[^>]*id="main"[^>]*>.*?</main>', nuevo_main_contacto, content, flags=re.DOTALL | re.IGNORECASE)
+        content = re.sub(r'<main[^>]*>.*?</main>', nuevo_main_contacto, content, flags=re.DOTALL | re.IGNORECASE)
         contacto_path.write_text(content, encoding="utf-8")
 
 def resetear_telemetria_html():
