@@ -3203,6 +3203,17 @@
           "L57"
         ]
       }
+    },
+    "KISS": {
+      "nombre": "KISS",
+      "ingles": "Keep It Simple, Stupid",
+      "espanol": "Manténlo sencillo, tonto",
+      "definicion": "Principe de diseño que sugiere mantener las cosas lo más simples y directas posible para evitar complejidad innecesaria.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L61"
+        ]
+      }
     }
   },
   "ignorados": [

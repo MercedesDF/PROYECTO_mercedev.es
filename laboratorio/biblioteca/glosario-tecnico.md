@@ -673,6 +673,16 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1268
 
 ---
+### KISS
+**Inglés:** Keep It Simple, Stupid
+**Español:** Manténlo sencillo, tonto
+
+**Definición:** Principe de diseño que sugiere mantener las cosas lo más simples y directas posible para evitar complejidad innecesaria.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-03.md`: L61
+
+---
 ### LCP
 **Inglés:** Largest Contentful Paint
 **Español:** Despliegue del Contenido Más Grande
