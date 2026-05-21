@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Fix: Ceguera de Varnish (CloudPanel) en despliegue de métricas
+
+**Contexto:** Tras compilar la web localmente y sincronizar con producción (`git push` / `git pull`), las nuevas métricas del proyecto inyectadas en la portada (`index.html`) y el currículum (`sobre-mi/index.html`) no se actualizaban en el navegador del usuario final.
+
+**Hecho:** Se purgó manualmente la caché de Varnish desde la interfaz de CloudPanel (Clear Cache / Purge All).
+
+**Detalle técnico:** CloudPanel enruta el tráfico HTTP a través de Varnish Cache antes de llegar a Nginx. Varnish retiene los archivos estáticos (HTML) en memoria RAM para latencia ultra-baja. Un `git pull` altera los archivos físicos en disco, pero Varnish es agnóstico a esta modificación silenciosa, continuando con la entrega de su copia "fantasma" almacenada en RAM.
+
+**Motivo / criterio:** *Cache Invalidation & Infrastructure Awareness*. Conocer las capas superpuestas de nuestra infraestructura Cloud evita cazar falsos positivos en el código (como dudar del agente de Python cuando en realidad operó perfectamente). Purgar el proxy tras un despliegue estático es una rutina obligatoria en entornos de alto rendimiento.
+
+**Siguiente paso o deuda:** Sellar todos los cambios de la sesión con un commit atómico.
+
 ### 2026-05-21 — UI/UX: Aclaración de métricas móviles en el dashboard (Mobile-First)
 
 **Contexto:** Era necesario clarificar en la portada que los resultados perfectos (100/100) corresponden a la simulación móvil (Mobile-First), sin romper la estética minimalista de la landing page.
