@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Perf: Extirpación de inferencia IA en orquestador de Glosario
+
+**Contexto:** El pipeline maestro `merci total` experimentó una regresión de rendimiento severa (~6.08s) en el clon de instanciación debido a que `merci-glosario.py` intentaba inferir nuevos términos detectados con IA de forma sincrónica durante la compilación CI/CD.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-glosario.py` aplicando el patrón *Separation of Concerns* mediante la bandera `--ai`.
+
+**Detalle técnico:** La ejecución por defecto (la que usa `merci total`) ejecuta un cortocircuito (`sys.exit(0)`) tras leer el JSON y compilar el Markdown, reduciendo el tiempo de 6.08s a 0.02s. La lógica pesada de extracción y llamada a la API local de Ollama queda aislada y solo se ejecuta si la desarrolladora invoca explícitamente `python3 scripts/merci/merci-glosario.py --ai`.
+
+**Motivo / criterio:** *Performance Driven Development y CI/CD Determinista*. Un orquestador de construcción no debe hacer inferencia de LLM de forma sincrónica. La generación de documentos debe ser matemática y ultrarrápida. Las operaciones asíncronas de enriquecimiento de IA deben ser manuales o delegadas a demonios de fondo.
+
+**Siguiente paso o deuda:** Re-ejecutar `merci total` para confirmar la recuperación del pipeline Sub-10s y hacer el commit atómico de cierre.
+
 ### 2026-05-21 — Fix: Saneamiento de Deriva Documental y Acrónimos en Boilerplate
 
 **Contexto:** Al clonar la versión exportada v1.14.0 del Boilerplate y ejecutar `merci total` en un entorno limpio, se levantaron 22 advertencias de Deriva Documental en el orquestador (`merci-drift.py` no encontraba los scripts en `instrucciones.md`) y 3 advertencias de acrónimos no expandidos (`DOM` y `JSON-LD`).

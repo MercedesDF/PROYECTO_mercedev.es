@@ -139,12 +139,21 @@ def compile_markdown(state_data):
         f.write(md)
 
 def main():
-    print("🤖 [Merci Glosario] Iniciando compilador autónomo (Data-Driven)...")
+    use_ai = "--ai" in sys.argv
+    state = load_glossary_state()
+    
+    if not use_ai:
+        # MODO COMPILACIÓN: Ultra rápido para el pipeline CI/CD (merci total)
+        print("⚡ [Merci Glosario] Modo Compilación. Construyendo Markdown desde JSON...")
+        compile_markdown(state)
+        sys.exit(0)
+
+    # MODO INTELIGENCIA: Escaneo de términos y llamada a Ollama
+    print("🤖 [Merci Glosario] Iniciando agente autónomo (Modo IA)...")
     if not PROMPT_FILE.exists():
         print(f"❌ Error: No se encontró el prompt en {PROMPT_FILE}")
         sys.exit(1)
-        
-    state = load_glossary_state()
+
     terminos_existentes = {k.lower() for k in state.get("terminos", {}).keys()}
     terminos_ignorados = {k.lower() for k in state.get("ignorados", [])}
     
@@ -154,8 +163,7 @@ def main():
     new_terms = [t for t in extracted.keys() if t.lower() not in terminos_existentes and t.lower() not in terminos_ignorados]
     
     if not new_terms:
-        print("✅ [Merci Glosario] No se detectaron términos nuevos. Compilando Markdown...")
-        compile_markdown(state) # Compilamos por si hubo un borrado manual o cambio en JSON
+        print("✅ [Merci Glosario] No se detectaron términos nuevos.")
         sys.exit(0)
         
     target_terms = sorted(new_terms)[:MAX_TERMS_PER_RUN]
