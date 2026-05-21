@@ -33,7 +33,7 @@ def run_local_command(command, description, custom_env=None):
 def run_remote_command(command, description):
     print(f"  {description}")
     # Se asume que las claves SSH están configuradas (sin contraseña interactiva)
-    ssh_cmd = ["ssh", "-o", "StrictHostKeyChecking=no", f"{SSH_USER}@{SSH_HOST}", command]
+    ssh_cmd = ["ssh", "-o", "StrictHostKeyChecking=accept-new", f"{SSH_USER}@{SSH_HOST}", command]
     result = subprocess.run(ssh_cmd, capture_output=True, text=True)
     
     if result.returncode != 0:

@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Sec: Hardening de conexión SSH en agente de despliegue
+
+**Contexto:** La directiva `StrictHostKeyChecking=no` utilizada para evadir el prompt interactivo de SSH exponía el orquestador de despliegue a posibles ataques Man-in-the-Middle (MitM), ya que aceptaría indiscriminadamente cualquier cambio futuro en la huella del servidor.
+
+**Hecho:** Se sustituyó el parámetro por `StrictHostKeyChecking=accept-new` en `scripts/merci/merci-deploy.py`.
+
+**Detalle técnico:** La opción `accept-new` mantiene la automatización (acepta claves nuevas sin prompt interactivo) pero restaura la comprobación estricta para claves ya conocidas. Si la huella criptográfica de `mercedev.es` se altera en el futuro, SSH bloqueará la conexión y el script abortará.
+
+**Motivo / criterio:** *Secure by Default*. La fricción operativa no debe eliminarse a costa de la integridad criptográfica de la conexión. Esta solución mantiene el despliegue desatendido garantizando el blindaje de la infraestructura.
+
+**Siguiente paso o deuda:** Ninguno.
+
 ### 2026-05-21 — Feat: Orquestador Supremo (merci-completo.py) y Auto-Inyección Headless
 
 **Contexto:** El flujo DevSecOps final requería ejecutar secuencialmente `merci total`, `merci commit` y `merci deploy`. Además, la publicación del contenido dinámico (WordPress) en producción exigía que la desarrolladora editara manualmente el archivo `.env` para cambiar las credenciales de local a remoto.
