@@ -38,6 +38,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Docs: Resolución de Deriva Documental por Hotfix v1.14.1
+
+**Contexto:** Tras implementar el selector interactivo en `merci-linkedin.py` (v1.14.1), los manuales operativos de la matriz habían quedado desactualizados, describiendo el antiguo comportamiento secuencial ciego del orquestador social.
+
+**Hecho:** Se actualizaron `docs/flujo-publicacion-sop.md` y `docs/ciclo-de-vida-contenidos.md`.
+
+**Detalle técnico:** Se reescribieron los pasos del "Flujo Social" para reflejar la existencia del menú numerado interactivo y distinguir explícitamente la fase de aprobación manual de la fase de publicación desatendida (`--auto`).
+
+**Motivo / criterio:** *Zero Document Drift*. El código no está verdaderamente terminado hasta que su documentación es exacta. Mantener los manuales sincronizados con la operativa real es vital para mantener la Única Fuente de Verdad (SSOT).
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 de la Épica 3 (Comunicaciones Cifradas PGP).
+
 ### 2026-05-21 — Docs: Release v1.14.1 (Hotfix DX) del Boilerplate
 
 **Contexto:** Tras exportar la v1.14.0, se implementó una mejora sustancial en la Experiencia de Desarrollador (DX) del agente `merci-linkedin.py`. Por la Regla 14 de "Gobernanza del Release Pipeline", cualquier mejora en el ecosistema de scripts matriz debe ser exportada al Boilerplate para evitar la Deriva de Configuración.

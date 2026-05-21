@@ -4,10 +4,10 @@ descripcion: "Síntesis arquitectónica de la Épica 3: Evolución desde automat
 tipo: "compendio"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-21"
-estado: "incubacion"
+estado: "publicado"
 alt_portada: "Representación gráfica de un panel de observabilidad conectando engranajes automatizados."
+fase: ""
 ---
-
 ## El Desafío (La Complejidad del Escalamiento)
 Tras asentar las bases del *Self-Healing System* (Épica 2), el ecosistema corría el riesgo de volverse opaco y complejo de administrar. La distribución de contenidos dependía de procesos manuales, la salud del repositorio era una "caja negra" invisible hasta que algo fallaba, las fugas de datos (DLP) amenazaban la exportación del Boilerplate y las comunicaciones carecían de garantías criptográficas. El desafío era dotar al proyecto de transparencia absoluta (SRE) y autonomía relacional (DevRel) sin inyectar una sola dependencia externa en la arquitectura.
 
@@ -32,7 +32,7 @@ Hemos transformado la web de un simple "escaparate" a un "centro de mando" que s
 <!-- linkedin:
 Automatizar no es suficiente; necesitas saber qué ocurre cuando no miras. 👁️‍🗨️
 
-Acabo de cerrar la Épica 3 de mi ecosistema DevSecOps (mercedev.es) y el salto ha sido brutal: hemos pasado de scripts estáticos a un entorno SRE completo con Agent Chaining, Chaos Engineering para probar nuestras defensas y comunicaciones cifradas PGP. Todo con cero latencia y cero dependencias externas.
+Acabo de cerrar la Épica 3 de mi ecosistema DevSecOps (mercedev.es) y el salto ha sido brutal: se ha pasado de scripts estáticos a un entorno SRE completo con Agent Chaining, Chaos Engineering para probar nuestras defensas y comunicaciones cifradas PGP. Todo con cero latencia y cero dependencias externas.
 
 Puedes leer el compendio estratégico de esta fase y descubrir cómo la simplicidad radical mejora la observabilidad en el siguiente enlace.
 -->
