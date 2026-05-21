@@ -38,6 +38,42 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — UI/UX: Aclaración de métricas móviles en el dashboard (Mobile-First)
+
+**Contexto:** Era necesario clarificar en la portada que los resultados perfectos (100/100) corresponden a la simulación móvil (Mobile-First), sin romper la estética minimalista de la landing page.
+
+**Hecho:** Se eliminó la leyenda descriptiva (`<p>`) del dashboard por no encajar visualmente, y se inyectó la aclaración directamente en el título de la sección: `<h2>Auditoría de la web actual (mobile-first)</h2>`.
+
+**Detalle técnico:** Modificación directa en el HTML estático de `public/index.html`. 
+
+**Motivo / criterio:** *UI/UX y Minimalismo*. Añadir una leyenda de texto extensa rompía la jerarquía visual y ensuciaba el diseño de la portada. Integrar el contexto "(mobile-first)" directamente en el encabezado cumple el objetivo de transparencia técnica manteniendo la elegancia de la interfaz.
+
+**Siguiente paso o deuda:** Ninguno. Tarea cerrada.
+
+### 2026-05-21 — Arch: Regla de extracción Mobile-First para métricas
+
+**Contexto:** Con la decisión de mostrar únicamente métricas de simulación móvil en la portada, se requería establecer la regla de enrutamiento para el agente extractor de reportes de Lighthouse.
+
+**Hecho:** Se descarta la modificación del código del agente extractor. Se establece como procedimiento operativo (SOP) que la desarrolladora guarde el PDF de la auditoría móvil siempre en último lugar.
+
+**Detalle técnico:** El script `merci-extract-metrics.py` ya utiliza `max(pdfs, key=lambda p: p.stat().st_mtime)` para ingerir el archivo más reciente. Introducir un filtro estricto por sufijo de nombre se rechazó porque añadiría fragilidad al pipeline si la autora comete un error tipográfico al teclear el nombre al guardar el PDF.
+
+**Motivo / criterio:** *Simplicidad vs Sobreingeniería (KISS)*. Mapear la lógica a través del orden cronológico en lugar de forzar reglas de validación de texto (RegEx/Suffixes) es más robusto y requiere cero mantenimiento de código.
+
+**Siguiente paso o deuda:** Ninguno. Tarea completada sin deuda técnica añadida.
+
+### 2026-05-21 — Docs: Registro de tarea para clarificar métricas móviles en la portada
+
+**Contexto:** Se ha validado que tanto la versión móvil como la de escritorio obtienen una puntuación perfecta (100/100/100/100) en Lighthouse. Dado que la arquitectura sigue el principio *Mobile-First*, es necesario reflejar en la UI que los datos del dashboard corresponden a la auditoría móvil, que es la más estricta.
+
+**Hecho:** Se añadió la tarea en el `ROADMAP.md` (Épica 3, Fase 2) para inyectar esta aclaración en el `index.html`.
+
+**Detalle técnico:** Se ha listado como un `[ ]` pendiente para que no se pase por alto antes de cerrar definitivamente la fase de observabilidad visual de la portada.
+
+**Motivo / criterio:** *Transparencia y Autoridad Técnica*. Alcanzar un cuádruple 100 en escritorio es meritorio, pero lograrlo bajo simulación móvil 4G es la verdadera prueba de rendimiento (Performance Engineering). Especificar el entorno empodera el dato.
+
+**Siguiente paso o deuda:** Tarea completada. La leyenda fue inyectada en el DOM de la portada.
+
 ### 2026-05-21 — Fix: Contraste WCAG AA en Estado Activo del Menú de Navegación
 
 **Contexto:** PageSpeed Insights (Lighthouse 13.0.1) sobre `https://mercedev.es/blog/` devolvió una puntuación de Accesibilidad de **95/100** en lugar del esperado 100. El fallo fue un ratio de contraste insuficiente en el enlace `.nav__link` activo (el que corresponde a la página actual en la navegación).

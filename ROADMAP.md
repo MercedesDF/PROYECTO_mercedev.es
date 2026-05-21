@@ -203,6 +203,7 @@
 - [x] Instrumentar `merci-sre.py` para exponer el historial de resiliencia de Chaos Engineering hacia Grafana.
 - [x] Integrar métricas de Inteligencia Artificial (fallbacks a la nube, errores del auditor) en Grafana.
 - [x] Instrumentar la inyección dinámica de telemetría (commits, líneas de doc, versiones) en la página estática "Sobre Mí" y Portada.
+- [x] Aclarar en la leyenda del dashboard de la portada (`index.html`) que las métricas perfectas (100/100) corresponden a la simulación móvil (Mobile-First).
 
 ### Fase 3: Identidad Criptográfica y Privacidad
 - [ ] Implementar y estandarizar flujo de Comunicaciones Cifradas (PGP) en el ecosistema.
