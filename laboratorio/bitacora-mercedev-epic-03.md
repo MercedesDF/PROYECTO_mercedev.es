@@ -38,6 +38,30 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — UX/UI: Simplificación de telemetría en portada (Separation of Concerns)
+
+**Contexto:** Se detectaron desincronizaciones en el Dashboard de métricas del repositorio (líneas de código, releases) que estaba duplicado tanto en la portada (`index.html`) como en el currículum (`sobre-mi/index.html`). 
+
+**Hecho:** Se decidió extirpar completamente el bloque "Métricas del Repositorio en GitHub" de la portada. Además, se limpió la lista de objetivos en `merci-init.py` para que ya no intente auditar telemetría en `index.html`.
+
+**Detalle técnico:** Se eliminó el nodo HTML redundante en la portada. Ahora `index.html` expone de forma exclusiva el rendimiento del "Producto" (las métricas extraídas del PDF de PageSpeed), y `sobre-mi/index.html` expone de forma exclusiva el rendimiento del "Creador" (el esfuerzo de ingeniería inyectado por `merci-telemetry.py`).
+
+**Motivo / criterio:** *Separation of Concerns y Fricción Cero*. Duplicar datos en distintas vistas genera desincronización y deuda técnica en las Expresiones Regulares de los agentes extractores. Eliminar lo que sobra clarifica la experiencia de usuario (evita sobrecargar la portada con números) y requiere cero esfuerzo de mantenimiento.
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para validar el pipeline limpio, realizar el commit atómico y cerrar la sesión.
+
+### 2026-05-21 — Fix: Sincronización de telemetría en portada (Regex Boundary)
+
+**Contexto:** El agente `merci-telemetry.py` actualizaba la versión de la Release en la página "Sobre Mí", pero ignoraba el dashboard de la portada (`index.html`), provocando desincronización de los datos públicos.
+
+**Hecho:** Se cambió la etiqueta `<span class="hero__metric-label">Releases Boilerplate</span>` a `Release Boilerplate` en `public/index.html`.
+
+**Detalle técnico:** La expresión regular del inyector de telemetría utiliza límites de palabra exactos (`\bRelease\b` o similar) para encontrar el nodo a inyectar sin causar colisiones. Al estar el texto de la portada en plural ("Releases"), el patrón fallaba silenciosamente y el HTML no se actualizaba.
+
+**Motivo / criterio:** *Data Integrity & Robustez Regex*. Los agentes extractores y los inyectores deben compartir un identificador léxico exacto. Homogeneizar las etiquetas en la UI a "Release" permite a la automatización reconocer y actualizar todos los cuadros de mando del ecosistema a la vez.
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para propagar el dato correcto en todos los Dashboards estáticos.
+
 ### 2026-05-21 — Docs: Resolución de Deriva Documental por Hotfix v1.14.1
 
 **Contexto:** Tras implementar el selector interactivo en `merci-linkedin.py` (v1.14.1), los manuales operativos de la matriz habían quedado desactualizados, describiendo el antiguo comportamiento secuencial ciego del orquestador social.
