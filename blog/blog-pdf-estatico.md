@@ -2,7 +2,7 @@
 titulo: "Compilación en Frío: La Superioridad del SSG frente al PDF Dinámico"
 descripción: "Análisis arquitectónico sobre por qué asumir la carga computacional gráfica en Build-Time garantiza un ecosistema seguro, de nulo coste y Zero-JS."
 estado: "publicado"
-estado_social: "en_cola"
+estado_social: "aprobado"
 tema: "Blog"
 fase: "Épica 3 - Fase 2"
 fecha: "2026-05-21"

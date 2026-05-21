@@ -2,7 +2,7 @@
 titulo: "Automatización Extendida: Compilador Data-Driven para la Biblioteca"
 descripción: "Evolución del agente autónomo hacia una arquitectura JSON (SSOT) para la compilación determinista del conocimiento."
 estado: "publicado"
-estado_social: "en_cola"
+estado_social: "aprobado"
 tema: "Blog"
 fase: "Épica 3 - Fase 2"
 fecha: "2026-05-21"

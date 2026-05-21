@@ -2,7 +2,7 @@
 titulo: "Agent Chaining: Encadenamiento Automático entre Agentes de Redacción y Marketing"
 descripción: "Cómo el patrón Agent Chaining elimina la fricción operativa pasando el contexto dinámicamente entre agentes de IA."
 estado: "publicado"
-estado_social: "en_cola"
+estado_social: "aprobado"
 tema: "Blog"
 fase: "Épica 3 - Fase 2"
 fecha: "2026-05-21"

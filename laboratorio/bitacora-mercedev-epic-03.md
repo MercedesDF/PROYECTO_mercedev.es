@@ -38,6 +38,44 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — UX/DX: Selector interactivo para el orquestador de LinkedIn
+
+**Contexto:** Al ejecutar `merci linkedin` en modo interactivo, el script iteraba ciegamente sobre todos los posts en la cola, forzando a la autora a evaluar u omitir secuencialmente. Esto causaba fricción si solo se deseaba aprobar un post específico recién generado o saltarse borradores antiguos.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-linkedin.py` implementando un menú de selección indexado.
+
+**Detalle técnico:** Se reemplazó el bucle `for` lineal por un `while True` que imprime la lista de posts en estado `en_cola` ordenados por fecha. Permite seleccionar por índice numérico cuál revisar, aprobar u omitir, actualizando los contadores del buffer en tiempo real.
+
+**Motivo / criterio:** *Developer Experience (DX) y Control de Usuario*. La máquina debe asistir, no imponer el ritmo. Darle al humano un selector panorámico con fechas y nombres permite una curación quirúrgica de la cola social.
+
+**Siguiente paso o deuda:** Ninguno. Funcionalidad de publicación optimizada para uso selectivo.
+
+### 2026-05-21 — Sec: Inyección de Huella Digital PGP en Contacto
+
+**Contexto:** Tras generar el par de claves PGP (RSA 4096) para la identidad criptográfica de la autora, era necesario exponer la Huella Digital (Fingerprint) en la página de contacto para que los clientes y auditores puedan verificar la clave pública.
+
+**Hecho:** Se inyectó la huella `9198 EDF7 40BD 027C 6746  62DB 7D76 23BE 599F D138` en `public/contacto/index.html`.
+
+**Detalle técnico:** Se reemplazó el *placeholder* por la huella real generada por GnuPG. Se evitó la inyección de botones de copia con JavaScript o estilos en línea para respetar estrictamente las políticas del linter (`UI_INLINE_STYLE` y `UI_INLINE_SCRIPT`), manteniendo el DOM puro y estático.
+
+**Motivo / criterio:** *Zero-Bloat y Single Source of Truth*. Servir la huella estáticamente en texto plano respeta el diseño minimalista de la plataforma y garantiza la seguridad de validación sin engordar el código ni violar las políticas DevSecOps del ecosistema.
+
+**Siguiente paso o deuda:** Ejecutar `merci total`, certificar el 0/0 en auditoría y sellar la sesión con `merci commit` para cerrar la Fase 3 de forma definitiva.
+
+### 2026-05-21 — Sec: Generación de Identidad Criptográfica (PGP) y Cuadernillo
+
+**Contexto:** Iniciar la Fase 3 estableciendo un canal de comunicación asimétrico cifrado (E2EE) para la página de Contacto, ya que no se disponía de un par de claves criptográficas previo.
+
+**Hecho:**
+- Generación guiada de par de claves PGP (RSA 4096) mediante `gpg` en terminal local.
+- Creación de `laboratorio/incubacion/cuadernillo-identidad-criptografica-pgp.md` documentando el paradigma de Zero-Bloat vs Formularios PHP.
+
+**Detalle técnico:** Se emplea `gpg --armor --export` para volcar la clave pública al repositorio en `public/llave-publica.asc`. El archivo viajará en el despliegue como un activo estático puro, delegando el cómputo de cifrado al cliente y eliminando vectores de inyección XSS de los formularios tradicionales.
+
+**Motivo / criterio:** *Privacy by Design y Zero Trust*. Proveer una clave PGP pública eleva la autoridad técnica del ecosistema, promueve comunicaciones seguras y no requiere la instalación de ninguna librería de terceros en el código Python de la infraestructura.
+
+**Siguiente paso o deuda:** Finalizar la generación, inyectar el *Fingerprint* (Huella Digital) en `public/contacto/index.html` y compilar.
+
 ### 2026-05-21 — Docs: Planificación de Compendio Final y Arranque de Fase 3 (PGP)
 
 **Contexto:** Iniciamos la Fase 3 (Identidad Criptográfica y Privacidad PGP), la última etapa técnica de la Épica 3. Conscientes del inmenso volumen de I+D generado a lo largo de esta épica (DevRel autónomo, observabilidad SRE en Grafana, DLP matemático e integraciones de IA local), es necesario planificar la síntesis de este conocimiento antes de clausurarla.
