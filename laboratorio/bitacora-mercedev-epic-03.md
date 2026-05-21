@@ -38,6 +38,30 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-21 — Perf/UX: Soporte Retina Automatizado (srcset) y resoluciones avatar
+
+**Contexto:** El avatar del asistente cargaba el archivo base original sin redimensionar, provocando penalización. Se requería automatizar las resoluciones para pantallas de alta densidad (Retina) sin cargar datos extra a móviles estándar.
+
+**Hecho:** Se añadieron las resoluciones `160` y `80` a `TARGET_WIDTHS` en `scripts/merci/merci-optimizer.py`. Se implementó el atributo `srcset` en el HTML del avatar (`index.html`, plantillas WP y estáticas).
+
+**Detalle técnico:** El atributo `srcset="...80w.webp 1x, ...160w.webp 2x"` permite al navegador decidir en tiempo real qué archivo descargar basándose en el *Device Pixel Ratio* (DPR) de su pantalla. El optimizador ahora escupe estas micro-versiones automáticamente a partir del archivo original en `.assets-raw/`. Se fortificó `merci-init.py` para preservar estas sub-versiones al clonar el Boilerplate.
+
+**Motivo / criterio:** *Performance Driven Development y Retina Ready*. Proveer matemáticas exactas en HTML y delegar la creación de los binarios responsivos al orquestador es el cénit de la automatización multimedia (Zero-Bloat).
+
+**Siguiente paso o deuda:** Asegurar que la imagen origen esté en `.assets-raw/`, re-ejecutar `merci total` para regenerar las imágenes y empaquetar el commit atómico.
+
+### 2026-05-21 — Perf: Resolución de penalización de rendimiento (Lazy Load Above-the-Fold)
+
+**Contexto:** La puntuación de rendimiento móvil cayó inesperadamente a 98/100. El análisis de la cascada de red del reporte JSON de PageSpeed reveló que la imagen del avatar del asistente (`Merci-en-la-nube.webp`) estaba retrasando severamente el Speed Index.
+
+**Hecho:** Se eliminó el atributo `loading="lazy"` del `<img class="merci-ui__avatar">` en todas las plantillas (estáticas y dinámicas). Adicionalmente, se ordenó redimensionar el archivo físico, el cual medía 1024x1024px (54 KB) para ser renderizado a 80x80px.
+
+**Detalle técnico:** El avatar de Merci es un elemento `fixed` que siempre aparece en la pantalla inicial (*viewport*). Usar *lazy loading* en recursos *Above the Fold* fuerza al navegador a retrasar su descarga hasta calcular el Layout completo del DOM (en el reporte JSON, la descarga se retrasaba casi 1 segundo respecto al logo).
+
+**Motivo / criterio:** *Performance Driven Development*. Las imágenes visibles en el primer pantallazo jamás deben ser "perezosas". Eliminar la orden de retraso y optimizar el peso del recurso garantiza la recuperación del 100/100 en dispositivos móviles lentos.
+
+**Siguiente paso o deuda:** Re-ejecutar `merci total` y empaquetar el commit de cierre.
+
 ### 2026-05-21 — UX/DX: Creación de tutorial nativo PGP en la Biblioteca
 
 **Contexto:** En la iteración anterior, se enlazaron herramientas externas (Thunderbird, GnuPG) en la página de Contacto para asistir a los usuarios que no sabían usar PGP. Esto derivaba tráfico fuera del sitio web y rompía la filosofía de retención de la Biblioteca.

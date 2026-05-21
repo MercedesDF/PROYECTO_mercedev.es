@@ -23,7 +23,7 @@ SOURCE_DIR = REPO_ROOT / ".assets-raw"
 DEST_DIR = REPO_ROOT / "assets/images"
 
 # Tamaños objetivo en píxeles de ancho. El alto se calculará manteniendo la proporción.
-TARGET_WIDTHS = [1920, 1280, 800, 400]
+TARGET_WIDTHS = [1920, 1280, 800, 400, 160, 80]
 WEBP_QUALITY = 80  # Calidad del 0 al 100. 80 es un buen equilibrio.
 
 def optimize_images(verbose=False):

@@ -369,7 +369,7 @@ def main():
     
     imagenes_a_conservar = ["favicon.ico", "favicon.png", "logo.webp", "logo.png"]
     if incluir_ia:
-        imagenes_a_conservar.append("Merci-en-la-nube.webp")
+        imagenes_a_conservar.extend(["Merci-en-la-nube.webp", "Merci-en-la-nube-80w.webp", "Merci-en-la-nube-160w.webp"])
     purge_directory(REPO_ROOT / "assets" / "images", exclude=imagenes_a_conservar)
     
     # Purga selectiva de manuales operativos exclusivos de la matriz
