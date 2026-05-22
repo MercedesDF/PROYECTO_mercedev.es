@@ -142,13 +142,13 @@ def update_index_html(metrics: dict):
 def main():
     print("🚀 Iniciando extracción de métricas DevSecOps (Data-Driven JSON)...")
     if not AUDITORIAS_DIR.exists() or not AUDITORIAS_DIR.is_dir():
-        print(f"❌ Error: No existe la carpeta '{AUDITORIAS_DIR.name}' en la raíz del proyecto.")
-        sys.exit(1)
+        print(f"  ℹ️ [Merci Info] No existe la carpeta '{AUDITORIAS_DIR.name}'. Omitiendo actualización del Dashboard.")
+        sys.exit(0)
         
     jsons = list(AUDITORIAS_DIR.glob("*.json"))
     if not jsons:
-        print(f"❌ Error: No se encontraron archivos JSON de auditoría en '{AUDITORIAS_DIR.name}'.")
-        sys.exit(1)
+        print(f"  ℹ️ [Merci Info] No se encontraron archivos JSON de auditoría. Omitiendo actualización del Dashboard.")
+        sys.exit(0)
         
     # Obtener el archivo JSON más reciente
     latest_json = max(jsons, key=lambda p: p.stat().st_mtime)

@@ -36,6 +36,17 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-22 — Fix/DX: Degradación Elegante en extractor JSON para instanciación
+
+**Contexto:** Al instanciar el Boilerplate v1.15.0 y ejecutar `merci total` en el entorno limpio, el orquestador colapsó con un error fatal (`sys.exit(1)`) porque el script de inicialización había purgado (correctamente) la carpeta de auditorías, dejando al extractor de métricas sin directorio objetivo.
+
+**Hecho:**
+- Se refactorizó `scripts/merci/merci-extract-metrics.py` para aplicar el patrón *Fail Gracefully*, sustituyendo las salidas fatales por advertencias informativas (`sys.exit(0)`).
+
+**Motivo / criterio:** *Out-of-the-Box Experience (OOBE)*. Un nuevo usuario que clona el Boilerplate no tiene por qué tener auditorías JSON generadas de antemano. El script debe informar silenciosamente y permitir que el pipeline maestro continúe con el resto de las tareas, en lugar de bloquear la compilación inicial por la ausencia de datos estadísticos.
+
+**Siguiente paso o deuda:** Re-empaquetar la versión v1.15.0 en el repositorio del Boilerplate.
+
 ### 2026-05-22 — Milestone: Cierre definitivo de Épica 4 (Rendimiento Extremo)
 
 **Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para dar por concluida la Épica 4 y planificar la Épica 5 (Showcase).
