@@ -210,7 +210,17 @@
 
 ---
 
-## ÉPICA 4: SHOWCASE Y DISTRIBUCIÓN DEL BOILERPLATE (En cola)
+## ÉPICA 4: ESTABILIZACIÓN Y RENDIMIENTO EXTREMO (En curso)
+
+### Fase 1: Erradicación de la Varianza del TBT (Mobile-First)
+- [ ] Analizar y fragmentar tareas síncronas largas (Yielding) en `MerciController.js` y `main.js` mediante `requestIdleCallback` o `setTimeout`.
+- [ ] Delegar decodificación de imágenes críticas fuera del hilo principal (`decoding="async"`).
+- [ ] Validar estabilidad de TBT 0ms en auditorías bajo estrangulamiento de CPU (simulación 4G lenta).
+- [ ] Obtener 100/100 constante en las tres capas: Mobile 4G, Mobile Potente y Escritorio.
+
+---
+
+## ÉPICA 5: SHOWCASE Y DISTRIBUCIÓN DEL BOILERPLATE (En cola)
 
 ### Fase 1: Demostración Interactiva (Live Demo)
 - [ ] Desplegar una instancia pública del Boilerplate vacío para visualización de usuarios.
@@ -219,10 +229,11 @@
 
 ---
 
-## ÉPICA 5: E-COMMERCE EXTREMO (En preparación)
+## ÉPICA 6: E-COMMERCE EXTREMO (En preparación)
 
 ### Fase 1: Pasarela de Pago y Rendimiento Híbrido
 - [ ] Configurar pasarela de pago (Stripe/PayPal) en el entorno aislado.
 - [ ] Implementar carga diferida (Lazy Load) o Web Workers (Partytown) para desencolar scripts de terceros del hilo principal.
 - [ ] Ajustar Content Security Policy (CSP) en Nginx para permitir iframes de pago sin degradar el escudo XSS.
 - [ ] Mantener 100/100 en Core Web Vitals (TBT 0ms) durante todo el proceso de *checkout*.
+- [ ] Integrar el despliegue del E-commerce en el orquestador supremo (`merci-completo.py`).
