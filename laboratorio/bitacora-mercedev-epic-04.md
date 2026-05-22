@@ -36,6 +36,44 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-22 — Data: Refactorización Data-Driven del Extractor de Métricas (JSON)
+
+**Contexto:** La extracción mediante librería de PDF generaba constantes alertas de consola por métricas esperadamente ausentes y dependía de expresiones regulares frágiles sobre texto ruidoso. Además, las distancias físicas entre nodos de prueba y servidores originaban falsos positivos por latencia de red.
+
+**Hecho:**
+- Se refactorizó `merci-extract-metrics.py` para erradicar la dependencia de `pypdf` y migrar a la lectura estructurada de archivos `.json` provistos por Catchpoint/PageSpeed.
+- Se implementó un escudo de diagnóstico SRE que detecta descensos en Performance debidos exclusivamente a alta latencia o TTFB superior a 300ms, documentando el falso positivo en `observabilidad/falsos_positivos_red.log`.
+- Se desinstaló la librería `pypdf` del entorno virtual y se confirmó su ausencia en `requirements.txt`, acercando el proyecto a 0 dependencias externas.
+- Se reubicaron los reportes históricos `.pdf` a la subcarpeta `auditorias-pagespeed.web.dev/historico-pdf/` para mantener el directorio limpio y enfocado exclusivamente en JSONs.
+
+**Motivo / criterio:** *Data Reliability & SRE*. Leer métricas de un árbol JSON estructurado es rápido y determinista. Erradica los falsos positivos de parseo y nos acerca a las 0 dependencias externas. Identificar la "Física de Redes" (Speed of Light) como causa de caídas salva al equipo de perseguir optimizaciones irreales en código que rinde perfectamente a nivel de CPU.
+
+**Siguiente paso o deuda:** Actualizar la documentación y empaquetar la Release v1.15.0 del Boilerplate.
+
+### 2026-05-22 — Milestone: Cierre definitivo de Épica 4 (Rendimiento Extremo)
+
+**Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para dar por concluida la Épica 4 y planificar la Épica 5 (Showcase).
+
+**Hecho:**
+- Se identificó y resolvió la deuda técnica de plantillas monolíticas (`woocommerce.php`).
+- Se redactó el compendio estratégico `cuadernillo-compendio-epica-04-rendimiento.md`.
+- Se actualizaron los manuales maestros (`ROADMAP.md` y `README.md`) desplazando el estado a Épica 5 en curso.
+- Se preparó la nueva release `v1.15.0` para el Boilerplate.
+
+**Motivo / criterio:** *Governance y Definition of Done (DoD)*. Un ecosistema DevSecOps no avanza con hilos sueltos ni deudas escondidas. Sellar la infraestructura y purgar la Deriva Documental es la garantía innegociable de que el Boilerplate público recibe una versión base matemáticamente perfecta.
+
+**Siguiente paso o deuda:** Ejecutar `merci completo` e Iniciar la Épica 5 (Showcase y Distribución).
+
+### 2026-05-22 — Perf: Reducción de ejecuciones de Lighthouse CI en GitHub Actions
+
+**Contexto:** El aumento a 5 ejecuciones de Lighthouse en la integración continua (para obtener una mediana del TBT) disparó el tiempo de validación en la nube, ralentizando excesivamente el ciclo de retroalimentación de la desarrolladora.
+
+**Hecho:** Se redujo el parámetro `runs` de 5 a 3 en `.github/workflows/lighthouse.yml`.
+
+**Motivo / criterio:** *Developer Experience (DX) vs Precisión en CI*. Las validaciones de rendimiento rigurosas y empíricas se están realizando de forma externa y asíncrona (Catchpoint / PageSpeed). El pipeline de GitHub Actions debe actuar como una barrera rápida (*Fail-Fast*). 3 ejecuciones es el equilibrio óptimo entre mitigar la varianza aleatoria de la nube y mantener un despliegue ágil.
+
+**Siguiente paso o deuda:** Iniciar la Épica 5 (Showcase y Distribución del Boilerplate).
+
 ### 2026-05-22 — Perf: Despriorización de red (Fetch Priority) del logo para salvar el LCP
 
 **Contexto:** Tras las últimas optimizaciones, la puntuación de Lighthouse en móvil 4G cayó a 97/100. El análisis forense del JSON de PageSpeed/Catchpoint reveló que el `logo.webp` (marcado con `fetchpriority="high"`) estaba robando ancho de banda al archivo `main.css`, retrasando el pintado general de la pantalla.

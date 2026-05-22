@@ -210,17 +210,18 @@
 
 ---
 
-## ÉPICA 4: ESTABILIZACIÓN Y RENDIMIENTO EXTREMO (En curso)
+## ÉPICA 4: ESTABILIZACIÓN Y RENDIMIENTO EXTREMO (Concluida)
 
 ### Fase 1: Erradicación de la Varianza del TBT (Mobile-First)
 - [x] Analizar y fragmentar tareas síncronas largas (Yielding) en `MerciController.js` y `main.js` mediante `requestIdleCallback` o `setTimeout`.
 - [x] Delegar decodificación de imágenes críticas fuera del hilo principal (`decoding="async"`).
 - [x] Validar estabilidad de TBT 0ms en auditorías bajo estrangulamiento de CPU (simulación 4G lenta).
 - [x] Obtener 100/100 constante en las tres capas: Mobile 4G, Mobile Potente y Escritorio.
+- [x] Migrar extracción de métricas de PDF a JSON (Catchpoint/PageSpeed) eliminando dependencias externas e integrando diagnósticos de red.
 
 ---
 
-## ÉPICA 5: SHOWCASE Y DISTRIBUCIÓN DEL BOILERPLATE (En cola)
+## ÉPICA 5: SHOWCASE Y DISTRIBUCIÓN DEL BOILERPLATE (En curso)
 
 ### Fase 1: Demostración Interactiva (Live Demo)
 - [ ] Desplegar una instancia pública del Boilerplate vacío para visualización de usuarios.
