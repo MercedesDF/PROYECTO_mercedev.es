@@ -36,6 +36,29 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-22 — Milestone: Validación 100/100 y Cierre de Fase 1 (Épica 4)
+
+**Contexto:** Tras aplicar el yielding en JS y la decodificación asíncrona de imágenes, se requería validar empíricamente la estabilización del Total Blocking Time (TBT) bajo estrangulamiento móvil estricto (Catchpoint / PageSpeed).
+
+**Hecho:**
+- Se ejecutaron auditorías externas confirmando TBT 0ms y un cuádruple 100/100 estable en todas las vistas (Mobile 4G, Mobile Potente, Escritorio).
+- Se marcaron los hitos de la Fase 1 como completados en el `ROADMAP.md`.
+
+**Motivo / criterio:** *Performance Driven Development*. La eliminación del "Efecto Acantilado" del Garbage Collector garantiza una base predecible e inquebrantable antes de integrar la compleja lógica de WooCommerce (E-commerce Extremo).
+
+**Siguiente paso o deuda:** Iniciar la transición hacia la Épica 5 (Showcase y Distribución del Boilerplate).
+
+### 2026-05-22 — Fix: Prevención de Falsos Positivos en Orquestador de Despliegue
+
+**Contexto:** Al abortar la creación de un commit manual, el script salía silenciosamente con código 0. Esto engañaba al orquestador supremo (`merci-completo.py`), que continuaba ciegamente con el despliegue a producción.
+
+**Hecho:** 
+- Se modificó `scripts/merci/merci-commit.py` para devolver `sys.exit(1)` al cancelar la operación.
+
+**Motivo / criterio:** *Fail-Fast y Data Integrity*. Una cancelación de usuario es una interrupción intencionada de la cadena de suministro. Emitir un código de error activa los mecanismos de seguridad del orquestador padre, colapsando el pipeline y evitando operaciones de red y caché innecesarias o despliegues fantasmas.
+
+**Siguiente paso o deuda:** Validar la estabilidad del TBT a 0ms en producción (Completado).
+
 ### 2026-05-22 — Perf: Fragmentación de tareas JS (Yielding) en hilo principal
 
 **Contexto:** La inicialización del asistente Merci y la descarga/parseo de su "cerebro" JSON ocurrían de forma síncrona durante la carga inicial de la página, compitiendo por CPU con el dibujado inicial y provocando picos de TBT bajo simulación móvil lenta debido al recolector de basura (Garbage Collector).
