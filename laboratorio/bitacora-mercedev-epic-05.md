@@ -36,6 +36,29 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-22 — Sec/Arch: Extracción de configuración de infraestructura a .env (Showcase)
+
+**Contexto:** El script de despliegue `merci-showcase.py` mantenía las rutas del servidor (usuario SSH, dominio, path) *hardcodeadas* directamente en el código Python. Esto es un anti-patrón de infraestructura que genera deuda técnica.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-showcase.py` para parsear el archivo `.env` en tiempo de ejecución, extrayendo las nuevas claves `SHOWCASE_USER`, `SHOWCASE_HOST` y `SHOWCASE_PATH`.
+
+**Motivo / criterio:** *Twelve-Factor App y Zero Trust*. La configuración del entorno debe estar estrictamente separada del código. Además, extraer las rutas de despliegue al archivo ignorado `.env` blinda la infraestructura en caso de que, por algún error de exclusión en el futuro, el orquestador acabara filtrado en un commit remoto.
+
+**Siguiente paso o deuda:** Inyectar las variables en el `.env` local y sellar los cambios con un commit atómico.
+
+### 2026-05-22 — Milestone: Despliegue de Demostración Interactiva (Showcase)
+
+**Contexto:** Desplegar una instancia pública de la plantilla base en el subdominio `boilerplate.mercedev.es` para que los usuarios y evaluadores puedan interactuar con la arquitectura 100/100 antes de clonarla.
+
+**Hecho:**
+- Se ejecutó exitosamente el orquestador `merci-showcase.py`.
+- El Clon Efímero fue purgado de datos personales e instanciado bajo el dominio de demostración.
+- Se completó el hito de despliegue en la Fase 1 del Roadmap.
+
+**Motivo / criterio:** *Dogfooding y Showcase*. Demostrar empíricamente que la instanciación de un Boilerplate genera un producto impecable y veloz en la vida real. Sincronizarlo en nuestra propia infraestructura (CloudPanel) confirma que los manuales de despliegue del proyecto son robustos.
+
+**Siguiente paso o deuda:** Realizar el commit atómico de cierre de Fase 1 (Épica 5).
+
 ### 2026-05-22 — Fix: Resolución de Permission Denied en Clon Efímero (Symlinks)
 
 **Contexto:** La ejecución de `merci-showcase.py` colapsó con un error `[Errno 13] Permission denied` al intentar copiar el directorio `public/blog`.
@@ -85,15 +108,3 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 **Motivo / criterio:** *Dogfooding y Privacy by Design*. Reutilizar nuestra propia infraestructura IaaS demuestra confianza en el stack. El script orquesta el patrón arquitectónico del "Clon Efímero": copia el proyecto a una ruta temporal, le inyecta la guillotina de `merci-init.py` para purgar telemetría/identidad y sincroniza el resultado inmaculado mediante `rsync`. Esto garantiza que el Showcase exhiba un lienzo en blanco exacto al que recibiría un usuario de GitHub, sin requerir intervención manual ni comprometer el código fuente activo de la autora.
 
 **Siguiente paso o deuda:** Inyectar la regla DLP para `merci-showcase.py` en `merci-init.py`, ejecutar el script y validar el despliegue del Boilerplate estático.
-
-### 2026-05-22 — Data: Refactorización Data-Driven del Extractor de Métricas
-
-**Contexto:** La extracción mediante librería de PDF generaba constantes alertas de consola por métricas esperadamente ausentes (como INP en sitios nuevos) y dependía de expresiones regulares frágiles sobre texto ruidoso. Además, las distancias físicas entre nodos de prueba y servidores europeos originaban falsos positivos por latencia de red.
-
-**Hecho:**
-- Se refactorizó `merci-extract-metrics.py` para erradicar la dependencia de `pypdf` y migrar a la lectura estructurada de archivos `.json` provistos por Catchpoint/PageSpeed.
-- Se implementó un escudo de diagnóstico que detecta descensos en Performance debidos exclusivamente a alta latencia o TTFB superior a 300ms, generando un log pasivo en `observabilidad/falsos_positivos_red.log`.
-
-**Motivo / criterio:** *Data Reliability & SRE*. Leer métricas de un árbol JSON estructurado es rápido y determinista, erradicando los falsos positivos por errores de parseo de texto. Identificar la "Física de Redes" (Speed of Light) como causa de caídas en el 100/100 salva al equipo de perseguir optimizaciones irreales en código ya perfecto.
-
-**Siguiente paso o deuda:** Diseñar el flujo de empaquetado del Showcase interactivo.

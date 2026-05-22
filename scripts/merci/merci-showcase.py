@@ -16,14 +16,29 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCRATCH_DIR = REPO_ROOT / "scratch" / "showcase_build"
-
-# Configuración de infraestructura (CloudPanel)
-REMOTE_USER = "mercedev-php"
-REMOTE_HOST = "mercedev.es"
-REMOTE_PATH = "/home/mercedev-php/htdocs/boilerplate.mercedev.es/"
+ENV_PATH = REPO_ROOT / ".env"
 
 def main():
     print("🚀 [Merci Showcase] Iniciando construcción del Clon Efímero...")
+    
+    # QUÉ HACE: Lee la infraestructura destino de las variables de entorno locales.
+    if not ENV_PATH.exists():
+        print("  ❌ [Error] No se encontró el archivo .env seguro.")
+        sys.exit(1)
+        
+    env_data = {}
+    for line in ENV_PATH.read_text(encoding="utf-8").splitlines():
+        if "=" in line and not line.startswith("#"):
+            k, v = line.split("=", 1)
+            env_data[k.strip()] = v.strip().strip('"').strip("'")
+            
+    remote_user = env_data.get("SHOWCASE_USER")
+    remote_host = env_data.get("SHOWCASE_HOST")
+    remote_path = env_data.get("SHOWCASE_PATH")
+    
+    if not all([remote_user, remote_host, remote_path]):
+        print("  ❌ [Error] Faltan variables SHOWCASE_USER, SHOWCASE_HOST o SHOWCASE_PATH en el .env.")
+        sys.exit(1)
 
     if SCRATCH_DIR.exists():
         shutil.rmtree(SCRATCH_DIR)
@@ -42,8 +57,8 @@ def main():
         print("  ❌ [Error] El proceso de inicialización falló en el clon efímero.")
         sys.exit(1)
 
-    print(f"  🌐 Desplegando Boilerplate inmaculado en {REMOTE_HOST} (rsync)...")
-    rsync_cmd = ["rsync", "-avz", "--delete", "-e", "ssh -o StrictHostKeyChecking=accept-new", f"{SCRATCH_DIR}/", f"{REMOTE_USER}@{REMOTE_HOST}:{REMOTE_PATH}"]
+    print(f"  🌐 Desplegando Boilerplate inmaculado en {remote_host} (rsync)...")
+    rsync_cmd = ["rsync", "-avz", "--delete", "-e", "ssh -o StrictHostKeyChecking=accept-new", f"{SCRATCH_DIR}/", f"{remote_user}@{remote_host}:{remote_path}"]
     subprocess.run(rsync_cmd, check=True)
 
     print("  🗑️ Destruyendo el Clon Efímero...")

@@ -225,7 +225,7 @@
 ## ÉPICA 5: SHOWCASE Y DISTRIBUCIÓN DEL BOILERPLATE (En curso)
 
 ### Fase 1: Demostración Interactiva (Live Demo)
-- [ ] Desplegar una instancia pública del Boilerplate vacío para visualización de usuarios.
+- [x] Desplegar una instancia pública del Boilerplate vacío para visualización de usuarios.
 - [x] Evaluar plataformas de despliegue estático de fricción cero (Aprobado: Subdominio Nginx en CloudPanel).
 - [x] Diseñar flujo de actualización automática del Showcase al lanzar nuevas Releases (Patrón Clon Efímero en `merci-showcase.py`).
 
