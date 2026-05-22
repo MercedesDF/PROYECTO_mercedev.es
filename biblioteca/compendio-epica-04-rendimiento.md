@@ -1,10 +1,13 @@
 ---
 titulo: "Compendio Estratégico: Épica 4 - Rendimiento Extremo y Estabilización"
-fecha: "2026-05-22"
+descripcion: "Síntesis de maniobras arquitectónicas para domar el Garbage Collector, estabilizar el TBT a 0ms y migrar a métricas SRE Data-Driven."
+tipo: "compendio"
 tema: "DevSecOps y Gobernanza"
-estado: "incubacion"
+fecha: "2026-05-22"
+fase: "Epic 4 - Fase 1"
+estado: "publicado"
+alt_portada: "Dashboard de métricas Core Web Vitals mostrando un cuádruple 100/100 perfecto."
 ---
-
 **Contexto:** El proyecto padecía una fuerte inestabilidad en la métrica TBT (Total Blocking Time) bajo emulación móvil estricta (4G CPU Throttling). La fluctuación aleatoria destruía la fiabilidad de las auditorías.
 
 **Maniobras Arquitectónicas:**

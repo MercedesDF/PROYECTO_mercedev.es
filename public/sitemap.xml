@@ -229,6 +229,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/compendio-estrategico-epica-4-rendimiento-extremo-y-estabilizacion</loc>
+      <lastmod>2026-05-22</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/eliminacion-de-la-version-obsoleta-en-docker-composeyml</loc>
       <lastmod>2026-05-22</lastmod>
       <changefreq>weekly</changefreq>

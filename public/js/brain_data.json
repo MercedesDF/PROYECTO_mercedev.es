@@ -66,5 +66,6 @@
   "/biblioteca/automatizacion-extendida-compilador-data-driven-para-la-biblioteca.html": "Automatización extendida: Compilador data-driven para biblioteca, transformando el agente autónomo en un SSOT determinista.",
   "/biblioteca/compendio-estrategico-devrel-observabilidad-y-criptografia-epica-3.html": "Desplázate en el laberinto de DevRel, Observabilidad y Criptografía, donde cada paso te lleva a un nuevo reto: Agent Chaining, Chaos Engineering y PGP. Prepárate para la próxima evolución del ecosistema SRE.",
   "/biblioteca/identidad-criptografica-comunicaciones-cifradas-con-pgp.html": "Descubre cómo cifrar tus comunicaciones E2EE sin PHP ni dependencias externas, utilizando GnuPG y su poderosa identidad criptográfica.",
-  "/biblioteca/tutorial-como-enviar-correos-cifrados-con-pgp.html": "Descubre cómo proteger tus correos electrónicos con la fuerza de los criptosistema PGP: ¡El arte de las cifras en tu bandeja entrada!"
+  "/biblioteca/tutorial-como-enviar-correos-cifrados-con-pgp.html": "Descubre cómo proteger tus correos electrónicos con la fuerza de los criptosistema PGP: ¡El arte de las cifras en tu bandeja entrada!",
+  "/biblioteca/compendio-estrategico-epica-4-rendimiento-extremo-y-estabilizacion.html": "Domina el Garbage Collector, estabiliza el TBT a 0ms y migra a SRE Data-Driven: un viaje por las profundidades del rendimiento extremo"
 }

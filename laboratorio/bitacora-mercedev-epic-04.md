@@ -36,6 +36,23 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-22 — Milestone: Sello Definitivo y Certificación de Épica 4 (Rendimiento Extremo)
+
+**Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) en su nueva versión de 7 pasos, certificando formalmente la Épica 4 tras resolver las deudas técnicas finales del *Release*.
+
+**Hecho:** Se ejecutó y validó el checklist completo:
+- [x] **1. Deuda Técnica:** Solucionado el error OOBE (Out-of-the-Box Experience) en el extractor JSON (`Fail Gracefully`) y purificado el YAML Frontmatter del compendio.
+- [x] **2. Cosecha de Conocimiento:** Compendio estratégico de rendimiento promovido a la Biblioteca con metadatos estrictos.
+- [x] **3. Auditoría Documental:** `ROADMAP.md` e `instrucciones.md` reflejan el nuevo escudo SRE y la política de certificación de 9 Casos.
+- [x] **4. Evaluación de Release:** Boilerplate v1.15.0 re-exportado inmaculado al repositorio público.
+- [x] **5. Certificación de Rendimiento:** Auditados los 9 casos (Portada, Biblioteca, Blog × Escritorio, Móvil 4G, Móvil 5G). El peor escenario (Portada 4G Lento) quedó inyectado en el Dashboard como sello empírico.
+- [x] **6. Snapshot:** Backup local generado con éxito.
+- [x] **7. Sello Definitivo:** Commit atómico de consolidación preparado.
+
+**Motivo / criterio:** *Governance y QA Assurance*. El cierre no es un simple trámite, es una guillotina de calidad. Sellar la Épica 4 con los 7 pasos confirma que el núcleo (100/100, TBT 0ms) es matemáticamente inquebrantable, dando luz verde definitiva para avanzar a la Épica 5 (Showcase en CloudPanel).
+
+**Siguiente paso o deuda:** Iniciar la Épica 5 ejecutando el agente `merci-showcase.py` para desplegar la demostración en `boilerplate.mercedev.es`.
+
 ### 2026-05-22 — Fix/DX: Degradación Elegante en extractor JSON para instanciación
 
 **Contexto:** Al instanciar el Boilerplate v1.15.0 y ejecutar `merci total` en el entorno limpio, el orquestador colapsó con un error fatal (`sys.exit(1)`) porque el script de inicialización había purgado (correctamente) la carpeta de auditorías, dejando al extractor de métricas sin directorio objetivo.

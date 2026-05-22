@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Refactorización de System Prompts a Archivos Markdown — mercedev.es</title>
-    <meta name="description" content="Se centralizan las instrucciones de la IA en archivos Markdown para mejorar la Separación de Responsabilidades y facilitar la gestión del ecosistema de IA.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/refactorizacion-de-system-prompts-a-archivos-markdown.html">
+    <title>Compendio Estratégico: Épica 4 - Rendimiento Extremo y Estabilización — mercedev.es</title>
+    <meta name="description" content="Síntesis de maniobras arquitectónicas para domar el Garbage Collector, estabilizar el TBT a 0ms y migrar a métricas SRE Data-Driven.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/compendio-estrategico-epica-4-rendimiento-extremo-y-estabilizacion.html">
     <link rel="stylesheet" href="/css/main.css?v=1779480328">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Refactorizaci\u00f3n de System Prompts a Archivos Markdown",
-      "description": "Se centralizan las instrucciones de la IA en archivos Markdown para mejorar la Separaci\u00f3n de Responsabilidades y facilitar la gesti\u00f3n del ecosistema de IA.",
-      "url": "https://mercedev.es/biblioteca/refactorizacion-de-system-prompts-a-archivos-markdown.html"
+      "headline": "Compendio Estrat\u00e9gico: \u00c9pica 4 - Rendimiento Extremo y Estabilizaci\u00f3n",
+      "description": "S\u00edntesis de maniobras arquitect\u00f3nicas para domar el Garbage Collector, estabilizar el TBT a 0ms y migrar a m\u00e9tricas SRE Data-Driven.",
+      "url": "https://mercedev.es/biblioteca/compendio-estrategico-epica-4-rendimiento-extremo-y-estabilizacion.html"
     }
     </script>
 </head>
@@ -43,19 +43,22 @@
         </nav>
     </header>
     <main class="main--padded section" id="main">
-        <article class="card card--booklet">
+        <article class="card card--book">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                    <h1 class="home-card__title--highlight">Refactorización de System Prompts a Archivos Markdown</h1>
-                <a href="/descargas/refactorizacion-de-system-prompts-a-archivos-markdown.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                    <h1 class="home-card__title--highlight">Compendio Estratégico: Épica 4 - Rendimiento Extremo y Estabilización</h1>
+                <a href="/descargas/compendio-estrategico-epica-4-rendimiento-extremo-y-estabilizacion.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
             </header>
             <div class="card__content">
-                <h2>El Desafío (Síntoma)</h2>
-<p>Se detectó que los System Prompts de la IA estaban hardcodeados dentro de las entrañas de los scripts de Python como <code>merci-ssot.py</code> y <code>merci-brain.py</code>. Esto ensucia el código y viola el principio de Separación de Responsabilidades.</p>
-<h2>La Maniobra (Lógica)</h2>
-<p>Se abstraieron las instrucciones de la IA a archivos Markdown puros en la carpeta <code>laboratorio/prompts/</code> (por ejemplo, <code>prompt-ssot.md</code>, <code>prompt-brain.md</code>). Ahora se tratan los prompts como reglas de negocio o configuración, no como lógica de ejecución de Python, centralizando toda la 'psicología' del ecosistema de IA en un solo directorio auditable.</p>
-<h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Se aprendió que la Separación de Responsabilidades es crucial para mantener el código limpio y fácilmente mantenible. Se asumió una pequeña deuda técnica en la necesidad de actualizar los scripts para leer las instrucciones desde los archivos Markdown, pero esto facilita la gestión del ecosistema de IA y mejora su audibilidad.</p>
+                <p><strong>Contexto:</strong> El proyecto padecía una fuerte inestabilidad en la métrica TBT (Total Blocking Time) bajo emulación móvil estricta (4G CPU Throttling). La fluctuación aleatoria destruía la fiabilidad de las auditorías.</p>
+<p><strong>Maniobras Arquitectónicas:</strong>
+1. <strong>Yielding en JS (Shift-Left Performance):</strong> Fragmentamos la inicialización asíncrona en <code>main.js</code> (<code>requestIdleCallback</code>) y <code>MerciController.js</code> (Promesas <code>setTimeout</code>) para ceder el paso al hilo principal, evadiendo los bloqueos del Garbage Collector de V8.
+2. <strong>Inversión de Prioridad LCP:</strong> Mediante análisis empírico de red, descubrimos que el verdadero LCP era el titular <code>&lt;h2&gt;</code> y no el logotipo. Retiramos <code>fetchpriority="high"</code> del logo y aplicamos <code>decoding="async"</code>, liberando ancho de banda masivo para el CSS crítico.
+3. <strong>Fail-Fast en Orquestación:</strong> Endurecimos el script <code>merci-commit.py</code> para devolver códigos de salida fatales (<code>sys.exit(1)</code>) en cancelaciones, bloqueando despliegues "fantasma" en el orquestador maestro.
+4. <strong>Diagnóstico de Física de Redes (SRE):</strong> Migramos a extracción JSON Data-Driven. Incorporamos lógica para identificar si una caída temporal de puntuación es debida a latencias de red insalvables (Speed of Light) o TTFB alto (&gt;300ms), evadiendo la trampa de la sobreingeniería (Premature Optimization).</p>
+<p><strong>Aprendizaje / Deuda Técnica:</strong>
+El rendimiento extremo a nivel 100/100 exige abandonar las suposiciones teóricas (como creer que la imagen más grande es el LCP) y abrazar el empirismo de los JSON de PageSpeed. Identificar que una caída a 96/100 puede deberse a un ping de 170ms y no a un código lento protege la moral del equipo. Este chasis blindado a 0ms de TBT constante es el cimiento obligatorio y no-negociable antes de inyectar arquitecturas pesadas.</p>
+<!-- linkedin: 🚀 ¿Atrapado en el infierno del TBT aleatorio en PageSpeed? Te cuento cómo domamos el Garbage Collector de V8 y descubrimos que el LCP no siempre es tu imagen más grande. Lee el postmortem de nuestra Épica 4 de rendimiento extremo. -->
             </div>
         </article>
     </main>
