@@ -36,6 +36,19 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-22 — Perf: Fragmentación de tareas JS (Yielding) en hilo principal
+
+**Contexto:** La inicialización del asistente Merci y la descarga/parseo de su "cerebro" JSON ocurrían de forma síncrona durante la carga inicial de la página, compitiendo por CPU con el dibujado inicial y provocando picos de TBT bajo simulación móvil lenta debido al recolector de basura (Garbage Collector).
+
+**Hecho:** 
+- Se refactorizó la instanciación de `MerciController` en `public/js/main.js` envolviéndola en `requestIdleCallback` (con `setTimeout` como fallback para Safari).
+- Se inyectó una promesa de yielding (`await new Promise(resolve => setTimeout(resolve, 0));`) en `_connectBrain()` de `MerciController.js` tras el parseo del JSON.
+- Se marcó la tarea como completada en el Roadmap de la Épica 4.
+
+**Motivo / criterio:** *Performance Driven Development*. El asistente Merci es un *Progressive Enhancement* (mejora progresiva), no es crítico para el primer renderizado (LCP) ni para la navegación principal. Retrasar intencionadamente su carga (Yielding) protege el presupuesto de rendimiento del hilo principal (Main Thread), fraccionando la ejecución para que ninguna tarea individual supere los 50ms.
+
+**Siguiente paso o deuda:** Desplegar los cambios y ejecutar auditorías continuas para validar la estabilidad absoluta del TBT a 0ms en PageSpeed Insights.
+
 ### 2026-05-22 — Arch: Creación de Épica 4 (Performance Extremo) y reestructuración del Roadmap
 
 **Contexto:** El TBT de la versión móvil sufría fluctuaciones (efecto "acantilado" entre 0ms y 548ms) debido a la intervención del Garbage Collector en tareas JavaScript que rozaban el límite de 50ms del hilo principal. Se debatió si abordar la optimización antes o después de la integración del e-commerce.

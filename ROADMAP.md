@@ -213,8 +213,8 @@
 ## ÉPICA 4: ESTABILIZACIÓN Y RENDIMIENTO EXTREMO (En curso)
 
 ### Fase 1: Erradicación de la Varianza del TBT (Mobile-First)
-- [ ] Analizar y fragmentar tareas síncronas largas (Yielding) en `MerciController.js` y `main.js` mediante `requestIdleCallback` o `setTimeout`.
-- [ ] Delegar decodificación de imágenes críticas fuera del hilo principal (`decoding="async"`).
+- [x] Analizar y fragmentar tareas síncronas largas (Yielding) en `MerciController.js` y `main.js` mediante `requestIdleCallback` o `setTimeout`.
+- [x] Delegar decodificación de imágenes críticas fuera del hilo principal (`decoding="async"`).
 - [ ] Validar estabilidad de TBT 0ms en auditorías bajo estrangulamiento de CPU (simulación 4G lenta).
 - [ ] Obtener 100/100 constante en las tres capas: Mobile 4G, Mobile Potente y Escritorio.
 

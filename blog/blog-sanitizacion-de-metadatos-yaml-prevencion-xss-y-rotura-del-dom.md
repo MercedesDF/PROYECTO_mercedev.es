@@ -2,12 +2,13 @@
 titulo: "Sanitización de Metadatos YAML: Prevención XSS y Rotura del DOM"
 descripcion: "Cómo el escapado de caracteres HTML en metadatos YAML previene inyecciones XSS y asegura la integridad del DOM en generadores estáticos."
 estado: "publicado"
-estado_social: "aprobado"
+estado_social: "publicado_linkedin"
 tema: "Blog"
 tipo: "cuadernillo"
 fase: "Épica 3 - Fase 1"
 alt_portada: "Esquema conceptual mostrando la sanitización de cadenas en Python antes de inyectarlas en el DOM."
 fecha: "2026-05-17"
+linkedin_id: "urn:li:share:7463498897894842369"
 ---
 <!-- linkedin:
 HTML entities can break your website. Learn how escaping characters in YAML Frontmatter prevents XSS and ensures the integrity of static site generators.
