@@ -13,6 +13,7 @@ Combina un orquestador local en Python puro (Sistema Merci) que automatiza la ca
 - **Escudo Fail-Fast en Commits:** El orquestador `merci-commit.py` ahora emite un código de salida fatal (`sys.exit(1)`) si el usuario aborta la creación del commit, protegiendo a los orquestadores superiores de ejecutar operaciones en cadena con código fantasma.
 - **Extractor de Métricas Data-Driven (JSON):** Se reescribió `merci-extract-metrics.py` para analizar directamente el árbol de datos `.json` generado por Catchpoint/PageSpeed, erradicando la dependencia externa de `pypdf` y los errores de parseo.
 - **Diagnóstico de Física de Redes (SRE):** El nuevo extractor JSON detecta descensos de puntuación originados por alta latencia de ping (>100ms) o TTFB lento (>300ms), registrando automáticamente el falso positivo en `observabilidad/falsos_positivos_red.log` para prevenir sobreingeniería prematura.
+- **Dashboard Dinámico y Telemetría SRE:** Inyección de resúmenes de Lighthouse en la portada con justificaciones automáticas de latencia. `merci-sre.py` ahora ingiere el payload `.lighthouse_sre.json` para volcar las métricas exactas (TBT, LCP, CLS, etc.) en Grafana/Prometheus.
 
 ## 🚀 Novedades en la v1.14.1 (Hotfix DX - DevRel)
 

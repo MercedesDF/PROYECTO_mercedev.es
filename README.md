@@ -182,6 +182,7 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 - `merci-wp.py`: Publicador Headless para WordPress vía API REST.
 - `merci-deploy.py`: Agente de Despliegue Remoto (CD Local) para sincronización SSH y purga de Varnish.
 - `merci-completo.py`: Orquestador Supremo DevSecOps que encadena QA, commit atómico y despliegue a producción.
+- `merci-showcase.py`: Orquestador de despliegue interactivo para la demo pública del Boilerplate (Clon Efímero).
 - `merci-extract-metrics.py`: Extractor Data-Driven de métricas Core Web Vitals desde archivos JSON estructurados.
 - `merci-telemetry.py`: Inyector dinámico de telemetría del proyecto (Commits, Agentes, Docs).
 - `merci-styles.py` y `merci-watcher.py`: Compilador SASS 7-1 local y vigilante en tiempo real.
@@ -231,7 +232,7 @@ El proyecto se organiza en grandes "Épicas" arquitectónicas. El desglose detal
 - **Epic-03: DevRel & Observabilidad Avanzada** — Creación de Buffer Social, DevRel, telemetría, consolidación Zero-JS y automatización de métricas JSON.
   - Estado: ✅ Completada (2026-05-21)
 
-- **Epic-04: Estabilización y Rendimiento Extremo** — Erradicación de la varianza en TBT (Mobile-First) mediante fragmentación de tareas JS (Yielding), imágenes asíncronas y extracción Data-Driven de métricas JSON.
+- **Epic-04: Estabilización y Rendimiento Extremo** — Erradicación de la varianza en TBT (Mobile-First) mediante fragmentación de tareas JS (Yielding), imágenes asíncronas, extracción Data-Driven de métricas JSON e integración SRE.
   - Estado: ✅ Completada (2026-05-22)
 
 - **Epic-05: Showcase y Distribución del Boilerplate** — Demostración interactiva y despliegue automatizado de la plantilla pública.

@@ -87,6 +87,23 @@ def extract_metrics_from_json(json_path: Path):
             with open(log_file, "a", encoding="utf-8") as f:
                 f.write(f"[{timestamp}] {json_path.name} | TTFB: {ttfb}ms, Latency: {latency}ms | Posible penalización por red, no por CPU.\n")
 
+        # QUÉ HACE: Crea un payload limpio con métricas crudas para el demonio SRE.
+        # POR QUÉ: Permite a merci-sre.py ingerir estos datos en Prometheus sin tener que re-parsear los reportes grandes.
+        sre_payload = {
+            "lighthouse_performance": s_perf,
+            "lighthouse_accessibility": s_acc,
+            "lighthouse_best_practices": s_bp,
+            "lighthouse_seo": s_seo,
+            "network_latency_ms": latency,
+            "network_ttfb_ms": ttfb,
+            "cwv_tbt_ms": tbt if tbt is not None else 0,
+            "cwv_lcp_ms": lcp if lcp is not None else 0,
+            "cwv_cls": float(cls_val) if cls_val is not None else 0.0
+        }
+        sre_file = OBSERVABILIDAD_DIR / ".lighthouse_sre.json"
+        with open(sre_file, "w", encoding="utf-8") as f:
+            json.dump(sre_payload, f, indent=2)
+
         metrics["SCORES_HTML"] = scores_html
 
     except Exception as e:

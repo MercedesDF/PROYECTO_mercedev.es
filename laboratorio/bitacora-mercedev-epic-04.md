@@ -36,6 +36,45 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-22 — Milestone: Cierre definitivo de Épica 4 (Rendimiento Extremo)
+
+**Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para dar por concluida la Épica 4 y planificar la Épica 5 (Showcase).
+
+**Hecho:**
+- Se identificó y resolvió la deuda técnica de plantillas monolíticas (`woocommerce.php`).
+- Se silenció la falsa alarma INP en `merci-extract-metrics.py`.
+- Se redactó el compendio estratégico `cuadernillo-compendio-epica-04-rendimiento.md`.
+- Se conectaron las métricas de rendimiento y red de Lighthouse al agente SRE.
+- Se actualizaron los manuales maestros (`ROADMAP.md` y `README.md`) desplazando el estado a Épica 5 en curso.
+- Se empaquetó la release `v1.15.0` del Boilerplate.
+
+**Motivo / criterio:** *Governance y Definition of Done (DoD)*. Un ecosistema DevSecOps no avanza con hilos sueltos ni deudas escondidas. Sellar la infraestructura reordenando el registro histórico y purgando la Deriva Documental es la garantía innegociable de que el Boilerplate público recibe una versión base matemáticamente perfecta.
+
+**Siguiente paso o deuda:** Ejecutar `merci completo` e Iniciar el desarrollo del agente de CloudPanel para la Épica 5 (Showcase).
+
+### 2026-05-22 — Fix/DX: Silenciado de INP en extractor y purga de woocommerce.php
+
+**Contexto:** El orquestador emitía advertencias ruidosas en cada compilación por la ausencia normal del INP en sitios nuevos, violando el principio "Silence is Golden". Además, la plantilla de WooCommerce arrastraba deuda técnica antigua.
+
+**Hecho:**
+- Se refactorizó `merci-extract-metrics.py` para ignorar silenciosamente la falta de INP.
+- Se limpió `src/wp-theme/merci-theme/woocommerce.php` inyectando `fetchpriority="low" decoding="async"`.
+
+**Motivo / criterio:** *Clean DX (Experiencia del Desarrollador).* Eliminar mensajes ruidosos sobre métricas esperadamente nulas asegura que si el script emite un texto de color, sea por un fallo verdaderamente crítico (Alert Fatigue).
+
+### 2026-05-22 — UX/SRE: Dashboard UI Dinámico y Exportación a Grafana
+
+**Contexto:** Se requería exponer visualmente en la portada las 4 puntuaciones globales de Lighthouse (100/100/100/100) y justificar frente al usuario/auditor las caídas temporales de rendimiento originadas por latencia física (Speed of Light). Además, estos valiosos datos debían aprovecharse en la telemetría SRE (Prometheus/Grafana).
+
+**Hecho:**
+- Se actualizó la arquitectura SASS (`_hero.scss`) y el `index.html` creando el bloque `.hero__scores-summary` bajo los principios BEM.
+- Se dotó a `merci-extract-metrics.py` de inteligencia para inyectar asteriscos (`*`) y notas aclaratorias al pie si detecta latencia >100ms y performance <100.
+- Se instruyó al extractor para volcar las métricas en un *payload* de estado limpio (`observabilidad/.lighthouse_sre.json`) para su posterior consumo por el demonio SRE.
+
+**Motivo / criterio:** *Transparencia técnica y Observabilidad Expandida.* Explicar el "Falso Positivo" de red directamente en el HTML humaniza los datos frente a reclutadores o auditores técnicos. Volcar estos datos a Prometheus permitirá crear paneles que correlacionen latencia de red vs tiempos de CPU en vivo.
+
+**Siguiente paso o deuda:** Conectar `merci-sre.py` al nuevo *payload* y pasar al orquestador de CloudPanel (Épica 5).
+
 ### 2026-05-22 — Data: Refactorización Data-Driven del Extractor de Métricas (JSON)
 
 **Contexto:** La extracción mediante librería de PDF generaba constantes alertas de consola por métricas esperadamente ausentes y dependía de expresiones regulares frágiles sobre texto ruidoso. Además, las distancias físicas entre nodos de prueba y servidores originaban falsos positivos por latencia de red.
@@ -49,20 +88,6 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 **Motivo / criterio:** *Data Reliability & SRE*. Leer métricas de un árbol JSON estructurado es rápido y determinista. Erradica los falsos positivos de parseo y nos acerca a las 0 dependencias externas. Identificar la "Física de Redes" (Speed of Light) como causa de caídas salva al equipo de perseguir optimizaciones irreales en código que rinde perfectamente a nivel de CPU.
 
 **Siguiente paso o deuda:** Actualizar la documentación y empaquetar la Release v1.15.0 del Boilerplate.
-
-### 2026-05-22 — Milestone: Cierre definitivo de Épica 4 (Rendimiento Extremo)
-
-**Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para dar por concluida la Épica 4 y planificar la Épica 5 (Showcase).
-
-**Hecho:**
-- Se identificó y resolvió la deuda técnica de plantillas monolíticas (`woocommerce.php`).
-- Se redactó el compendio estratégico `cuadernillo-compendio-epica-04-rendimiento.md`.
-- Se actualizaron los manuales maestros (`ROADMAP.md` y `README.md`) desplazando el estado a Épica 5 en curso.
-- Se preparó la nueva release `v1.15.0` para el Boilerplate.
-
-**Motivo / criterio:** *Governance y Definition of Done (DoD)*. Un ecosistema DevSecOps no avanza con hilos sueltos ni deudas escondidas. Sellar la infraestructura y purgar la Deriva Documental es la garantía innegociable de que el Boilerplate público recibe una versión base matemáticamente perfecta.
-
-**Siguiente paso o deuda:** Ejecutar `merci completo` e Iniciar la Épica 5 (Showcase y Distribución).
 
 ### 2026-05-22 — Perf: Reducción de ejecuciones de Lighthouse CI en GitHub Actions
 

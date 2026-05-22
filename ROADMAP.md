@@ -218,6 +218,7 @@
 - [x] Validar estabilidad de TBT 0ms en auditorías bajo estrangulamiento de CPU (simulación 4G lenta).
 - [x] Obtener 100/100 constante en las tres capas: Mobile 4G, Mobile Potente y Escritorio.
 - [x] Migrar extracción de métricas de PDF a JSON (Catchpoint/PageSpeed) eliminando dependencias externas e integrando diagnósticos de red.
+- [x] Implementar Dashboard Dinámico UI y exportar telemetría de Lighthouse al agente SRE (Grafana/Prometheus).
 
 ---
 
@@ -225,8 +226,8 @@
 
 ### Fase 1: Demostración Interactiva (Live Demo)
 - [ ] Desplegar una instancia pública del Boilerplate vacío para visualización de usuarios.
-- [ ] Evaluar plataformas de despliegue estático de fricción cero (ej. GitHub Pages, subdominio dedicado).
-- [ ] Diseñar flujo de actualización automática del Showcase al lanzar nuevas Releases (v1.x.x).
+- [x] Evaluar plataformas de despliegue estático de fricción cero (Aprobado: Subdominio Nginx en CloudPanel).
+- [x] Diseñar flujo de actualización automática del Showcase al lanzar nuevas Releases (Patrón Clon Efímero en `merci-showcase.py`).
 
 ---
 
