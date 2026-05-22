@@ -36,6 +36,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-22 — Fix: Resolución de Permission Denied en Clon Efímero (Symlinks)
+
+**Contexto:** La ejecución de `merci-showcase.py` colapsó con un error `[Errno 13] Permission denied` al intentar copiar el directorio `public/blog`.
+
+**Hecho:**
+- Se diagnosticó que el error era causado por la función `shutil.copytree` al intentar seguir el enlace simbólico (`public/blog`) hacia la instalación de WordPress, la cual contiene archivos con permisos restringidos (`wp-config.php`).
+- Se parcheó `scripts/merci/merci-showcase.py` añadiendo el parámetro `symlinks=True` a `shutil.copytree` y expandiendo la lista de directorios ignorados (`blog`, `tienda`).
+
+**Motivo / criterio:** *Hardening y Aislamiento de Entornos*. La solución `symlinks=True` instruye a Python para que copie el enlace simbólico como un "acceso directo" en lugar de intentar leer su contenido, evitando así la colisión de permisos. Ignorar explícitamente las carpetas de infraestructura pesada (CMS) acelera además el proceso de clonación efímera.
+
+**Siguiente paso o deuda:** Re-ejecutar `merci showcase` para validar el despliegue exitoso en `boilerplate.mercedev.es`.
+
 ### 2026-05-22 — Fix: Saneamiento de Deriva Documental en orquestadores de despliegue
 
 **Contexto:** El centinela `merci-drift.py` reportó una advertencia semántica bloqueando el pipeline. El nuevo agente `merci-showcase.py` no figuraba en la biblia de la matriz (`instrucciones.md`). Adicionalmente, se detectó una fuga documental pasiva: el script aparecía en `instrucciones-merci.md`, exponiéndose al público.

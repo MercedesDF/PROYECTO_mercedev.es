@@ -30,8 +30,9 @@ def main():
     SCRATCH_DIR.parent.mkdir(parents=True, exist_ok=True)
 
     print("  📦 Copiando código fuente al entorno de aislamiento...")
-    ignore_patterns = shutil.ignore_patterns('.git', '.venv', '__pycache__', 'scratch', 'node_modules', 'observabilidad')
-    shutil.copytree(REPO_ROOT, SCRATCH_DIR, ignore=ignore_patterns)
+    # QUÉ HACE: Ignora carpetas privadas/pesadas y evita conflictos de permisos con enlaces simbólicos.
+    ignore_patterns = shutil.ignore_patterns('.git', '.venv', '__pycache__', 'scratch', 'node_modules', 'observabilidad', '.privado', 'backups', '.assets-raw', 'blog', 'tienda')
+    shutil.copytree(REPO_ROOT, SCRATCH_DIR, ignore=ignore_patterns, symlinks=True)
 
     print("  🧹 Inyectando guillotina (merci-init.py) para purgar identidad y datos privados...")
     init_script = SCRATCH_DIR / "scripts" / "merci" / "merci-init.py"
