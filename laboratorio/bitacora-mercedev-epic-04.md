@@ -36,6 +36,17 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-22 — Perf: Despriorización de red (Fetch Priority) del logo para salvar el LCP
+
+**Contexto:** Tras las últimas optimizaciones, la puntuación de Lighthouse en móvil 4G cayó a 97/100. El análisis forense del JSON de PageSpeed/Catchpoint reveló que el `logo.webp` (marcado con `fetchpriority="high"`) estaba robando ancho de banda al archivo `main.css`, retrasando el pintado general de la pantalla.
+
+**Hecho:**
+- Se reemplazó el atributo `fetchpriority="high"` por `fetchpriority="low"` en el `logo.webp` dentro de `public/index.html` y `src/wp-theme/merci-theme/index.php` (igualando la técnica usada en el avatar de Merci).
+
+**Motivo / criterio:** *Data-Driven Performance*. Se asumía erróneamente que el logotipo era el LCP (Largest Contentful Paint). El reporte JSON demostró que el titular `<h2>` ocupa un área de pantalla mayor (27.904px vs 17.095px), siendo el verdadero LCP. Bajar la prioridad de descarga del logo cede el ancho de banda al CSS crítico, acelerando el renderizado del texto y restaurando el 100/100.
+
+**Siguiente paso o deuda:** Desplegar, validar el 100/100 definitivo y transicionar a la Épica 5 (Showcase).
+
 ### 2026-05-22 — Milestone: Validación 100/100 y Cierre de Fase 1 (Épica 4)
 
 **Contexto:** Tras aplicar el yielding en JS y la decodificación asíncrona de imágenes, se requería validar empíricamente la estabilización del Total Blocking Time (TBT) bajo estrangulamiento móvil estricto (Catchpoint / PageSpeed).
