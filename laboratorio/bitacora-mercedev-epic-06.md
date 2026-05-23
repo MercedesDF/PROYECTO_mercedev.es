@@ -36,6 +36,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-23 — DevSecOps: Observabilidad de respuestas crudas en Agente Chaos
+
+**Contexto:** Cuando el Agente Chaos fallaba en su intento de sabotaje por no generar el JSON esperado o errar en la clave de búsqueda, abortaba la ejecución sin mostrar qué había respondido exactamente la IA, dificultando la depuración de alucinaciones del SLM local.
+
+**Hecho:** Se inyectó un registro de respuesta cruda (*raw response*) en la lógica de aborto de `scripts/merci/merci-chaos.py`.
+
+**Detalle técnico:** Si el array `sabotajes` o la clave `buscar` no existen, el script ahora imprime por consola `respuesta.choices[0].message.content`, revelando el texto exacto generado por el modelo local.
+
+**Motivo / criterio:** *Observability y SLM Debugging*. Los Modelos de Lenguaje Pequeños (SLMs) pueden volverse conversacionales o romper el formato exigido. Tener visibilidad total (caja de cristal) de su salida errónea es indispensable para poder endurecer el *System Prompt* y evitar futuras evasiones de formato.
+
+**Siguiente paso o deuda:** Re-ejecutar `merci chaos` hasta atrapar una respuesta cruda fallida y ajustar el `prompt-chaos.md` en consecuencia.
+
 ### 2026-05-23 — Sec: Extensión de validación AST en auditor Python (Chaos Monkey)
 
 **Contexto:** Un simulacro de seguridad del Agente Chaos reveló que ciertas invocaciones a funciones de sistema de bajo nivel en Python estaban evadiendo los escudos estáticos, representando un riesgo potencial de ejecución no deseada si eran inyectadas en el ecosistema.

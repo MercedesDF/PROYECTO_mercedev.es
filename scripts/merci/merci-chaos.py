@@ -77,6 +77,8 @@ def main():
         print("  ℹ️ [Merci Info] La IA falló en apuntar al código exacto. Abortando.")
         if sabotajes and sabotajes[0].get("buscar"):
             print(f"     [Debug] La IA intentó buscar:\n{sabotajes[0].get('buscar')}")
+        else:
+            print(f"     [Debug] Respuesta cruda de la IA:\n{respuesta.choices[0].message.content}")
         sys.exit(0)
 
     print(f"  😈 Mutando el archivo (Inyectando vulnerabilidad)...")
