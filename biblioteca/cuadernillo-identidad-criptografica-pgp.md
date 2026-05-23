@@ -4,7 +4,7 @@ descripcion: "Generación de claves GnuPG y despliegue estático para comunicaci
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-21"
-fase: "Épica 3 - Fase 3"
+fase: "Epic 3 - Fase 3"
 estado: "publicado"
 alt_portada: "Representación abstracta de un candado criptográfico protegiendo un sobre de correo."
 ---

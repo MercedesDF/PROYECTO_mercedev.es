@@ -4,7 +4,7 @@ descripcion: "Cómo el patrón Agent Chaining elimina la fricción operativa pas
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-19"
-fase: "Épica 3 - Fase 2"
+fase: "Epic 3 - Fase 2"
 estado: "publicado"
 alt_portada: "Esquema visual de dos nodos de procesamiento pasándose un bloque de datos iluminado a través de un canal directo."
 ---
@@ -26,6 +26,6 @@ La arquitectura se modificó para que el Agente Bibliotecario actúe como nodo d
 
 *   **Fricción Cero mediante Context Passing:** Encadenar agentes locales reduce la fricción operativa a cero. Cada IA hace solo una tarea bien definida, pasándose el contexto exacto y el control de forma programática mediante Python sin requerir interacciones manuales de extracción e inyección de datos.
 
-## Resumen
+## En resumen
 
 Anteriormente, al finalizar la redacción de un manual técnico con la primera Inteligencia Artificial, era necesario abrir una herramienta distinta, ordenar la escritura de un anuncio para redes sociales y buscar manualmente el enlace final de la página para pegarlo en el texto. Con la nueva arquitectura, se ha creado una "cadena de montaje": en cuanto la primera IA termina su trabajo técnico, le pasa automáticamente el relevo a la segunda IA (la de marketing), calculando e inyectando por sí misma el enlace definitivo para que el anuncio se guarde perfectamente conectado, eliminando cualquier intervención humana intermedia.

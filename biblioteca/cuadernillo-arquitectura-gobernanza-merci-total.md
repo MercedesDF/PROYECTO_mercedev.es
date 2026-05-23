@@ -5,7 +5,7 @@ tipo: "compendio"
 tema: "DevSecOps y Gobernanza"
 estado: "publicado"
 alt_portada: "Esquema conceptual del pipeline de integración continua local mostrando los scripts de Python conectados secuencialmente."
-fase: "7"
+fase: "Epic 1 - Fase 7"
 fecha: "2026-05-07"
 ---
 # Arquitectura y Gobernanza: merci-total.py como SSOT

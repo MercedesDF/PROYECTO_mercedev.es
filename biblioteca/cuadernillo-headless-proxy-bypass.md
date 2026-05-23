@@ -4,7 +4,7 @@ descripcion: "Cómo atravesar barreras de seguridad y cachés agresivas (Varnish
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-02"
-fase: "9 (Inteligencia y Autonomía)"
+fase: "Epic 1 - Fase 9"
 estado: "publicado"
 alt_portada: "Diagrama conceptual de un proxy inverso interceptando y purgando cabeceras HTTP antes de llegar al servidor final."
 ---

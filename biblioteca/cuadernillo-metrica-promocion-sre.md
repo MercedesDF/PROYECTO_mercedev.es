@@ -4,7 +4,7 @@ descripcion: "Se implementó la métrica merci_documentos_promocion_total en mer
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-12"
-fase: "Épica 2 - Fase 4 (Observabilidad y SRE IA)"
+fase: "Epic 2 - Fase 4"
 estado: "publicado"
 alt_portada: "Métrica SRE para contar documentos en promoción en el laboratorio."
 ---

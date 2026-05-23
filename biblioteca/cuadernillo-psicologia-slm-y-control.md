@@ -4,7 +4,7 @@ descripcion: "Solución para evitar que los SLMs como Qwen 2.5 Coder inventen pa
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-09"
-fase: "Épica 2 - Fase 3 (Orquestación de Contenidos)"
+fase: "Epic 2 - Fase 3"
 estado: "publicado"
 alt_portada: "Diagrama de flujo explicando el proceso de Shift-Left Data Parsing para evitar la alucinación inercial en SLMs."
 ---

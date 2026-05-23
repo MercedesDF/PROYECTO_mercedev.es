@@ -4,7 +4,7 @@ descripción: "Cómo el patrón Agent Chaining elimina la fricción operativa pa
 estado: "publicado"
 estado_social: "aprobado"
 tema: "Blog"
-fase: "Épica 3 - Fase 2"
+fase: "Epic 3 - Fase 2"
 fecha: "2026-05-21"
 descripcion: "Cómo el patrón Agent Chaining elimina la fricción operativa pasando el contexto dinámicamente entre agentes de IA"
 ---
@@ -26,4 +26,4 @@ El patrón Agent Chaining (Encadenamiento de Agentes) mediante orquestación en 
 
 Anteriormente, al finalizar la redacción de un manual técnico con la primera Inteligencia Artificial, era necesario abrir una herramienta distinta, ordenar la escritura de un anuncio para redes sociales y buscar manualmente el enlace final de la página para pegarlo en el texto. Con la nueva arquitectura, se ha creado una "cadena de montaje": en cuanto la primera IA termina su trabajo técnico, pasa automáticamente el relevo a la segunda IA (la de marketing), calculando e inyectando por sí misma el enlace definitivo para que el anuncio se guarde perfectamente conectado, eliminando cualquier intervención humana intermedia.
 
-Para obtener más detalles sobre cómo se implementó este encadenamiento automático y las ventajas que ofrece,leer el[cuadernillo completo](/biblioteca/agent-chaining-encadenamiento-automatico-entre-agentes-de-redaccion-y-marketing.html).
+Para obtener más detalles sobre cómo se implementó este encadenamiento automático y las ventajas que ofrece, leer el [cuadernillo completo](/biblioteca/agent-chaining-encadenamiento-automatico-entre-agentes-de-redaccion-y-marketing.html).

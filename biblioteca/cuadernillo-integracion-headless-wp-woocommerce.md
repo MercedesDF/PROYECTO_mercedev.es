@@ -5,7 +5,7 @@ tipo: "compendio"
 tema: "Arquitectura y Backend"
 estado: "publicado"
 alt_portada: "Diagrama de flujo mostrando un proxy inverso Nginx comunicando un núcleo estático con una instalación aislada de WordPress."
-fase: "4"
+fase: "Epic 1 - Fase 4"
 fecha: "2026-05-07"
 ---
 # Estrategias de Integración Headless: WP y WooCommerce

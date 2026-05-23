@@ -26,7 +26,7 @@ Se rechazó el antipatrón de inyectar formularios dinámicos (PHP) en un núcle
 ## El Aprendizaje (La Madurez del Ecosistema)
 La lección más profunda de esta épica es que **la observabilidad y la seguridad son propiedades emergentes de la simplicidad**. Inyectar telemetría en el frontend (`merci-telemetry.py`) o purgar la Deriva Documental usando las fechas físicas del sistema operativo (`st_mtime`) demuestra que las mejores soluciones DevSecOps rara vez requieren herramientas externas pesadas; requieren entender y explotar los metadatos intrínsecos de nuestro propio código fuente. El ecosistema Merci ha dejado de ser un conjunto de scripts para convertirse en un *Framework Enterprise* auditable, predecible y criptográficamente seguro.
 
-## Resumiendo (Lenguaje no técnico)
+## En resumen
 Hemos transformado la web de un simple "escaparate" a un "centro de mando" que se vigila y repara a sí mismo. Ahora tenemos un equipo de agentes virtuales que escriben y publican nuestro marketing automáticamente, un panel de control en tiempo real que nos avisa si algo va mal o se atasca, y un buzón de contacto blindado donde los mensajes viajan como códigos secretos indescifrables para los hackers. Hemos logrado hacer mucho más, haciendo que la web sea mucho más ligera.
 
 <!-- linkedin:

@@ -4,7 +4,7 @@ descripcion: "Cómo leer reportes de PageSpeed Insights con Python puro (pypdf) 
 tipo: "cuadernillo"
 tema: "DevSecOps y Automatización"
 fecha: "2026-05-06"
-fase: "1"
+fase: "Epic 1 - Fase 1"
 estado: "publicado"
 alt_portada: "Fragmento de código Python mostrando expresiones regulares para extraer métricas web."
 ---

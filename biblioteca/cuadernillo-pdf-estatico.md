@@ -4,7 +4,7 @@ descripcion: "Análisis arquitectónico sobre por qué asumir la carga computaci
 tipo: "cuadernillo"
 tema: "Arquitectura y Rendimiento"
 fecha: "2026-05-20"
-fase: "Épica 3 - Fase 2"
+fase: "Epic 3 - Fase 2"
 estado: "publicado"
 alt_portada: "Esquema conceptual: Un servidor estático repartiendo un PDF precompilado vs. un servidor dinámico quemando CPU bajo demanda."
 ---
@@ -32,6 +32,6 @@ Aunque esto incremente el tiempo de compilación local en varios segundos (ej. ~
 *   **Transparencia SRE:** Las métricas de tiempo (Profiler) demuestran que el coste se asume en *Dev*, protegiendo el entorno de *Prod*. 
 *   **Posible Deuda Técnica:** Si el volumen de PDFs crece hasta hacer insufrible el tiempo del `merci-total` en local, la mitigación no será cambiar el modelo arquitectónico a dinámico, sino implementar **cachés basadas en Hash**. El script solo regeneraría un PDF si el *hash SHA* del Markdown original de la bitácora ha sido modificado.
 
-## Resumen
+## En resumen
 
 En lugar de hacer que tu teléfono móvil se esfuerce fabricando un PDF cuando pulsas "Descargar", o de saturar nuestro servidor web creándolo en el momento de la petición, hemos decidido generar todos los PDFs de antemano en nuestro propio ordenador antes de publicar la página web. Esto hace que la web sea ultrarrápida, completamente inmune a ataques de saturación por descargas masivas y asegura que el documento tenga un diseño perfecto e idéntico para todos los usuarios.

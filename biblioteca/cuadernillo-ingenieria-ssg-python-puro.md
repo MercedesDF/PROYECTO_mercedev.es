@@ -5,7 +5,7 @@ tipo: "compendio"
 tema: "Arquitectura y Frontend"
 estado: "publicado"
 alt_portada: "Representación visual de un motor de compilación transformando archivos Markdown en documentos HTML y PDF."
-fase: "7"
+fase: "Epic 1 - Fase 7"
 fecha: "2026-05-07"
 ---
 # Ingeniería de Interfaz Estática (SSG): Python Puro

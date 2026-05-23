@@ -4,7 +4,7 @@ descripción: "Evolución del agente autónomo hacia una arquitectura JSON (SSOT
 estado: "publicado"
 estado_social: "aprobado"
 tema: "Blog"
-fase: "Épica 3 - Fase 2"
+fase: "Epic 3 - Fase 2"
 fecha: "2026-05-21"
 descripcion: "Evolución del agente autónomo hacia una arquitectura JSON (SSOT) para la compilación determinista del conocimiento"
 ---

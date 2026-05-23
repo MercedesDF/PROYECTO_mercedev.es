@@ -4,7 +4,7 @@ descripción: "Cómo erradicar enlaces rotos en PDFs mediante un patrón de publ
 estado: "publicado"
 estado_social: "aprobado"
 tema: "Blog"
-fase: "Épica 3 - Fase 2"
+fase: "Epic 3 - Fase 2"
 fecha: "2026-05-19"
 descripcion: "Cómo erradicar enlaces rotos en PDFs mediante un patrón de publicación en dos pasos y prevenir colisiones de accesibilidad WCAG inyectando dimensión temporal."
 ---
@@ -15,7 +15,7 @@ Para erradicar estos falsos positivos y mantener un 100/100 estricto en WAI-ARIA
 
 Adicionalmente, se ha inyectado dimensión temporal en los aria-labels, resolviendo la ambigüedad en artículos homónimos y ofreciendo contexto exacto a las tecnologías asistivas.
 
-En resumen: el sistema ahora verifica que el PDF exista físicamente antes de crear el botón de descarga, evitando los enlaces rotos. Además, hemos incorporado la fecha de publicación de forma "invisible" en los botones para que las personas que usan lectores de pantalla puedan diferenciar fácilmente dos artículos que compartan el mismo título.
+En resumen: el sistema ahora verifica que el PDF exista físicamente antes de crear el botón de descarga, evitando los enlaces rotos. Además, se ha incorporado la fecha de publicación de forma "invisible" en los botones para que las personas que usan lectores de pantalla puedan diferenciar fácilmente dos artículos que compartan el mismo título.
 
 #DevSecOps #Accesibilidad #WebPerformance #ArquitecturaHeadless#mercedev.es
 -->
@@ -30,10 +30,10 @@ Ahora, el sistema publica primero la entrada, compila el PDF de forma local, y �
 
 Paralelamente, inyectar una dimensión temporal (la fecha) en los atributos WAI-ARIA erradicó por completo las colisiones para los lectores de pantalla sin alterar la interfaz visual en lo más mínimo.
 
-### 💡 Resumiendo:
+### 💡 En resumen:
 
 En lugar de dar por hecho que un archivo PDF de descarga siempre estará disponible (lo que a menudo provoca que el usuario pinche en un enlace "roto" que no hace nada), el sistema ahora verifica primero su existencia física en el servidor y solo crea el botón de descarga si el archivo es real.
 
 Además, se ha añadido la fecha "invisible" a los nombres internos de los artículos para que las personas que usan lectores de pantalla no se confundan cuando haya dos textos distintos que se llamen igual.
 
-Tienes disponible el cuadernillo técnico detallando el código y la arquitectura de esta maniobra en la estantería de DevSecOps: /biblioteca/resolucion-de-404s-headless-y-enlaces-ambiguos-wai-aria.html.
+Tienes disponible el cuadernillo técnico detallando el código y la arquitectura de esta maniobra en la estantería de DevSecOps: [Resolución de 404s Headless y Enlaces Ambiguos WAI-ARIA](/biblioteca/resolucion-de-404s-headless-y-enlaces-ambiguos-wai-aria.html).

@@ -4,7 +4,7 @@ descripcion: "Resolución del desalineamiento vertical en el patrón Side-Headin
 tipo: "cuadernillo"
 tema: "Ingeniería de Interfaz Estática"
 fecha: "2026-05-16"
-fase: "Épica 3 - Fase 1"
+fase: "Epic 3 - Fase 1"
 estado: "publicado"
 alt_portada: "Esquema visual del modelo de caja CSS demostrando cómo el uso de padding previene el colapso de márgenes frente al uso del atributo margin."
 ---

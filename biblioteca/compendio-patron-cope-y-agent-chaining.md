@@ -4,7 +4,7 @@ descripcion: "Arquitectura de encadenamiento de agentes de IA para la reutilizac
 tipo: "compendio"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-16"
-fase: "Épica 3 - Fase 1"
+fase: "Epic 3 - Fase 1"
 estado: "publicado"
 alt_portada: "Diagrama de flujo mostrando un documento técnico siendo transformado dinámicamente en un post de LinkedIn por un agente de IA encadenado."
 ---

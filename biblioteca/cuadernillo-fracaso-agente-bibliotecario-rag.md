@@ -4,7 +4,7 @@ descripcion: "Por qué el Agente Bibliotecario local falló al intentar orquesta
 tipo: "cuadernillo"
 tema: "Inteligencia Artificial y RAG"
 fecha: "2026-05-08"
-fase: "3 (Orquestación de Contenidos)"
+fase: "Epic 2 - Fase 3"
 estado: "publicado"
 alt_portada: "Un cerebro robótico sobrecargado de papeles."
 ---

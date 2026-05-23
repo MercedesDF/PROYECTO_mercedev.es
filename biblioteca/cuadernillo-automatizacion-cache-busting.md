@@ -5,7 +5,7 @@ tipo: "cuadernillo"
 tema: "Arquitectura y Frontend"
 estado: "publicado"
 alt_portada: "Esquema visual mostrando un script de Python inyectando números de versión en el código fuente de una página web."
-fase: "7"
+fase: "Epic 1 - Fase 7"
 fecha: "2026-05-07"
 ---
 # Automatización de Cache Busting dinámico en núcleo estático

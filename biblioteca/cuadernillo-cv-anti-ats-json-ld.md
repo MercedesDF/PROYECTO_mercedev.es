@@ -4,7 +4,7 @@ descripcion: "Estrategia para superar los algoritmos de reclutamiento utilizando
 tipo: "cuadernillo"
 tema: "Identidad y Autoridad Técnica"
 fecha: "2026-05-05"
-fase: "11 (CI/CD y Lighthouse)"
+fase: "Epic 1 - Fase 11"
 estado: "publicado"
 alt_portada: "Diagrama conceptual ilustrando a un sistema automatizado extrayendo datos estructurados directamente del código de una página web."
 ---

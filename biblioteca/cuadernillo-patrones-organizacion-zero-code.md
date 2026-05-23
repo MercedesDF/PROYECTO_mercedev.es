@@ -4,7 +4,7 @@ descripcion: "Se describe cómo se organizó el laboratorio para mejorar la visi
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-09"
-fase: "Épica 2 - Fase 3 (Orquestación de Contenidos)"
+fase: "Epic 2 - Fase 3"
 estado: "publicado"
 alt_portada: "Un laboratorio organizado con bandejas de entrada y estados documentales para mejorar la visibilidad y seguridad."
 ---

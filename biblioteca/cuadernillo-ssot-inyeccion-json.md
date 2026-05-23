@@ -4,7 +4,7 @@ descripcion: "Se implementó un patrón 'Decisión vs Ejecución' para reducir t
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-10"
-fase: "Épica 2 - Fase 3 (Orquestación de Contenidos)"
+fase: "Epic 2 - Fase 3"
 estado: "publicado"
 alt_portada: "Optimización del Proceso de Reescritura con IA para SSOT"
 ---

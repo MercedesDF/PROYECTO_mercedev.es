@@ -4,7 +4,7 @@ descripcion: "Se añadió explícitamente el directorio 'docs/matriz/' al archiv
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-10"
-fase: "Épica 2 - Fase 3 (Orquestación de Contenidos)"
+fase: "Epic 1 - Fase 10"
 estado: "publicado"
 alt_portada: "Esquema conceptual de la Defensa en Profundidad mostrando a Git como escudo pasivo y al Linter como escudo activo."
 ---

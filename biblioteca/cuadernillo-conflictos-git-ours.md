@@ -4,7 +4,7 @@ descripcion: "Cómo resolver colisiones de fusión destructivas cuando el entorn
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-04-28"
-fase: "8 (Expansión de Contenido)"
+fase: "Epic 1 - Fase 8"
 estado: "publicado"
 alt_portada: "Ilustración de dos ramas de Git colisionando y la terminal imponiendo la versión local."
 ---

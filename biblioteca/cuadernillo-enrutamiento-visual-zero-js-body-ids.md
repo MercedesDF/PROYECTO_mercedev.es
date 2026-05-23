@@ -4,7 +4,7 @@ descripcion: "Técnica para resaltar dinámicamente enlaces activos en menús de
 tipo: "cuadernillo"
 tema: "Ingeniería de Interfaz Estática"
 fecha: "2026-05-16"
-fase: "Épica 3 - Fase 1"
+fase: "Epic 3 - Fase 1"
 estado: "publicado"
 alt_portada: "Código HTML mostrando la inyección de un ID dinámico en la etiqueta body para controlar el CSS del menú de navegación."
 ---

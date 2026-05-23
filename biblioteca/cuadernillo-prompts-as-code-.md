@@ -4,7 +4,7 @@ descripcion: "Se centralizan las instrucciones de la IA en archivos Markdown par
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-10"
-fase: "Épica 2 - Fase 3 (Orquestación de Contenidos)"
+fase: "Epic 2 - Fase 3"
 estado: "publicado"
 alt_portada: "Refactorización de System Prompts a Archivos Markdown para una gestión más limpia y auditable del ecosistema de IA."
 ---

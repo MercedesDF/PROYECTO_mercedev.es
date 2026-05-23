@@ -4,7 +4,7 @@ descripcion: "Automatización de despliegue estático mediante CI/CD y justifica
 tipo: "cuadernillo"
 tema: "Infraestructura y Despliegue"
 fecha: "2026-05-05"
-fase: "11"
+fase: "Epic 1 - Fase 11"
 estado: "publicado"
 alt_portada: "Diagrama conceptual mostrando a un agente de GitHub Actions sincronizando archivos mediante rsync a un servidor web."
 ---

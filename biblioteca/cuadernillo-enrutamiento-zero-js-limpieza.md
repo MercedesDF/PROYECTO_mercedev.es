@@ -4,7 +4,7 @@ descripcion: "Refactorización para delegar el resaltado de enlaces activos excl
 estado: "publicado"
 tema: "ingeniería de interfaz estática"
 tipo: "cuadernillo"
-fase: "Épica 3 - Fase 1"
+fase: "Epic 3 - Fase 1"
 alt_portada: "Diagrama CSS mostrando cómo la combinación de un Body ID y un selector de atributo resalta un elemento del menú."
 fecha: "2026-05-17"
 ---

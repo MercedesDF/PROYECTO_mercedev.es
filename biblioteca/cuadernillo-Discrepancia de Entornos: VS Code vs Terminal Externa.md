@@ -4,7 +4,7 @@ descripcion: "Cómo resolver la activación de entornos virtuales de Python (.ve
 tipo: "cuadernillo"
 tema: "DevSecOps y Automatización"
 fecha: "2026-04-24"
-fase: "7 (Automatización y Clasificación)"
+fase: "Epic 1 - Fase 7"
 estado: "publicado"
 alt_portada: "Captura de pantalla mostrando la discrepancia de entornos entre VS Code y la terminal externa."
 ---

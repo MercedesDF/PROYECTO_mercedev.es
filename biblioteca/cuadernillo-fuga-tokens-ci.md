@@ -6,7 +6,7 @@ estado: "publicado"
 tipo: "cuadernillo"
 alt_portada: "Diagrama ilustrando el bloqueo de un token de seguridad en el control de versiones."
 fecha: "2026-05-01"
-fase: "8 (Expansión de Contenido)"
+fase: "Epic 1 - Fase 8"
 ---
 
 ## El Desafío (Síntoma)

@@ -4,7 +4,7 @@ descripcion: "Cómo erradicar enlaces rotos en PDFs mediante un patrón de publi
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-18"
-fase: "Épica 3 - Fase 2"
+fase: "Epic 3 - Fase 2"
 estado: "publicado"
 alt_portada: "Lupa escaneando una estructura de nodos de red detectando un enlace roto."
 ---
@@ -24,7 +24,7 @@ Para resolver la ambigüedad WAI-ARIA sin alterar la interfaz visual, se inyect�
 *   **La suposición genera deuda (Shift-Left):** Delegar la responsabilidad de la UI al CMS bajo la suposición de que "el PDF existirá" es un antipatrón en arquitecturas Headless. El orquestador que inyecta el contenido debe ser la Única Fuente de Verdad (SSOT) garantizando que solo se enlace lo que matemáticamente se ha generado.
 *   **El tiempo como factor de unicidad:** En interfaces donde los títulos pueden repetirse (como un blog), añadir la dimensión temporal de publicación al `aria-label` es una solución arquitectónica elegante. Garantiza identificadores únicos para las herramientas de accesibilidad (100/100 en Core Web Vitals) sin forzar a los redactores a inventar títulos artificialmente distintos.
 
-## Resumiendo (Lenguaje no técnico)
+## En resumen
 En lugar de dar por hecho que un archivo PDF de descarga siempre estará disponible (lo que a menudo provoca que el usuario pinche en un enlace "roto" que no hace nada), el sistema ahora verifica primero su existencia física en el servidor y solo crea el botón de descarga si el archivo es real. Además, se ha añadido la fecha "invisible" a los nombres internos de los artículos para que las personas que usan lectores de pantalla no se confundan cuando haya dos textos distintos que se llamen igual.
 
 <!-- linkedin:

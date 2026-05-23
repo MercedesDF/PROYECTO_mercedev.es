@@ -4,7 +4,7 @@ descripcion: "La transformación de nuestro pipeline maestro DevSecOps desde la 
 estado: "publicado"
 estado_social: "aprobado"
 tema: "Blog"
-fase: "Épica 2 - Fase 4"
+fase: "Epic 2 - Fase 4"
 fecha: "2026-05-21"
 ---
 <!-- linkedin:
@@ -36,7 +36,7 @@ Auditar la verdad física (`st_mtime`) y erradicar las cabeceras manuales demost
 
 Queda como conocimiento consolidado que la Inteligencia Artificial (SLMs), si bien es excepcional para razonar sobre código (como demostró el *Chaos Monkey*), añade una latencia inaceptable al ciclo crítico de Integración Continua (CI). Tareas de sincronización determinista, como la actualización del Roadmap o la recolección de métricas, deben delegarse incondicionalmente a código nativo (Python puro) para mantener la Experiencia de Desarrolladora (DX) intacta.
 
-### 💡 Resumen
+### 💡 En resumen
 
 A medida que el proyecto crecía, el sistema tardaba cada vez más en compilar porque borraba y volvía a construir todo desde cero en cada guardado. Se enseñó al orquestador a comprobar la fecha física del archivo en el disco duro para actualizar únicamente lo que realmente se ha tocado. Se ha pasado de esperar casi 10 segundos a que los cambios sean casi instantáneos, sin que ninguna persona tenga que anotar fechas a mano nunca más.
 

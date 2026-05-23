@@ -4,7 +4,7 @@ descripcion: "Mapa arquitectónico de cómo se integran y orquestan los agentes 
 tipo: "compendio"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-12"
-fase: "Épica 2 - Fase 4 (Observabilidad y SRE IA)"
+fase: "Epic 2 - Fase 4"
 estado: "publicado"
 alt_portada: "Esquema de arquitectura mostrando la división entre agentes IA locales (Ollama) y agentes en la nube (Gemini) en el ciclo de vida del software."
 ---

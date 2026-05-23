@@ -4,7 +4,7 @@ descripcion: "Se implementó una solución que reduce el tiempo de respuesta en 
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-18"
-fase: "Épica 3 - Fase 4"
+fase: "Epic 3 - Fase 4"
 estado: "publicado"
 alt_portada: "Optimización del dashboard de Grafana para una mejor experiencia del autor."
 ---

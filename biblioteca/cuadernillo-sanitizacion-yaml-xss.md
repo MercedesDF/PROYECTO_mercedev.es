@@ -4,7 +4,7 @@ descripcion: "Cómo el escapado de caracteres HTML en metadatos YAML previene in
 estado: "publicado"
 tema: "seguridad y arquitectura"
 tipo: "cuadernillo"
-fase: "Épica 3 - Fase 1"
+fase: "Epic 3 - Fase 1"
 alt_portada: "Esquema conceptual mostrando la sanitización de cadenas en Python antes de inyectarlas en el DOM."
 fecha: "2026-05-17"
 ---

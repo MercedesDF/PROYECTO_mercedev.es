@@ -4,7 +4,7 @@ descripcion: "Cómo gestionar falsos positivos en herramientas de auditoría de 
 tipo: "cuadernillo"
 tema: "DevSecOps y Automatización"
 fecha: "2026-05-01"
-fase: "8 (Expansión de Contenido)"
+fase: "Epic 1 - Fase 8"
 estado: "publicado"
 alt_portada: "Fragmento de código mostrando un comentario HTML utilizado para silenciar una regla de auditoría estática."
 linkedin_id: "urn:li:share:7458645858687860736"

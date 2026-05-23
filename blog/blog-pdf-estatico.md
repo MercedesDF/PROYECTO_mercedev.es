@@ -4,7 +4,7 @@ descripción: "Análisis arquitectónico sobre por qué asumir la carga computac
 estado: "publicado"
 estado_social: "aprobado"
 tema: "Blog"
-fase: "Épica 3 - Fase 2"
+fase: "Epic 3 - Fase 2"
 fecha: "2026-05-21"
 descripcion: ""
 ---

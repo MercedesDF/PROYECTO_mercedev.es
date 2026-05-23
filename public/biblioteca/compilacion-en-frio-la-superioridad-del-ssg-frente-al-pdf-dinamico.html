@@ -6,7 +6,7 @@
     <title>Compilación en Frío: La Superioridad del SSG frente al PDF Dinámico — mercedev.es</title>
     <meta name="description" content="Análisis arquitectónico sobre por qué asumir la carga computacional gráfica en Build-Time garantiza un ecosistema seguro, de nulo coste y Zero-JS.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/compilacion-en-frio-la-superioridad-del-ssg-frente-al-pdf-dinamico.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779480328">
+    <link rel="stylesheet" href="/css/main.css?v=1779522509">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -73,7 +73,7 @@
 <li><strong>Transparencia SRE:</strong> Las métricas de tiempo (Profiler) demuestran que el coste se asume en <em>Dev</em>, protegiendo el entorno de <em>Prod</em>. </li>
 <li><strong>Posible Deuda Técnica:</strong> Si el volumen de PDFs crece hasta hacer insufrible el tiempo del <code>merci-total</code> en local, la mitigación no será cambiar el modelo arquitectónico a dinámico, sino implementar <strong>cachés basadas en Hash</strong>. El script solo regeneraría un PDF si el <em>hash SHA</em> del Markdown original de la bitácora ha sido modificado.</li>
 </ul>
-<h2>Resumen</h2>
+<h2>En resumen</h2>
 <p>En lugar de hacer que tu teléfono móvil se esfuerce fabricando un PDF cuando pulsas "Descargar", o de saturar nuestro servidor web creándolo en el momento de la petición, hemos decidido generar todos los PDFs de antemano en nuestro propio ordenador antes de publicar la página web. Esto hace que la web sea ultrarrápida, completamente inmune a ataques de saturación por descargas masivas y asegura que el documento tenga un diseño perfecto e idéntico para todos los usuarios.</p>
             </div>
         </article>

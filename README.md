@@ -241,6 +241,9 @@ El proyecto se organiza en grandes "Épicas" arquitectónicas. El desglose detal
 - **Epic-06: E-commerce Híbrido Extremo** — Pasarelas de pago en WooCommerce aisladas con Web Workers (Partytown) para mantener TBT en 0ms.
   - Estado: ⏳ En cola.
 
+- **Epic-07: Enriquecimiento Visual y Multimedia** — Evolución de la interfaz de usuario (UI/UX) e integración de vídeos optimizados respetando el rendimiento extremo.
+  - Estado: ⏳ En cola.
+
 
 ## Licencia
 

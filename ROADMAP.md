@@ -239,3 +239,12 @@
 - [ ] Ajustar Content Security Policy (CSP) en Nginx para permitir iframes de pago sin degradar el escudo XSS.
 - [ ] Mantener 100/100 en Core Web Vitals (TBT 0ms) durante todo el proceso de *checkout*.
 - [ ] Integrar el despliegue del E-commerce en el orquestador supremo (`merci-completo.py`).
+
+---
+
+## ÉPICA 7: ENRIQUECIMIENTO VISUAL Y MULTIMEDIA (En cola)
+
+### Fase 1: Evolución UI/UX y Contenido
+- [ ] Diseñar e implementar mejoras visuales avanzadas (espaciados, tipografía, paleta extendida) sin comprometer el 100/100 de rendimiento.
+- [ ] Integrar soporte para videos optimizados y multimedia enriquecida en la portada y Biblioteca.
+- [ ] Refinar las animaciones (CSS) y microinteracciones del ecosistema.

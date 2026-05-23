@@ -4,7 +4,7 @@ descripcion: "Implementación de un escudo lógico basado en metadatos YAML para
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-16"
-fase: "Épica 3 - Fase 1"
+fase: "Epic 3 - Fase 1"
 estado: "publicado"
 alt_portada: "Terminal de consola bloqueando una publicación duplicada mediante la lectura de un archivo YAML local."
 ---

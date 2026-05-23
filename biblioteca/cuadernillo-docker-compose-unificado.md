@@ -4,7 +4,7 @@ descripcion: "Se eliminó el atributo 'version' del archivo docker-compose.yml p
 tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-12"
-fase: "Épica 2 - Fase 4 (Observabilidad y SRE IA)"
+fase: "Epic 2 - Fase 4"
 estado: "publicado"
 alt_portada: "Eliminación del atributo 'version' en docker-compose.yml para alinear con las mejores prácticas de Docker Compose V2."
 ---
