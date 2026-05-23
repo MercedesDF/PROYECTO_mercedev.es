@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Out-of-the-Box Experience: Placeholders Anti-403 y Marca Blanca — mercedev.es</title>
+    <meta name="description" content="Cómo garantizar una demostración impecable de un Boilerplate purgado inyectando plantillas de contingencia con layout heredado.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/out-of-the-box-experience-placeholders-anti-403-y-marca-blanca.html">
+    <link rel="stylesheet" href="/css/main.css?v=1779527640">
+    <script src="/js/MerciController.js?v=1779435203" defer></script>
+    <script src="/js/main.js?v=1779435201" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Out-of-the-Box Experience: Placeholders Anti-403 y Marca Blanca",
+      "description": "C\u00f3mo garantizar una demostraci\u00f3n impecable de un Boilerplate purgado inyectando plantillas de contingencia con layout heredado.",
+      "url": "https://mercedev.es/biblioteca/out-of-the-box-experience-placeholders-anti-403-y-marca-blanca.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="low" decoding="async">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Out-of-the-Box Experience: Placeholders Anti-403 y Marca Blanca</h1>
+                <a href="/descargas/out-of-the-box-experience-placeholders-anti-403-y-marca-blanca.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>Tras ejecutar la instanciación destructiva (<code>merci-init.py</code>) para purgar la propiedad intelectual de la matriz, directorios como <code>/blog</code> o <code>/biblioteca</code> quedaban vacíos. Esto provocaba que, al navegar por el Showcase público, el servidor Nginx devolviera un hostil <code>403 Forbidden</code> al no encontrar un archivo <code>index.html</code> inicial, arruinando la "Out-of-the-Box Experience" (OOBE). Además, el avatar del asistente conservaba enlaces a los perfiles sociales de la autora original.</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Se dotó al instanciador de la capacidad de inyectar "Placeholders anti-403". El script lee el <code>index.html</code> principal, recorta los bloques estructurales (<code>&lt;header&gt;</code> y <code>&lt;footer&gt;</code>) y genera páginas de contingencia estáticas dentro de las carpetas vaciadas. Paralelamente, se aplicó una función de anonimización para sustituir los enlaces de LinkedIn y GitHub por URLs genéricas en el código de la UI.</p>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Un Boilerplate Open Source debe sentirse como un producto terminado desde el milisegundo cero, incluso estando vacío de contenido. Suplir la falta de información con plantillas dinámicas que heredan la navegación global retiene al usuario dentro de la demostración en lugar de expulsarlo. Anonimizar explícitamente el proyecto protege la privacidad sin destruir los componentes interactivos.</p>
+<h2>En resumen</h2>
+<p>Al vaciar la plantilla de datos personales para hacerla pública, los menús de la web llevaban a páginas de error vacías y "rotas". En lugar de dejarlo así, se le enseñó al sistema a crear automáticamente páginas temporales de "Próximamente" que mantienen el mismo menú y diseño del resto de la web. Así, quien pruebe la plantilla podrá navegar sin tropezarse con errores técnicos.</p>
+<!-- linkedin:
+El primer contacto de un desarrollador con tu framework define si lo adopta o lo descarta. Entregar un ecosistema con enlaces rotos es un antipatrón en la "Out-of-the-Box Experience" (OOBE). 🚀
+
+Al instanciar y limpiar el Boilerplate de mercedev.es para su demostración pública, los directorios vaciados devolvían errores 403. Para remediarlo de forma elegante, se automatizó la inyección de plantillas Anti-403: páginas de contingencia que heredan dinámicamente el layout (menús y footer) de la web.
+
+Se ha logrado entregar una demostración vacía pero interactiva y 100% navegable.
+
+La usabilidad no empieza cuando se añade contenido; empieza en el manejo de los estados vacíos.
+
+#DevSecOps #DeveloperExperience #ArquitecturaSoftware #mercedev.es
+-->
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" fetchpriority="low" decoding="async">
+        </button>
+    </aside>
+</body>
+</html>

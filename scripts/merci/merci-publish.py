@@ -481,6 +481,10 @@ def main(): # type: ignore
     publicaciones_bib = []
     publicaciones_art = []
 
+    # Añadimos los índices principales a la lista de archivos válidos
+    archivos_validos.add((PUBLIC_BIBLIOTECA / "index.html").resolve())
+    archivos_validos.add((PUBLIC_ART_DE_COTE / "index.html").resolve())
+
     # QUÉ HACE: Lee recursivamente todos los archivos .md en la biblioteca y sus subcarpetas.
     # POR QUÉ: Permite al autor organizar los archivos fuente en subdirectorios temáticos 
     # sin alterar la estructura plana de URLs de salida (/biblioteca/archivo.html).
@@ -489,12 +493,16 @@ def main(): # type: ignore
             meta = procesar_archivo(md_file, header_html, footer_html, css_version, js_controller_version, js_main_version)
             if meta:
                 publicaciones_bib.append(meta)
+                archivos_validos.add(meta["out_html_path"].resolve())
+                archivos_validos.add(meta["out_pdf_path"].resolve())
                 
     if ART_DE_COTE_DIR.exists():
         for md_file in ART_DE_COTE_DIR.rglob("*.md"):
             meta = procesar_archivo(md_file, header_html, footer_html, css_version, js_controller_version, js_main_version)
             if meta:
                 publicaciones_art.append(meta)
+                archivos_validos.add(meta["out_html_path"].resolve())
+                archivos_validos.add(meta["out_pdf_path"].resolve())
                 
     if publicaciones_bib:
         PUBLIC_BIBLIOTECA.mkdir(parents=True, exist_ok=True)
@@ -505,6 +513,7 @@ def main(): # type: ignore
         generar_indice(publicaciones_art, PUBLIC_ART_DE_COTE / "index.html", "Art de Coté", "Índice de scripts experimentales, andamiajes y código colateral.", "Scripts, flujos de automatización y código experimental preservado bajo la filosofía Zero Waste (Cero Desperdicio).", "https://mercedev.es/art-de-cote/", header_html, footer_html, css_version, js_controller_version, js_main_version)
             
     total_pubs = len(publicaciones_bib) + len(publicaciones_art)
+    limpiar_archivos_zombis(archivos_validos)
     print(f"  ✅ {total_pubs} documentos estáticos compilados y publicados exitosamente.")
     print("🚀 [Merci Publish] Pipeline de conversión finalizado.")
 

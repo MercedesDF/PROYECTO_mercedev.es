@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compendio Estratégico: Épica 5 - Showcase y Distribución — mercedev.es</title>
+    <meta name="description" content="Estrategias de Dogfooding, Out-of-the-Box Experience y despliegue Zero-Friction para la demostración pública del framework.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/compendio-estrategico-epica-5-showcase-y-distribucion.html">
+    <link rel="stylesheet" href="/css/main.css?v=1779527640">
+    <script src="/js/MerciController.js?v=1779435203" defer></script>
+    <script src="/js/main.js?v=1779435201" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Compendio Estrat\u00e9gico: \u00c9pica 5 - Showcase y Distribuci\u00f3n",
+      "description": "Estrategias de Dogfooding, Out-of-the-Box Experience y despliegue Zero-Friction para la demostraci\u00f3n p\u00fablica del framework.",
+      "url": "https://mercedev.es/biblioteca/compendio-estrategico-epica-5-showcase-y-distribucion.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="low" decoding="async">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--book">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Compendio Estratégico: Épica 5 - Showcase y Distribución</h1>
+                <a href="/descargas/compendio-estrategico-epica-5-showcase-y-distribucion.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <p><strong>Contexto:</strong> Un Boilerplate Open Source carece de tracción si los usuarios no pueden auditarlo visual e interactivamente antes de descargarlo. El objetivo era desplegar un entorno de demostración continuo sin arrastrar datos privados de la matriz.</p>
+<p><strong>Maniobras Arquitectónicas:</strong>
+1. <strong>Dogfooding Extremado:</strong> Se validó la OOBE (Out-of-the-Box Experience) de la plantilla. Al instanciarse, las carpetas vaciadas devolvían error 403. Se dotó a <code>merci-init.py</code> de la capacidad para inyectar "Placeholders anti-403" que heredan automáticamente el menú, footer y la IA de la portada principal, logrando una navegación ininterrumpida.
+2. <strong>El Clon Efímero:</strong> Para aislar la infraestructura, el orquestador de despliegue (<code>merci-showcase.py</code>) copia el ecosistema a una carpeta temporal, lo purga de metadatos privados usando la propia herramienta de inicialización y despliega el código inmaculado.
+3. <strong>Hardening de Infraestructura:</strong> Se eliminó el "hardcoding" de variables, delegando rutas, dominios y llaves SSH personalizadas al archivo oculto <code>.env</code> y blindando el comando <code>rsync</code> contra los bloqueos inmutables de CloudPanel.</p>
+<p><strong>Aprendizaje / Deuda Técnica:</strong>
+Crear un Showcase no es solo levantar una web, es demostrar el valor de tu infraestructura automatizada. Hacer que el entorno de demostración se despliegue usando exactamente las mismas herramientas que recibirá el cliente (Dogfooding) saca a la luz los errores de experiencia de usuario temprana (como los 403). Garantizar una Marca Blanca sin destruir el diseño requiere anonimización selectiva y un control estricto del "Document Root".</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" fetchpriority="low" decoding="async">
+        </button>
+    </aside>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domando Rsync en IaaS Multi-Tenant: Permisos, .user.ini y Código 23 — mercedev.es</title>
+    <meta name="description" content="Resolución de colisiones críticas de despliegue continuo (CD) al utilizar rsync contra un entorno restrictivo de CloudPanel.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/domando-rsync-en-iaas-multi-tenant-permisos-userini-y-codigo-23.html">
+    <link rel="stylesheet" href="/css/main.css?v=1779527640">
+    <script src="/js/MerciController.js?v=1779435203" defer></script>
+    <script src="/js/main.js?v=1779435201" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Domando Rsync en IaaS Multi-Tenant: Permisos, .user.ini y C\u00f3digo 23",
+      "description": "Resoluci\u00f3n de colisiones cr\u00edticas de despliegue continuo (CD) al utilizar rsync contra un entorno restrictivo de CloudPanel.",
+      "url": "https://mercedev.es/biblioteca/domando-rsync-en-iaas-multi-tenant-permisos-userini-y-codigo-23.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="low" decoding="async">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Domando Rsync en IaaS Multi-Tenant: Permisos, .user.ini y Código 23</h1>
+                <a href="/descargas/domando-rsync-en-iaas-multi-tenant-permisos-userini-y-codigo-23.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h3>El Desafío (Síntoma)</h3>
+<p>Durante el despliegue automatizado del Showcase hacia un subdominio gestionado por CloudPanel, el comando <code>rsync -avz --delete</code> falló reiteradamente devolviendo el fatídico "Código de Salida 23". Los errores oscilaban entre <code>Operation not permitted</code> al intentar cambiar las fechas de los directorios y bloqueos al intentar borrar archivos del servidor.</p>
+<h3>La Maniobra (Lógica)</h3>
+<p>Se analizó la arquitectura del servidor destino. CloudPanel protege la raíz de los sitios inyectando archivos inmutables a nivel de Kernel (<code>chattr +i</code> sobre <code>.user.ini</code>) y carpetas SSL (<code>.well-known</code>). Como el usuario SSH carece de privilegios <code>root</code>, se instruyó a Rsync para operar como un ciudadano educado relajando sus pretensiones de archivo (Archive Mode).
+Se inyectaron las banderas <code>--no-o</code> (ignorar propietario), <code>--no-g</code> (ignorar grupo), <code>--no-perms</code> (ignorar chmod), <code>--omit-dir-times</code> (no alterar metadatos temporales de carpetas raíz) y exclusiones explícitas (<code>--exclude=/.well-known</code> y <code>--exclude=/.user.ini</code>). Además, se inyectó la llave SSH explícitamente vía variable <code>.env</code>.</p>
+<h3>El Aprendizaje / Deuda Técnica</h3>
+<p>La bandera <code>-a</code> (Archive) de Rsync asume un control casi total sobre la máquina destino, algo que un entorno IaaS (Infrastructure as a Service) multi-tenant o administrado siempre bloqueará por diseño de seguridad. Relajar la sincronización de metadatos estructurales (mientras se conserva la fecha de los archivos para caché) es el compromiso necesario para lograr un pipeline CI/CD robusto y sin falsos negativos.</p>
+<h3>En resumen</h3>
+<p>Intentar sincronizar archivos a un servidor moderno a la fuerza bruta es como intentar redecorar un hotel sin pedirle permiso al dueño. El servidor bloqueará la puerta si se intentan alterar funciones críticas como los sistemas de seguridad. Se tuvo que "educar" a la herramienta de subida para que solo moviera el mobiliario (los archivos web) sin intentar cambiar las cerraduras de las puertas o reclamar la propiedad del edificio, logrando por fin un despliegue sin errores.</p>
+<!-- linkedin: 
+El "Código 23" de Rsync al desplegar una web es un error frustrante pero justificado. 🤬
+Ese temido error suele ser culpa del propio servidor Cloud protegiendo su integridad. Descubre en este cuadernillo cómo se han domado los permisos SSH, relajado los metadatos y excluido archivos inmutables del Kernel para lograr despliegues CI/CD de fricción cero. 🚀
+-->
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" fetchpriority="low" decoding="async">
+        </button>
+    </aside>
+</body>
+</html>

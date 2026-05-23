@@ -36,6 +36,20 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-23 — Hotfix Pre-Release: Data Drift, GC de PDFs y UI
+
+**Contexto:** Antes de sellar la release v1.15.1, se detectaron 404s en el rastreador dinámico provocados por "Posts Fantasmas" en WP y PDFs zombis, además de advertencias de red en LiteLLM y una llamada a la acción visualmente mejorable en la portada.
+
+**Hecho:**
+- Se activó el *Garbage Collector* en `merci-publish.py` para purgar PDFs zombis.
+- Se implementó el flag `--force` en `merci-wp.py` para ignorar la caché incremental local.
+- Se inyectó `LITELLM_LOCAL_MODEL_COST_MAP` en `merci-audit.py` para silenciar timeouts de red.
+- Se refactorizó el botón de demostración de la portada a un componente BEM (`.hero__badge`) eliminando estilos en línea.
+
+**Motivo / criterio:** *Zero Debt*. Un ecosistema no está cerrado si arrastra advertencias en la terminal o archivos huérfanos. Proveer mecanismos de purga manual (`--force`) y automatizada (GC) blinda el pipeline contra derivas de datos.
+
+**Siguiente paso o deuda:** Cierre formal Epica 05.
+
 ### 2026-05-23 — Milestone: Cierre Definitivo de Épica 5 (Showcase)
 
 **Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para dar por concluida la Épica 5 y certificar la versión del Boilerplate.

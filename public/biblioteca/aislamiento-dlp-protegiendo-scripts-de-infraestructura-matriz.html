@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aislamiento DLP: Protegiendo scripts de infraestructura matriz — mercedev.es</title>
+    <meta name="description" content="Cómo segregar los orquestadores destructivos y de uso exclusivo de la matriz sin romper el enrutador inteligente de la terminal.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/aislamiento-dlp-protegiendo-scripts-de-infraestructura-matriz.html">
+    <link rel="stylesheet" href="/css/main.css?v=1779527640">
+    <script src="/js/MerciController.js?v=1779435203" defer></script>
+    <script src="/js/main.js?v=1779435201" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Aislamiento DLP: Protegiendo scripts de infraestructura matriz",
+      "description": "C\u00f3mo segregar los orquestadores destructivos y de uso exclusivo de la matriz sin romper el enrutador inteligente de la terminal.",
+      "url": "https://mercedev.es/biblioteca/aislamiento-dlp-protegiendo-scripts-de-infraestructura-matriz.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="low" decoding="async">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Aislamiento DLP: Protegiendo scripts de infraestructura matriz</h1>
+                <a href="/descargas/aislamiento-dlp-protegiendo-scripts-de-infraestructura-matriz.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>El agente <code>merci-showcase.py</code> se utilizaba exclusivamente para desplegar el entorno de demostración del Boilerplate empleando credenciales de la autora. Mantenerlo en el directorio público <code>scripts/merci/</code> exponía esta herramienta de despliegue a los usuarios y, al no documentarlo en las instrucciones públicas para evitar confundirlos, el auditor de deriva documental (<code>merci-drift.py</code>) bloqueaba el pipeline por "fuga semántica".</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Se aplicó el principio de Defensa en Profundidad (DLP - Data Leak Prevention). El script destructivo fue reubicado a un recinto de cuarentena (<code>scripts/matriz/</code>), el cual fue excluido explícitamente en el archivo <code>.gitignore</code>. Para no perder la comodidad operativa, el enrutador inteligente (<code>merci()</code>) en Zsh fue refactorizado para buscar también en esta carpeta privada, invocando las herramientas con total transparencia.</p>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Lo que es operativo para el proyecto matriz no siempre es útil para el derivado. Tratar de esconder scripts privados en carpetas públicas parcheando el linter (añadiendo excepciones en el código de auditoría) genera deuda técnica. El aislamiento físico de la propiedad intelectual es siempre superior a la ofuscación lógica.</p>
+<h2>En resumen</h2>
+<p>Existía un programa encargado de borrar datos privados y subir la demostración a internet que no debía ser público porque solo sirve para la dueña del proyecto. En lugar de complicar el código intentando ocultarlo del escrutinio del sistema, se movió a una carpeta secreta y se le indicó a la terminal cómo encontrarlo. Así, el público no lo ve, el sistema no lanza errores y se puede seguir utilizando con total comodidad.</p>
+<!-- linkedin:
+El código que no aporta valor al usuario final es deuda técnica. En arquitecturas Open Source, las herramientas de despliegue privadas no deben mezclarse con el Boilerplate público. 🔒
+
+Para solventar las alarmas de deriva documental en mercedev.es, se implementó un recinto de cuarentena física (Data Leak Prevention). Los scripts exclusivos de la matriz se aislaron en una carpeta no versionada, actualizando el enrutador Zsh para mantener la comodidad operativa (CLI) de la autora sin contaminar el repositorio público.
+
+El aislamiento físico de la propiedad intelectual siempre es superior y más robusto que la simple ofuscación lógica en el código.
+
+#DevSecOps #OpenSource #ArquitecturaDeSoftware #mercedev.es
+-->
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" fetchpriority="low" decoding="async">
+        </button>
+    </aside>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Cache Hit para Terminales Zero-Noise — mercedev.es</title>
+    <meta name="description" content="Implementación de archivos centinela temporales para silenciar las salidas de consola redundantes en orquestadores DevSecOps.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/patron-cache-hit-para-terminales-zero-noise.html">
+    <link rel="stylesheet" href="/css/main.css?v=1779527640">
+    <script src="/js/MerciController.js?v=1779435203" defer></script>
+    <script src="/js/main.js?v=1779435201" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Patr\u00f3n Cache Hit para Terminales Zero-Noise",
+      "description": "Implementaci\u00f3n de archivos centinela temporales para silenciar las salidas de consola redundantes en orquestadores DevSecOps.",
+      "url": "https://mercedev.es/biblioteca/patron-cache-hit-para-terminales-zero-noise.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="low" decoding="async">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Home</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Patrón Cache Hit para Terminales Zero-Noise</h1>
+                <a href="/descargas/patron-cache-hit-para-terminales-zero-noise.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>El extractor Data-Driven de métricas SRE (<code>merci-extract-metrics.py</code>) imprimía un bloque extenso de texto en la terminal cada vez que se ejecutaba el orquestador maestro (<code>merci total</code>), detallando la actualización del DOM. Dado que las auditorías externas de PageSpeed son puntuales, el 99% de las veces el script procesaba exactamente el mismo JSON, generando ruido visual innecesario y degradando la <em>Developer Experience</em> (DX).</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Se implementó un patrón de <em>Cache Hit</em> basado en el disco duro. El script guarda el nombre del último reporte procesado en un archivo minúsculo y oculto (<code>.metrics_cache</code>). En ejecuciones posteriores, si el JSON más reciente de la carpeta coincide con el nombre almacenado en la caché, el script interrumpe el flujo y finaliza silenciosamente (<code>sys.exit(0)</code>), emitiendo únicamente una notificación en una sola línea.</p>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>En la filosofía DevSecOps, el ruido constante en la terminal provoca "Ceguera de Taller": el desarrollador se acostumbra a ignorar los logs por costumbre y termina pasando por alto errores críticos reales. El paradigma <em>Zero Maintenance</em> exige que las herramientas automatizadas solo "hablen" cuando tengan una novedad arquitectónica o un error que reportar.</p>
+<h2>En resumen</h2>
+<p>El programa que lee el rendimiento de la web llenaba la pantalla de texto cada vez que se guardaban los cambios, a pesar de que el rendimiento de la web era exactamente el mismo que hacía un segundo. Para solucionarlo, se le añadió una memoria a corto plazo para que recuerde cuál fue el último archivo que procesó. Ahora, si ve que nada ha cambiado, se mantiene en silencio, dejando la pantalla limpia y sin distracciones.</p>
+<!-- linkedin:
+El ruido en la consola es el mayor enemigo de la concentración. Imprimir logs que no aportan valor fomenta la "Ceguera de Taller" y destruye la Developer Experience (DX). 🔇
+
+En el pipeline DevSecOps de mercedev.es, el script extractor de métricas SRE saturaba la terminal al procesar el mismo archivo una y otra vez en cada guardado. Se implementó un patrón Cache Hit escribiendo un pequeño archivo centinela invisible. Ahora, si no hay reportes nuevos, el orquestador se silencia automáticamente con latencia cero.
+
+Una herramienta automatizada de calidad solo habla cuando tiene algo nuevo que reportar.
+
+#DevSecOps #Productividad #Automatizacion #mercedev.es
+-->
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" fetchpriority="low" decoding="async">
+        </button>
+    </aside>
+</body>
+</html>

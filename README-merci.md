@@ -6,10 +6,13 @@ Combina un orquestador local en Python puro (Sistema Merci) que automatiza la ca
 
 > 🤖 **Inteligencia y Gobernanza:** El boilerplate incluye agentes de IA locales que auto-reparan código, auto-documentan el Roadmap y generan bases de conocimiento estáticas con coste cero y privacidad total. La justificación de las decisiones DevSecOps reside en la carpeta `/docs`.
 
-## 🚀 Novedades en la v1.15.1 (Hotfix OOBE)
+## 🚀 Novedades en la v1.15.1 (Hotfix OOBE & Infraestructura)
 
 - **Navegación Anti-403:** El script de inicialización (`merci-init.py`) ahora genera plantillas HTML de contingencia que heredan el layout principal (menú, footer y asistente) en los directorios dinámicos vaciados por DLP (`/blog`, `/biblioteca`), evitando errores 403 y mejorando la *Out-of-the-Box Experience*.
 - **Marca Blanca Mejorada:** Se ha refinado la anonimización de la IA y del Footer para proteger la identidad original sin destruir los componentes visuales.
+- **Garbage Collector de Binarios:** El orquestador `merci-publish.py` ahora implementa un recolector de basura (Mark & Sweep) que elimina físicamente los PDFs huérfanos del directorio `public/descargas/`.
+- **Bypass de Caché WP (--force):** `merci-wp.py` incorpora la directiva `--force` para forzar la sincronización con WordPress ignorando la fecha de modificación local, resolviendo desincronizaciones severas (*Data Drift*).
+- **Zero-Noise en Auditoría:** Inyectada la variable `LITELLM_LOCAL_MODEL_COST_MAP` en `merci-audit.py` para aislar localmente la librería y erradicar advertencias por *timeouts* de red.
 
 ## 🚀 Novedades en la v1.15.0 (Rendimiento Extremo, Yielding y Data-Driven Metrics)
 

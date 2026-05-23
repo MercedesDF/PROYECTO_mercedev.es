@@ -5,10 +5,9 @@ tipo: "compendio"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-22"
 fase: "Epic 5 - Fase 1"
-estado: "incubacion"
+estado: "publicado"
 alt_portada: "Escaparate digital exhibiendo un proyecto web pulido bajo un foco de luz."
 ---
-
 **Contexto:** Un Boilerplate Open Source carece de tracción si los usuarios no pueden auditarlo visual e interactivamente antes de descargarlo. El objetivo era desplegar un entorno de demostración continuo sin arrastrar datos privados de la matriz.
 
 **Maniobras Arquitectónicas:**
@@ -18,5 +17,3 @@ alt_portada: "Escaparate digital exhibiendo un proyecto web pulido bajo un foco 
 
 **Aprendizaje / Deuda Técnica:**
 Crear un Showcase no es solo levantar una web, es demostrar el valor de tu infraestructura automatizada. Hacer que el entorno de demostración se despliegue usando exactamente las mismas herramientas que recibirá el cliente (Dogfooding) saca a la luz los errores de experiencia de usuario temprana (como los 403). Garantizar una Marca Blanca sin destruir el diseño requiere anonimización selectiva y un control estricto del "Document Root".
-
-<!-- linkedin: 🚀 Se ha finalizado la Épica 5 del Boilerplate lanzando su Demostración Interactiva. El mayor reto ha sido desplegarlo usando las propias herramientas de instanciación del proyecto para garantizar que lo que se visualiza en vivo es exactamente el código 100/100 que se clona en GitHub. Lee el compendio completo sobre Dogfooding y Clones Efímeros. -->

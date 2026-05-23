@@ -19,6 +19,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/out-of-the-box-experience-placeholders-anti-403-y-marca-blanca</loc>
+      <lastmod>2026-05-23</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/el-colapso-del-rag-local-limites-cognitivos-en-modelos-pequenos-8b</loc>
       <lastmod>2026-05-23</lastmod>
       <changefreq>weekly</changefreq>
@@ -91,6 +97,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/compendio-estrategico-epica-5-showcase-y-distribucion</loc>
+      <lastmod>2026-05-23</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/agente-sync-ssot-curacion-autonoma-de-la-deriva-documental</loc>
       <lastmod>2026-05-23</lastmod>
       <changefreq>weekly</changefreq>
@@ -122,6 +134,18 @@
    </url>
    <url>
       <loc>https://mercedev.es/biblioteca/refactorizacion-de-system-prompts-a-archivos-markdown</loc>
+      <lastmod>2026-05-23</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://mercedev.es/biblioteca/prueba-de-integracion-wp-y-linkedin</loc>
+      <lastmod>2026-05-23</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://mercedev.es/biblioteca/aislamiento-dlp-protegiendo-scripts-de-infraestructura-matriz</loc>
       <lastmod>2026-05-23</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.7</priority>
@@ -200,6 +224,12 @@
    </url>
    <url>
       <loc>https://mercedev.es/biblioteca/prevencion-de-fuga-de-datos-con-ramas-huerfanas-en-git</loc>
+      <lastmod>2026-05-23</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://mercedev.es/biblioteca/domando-rsync-en-iaas-multi-tenant-permisos-userini-y-codigo-23</loc>
       <lastmod>2026-05-23</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.7</priority>
@@ -325,6 +355,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/el-patron-del-clon-efimero-despliegues-zero-dlp-sin-ensuciar-la-matriz</loc>
+      <lastmod>2026-05-23</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/el-cv-anti-ats-hablando-el-idioma-nativo-de-las-maquinas</loc>
       <lastmod>2026-05-23</lastmod>
       <changefreq>weekly</changefreq>
@@ -416,6 +452,12 @@
    </url>
    <url>
       <loc>https://mercedev.es/biblioteca/discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh</loc>
+      <lastmod>2026-05-23</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://mercedev.es/biblioteca/patron-cache-hit-para-terminales-zero-noise</loc>
       <lastmod>2026-05-23</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.7</priority>

@@ -5,10 +5,9 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-22"
 fase: "Epic 5 - Fase 1"
-estado: "incubacion"
+estado: "publicado"
 alt_portada: "Consola de terminal mostrando comandos rsync con múltiples banderas de exclusión de permisos."
 ---
-
 ### El Desafío (Síntoma)
 Durante el despliegue automatizado del Showcase hacia un subdominio gestionado por CloudPanel, el comando `rsync -avz --delete` falló reiteradamente devolviendo el fatídico "Código de Salida 23". Los errores oscilaban entre `Operation not permitted` al intentar cambiar las fechas de los directorios y bloqueos al intentar borrar archivos del servidor.
 

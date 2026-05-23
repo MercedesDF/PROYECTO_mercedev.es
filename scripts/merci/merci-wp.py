@@ -135,7 +135,7 @@ def publicar_en_wordpress(filepath: str, creds: dict, sync_cache: dict, verbose:
     file_key = str(target_path.relative_to(REPO_ROOT))
     # Usamos int() para evitar pérdida de precisión de microsegundos al serializar en JSON
     md_mtime = int(target_path.stat().st_mtime)
-    if file_key in sync_cache and sync_cache[file_key] >= md_mtime:
+    if file_key in sync_cache and sync_cache[file_key] >= md_mtime and "--force" not in sys.argv:
         return True
 
     wp_url = creds.get("WP_URL", "").rstrip("/")

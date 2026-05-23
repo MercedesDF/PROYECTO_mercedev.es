@@ -5,10 +5,9 @@ tipo: "cuadernillo"
 tema: "DevSecOps y Gobernanza"
 fecha: "2026-05-22"
 fase: "Epic 5 - Fase 1"
-estado: "incubacion"
+estado: "publicado"
 alt_portada: "Diagrama abstracto mostrando un flujo de datos que se copia, se purifica en una caja aislada y se despliega al servidor."
 ---
-
 ### El Desafío (Síntoma)
 Para crear la demostración pública del *Merci Boilerplate* (Showcase), era necesario desplegar el código en un subdominio. Sin embargo, el repositorio matriz contiene datos privados, telemetría y credenciales. Ejecutar el script destructivo de instanciación (`merci-init.py`) directamente para limpiar los datos habría arrasado con la propia web original de la autora.
 
