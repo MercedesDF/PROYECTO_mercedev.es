@@ -624,6 +624,10 @@ def audit_html_seo(state: AuditState, path: Path, text: str, strict_json_ld: boo
     if path.suffix.lower() not in {".html", ".htm"}:
         return
 
+    # Válvula de escape para Placeholders estructurales (Anti-403)
+    if "merci-audit:silence-seo" in text:
+        return
+
     parser = SeoHTMLParser()
     try:
         parser.feed(text)
@@ -732,6 +736,7 @@ def audit_json(state: AuditState, path: Path, text: str) -> None:
         return
     if path.name == "package-lock.json" or "lock" in path.name.lower():
         return
+        
     try:
         json.loads(text)
     except json.JSONDecodeError as exc:

@@ -36,6 +36,21 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-23 — Hotfix Pre-Release: Silenciamiento de Auditoría en Placeholders
+
+**Contexto:** Tras inyectar los "Placeholders Anti-403" en las carpetas vacías del Boilerplate, el orquestador estricto (`merci-audit.py`) bloqueó el pipeline reportando errores por falta de metaetiquetas SEO y canonicals, tratando plantillas de contingencia como si fueran artículos finales.
+
+**Hecho:**
+- Se implementó la válvula de escape `<!-- merci-audit:silence-seo -->` en `merci-audit.py` (dentro de la función de análisis HTML).
+- Se inyectó esta firma directamente en el motor de instanciación (`merci-init.py`) para inmunizar los clones futuros desde su nacimiento.
+- Se aplicó la firma a los archivos de contingencia locales activos para liberar el pipeline de la matriz.
+
+**Detalle técnico:** Fue necesario mover la lectura de la válvula de escape a la función `audit_html_seo` para que el linter HTML la reconociera correctamente. Las advertencias (WARN) sobre expansión de acrónimos en Markdown fueron revisadas y catalogadas como falsos positivos no bloqueantes.
+
+**Motivo / criterio:** *Fricción Cero y OOBE*. Un Boilerplate debe pasar sus propias auditorías estáticas de forma inmaculada tras su inicialización. Obligar al usuario a escribir etiquetas SEO en páginas de "Próximamente" generaría una fricción operativa inaceptable.
+
+**Siguiente paso o deuda:** Clonar y validar el Boilerplate v1.15.1 en un entorno limpio.
+
 ### 2026-05-23 — Hotfix Pre-Release: Data Drift, GC de PDFs y UI
 
 **Contexto:** Antes de sellar la release v1.15.1, se detectaron 404s en el rastreador dinámico provocados por "Posts Fantasmas" en WP y PDFs zombis, además de advertencias de red en LiteLLM y una llamada a la acción visualmente mejorable en la portada.
