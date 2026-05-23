@@ -320,6 +320,37 @@ def audit_python_imports(state: AuditState, path: Path, text: str) -> None:
         elif isinstance(node, ast.ImportFrom) and node.module:
             _verify(node.lineno, node.module)
 
+def audit_python_smells(state: AuditState, path: Path, text: str) -> None:
+    """
+    Escudo contra inyección de comandos o ejecución de código remoto (RCE) en Python.
+    Detecta el uso de funciones peligrosas.
+    """
+    if path.suffix.lower() != ".py":
+        return
+        
+    try:
+        tree = ast.parse(text, filename=str(path))
+    except SyntaxError:
+        return
+        
+    dangerous_functions = {"eval", "exec", "system", "Popen"}
+    lines = text.splitlines()
+    
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Call):
+            func_name = None
+            if isinstance(node.func, ast.Name):
+                func_name = node.func.id
+            elif isinstance(node.func, ast.Attribute):
+                func_name = node.func.attr
+                
+            if func_name in dangerous_functions:
+                lineno = getattr(node, "lineno", 1)
+                line_content = lines[lineno - 1] if 0 < lineno <= len(lines) else ""
+                if "merci-audit:silence-py" in line_content:
+                    continue
+                state.add(Finding(path, lineno, "error", "PY_DANGEROUS_FUNC", f"Uso de función peligrosa '{func_name}()' detectado. Riesgo de ejecución de código (RCE)."))
+
 GLOBAL_ACRONYM_COUNTS: dict[str, int] = {}
 
 def get_global_acronym_count(acronym: str) -> int:
@@ -762,6 +793,7 @@ def run_on_files(paths: Iterable[Path], strict_json_ld: bool) -> AuditState:
         scan_secrets(state, path, text)
         audit_python_syntax(state, path, text)
         audit_python_imports(state, path, text)
+        audit_python_smells(state, path, text)
         audit_js_smells(state, path, text)
         audit_json(state, path, text)
         audit_html_seo(state, path, text, strict_json_ld)
