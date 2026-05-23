@@ -693,8 +693,13 @@ def audit_html_seo(state: AuditState, path: Path, text: str, strict_json_ld: boo
         state.add(Finding(path, 1, "error", "SEO_LANG", 'Falta atributo lang en <html lang="...">.'))
     if not title_text:
         state.add(Finding(path, 1, "error", "SEO_TITLE", "Falta <title> no vacío."))
+    elif len(title_text) > 65:
+        state.add(Finding(path, 1, "error", "SEO_TITLE_LENGTH", f"El <title> excede los 65 caracteres óptimos para SEO ({len(title_text)})."))
+        
     if not parser.description:
         state.add(Finding(path, 1, "error", "SEO_DESC", 'Falta <meta name="description" content="...">.'))
+    elif len(parser.description) > 150:
+        state.add(Finding(path, 1, "error", "SEO_DESC_LENGTH", f"La meta descripción excede los 150 caracteres óptimos ({len(parser.description)}). Riesgo de truncamiento en SERPs."))
 
     if not parser.charset:
         state.add(

@@ -36,6 +36,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-23 — Shift-Left SEO: Validación estricta de longitud en metadatos (Chaos Monkey)
+
+**Contexto:** El Agente Chaos saboteó la portada inyectando una meta descripción excesivamente larga y fraudulenta ("FALSAMENTE LABORATORIO..."), evadiendo el auditor estático que solo verificaba la existencia de la etiqueta, pero no su longitud ni calidad SEO.
+
+**Hecho:** Se implementaron reglas de validación de longitud máxima para `<title>` y `<meta name="description">` en `scripts/merci/merci-audit.py`.
+
+**Detalle técnico:** Se añadieron aserciones que lanzan errores bloqueantes `SEO_TITLE_LENGTH` (límite de 65 caracteres) y `SEO_DESC_LENGTH` (límite de 150 caracteres) dentro de la función `audit_html_seo`.
+
+**Motivo / criterio:** *Shift-Left SEO y Calidad Estricta*. Los motores de búsqueda truncan los metadatos excesivamente largos, perdiendo el control del mensaje y afectando al CTR (Click-Through Rate). Validar matemáticamente la longitud en el linter garantiza que los textos promocionales encajen perfectamente en las SERPs (Search Engine Results Pages) y bloquea inyecciones de *spam* o desbordamientos inducidos por el Chaos Monkey.
+
+**Siguiente paso o deuda:** Re-ejecutar `merci chaos` para validar que el linter intercepta y bloquea la mutación por exceso de caracteres.
+
 ### 2026-05-23 — DevSecOps: Resiliencia del parser JSON frente a alucinaciones de formato (Agente Chaos)
 
 **Contexto:** La IA generaba tácticas de sabotaje válidas, pero el script `merci-chaos.py` abortaba creyendo que había fallado la búsqueda. Gracias a la reciente observabilidad de respuestas crudas, se descubrió que el modelo estaba escapando comillas simples (`\'`) dentro del JSON, lo cual es un error de sintaxis en el estándar JSON y provocaba un `JSONDecodeError` silencioso.
