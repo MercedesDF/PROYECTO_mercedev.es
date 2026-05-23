@@ -231,14 +231,14 @@
 
 ---
 
-## ÉPICA 6: E-COMMERCE EXTREMO (En preparación)
+## ÉPICA 6: E-COMMERCE HÍBRIDO EXTREMO (En curso)
 
-### Fase 1: Pasarela de Pago y Rendimiento Híbrido
-- [ ] Configurar pasarela de pago (Stripe/PayPal) en el entorno aislado.
-- [ ] Implementar carga diferida (Lazy Load) o Web Workers (Partytown) para desencolar scripts de terceros del hilo principal.
-- [ ] Ajustar Content Security Policy (CSP) en Nginx para permitir iframes de pago sin degradar el escudo XSS.
-- [ ] Mantener 100/100 en Core Web Vitals (TBT 0ms) durante todo el proceso de *checkout*.
-- [ ] Integrar el despliegue del E-commerce en el orquestador supremo (`merci-completo.py`).
+### Fase 1: Catálogo Headless y E-commerce Simulado (Mock)
+- [ ] Diseñar plantilla base en Markdown (YAML Frontmatter) para productos (precio, SKU, imagen, descripción).
+- [ ] Desarrollar orquestador CLI (ej. `merci-shop.py` o extender `merci-wp.py`) para inyectar productos masivamente vía API REST de WooCommerce.
+- [ ] Configurar WooCommerce en modo "simulación" (pedido falso, contra reembolso o solo catálogo) evitando la carga de pasarelas de terceros.
+- [ ] Estilizar el flujo de carrito y checkout manteniendo el TBT en 0ms y el diseño BEM del núcleo estático.
+- [ ] Integrar la sincronización del catálogo en el orquestador maestro local (`merci-total.py`).
 
 ---
 

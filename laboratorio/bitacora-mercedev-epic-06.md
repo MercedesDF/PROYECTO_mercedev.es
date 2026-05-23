@@ -36,6 +36,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-23 — Arch: Pivote a "Tienda No Tienda" (Mock E-commerce Headless)
+
+**Contexto:** La Épica 6 preveía la integración de pasarelas de pago reales (Stripe/PayPal) para demostrar un e-commerce híbrido de alto rendimiento. Se replanteó el objetivo buscando demostrar la capacidad arquitectónica (dominar WooCommerce) sin asumir la burocracia legal/financiera ni la carga de scripts de terceros en el frontend.
+
+**Hecho:** Se reestructuró la Épica 6 en el `ROADMAP.md`, cancelando la integración de pasarelas de terceros. Se definió el desarrollo de una "Tienda No Tienda" gobernada 100% mediante terminal y archivos locales.
+
+**Detalle técnico:** En lugar de operar productos desde el panel de WordPress, se utilizarán archivos Markdown con metadatos YAML (precio, inventario, imágenes). Se construirá un orquestador en Python que utilizará la API REST nativa de WooCommerce (`/wc/v3/products`) para sincronizar el catálogo de forma unidireccional (Headless), permitiendo a los visitantes simular una compra sin procesar pagos reales.
+
+**Motivo / criterio:** *Spec-Driven Development y Zero-Risk*. Manejar el catálogo de productos localmente con Python respeta el principio de "Única Fuente de Verdad" (SSOT). Eliminar las pasarelas reales mantiene puro el código, extirpa el riesgo legal y certifica el hito técnico: demostrar que se puede construir un e-commerce extremadamente rápido (100/100) completamente disociado del panel de control tradicional del CMS.
+
+**Siguiente paso o deuda:** Crear la estructura de carpetas (ej. `laboratorio/tienda/`), diseñar la plantilla YAML para productos y desarrollar el script de sincronización.
+
 ### 2026-05-23 — Shift-Left SEO: Validación estricta de longitud en metadatos (Chaos Monkey)
 
 **Contexto:** El Agente Chaos saboteó la portada inyectando una meta descripción excesivamente larga y fraudulenta ("FALSAMENTE LABORATORIO..."), evadiendo el auditor estático que solo verificaba la existencia de la etiqueta, pero no su longitud ni calidad SEO.
