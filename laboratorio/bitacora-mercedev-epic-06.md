@@ -36,6 +36,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-23 — DevSecOps: Resiliencia del parser JSON frente a alucinaciones de formato (Agente Chaos)
+
+**Contexto:** La IA generaba tácticas de sabotaje válidas, pero el script `merci-chaos.py` abortaba creyendo que había fallado la búsqueda. Gracias a la reciente observabilidad de respuestas crudas, se descubrió que el modelo estaba escapando comillas simples (`\'`) dentro del JSON, lo cual es un error de sintaxis en el estándar JSON y provocaba un `JSONDecodeError` silencioso.
+
+**Hecho:** Se refactorizó la función `extract_json_array` en `scripts/merci/merci-chaos.py`.
+
+**Detalle técnico:** Se inyectó un saneamiento previo (`json_str.replace("\\'", "'")`) antes de invocar a `json.loads()`. Esto purifica la cadena de texto de escapes ilegales comunes en los LLMs antes del parseo estricto.
+
+**Motivo / criterio:** *Robustez y Ley de Postel*. Ser liberales en lo que aceptamos. Los Small Language Models (SLMs) cometen micro-errores de sintaxis al generar código estructurado. En lugar de frustrarnos endureciendo el prompt, añadir tolerancia al parser nativo de Python garantiza que el agente sea resiliente y no interrumpa el bucle de pruebas.
+
+**Siguiente paso o deuda:** Re-ejecutar `merci chaos` para confirmar que el payload ahora sí es parseado e inyectado correctamente en el código objetivo.
+
 ### 2026-05-23 — DevSecOps: Observabilidad de respuestas crudas en Agente Chaos
 
 **Contexto:** Cuando el Agente Chaos fallaba en su intento de sabotaje por no generar el JSON esperado o errar en la clave de búsqueda, abortaba la ejecución sin mostrar qué había respondido exactamente la IA, dificultando la depuración de alucinaciones del SLM local.
