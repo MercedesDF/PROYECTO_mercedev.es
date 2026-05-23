@@ -38,6 +38,10 @@ from pathlib import Path
 from typing import Iterable, Iterator, Optional
 
 try:
+    import logging
+    os.environ["LITELLM_LOCAL_MODEL_COST_MAP"] = "True"
+    logging.getLogger('LiteLLM').setLevel(logging.ERROR)
+    
     import litellm
     from litellm import completion
     litellm.telemetry = False  # Desactivar telemetría por privacidad (Zero Trust)

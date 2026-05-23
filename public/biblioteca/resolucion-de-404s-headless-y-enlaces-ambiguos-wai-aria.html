@@ -6,7 +6,7 @@
     <title>Resolución de 404s Headless y Enlaces Ambiguos WAI-ARIA — mercedev.es</title>
     <meta name="description" content="Cómo erradicar enlaces rotos en PDFs mediante un patrón de publicación en dos pasos y prevenir colisiones de accesibilidad WCAG inyectando dimensión temporal.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/resolucion-de-404s-headless-y-enlaces-ambiguos-wai-aria.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779522509">
+    <link rel="stylesheet" href="/css/main.css?v=1779524621">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -47,7 +47,7 @@
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
                     <h1 class="home-card__title--highlight">Resolución de 404s Headless y Enlaces Ambiguos WAI-ARIA</h1>
-                <a href="/descargas/resolucion-de-404s-headless-y-enlaces-ambiguos-wai-aria.pdf" class="card__download" download>📄 Descargar Edición PDF</a>
+                <a href="/descargas/resolucion-de-404s-headless-y-enlaces-ambiguos-wai-aria.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
@@ -55,23 +55,23 @@
 1. <strong>Errores 404 en descargas:</strong> El CMS servía enlaces de descarga hacia archivos PDF (<code>/descargas/articulo.pdf</code>) que no existían físicamente. Esto sucedía porque el tema de WordPress asumía que siempre habría un PDF para cada artículo, incluso si el generador local había fallado o el artículo de origen había sido eliminado (Posts Zombis).
 2. <strong>Infracción WAI-ARIA (WCAG):</strong> Se detectaron múltiples enlaces con el mismo "Nombre Accesible" (<code>aria-label="Leer artículo completo: [Título]"</code>) apuntando a destinos diferentes. Esto ocurría en la batería de pruebas automatizadas al publicar varios posts con idéntico título, confundiendo gravemente a los lectores de pantalla.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p><strong>1. Publicación Headless en Dos Pasos (SSOT):</strong>
-Se refactorizó el script publicador (<code>merci-wp.py</code>) para arrebatarle el control de la interfaz al tema de WordPress. Ahora, el script ejecuta un POST inicial para obtener el <code>slug</code> definitivo. A continuación, intenta compilar el PDF localmente mediante WeasyPrint. <strong>Solo si la generación del PDF tiene éxito</strong>, el script ejecuta una segunda llamada (PUT) a la API de WordPress para inyectar explícitamente la etiqueta <code>&lt;a download&gt;</code> dentro del cuerpo del artículo.</p>
+<p><strong>1. Amputación de PDFs Dinámicos (Zero Bloat):</strong>
+Para resolver los 404 de los adjuntos rotos, se decidió extirpar completamente la generación de PDFs del orquestador Headless (<code>merci-wp.py</code>). El contenido dinámico y efímero del blog no requiere versiones descargables pesadas; estas se reservan exclusivamente para los manuales inmutables de la Biblioteca estática.</p>
 <p><strong>2. Accesibilidad con Dimensión Temporal:</strong>
 Para resolver la ambigüedad WAI-ARIA sin alterar la interfaz visual, se inyectó la fecha de publicación en los atributos <code>aria-label</code> tanto del motor estático (SSG) como del Child Theme de WordPress (<code>index.php</code>). El código resultante se convierte en <code>&lt;a aria-label="Leer artículo completo: Título (YYYY-MM-DD)"&gt;</code>.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <ul>
-<li><strong>La suposición genera deuda (Shift-Left):</strong> Delegar la responsabilidad de la UI al CMS bajo la suposición de que "el PDF existirá" es un antipatrón en arquitecturas Headless. El orquestador que inyecta el contenido debe ser la Única Fuente de Verdad (SSOT) garantizando que solo se enlace lo que matemáticamente se ha generado.</li>
+<li><strong>Erradicar es mejor que parchear:</strong> Intentar crear flujos complejos (publicación en dos pasos) para mantener una funcionalidad innecesaria (PDFs de posts de blog) genera deuda técnica. La mejor solución DevSecOps suele ser borrar la característica superflua.</li>
 <li><strong>El tiempo como factor de unicidad:</strong> En interfaces donde los títulos pueden repetirse (como un blog), añadir la dimensión temporal de publicación al <code>aria-label</code> es una solución arquitectónica elegante. Garantiza identificadores únicos para las herramientas de accesibilidad (100/100 en Core Web Vitals) sin forzar a los redactores a inventar títulos artificialmente distintos.</li>
 </ul>
 <h2>En resumen</h2>
-<p>En lugar de dar por hecho que un archivo PDF de descarga siempre estará disponible (lo que a menudo provoca que el usuario pinche en un enlace "roto" que no hace nada), el sistema ahora verifica primero su existencia física en el servidor y solo crea el botón de descarga si el archivo es real. Además, se ha añadido la fecha "invisible" a los nombres internos de los artículos para que las personas que usan lectores de pantalla no se confundan cuando haya dos textos distintos que se llamen igual.</p>
+<p>En lugar de intentar arreglar los botones de descarga de PDFs rotos en el blog, nos dimos cuenta de que nadie necesita descargar en PDF una noticia rápida. Así que eliminamos completamente esa opción para el blog, dejando la web más ligera y sin errores. Además, se ha añadido la fecha "invisible" a los nombres internos de los artículos para que las personas que usan lectores de pantalla no se confundan cuando haya dos textos distintos que se llamen igual.</p>
 <!-- linkedin:
-En arquitecturas Headless, asumir que un archivo estático existirá por defecto es el primer paso hacia los enlaces rotos y la pérdida de integridad. 🕸️🔍 
+Añadir funcionalidades innecesarias es el primer paso hacia los enlaces rotos y la pérdida de integridad. 🕸️🔍 
 
 Durante la auditoría del pipeline de publicación automatizado de mercedev.es, el rastreador local 'merci-linkcheck.py' detectó descargas "zombi" y colisiones severas de accesibilidad en los lectores de pantalla debido a enlaces ambiguos.
 
-Para erradicar estos falsos positivos y mantener un 100/100 estricto en WAI-ARIA, se ha implementado un patrón de publicación en dos pasos (Post -> PDF -> Update).
+Para erradicar estos falsos positivos, aplicamos la regla de oro: amputar la característica de raíz. Los PDFs dinámicos fueron eliminados del blog en favor de un enfoque 100% ultraligero.
 
 Adicionalmente, se ha inyectado dimensión temporal en los aria-labels, resolviendo la ambigüedad en artículos homónimos y ofreciendo contexto exacto a las tecnologías asistivas.
 

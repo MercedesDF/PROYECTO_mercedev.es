@@ -222,7 +222,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
                     print(f"  ❌ Error crítico al generar PDF para {filepath.name}: {e}")
                     
             if pdf_generado:
-                pdf_download_link = f'\n                <a href="/descargas/{out_pdf_filename}" class="card__download" download>📄 Descargar Edición PDF</a>'
+                pdf_download_link = f'\n                <a href="/descargas/{out_pdf_filename}" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>'
 
     # 5. Generar el HTML final inyectando las clases BEM estructurales
     # QUÉ HACE: Asigna la clase CSS BEM dinámicamente basándose en el atributo 'tipo'.

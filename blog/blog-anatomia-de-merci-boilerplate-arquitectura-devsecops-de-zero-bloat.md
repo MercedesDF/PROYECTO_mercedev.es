@@ -35,7 +35,7 @@ Hoy, el núcleo de ese proyecto vivo de aprendizaje se ha convertido en **Merci 
 
 Se han liberado las entrañas técnicas y la historia de esta arquitectura en un nuevo "Arte Colateral". 👇
 
-Para saber más sobre cómo funciona cada componente, cómo se integran los 25 agentes Python y cómo aplicar estos principios a otros proyectos, se invita a leer la documentación completa.
+Para saber más sobre cómo funciona cada componente, cómo se integran los 25 agentes Python y cómo aplicar estos principios a otros proyectos, se invita a leer la [documentación completa](/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html).
 
 🔗 [Repositorio Oficial de Merci Boilerplate en GitHub](https://github.com/MercedesDF/merci-boilerplate)
 

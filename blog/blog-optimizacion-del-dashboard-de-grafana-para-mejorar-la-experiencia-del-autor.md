@@ -18,4 +18,4 @@ Para resolver este problema, se invirtió la lógica del Muestreo Escalonado en 
 
 Al priorizar la Experiencia del Autor sobre la optimización pura de I/O de disco, se descubrió que en hardware moderno (SSD), escanear directorios locales cada segundo tiene un coste marginal que se compensa ampliamente con un dashboard reactivo en tiempo real. 
 
-Para explorar más detalles sobre esta implementación y cómo afectó la eficiencia del ecosistema, el documento completo está disponible en el siguiente enlace.
+Para explorar más detalles sobre esta implementación y cómo afectó la eficiencia del ecosistema, el [documento completo está disponible en el siguiente enlace](/biblioteca/optimizacion-del-dashboard-de-grafana-para-mejorar-la-experiencia-del-autor.html).

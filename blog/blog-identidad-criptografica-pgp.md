@@ -24,4 +24,4 @@ En lugar de desplegar una API REST para procesar mensajes, se exporta la clave p
 ### 💡 En resumen:
 En lugar de usar formularios de contacto vulnerables y dependientes de backend, se ha optado por una solución estática y segura: ofrecer una "caja fuerte" pública. Cualquier usuario puede descargar la "llave pública" del proyecto para cifrar un mensaje localmente. Ese mensaje viaja por internet como un bloque de texto inescrutable, y solo el sistema receptor autorizado posee la llave privada para abrirlo.
 
-Para saber más sobre cómo se implementó esta solución, se puede consultar el cuadernillo completo.
+Para saber más sobre cómo se implementó esta solución, se puede consultar el [cuadernillo completo](/biblioteca/identidad-criptografica-comunicaciones-cifradas-con-pgp.html).

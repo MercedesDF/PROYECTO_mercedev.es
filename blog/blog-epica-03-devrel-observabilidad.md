@@ -32,4 +32,4 @@ La lección más profunda de esta épica es que la observabilidad y la seguridad
 
 Inyectar telemetría en el frontend o purgar la Deriva Documental usando las fechas físicas del sistema operativo demuestran que las mejores soluciones DevSecOps rara vez requieren herramientas externas pesadas; simplemente requieren entender y explotar los metadatos intrínsecos del propio código fuente.
 
-Para saber más sobre esta transformación, leer el compendio estratégico completo de la Épica 3 y descubrir cómo la simplicidad radical mejora la observabilidad en el ecosistema DevSecOps.
+Para saber más sobre esta transformación, leer el [compendio estratégico completo de la Épica 3](/biblioteca/compendio-estrategico-devrel-observabilidad-y-criptografia-epica-3.html) y descubrir cómo la simplicidad radical mejora la observabilidad en el ecosistema DevSecOps.
