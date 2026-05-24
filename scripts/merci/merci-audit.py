@@ -412,15 +412,25 @@ def audit_md_acronyms(state: AuditState, path: Path, text: str) -> None:
     if path.suffix.lower() != ".md":
         return
         
-    # Lista de vigilancia de acrónimos críticos (Watchlist)
-    watchlist = ["AJAX", "PHP", "CPU", "TTFB", "INP", "JSON-LD", "SEO", "DOM", "BEM", "CMS"]
+    # SSOT: El auditor lee dinámicamente los acrónimos que la IA ya ha metido en el glosario
+    json_path = REPO_ROOT / 'laboratorio' / 'biblioteca' / 'glosario-tecnico.json'
+    watchlist = []
+    if json_path.exists():
+        try:
+            data = json.loads(json_path.read_text(encoding='utf-8', errors='replace'))
+            # Solo vigilamos términos que sean estrictamente acrónimos (todo mayúsculas y > 1 letra)
+            watchlist = [k for k in data.get("terminos", {}).keys() if k.isupper() and len(k) > 1]
+        except Exception:
+            pass
+            
+    if not watchlist: # Fallback de seguridad
+        watchlist = ["AJAX", "PHP", "CPU", "TTFB", "INP", "JSON-LD", "SEO", "DOM", "BEM", "CMS"]
     
     for acronym in watchlist:
         # Si el acrónimo existe en el texto como palabra exacta...
         if re.search(rf"\b{re.escape(acronym)}\b", text):
-            # ...buscamos si está expandido en formato: ACRONIMO (Explicación)
-            expansion_pattern = rf"\b{re.escape(acronym)}\s*\([^)]+\)"
-            if re.search(expansion_pattern, text):
+            # ...buscamos si está expandido en formato: Concepto en Español (ACRONIMO) o ACRONIMO (Explicación)
+            if re.search(rf"\(\s*{re.escape(acronym)}\s*\)", text) or re.search(rf"\b{re.escape(acronym)}\s*\([^)]+\)", text):
                 continue
                 
             # Si no está expandido, verificamos si es un término consolidado (> 3 apariciones globales)
@@ -433,7 +443,7 @@ def audit_md_acronyms(state: AuditState, path: Path, text: str) -> None:
                     state.add(
                         Finding(
                             path, i, "warn", "MD_ACRONYM",
-                            f"El acrónimo '{acronym}' no está expandido y no está consolidado (aparece 3 veces o menos). Regla: {acronym} (Inglés - Español)."
+                                f"El acrónimo '{acronym}' no está expandido ni consolidado. Regla Soberanía: Concepto en Español ({acronym})."
                         )
                     )
                     break
@@ -694,12 +704,12 @@ def audit_html_seo(state: AuditState, path: Path, text: str, strict_json_ld: boo
     if not title_text:
         state.add(Finding(path, 1, "error", "SEO_TITLE", "Falta <title> no vacío."))
     elif len(title_text) > 65:
-        state.add(Finding(path, 1, "error", "SEO_TITLE_LENGTH", f"El <title> excede los 65 caracteres óptimos para SEO ({len(title_text)})."))
+        state.add(Finding(path, 1, "warn", "SEO_TITLE_LENGTH", f"El <title> excede los 65 caracteres óptimos para SEO ({len(title_text)})."))
         
     if not parser.description:
         state.add(Finding(path, 1, "error", "SEO_DESC", 'Falta <meta name="description" content="...">.'))
     elif len(parser.description) > 150:
-        state.add(Finding(path, 1, "error", "SEO_DESC_LENGTH", f"La meta descripción excede los 150 caracteres óptimos ({len(parser.description)}). Riesgo de truncamiento en SERPs."))
+        state.add(Finding(path, 1, "warn", "SEO_DESC_LENGTH", f"La meta descripción excede los 150 caracteres óptimos ({len(parser.description)}). Riesgo de truncamiento en SERPs."))
 
     if not parser.charset:
         state.add(

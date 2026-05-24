@@ -403,6 +403,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/glosario-tecnico</loc>
+      <lastmod>2026-05-24</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/ceguera-de-proxy-y-bypass-en-headless-cms</loc>
       <lastmod>2026-05-24</lastmod>
       <changefreq>weekly</changefreq>
@@ -476,6 +482,12 @@
    </url>
    <url>
       <loc>https://mercedev.es/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat</loc>
+      <lastmod>2026-05-24</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://mercedev.es/art-de-cote/anatomia-de-merci-boilerplate-v1151</loc>
       <lastmod>2026-05-24</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.7</priority>

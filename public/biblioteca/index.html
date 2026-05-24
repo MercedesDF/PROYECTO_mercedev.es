@@ -6,7 +6,7 @@
     <title>La Biblioteca — mercedev.es</title>
     <meta name="description" content="Índice de publicaciones técnicas y proyectos de la Biblioteca.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/">
-    <link rel="stylesheet" href="/css/main.css?v=1779573585">
+    <link rel="stylesheet" href="/css/main.css?v=1779605660">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -29,7 +29,7 @@
             <span class="header__toggle-icon"></span>
         </button>
         <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
-            <a href="/" class="nav__link">Home</a>
+            <a href="/" class="nav__link">Portada</a>
             <a href="/biblioteca/" class="nav__link">Biblioteca</a>
             <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
             <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
@@ -47,7 +47,10 @@
         <section class="hero">
             <h1 class="hero__title">La Biblioteca</h1>
             <p class="hero__subtitle">Índice de publicaciones técnicas y proyectos de la Biblioteca.</p>
-            
+            <a href="/biblioteca/glosario-tecnico.html" class="hero__badge">
+            <span class="hero__badge-tag">Diccionario Data-Driven</span>
+            Glosario Técnico DevSecOps →
+        </a>
         </section>
         
         <!-- QUÉ HACE: Índice Curado (Table of Contents) autogenerado -->
@@ -181,6 +184,9 @@
                         </li>
                         <li class="library-nav__article-item">
                             <a href="#arquitectura-y-gobernanza-merci-totalpy-como-ssot" class="library-nav__article-link" aria-label="Ir al resumen de: Arquitectura y Gobernanza: merci-total.py como SSOT (2026-05-07)">Arquitectura y Gobernanza: merci-total.py como SSOT</a>
+                        </li>
+                        <li class="library-nav__article-item">
+                            <a href="#glosario-tecnico" class="library-nav__article-link" aria-label="Ir al resumen de: Glosario Técnico (2026-05-24)">Glosario Técnico</a>
                         </li>
                         <li class="library-nav__article-item">
                             <a href="#aislamiento-dlp-protegiendo-scripts-de-infraestructura-matriz" class="library-nav__article-link" aria-label="Ir al resumen de: Aislamiento DLP: Protegiendo scripts de infraestructura matriz (2026-05-23)">Aislamiento DLP: Protegiendo scripts de infraestructura matriz</a>
@@ -706,6 +712,15 @@
                     </header>
                     <div class="card__content">
                         <p>Consolidación del pipeline DevSecOps local, el patrón Fail-Fast y la orquestación como Única Fuente de Verdad.</p>
+                    </div>
+                </article>
+                <article class="card card--book" id="glosario-tecnico">
+                    <header>
+                        <span class="card__meta">2026-05-24 — Proyecto</span>
+                        <h2 class="card__title"><a href="/biblioteca/glosario-tecnico.html" aria-label="Leer artículo completo: Glosario Técnico (2026-05-24)">Glosario Técnico</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Diccionario Data-Driven compilado automáticamente por el Agente Glosario.</p>
                     </div>
                 </article>
                 <article class="card card--booklet" id="aislamiento-dlp-protegiendo-scripts-de-infraestructura-matriz">

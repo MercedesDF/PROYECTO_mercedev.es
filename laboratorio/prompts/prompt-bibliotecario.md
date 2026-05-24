@@ -40,8 +40,8 @@ alt_portada: "[Genera una descripción visual técnica detallada para una supues
 ## El Aprendizaje / Deuda Técnica
 [Concluye con la lección de ingeniería extraída del proceso, la justificación de por qué esta solución es la óptima, o documenta si se ha asumido alguna deuda técnica para el futuro].
 
-## En resumen
-[Explica en un solo párrafo, usando lenguaje llano, analogías simples y sin tecnicismos, el problema y la solución. Debe poder entenderlo cualquier persona ajena a la programación].
+### 💡 En resumen (Merci Explica):
+[Explica en un solo párrafo, usando lenguaje 100% llano, con analogías simples de la vida real y sin tecnicismos, el problema y la solución. Debe poder entenderlo perfectamente un perfil de recursos humanos o dirección de producto].
 ```
 
 **Reglas Editoriales (Innegociables):**

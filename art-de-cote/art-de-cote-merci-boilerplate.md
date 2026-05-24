@@ -1,15 +1,18 @@
 ---
-titulo: "Anatomía de Merci Boilerplate: Arquitectura DevSecOps de Zero-Bloat"
+titulo: "Anatomía de Merci Boilerplate v1.12 (Obsoleto)"
 descripcion: "Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 25 agentes Python y 100/100 Core Web Vitals."
 estado: "publicado"
-tema: "Art de Coté"
-estado_social: "publicado_linkedin"
+tema: "Boilerplate: Histórico"
 alt_portada: "Esquema conceptual de la arquitectura de 3 capas de Merci Boilerplate."
 fase: "Epic 1 - Fase 10"
-fecha: "2026-05-15"
+fecha: "2026-05-12"
+slug: "anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat"
+estado_social: "publicado_linkedin"
 linkedin_id: "urn:li:share:7462411734981459968"
 ---
 La mayoría de plantillas web (boilerplates) actuales entregan un sitio funcional a costa de inyectar megabytes de librerías en el navegador, oscurecer la infraestructura y acumular deuda técnica desde el commit cero. 
+
+> ⚠️ **Aviso de obsolescencia:** Este documento relata la arquitectura original (v1.12). [**Lee aquí la versión v1.15.1 actualizada**](/art-de-cote/anatomia-de-merci-boilerplate-v1151.html).
 
 **Merci Boilerplate es lo opuesto.** Lo que comenzó como un proyecto de investigación para aplicar metodologías de Ciberseguridad y Automatización, terminó evolucionando hacia un ecosistema operacional completo. 
 

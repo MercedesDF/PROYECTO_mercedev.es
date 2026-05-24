@@ -3214,69 +3214,133 @@
           "L61"
         ]
       }
+    },
+    "ADR": {
+      "nombre": "ADR",
+      "ingles": "Architecture Decision Record",
+      "espanol": "Registro de Decisión Arquitectónica",
+      "definicion": "Un documento que documenta la decisión tomada sobre una característica o aspecto del sistema, incluyendo el problema planteado, las opciones consideradas, los criterios de evaluación y la decisión final. Es una práctica fundamental en DevSecOps para garantizar que todas las decisiones arquitectónicas se tomen de manera deliberada y documentada.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L45",
+          "L693",
+          "L759",
+          "L771"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L606"
+        ]
+      }
+    },
+    "ADR-04": {
+      "nombre": "ADR-04",
+      "ingles": "Architecture Decision Record - 04",
+      "espanol": "Registro de Decisión Arquitectónica - 04",
+      "definicion": "Una instancia específica del Registro de Decisión Arquitectónica, identificada con el número '04'. Este registro probablemente documente una decisión particular sobre un aspecto específico del sistema.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L583"
+        ]
+      }
+    },
+    "ADR-06": {
+      "nombre": "ADR-06",
+      "ingles": "Architecture Decision Record - 06",
+      "espanol": "Registro de Decisión Arquitectónica - 06",
+      "definicion": "Otra instancia específica del Registro de Decisión Arquitectónica, identificada con el número '06'. Este registro probablemente documente una decisión particular sobre otro aspecto específico del sistema.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L571"
+        ]
+      }
+    },
+    "AI": {
+      "nombre": "AI",
+      "ingles": "Artificial Intelligence",
+      "espanol": "Inteligencia Artificial",
+      "definicion": "Tecnología que permite a las máquinas realizar tareas que normalmente requieren inteligencia humana, como el aprendizaje automático y la toma de decisiones.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L1031",
+          "L1911",
+          "L2053"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L241",
+          "L584",
+          "L664",
+          "L713",
+          "L729",
+          "L762",
+          "L782",
+          "L793",
+          "L804",
+          "L806",
+          "L5525",
+          "L5529",
+          "L5549"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L524",
+          "L566",
+          "L578",
+          "L610",
+          "L658",
+          "L710",
+          "L770",
+          "L784",
+          "L796",
+          "L808",
+          "L960",
+          "L1232",
+          "L1258",
+          "L1318",
+          "L1482"
+        ],
+        "bitacora-mercedev-260412-260423.md": [
+          "L2337",
+          "L2341",
+          "L2361"
+        ]
+      }
+    },
+    "AI-": {
+      "nombre": "AI-",
+      "ingles": "Artificial Intelligence -",
+      "espanol": "Inteligencia Artificial -",
+      "definicion": "Prefijo que indica la aplicación de inteligencia artificial en un contexto específico, como AI-Security (Seguridad Inteligente).",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L988"
+        ]
+      }
+    },
+    "AM": {
+      "nombre": "AM",
+      "ingles": "Availability Management",
+      "espanol": "Gestión de Disponibilidad",
+      "definicion": "Proceso que asegura el tiempo de actividad continuo y la disponibilidad del sistema, minimizando los tiempos de inactividad.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L1867"
+        ]
+      }
+    },
+    "AST": {
+      "nombre": "AST",
+      "ingles": "Abstract Syntax Tree",
+      "espanol": "Árbol Sintáctico Abstracto",
+      "definicion": "Representación estructurada de un programa fuente en una forma que puede ser fácilmente procesada por computadora. Se utiliza en análisis estático de código y generación de código.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L87",
+          "L93"
+        ]
+      }
     }
   },
   "ignorados": [
-    "AAAA-MM-",
-    "ADR",
-    "AI-",
-    "AI-Changelog",
-    "AKIA merci-audit:silence-secret",
-    "AKIAIOSFODNN7EXAMPLE merci-audit:silence-secret",
-    "ALL",
-    "APLICA",
     "ASCII",
-    "Anti-Duplicidad",
-    "Anti-Proxy",
-    "Anti-Resumen",
-    "CAMBIOS",
-    "CHMOD",
-    "CHOWN",
-    "CNAME",
-    "COPE",
-    "CPU",
-    "CRF",
-    "DOTALL",
-    "DOWN",
-    "EXACTA",
-    "F12",
-    "FASE",
-    "FIN",
-    "GCP",
-    "GPU",
-    "GRANT",
-    "HACE",
-    "HEAD",
-    "HOME",
-    "IDE",
-    "IGUAL",
-    "LITERAL",
-    "LOS",
-    "NAS",
-    "NFKD",
-    "ORIGINAL",
-    "PISTAS",
-    "PNG",
-    "POR",
-    "POSIX",
-    "PSD",
-    "RAM",
-    "RAW",
-    "RESUMAS",
-    "RGBA",
-    "ROADMAP",
-    "SELF",
-    "SER",
-    "SOP",
-    "SOS",
-    "SVG",
-    "SYSTEM",
-    "USER",
-    "UTF",
-    "VRAM",
-    "WAI",
-    "XYZ",
-    "ZIP",
-    "IEEE"
+    "BY"
   ]
 }

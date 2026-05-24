@@ -104,8 +104,9 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
 
     # QUÉ HACE: Genera los nombres de salida basándose en el título del YAML, no en el archivo.
     # POR QUÉ: Desacopla el sistema de archivos del routing web (Auto-nombrado).
-    out_filename = slugify(titulo) + ".html"
-    out_pdf_filename = slugify(titulo) + ".pdf"
+    slug = meta.get("slug", slugify(titulo))
+    out_filename = slug + ".html"
+    out_pdf_filename = slug + ".pdf"
     
     is_art = "art-de-cote" in filepath.parts
     out_base_dir = PUBLIC_ART_DE_COTE if is_art else PUBLIC_BIBLIOTECA
@@ -290,7 +291,8 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
         "tema": tema,
         "fase": fase,
         "out_html_path": out_path,
-        "out_pdf_path": out_pdf_path
+        "out_pdf_path": out_pdf_path,
+        "slug": slug
     }
 
 def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, canonical_url, header_html, footer_html, css_v: int, js_c_v: int, js_m_v: int):
@@ -333,7 +335,7 @@ def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, can
         cards_html = ""
         for pub in pubs_tema:
             # QUÉ HACE: Genera un ID válido para la tarjeta del artículo.
-            pub_slug = slugify(pub["titulo"])
+            pub_slug = pub.get("slug", slugify(pub["titulo"]))
             # QUÉ HACE: Escapa los títulos y descripciones antes de inyectarlos en las tarjetas.
             # POR QUÉ: Impide que etiquetas literales en las descripciones rompan la interfaz visual.
             pub_titulo_html = html.escape(pub["titulo"])
@@ -381,14 +383,25 @@ def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, can
             </div>
         </section>"""
                 
-    # QUÉ HACE: Inyecta el "Announcement Badge" dinámicamente solo en la portada de Art de Coté
+    # QUÉ HACE: Inyecta el "Announcement Badge" dinámicamente en las portadas
     badge_html = ""
     page_id = "page-biblioteca"
     if title == "Art de Coté":
         page_id = "page-art-de-cote"
-        badge_html = """<a href="/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html" class="hero__badge">
-            <span class="hero__badge-tag">Primer Art de Coté</span>
-            Anatomía de Merci Boilerplate →
+        
+        # Búsqueda dinámica de la última versión de la Anatomía del Boilerplate
+        docs_anatomia = [p for p in publicaciones if "Anatomía de Merci Boilerplate" in p.get("titulo", "")]
+        if docs_anatomia:
+            # Ordenamos por fecha descendente (Data-Driven) para obtener la más reciente
+            latest_anatomia = sorted(docs_anatomia, key=lambda x: x.get("fecha", "1970-01-01"), reverse=True)[0]
+            badge_html = f"""<a href="{latest_anatomia['url']}" class="hero__badge">
+            <span class="hero__badge-tag">Última Release</span>
+            {html.escape(latest_anatomia['titulo'])} →
+        </a>"""
+    elif title == "La Biblioteca":
+        badge_html = """<a href="/biblioteca/glosario-tecnico.html" class="hero__badge">
+            <span class="hero__badge-tag">Diccionario Data-Driven</span>
+            Glosario Técnico DevSecOps →
         </a>"""
 
     html_final = f"""<!DOCTYPE html>

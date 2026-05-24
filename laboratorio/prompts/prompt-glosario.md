@@ -13,10 +13,11 @@ Te proporcionaremos una lista de posibles términos extraídos automáticamente 
       "nombre": "API",
       "ingles": "Application Programming Interface",
       "espanol": "Interfaz de Programación de Aplicaciones",
-      "definicion": "Definición técnica, concisa y directa, orientada a rendimiento web, DevSecOps o arquitectura. Máximo 2 frases."
+      "definicion": "Definición técnica, concisa y directa, orientada a rendimiento web o arquitectura. Utiliza siempre la terminología en CASTELLANO como base explicativa."
     }
   ]
 }
 ```
 2. Si un término de la lista solicitada NO es de Arquitectura o DevSecOps (por ejemplo, es una palabra común en español, una fecha, un nombre de variable genérico, o ruido ortográfico como 'APLICA', 'ESTE', 'AAAA'), **simplemente NO lo incluyas** en el array `"terminos"`.
 3. El tono de la definición debe ser profesional, directo e impersonal.
+4. Soberanía del Castellano: Si detectas anglicismos (ej. "Showcase", "Deploy"), asume que la definición debe focalizarse en explicar su equivalente en español ("Demostración", "Despliegue").

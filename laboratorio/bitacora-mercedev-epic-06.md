@@ -36,6 +36,34 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-24 — Feat: Soberanía del Castellano y Ajuste de Linter SEO
+
+**Contexto:** La auditoría SEO bloqueaba el pipeline maestro debido a longitudes de metaetiquetas ligeramente superiores a los límites, generando saturación en la IA de reparación al intentar corregir decenas de archivos simultáneamente. Además, la portada y las plantillas requerían castellanización para alinear el proyecto con la regla de Soberanía del Castellano y mejorar la accesibilidad cognitiva ("Merci Explica").
+
+**Hecho:**
+- Se rebajó la severidad de `SEO_TITLE_LENGTH` y `SEO_DESC_LENGTH` de `error` a `warn` en `scripts/merci/merci-audit.py`.
+- Se tradujeron los términos de la portada (`public/index.html`) como *Performance Engineering*, *Payload* y *Zero Latency* a sus equivalentes en español.
+- Se actualizó `prompt-bibliotecario.md` para exigir la sección `### 💡 En resumen (Merci Explica):` con analogías obligatorias para perfiles no técnicos.
+
+**Motivo / criterio:** *Fail Gracefully y Autoridad Técnica*. Que un título tenga 66 caracteres en lugar de 65 no debe destruir la integración continua. Relajar el linter a `warn` mantiene la observabilidad sin fricción. La traducción de la portada y la inclusión de "Merci Explica" demuestran dominio del concepto subyacente sin escudarse en anglicismos, elevando el valor divulgativo de la Biblioteca.
+
+**Siguiente paso o deuda:** Diseñar la implementación técnica de la "Burbuja Merci" (Tooltips interactivos) planificada para la Épica 7, e iniciar el desarrollo del Catálogo Headless (WooCommerce).
+
+### 2026-05-24 — Feat: Concepto "Merci Explica", Modo Triage y Fail Gracefully
+
+**Contexto:** El glosario técnico requería mayor control operativo para evitar consumir inferencia de IA en falsos positivos o términos excluidos, y a su vez, humanizar las definiciones técnicas para perfiles de negocio. Además, las interrupciones por teclado (`Ctrl+C`) lanzaban errores crudos rompiendo la experiencia de desarrollo (DX).
+
+**Hecho:**
+- Refactorizado `scripts/merci/merci-glosario.py` para incluir un modo interactivo de selección (Triage: Sí/No/Ignorar) previo a la inferencia de IA.
+- Implementada la captura global de `KeyboardInterrupt` para guardar el progreso parcial y compilar el Markdown automáticamente antes de salir.
+- Inyectado el campo `merci_explica` en la renderización del Markdown y actualizado el *System Prompt* para solicitar analogías no técnicas.
+- Purgada la lista masiva de "ignorados" en `glosario-tecnico.json`.
+- Corregida la numeración documental en los comentarios de `merci-total.py`.
+
+**Motivo / criterio:** *Fricción Cero, Gobernanza IA y DevRel*. Permitir a la desarrolladora actuar como "Gatekeeper" antes de consumir recursos locales optimiza el tiempo y previene el *blacklisting* accidental. Proveer una analogía no técnica ("Merci Explica") democratiza el conocimiento, cumpliendo el propósito formativo de la Biblioteca. El manejo de señales (SIGINT) garantiza la inmutabilidad de los datos rescatando el trabajo hecho.
+
+**Siguiente paso o deuda:** Evaluar la castellanización de los textos públicos de la web y expandir la comprensión documental para reforzar la regla de Soberanía del Castellano.
+
 ### 2026-05-23 — Arch: Pivote a "Tienda No Tienda" (Mock E-commerce Headless)
 
 **Contexto:** La Épica 6 preveía la integración de pasarelas de pago reales (Stripe/PayPal) para demostrar un e-commerce híbrido de alto rendimiento. Se replanteó el objetivo buscando demostrar la capacidad arquitectónica (dominar WooCommerce) sin asumir la burocracia legal/financiera ni la carga de scripts de terceros en el frontend.

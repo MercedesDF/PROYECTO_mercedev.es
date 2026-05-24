@@ -16,10 +16,11 @@ import json
 import urllib.request
 import urllib.error
 from pathlib import Path
+from datetime import datetime
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 GLOSSARY_JSON = REPO_ROOT / 'laboratorio' / 'biblioteca' / 'glosario-tecnico.json'
-GLOSSARY_MD = REPO_ROOT / 'laboratorio' / 'biblioteca' / 'glosario-tecnico.md'
+GLOSSARY_MD = REPO_ROOT / 'biblioteca' / 'glosario-tecnico.md'
 PROMPT_FILE = REPO_ROOT / 'laboratorio' / 'prompts' / 'prompt-glosario.md'
 BITACORA_DIR = REPO_ROOT / 'laboratorio'
 
@@ -50,10 +51,12 @@ def is_valid_term(term):
     return True
 
 def extract_terms_from_bitacoras():
-    """Retorna { 'Termino': { 'archivo.md': ['L123', ...] } } para facilitar el guardado en JSON."""
+    """Retorna terms_dict y context_dict con la frase donde apareció para ayudar al usuario."""
     terms_dict = {}
+    context_dict = {}
     
-    pattern_acronym = re.compile(r'\b[A-Z][A-Z0-9]{2,7}\b') 
+    # Ampliamos el regex para acrónimos con guiones (WAI-ARIA, JSON-LD) y de 2 letras (QA, CI)
+    pattern_acronym = re.compile(r'\b[A-Z][A-Z0-9\-]{1,9}\b') 
     pattern_specific = re.compile(r'\b(DevSecOps|Zero-[A-Z][a-z]+|Shift-[A-Z][a-z]+)\b')
     
     ignore_words = {
@@ -65,7 +68,8 @@ def extract_terms_from_bitacoras():
         "ESTE", "ESTA", "ESTO", "PARA", "COMO", "PERO", "SIEMPRE", "NUNCA"
     }
     
-    for filepath in BITACORA_DIR.glob('bitacora*.md'):
+    # rglob para buscar también en subcarpetas (ej. laboratorio/historico/)
+    for filepath in BITACORA_DIR.rglob('bitacora*.md'):
         if not filepath.exists(): continue
         fname = filepath.name
         with open(filepath, 'r', encoding='utf-8') as f:
@@ -77,12 +81,12 @@ def extract_terms_from_bitacoras():
                     if m not in ignore_words and is_valid_term(m):
                         if m not in terms_dict:
                             terms_dict[m] = {}
+                            # Guardamos un extracto de la línea como contexto visual para el humano
+                            context_dict[m] = line.strip()[:80] + "..."
                         if fname not in terms_dict[m]:
-                            terms_dict[m][fname] = []
-                        line_ref = f"L{i}"
-                        if line_ref not in terms_dict[m][fname]:
-                            terms_dict[m][fname].append(line_ref)
-    return terms_dict
+                            # Solo guardamos la primera aparición (línea) por archivo para no saturar el glosario
+                            terms_dict[m][fname] = [f"L{i}"]
+    return terms_dict, context_dict
 
 def generate_with_ollama(system_prompt, user_prompt):
     """Llama a la API de Ollama exigiendo estricto formato JSON."""
@@ -108,7 +112,16 @@ def generate_with_ollama(system_prompt, user_prompt):
 
 def compile_markdown(state_data):
     """Compila el JSON maestro hacia un archivo Markdown (Artefacto Build-Time)."""
-    md = "# Glosario Técnico DevSecOps & Arquitectura\n\n"
+    fecha_hoy = datetime.now().strftime("%Y-%m-%d")
+    md = "---\n"
+    md += "titulo: \"Glosario Técnico\"\n"
+    md += "descripcion: \"Diccionario Data-Driven compilado automáticamente por el Agente Glosario.\"\n"
+    md += "tema: \"DevSecOps y Gobernanza\"\n"
+    md += "estado: \"publicado\"\n"
+    md += f"alt_portada: \"Diccionario técnico automatizado {fecha_hoy}\"\n"
+    md += f"fecha: \"{fecha_hoy}\"\n"
+    md += "---\n\n"
+    md += "# Glosario Técnico DevSecOps & Arquitectura\n\n"
     md += "Este glosario contiene términos y expresiones informáticas de nivel intermedio y avanzado, extraídos del análisis de las bitácoras del proyecto.\n\n"
     md += "## Índice Alfabético\n\n"
     
@@ -124,6 +137,9 @@ def compile_markdown(state_data):
             md += f"**Inglés:** {t.get('ingles', term_name)}\n"
             md += f"**Español:** {t.get('espanol', term_name)}\n\n"
             md += f"**Definición:** {t.get('definicion', '')}\n\n"
+            
+            if "merci_explica" in t and t["merci_explica"]:
+                md += f"> **Merci Explica:** *{t['merci_explica']}*\n\n"
             
             apariciones = t.get("apariciones", {})
             if apariciones:
@@ -157,18 +173,56 @@ def main():
     terminos_existentes = {k.lower() for k in state.get("terminos", {}).keys()}
     terminos_ignorados = {k.lower() for k in state.get("ignorados", [])}
     
-    extracted = extract_terms_from_bitacoras()
+    extracted, contexts = extract_terms_from_bitacoras()
     
     # Filtrar términos que ya están resueltos (ya sea en el glosario o en la lista de ignorados)
     new_terms = [t for t in extracted.keys() if t.lower() not in terminos_existentes and t.lower() not in terminos_ignorados]
     
     if not new_terms:
-        print("✅ [Merci Glosario] No se detectaron términos nuevos.")
+        print("✅ [Merci Glosario] No se detectaron términos nuevos. Actualizando cuadernillo y saliendo.")
+        compile_markdown(state)
         sys.exit(0)
         
-    target_terms = sorted(new_terms)[:MAX_TERMS_PER_RUN]
-    
     print(f"🔍 [Merci Glosario] Quedan {len(new_terms)} términos en el backlog.")
+    
+    target_terms = []
+    ignorados_en_sesion = []
+    interrumpido = False
+    
+    # Triage Interactivo: El humano decide qué términos se envían al modelo local
+    print("🤖 Modo Triage Activo. Clasifica los términos para el siguiente lote:")
+    for term in sorted(new_terms):
+        if len(target_terms) >= MAX_TERMS_PER_RUN:
+            break
+            
+        try:
+            snippet = contexts.get(term, "")
+            resp = input(f"❓ ¿Procesar '{term}'? (Visto en: \"{snippet}\")\n  [S=Sí / n=No / i=Ignorar]: ").strip().lower()
+        except KeyboardInterrupt:
+            print("\n🛑 [Merci Glosario] Triage interrumpido por la usuaria. Guardando el progreso actual...")
+            interrumpido = True
+            break
+        
+        if resp == 's' or resp == '':
+            target_terms.append(term)
+        elif resp == 'i':
+            ignorados_en_sesion.append(term)
+            
+    if ignorados_en_sesion:
+        if "ignorados" not in state: state["ignorados"] = []
+        state["ignorados"].extend(ignorados_en_sesion)
+        save_glossary_state(state) # Guardamos los nuevos ignorados inmediatamente
+        
+    if interrumpido:
+        print("✅ [Merci Glosario] Actualizando cuadernillo y cerrando limpiamente.")
+        compile_markdown(state)
+        sys.exit(130)
+        
+    if not target_terms:
+        print("✅ [Merci Glosario] Ningún término para procesar. Actualizando cuadernillo y saliendo.")
+        compile_markdown(state)
+        sys.exit(0)
+        
     print(f"🧠 Consultando a {MODEL} (JSON API) para el lote: {target_terms}...")
     
     with open(PROMPT_FILE, 'r', encoding='utf-8') as f:
@@ -184,13 +238,17 @@ def main():
         procesados = []
         
         for t in returned_terms:
-            term_name = t.get("nombre")
-            if term_name and term_name in target_terms:
-                procesados.append(term_name)
-                # Inyectar las apariciones que extrajimos previamente
-                t["apariciones"] = extracted.get(term_name, {})
-                # Guardar en el estado maestro
-                state["terminos"][term_name] = t
+            raw_term_name = t.get("nombre")
+            if not raw_term_name: continue
+            
+            # Búsqueda tolerante (case-insensitive) para evitar blacklisting accidental
+            matched_target = next((target for target in target_terms if target.lower() == raw_term_name.lower()), None)
+            
+            if matched_target:
+                procesados.append(matched_target)
+                t["nombre"] = matched_target # Normalizar el nombre para evitar duplicados visuales
+                t["apariciones"] = extracted.get(matched_target, {})
+                state["terminos"][matched_target] = t
                 
         # Los términos que le pasamos a Ollama pero que Ollama ignoró
         # (porque no son DevSecOps) van a la lista de ignorados
@@ -211,4 +269,8 @@ def main():
         sys.exit(0)
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n🛑 [Merci Glosario] Operación cancelada abruptamente. Saliendo limpiamente.")
+        sys.exit(130)
