@@ -6,7 +6,7 @@
     <title>Topología de IA: El Stack Híbrido en DevSecOps — mercedev.es</title>
     <meta name="description" content="Mapa arquitectónico de cómo se integran y orquestan los agentes de Inteligencia Artificial locales y en la nube a lo largo del pipeline de desarrollo.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/topologia-de-ia-el-stack-hibrido-en-devsecops.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Integrar Inteligencia Artificial en un flujo de trabajo a menudo resulta en un acoplamiento frágil: o bien se depende 100% de APIs de terceros (exponiendo código privado y arriesgando bloqueos por cuotas), o se depende 100% de modelos locales (saturando la RAM del equipo y limitando la automatización en servidores CI/CD de la nube). El desafío era orquestar múltiples agentes de IA para que intervengan en el momento exacto sin sacrificar el rendimiento del proyecto ni la privacidad de la autora.</p>
+<p>Integrar Inteligencia Artificial en un flujo de trabajo a menudo resulta en un acoplamiento frágil: o bien se depende 100% de APIs de terceros (exponiendo código privado y arriesgando bloqueos por cuotas), o se depende 100% de modelos locales (saturando la RAM del equipo y limitando la automatización en servidores <abbr title="Merci Explica: Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano." tabindex="0">CI</abbr>/CD de la nube). El desafío era orquestar múltiples agentes de IA para que intervengan en el momento exacto sin sacrificar el rendimiento del proyecto ni la privacidad de la autora.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se ha diseñado una arquitectura de <strong>Stack Híbrido (Hybrid Stack)</strong>, utilizando el paradigma de <em>Shift-Left AI</em> (adelantar la IA a las fases de desarrollo y compilación). La IA nunca se ejecuta en tiempo real en el navegador del usuario (cero latencia), sino que trabaja entre bambalinas.</p>
 <h3>Esquema Gráfico de Intervención</h3>

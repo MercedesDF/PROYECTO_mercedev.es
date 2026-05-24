@@ -6,7 +6,7 @@
     <title>Estrategias de Integración Headless: WP y WooCommerce</title>
     <meta name="description" content="Resolución de ceguera de proxy, paridad Dev/Prod y sincronización bidireccional en un ecosistema CMS aislado.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/estrategias-de-integracion-headless-wp-y-woocommerce.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -52,11 +52,11 @@
             <div class="card__content">
                 <h1>Estrategias de Integración Headless: WP y WooCommerce</h1>
 <h2>El Desafío (Síntoma)</h2>
-<p>La integración de un CMS (Content Management System) pesado como WordPress (WP) y WooCommerce en un núcleo estático de alto rendimiento (Core Web Vitals 100/100) introdujo múltiples vectores de fallo. Los desafíos documentados incluyeron:</p>
+<p>La integración de un <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> (Content Management System) pesado como WordPress (WP) y WooCommerce en un núcleo estático de alto rendimiento (Core Web Vitals 100/100) introdujo múltiples vectores de fallo. Los desafíos documentados incluyeron:</p>
 <ul>
 <li><strong>Ceguera de Proxy:</strong> Varnish y Nginx ofuscaban el protocolo HTTPS y purgaban las cabeceras de autorización estándar, provocando errores de <em>Mixed Content</em> y bloqueos de la API REST (HTTP 401).</li>
 <li><strong>Deriva de Datos (Data Drift):</strong> Diferencias de IDs entre el entorno de desarrollo local y producción generaban conflictos al sincronizar contenido.</li>
-<li><strong>Contaminación de Rendimiento:</strong> WooCommerce inyectaba scripts en línea agresivos (Speculation Rules, fragmentos de carrito AJAX) que violaban la Política de Seguridad de Contenidos (CSP) y hundían el rendimiento móvil.</li>
+<li><strong>Contaminación de Rendimiento:</strong> WooCommerce inyectaba scripts en línea agresivos (Speculation Rules, fragmentos de carrito <abbr title="Merci Explica: El mecanismo que permite que una página web cargue o envíe datos en segundo plano sin que tengas que actualizar la pestaña." tabindex="0">AJAX</abbr>) que violaban la Política de Seguridad de Contenidos (CSP) y hundían el rendimiento móvil.</li>
 </ul>
 <h2>La Maniobra (Lógica)</h2>
 <p>Para domar el CMS, se desplegó una estrategia de defensa en profundidad:</p>

@@ -5,6 +5,7 @@
       "ingles": "Architecture Decision Record",
       "espanol": "Registro de Decisiones Arquitectónicas",
       "definicion": "Documentación formal que registra la toma de decisiones cruciales en el diseño y arquitectura de un sistema, incluyendo las razones detrás de cada decisión, los impactos potenciales y los compromisos tomados.",
+      "merci_explica": "Es como el diario o acta de decisiones del proyecto. Apuntamos el 'porqué' elegimos una tecnología o camino para no olvidarlo meses después.",
       "apariciones": {
         "bitacora-mercedev-epic-03.md": [
           "L45"
@@ -19,9 +20,10 @@
       "ingles": "Artificial Intelligence Change Log",
       "espanol": "Registro de Cambios Inteligente Artificial",
       "definicion": "Registro que documenta las modificaciones realizadas en el código o arquitectura relacionada con la inteligencia artificial, incluyendo detalles sobre los cambios, sus motivos y su impacto en el sistema.",
+      "merci_explica": "Un historial específico donde anotamos qué le hemos enseñado o modificado a la Inteligencia Artificial del proyecto.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L68"
+          "L130"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L988"
@@ -33,6 +35,7 @@
       "ingles": "Asynchronous JavaScript and XML",
       "espanol": "JavaScript Asíncrono y XML",
       "definicion": "Tecnología que permite actualizar partes de una página web sin tener que recargar la página completa, mediante el intercambio de datos con un servidor en segundo plano usando JavaScript.",
+      "merci_explica": "El mecanismo que permite que una página web cargue o envíe datos en segundo plano sin que tengas que actualizar la pestaña.",
       "apariciones": {
         "bitacora-mercedev-epic-01.md": [
           "L3315"
@@ -44,17 +47,19 @@
       "ingles": "Abstract Syntax Tree",
       "espanol": "Árbol Sintáctico Abstracto",
       "definicion": "Representación estructurada de un programa fuente en un formato que puede ser analizado y procesado por sistemas de análisis estáticos o herramientas de compilación.",
+      "merci_explica": "Es como un mapa mental que usan los compiladores para entender y desglosar el código de programación que escribimos.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L169"
+          "L231"
         ]
       }
     },
     "ATS": {
       "nombre": "ATS",
-      "ingles": "Application Security Testing",
-      "espanol": "Pruebas de Seguridad de Aplicaciones",
-      "definicion": "Proceso sistemático y automatizado de identificar, evaluar y mitigar vulnerabilidades de seguridad en aplicaciones software.",
+      "ingles": "Applicant Tracking System",
+      "espanol": "Sistema de Seguimiento de Candidatos",
+      "definicion": "Software corporativo utilizado por los departamentos de recursos humanos para filtrar, organizar y escanear currículums automáticamente durante los procesos de selección.",
+      "merci_explica": "Los robots de Recursos Humanos que leen los currículums antes de que lleguen a una persona real.",
       "apariciones": {
         "bitacora-mercedev-epic-01.md": [
           "L232"
@@ -66,6 +71,7 @@
       "ingles": "Accessible Rich Internet Applications",
       "espanol": "Aplicaciones Web Acessibles",
       "definicion": "Conjunto de prácticas y tecnologías utilizadas para crear contenido web que sea accesible a personas con discapacidades visuales, auditivas o motoras.",
+      "merci_explica": "Etiquetas invisibles que le ponemos al código para que los lectores de pantalla puedan explicarle la web a las personas con discapacidades visuales.",
       "apariciones": {
         "bitacora-mercedev-epic-01.md": [
           "L2685"
@@ -133,8 +139,11 @@
       "definicion": "Enfoque en el desarrollo y diseño de aplicaciones que prioritizan la interacción a través de interfaces de línea de comandos, enfocándose en facilitar la ejecución de tareas desde un terminal o consola.",
       "merci_explica": "Método orientado al usuario final que se centra en proporcionar herramientas y utilidades accesibles a través de comandos directos en el sistema operativo.",
       "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L1237"
+        ],
         "bitacora-mercedev-epic-02.md": [
-          "L1092"
+          "L1086"
         ]
       }
     },
@@ -158,7 +167,7 @@
       "merci_explica": "Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L47"
+          "L109"
         ],
         "bitacora-mercedev-epic-05.md": [
           "L266"

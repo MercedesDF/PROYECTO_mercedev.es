@@ -36,6 +36,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-24 — UX/Docs: Identidad de "Glosario Vivo" y Control de Versiones Offline
+
+**Contexto:** Se requería explicar claramente en la cabecera del glosario su naturaleza automatizada, y proveer un mecanismo visual en los PDFs descargados (o impresos) para que el lector sepa exactamente si su copia está obsoleta frente al entorno de producción.
+
+**Hecho:** Se refactorizó la cabecera generada en `scripts/merci/merci-glosario.py`.
+
+**Detalle técnico:** Se sustituyó la descripción estática por un bloque de cita (`>`) que explica el rastreo autónomo. Se inyectó la variable `fecha_actualizacion` calculada a partir de la marca de tiempo física (`st_mtime`) del `glosario-tecnico.json`, combinada con el número total de términos consolidados (`len(terminos)`).
+
+**Motivo / criterio:** *Trazabilidad Documental Offline*. Cuando un documento dinámico se exporta a un formato estático desconectado (PDF o papel), pierde su anclaje temporal. Incluir la huella temporal exacta del origen de datos (JSON) junto al conteo de ítems garantiza que el usuario pueda auditar la vigencia de su manual con un simple vistazo.
+
+### 2026-05-24 — Feat: Sincronización Automática de Apariciones (Auto-Healing References)
+
+**Contexto:** Se descubrió que una vez que el glosario consolidaba un término en el JSON maestro, sus líneas de aparición quedaban congeladas. Si el mismo término se mencionaba en bitácoras futuras (ej. Épica 7), el orquestador no actualizaba las referencias cruzadas.
+
+**Hecho:** Se refactorizó la función `main` de `scripts/merci/merci-glosario.py` para incluir una rutina de sincronización silenciosa de apariciones en todos los modos de ejecución.
+
+**Detalle técnico:** Al iniciar el script, se extraen las apariciones actuales y se iteran sobre los términos ya existentes en el JSON. Si el diccionario de `apariciones` difiere (hay nuevas bitácoras, líneas, o archivos borrados), se sobrescribe y se guarda el estado. Esta refactorización consolidó la extracción de variables, eliminando código duplicado entre el "Modo Compilación" y el "Modo IA".
+
+**Motivo / criterio:** *Single Source of Truth (SSOT) Dinámico*. Un glosario debe ser un documento vivo. Garantizar que las referencias a los archivos y líneas se mantengan exactas y actualizadas en tiempo real (incluso mediante una simple compilación rápida de `merci total`) aporta un inmenso valor de trazabilidad sin consumir llamadas adicionales a la API local de la IA.
+
 ### 2026-05-24 — Sec & AI: Endurecimiento de Prompts (Agent Chaining y Zero-Hallucination)
 
 **Contexto:** Los agentes Bibliotecario y Blogger mostraban propensión a omitir campos YAML obligatorios o incluir texto conversacional ("Aquí tienes el artículo..."), rompiendo el parseo posterior del pipeline (Agent Chaining). 

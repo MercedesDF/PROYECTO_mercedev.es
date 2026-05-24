@@ -6,7 +6,7 @@
     <title>Conflictos masivos en Git y la estrategia de fuerza bruta (-...</title>
     <meta name="description" content="Cómo resolver colisiones de fusión destructivas cuando el entorno local es la única fuente de verdad.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/conflictos-masivos-en-git-y-la-estrategia-de-fuerza-bruta-ours.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Tras una reescritura de historial local (<code>git reset --soft</code>), el servidor remoto conservó una línea de tiempo "fantasma". Al intentar sincronizar mediante <code>git pull</code>, se desató un conflicto de fusión (Merge Conflict) masivo. Git inyectó marcadores de conflicto (<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>) en archivos de texto e impidió la fusión de archivos binarios (PDFs), bloqueando por completo el ciclo de Integración Continua (CI - Continuous Integration).</p>
+<p>Tras una reescritura de historial local (<code>git reset --soft</code>), el servidor remoto conservó una línea de tiempo "fantasma". Al intentar sincronizar mediante <code>git pull</code>, se desató un conflicto de fusión (Merge Conflict) masivo. Git inyectó marcadores de conflicto (<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>) en archivos de texto e impidió la fusión de archivos binarios (PDFs), bloqueando por completo el ciclo de Integración Continua (<abbr title="Merci Explica: Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano." tabindex="0">CI</abbr> - Continuous Integration).</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Dado que se tenía la certeza absoluta de que el entorno local era la Única Fuente de Verdad (SSOT - Single Source of Truth) y que el servidor remoto contenía basura obsoleta, se descartó la resolución manual archivo por archivo. 
 Se ejecutó la estrategia de resolución por imposición local:</p>

@@ -6,7 +6,7 @@
     <title>Despliegue SSG Puro con GitHub Actions (rsync) — mercedev.es</title>
     <meta name="description" content="Automatización de despliegue estático mediante CI/CD y justificación de su descarte en arquitecturas híbridas.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/despliegue-ssg-puro-con-github-actions-rsync.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,8 +51,8 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Durante la Fase 11 de maduración del ecosistema, se buscó automatizar el despliegue del código hacia el servidor de producción utilizando CI/CD (Continuous Integration / Continuous Deployment - Integración Continua / Despliegue Continuo). El objetivo era compilar el SSG (Static Site Generation - Generación de Sitios Estáticos) en la nube y enviar los archivos listos a través de SSH (Secure Shell).</p>
-<p>Sin embargo, al aplicar el comando <code>rsync --delete</code>, se detectó que la capa dinámica del CMS (Content Management System - Sistema de Gestión de Contenidos) en producción dejaba de funcionar. <code>rsync</code> purgaba implacablemente el enlace simbólico físico (<code>public/blog</code>) que unía el núcleo estático con la instalación asilada de WordPress. Como dicho enlace está excluido en el <code>.gitignore</code>, el robot de GitHub asumía que era un archivo "sobrante" en el servidor y lo destruía.</p>
+<p>Durante la Fase 11 de maduración del ecosistema, se buscó automatizar el despliegue del código hacia el servidor de producción utilizando <abbr title="Merci Explica: Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano." tabindex="0">CI</abbr>/CD (Continuous Integration / Continuous Deployment - Integración Continua / Despliegue Continuo). El objetivo era compilar el SSG (Static Site Generation - Generación de Sitios Estáticos) en la nube y enviar los archivos listos a través de SSH (Secure Shell).</p>
+<p>Sin embargo, al aplicar el comando <code>rsync --delete</code>, se detectó que la capa dinámica del <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> (Content Management System - Sistema de Gestión de Contenidos) en producción dejaba de funcionar. <code>rsync</code> purgaba implacablemente el enlace simbólico físico (<code>public/blog</code>) que unía el núcleo estático con la instalación asilada de WordPress. Como dicho enlace está excluido en el <code>.gitignore</code>, el robot de GitHub asumía que era un archivo "sobrante" en el servidor y lo destruía.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>En lugar de sobreingeniar el comando <code>rsync</code> con exclusiones complejas para mantener vivo el puente del CMS, se tomó la decisión arquitectónica de <strong>hacer un rollback y descartar el despliegue automático para esta infraestructura</strong>. La arquitectura híbrida mantiene el control manual mediante <code>git pull</code> en el servidor, el cual es lo suficientemente inteligente para ignorar los archivos no rastreados y preservar la integración.</p>
 <p>No obstante, el código del flujo desarrollado es una pieza de ingeniería robusta y validada. Superó las barreras de permisos e inyectó llaves de forma inmaculada. Se archiva a continuación como un activo "Plug &amp; Play" para su uso directo en futuras arquitecturas que sean <strong>100% estáticas</strong> (sin CMS acoplado).</p>

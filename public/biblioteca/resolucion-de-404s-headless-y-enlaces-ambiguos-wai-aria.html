@@ -6,7 +6,7 @@
     <title>Resolución de 404s Headless y Enlaces Ambiguos WAI-ARIA</title>
     <meta name="description" content="Cómo erradicar enlaces rotos en PDFs mediante un patrón de publicación en dos pasos y prevenir colisiones de accesibilidad WCAG inyectando dimensió...">
     <link rel="canonical" href="https://mercedev.es/biblioteca/resolucion-de-404s-headless-y-enlaces-ambiguos-wai-aria.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -52,8 +52,8 @@
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
 <p>Durante la validación continua, el rastreador dinámico local (<code>merci-linkcheck.py</code>) bloqueó el pipeline al detectar dos anomalías críticas en producción:
-1. <strong>Errores 404 en descargas:</strong> El CMS servía enlaces de descarga hacia archivos PDF (<code>/descargas/articulo.pdf</code>) que no existían físicamente. Esto sucedía porque el tema de WordPress asumía que siempre habría un PDF para cada artículo, incluso si el generador local había fallado o el artículo de origen había sido eliminado (Posts Zombis).
-2. <strong>Infracción WAI-ARIA (WCAG):</strong> Se detectaron múltiples enlaces con el mismo "Nombre Accesible" (<code>aria-label="Leer artículo completo: [Título]"</code>) apuntando a destinos diferentes. Esto ocurría en la batería de pruebas automatizadas al publicar varios posts con idéntico título, confundiendo gravemente a los lectores de pantalla.</p>
+1. <strong>Errores 404 en descargas:</strong> El <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> servía enlaces de descarga hacia archivos PDF (<code>/descargas/articulo.pdf</code>) que no existían físicamente. Esto sucedía porque el tema de WordPress asumía que siempre habría un PDF para cada artículo, incluso si el generador local había fallado o el artículo de origen había sido eliminado (Posts Zombis).
+2. <strong>Infracción WAI-<abbr title="Merci Explica: Etiquetas invisibles que le ponemos al código para que los lectores de pantalla puedan explicarle la web a las personas con discapacidades visuales." tabindex="0">ARIA</abbr> (WCAG):</strong> Se detectaron múltiples enlaces con el mismo "Nombre Accesible" (<code>aria-label="Leer artículo completo: [Título]"</code>) apuntando a destinos diferentes. Esto ocurría en la batería de pruebas automatizadas al publicar varios posts con idéntico título, confundiendo gravemente a los lectores de pantalla.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p><strong>1. Amputación de PDFs Dinámicos (Zero Bloat):</strong>
 Para resolver los 404 de los adjuntos rotos, se decidió extirpar completamente la generación de PDFs del orquestador Headless (<code>merci-wp.py</code>). El contenido dinámico y efímero del blog no requiere versiones descargables pesadas; estas se reservan exclusivamente para los manuales inmutables de la Biblioteca estática.</p>

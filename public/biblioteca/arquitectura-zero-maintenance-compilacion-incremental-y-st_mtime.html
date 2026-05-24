@@ -6,7 +6,7 @@
     <title>Arquitectura Zero Maintenance: Compilación Incremental y st_...</title>
     <meta name="description" content="Evolución del pipeline maestro DevSecOps. De la fuerza bruta del Clean Build a la eficiencia del Mark &amp; Sweep y la auditoría física del sistema...">
     <link rel="canonical" href="https://mercedev.es/biblioteca/arquitectura-zero-maintenance-compilacion-incremental-y-st_mtime.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -66,7 +66,7 @@
 <p><strong>El rendimiento no se optimiza con hardware, se optimiza con arquitectura.</strong></p>
 <p>Migrar del <em>Clean Build</em> al <em>Incremental Build</em> redujo el tiempo de compilación del SSG de 8.46s a <strong>0.41s</strong> (una mejora del 95%), logrando que el pipeline maestro completo caiga por debajo de la barrera psicológica de los 10 segundos (Sub-10s).</p>
 <p>Auditar la verdad física (<code>st_mtime</code>) y erradicar las cabeceras manuales demostró que el verdadero <strong>DevSecOps</strong> es aquel que elimina la carga cognitiva del desarrollador. Si una herramienta requiere que el humano introduzca datos redundantes para funcionar, la herramienta está mal diseñada.</p>
-<p>Queda como conocimiento consolidado que la Inteligencia Artificial (SLMs), si bien es excepcional para razonar sobre código (como demostró el <em>Chaos Monkey</em>), añade una latencia inaceptable al ciclo crítico de Integración Continua (CI). Tareas de sincronización determinista, como la actualización del Roadmap o la recolección de métricas, deben delegarse incondicionalmente a código nativo (Python puro) para mantener la Experiencia de Desarrolladora (DX) intacta.</p>
+<p>Queda como conocimiento consolidado que la Inteligencia Artificial (SLMs), si bien es excepcional para razonar sobre código (como demostró el <em>Chaos Monkey</em>), añade una latencia inaceptable al ciclo crítico de Integración Continua (<abbr title="Merci Explica: Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano." tabindex="0">CI</abbr>). Tareas de sincronización determinista, como la actualización del Roadmap o la recolección de métricas, deben delegarse incondicionalmente a código nativo (Python puro) para mantener la Experiencia de Desarrolladora (DX) intacta.</p>
 <h2>En resumen</h2>
 <p>A medida que la web crecía, el sistema tardaba cada vez más en actualizarse porque borraba y volvía a construir todos los archivos desde cero ante cualquier pequeño cambio, por mínimo que fuera. Le hemos enseñado al sistema a mirar la fecha física en la que se guardó cada archivo en el disco duro. Ahora, el sistema solo actualiza lo que realmente se ha tocado y hace una "limpieza de basura" automática al final. Hemos pasado de esperar casi 10 segundos a que los cambios sean casi instantáneos, sin que ninguna persona tenga que acordarse de anotar o modificar fechas a mano.</p>
             </div>

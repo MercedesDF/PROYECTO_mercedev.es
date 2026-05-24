@@ -6,7 +6,7 @@
     <title>Anatomía de Merci Boilerplate v1.15.1 — mercedev.es</title>
     <meta name="description" content="Evolución del ecosistema DevSecOps: TBT 0ms, Telemetría SRE, Agent Chaining, Chaos Engineering y compilación SSG híbrida.">
     <link rel="canonical" href="https://mercedev.es/art-de-cote/anatomia-de-merci-boilerplate-v1151.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -52,7 +52,7 @@
             <div class="card__content">
                 <p>La mayoría de plantillas web (boilerplates) actuales entregan un sitio funcional a costa de inyectar megabytes de librerías en el navegador, oscurecer la infraestructura y acumular deuda técnica desde el <em>commit</em> cero. </p>
 <p><strong>Merci Boilerplate v1.15.1 es el antídoto.</strong> Lo que comenzó como un proyecto de investigación DevSecOps, ha madurado en un ecosistema operacional extremo. </p>
-<p>El sistema surgió del rigor académico y evolucionó bajo el escrutinio de <strong>Chaos Engineering</strong>: una arquitectura segura, 0 dependencias externas en tiempo de ejecución (Zero-Bloat), integrando CMS Headless y aplicando metodologías SRE (Site Reliability Engineering) para garantizar telemetría constante.</p>
+<p>El sistema surgió del rigor académico y evolucionó bajo el escrutinio de <strong>Chaos Engineering</strong>: una arquitectura segura, 0 dependencias externas en tiempo de ejecución (Zero-Bloat), integrando <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> Headless y aplicando metodologías SRE (Site Reliability Engineering) para garantizar telemetría constante.</p>
 <h2>4 Pilares de esta Release</h2>
 <p><strong>1. Rendimiento Extremo (TBT 0ms Real)</strong>
 El núcleo ha sido refactorizado para fragmentar las tareas asíncronas de Javascript (<em>Yielding</em> mediante <code>requestIdleCallback</code> y <code>setTimeout</code>) y priorizar la red nativa (<code>fetchpriority</code>). El resultado: un <strong>Total Blocking Time de 0ms</strong> empírico, incluso en simulaciones extremas (Móvil 4G, CPU throttled 4x).</p>

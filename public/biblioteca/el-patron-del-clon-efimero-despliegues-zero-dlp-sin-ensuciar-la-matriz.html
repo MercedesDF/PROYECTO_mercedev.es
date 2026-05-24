@@ -6,7 +6,7 @@
     <title>El Patrón del Clon Efímero: Despliegues Zero-DLP sin ensucia...</title>
     <meta name="description" content="Cómo aislar rutinas destructivas de instanciación en carpetas temporales para desplegar &#x27;marcas blancas&#x27; sin comprometer el código origen.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/el-patron-del-clon-efimero-despliegues-zero-dlp-sin-ensuciar-la-matriz.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -53,7 +53,7 @@
                 <h3>El Desafío (Síntoma)</h3>
 <p>Para crear la demostración pública del <em>Merci Boilerplate</em> (Showcase), era necesario desplegar el código en un subdominio. Sin embargo, el repositorio matriz contiene datos privados, telemetría y credenciales. Ejecutar el script destructivo de instanciación (<code>merci-init.py</code>) directamente para limpiar los datos habría arrasado con la propia web original de la autora.</p>
 <h3>La Maniobra (Lógica)</h3>
-<p>Se diseñó el patrón arquitectónico del <strong>Clon Efímero</strong>. El orquestador <code>merci-showcase.py</code> genera una carpeta temporal (<code>scratch/showcase_build/</code>), copia todo el código fuente excluyendo infraestructuras pesadas (usando <code>symlinks=True</code> para sortear colisiones de permisos del CMS) y ejecuta la guillotina (<code>merci-init.py</code>) <em>exclusivamente</em> dentro de esa carpeta aislada. Tras purgar la identidad, sube el resultado mediante <code>rsync</code> al servidor y destruye físicamente el clon temporal para no dejar rastro.</p>
+<p>Se diseñó el patrón arquitectónico del <strong>Clon Efímero</strong>. El orquestador <code>merci-showcase.py</code> genera una carpeta temporal (<code>scratch/showcase_build/</code>), copia todo el código fuente excluyendo infraestructuras pesadas (usando <code>symlinks=True</code> para sortear colisiones de permisos del <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr>) y ejecuta la guillotina (<code>merci-init.py</code>) <em>exclusivamente</em> dentro de esa carpeta aislada. Tras purgar la identidad, sube el resultado mediante <code>rsync</code> al servidor y destruye físicamente el clon temporal para no dejar rastro.</p>
 <h3>El Aprendizaje / Deuda Técnica</h3>
 <p>Separar el estado del código es vital. Operar sobre clones efímeros permite ejecutar rutinas altamente destructivas (Data Leak Prevention - DLP) con cero riesgo para el entorno de trabajo real (Safe Sandbox). Esta técnica garantiza que el Showcase público sea un reflejo matemáticamente exacto de lo que recibiría un usuario de GitHub al clonar la plantilla ("Out-of-the-Box Experience").</p>
 <h3>En resumen</h3>

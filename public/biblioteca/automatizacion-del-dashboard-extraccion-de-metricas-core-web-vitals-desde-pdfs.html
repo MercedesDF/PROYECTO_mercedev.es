@@ -6,7 +6,7 @@
     <title>Automatización del Dashboard: Extracción de métricas Core We...</title>
     <meta name="description" content="Cómo leer reportes de PageSpeed Insights con Python puro (pypdf) e inyectar las métricas dinámicamente en una portada HTML estática.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/automatizacion-del-dashboard-extraccion-de-metricas-core-web-vitals-desde-pdfs.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Mantener actualizado el "Engineering Dashboard" de la portada con las métricas reales de Core Web Vitals (LCP, INP, CLS, TBT) requería intervención manual tras cada auditoría en Google PageSpeed Insights. Copiar y pegar números desde un reporte a un archivo HTML genera fricción y es propenso a olvidos, rompiendo el principio de automatización DevSecOps.</p>
+<p>Mantener actualizado el "Engineering Dashboard" de la portada con las métricas reales de Core Web Vitals (LCP, INP, <abbr title="Merci Explica: Instrucción utilizada en interfaces de línea de comandos para limpiar el contenido visible del terminal." tabindex="0">CLS</abbr>, TBT) requería intervención manual tras cada auditoría en Google PageSpeed Insights. Copiar y pegar números desde un reporte a un archivo HTML genera fricción y es propenso a olvidos, rompiendo el principio de automatización DevSecOps.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Desarrollamos el script <code>merci-extract-metrics.py</code> utilizando <code>pypdf</code>, una librería de Python puro (0 dependencias de binarios de sistema operativo).</p>
 <p>El flujo es el siguiente:

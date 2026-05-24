@@ -6,7 +6,7 @@
     <title>Inyección de Claves SSH en GitHub Actions: Anatomía de un De...</title>
     <meta name="description" content="Depuración de errores de autenticación y gestión de secretos para despliegues automatizados mediante CI/CD.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/inyeccion-de-claves-ssh-en-github-actions-anatomia-de-un-despliegue-rsync.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>1. El Desafío (Síntoma)</h2>
-<p>Durante la configuración del flujo de CI/CD (Continuous Integration / Continuous Deployment - Integración Continua / Despliegue Continuo) en GitHub Actions para el despliegue automático del sitio estático, se presentaron dos fallos críticos que bloquearon la subida de archivos hacia el servidor VPS (Virtual Private Server - Servidor Privado Virtual):</p>
+<p>Durante la configuración del flujo de <abbr title="Merci Explica: Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano." tabindex="0">CI</abbr>/CD (Continuous Integration / Continuous Deployment - Integración Continua / Despliegue Continuo) en GitHub Actions para el despliegue automático del sitio estático, se presentaron dos fallos críticos que bloquearon la subida de archivos hacia el servidor VPS (Virtual Private Server - Servidor Privado Virtual):</p>
 <ol>
 <li><strong>Fallo de variables vacías:</strong> El comando <code>ssh-keyscan</code> devolvió un error de sintaxis (<code>usage: ssh-keyscan...</code>), indicando que la variable que contenía la IP del servidor no se estaba inyectando en la máquina virtual.</li>
 <li><strong>Fallo de autenticación:</strong> Al ejecutar la sincronización de archivos, el servidor rechazó la conexión con un error <code>Permission denied (publickey)</code>, a pesar de que la clave había sido configurada.</li>

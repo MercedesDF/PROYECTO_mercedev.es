@@ -131,8 +131,12 @@ def compile_markdown(state_data):
     
     terminos = state_data.get("terminos", {})
     
+    # Extraemos la fecha exacta de la última mutación del JSON matriz para control de versiones offline
+    fecha_actualizacion = datetime.fromtimestamp(GLOSSARY_JSON.stat().st_mtime).strftime("%Y-%m-%d %H:%M") if GLOSSARY_JSON.exists() else fecha_hoy
+    
     md += "# Glosario Técnico DevSecOps & Arquitectura\n\n"
-    md += f"Este glosario contiene actualmente **{len(terminos)} términos y expresiones informáticas** de nivel intermedio y avanzado, extraídos del análisis de las bitácoras del proyecto.\n\n"
+    md += "> **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.\n"
+    md += f"> **Versión de control:** {len(terminos)} términos consolidados (Última actualización de datos: {fecha_actualizacion}).\n\n"
     md += "## Índice Alfabético\n\n"
     
     if not terminos:
@@ -141,17 +145,14 @@ def compile_markdown(state_data):
         # Orden alfabético forzado (Case-Insensitive)
         for term_name in sorted(terminos.keys(), key=lambda x: x.lower()):
             t = terminos[term_name]
-            espanol = t.get('espanol', term_name)
-            if espanol.lower() != term_name.lower():
-                md += f"### {espanol} ({term_name})\n"
-            else:
-                md += f"### {term_name}\n"
-            md += f"**Inglés:** {t.get('ingles', term_name)}\n"
-            md += f"**Español:** {t.get('espanol', term_name)}\n\n"
-            md += f"**Definición:** {t.get('definicion', '')}\n\n"
+            md += f"### {term_name}\n"
+            md += f"**Inglés:** {t.get('ingles', term_name)} | **Español:** {t.get('espanol', term_name)}\n\n"
             
             if "merci_explica" in t and t["merci_explica"]:
-                md += f"> **Merci Explica:** *{t['merci_explica']}*\n\n"
+                md += f"**Definición:** {t.get('definicion', '')}\n\n"
+                md += f"💡 **Merci Explica:** *{t['merci_explica']}*\n\n"
+            else:
+                md += f"**Definición:** {t.get('definicion', '')}\n\n"
             
             apariciones = t.get("apariciones", {})
             if apariciones:
@@ -159,7 +160,7 @@ def compile_markdown(state_data):
                 for fname in sorted(apariciones.keys()):
                     # Ordenar las líneas (L1, L2, L10) numéricamente
                     lines_sorted = sorted(apariciones[fname], key=lambda x: int(x[1:]) if x[1:].isdigit() else 0)
-                    md += f"- `{fname}`: {', '.join(lines_sorted)}\n"
+                    md += f"- {fname}: {', '.join(lines_sorted)}\n"
                 
             md += "\n---\n"
         
@@ -170,15 +171,31 @@ def main():
     use_ai = "--ai" in sys.argv
     state = load_glossary_state()
     
+    # --- INICIO SINCRONIZACIÓN AUTOMÁTICA DE APARICIONES ---
+    # Extraemos el estado actual de las bitácoras para ambos modos
+    extracted, contexts = extract_terms_from_bitacoras()
+    terminos_existentes = {k.lower() for k in state.get("terminos", {}).keys()}
+    terminos_ignorados = {k.lower() for k in state.get("ignorados", [])}
+    
+    # Si un término ya existe, actualizamos sus líneas/archivos en tiempo real (Auto-Healing)
+    modificado = False
+    for term_key, term_data in state.get("terminos", {}).items():
+        matched_ext = next((k for k in extracted.keys() if k.lower() == term_key.lower()), None)
+        nuevas_apariciones = extracted[matched_ext] if matched_ext else {}
+        if term_data.get("apariciones") != nuevas_apariciones:
+            term_data["apariciones"] = nuevas_apariciones
+            modificado = True
+            
+    if modificado:
+        save_glossary_state(state)
+    # --- FIN SINCRONIZACIÓN ---
+    
+    # Filtrar términos que ya están resueltos (ya sea en el glosario o en la lista de ignorados)
+    new_terms = [t for t in extracted.keys() if t.lower() not in terminos_existentes and t.lower() not in terminos_ignorados]
+    
     if not use_ai:
         # MODO COMPILACIÓN: Ultra rápido para el pipeline CI/CD (merci total)
         print("⚡ [Merci Glosario] Modo Compilación. Construyendo Markdown desde JSON...")
-        
-        # Chequeo ultrarrápido de backlog pendiente para visibilidad (DX)
-        terminos_existentes = {k.lower() for k in state.get("terminos", {}).keys()}
-        terminos_ignorados = {k.lower() for k in state.get("ignorados", [])}
-        extracted, _ = extract_terms_from_bitacoras()
-        new_terms = [t for t in extracted.keys() if t.lower() not in terminos_existentes and t.lower() not in terminos_ignorados]
         
         if new_terms:
             print(f"  ⚠️ [Info] Tienes {len(new_terms)} término(s) nuevo(s) en la bitácora sin definir.")
@@ -193,14 +210,6 @@ def main():
         print(f"❌ Error: No se encontró el prompt en {PROMPT_FILE}")
         sys.exit(1)
 
-    terminos_existentes = {k.lower() for k in state.get("terminos", {}).keys()}
-    terminos_ignorados = {k.lower() for k in state.get("ignorados", [])}
-    
-    extracted, contexts = extract_terms_from_bitacoras()
-    
-    # Filtrar términos que ya están resueltos (ya sea en el glosario o en la lista de ignorados)
-    new_terms = [t for t in extracted.keys() if t.lower() not in terminos_existentes and t.lower() not in terminos_ignorados]
-    
     if not new_terms:
         print("✅ [Merci Glosario] No se detectaron términos nuevos. Actualizando cuadernillo y saliendo.")
         compile_markdown(state)

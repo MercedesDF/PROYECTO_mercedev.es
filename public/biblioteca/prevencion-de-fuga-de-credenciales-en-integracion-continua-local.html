@@ -6,7 +6,7 @@
     <title>Prevención de Fuga de Credenciales en Integración Continua L...</title>
     <meta name="description" content="Por qué un archivo .gitignore no es suficiente cuando automatizas commits y cómo crear un escudo activo.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/prevencion-de-fuga-de-credenciales-en-integracion-continua-local.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -57,7 +57,7 @@
 1. <strong>Defensa Pasiva:</strong> Se añadió el archivo <code>.linkedin_token.json</code> al <code>.gitignore</code>.
 2. <strong>Defensa Activa (Linter):</strong> Se parcheó el orquestador de auditoría (<code>merci-audit.py</code>) añadiendo la llave maestra a la regla estricta <code>BANNED_TRACKED_FILE</code>. Si en el futuro Git intenta rastrear este archivo, el auditor abortará el commit automáticamente, emitiendo un error fatal.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>En entornos con CI (Continuous Integration - Integración Continua) o automatización de commits, la confianza en el desarrollador no escala. Un archivo <code>.gitignore</code> es una medida pasiva que puede fallar si el archivo ya fue indexado o si se fuerza su inclusión.
+<p>En entornos con <abbr title="Merci Explica: Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano." tabindex="0">CI</abbr> (Continuous Integration - Integración Continua) o automatización de commits, la confianza en el desarrollador no escala. Un archivo <code>.gitignore</code> es una medida pasiva que puede fallar si el archivo ya fue indexado o si se fuerza su inclusión.
 Implementar escudos activos (Linters) que auditen el área de preparación (<em>Stage</em>) de Git buscando credenciales antes de confirmar el empaquetado es la única garantía real de "Zero Trust" (Confianza Cero).</p>
             </div>
         </article>

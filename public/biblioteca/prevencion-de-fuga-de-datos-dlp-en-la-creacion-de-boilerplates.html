@@ -6,7 +6,7 @@
     <title>Prevención de Fuga de Datos (DLP) en la creación de Boilerpl...</title>
     <meta name="description" content="Por qué excluir carpetas del borrado en un script de instanciación expone propiedad intelectual y cómo blindar el entorno.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/prevencion-de-fuga-de-datos-dlp-en-la-creacion-de-boilerplates.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Durante el empaquetado del repositorio matriz (<code>mercedev.es</code>) hacia su versión pública redistribuible (<code>merci-boilerplate</code>), surgió la necesidad de preservar el andamiaje del CMS Headless (carpetas vacías como <code>blog/</code> y <code>art-de-cote/</code>). La primera iteración del script de instanciación simplemente excluía estas carpetas del proceso de borrado. Esto generó un vector crítico de Fuga de Datos (Data Leak): cualquier borrador privado o artículo publicado almacenado en dichas carpetas en la máquina del desarrollador viajaría intacto al repositorio público de GitHub.</p>
+<p>Durante el empaquetado del repositorio matriz (<code>mercedev.es</code>) hacia su versión pública redistribuible (<code>merci-boilerplate</code>), surgió la necesidad de preservar el andamiaje del <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> Headless (carpetas vacías como <code>blog/</code> y <code>art-de-cote/</code>). La primera iteración del script de instanciación simplemente excluía estas carpetas del proceso de borrado. Esto generó un vector crítico de Fuga de Datos (Data Leak): cualquier borrador privado o artículo publicado almacenado en dichas carpetas en la máquina del desarrollador viajaría intacto al repositorio público de GitHub.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>En lugar de usar listas de exclusión (Blacklisting), se rediseñó el destructor (<code>merci-init.py</code>) aplicando el patrón de <strong>Destrucción y Recreación</strong>:
 1. <strong>Purga Total:</strong> Se arrasa con los directorios dinámicos completos usando <code>shutil.rmtree()</code>, garantizando la erradicación de cualquier propiedad intelectual.

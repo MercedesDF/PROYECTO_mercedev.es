@@ -6,7 +6,7 @@
     <title>Semántica HTML y WAI-ARIA: Roles implícitos y acoplamiento B...</title>
     <meta name="description" content="Por qué los lectores de pantalla ignoran etiquetas aria-label genéricas y el peligro de acoplar bloques BEM.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -54,11 +54,11 @@
 <p>Durante la auditoría de las últimas vistas (Engineering Dashboard y CV Semántico), surgieron dos incidentes arquitectónicos aparentemente inconexos pero nacidos de la misma causa: la falta de semántica estricta.</p>
 <ol>
 <li><strong>Ceguera de Lector de Pantalla:</strong> Se inyectó un atributo <code>aria-label="Métricas de rendimiento del sistema"</code> a un <code>&lt;div&gt;</code> genérico que actuaba como contenedor del dashboard. Sin embargo, las tecnologías asistivas a menudo lo ignoraban por completo al leer la página.</li>
-<li><strong>Acoplamiento BEM:</strong> Los botones de llamada a la acción (CTA) del Hero en el currículum estaban utilizando la clase <code>.nav__link</code>. Aunque visualmente resolvía el problema temporalmente, ataba el diseño de un componente local a la barra de navegación global de la web.</li>
+<li><strong>Acoplamiento <abbr title="Merci Explica: Sistema de nomenclatura para clases CSS que facilita la organización y mantenimiento del código." tabindex="0">BEM</abbr>:</strong> Los botones de llamada a la acción (CTA) del Hero en el currículum estaban utilizando la clase <code>.nav__link</code>. Aunque visualmente resolvía el problema temporalmente, ataba el diseño de un componente local a la barra de navegación global de la web.</li>
 </ol>
 <h2>La Maniobra (Lógica)</h2>
 <ol>
-<li><strong>Restauración WAI-ARIA:</strong> Se inyectó explícitamente el atributo <code>role="group"</code> al <code>&lt;div&gt;</code> genérico del dashboard (<code>&lt;div class="hero__dashboard" role="group" aria-label="..."&gt;</code>).</li>
+<li><strong>Restauración WAI-<abbr title="Merci Explica: Etiquetas invisibles que le ponemos al código para que los lectores de pantalla puedan explicarle la web a las personas con discapacidades visuales." tabindex="0">ARIA</abbr>:</strong> Se inyectó explícitamente el atributo <code>role="group"</code> al <code>&lt;div&gt;</code> genérico del dashboard (<code>&lt;div class="hero__dashboard" role="group" aria-label="..."&gt;</code>).</li>
 <li><strong>Desacoplamiento BEM:</strong> Se eliminó la clase <code>.nav__link</code> de los botones del Hero en el HTML. En su lugar, se crearon reglas SASS nativas anidadas dentro de su propio bloque (<code>.hero__cta a</code>) para gobernar su aspecto. Adicionalmente, se restituyó la etiqueta estructural <code>&lt;h2&gt;</code> para la declaración de intenciones en el currículum que había quedado huérfana.</li>
 </ol>
 <h2>El Aprendizaje / Deuda Técnica</h2>

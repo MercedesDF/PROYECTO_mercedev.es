@@ -6,7 +6,7 @@
     <title>Ingeniería de Interfaz Estática (SSG): Python Puro — mercedev.es</title>
     <meta name="description" content="Patrones de rendimiento, SEO técnico, accesibilidad WAI-ARIA y compilación con cero dependencias.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/ingenieria-de-interfaz-estatica-ssg-python-puro.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -52,7 +52,7 @@
             <div class="card__content">
                 <h1>Ingeniería de Interfaz Estática (SSG): Python Puro</h1>
 <h2>El Desafío (Síntoma)</h2>
-<p>Mantener un sitio web con contenido extenso editando HTML puro no es escalable. Los frameworks modernos de SSG (Static Site Generation) resuelven esto, pero suponen una violación directa a la filosofía del proyecto: "0 dependencias en entorno anfitrión" y "rendimiento extremo". Necesitábamos un generador que no requiriera ecosistemas Node.js complejos, que garantizara el 100/100 en accesibilidad WAI-ARIA y que gestionara las métricas SEO (Search Engine Optimization) automáticamente.</p>
+<p>Mantener un sitio web con contenido extenso editando HTML puro no es escalable. Los frameworks modernos de SSG (Static Site Generation) resuelven esto, pero suponen una violación directa a la filosofía del proyecto: "0 dependencias en entorno anfitrión" y "rendimiento extremo". Necesitábamos un generador que no requiriera ecosistemas Node.js complejos, que garantizara el 100/100 en accesibilidad WAI-<abbr title="Merci Explica: Etiquetas invisibles que le ponemos al código para que los lectores de pantalla puedan explicarle la web a las personas con discapacidades visuales." tabindex="0">ARIA</abbr> y que gestionara las métricas SEO (Search Engine Optimization) automáticamente.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se desarrolló un motor SSG propio en Vanilla Python (<code>merci-publish.py</code>) acoplado a un frontend en Vanilla JS (<code>MerciController.js</code>):</p>
 <ol>
@@ -66,8 +66,8 @@
 <h2>Cuadernillos de Referencia (Profundización táctica)</h2>
 <p>Para estudiar las optimizaciones quirúrgicas aplicadas en el frontend, consulta:</p>
 <ul>
-<li><a href="/biblioteca/semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem.html">Semántica HTML y WAI-ARIA: Roles implícitos y acoplamiento BEM</a></li>
-<li><a href="/biblioteca/el-cv-anti-ats-hablando-el-idioma-nativo-de-las-maquinas.html">El CV Anti-ATS: Hablando el idioma nativo de las máquinas</a></li>
+<li><a href="/biblioteca/semantica-html-y-wai-aria-roles-implicitos-y-acoplamiento-bem.html">Semántica HTML y WAI-ARIA: Roles implícitos y acoplamiento <abbr title="Merci Explica: Sistema de nomenclatura para clases CSS que facilita la organización y mantenimiento del código." tabindex="0">BEM</abbr></a></li>
+<li><a href="/biblioteca/el-cv-anti-ats-hablando-el-idioma-nativo-de-las-maquinas.html">El CV Anti-<abbr title="Merci Explica: Los robots de Recursos Humanos que leen los currículums antes de que lleguen a una persona real." tabindex="0">ATS</abbr>: Hablando el idioma nativo de las máquinas</a></li>
 <li><a href="/biblioteca/la-tirania-de-la-cache-movil-y-el-cache-busting-dinamico.html">La tiranía de la caché móvil y el Cache Busting dinámico</a></li>
 <li><a href="/biblioteca/optimizacion-de-copias-de-seguridad-locales-y-zero-bloat.html">Optimización de copias de seguridad locales y Zero Bloat</a></li>
 </ul>

@@ -6,7 +6,7 @@
     <title>Domando a WooCommerce: Jerarquía de plantillas en temas cust...</title>
     <meta name="description" content="Resolución del secuestro de plantillas por parte de WooCommerce en arquitecturas minimalistas.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -57,7 +57,7 @@
 1. <strong>Declaración de soporte:</strong> Se inyectó <code>add_theme_support('woocommerce')</code> en el archivo <code>functions.php</code>. Esto desactiva el mecanismo de autodefensa del plugin.
 2. <strong>Envoltorio explícito:</strong> Se creó el archivo <code>woocommerce.php</code> en la raíz del tema, replicando la estructura HTML monolítica del proyecto (<code>&lt;body&gt;&lt;header&gt;...&lt;/header&gt;&lt;main&gt;</code>) e inyectando la función <code>woocommerce_content()</code> en el interior del bloque deseado.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Los sistemas dinámicos complejos o CMS (Content Management System - Sistema de Gestión de Contenidos) como WordPress poseen jerarquías de plantillas (Template Hierarchy) estrictas. Si un tema <em>custom</em> o un Boilerplate minimalista no declara sus intenciones explícitamente mediante <em>hooks</em>, los plugins asumen que el tema es incapaz de renderizarlos y ejecutan rutinas de <em>fallback</em> invasivas. </p>
+<p>Los sistemas dinámicos complejos o <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> (Content Management System - Sistema de Gestión de Contenidos) como WordPress poseen jerarquías de plantillas (Template Hierarchy) estrictas. Si un tema <em>custom</em> o un Boilerplate minimalista no declara sus intenciones explícitamente mediante <em>hooks</em>, los plugins asumen que el tema es incapaz de renderizarlos y ejecutan rutinas de <em>fallback</em> invasivas. </p>
 <p>Mantener el control de la capa visual en ecosistemas híbridos exige dominar y neutralizar estas inyecciones por defecto, como también se demostró al purgar el CSS basura inyectado por los bloques de WooCommerce (<code>wp_dequeue_style('wc-blocks-style')</code>) para proteger las métricas de rendimiento 100/100.</p>
             </div>
         </article>

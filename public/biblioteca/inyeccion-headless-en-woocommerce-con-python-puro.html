@@ -6,7 +6,7 @@
     <title>Inyección Headless en WooCommerce con Python Puro — mercedev.es</title>
     <meta name="description" content="Cómo publicar productos en la tienda desde la terminal local sin usar el panel de administración de WordPress ni dependencias pesadas.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/inyeccion-headless-en-woocommerce-con-python-puro.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779628033">
+    <link rel="stylesheet" href="/css/main.css?v=1779643542">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -55,7 +55,7 @@
 <h2>La Maniobra (Lógica)</h2>
 <p>Se desarrolló un script de un solo uso (<code>merci-wc-mock.py</code>) utilizando exclusivamente la librería estándar de Python (<code>urllib.request</code>). El script consume de forma segura las credenciales almacenadas en el archivo local <code>.env</code>, las codifica en Base64 (Basic Auth) y dispara una petición POST con un <em>payload</em> en formato JSON directamente contra el endpoint nativo de WooCommerce (<code>/wp-json/wc/v3/products</code>).</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Este hito demuestra la verdadera potencia de una arquitectura Headless acoplada a un CMS monolítico. WooCommerce no es solo un plugin de comercio electrónico, es un motor de base de datos con una API REST completa.</p>
+<p>Este hito demuestra la verdadera potencia de una arquitectura Headless acoplada a un <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> monolítico. WooCommerce no es solo un plugin de comercio electrónico, es un motor de base de datos con una API REST completa.</p>
 <p>Al abstenernos de usar comandos <code>curl</code> crudos (que filtrarían las contraseñas en el historial bash) y rechazar librerías externas de terceros (como la dependencia de WP para Python), demostramos que la automatización Shift-Left y la inyección de datos pueden realizarse de forma ultrasegura y con latencia cero empleando las herramientas base del sistema operativo.</p>
             </div>
         </article>
