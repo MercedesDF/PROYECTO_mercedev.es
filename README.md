@@ -96,6 +96,7 @@ El proyecto prioriza la automatización reproducible, auditoría continua, reduc
 | `merci-promote.py` | Promoción automatizada |
 | `merci-linkedin.py` | Publicación LinkedIn vía OIDC |
 | `merci-wp.py` | Publicación Headless WordPress |
+| `merci-shop.py` | Orquestador Headless para catálogo WooCommerce |
 | `merci-deploy.py` | Despliegue remoto y purga de caché (Varnish) |
 
 ### Observabilidad & Seguridad

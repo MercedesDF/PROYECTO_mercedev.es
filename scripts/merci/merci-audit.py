@@ -352,6 +352,8 @@ def audit_python_smells(state: AuditState, path: Path, text: str) -> None:
                 state.add(Finding(path, lineno, "error", "PY_DANGEROUS_FUNC", f"Uso de función peligrosa '{func_name}()' detectado. Riesgo de ejecución de código (RCE)."))
 
 GLOBAL_ACRONYM_COUNTS: dict[str, int] = {}
+# Caché global de contenidos para evitar asfixiar el disco (I/O) en cada acrónimo
+MD_CONTENTS_CACHE: dict[Path, str] = {}
 
 def get_global_acronym_count(acronym: str) -> int:
     """Cuenta las apariciones de un acrónimo en todos los archivos .md del repositorio."""
@@ -360,14 +362,20 @@ def get_global_acronym_count(acronym: str) -> int:
         
     count = 0
     pattern = re.compile(rf"\b{re.escape(acronym)}\b")
-    for path in REPO_ROOT.rglob("*.md"):
-        if any(part in SKIP_DIR_NAMES for part in path.parts):
-            continue
-        try:
-            content = path.read_text(encoding="utf-8", errors="replace")
-            count += len(pattern.findall(content))
-        except Exception:
-            continue
+    
+    # Si la caché está vacía, leemos todos los Markdowns una sola vez a memoria RAM
+    if not MD_CONTENTS_CACHE:
+        for path in REPO_ROOT.rglob("*.md"):
+            if any(part in SKIP_DIR_NAMES for part in path.parts):
+                continue
+            try:
+                MD_CONTENTS_CACHE[path] = path.read_text(encoding="utf-8", errors="replace")
+            except Exception:
+                pass
+                
+    # Contamos sobre la memoria RAM (Ultrarrápido)
+    for content in MD_CONTENTS_CACHE.values():
+        count += len(pattern.findall(content))
             
     GLOBAL_ACRONYM_COUNTS[acronym] = count
     return count
@@ -410,6 +418,10 @@ def audit_md_acronyms(state: AuditState, path: Path, text: str) -> None:
     Lanza advertencia (warn) para no bloquear el commit por falsos positivos.
     """
     if path.suffix.lower() != ".md":
+        return
+        
+    # El glosario es la fuente de las definiciones, auditarlo crearía un bucle de falsos positivos
+    if path.name == "glosario-tecnico.md":
         return
         
     # SSOT: El auditor lee dinámicamente los acrónimos que la IA ya ha metido en el glosario

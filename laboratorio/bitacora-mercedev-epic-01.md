@@ -1651,7 +1651,7 @@ Plantilla base para el registro de sesiones.
 
 **Hecho:** Se refactorizaron las expresiones regulares en `scripts/merci/merci-promote.py` para tolerar `\r\n` y se cambió la codificación de lectura a `utf-8-sig`.
 
-**Detalle técnico:** La expresión regular original `^---\n` era estricta con el salto de línea Unix (`LF`). Si el editor de texto guardaba el archivo con saltos de línea de Windows (`CRLF`) o inyectaba un carácter BOM (*Byte Order Mark* - `\ufeff`) al inicio, el `match` fallaba silenciosamente. Se actualizó a `^\s*---\r?\n` para absorber caracteres invisibles y retornos de carro.
+**Detalle técnico:** La expresión regular original `^---\n` era estricta con el salto de línea Unix (`LF`). Si el editor de texto guardaba el archivo con saltos de línea de Windows (`Retorno de carro y avance de línea (CRLF)`) o inyectaba un carácter BOM (*Byte Order Mark* - `\ufeff`) al inicio, el `match` fallaba silenciosamente. Se actualizó a `^\s*---\r?\n` para absorber caracteres invisibles y retornos de carro.
 
 **Motivo / criterio:** *Robustez y Fricción Cero*. Un script de automatización CLI (Command Line Interface - Interfaz de Línea de Comandos) no debe colapsar por diferencias de codificación de texto a nivel de sistema operativo. Aplicar esta robustez evita bloqueos incomprensibles para el usuario.
 

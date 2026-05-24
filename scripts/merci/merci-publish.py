@@ -101,6 +101,16 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     # POR QUÉ: Previene ataques XSS y la rotura del DOM si los metadatos contienen comillas o etiquetas HTML literales.
     titulo_html = html.escape(titulo)
     descripcion_html = html.escape(descripcion)
+    
+    # QUÉ HACE: Trunca metadatos para SEO técnico (Shift-Left SEO)
+    # POR QUÉ: Evita advertencias del linter y truncamientos en buscadores (SERPs).
+    titulo_seo = f"{titulo_html} — mercedev.es"
+    if len(titulo_seo) > 65:
+        titulo_seo = f"{titulo_html[:60]}..." if len(titulo_html) > 60 else titulo_html
+        
+    desc_seo = descripcion_html
+    if len(desc_seo) > 150:
+        desc_seo = desc_seo[:147] + "..."
 
     # QUÉ HACE: Genera los nombres de salida basándose en el título del YAML, no en el archivo.
     # POR QUÉ: Desacopla el sistema de archivos del routing web (Auto-nombrado).
@@ -157,6 +167,23 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     # POR QUÉ: Evita el colapso total del pipeline si un solo documento contiene caracteres o sintaxis corrupta.
     try:
         html_content = markdown.markdown(md_body, extensions=['fenced_code'])
+        
+        # --- INYECCIÓN DE LA BURBUJA MERCI (TOOLTIPS) ---
+        # QUÉ HACE: Escanea el HTML generado y envuelve los términos del glosario en una etiqueta <abbr>.
+        # POR QUÉ: Implementa la "Burbuja Merci" nativa. Muestra la traducción a lenguaje llano al pasar
+        # el ratón, con 0 dependencias JavaScript y 100/100 en Accesibilidad (WAI-ARIA).
+        json_path = REPO_ROOT / 'laboratorio' / 'biblioteca' / 'glosario-tecnico.json'
+        if json_path.exists():
+            glosario_data = json.loads(json_path.read_text(encoding='utf-8', errors='ignore'))
+            for term, data in glosario_data.get("terminos", {}).items():
+                explica = data.get("merci_explica")
+                if explica:
+                    # Lookahead negativo (?![^<]*>) evita reemplazar dentro de atributos de etiquetas HTML
+                    pattern = rf'\b({re.escape(term)})\b(?![^<]*>)'
+                    # Reemplazamos solo la primera aparición (count=1) y le damos tabindex de accesibilidad
+                    replacement = rf'<abbr title="Merci Explica: {html.escape(explica)}" tabindex="0">\1</abbr>'
+                    html_content = re.sub(pattern, replacement, html_content, count=1)
+                    
     except Exception as e:
         print(f"  ❌ Error al compilar Markdown en {filepath.name}: {e}")
         return False
@@ -236,8 +263,8 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{titulo_html} — mercedev.es</title>
-    <meta name="description" content="{descripcion_html}">
+    <title>{titulo_seo}</title>
+    <meta name="description" content="{desc_seo}">
     <link rel="canonical" href="{canonical_url}">
     <link rel="stylesheet" href="/css/main.css?v={css_v}">
     <script src="/js/MerciController.js?v={js_c_v}" defer></script>
@@ -403,14 +430,23 @@ def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, can
             <span class="hero__badge-tag">Diccionario Data-Driven</span>
             Glosario Técnico DevSecOps →
         </a>"""
+        
+    # QUÉ HACE: Trunca metadatos para el índice
+    titulo_seo = f"{title_html} — mercedev.es"
+    if len(titulo_seo) > 65:
+        titulo_seo = f"{title_html[:60]}..." if len(title_html) > 60 else title_html
+        
+    desc_seo = meta_desc_html
+    if len(desc_seo) > 150:
+        desc_seo = desc_seo[:147] + "..."
 
     html_final = f"""<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title_html} — mercedev.es</title>
-    <meta name="description" content="{meta_desc_html}">
+    <title>{titulo_seo}</title>
+    <meta name="description" content="{desc_seo}">
     <link rel="canonical" href="{canonical_url}">
     <link rel="stylesheet" href="/css/main.css?v={css_v}">
     <script src="/js/MerciController.js?v={js_c_v}" defer></script>

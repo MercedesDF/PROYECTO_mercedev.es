@@ -13,7 +13,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 ## Índice Alfabético
 
-### ADR
+### Registro de Decisión Arquitectónica (ADR)
 **Inglés:** Architecture Decision Record
 **Español:** Registro de Decisión Arquitectónica
 
@@ -24,27 +24,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L45, L693, L759, L771
 
 ---
-### ADR-04
-**Inglés:** Architecture Decision Record - 04
-**Español:** Registro de Decisión Arquitectónica - 04
-
-**Definición:** Una instancia específica del Registro de Decisión Arquitectónica, identificada con el número '04'. Este registro probablemente documente una decisión particular sobre un aspecto específico del sistema.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-03.md`: L583
-
----
-### ADR-06
-**Inglés:** Architecture Decision Record - 06
-**Español:** Registro de Decisión Arquitectónica - 06
-
-**Definición:** Otra instancia específica del Registro de Decisión Arquitectónica, identificada con el número '06'. Este registro probablemente documente una decisión particular sobre otro aspecto específico del sistema.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-03.md`: L571
-
----
-### AI
+### Inteligencia Artificial (AI)
 **Inglés:** Artificial Intelligence
 **Español:** Inteligencia Artificial
 
@@ -57,17 +37,19 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L1031, L1911, L2053
 
 ---
-### AI-
-**Inglés:** Artificial Intelligence -
-**Español:** Inteligencia Artificial -
+### Registro de Cambios de Inteligencia Artificial (AI-Changelog)
+**Inglés:** AI Change Log
+**Español:** Registro de Cambios de Inteligencia Artificial
 
-**Definición:** Prefijo que indica la aplicación de inteligencia artificial en un contexto específico, como AI-Security (Seguridad Inteligente).
+**Definición:** Un documento que registra todas las modificaciones y mejoras realizadas en el sistema de inteligencia artificial, incluyendo versiones, fechas de lanzamiento y descripciones detalladas de los cambios.
+
+> **Merci Explica:** *Es como un diario de eventos para el desarrollo de IA, ayudando a mantener un seguimiento claro y organizado.*
 
 **Apariciones en Bitácoras:**
 - `bitacora-mercedev-epic-02.md`: L988
 
 ---
-### AJAX
+### JavaScript y XML Asíncronos (AJAX)
 **Inglés:** Asynchronous JavaScript and XML
 **Español:** JavaScript y XML Asíncronos
 
@@ -75,26 +57,6 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 **Apariciones en Bitácoras:**
 - `bitacora-mercedev-epic-01.md`: L3315, L3465, L3467, L3470, L4980, L4990
-
----
-### AKIA
-**Inglés:** Access Key ID
-**Español:** Identificador de Clave de Acceso
-
-**Definición:** Clave única utilizada para autenticar solicitudes a AWS (Amazon Web Services).
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-02.md`: L286
-
----
-### AM
-**Inglés:** Availability Management
-**Español:** Gestión de Disponibilidad
-
-**Definición:** Proceso que asegura el tiempo de actividad continuo y la disponibilidad del sistema, minimizando los tiempos de inactividad.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-03.md`: L1867
 
 ---
 ### Anti-Alucinaciones
@@ -107,7 +69,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1130
 
 ---
-### Anti-Duplicidad
+### Antiduplicación (Anti-Duplicidad)
 **Inglés:** Anti-Duplication
 **Español:** Antiduplicación
 
@@ -117,7 +79,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L544
 
 ---
-### Anti-Proxy
+###  (Anti-Proxy)
 **Inglés:** 
 **Español:** 
 
@@ -125,7 +87,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 
 
 ---
-### API
+### Interfaz de Programación de Aplicaciones (API)
 **Inglés:** Application Programming Interface
 **Español:** Interfaz de Programación de Aplicaciones
 
@@ -137,7 +99,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L223, L249, L1073, L1075, L1079
 
 ---
-### Append-Only
+### Solo-Adición (Append-Only)
 **Inglés:** Append-Only
 **Español:** Solo-Adición
 
@@ -148,7 +110,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L55
 
 ---
-### ARIA
+### Aplicaciones de Internet Ricas y Accesibles (ARIA)
 **Inglés:** Accessible Rich Internet Applications
 **Español:** Aplicaciones de Internet Ricas y Accesibles
 
@@ -170,7 +132,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L357, L404, L412, L432, L440, L639, L771, L835, L909, L941, L947, L957, L975
 
 ---
-### AST
+### Árbol Sintáctico Abstracto (AST)
 **Inglés:** Abstract Syntax Tree
 **Español:** Árbol Sintáctico Abstracto
 
@@ -180,7 +142,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-06.md`: L87, L93
 
 ---
-### ATS
+### Sistema de Seguimiento de Candidatos (ATS)
 **Inglés:** Applicant Tracking System
 **Español:** Sistema de Seguimiento de Candidatos
 
@@ -190,7 +152,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L232, L253, L417, L419, L423, L476, L532, L540
 
 ---
-### Auto-Healing
+### Auto-Recuperación (Auto-Healing)
 **Inglés:** Auto-Healing
 **Español:** Auto-Recuperación
 
@@ -211,7 +173,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L276, L612
 
 ---
-### BEM
+### Bloque, Elemento, Modificador (BEM)
 **Inglés:** Block, Element, Modifier
 **Español:** Bloque, Elemento, Modificador
 
@@ -222,7 +184,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L503, L507, L733, L739, L769, L823, L825, L827, L831, L833, L839, L841, L847
 
 ---
-### BOM
+### Modelo de Objetos del Navegador (BOM)
 **Inglés:** Browser Object Model
 **Español:** Modelo de Objetos del Navegador
 
@@ -232,17 +194,21 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L1648, L1654
 
 ---
-### CAMBIOS
-**Inglés:** Changes
-**Español:** Cambios
+### Entrega Continua (CD)
+**Inglés:** Continuous Delivery
+**Español:** Entrega Continua
 
-**Definición:** Operaciones que modifican el estado actual de un sistema, incluyendo la adición, eliminación o modificación de archivos y configuraciones.
+**Definición:** Práctica que permite la entrega frecuente y confiable de software a producción, asegurando que el código esté listo para ser lanzado en cualquier momento.
 
 **Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-02.md`: L1060
+- `bitacora-mercedev-260412-260423.md`: L315
+- `bitacora-mercedev-epic-01.md`: L206
+- `bitacora-mercedev-epic-02.md`: L484
+- `bitacora-mercedev-epic-03.md`: L115
+- `bitacora-mercedev-epic-05.md`: L295
 
 ---
-### CHMOD
+### Modificar Modo (CHMOD)
 **Inglés:** Change Mode
 **Español:** Modificar Modo
 
@@ -252,7 +218,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L3856
 
 ---
-### CHOWN
+### Cambiar Propietario (CHOWN)
 **Inglés:** Change Owner
 **Español:** Cambiar Propietario
 
@@ -262,7 +228,21 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L3856
 
 ---
-### CI/CD
+### Integración Continua (CI)
+**Inglés:** Continuous Integration
+**Español:** Integración Continua
+
+**Definición:** Práctica de desarrollo de software que automatiza el proceso de integración de código fuente en un repositorio central, generalmente varias veces al día.
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-260412-260423.md`: L315
+- `bitacora-mercedev-epic-01.md`: L206
+- `bitacora-mercedev-epic-02.md`: L484
+- `bitacora-mercedev-epic-03.md`: L115
+- `bitacora-mercedev-epic-04.md`: L120
+
+---
+### Integración Continua / Despliegue Continuo (CI/CD)
 **Inglés:** Continuous Integration / Continuous Deployment
 **Español:** Integración Continua / Despliegue Continuo
 
@@ -284,7 +264,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L104
 
 ---
-### CLI
+### Interfaz de Línea de Comandos (CLI)
 **Inglés:** Command-Line Interface
 **Español:** Interfaz de Línea de Comandos
 
@@ -295,7 +275,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L368, L378, L648, L750, L1018, L1028, L1068, L1078, L1082, L1090
 
 ---
-### CLI-First
+### Primero la CLI (CLI-First)
 **Inglés:** CLI-First
 **Español:** Primero la CLI
 
@@ -305,7 +285,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1092
 
 ---
-### CLS
+### Cambio Acumulativo de Diseño (CLS)
 **Inglés:** Cumulative Layout Shift
 **Español:** Cambio Acumulativo de Diseño
 
@@ -315,7 +295,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L160, L938, L1818, L1820, L2687, L3319, L3321, L3327, L3400, L3484, L4471
 
 ---
-### CMS
+### Sistema de Gestión de Contenidos (CMS)
 **Inglés:** Content Management System
 **Español:** Sistema de Gestión de Contenidos
 
@@ -327,7 +307,20 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L127, L239, L243, L462
 
 ---
-### COEP
+### Nombre Canónico (CNAME)
+**Inglés:** Canonical Name
+**Español:** Nombre Canónico
+
+**Definición:** Un registro DNS que apunta a otro nombre de dominio. Es utilizado para asignar un alias a una dirección IP o a otro nombre de dominio.
+
+> **Merci Explica:** *Es como crear un atajo en tu navegador web, donde 'www.ejemplo.com' siempre te lleva a 'ejemplo.com'.*
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-260412-260423.md`: L382
+- `bitacora-mercedev-epic-01.md`: L3570
+
+---
+### Política de Incrustación de Origen Cruzado (COEP)
 **Inglés:** Cross-Origin Embedder Policy
 **Español:** Política de Incrustación de Origen Cruzado
 
@@ -337,7 +330,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L3369
 
 ---
-### COOP
+### Política de Apertura de Origen Cruzado (COOP)
 **Inglés:** Cross-Origin Opener Policy
 **Español:** Política de Apertura de Origen Cruzado
 
@@ -347,27 +340,32 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L3362, L3364, L3369
 
 ---
-### COPIA
-**Inglés:** Copy
-**Español:** Copia
+### Entorno Continuo de Protección Operativa (COPE)
+**Inglés:** Continuous Operational Protection Environment
+**Español:** Entorno Continuo de Protección Operativa
 
-**Definición:** Proceso de crear una copia exacta de un archivo o directorio.
+**Definición:** Un entorno diseñado para proporcionar una protección continua contra amenazas cibernéticas, que incluye sistemas y procesos automatizados para detectar, mitigar y responder rápidamente a cualquier incidente.
 
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-02.md`: L276, L1060
-
----
-### CREATE
-**Inglés:** CREATE
-**Español:** CREAR
-
-**Definición:** Acción de crear o generar algo nuevo.
+> **Merci Explica:** *Es como un sistema de seguridad en constante vigilancia, asegurando que la infraestructura esté siempre lista para enfrentar amenazas.*
 
 **Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L4788, L4789
+- `bitacora-mercedev-epic-03.md`: L1531
 
 ---
-### CRLF
+### Formulario de Solicitud de Cambio (CRF)
+**Inglés:** Change Request Form
+**Español:** Formulario de Solicitud de Cambio
+
+**Definición:** Un documento formal utilizado en proyectos y sistemas para solicitar, aprobar o rechazar cambios que afecten la funcionalidad, el rendimiento o las políticas del sistema.
+
+> **Merci Explica:** *Es una herramienta esencial para gestionar los cambios de manera estructurada y controlada, asegurando que todos los cambios se realicen de manera segura y efectiva.*
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-260412-260423.md`: L2194
+- `bitacora-mercedev-epic-01.md`: L5382
+
+---
+### Retorno de carro y avance de línea (CRLF)
 **Inglés:** Carriage Return Line Feed
 **Español:** Retorno de carro y avance de línea
 
@@ -377,7 +375,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L1654
 
 ---
-### Cross-Site
+### Sitio Cruzado (Cross-Site)
 **Inglés:** Cross-Site
 **Español:** Sitio Cruzado
 
@@ -388,7 +386,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L238
 
 ---
-### CSP
+### Política de Seguridad de Contenido (CSP)
 **Inglés:** Content Security Policy
 **Español:** Política de Seguridad de Contenido
 
@@ -398,7 +396,19 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L119, L3146, L3211, L3219, L3235, L3239, L3242, L3248, L3254, L3257, L3277, L3279, L3293, L3299, L3305, L3307, L3313, L3315, L3350, L3354, L3362, L3364, L3368, L3372, L3484, L4162, L4598, L4906, L4914, L4920, L4925, L4929
 
 ---
-### CTR
+### Llamada a la Acción (CTA)
+**Inglés:** Call To Action
+**Español:** Llamada a la Acción
+
+**Definición:** Un elemento en una interfaz de usuario que invita al usuario a realizar una acción específica, como hacer clic en un botón o enviar un formulario.
+
+> **Merci Explica:** *Es como decir 'Haz algo' o 'Actúa ahora', pero dentro del contexto digital.*
+
+**Apariciones en Bitácoras:**
+- `bitacora-mercedev-epic-05.md`: L108
+
+---
+### Modo Contador (CTR)
 **Inglés:** Counter Mode
 **Español:** Modo Contador
 
@@ -408,7 +418,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L648, L672
 
 ---
-### CVE
+### Vulnerabilidades y Exposiciones Comunes (CVE)
 **Inglés:** Common Vulnerabilities and Exposures
 **Español:** Vulnerabilidades y Exposiciones Comunes
 
@@ -418,7 +428,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L2966, L3219
 
 ---
-### CWV
+### Métricas Web Principales (CWV)
 **Inglés:** Core Web Vitals
 **Español:** Métricas Web Principales
 
@@ -428,7 +438,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L775
 
 ---
-### DAST
+### Prueba Dinámica de Seguridad de Aplicaciones (DAST)
 **Inglés:** Dynamic Application Security Testing
 **Español:** Prueba Dinámica de Seguridad de Aplicaciones
 
@@ -439,27 +449,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L211, L486, L959
 
 ---
-### DATABASE
-**Inglés:** Database
-**Español:** Base de Datos
-
-**Definición:** Colección organizada de información que se almacena y gestiona mediante un sistema de gestión de bases de datos. Es crucial para la seguridad de los sistemas, ya que puede ser el objetivo de ataques como inyecciones SQL.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L4788
-
----
-### DEBE
-**Inglés:** MUST
-**Español:** DEBE
-
-**Definición:** Indica una necesidad o requisito esencial que debe cumplirse.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-02.md`: L276
-
----
-### DevSecOps
+### Desarrollo, Seguridad y Operaciones (DevSecOps)
 **Inglés:** Development, Security, and Operations
 **Español:** Desarrollo, Seguridad y Operaciones
 
@@ -471,7 +461,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L61, L73, L79, L115, L353, L468, L671, L763, L771, L781, L799, L821, L859, L919
 
 ---
-### DLP
+### Prevención de Pérdida de Datos (DLP)
 **Inglés:** Data Loss Prevention
 **Español:** Prevención de Pérdida de Datos
 
@@ -483,17 +473,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L384, L867
 
 ---
-### DNI
-**Inglés:** National Identification Number
-**Español:** Número de Identificación Nacional
-
-**Definición:** Identificador único asignado a los ciudadanos y residentes de un país, utilizado para la identificación oficial.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L1177
-
----
-### DNS
+### Sistema de Nombres de Dominio (DNS)
 **Inglés:** Domain Name System
 **Español:** Sistema de Nombres de Dominio
 
@@ -503,7 +483,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L3564, L3570, L3572, L4085, L4093, L4095, L4112, L4117, L4122, L4124
 
 ---
-### DOM
+### Modelo de Objetos del Documento (DOM)
 **Inglés:** Document Object Model
 **Español:** Modelo de Objetos del Documento
 
@@ -514,17 +494,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L426, L434, L448, L452, L454, L480, L509, L709, L719, L831
 
 ---
-### DOMINIO
-**Inglés:** Domain
-**Español:** Dominio
-
-**Definición:** Un espacio de nombres en Internet que agrupa una colección de recursos y permite su acceso a través de un nombre único.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L2297, L3153
-
----
-### DRY
+### No Te Repitas (DRY)
 **Inglés:** Don't Repeat Yourself
 **Español:** No Te Repitas
 
@@ -536,7 +506,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L733
 
 ---
-### E2EE
+### Cifrado de Extremo a Extremo (E2EE)
 **Inglés:** End-to-End Encryption
 **Español:** Cifrado de Extremo a Extremo
 
@@ -546,7 +516,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L1403
 
 ---
-### Endpoints
+### Puntos de Terminación (Endpoints)
 **Inglés:** Endpoints
 **Español:** Puntos de Terminación
 
@@ -558,17 +528,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L1081
 
 ---
-### ES6
-**Inglés:** ECMAScript 2015
-**Español:** ECMAScript 2015
-
-**Definición:** Versión de ECMAScript que introdujo nuevas características y mejoras en JavaScript, como variables let y const, plantillas literales, funciones flecha, clases, módulos, etc.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L2123
-
----
-### Fail-Fast
+### Fallo Rápido (Fail-Fast)
 **Inglés:** Fail-Fast
 **Español:** Fallo Rápido
 
@@ -580,7 +540,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L390, L1083, L1091
 
 ---
-### Fail-Gracefully
+### Fallo Elegante (Fail-Gracefully)
 **Inglés:** Fail-Gracefully
 **Español:** Fallo Elegante
 
@@ -590,7 +550,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L1731
 
 ---
-### FCP
+### Primer Despliegue de Contenido (FCP)
 **Inglés:** First Contentful Paint
 **Español:** Primer Despliegue de Contenido
 
@@ -600,17 +560,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L158, L160, L163, L938, L1818, L2111
 
 ---
-### FLUSH
-**Inglés:** Flush
-**Español:** Vaciar o limpiar
-
-**Definición:** Proceso de vaciar completamente un buffer o memoria temporal para asegurar que todos los datos sean procesados y liberados.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L4791
-
----
-### FPM
+### Administrador de Procesos FastCGI (FPM)
 **Inglés:** FastCGI Process Manager
 **Español:** Administrador de Procesos FastCGI
 
@@ -632,7 +582,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L251
 
 ---
-### GDPR
+### Reglamento General de Protección de Datos (GDPR)
 **Inglés:** General Data Protection Regulation
 **Español:** Reglamento General de Protección de Datos
 
@@ -642,17 +592,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L1403
 
 ---
-### GET
-**Inglés:** GET
-**Español:** Obtener
-
-**Definición:** Método HTTP utilizado para solicitar datos de un servidor.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L1796
-
----
-### GGUF
+### Formato Unificado Generado por GPT (GGUF)
 **Inglés:** GPT-Generated Unified Format
 **Español:** Formato Unificado Generado por GPT
 
@@ -662,7 +602,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1066, L1068, L1070, L1080, L1084
 
 ---
-### GUI
+### Interfaz Gráfica de Usuario (GUI)
 **Inglés:** Graphical User Interface
 **Español:** Interfaz Gráfica de Usuario
 
@@ -673,18 +613,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1042, L1088, L1092
 
 ---
-### HEALING
-**Inglés:** Healing
-**Español:** Cura
-
-**Definición:** Proceso de recuperación y mitigación de vulnerabilidades o incidentes en sistemas, con el objetivo de mantener la seguridad y la continuidad del servicio.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L118, L119, L325, L373, L399, L415
-- `bitacora-mercedev-epic-02.md`: L644, L758, L804, L988, L1415, L1465, L1480, L1574
-
----
-### HSTS
+### Seguridad de Transporte Estricta HTTP (HSTS)
 **Inglés:** HTTP Strict Transport Security
 **Español:** Seguridad de Transporte Estricta HTTP
 
@@ -694,7 +623,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L3219, L3225, L3348, L3350, L3362, L3364, L3369
 
 ---
-### HTML5
+### Lenguaje de Marcado de Hipertexto 5 (HTML5)
 **Inglés:** HyperText Markup Language 5
 **Español:** Lenguaje de Marcado de Hipertexto 5
 
@@ -704,7 +633,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L1917, L2653, L3045, L3052, L3327, L3418, L3710, L3730, L3737, L3739, L5019, L5044
 
 ---
-### In-Context
+### Aprendizaje en Contexto (In-Context)
 **Inglés:** In-Context Learning
 **Español:** Aprendizaje en Contexto
 
@@ -714,7 +643,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1212
 
 ---
-### INP
+### Interacción al Siguiente Renderizado (INP)
 **Inglés:** Interaction to Next Paint
 **Español:** Interacción al Siguiente Renderizado
 
@@ -724,7 +653,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L160, L3400, L3484, L4984
 
 ---
-### ISO
+### Organización Internacional de Normalización (ISO)
 **Inglés:** International Organization for Standardization
 **Español:** Organización Internacional de Normalización
 
@@ -734,7 +663,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L206, L365, L376
 
 ---
-### JSON-LD
+### Notación de Objetos JavaScript para Datos Enlazados (JSON-LD)
 **Inglés:** JavaScript Object Notation for Linked Data
 **Español:** Notación de Objetos JavaScript para Datos Enlazados
 
@@ -746,7 +675,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L761, L809
 
 ---
-### JWT
+### Token Web JSON (JWT)
 **Inglés:** JSON Web Token
 **Español:** Token Web JSON
 
@@ -756,7 +685,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1268
 
 ---
-### KISS
+### Manténlo sencillo, tonto (KISS)
 **Inglés:** Keep It Simple, Stupid
 **Español:** Manténlo sencillo, tonto
 
@@ -766,7 +695,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L61
 
 ---
-### LCP
+### Despliegue del Contenido Más Grande (LCP)
 **Inglés:** Largest Contentful Paint
 **Español:** Despliegue del Contenido Más Grande
 
@@ -776,7 +705,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L160, L938, L1818, L2111, L3400, L3484, L4700
 
 ---
-### LEMP
+### Linux, Nginx, MySQL, PHP (LEMP)
 **Inglés:** Linux, Nginx, MySQL, PHP
 **Español:** Linux, Nginx, MySQL, PHP
 
@@ -786,17 +715,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L3773, L4101, L4120, L4124, L4148, L4152, L4742, L4797, L4802, L4817
 
 ---
-### LICENSE
-**Inglés:** License
-**Español:** Licencia
-
-**Definición:** Contrato legal que permite el uso de software o contenido protegido por derechos de autor.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L4580, L5602
-
----
-### LLM
+### Modelo de Lenguaje Grande (LLM)
 **Inglés:** Large Language Model
 **Español:** Modelo de Lenguaje Grande
 
@@ -806,7 +725,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L222, L278, L542, L548, L550, L612, L760, L1082, L1176, L1212, L1294, L1330, L1341, L1353, L1363
 
 ---
-### MIME
+### Extensiones de Internet Multipropósito (MIME)
 **Inglés:** Multipurpose Internet Mail Extensions
 **Español:** Extensiones de Internet Multipropósito
 
@@ -816,27 +735,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L3374, L3618, L3620, L3626
 
 ---
-### MIT
-**Inglés:** Massachusetts Institute of Technology
-**Español:** Massachusetts Institute of Technology
-
-**Definición:** Universidad estadounidense conocida por su contribución a la investigación y el desarrollo de tecnologías.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L4580, L4584
-
----
-### MP4
-**Inglés:** MPEG-4 Part 14
-**Español:** MPEG-4 Parte 14
-
-**Definición:** Formato de archivo multimedia que utiliza la codificación MPEG-4 para almacenar video y audio.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L5245
-
----
-### MVP
+### Producto Mínimo Viable (MVP)
 **Inglés:** Minimum Viable Product
 **Español:** Producto Mínimo Viable
 
@@ -847,7 +746,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1408
 
 ---
-### NAT
+### Traducción de Direcciones de Red (NAT)
 **Inglés:** Network Address Translation
 **Español:** Traducción de Direcciones de Red
 
@@ -857,27 +756,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L394, L402, L410
 
 ---
-### NPM
-**Inglés:** Node Package Manager
-**Español:** Gestor de Paquetes de Node.js
-
-**Definición:**  Herramienta para gestionar paquetes y módulos JavaScript en proyectos basados en Node.js.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L833, L1834, L4175, L5429
-
----
-### NXDOMAIN
-**Inglés:** Non-Existent Domain
-**Español:** Dominio No Existente
-
-**Definición:**  Código de error que indica que un dominio solicitado no existe en el sistema DNS.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L3562, L3564
-
----
-### OIDC
+### Conexión OpenID (OIDC)
 **Inglés:** OpenID Connect
 **Español:** Conexión OpenID
 
@@ -888,7 +767,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L978
 
 ---
-### OOM
+### Falta de Memoria (OOM)
 **Inglés:** Out of Memory
 **Español:** Falta de Memoria
 
@@ -899,7 +778,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1024, L1026
 
 ---
-### PGP
+### Privacidad Aceptable (PGP)
 **Inglés:** Pretty Good Privacy
 **Español:** Privacidad Aceptable
 
@@ -910,7 +789,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L900, L902, L904
 
 ---
-### PII
+### Información Personalmente Identificable (PII)
 **Inglés:** Personally Identifiable Information
 **Español:** Información Personalmente Identificable
 
@@ -920,17 +799,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L478
 
 ---
-### PIPELINE
-**Inglés:** Pipeline
-**Español:** Pipeline
-
-**Definición:** Proceso automatizado que permite la integración y entrega continua del código fuente a un entorno de producción, incluyendo pruebas y despliegue.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L704, L1628, L1928
-
----
-### POO
+### Programación Orientada a Objetos (POO)
 **Inglés:** Object-Oriented Programming (OOP)
 **Español:** Programación Orientada a Objetos
 
@@ -941,27 +810,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L602
 
 ---
-### POST
-**Inglés:** POST
-**Español:** POST
-
-**Definición:** Método HTTP utilizado para enviar datos al servidor para crear o actualizar un recurso.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L962, L1016, L1175, L1189, L1241, L1796, L4982
-
----
-### PUT
-**Inglés:** HTTP PUT
-**Español:** Método HTTP PUT
-
-**Definición:** Un método de solicitud HTTP que se utiliza para actualizar o crear un recurso en el servidor.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L962, L1016
-
----
-### RAG
+### Generación Aumentada por Recuperación (RAG)
 **Inglés:** Retrieval-Augmented Generation
 **Español:** Generación Aumentada por Recuperación
 
@@ -971,7 +820,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1156, L1162, L1168, L1172, L1176, L1178, L1182, L1186, L1188, L1190, L1192, L1196, L1200
 
 ---
-### RCE
+### Ejecución de Código Remoto (RCE)
 **Inglés:** Remote Code Execution
 **Español:** Ejecución de Código Remoto
 
@@ -982,20 +831,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L122, L128
 
 ---
-### README
-**Inglés:** Read Me
-**Español:** Instrucciones de Lectura
-
-**Definición:** Un archivo de texto que contiene información sobre cómo usar o configurar un proyecto, generalmente en formato Markdown.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L104, L119, L264, L318, L343, L395, L408, L450, L474, L575, L587, L655, L669, L815, L816, L906, L1028, L1070, L1130, L1372, L1385, L1615, L1794, L1943, L1955, L1990, L2002, L2014, L2030, L2329, L2339, L2341, L2542, L2545, L2570, L2574, L2575, L2669, L2737, L2749, L2832, L3209, L3485, L3868, L4146, L4340, L4511, L4581, L4596, L4610, L4624, L4637, L4652, L4817, L4844, L4846, L4885, L5142, L5209, L5217, L5456, L5500, L5592, L5602, L5604, L5616
-- `bitacora-mercedev-epic-02.md`: L48, L174, L528, L654, L656, L658, L666, L668, L670, L674, L680, L692, L714, L716, L718, L720, L768, L770, L1322, L1343
-- `bitacora-mercedev-epic-03.md`: L232, L244, L365, L391, L398, L400, L403, L420, L462, L990
-- `bitacora-merci-boilerplate.md`: L15
-
----
-### REST
+### Transferencia de Estado Representacional (REST)
 **Inglés:** Representational State Transfer
 **Español:** Transferencia de Estado Representacional
 
@@ -1005,7 +841,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L799, L960, L968, L988, L1012, L1052, L1066, L1215, L1229, L1241, L1763, L1796, L2133, L4222, L4231
 
 ---
-### ROI
+### Retorno de la Inversión (ROI)
 **Inglés:** Return on Investment
 **Español:** Retorno de la Inversión
 
@@ -1017,7 +853,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L539
 
 ---
-### RPC
+### Llamada a Procedimiento Remoto (RPC)
 **Inglés:** Remote Procedure Call
 **Español:** Llamada a Procedimiento Remoto
 
@@ -1027,7 +863,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L4598, L4887, L4889
 
 ---
-### RPM
+### Administrador de Paquetes Red Hat (RPM)
 **Inglés:** Red Hat Package Manager
 **Español:** Administrador de Paquetes Red Hat
 
@@ -1038,7 +874,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L1282
 
 ---
-### SASS
+### Hojas de Estilo Sintácticamente Increíbles (SASS)
 **Inglés:** Syntactically Awesome Style Sheets
 **Español:** Hojas de Estilo Sintácticamente Increíbles
 
@@ -1050,7 +886,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L432, L509, L583, L639, L663, L771, L829, L835
 
 ---
-### SAST
+### Prueba Estática de Seguridad de Aplicaciones (SAST)
 **Inglés:** Static Application Security Testing
 **Español:** Prueba Estática de Seguridad de Aplicaciones
 
@@ -1061,17 +897,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L248
 
 ---
-### SECURITY
-**Inglés:** Security
-**Español:** Seguridad
-
-**Definición:** La práctica de proteger sistemas, aplicaciones y datos contra amenazas externas e internas.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-02.md`: L53, L59, L70, L74, L76, L100, L104
-
----
-### Self-Healing
+### Auto-Sanación / Auto-Recuperación (Self-Healing)
 **Inglés:** Self-Healing
 **Español:** Auto-Sanación / Auto-Recuperación
 
@@ -1083,7 +909,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L353
 
 ---
-### SEO
+### Optimización para Motores de Búsqueda (SEO)
 **Inglés:** Search Engine Optimization
 **Español:** Optimización para Motores de Búsqueda
 
@@ -1095,7 +921,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L563, L572
 
 ---
-### SHA
+### Algoritmo de Resumen Seguro (SHA)
 **Inglés:** Secure Hash Algorithm
 **Español:** Algoritmo de Resumen Seguro
 
@@ -1105,7 +931,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L3225, L3235, L3257
 
 ---
-### Shift-Left
+### Mover a la Izquierda (Shift-Left)
 **Inglés:** Shift-Left
 **Español:** Mover a la Izquierda
 
@@ -1117,7 +943,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L67, L225, L239, L347, L418, L462, L486, L831, L959, L967
 
 ---
-### Shift-Right
+### Mover a la Derecha (Shift-Right)
 **Inglés:** Shift-Right
 **Español:** Mover a la Derecha
 
@@ -1127,7 +953,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L4246
 
 ---
-### Short-Circuit
+### Evaluación de Cortocircuito (Short-Circuit)
 **Inglés:** Short-Circuit Evaluation
 **Español:** Evaluación de Cortocircuito
 
@@ -1137,17 +963,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L776, L780
 
 ---
-### SIGINT
-**Inglés:** Signal Intelligence
-**Español:** Inteligencia por Señales
-
-**Definición:** Técnicas utilizadas para recopilar información sobre los sistemas, actividades y movimientos de otros países a través del análisis de señales.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-02.md`: L200
-
----
-### SLM
+### Modelo de Lenguaje Pequeño (SLM)
 **Inglés:** Small Language Model
 **Español:** Modelo de Lenguaje Pequeño
 
@@ -1158,7 +974,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L149, L919, L1061
 
 ---
-### SMTP
+### Protocolo Simple de Transferencia de Correo Electrónico (SMTP)
 **Inglés:** Simple Mail Transfer Protocol
 **Español:** Protocolo Simple de Transferencia de Correo Electrónico
 
@@ -1168,7 +984,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L94, L96, L100, L106, L112
 
 ---
-### SOLID
+### Principios SOLID (SOLID)
 **Inglés:** SOLID Principles
 **Español:** Principios SOLID
 
@@ -1179,7 +995,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L841
 
 ---
-### Spec-Driven
+### Dirigido por Especificaciones (Spec-Driven)
 **Inglés:** Specification-Driven
 **Español:** Dirigido por Especificaciones
 
@@ -1191,17 +1007,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L667, L763
 
 ---
-### SQL
-**Inglés:** Structured Query Language
-**Español:** Lenguaje de Consulta Estructurada
-
-**Definición:** Lenguaje utilizado para gestionar y manipular bases de datos relacionales. Permite crear, modificar y consultar datos en una base de datos.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L1716, L4786
-
----
-### SRE
+### Ingeniería de Confiabilidad del Sitio (SRE)
 **Inglés:** Site Reliability Engineering
 **Español:** Ingeniería de Confiabilidad del Sitio
 
@@ -1212,7 +1018,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L59, L77, L83, L85, L97, L103, L153, L255, L257, L289, L293, L300, L320, L347, L364, L408, L422, L436, L501, L863, L869, L971, L1013, L1015, L1021, L1105
 
 ---
-### SRP
+### Principio de Responsabilidad Única (SRP)
 **Inglés:** Single Responsibility Principle
 **Español:** Principio de Responsabilidad Única
 
@@ -1222,7 +1028,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L320
 
 ---
-### SSG
+### Generación de Sitios Estáticos (SSG)
 **Inglés:** Static Site Generation
 **Español:** Generación de Sitios Estáticos
 
@@ -1234,7 +1040,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L234, L344, L462, L492, L545, L549, L555, L561, L574, L603, L609, L615, L887, L1009, L1065
 
 ---
-### SSOT
+### Única Fuente de Verdad (SSOT)
 **Inglés:** Single Source of Truth
 **Español:** Única Fuente de Verdad
 
@@ -1246,7 +1052,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L127, L187, L199, L209, L243, L251, L382, L384, L388, L390, L499, L535, L593, L779, L781, L911, L913, L919, L947, L1023, L1031, L1073, L1075, L1077, L1083, L1085, L1087
 
 ---
-### SSRF
+### Falsificación de Petición del Lado del Servidor (SSRF)
 **Inglés:** Server-Side Request Forgery
 **Español:** Falsificación de Petición del Lado del Servidor
 
@@ -1256,7 +1062,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L122
 
 ---
-### TBT
+### Tiempo Total de Bloqueo (TBT)
 **Inglés:** Total Blocking Time
 **Español:** Tiempo Total de Bloqueo
 
@@ -1267,7 +1073,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L612
 
 ---
-### TCP
+### Protocolo de Control de Transmisión (TCP)
 **Inglés:** Transmission Control Protocol
 **Español:** Protocolo de Control de Transmisión
 
@@ -1277,7 +1083,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L408
 
 ---
-### TDD
+### Desarrollo Guiado por Pruebas (TDD)
 **Inglés:** Test-Driven Development
 **Español:** Desarrollo Guiado por Pruebas
 
@@ -1287,7 +1093,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L4477, L4492, L5346
 
 ---
-### TLS
+### Seguridad de la Capa de Transporte (TLS)
 **Inglés:** Transport Layer Security
 **Español:** Seguridad de la Capa de Transporte
 
@@ -1297,7 +1103,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L3444, L3568, L3582
 
 ---
-### TTFB
+### Tiempo hasta el Primer Byte (TTFB)
 **Inglés:** Time to First Byte
 **Español:** Tiempo hasta el Primer Byte
 
@@ -1308,17 +1114,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L1011
 
 ---
-### TTL
-**Inglés:** Time To Live
-**Español:** Tiempo de Vida
-
-**Definición:** Duración durante la cual un recurso o dato es válido antes de que expire.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L4120
-
----
-### UFW
+### Cortafuegos Descomplicado (UFW)
 **Inglés:** Uncomplicated Firewall
 **Español:** Cortafuegos Descomplicado
 
@@ -1328,17 +1124,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L404, L408, L410, L424, L432, L436, L440
 
 ---
-### UNA
-**Inglés:** Uniform Resource Name
-**Español:** Nombre de Recurso Uniforme
-
-**Definición:** Identificador único para un recurso en una red, similar a la URL pero sin necesidad de acceso a Internet.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-02.md`: L276
-
----
-### URI
+### Identificador de Recurso Uniforme (URI)
 **Inglés:** Uniform Resource Identifier
 **Español:** Identificador de Recurso Uniforme
 
@@ -1348,18 +1134,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L1215, L1229, L3812, L3823, L4900, L4902
 
 ---
-### VPS
-**Inglés:** Virtual Private Server
-**Español:** Servidor Virtual Privado
-
-**Definición:** Un servidor virtual que proporciona un entorno de computación dedicado y aislado, donde los usuarios pueden ejecutar sus propias aplicaciones con recursos separados.
-
-**Apariciones en Bitácoras:**
-- `bitacora-mercedev-epic-01.md`: L397, L4093, L4122, L4124
-- `bitacora-mercedev-epic-02.md`: L1092
-
----
-### WAF
+### Cortafuegos de Aplicaciones Web (WAF)
 **Inglés:** Web Application Firewall
 **Español:** Cortafuegos de Aplicaciones Web
 
@@ -1369,7 +1144,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-01.md`: L952, L966, L972
 
 ---
-### WAI-ARIA
+### Iniciativa de Accesibilidad Web - Aplicaciones de Internet Ricas y Accesibles (WAI-ARIA)
 **Inglés:** Web Accessibility Initiative - Accessible Rich Internet Applications
 **Español:** Iniciativa de Accesibilidad Web - Aplicaciones de Internet Ricas y Accesibles
 
@@ -1380,7 +1155,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L135, L205, L217, L229, L609, L955
 
 ---
-### WCAG
+### Pautas de Accesibilidad al Contenido en la Web (WCAG)
 **Inglés:** Web Content Accessibility Guidelines
 **Español:** Pautas de Accesibilidad al Contenido en la Web
 
@@ -1391,7 +1166,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L203, L215, L229, L231, L253
 
 ---
-### WET
+### Escribe Todo Dos Veces (o We Enjoy Typing) (WET)
 **Inglés:** Write Everything Twice
 **Español:** Escribe Todo Dos Veces (o We Enjoy Typing)
 
@@ -1401,7 +1176,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L594, L598
 
 ---
-### XSS
+### Secuencias de Comandos en Sitios Cruzados (XSS)
 **Inglés:** Cross-Site Scripting
 **Español:** Secuencias de Comandos en Sitios Cruzados
 
@@ -1413,7 +1188,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L406, L412, L452
 
 ---
-### YAGNI
+### No Lo Vas A Necesitar (YAGNI)
 **Inglés:** You Aren't Gonna Need It
 **Español:** No Lo Vas A Necesitar
 
@@ -1423,7 +1198,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L158
 
 ---
-### Zero-Bloat
+### Cero Excesos (Zero-Bloat)
 **Inglés:** Zero-Bloat
 **Español:** Cero Excesos
 
@@ -1433,7 +1208,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L559, L609
 
 ---
-### Zero-Code
+### Cero Código (No-Code) (Zero-Code)
 **Inglés:** Zero-Code
 **Español:** Cero Código (No-Code)
 
@@ -1443,7 +1218,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L168, L730, L844
 
 ---
-### Zero-Day
+### Vulnerabilidad de Día Cero (Zero-Day)
 **Inglés:** Zero-Day Vulnerability
 **Español:** Vulnerabilidad de Día Cero
 
@@ -1453,7 +1228,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L106
 
 ---
-### Zero-Friction
+### Cero Fricción (Zero-Friction)
 **Inglés:** Zero-Friction
 **Español:** Cero Fricción
 
@@ -1463,7 +1238,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L912
 
 ---
-### Zero-Hallucination
+### Cero Alucinaciones (Zero-Hallucination)
 **Inglés:** Zero-Hallucination
 **Español:** Cero Alucinaciones
 
@@ -1473,7 +1248,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-02.md`: L910
 
 ---
-### Zero-JS
+### Cero JavaScript (Zero-JS)
 **Inglés:** Zero-JS
 **Español:** Cero JavaScript
 
@@ -1483,7 +1258,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L406, L412, L418, L424, L432, L438, L448, L576, L585
 
 ---
-### Zero-Maintenance
+### Sin Mantenimiento (Zero-Maintenance)
 **Inglés:** Cero Mantenimiento
 **Español:** Sin Mantenimiento
 
@@ -1493,7 +1268,7 @@ Este glosario contiene términos y expresiones informáticas de nivel intermedio
 - `bitacora-mercedev-epic-03.md`: L57
 
 ---
-### Zero-Shot
+### Aprendizaje de Cero Disparos (Zero-Shot)
 **Inglés:** Zero-Shot Learning
 **Español:** Aprendizaje de Cero Disparos
 

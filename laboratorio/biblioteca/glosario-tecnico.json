@@ -2518,16 +2518,6 @@
       "definicion": "",
       "apariciones": {}
     },
-    "CAMBIOS": {
-      "ingles": "Changes",
-      "espanol": "Cambios",
-      "definicion": "Operaciones que modifican el estado actual de un sistema, incluyendo la adición, eliminación o modificación de archivos y configuraciones.",
-      "apariciones": {
-        "bitacora-mercedev-epic-02.md": [
-          "L1060"
-        ]
-      }
-    },
     "CHMOD": {
       "ingles": "Change Mode",
       "espanol": "Modificar Modo",
@@ -2545,30 +2535,6 @@
       "apariciones": {
         "bitacora-mercedev-epic-01.md": [
           "L3856"
-        ]
-      }
-    },
-    "COPIA": {
-      "nombre": "COPIA",
-      "ingles": "Copy",
-      "espanol": "Copia",
-      "definicion": "Proceso de crear una copia exacta de un archivo o directorio.",
-      "apariciones": {
-        "bitacora-mercedev-epic-02.md": [
-          "L276",
-          "L1060"
-        ]
-      }
-    },
-    "CREATE": {
-      "nombre": "CREATE",
-      "ingles": "CREATE",
-      "espanol": "CREAR",
-      "definicion": "Acción de crear o generar algo nuevo.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L4788",
-          "L4789"
         ]
       }
     },
@@ -2595,73 +2561,6 @@
         ]
       }
     },
-    "DATABASE": {
-      "nombre": "DATABASE",
-      "ingles": "Database",
-      "espanol": "Base de Datos",
-      "definicion": "Colección organizada de información que se almacena y gestiona mediante un sistema de gestión de bases de datos. Es crucial para la seguridad de los sistemas, ya que puede ser el objetivo de ataques como inyecciones SQL.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L4788"
-        ]
-      }
-    },
-    "DEBE": {
-      "nombre": "DEBE",
-      "ingles": "MUST",
-      "espanol": "DEBE",
-      "definicion": "Indica una necesidad o requisito esencial que debe cumplirse.",
-      "apariciones": {
-        "bitacora-mercedev-epic-02.md": [
-          "L276"
-        ]
-      }
-    },
-    "DNI": {
-      "nombre": "DNI",
-      "ingles": "National Identification Number",
-      "espanol": "Número de Identificación Nacional",
-      "definicion": "Identificador único asignado a los ciudadanos y residentes de un país, utilizado para la identificación oficial.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L1177"
-        ]
-      }
-    },
-    "DOMINIO": {
-      "nombre": "DOMINIO",
-      "ingles": "Domain",
-      "espanol": "Dominio",
-      "definicion": "Un espacio de nombres en Internet que agrupa una colección de recursos y permite su acceso a través de un nombre único.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L2297",
-          "L3153"
-        ]
-      }
-    },
-    "ES6": {
-      "nombre": "ES6",
-      "ingles": "ECMAScript 2015",
-      "espanol": "ECMAScript 2015",
-      "definicion": "Versión de ECMAScript que introdujo nuevas características y mejoras en JavaScript, como variables let y const, plantillas literales, funciones flecha, clases, módulos, etc.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L2123"
-        ]
-      }
-    },
-    "FLUSH": {
-      "nombre": "FLUSH",
-      "ingles": "Flush",
-      "espanol": "Vaciar o limpiar",
-      "definicion": "Proceso de vaciar completamente un buffer o memoria temporal para asegurar que todos los datos sean procesados y liberados.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L4791"
-        ]
-      }
-    },
     "FPM": {
       "nombre": "FPM",
       "ingles": "FastCGI Process Manager",
@@ -2672,17 +2571,6 @@
           "L4106",
           "L4772",
           "L4819"
-        ]
-      }
-    },
-    "GET": {
-      "nombre": "GET",
-      "ingles": "GET",
-      "espanol": "Obtener",
-      "definicion": "Método HTTP utilizado para solicitar datos de un servidor.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L1796"
         ]
       }
     },
@@ -2708,32 +2596,6 @@
         ]
       }
     },
-    "HEALING": {
-      "nombre": "HEALING",
-      "ingles": "Healing",
-      "espanol": "Cura",
-      "definicion": "Proceso de recuperación y mitigación de vulnerabilidades o incidentes en sistemas, con el objetivo de mantener la seguridad y la continuidad del servicio.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L118",
-          "L119",
-          "L325",
-          "L373",
-          "L399",
-          "L415"
-        ],
-        "bitacora-mercedev-epic-02.md": [
-          "L644",
-          "L758",
-          "L804",
-          "L988",
-          "L1415",
-          "L1465",
-          "L1480",
-          "L1574"
-        ]
-      }
-    },
     "ISO": {
       "nombre": "ISO",
       "ingles": "International Organization for Standardization",
@@ -2744,18 +2606,6 @@
           "L206",
           "L365",
           "L376"
-        ]
-      }
-    },
-    "LICENSE": {
-      "nombre": "LICENSE",
-      "ingles": "License",
-      "espanol": "Licencia",
-      "definicion": "Contrato legal que permite el uso de software o contenido protegido por derechos de autor.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L4580",
-          "L5602"
         ]
       }
     },
@@ -2773,29 +2623,6 @@
         ]
       }
     },
-    "MIT": {
-      "nombre": "MIT",
-      "ingles": "Massachusetts Institute of Technology",
-      "espanol": "Massachusetts Institute of Technology",
-      "definicion": "Universidad estadounidense conocida por su contribución a la investigación y el desarrollo de tecnologías.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L4580",
-          "L4584"
-        ]
-      }
-    },
-    "MP4": {
-      "nombre": "MP4",
-      "ingles": "MPEG-4 Part 14",
-      "espanol": "MPEG-4 Parte 14",
-      "definicion": "Formato de archivo multimedia que utiliza la codificación MPEG-4 para almacenar video y audio.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L5245"
-        ]
-      }
-    },
     "NAT": {
       "nombre": "NAT",
       "ingles": "Network Address Translation",
@@ -2806,32 +2633,6 @@
           "L394",
           "L402",
           "L410"
-        ]
-      }
-    },
-    "NPM": {
-      "nombre": "NPM",
-      "ingles": "Node Package Manager",
-      "espanol": "Gestor de Paquetes de Node.js",
-      "definicion": " Herramienta para gestionar paquetes y módulos JavaScript en proyectos basados en Node.js.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L833",
-          "L1834",
-          "L4175",
-          "L5429"
-        ]
-      }
-    },
-    "NXDOMAIN": {
-      "nombre": "NXDOMAIN",
-      "ingles": "Non-Existent Domain",
-      "espanol": "Dominio No Existente",
-      "definicion": " Código de error que indica que un dominio solicitado no existe en el sistema DNS.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L3562",
-          "L3564"
         ]
       }
     },
@@ -2860,161 +2661,6 @@
       "apariciones": {
         "bitacora-mercedev-epic-01.md": [
           "L478"
-        ]
-      }
-    },
-    "PIPELINE": {
-      "nombre": "PIPELINE",
-      "ingles": "Pipeline",
-      "espanol": "Pipeline",
-      "definicion": "Proceso automatizado que permite la integración y entrega continua del código fuente a un entorno de producción, incluyendo pruebas y despliegue.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L704",
-          "L1628",
-          "L1928"
-        ]
-      }
-    },
-    "POST": {
-      "nombre": "POST",
-      "ingles": "POST",
-      "espanol": "POST",
-      "definicion": "Método HTTP utilizado para enviar datos al servidor para crear o actualizar un recurso.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L962",
-          "L1016",
-          "L1175",
-          "L1189",
-          "L1241",
-          "L1796",
-          "L4982"
-        ]
-      }
-    },
-    "PUT": {
-      "nombre": "PUT",
-      "ingles": "HTTP PUT",
-      "espanol": "Método HTTP PUT",
-      "definicion": "Un método de solicitud HTTP que se utiliza para actualizar o crear un recurso en el servidor.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L962",
-          "L1016"
-        ]
-      }
-    },
-    "README": {
-      "nombre": "README",
-      "ingles": "Read Me",
-      "espanol": "Instrucciones de Lectura",
-      "definicion": "Un archivo de texto que contiene información sobre cómo usar o configurar un proyecto, generalmente en formato Markdown.",
-      "apariciones": {
-        "bitacora-merci-boilerplate.md": [
-          "L15"
-        ],
-        "bitacora-mercedev-epic-03.md": [
-          "L232",
-          "L244",
-          "L365",
-          "L391",
-          "L398",
-          "L400",
-          "L403",
-          "L420",
-          "L462",
-          "L990"
-        ],
-        "bitacora-mercedev-epic-01.md": [
-          "L104",
-          "L119",
-          "L264",
-          "L318",
-          "L343",
-          "L395",
-          "L408",
-          "L450",
-          "L474",
-          "L575",
-          "L587",
-          "L655",
-          "L669",
-          "L815",
-          "L816",
-          "L906",
-          "L1028",
-          "L1070",
-          "L1130",
-          "L1372",
-          "L1385",
-          "L1615",
-          "L1794",
-          "L1943",
-          "L1955",
-          "L1990",
-          "L2002",
-          "L2014",
-          "L2030",
-          "L2329",
-          "L2339",
-          "L2341",
-          "L2542",
-          "L2545",
-          "L2570",
-          "L2574",
-          "L2575",
-          "L2669",
-          "L2737",
-          "L2749",
-          "L2832",
-          "L3209",
-          "L3485",
-          "L3868",
-          "L4146",
-          "L4340",
-          "L4511",
-          "L4581",
-          "L4596",
-          "L4610",
-          "L4624",
-          "L4637",
-          "L4652",
-          "L4817",
-          "L4844",
-          "L4846",
-          "L4885",
-          "L5142",
-          "L5209",
-          "L5217",
-          "L5456",
-          "L5500",
-          "L5592",
-          "L5602",
-          "L5604",
-          "L5616"
-        ],
-        "bitacora-mercedev-epic-02.md": [
-          "L48",
-          "L174",
-          "L528",
-          "L654",
-          "L656",
-          "L658",
-          "L666",
-          "L668",
-          "L670",
-          "L674",
-          "L680",
-          "L692",
-          "L714",
-          "L716",
-          "L718",
-          "L720",
-          "L768",
-          "L770",
-          "L1322",
-          "L1343"
         ]
       }
     },
@@ -3048,23 +2694,6 @@
         ]
       }
     },
-    "SECURITY": {
-      "nombre": "SECURITY",
-      "ingles": "Security",
-      "espanol": "Seguridad",
-      "definicion": "La práctica de proteger sistemas, aplicaciones y datos contra amenazas externas e internas.",
-      "apariciones": {
-        "bitacora-mercedev-epic-02.md": [
-          "L53",
-          "L59",
-          "L70",
-          "L74",
-          "L76",
-          "L100",
-          "L104"
-        ]
-      }
-    },
     "SHA": {
       "nombre": "SHA",
       "ingles": "Secure Hash Algorithm",
@@ -3075,17 +2704,6 @@
           "L3225",
           "L3235",
           "L3257"
-        ]
-      }
-    },
-    "SIGINT": {
-      "nombre": "SIGINT",
-      "ingles": "Signal Intelligence",
-      "espanol": "Inteligencia por Señales",
-      "definicion": "Técnicas utilizadas para recopilar información sobre los sistemas, actividades y movimientos de otros países a través del análisis de señales.",
-      "apariciones": {
-        "bitacora-mercedev-epic-02.md": [
-          "L200"
         ]
       }
     },
@@ -3104,18 +2722,6 @@
         ]
       }
     },
-    "SQL": {
-      "nombre": "SQL",
-      "ingles": "Structured Query Language",
-      "espanol": "Lenguaje de Consulta Estructurada",
-      "definicion": "Lenguaje utilizado para gestionar y manipular bases de datos relacionales. Permite crear, modificar y consultar datos en una base de datos.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L1716",
-          "L4786"
-        ]
-      }
-    },
     "TCP": {
       "nombre": "TCP",
       "ingles": "Transmission Control Protocol",
@@ -3124,28 +2730,6 @@
       "apariciones": {
         "bitacora-mercedev-epic-02.md": [
           "L408"
-        ]
-      }
-    },
-    "TTL": {
-      "nombre": "TTL",
-      "ingles": "Time To Live",
-      "espanol": "Tiempo de Vida",
-      "definicion": "Duración durante la cual un recurso o dato es válido antes de que expire.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L4120"
-        ]
-      }
-    },
-    "UNA": {
-      "nombre": "UNA",
-      "ingles": "Uniform Resource Name",
-      "espanol": "Nombre de Recurso Uniforme",
-      "definicion": "Identificador único para un recurso en una red, similar a la URL pero sin necesidad de acceso a Internet.",
-      "apariciones": {
-        "bitacora-mercedev-epic-02.md": [
-          "L276"
         ]
       }
     },
@@ -3162,34 +2746,6 @@
           "L3823",
           "L4900",
           "L4902"
-        ]
-      }
-    },
-    "VPS": {
-      "nombre": "VPS",
-      "ingles": "Virtual Private Server",
-      "espanol": "Servidor Virtual Privado",
-      "definicion": "Un servidor virtual que proporciona un entorno de computación dedicado y aislado, donde los usuarios pueden ejecutar sus propias aplicaciones con recursos separados.",
-      "apariciones": {
-        "bitacora-mercedev-epic-01.md": [
-          "L397",
-          "L4093",
-          "L4122",
-          "L4124"
-        ],
-        "bitacora-mercedev-epic-02.md": [
-          "L1092"
-        ]
-      }
-    },
-    "AKIA": {
-      "nombre": "AKIA",
-      "ingles": "Access Key ID",
-      "espanol": "Identificador de Clave de Acceso",
-      "definicion": "Clave única utilizada para autenticar solicitudes a AWS (Amazon Web Services).",
-      "apariciones": {
-        "bitacora-mercedev-epic-02.md": [
-          "L286"
         ]
       }
     },
@@ -3229,28 +2785,6 @@
         ],
         "bitacora-mercedev-epic-02.md": [
           "L606"
-        ]
-      }
-    },
-    "ADR-04": {
-      "nombre": "ADR-04",
-      "ingles": "Architecture Decision Record - 04",
-      "espanol": "Registro de Decisión Arquitectónica - 04",
-      "definicion": "Una instancia específica del Registro de Decisión Arquitectónica, identificada con el número '04'. Este registro probablemente documente una decisión particular sobre un aspecto específico del sistema.",
-      "apariciones": {
-        "bitacora-mercedev-epic-03.md": [
-          "L583"
-        ]
-      }
-    },
-    "ADR-06": {
-      "nombre": "ADR-06",
-      "ingles": "Architecture Decision Record - 06",
-      "espanol": "Registro de Decisión Arquitectónica - 06",
-      "definicion": "Otra instancia específica del Registro de Decisión Arquitectónica, identificada con el número '06'. Este registro probablemente documente una decisión particular sobre otro aspecto específico del sistema.",
-      "apariciones": {
-        "bitacora-mercedev-epic-03.md": [
-          "L571"
         ]
       }
     },
@@ -3304,28 +2838,6 @@
         ]
       }
     },
-    "AI-": {
-      "nombre": "AI-",
-      "ingles": "Artificial Intelligence -",
-      "espanol": "Inteligencia Artificial -",
-      "definicion": "Prefijo que indica la aplicación de inteligencia artificial en un contexto específico, como AI-Security (Seguridad Inteligente).",
-      "apariciones": {
-        "bitacora-mercedev-epic-02.md": [
-          "L988"
-        ]
-      }
-    },
-    "AM": {
-      "nombre": "AM",
-      "ingles": "Availability Management",
-      "espanol": "Gestión de Disponibilidad",
-      "definicion": "Proceso que asegura el tiempo de actividad continuo y la disponibilidad del sistema, minimizando los tiempos de inactividad.",
-      "apariciones": {
-        "bitacora-mercedev-epic-03.md": [
-          "L1867"
-        ]
-      }
-    },
     "AST": {
       "nombre": "AST",
       "ingles": "Abstract Syntax Tree",
@@ -3337,10 +2849,154 @@
           "L93"
         ]
       }
+    },
+    "CI": {
+      "nombre": "CI",
+      "ingles": "Continuous Integration",
+      "espanol": "Integración Continua",
+      "definicion": "Práctica de desarrollo de software que automatiza el proceso de integración de código fuente en un repositorio central, generalmente varias veces al día.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L115"
+        ],
+        "bitacora-mercedev-epic-04.md": [
+          "L120"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L206"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L484"
+        ],
+        "bitacora-mercedev-260412-260423.md": [
+          "L315"
+        ]
+      }
+    },
+    "CD": {
+      "nombre": "CD",
+      "ingles": "Continuous Delivery",
+      "espanol": "Entrega Continua",
+      "definicion": "Práctica que permite la entrega frecuente y confiable de software a producción, asegurando que el código esté listo para ser lanzado en cualquier momento.",
+      "apariciones": {
+        "bitacora-mercedev-epic-05.md": [
+          "L295"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L115"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L206"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L484"
+        ],
+        "bitacora-mercedev-260412-260423.md": [
+          "L315"
+        ]
+      }
+    },
+    "CNAME": {
+      "nombre": "CNAME",
+      "ingles": "Canonical Name",
+      "espanol": "Nombre Canónico",
+      "definicion": "Un registro DNS que apunta a otro nombre de dominio. Es utilizado para asignar un alias a una dirección IP o a otro nombre de dominio.",
+      "merci_explica": "Es como crear un atajo en tu navegador web, donde 'www.ejemplo.com' siempre te lleva a 'ejemplo.com'.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L3570"
+        ],
+        "bitacora-mercedev-260412-260423.md": [
+          "L382"
+        ]
+      }
+    },
+    "CTA": {
+      "nombre": "CTA",
+      "ingles": "Call To Action",
+      "espanol": "Llamada a la Acción",
+      "definicion": "Un elemento en una interfaz de usuario que invita al usuario a realizar una acción específica, como hacer clic en un botón o enviar un formulario.",
+      "merci_explica": "Es como decir 'Haz algo' o 'Actúa ahora', pero dentro del contexto digital.",
+      "apariciones": {
+        "bitacora-mercedev-epic-05.md": [
+          "L108"
+        ]
+      }
+    },
+    "AI-Changelog": {
+      "nombre": "AI-Changelog",
+      "ingles": "AI Change Log",
+      "espanol": "Registro de Cambios de Inteligencia Artificial",
+      "definicion": "Un documento que registra todas las modificaciones y mejoras realizadas en el sistema de inteligencia artificial, incluyendo versiones, fechas de lanzamiento y descripciones detalladas de los cambios.",
+      "merci_explica": "Es como un diario de eventos para el desarrollo de IA, ayudando a mantener un seguimiento claro y organizado.",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L988"
+        ]
+      }
+    },
+    "COPE": {
+      "nombre": "COPE",
+      "ingles": "Continuous Operational Protection Environment",
+      "espanol": "Entorno Continuo de Protección Operativa",
+      "definicion": "Un entorno diseñado para proporcionar una protección continua contra amenazas cibernéticas, que incluye sistemas y procesos automatizados para detectar, mitigar y responder rápidamente a cualquier incidente.",
+      "merci_explica": "Es como un sistema de seguridad en constante vigilancia, asegurando que la infraestructura esté siempre lista para enfrentar amenazas.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L1531"
+        ]
+      }
+    },
+    "CRF": {
+      "nombre": "CRF",
+      "ingles": "Change Request Form",
+      "espanol": "Formulario de Solicitud de Cambio",
+      "definicion": "Un documento formal utilizado en proyectos y sistemas para solicitar, aprobar o rechazar cambios que afecten la funcionalidad, el rendimiento o las políticas del sistema.",
+      "merci_explica": "Es una herramienta esencial para gestionar los cambios de manera estructurada y controlada, asegurando que todos los cambios se realicen de manera segura y efectiva.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L5382"
+        ],
+        "bitacora-mercedev-260412-260423.md": [
+          "L2194"
+        ]
+      }
     }
   },
   "ignorados": [
     "ASCII",
-    "BY"
+    "BY",
+    "ADR-04",
+    "ADR-06",
+    "AM",
+    "CAMBIOS",
+    "COPIA",
+    "CREATE",
+    "DATABASE",
+    "DEBE",
+    "DNI",
+    "DOMINIO",
+    "ES6",
+    "FLUSH",
+    "GET",
+    "HEALING",
+    "LICENSE",
+    "MIT",
+    "MP4",
+    "NPM",
+    "NXDOMAIN",
+    "PIPELINE",
+    "POST",
+    "PUT",
+    "README",
+    "SECURITY",
+    "SIGINT",
+    "SQL",
+    "TTL",
+    "UNA",
+    "VPS",
+    "AKIA",
+    "AI-",
+    "CLI-"
   ]
 }

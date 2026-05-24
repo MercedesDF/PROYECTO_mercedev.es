@@ -55,8 +55,8 @@ def extract_terms_from_bitacoras():
     terms_dict = {}
     context_dict = {}
     
-    # Ampliamos el regex para acrónimos con guiones (WAI-ARIA, JSON-LD) y de 2 letras (QA, CI)
-    pattern_acronym = re.compile(r'\b[A-Z][A-Z0-9\-]{1,9}\b') 
+    # Acrónimos y opcionalmente la siguiente palabra unida por guión (ej. AI-Changelog)
+    pattern_acronym = re.compile(r'\b[A-Z][A-Z0-9]{1,9}(?:-[a-zA-Z0-9]+)?\b') 
     pattern_specific = re.compile(r'\b(DevSecOps|Zero-[A-Z][a-z]+|Shift-[A-Z][a-z]+)\b')
     
     ignore_words = {
@@ -76,13 +76,18 @@ def extract_terms_from_bitacoras():
             for i, line in enumerate(f, 1):
                 if line.strip().startswith('```'): continue
                 
-                matches = pattern_acronym.findall(line) + pattern_specific.findall(line)
-                for m in set(matches):
+                matches_acronym = list(pattern_acronym.finditer(line))
+                matches_specific = list(pattern_specific.finditer(line))
+                
+                for match_obj in matches_acronym + matches_specific:
+                    m = match_obj.group(0)
                     if m not in ignore_words and is_valid_term(m):
                         if m not in terms_dict:
                             terms_dict[m] = {}
-                            # Guardamos un extracto de la línea como contexto visual para el humano
-                            context_dict[m] = line.strip()[:80] + "..."
+                            # 5 palabras antes, el término, 5 palabras después
+                            before = line[:match_obj.start()].split()[-5:]
+                            after = line[match_obj.end():].split()[:5]
+                            context_dict[m] = f"...{' '.join(before)} {m} {' '.join(after)}..."
                         if fname not in terms_dict[m]:
                             # Solo guardamos la primera aparición (línea) por archivo para no saturar el glosario
                             terms_dict[m][fname] = [f"L{i}"]
@@ -133,7 +138,11 @@ def compile_markdown(state_data):
         # Orden alfabético forzado (Case-Insensitive)
         for term_name in sorted(terminos.keys(), key=lambda x: x.lower()):
             t = terminos[term_name]
-            md += f"### {term_name}\n"
+            espanol = t.get('espanol', term_name)
+            if espanol.lower() != term_name.lower():
+                md += f"### {espanol} ({term_name})\n"
+            else:
+                md += f"### {term_name}\n"
             md += f"**Inglés:** {t.get('ingles', term_name)}\n"
             md += f"**Español:** {t.get('espanol', term_name)}\n\n"
             md += f"**Definición:** {t.get('definicion', '')}\n\n"
@@ -228,7 +237,11 @@ def main():
     with open(PROMPT_FILE, 'r', encoding='utf-8') as f:
         system_prompt = f.read()
         
-    user_prompt = f"Define los siguientes términos DevSecOps:\n{', '.join(target_terms)}"
+    user_prompt = (
+        f"Tu única tarea es generar el JSON con las definiciones para TODOS Y CADA UNO de estos {len(target_terms)} términos:\n"
+        f"{', '.join(target_terms)}\n\n"
+        f"Recuerda: Tienes estrictamente PROHIBIDO filtrar. El array 'terminos' debe contener exactamente {len(target_terms)} elementos."
+    )
     
     try:
         response_data = generate_with_ollama(system_prompt, user_prompt)
@@ -237,7 +250,14 @@ def main():
         returned_terms = response_data.get("terminos", [])
         procesados = []
         
+        if isinstance(returned_terms, dict):
+            if "nombre" in returned_terms:
+                returned_terms = [returned_terms]
+            else:
+                returned_terms = list(returned_terms.values())
+                
         for t in returned_terms:
+            if not isinstance(t, dict): continue
             raw_term_name = t.get("nombre")
             if not raw_term_name: continue
             
@@ -250,12 +270,21 @@ def main():
                 t["apariciones"] = extracted.get(matched_target, {})
                 state["terminos"][matched_target] = t
                 
-        # Los términos que le pasamos a Ollama pero que Ollama ignoró
-        # (porque no son DevSecOps) van a la lista de ignorados
-        for t in target_terms:
-            if t not in procesados:
-                if "ignorados" not in state: state["ignorados"] = []
-                state["ignorados"].append(t)
+                # Feedback visual inmaculado en consola (DX)
+                print(f"\n  ✨ [Término Consolidado]: {matched_target}")
+                print(f"     🇪🇸 Español: {t.get('espanol', '')}")
+                print(f"     🇬🇧 Inglés:  {t.get('ingles', '')}")
+                print(f"     📖 Definición: {t.get('definicion', '')}")
+                if t.get('merci_explica'):
+                    print(f"     💡 Merci Explica: {t.get('merci_explica')}")
+                
+        # Fallback DevSecOps: Si la IA omite términos, NO los metemos en la lista negra oculta.
+        # El usuario ha dicho explícitamente que los quiere (Triage: 'S').
+        omitidos = [t for t in target_terms if t not in procesados]
+        if omitidos:
+            print(f"\n  ⚠️ [Merci Glosario] La IA desobedeció y omitió los siguientes términos: {', '.join(omitidos)}")
+            print(f"     (Se mantendrán en tu cola para el próximo intento)")
+            print(f"     [Depuración] JSON crudo devuelto por la IA: {json.dumps(response_data, ensure_ascii=False)}")
                 
         # Guardar y compilar
         save_glossary_state(state)

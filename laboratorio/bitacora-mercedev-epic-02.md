@@ -119,7 +119,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ### 2026-05-12 — Fix: Actualización de seguridad crítica en LiteLLM (Supply Chain Security)
 
-**Contexto:** Dependabot detectó 11 vulnerabilidades de seguridad (incluyendo RCE, SSRF, DoS y Bypass de Autenticación) en la versión `1.35.0` de `litellm` utilizada en el entorno local y en los workflows de GitHub Actions.
+**Contexto:** Dependabot detectó 11 vulnerabilidades de seguridad (incluyendo RCE, Falsificación de Petición del Lado del Servidor (SSRF), DoS y Bypass de Autenticación) en la versión `1.35.0` de `litellm` utilizada en el entorno local y en los workflows de GitHub Actions.
 
 **Hecho:** Se actualizó la dependencia en `requirements.txt` a una versión segura (`>=1.48.0`).
 
@@ -405,7 +405,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Hecho:** Se implementó `network_mode: "host"` para los contenedores de Grafana y Prometheus en `docker-compose.yml`. Se actualizó el target de Prometheus a `localhost:8001`.
 
-**Detalle técnico:** Al usar la red `host`, los contenedores pierden su aislamiento de red y comparten la pila TCP/IP directamente con la máquina anfitriona (Ubuntu). La dirección `localhost` dentro de Prometheus ahora es literalmente el `localhost` del ordenador, puenteando completamente las redes de Docker y evadiendo el bloqueo de UFW.
+**Detalle técnico:** Al usar la red `host`, los contenedores pierden su aislamiento de red y comparten la pila Protocolo de Control de Transmisión (TCP)/IP directamente con la máquina anfitriona (Ubuntu). La dirección `localhost` dentro de Prometheus ahora es literalmente el `localhost` del ordenador, puenteando completamente las redes de Docker y evadiendo el bloqueo de UFW.
 
 **Motivo / criterio:** *Simplicidad Arquitectónica vs Aislamiento*. En un entorno de desarrollo local (Linux), pelear contra el NAT de Docker Compose y UFW para conectar un scraper de métricas con el host es una pérdida de tiempo operativo. Eliminar el aislamiento de red para la telemetría garantiza una conexión 100% nativa y sin fricciones.
 
@@ -1265,7 +1265,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ### 2026-05-08 — Fix: Resolución de dependencia faltante para Gemini (google-generativeai)
 
-**Contexto (Desafío):** Al ejecutar el Agente Bibliotecario, el script falló al intentar conectar con `gemini-1.5-flash` debido a la falta de la librería nativa de Google (`Importing google.generativeai failed`). La Degradación Elegante funcionó, pero el modelo local (`phi3`) sufrió una alucinación severa, inventando contenido sobre Docker, GoLang y JWT al final del documento.
+**Contexto (Desafío):** Al ejecutar el Agente Bibliotecario, el script falló al intentar conectar con `gemini-1.5-flash` debido a la falta de la librería nativa de Google (`Importing google.generativeai failed`). La Degradación Elegante funcionó, pero el modelo local (`phi3`) sufrió una alucinación severa, inventando contenido sobre Docker, GoLang y Token Web JSON (JWT) al final del documento.
 
 **Hecho (Maniobra):** Se añadió la dependencia `google-generativeai` al archivo `requirements.txt` para que LiteLLM pueda interactuar correctamente con la API de Google en futuras ejecuciones.
 

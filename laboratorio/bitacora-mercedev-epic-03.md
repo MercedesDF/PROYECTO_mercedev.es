@@ -1764,7 +1764,7 @@ Fichero modificado: `src/scss/layout/_header.scss` (línea del bloque de estado 
 
 ### 2026-05-14 — UX/UI: Reescritura del CV Semántico y proyección de telemetría dinámica
 
-**Contexto:** El texto de la página estática "Sobre Mí" (`public/sobre-mi/index.html`) requería una reescritura para alinearse con el tono autoritario de "Performance Engineer" y reflejar las métricas exactas logradas en la Release v1.13.0 (agentes Python, líneas de documentación, CWV 100/100).
+**Contexto:** El texto de la página estática "Sobre Mí" (`public/sobre-mi/index.html`) requería una reescritura para alinearse con el tono autoritario de "Performance Engineer" y reflejar las métricas exactas logradas en la Release v1.13.0 (agentes Python, líneas de documentación, Métricas Web Principales (CWV) 100/100).
 
 **Hecho:** Se maquetó el nuevo texto utilizando los componentes de lectura ligera (`.blog-post`) y se reutilizó el componente `.hero__dashboard` para exponer las métricas en un formato visual asimilable. Se registró en el Roadmap la tarea de automatizar estos números.
 
