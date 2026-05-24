@@ -6,7 +6,7 @@
     <title>Optimización del Dashboard de Grafana para Mejorar la Experi...</title>
     <meta name="description" content="Se implementó una solución que reduce el tiempo de respuesta en el dashboard de Grafana al actualizar los estados documentales.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/optimizacion-del-dashboard-de-grafana-para-mejorar-la-experiencia-del-autor.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779658400">
+    <link rel="stylesheet" href="/css/main.css?v=1779659082">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Se detectó que el dashboard de Grafana tardaba mucho en actualizar los estados documentales (incubación, promoción) al interactuar con los agentes. Esto generaba fricción (peor <abbr title="Merci Explica: La experiencia que sientes cuando usas un producto o servicio digital, como si fuera un viaje en el espacio." tabindex="0">DX</abbr>) porque estas son las métricas que más fluctúan al crear contenido.</p>
+<p>Se detectó que el dashboard de Grafana tardaba mucho en actualizar los estados documentales (incubación, promoción) al interactuar con los agentes. Esto generaba fricción (peor <abbr title="Merci Explica: La comodidad y felicidad del programador al trabajar con el código y las herramientas de un proyecto." tabindex="0">DX</abbr>) porque estas son las métricas que más fluctúan al crear contenido.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se invirtió la lógica del Muestreo Escalonado (Staggered Sampling) en <code>merci-sre.py</code>. Ahora la función <code>actualizar_estado_documental</code> escanea los YAML Frontmatter cada segundo, mientras que la lectura de los JSON (deriva, duración) se ejecuta cada 10 segundos (<code>ticks % 10 == 0</code>).</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>

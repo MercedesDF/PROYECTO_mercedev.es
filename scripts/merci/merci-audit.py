@@ -439,6 +439,10 @@ def audit_md_acronyms(state: AuditState, path: Path, text: str) -> None:
     if not watchlist: # Fallback de seguridad
         watchlist = ["AJAX", "PHP", "CPU", "TTFB", "INP", "JSON-LD", "SEO", "DOM", "BEM", "CMS"]
     
+    # Excepciones arquitectónicas: codificaciones, jerga y falsos positivos que no requieren expansión
+    ignored_acronyms = {"TIMESTAMP", "UTF-8", "LF", "NAS", "NFKD", "WC", "DR", "IEEE", "TL", "VCL"}
+    watchlist = [acronym for acronym in watchlist if acronym not in ignored_acronyms]
+
     for acronym in watchlist:
         # Si el acrónimo existe en el texto como palabra exacta...
         if re.search(rf"\b{re.escape(acronym)}\b", text):

@@ -10,7 +10,7 @@ fecha: "2026-05-24"
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 117 términos consolidados (Última actualización de datos: 2026-05-24 23:32).
+> **Versión de control:** 117 términos consolidados (Última actualización de datos: 2026-05-24 23:41).
 
 ## Índice Alfabético
 
@@ -134,11 +134,11 @@ fecha: "2026-05-24"
 
 ---
 ### CLS
-**Inglés:** Clear Screen | **Español:** Limpiar Pantalla
+**Inglés:** Cumulative Layout Shift | **Español:** Desplazamiento de Diseño Acumulativo
 
-**Definición:** Comando o función que limpia la pantalla actual, eliminando todos los caracteres visibles y preparando la superficie para una nueva salida.
+**Definición:** Métrica de Core Web Vitals que mide la inestabilidad visual de una página web, cuantificando cuánto cambian de posición los elementos visibles durante la carga.
 
-💡 **Merci Explica:** *Instrucción utilizada en interfaces de línea de comandos para limpiar el contenido visible del terminal.*
+💡 **Merci Explica:** *Mide cuánto saltan los textos o imágenes mientras la página web termina de cargar.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L160
@@ -187,22 +187,22 @@ fecha: "2026-05-24"
 
 ---
 ### COPE
-**Inglés:** Continuous Operation and Protection Environment | **Español:** Entorno de Operación y Protección Continua
+**Inglés:** Create Once, Publish Everywhere | **Español:** Crea una vez, publica en todas partes
 
-**Definición:** Ambiente diseñado para mantener la operación segura y continua de sistemas críticos, mediante el monitoreo constante y las medidas de protección preventivas.
+**Definición:** Estrategia de gestión de contenidos que consiste en crear un contenido original en un solo lugar y distribuirlo automáticamente a través de múltiples plataformas y canales.
 
-💡 **Merci Explica:** *Casa segura donde se mantiene encendida una lámpara sin apagarla nunca.*
+💡 **Merci Explica:** *Escribes un artículo una sola vez y el sistema se encarga de enviarlo a tu blog, redes sociales y boletines.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-03.md: L1531
 
 ---
 ### CRF
-**Inglés:** Clinical Research Form | **Español:** Formulario de Investigación Clínica
+**Inglés:** Constant Rate Factor | **Español:** Factor de Tasa Constante
 
-**Definición:** Hoja de datos utilizada en estudios clínicos para recopilar información detallada sobre los participantes y sus resultados de pruebas médicas.
+**Definición:** Método de compresión de video que ajusta la tasa de bits dinámicamente para mantener un nivel de calidad visual constante en lugar de un tamaño de archivo predecible.
 
-💡 **Merci Explica:** *Ficha médica especializada para recolectar datos durante un experimento médico.*
+💡 **Merci Explica:** *Control de calidad de video que le dice al compresor que use más espacio solo en escenas complejas para mantener la imagen nítida.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L5382
@@ -265,11 +265,11 @@ fecha: "2026-05-24"
 
 ---
 ### CWV
-**Inglés:** Common Weakness Vulnerability Database | **Español:** Base de Datos de Vulnerabilidades Comunes
+**Inglés:** Core Web Vitals | **Español:** Métricas Web Principales
 
-**Definición:** Repositorio centralizado que almacena información sobre las vulnerabilidades comunes en el software.
+**Definición:** Conjunto de métricas estandarizadas por Google que miden la experiencia del usuario en la web, enfocándose en la velocidad de carga, la interactividad y la estabilidad visual.
 
-💡 **Merci Explica:** *Banco de datos donde se recopilan y clasifican las debilidades más frecuentes en la seguridad del software.*
+💡 **Merci Explica:** *Las notas del examen que te pone Google sobre qué tan rápida y cómoda es de usar tu página web.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-03.md: L1767
@@ -329,11 +329,11 @@ fecha: "2026-05-24"
 
 ---
 ### DPR
-**Inglés:** Data Privacy Regulation | **Español:** Regulación de Privacidad de Datos
+**Inglés:** Device Pixel Ratio | **Español:** Ratio de Píxeles del Dispositivo
 
-**Definición:** Normativa y ley que establece los derechos de los individuos sobre sus datos personales y las medidas que deben tomar las organizaciones para proteger dichos datos.
+**Definición:** Relación entre los píxeles físicos de hardware de una pantalla y los píxeles lógicos (CSS) que el navegador asume que tiene, crítico para ofrecer imágenes nítidas en pantallas de alta densidad (Retina).
 
-💡 **Merci Explica:** *Ley que regula cómo se manejan y protegen los datos personales, garantizando la privacidad del usuario.*
+💡 **Merci Explica:** *El multiplicador que le indica al navegador cuántos píxeles físicos usar para dibujar algo súper nítido en pantallas modernas.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-03.md: L251
@@ -351,11 +351,11 @@ fecha: "2026-05-24"
 
 ---
 ### DX
-**Inglés:** Digital Experience | **Español:** Experiencia Digital
+**Inglés:** Developer Experience | **Español:** Experiencia del Desarrollador
 
-**Definición:** Conjunto de experiencias que los clientes y usuarios tienen al interactuar con la tecnología digital de una organización.
+**Definición:** Conjunto de herramientas, procesos y entorno de trabajo que determinan cuán fácil, eficiente y agradable es para un desarrollador crear y mantener software.
 
-💡 **Merci Explica:** *La experiencia que sientes cuando usas un producto o servicio digital, como si fuera un viaje en el espacio.*
+💡 **Merci Explica:** *La comodidad y felicidad del programador al trabajar con el código y las herramientas de un proyecto.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L439
@@ -367,11 +367,11 @@ fecha: "2026-05-24"
 
 ---
 ### E2EE
-**Inglés:** End-to-End Encryption | **Español:** Cifrado Fin de Punto a Fin
+**Inglés:** End-to-End Encryption | **Español:** Cifrado de Extremo a Extremo
 
-**Definición:** Tecnología que garantiza que solo el emisor y el receptor de un mensaje puedan leerlo, cifrando completamente la comunicación entre ellos en todo momento.
+**Definición:** Método de protección y cifrado asimétrico que cifra el mensaje o datos en el origen antes de enviarlos, y solo se desencriptan en el dispositivo del receptor real, evitando interceptaciones intermedias.
 
-💡 **Merci Explica:** *Cerradura digital que asegura que solo tú y el destinatario pueden abrir el paquete.*
+💡 **Merci Explica:** *Enviar una conversación dentro de una caja fuerte sellada de modo que ni el servicio de correos ni la operadora de internet tienen la llave para leerla.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L1403
@@ -379,11 +379,11 @@ fecha: "2026-05-24"
 
 ---
 ### FCP
-**Inglés:** First Class Passenger | **Español:** Pasajero de Primera Clase
+**Inglés:** First Contentful Paint | **Español:** Primer Pintado de Contenido
 
-**Definición:** Proceso de seguridad en ciberseguridad que garantiza la confidencialidad, integridad y disponibilidad de los datos durante su transmisión o almacenamiento.
+**Definición:** Métrica de rendimiento que mide el tiempo desde que la página comienza a cargar hasta que cualquier parte del contenido visual se renderiza en la pantalla.
 
-💡 **Merci Explica:** *Guardia del reino digital que protege tus bienes personales.*
+💡 **Merci Explica:** *El tiempo exacto que tarda el navegador en mostrarte el primer texto o imagen en la pantalla.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L158
@@ -391,22 +391,22 @@ fecha: "2026-05-24"
 
 ---
 ### GC
-**Inglés:** Government Cloud | **Español:** Nube gubernamental
+**Inglés:** Garbage Collector | **Español:** Recolector de Basura
 
-**Definición:** Servicio de infraestructura en la nube gestionado por el gobierno, diseñado para almacenar y procesar datos confidenciales de manera segura.
+**Definición:** Mecanismo automático de gestión de memoria en programación que libera la memoria ocupada por objetos que ya no están en uso por el sistema.
 
-💡 **Merci Explica:** *Casa digital del estado donde se almacenan los secretos gubernamentales.*
+💡 **Merci Explica:** *Servicio de limpieza invisible que vacía la memoria de tu computadora eliminando datos que el programa ya no necesita.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-05.md: L54
 
 ---
 ### GCP
-**Inglés:** Google Cloud Platform | **Español:** Plataforma de Nubes de Google
+**Inglés:** Google Cloud Platform | **Español:** Plataforma en la Nube de Google
 
-**Definición:** Conjunto de servicios y herramientas en la nube proporcionados por Google, que permiten a los desarrolladores y empresas crear, implementar y gestionar aplicaciones y datos en Internet.
+**Definición:** Conjunto de servicios de infraestructura en la nube y utilidades DevSecOps ofrecidas por Google para desarrollar, alojar, orquestar automatizaciones e integrar APIs de Machine Learning.
 
-💡 **Merci Explica:** *Caja mágica en la nube donde puedes almacenar tus datos y ejecutar tus aplicaciones.*
+💡 **Merci Explica:** *Ordenadores inmensos alquilados por Google a los desarrolladores para ejecutar aplicaciones súper rápidas en servidores conectados por todo el mundo.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L5533
@@ -424,11 +424,11 @@ fecha: "2026-05-24"
 
 ---
 ### GGUF
-**Inglés:** Google Universal Fingerprinting | **Español:** Fingerprintaje Universal de Google
+**Inglés:** GPT-Generated Unified Format | **Español:** Formato Unificado Generado por GPT
 
-**Definición:** Técnica utilizada por Google para identificar y rastrear dispositivos en Internet, basándose en una combinación de características únicas del dispositivo.
+**Definición:** Formato de archivo binario diseñado para el almacenamiento e inferencia eficiente de modelos de lenguaje grande (LLMs) locales, optimizado para ejecutarse en CPU.
 
-💡 **Merci Explica:** *Mano invisible que te reconoce a través de tu dispositivo sin necesidad de un nombre de usuario.*
+💡 **Merci Explica:** *Archivo empaquetado que contiene el cerebro de una inteligencia artificial para que puedas ejecutarla en tu propia computadora.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L1066
@@ -505,11 +505,11 @@ fecha: "2026-05-24"
 
 ---
 ### INP
-**Inglés:** Input | **Español:** Entrada
+**Inglés:** Interaction to Next Paint | **Español:** Interacción hasta el Siguiente Pintado
 
-**Definición:** Datos proporcionados por el usuario o desde otro sistema que son necesarios para realizar una operación específica.
+**Definición:** Métrica de Core Web Vitals que evalúa la capacidad de respuesta de una página, midiendo la latencia de todas las interacciones del usuario a lo largo de su visita.
 
-💡 **Merci Explica:** *La entrada es como los ingredientes de una receta, sin ellos no se puede preparar nada.*
+💡 **Merci Explica:** *El retraso o lentitud que sientes cuando haces clic en un botón y esperas a que la página reaccione.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L160
@@ -518,11 +518,11 @@ fecha: "2026-05-24"
 
 ---
 ### JSON-LD
-**Inglés:** JSON-LD | **Español:** JSON con Datos Estructurados
+**Inglés:** JavaScript Object Notation for Linked Data | **Español:** Notación de Objetos JavaScript para Datos Enlazados
 
-**Definición:** Formato de datos que utiliza JavaScript Object Notation (JSON) para codificar información adicional en una página web, mejorando la capacidad de los motores de búsqueda para entender y rastrear el contenido.
+**Definición:** Método de implementación de datos estructurados para inyectar vocabulario (como schema.org) en páginas web y facilitar la lectura semántica a los motores de búsqueda.
 
-💡 **Merci Explica:** *JSON-LD es como etiquetas adicionales en un libro, que proporcionan contexto extra para ayudar a los lectores a entender mejor el contenido.*
+💡 **Merci Explica:** *Una tarjeta de presentación secreta oculta en el código de tu web que los robots de Google leen para entender de qué va exactamente tu página.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L233
@@ -553,22 +553,22 @@ fecha: "2026-05-24"
 
 ---
 ### LA
-**Inglés:** Latency Analysis | **Español:** Análisis de Latencia
+**Inglés:** Luminance Alpha | **Español:** Luminancia Alfa
 
-**Definición:** Proceso de medición y análisis del tiempo que tarda un sistema o componente en responder a una solicitud, lo cual es crucial para mejorar la experiencia del usuario y garantizar la escalabilidad.
+**Definición:** Modo de espacio de color de procesamiento de imágenes donde cada píxel tiene un valor de brillo (luminancia) y un valor de transparencia (canal alfa).
 
-💡 **Merci Explica:** *La Latencia Analysis es como el cronómetro que mide cuánto tiempo toma que tu sitio web responda cuando alguien hace clic en un botón.*
+💡 **Merci Explica:** *Formato de imagen en blanco y negro que además guarda información sobre qué partes son transparentes.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L4079
 
 ---
 ### LCP
-**Inglés:**  Largest Contentful Paint | **Español:** Máxima Pintura Contenida
+**Inglés:** Largest Contentful Paint | **Español:** Despliegue del Contenido Más Extenso
 
-**Definición:** Medición del tiempo que tarda el navegador en pintar el primer elemento crítico visible de la página, lo cual es un indicador clave de la velocidad y rendimiento de una página web.
+**Definición:** Métrica de Core Web Vitals que mide el tiempo de renderizado de la imagen o bloque de texto más grande visible dentro de la pantalla inicial.
 
-💡 **Merci Explica:** *LCP es como medir cuánto tiempo toma que tu sitio web muestre su contenido más importante al usuario.*
+💡 **Merci Explica:** *El tiempo que tarda en aparecer en pantalla el elemento visual más grande de tu página web, como el título principal o una gran foto.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L160
@@ -588,11 +588,11 @@ fecha: "2026-05-24"
 
 ---
 ### LF
-**Inglés:** Linux Foundation | **Español:** Fundación Linux
+**Inglés:** Line Feed | **Español:** Avance de Línea
 
-**Definición:** Organización sin fines de lucro dedicada a promover la cultura, el desarrollo y la utilización del software libre. La Fundación Linux es responsable de mantener y mejorar proyectos como Linux.
+**Definición:** Carácter de control (\n) utilizado en sistemas operativos UNIX/Linux para marcar el final de una línea de texto e indicar que el cursor debe bajar a la siguiente línea.
 
-💡 **Merci Explica:** *Entidad que respalda y nutre el ecosistema Linux.*
+💡 **Merci Explica:** *El código invisible que le dice a la computadora que baje a la siguiente línea al leer un texto.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L1654
@@ -612,7 +612,7 @@ fecha: "2026-05-24"
 
 ---
 ### MIME
-**Inglés:** Multipurpose Internet Mail Extensions | **Español:** Extensiones para Internet de Propósito General
+**Inglés:** Multipurpose Internet Mail Extensions | **Español:** Extensiones Multipropósito de Correo de Internet
 
 **Definición:** Formato estándar que describe el tipo de contenido en una transmisión de datos en Internet, como archivos adjuntos de correo electrónico o partes de un mensaje MIME.
 
@@ -623,7 +623,7 @@ fecha: "2026-05-24"
 
 ---
 ### MIME-sniffing
-**Inglés:** Multipurpose Internet Mail Extensions sniffing | **Español:** Inspección de Extensiones para Internet de Propósito General
+**Inglés:** Multipurpose Internet Mail Extensions sniffing | **Español:** Inspección de Extensiones Multipropósito de Correo de Internet
 
 **Definición:** Proceso que un navegador utiliza para determinar el tipo de contenido de una respuesta HTTP basándose en la información proporcionada por el servidor, en lugar del tipo MIME declarado.
 
@@ -762,11 +762,11 @@ fecha: "2026-05-24"
 
 ---
 ### POO
-**Inglés:** Principles of Object-Oriented Programming | **Español:** Principios de Programación Orientada a Objetos
+**Inglés:** Object-Oriented Programming | **Español:** Programación Orientada a Objetos
 
-**Definición:** Enfoque en la creación de objetos que encapsulan datos y comportamientos relacionados, facilitando la organización y reutilización del código.
+**Definición:** Paradigma de programación basado en el concepto de objetos que agrupan tanto datos (atributos) como código (métodos), facilitando la reutilización del software.
 
-💡 **Merci Explica:** *Arquitectura modular para construir software complejo.*
+💡 **Merci Explica:** *Diseñar programas creando piezas o 'bloques' de código independientes que interactúan entre sí, parecido a construir con piezas de Lego.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L2088
@@ -786,11 +786,11 @@ fecha: "2026-05-24"
 
 ---
 ### PR
-**Inglés:** Public Relations | **Español:** Relaciones Públicas
+**Inglés:** Pull Request | **Español:** Solicitud de Extracción
 
-**Definición:** Conjunto de técnicas y estrategias utilizadas por una organización para comunicarse con su público objetivo, construir y mantener una buena imagen corporativa, y gestionar la percepción pública.
+**Definición:** Petición en un sistema de control de versiones distribuido para fusionar los cambios de una rama de desarrollo secundaria hacia la rama principal del proyecto tras su revisión.
 
-💡 **Merci Explica:** *Cerco de protección que rodea a una empresa, protegiendo su reputación y comunicándose con sus clientes.*
+💡 **Merci Explica:** *Propuesta que le envías a los responsables del proyecto para que revisen y añadan tu nuevo código a la versión oficial.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L29
@@ -802,18 +802,18 @@ fecha: "2026-05-24"
 
 ---
 ### PSD
-**Inglés:** Photoshop Design | **Español:** Diseño en Photoshop
+**Inglés:** Photoshop Document | **Español:** Documento de Photoshop
 
-**Definición:** Proceso de creación o edición de imágenes digitales utilizando el software Adobe Photoshop, que permite a los diseñadores crear gráficos y editar fotografías con alta calidad.
+**Definición:** Formato de archivo propietario de Adobe utilizado para guardar imágenes con capas completas, máscaras y datos de edición en bruto antes de su exportación a la web.
 
-💡 **Merci Explica:** *Herramienta maestra para transformar ideas visuales en realidad digital.*
+💡 **Merci Explica:** *El archivo de imagen original y pesado donde los diseñadores guardan sus diseños por capas, como un sándwich desarmable.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L5590
 
 ---
 ### QA
-**Inglés:** Quality Assurance | **Español:** Garantía de Calidad
+**Inglés:** Quality Assurance | **Español:** Aseguramiento de Calidad
 
 **Definición:** Proceso sistemático y documentado que se utiliza para asegurar que un producto o servicio cumple con los estándares de calidad definidos antes del lanzamiento.
 
@@ -828,11 +828,11 @@ fecha: "2026-05-24"
 
 ---
 ### RAG
-**Inglés:** Recovery As-Is | **Español:** Recuperación Como Está
+**Inglés:** Retrieval-Augmented Generation | **Español:** Generación Aumentada por Recuperación
 
-**Definición:** Proceso de recuperación que permite a un sistema o servicio devolverse a su estado anterior sin necesidad de realizar cambios significativos en el código fuente.
+**Definición:** Arquitectura de IA que enriquece y asienta las respuestas de un Modelo de Lenguaje Grande (LLM) consultando bases de datos externas de documentos propios antes de generar la respuesta final.
 
-💡 **Merci Explica:** *Es como hacer una copia de seguridad del sistema y luego restaurarla cuando algo falla, asegurando que todo funcione igual que antes.*
+💡 **Merci Explica:** *Mecanismo que le da a la Inteligencia Artificial un libro abierto con tus documentos para que busque la respuesta real antes de intentar adivinarla.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L1156
@@ -889,11 +889,11 @@ fecha: "2026-05-24"
 
 ---
 ### RPM
-**Inglés:** Revolutions Per Minute | **Español:** Revoluciones Por Minuto
+**Inglés:** Requests Per Minute | **Español:** Peticiones Por Minuto
 
-**Definición:** Medida de velocidad que indica cuántas veces se realiza una rotación completa en un minuto. Aunque no es específico del campo de Arquitectura o DevSecOps, este término puede referirse a la velocidad de procesamiento o la frecuencia de actualizaciones en sistemas de software.
+**Definición:** Métrica de red que define el volumen o límite máximo de solicitudes de datos que un sistema o API permite procesar a lo largo de un solo minuto.
 
-💡 **Merci Explica:** *Velocidad medida por el número de rotaciones completas que realiza un motor o sistema dentro de un minuto.*
+💡 **Merci Explica:** *El límite de velocidad que impone un servidor sobre cuántas preguntas puedes hacerle en un minuto sin que te bloquee.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L142
@@ -912,7 +912,7 @@ fecha: "2026-05-24"
 
 ---
 ### SASS
-**Inglés:** Syntactically Awesome Style Sheets | **Español:** Hoja de Estilos Sintácticamente Agradable
+**Inglés:** Syntactically Awesome Style Sheets | **Español:** Hojas de Estilo Sintácticamente Asombrosas
 
 **Definición:** Preprocesador CSS que añade características avanzadas como variables, anidación y funciones para facilitar la creación y mantenimiento de hojas de estilos.
 
@@ -973,11 +973,11 @@ fecha: "2026-05-24"
 
 ---
 ### Shift-Left
-**Inglés:** Despliegue Anticipado | **Español:** Despliegue Anticipado
+**Inglés:** Shift-Left | **Español:** Mover a la Izquierda
 
-**Definición:** Enfoque en la implementación de prácticas de seguridad desde el inicio del ciclo de desarrollo, integrándolas en las fases tempranas para prevenir vulnerabilidades antes de que lleguen al entorno de producción.
+**Definición:** Práctica de DevSecOps de anticipar y mover las pruebas de QA, auditoría de seguridad e inspección de rendimiento a las etapas más tempranas del ciclo de vida de desarrollo de software.
 
-💡 **Merci Explica:** *Mecanismo para asegurar que las puertas estén cerradas incluso antes de que la casa esté lista.*
+💡 **Merci Explica:** *Adelantar los controles de calidad para encontrar los errores y agujeros de seguridad al escribir el código, en vez de descubrirlos el día de lanzamiento.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L413
@@ -987,33 +987,33 @@ fecha: "2026-05-24"
 
 ---
 ### Shift-Right
-**Inglés:** Despliegue Retrasado | **Español:** Despliegue Retrasado
+**Inglés:** Shift-Right | **Español:** Mover a la Derecha
 
-**Definición:** Enfoque en el despliegue de aplicaciones y sistemas en fases tempranas del ciclo de vida, lo que permite identificar problemas y errores más fácilmente antes de la producción final.
+**Definición:** Práctica de desarrollo enfocada en evaluar el comportamiento real de las aplicaciones ya en su entorno vivo y publicado a través de monitorización profunda, telemetría y pruebas en producción.
 
-💡 **Merci Explica:** *Mecanismo para asegurar que las puertas estén cerradas incluso después de que la casa esté lista.*
+💡 **Merci Explica:** *Evaluar la seguridad y la experiencia del usuario analizando el comportamiento de la página web una vez que el público real ya la está utilizando.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L4246
 
 ---
 ### SI
-**Inglés:** System Integration | **Español:** Integración del Sistema
+**Inglés:** Speed Index | **Español:** Índice de Velocidad
 
-**Definición:** Proceso de unión y coordinación de diferentes componentes o sistemas para crear una solución completa y funcional.
+**Definición:** Métrica de rendimiento web que indica la rapidez con la que se hace visible o se llena de contenido la parte inicial de la pantalla de una web.
 
-💡 **Merci Explica:** *Conectar piezas como un rompecabezas, pero en lugar de formar una imagen, asegurarse de que todas las partes trabajen juntas sin problemas.*
+💡 **Merci Explica:** *Un cálculo de qué tan rápido siente el usuario que la página carga mientras mira la pantalla llenarse de colores y texto.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L158
 
 ---
 ### SLM
-**Inglés:** Service Level Management | **Español:** Gestión de Niveles de Servicio
+**Inglés:** Small Language Model | **Español:** Modelo de Lenguaje Pequeño
 
-**Definición:** Proceso que permite definir, establecer, implementar y mantener los estándares y expectativas para el nivel de servicio que un sistema o organización proporciona a sus clientes o usuarios.
+**Definición:** Modelos de Inteligencia Artificial que poseen menos parámetros que los LLMs tradicionales, diseñados para ser ejecutados rápida y eficientemente en ordenadores personales o de consumo local.
 
-💡 **Merci Explica:** *Planificador de horarios escolares*
+💡 **Merci Explica:** *Un cerebro artificial compacto que puede pensar y hablar directamente en tu ordenador sin necesidad de conectarse a servidores en la nube gigantescos.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L158
@@ -1083,11 +1083,11 @@ fecha: "2026-05-24"
 
 ---
 ### SSOT
-**Inglés:** Single Source of Truth | **Español:** Un Único Origen de la Verdad
+**Inglés:** Single Source of Truth | **Español:** Única Fuente de Verdad
 
-**Definición:** Principio que indica que solo debe haber un lugar fiable donde se almacene y se actualice la información crítica, evitando conflictos y inconsistencias.
+**Definición:** Principio y práctica de arquitectura de software y diseño de bases de datos que exige que cada dato exista y se modifique en un único lugar o archivo maestro, evitando desincronización y versiones redundantes.
 
-💡 **Merci Explica:** *Mecanismo para mantener una única fuente de verdad sobre los datos importantes dentro de un sistema.*
+💡 **Merci Explica:** *Establecer una sola ley o un único documento oficial de donde todo el mundo deba sacar la información para que nunca haya datos contradictorios.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L50
@@ -1097,22 +1097,22 @@ fecha: "2026-05-24"
 
 ---
 ### SSRF
-**Inglés:** Server-Side Request Forgery | **Español:** Falso Pedido de Servidor Lado Servidor
+**Inglés:** Server-Side Request Forgery | **Español:** Falsificación de Petición del Lado del Servidor
 
-**Definición:** Ataque en el que un atacante forza a una aplicación web a realizar solicitudes HTTP o HTTPS a recursos no autorizados, utilizando los permisos del servidor.
+**Definición:** Ataque en el que un atacante fuerza maliciosamente a una aplicación web a realizar solicitudes HTTP en su nombre a recursos internos protegidos o no autorizados usando los permisos de la propia red del servidor.
 
-💡 **Merci Explica:** *Cosa como una persona que te convence de ir a una tienda equivocada para comprar algo.*
+💡 **Merci Explica:** *Cuando un pirata engaña a tu servidor para que abra puertas internas de la base de datos de tu empresa como si fuera un empleado autorizado.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L122
 
 ---
 ### TBT
-**Inglés:** Time-Based Trigger | **Español:** Desencadenador Basado en Tiempo
+**Inglés:** Total Blocking Time | **Español:** Tiempo de Bloqueo Total
 
-**Definición:** Mecanismo que ejecuta una acción o proceso en función de un tiempo específico, establecido previamente.
+**Definición:** Métrica de rendimiento web que mide la suma total de tiempo durante el cual el hilo principal del navegador estuvo bloqueado procesando tareas que impidieron al usuario interactuar con la página.
 
-💡 **Merci Explica:** *Reloj digital que toca la melodía correcta al momento indicado.*
+💡 **Merci Explica:** *El tiempo acumulado en el que el ordenador estuvo tan ocupado calculando cosas que tu ratón o tus toques en la pantalla parecían no responder.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L160
@@ -1206,22 +1206,22 @@ fecha: "2026-05-24"
 
 ---
 ### VCL
-**Inglés:** Virtual Controller Language | **Español:** Lenguaje de Control Virtual
+**Inglés:** Varnish Configuration Language | **Español:** Lenguaje de Configuración de Varnish
 
-**Definición:** Lenguaje de programación utilizado para escribir reglas y políticas en sistemas de control virtual, como los servidores web.
+**Definición:** Lenguaje específico de dominio (DSL) diseñado para programar cómo el acelerador HTTP Varnish gestiona, almacena en caché y entrega las solicitudes web entrantes.
 
-💡 **Merci Explica:** *Lenguaje específico para configurar el comportamiento del sistema de control virtual.*
+💡 **Merci Explica:** *El idioma en el que se escriben las normas de tráfico para un servidor ultra rápido, decidiendo a quién deja pasar y a quién le da una copia guardada.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-03.md: L131
 
 ---
 ### WAF
-**Inglés:** Web Application Firewall | **Español:** Filtro de Aplicaciones Web
+**Inglés:** Web Application Firewall | **Español:** Cortafuegos de Aplicaciones Web
 
-**Definición:** Software que protege aplicaciones web contra amenazas cibernéticas, como ataques XSS (Cross-Site Scripting) y SQL Injection.
+**Definición:** Filtro de seguridad que inspecciona y bloquea el tráfico HTTP dañino dirigido específicamente contra servicios y aplicaciones web para mitigar ciberataques.
 
-💡 **Merci Explica:** *Muro de seguridad para aplicaciones web.*
+💡 **Merci Explica:** *El guardia de seguridad en la puerta de tu web que cachea y expulsa a los visitantes con intenciones maliciosas antes de que pisen tu servidor.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L952
@@ -1240,11 +1240,11 @@ fecha: "2026-05-24"
 
 ---
 ### WC
-**Inglés:** World Cup | **Español:** Copa del Mundo
+**Inglés:** WooCommerce | **Español:** WooCommerce
 
-**Definición:** El mayor torneo internacional de fútbol, celebrado cada cuatro años entre selecciones nacionales.
+**Definición:** Extensión oficial (Plugin) de código abierto para WordPress diseñada para convertir un sitio web en una plataforma de comercio electrónico totalmente funcional.
 
-💡 **Merci Explica:** *Juego anual de fútbol global.*
+💡 **Merci Explica:** *El programa que añade un carrito de compras y pasarela de pago para convertir tu página web normal en una tienda online.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L1207
@@ -1274,7 +1274,7 @@ fecha: "2026-05-24"
 
 ---
 ### XML-RPC
-**Inglés:** eXtensible Markup Language Remote Procedure Call | **Español:** Llamada a Procedimientos Remotos de Lenguaje de Marcado Extendible
+**Inglés:** eXtensible Markup Language Remote Procedure Call | **Español:** Llamada a Procedimientos Remotos de Lenguaje de Marcado Extensible
 
 **Definición:** Protocolo de comunicación que permite la invocación remota de procedimientos en un servidor web utilizando XML como formato de datos.
 
@@ -1285,7 +1285,7 @@ fecha: "2026-05-24"
 
 ---
 ### XSS
-**Inglés:** Cross-Site Scripting | **Español:** Inyección de Códigos entre Sitios
+**Inglés:** Cross-Site Scripting | **Español:** Secuencias de Comandos en Sitios Cruzados
 
 **Definición:** Ataque cibernético que permite a un atacante insertar scripts maliciosos en páginas web visitadas por otros usuarios, comprometiendo su seguridad y privacidad.
 
@@ -1309,11 +1309,11 @@ fecha: "2026-05-24"
 
 ---
 ### Zero-Bloat
-**Inglés:** Zero Bloat | **Español:** Sin Sobrecarga
+**Inglés:** Zero Bloat | **Español:** Cero Basura de Código
 
-**Definición:** Práctica de desarrollo que busca minimizar la cantidad de código innecesario o redundante en un proyecto, asegurando así una eficiencia óptima y un rendimiento optimizado.
+**Definición:** Arquitectura que rehúsa instalar librerías innecesarias o grandes bibliotecas para mantener un proyecto lo más ligero, eficiente y carente de vulnerabilidades externas posible.
 
-💡 **Merci Explica:** *Arquitectura para eliminar el ruido del software.*
+💡 **Merci Explica:** *Construir una casa con lo mínimo e indispensable en lugar de comprar electrodomésticos enormes que gastan energía y nunca se usan.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-03.md: L125
@@ -1331,7 +1331,7 @@ fecha: "2026-05-24"
 
 ---
 ### Zero-Day
-**Inglés:** Zero-Day | **Español:** Cero Día
+**Inglés:** Zero-Day | **Español:** Día Cero
 
 **Definición:** Vulnerabilidad de seguridad en un software o sistema que no ha sido conocida ni parcheada por los fabricantes.
 
@@ -1354,11 +1354,11 @@ fecha: "2026-05-24"
 
 ---
 ### Zero-Hallucination
-**Inglés:** Zero-Hallucination | **Español:** Cero Hallucinación
+**Inglés:** Zero-Hallucination | **Español:** Cero Alucinación
 
-**Definición:** Proceso de entrenamiento en el que una inteligencia artificial se ajusta para no generar respuestas incorrectas o falsas, asegurando que solo proporcione información precisa y realista.
+**Definición:** Paradigma o directriz enfocada en eliminar por completo la tendencia de los LLM (Modelos de Lenguaje Grande) a generar información inventada, ciñéndolos solo a los hechos documentados.
 
-💡 **Merci Explica:** *Garantía de que la IA no invente datos, como si fuera un juez honesto en un tribunal.*
+💡 **Merci Explica:** *Una medida de seguridad que previene que la Inteligencia Artificial te mienta y se invente cosas cuando no sabe una respuesta.*
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L910
@@ -1388,7 +1388,7 @@ fecha: "2026-05-24"
 
 ---
 ### Zero-Shot
-**Inglés:** Zero-Shot Learning | **Español:** Aprendizaje Cero-Ejemplo
+**Inglés:** Zero-Shot Learning | **Español:** Cero Ejemplos (Zero-Shot)
 
 **Definición:** Técnica de aprendizaje automático que permite a un modelo aprender y realizar tareas sin necesidad de entrenamiento previo en el conjunto de datos específico.
 

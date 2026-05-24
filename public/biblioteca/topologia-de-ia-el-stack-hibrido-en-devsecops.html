@@ -6,7 +6,7 @@
     <title>Topología de IA: El Stack Híbrido en DevSecOps — mercedev.es</title>
     <meta name="description" content="Mapa arquitectónico de cómo se integran y orquestan los agentes de Inteligencia Artificial locales y en la nube a lo largo del pipeline de desarrollo.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/topologia-de-ia-el-stack-hibrido-en-devsecops.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779658400">
+    <link rel="stylesheet" href="/css/main.css?v=1779659082">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -53,11 +53,11 @@
                 <h2>El Desafío (Síntoma)</h2>
 <p>Integrar Inteligencia Artificial en un flujo de trabajo a menudo resulta en un acoplamiento frágil: o bien se depende 100% de APIs de terceros (exponiendo código privado y arriesgando bloqueos por cuotas), o se depende 100% de modelos locales (saturando la RAM del equipo y limitando la automatización en servidores <abbr title="Merci Explica: Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano." tabindex="0">CI</abbr>/CD de la nube). El desafío era orquestar múltiples agentes de IA para que intervengan en el momento exacto sin sacrificar el rendimiento del proyecto ni la privacidad de la autora.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se ha diseñado una arquitectura de <strong>Stack Híbrido (Hybrid Stack)</strong>, utilizando el paradigma de <em><abbr title="Merci Explica: Mecanismo para asegurar que las puertas estén cerradas incluso antes de que la casa esté lista." tabindex="0">Shift-Left</abbr> AI</em> (adelantar la IA a las fases de desarrollo y compilación). La IA nunca se ejecuta en tiempo real en el navegador del usuario (cero latencia), sino que trabaja entre bambalinas.</p>
+<p>Se ha diseñado una arquitectura de <strong>Stack Híbrido (Hybrid Stack)</strong>, utilizando el paradigma de <em><abbr title="Merci Explica: Adelantar los controles de calidad para encontrar los errores y agujeros de seguridad al escribir el código, en vez de descubrirlos el día de lanzamiento." tabindex="0">Shift-Left</abbr> AI</em> (adelantar la IA a las fases de desarrollo y compilación). La IA nunca se ejecuta en tiempo real en el navegador del usuario (cero latencia), sino que trabaja entre bambalinas.</p>
 <h3>Esquema Gráfico de Intervención</h3>
 <pre><code class="language-text">[ ENTORNO LOCAL ] (Privacidad Total &amp; Cero Coste)
    │
-   ├─&gt; 1. Creación &amp; Formato (<abbr title="Merci Explica: Garantía de que la IA no invente datos, como si fuera un juez honesto en un tribunal." tabindex="0">Zero-Hallucination</abbr>)
+   ├─&gt; 1. Creación &amp; Formato (<abbr title="Merci Explica: Una medida de seguridad que previene que la Inteligencia Artificial te mienta y se invente cosas cuando no sabe una respuesta." tabindex="0">Zero-Hallucination</abbr>)
    │    └─ merci-librarian.py ---&gt; [ Ollama / qwen2.5-coder ]
    │
    ├─&gt; 2. <abbr title="Merci Explica: Inspector de alta precisión que garantiza que todo funcione como debe." tabindex="0">QA</abbr> &amp; Análisis Estático (Sugerencias en CLI)
@@ -66,7 +66,7 @@
    ├─&gt; 3. Fase de Build (Compilación de UI Inteligente)
    │    └─ merci-brain.py -------&gt; [ Ollama / qwen2.5-coder ]
    │
-   └─&gt; 4. Gobernanza Documental (<abbr title="Merci Explica: Mecanismo para mantener una única fuente de verdad sobre los datos importantes dentro de un sistema." tabindex="0">SSOT</abbr>)
+   └─&gt; 4. Gobernanza Documental (<abbr title="Merci Explica: Establecer una sola ley o un único documento oficial de donde todo el mundo deba sacar la información para que nunca haya datos contradictorios." tabindex="0">SSOT</abbr>)
         └─ merci-ssot.py --------&gt; [ Cloud: Gemini 1.5 Flash ] (Requiere gran ventana de contexto)
              └─ Fallback --------&gt; [ Ollama / qwen2.5-coder ]  (Degradación elegante si no hay Red)
 

@@ -6,7 +6,7 @@
     <title>El CV &#x27;Anti-ATS&#x27;: Hablando el Idioma Nativo de las...</title>
     <meta name="description" content="Estrategia para superar los algoritmos de reclutamiento utilizando microdatos estructurados y comunicación en capas.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/el-cv-anti-ats-hablando-el-idioma-nativo-de-las-maquinas.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779658400">
+    <link rel="stylesheet" href="/css/main.css?v=1779659082">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -53,7 +53,7 @@
                 <h2>El Desafío (Síntoma)</h2>
 <p>En el panorama actual del reclutamiento, los <abbr title="Merci Explica: Los robots de Recursos Humanos que leen los currículums antes de que lleguen a una persona real." tabindex="0">ATS</abbr> (Applicant Tracking Systems - Sistemas de Seguimiento de Candidatos) y los algoritmos de IA (Artificial Intelligence - Inteligencia Artificial) son la primera barrera que un currículum debe superar. Estos sistemas están diseñados para filtrar y clasificar un volumen masivo de candidaturas, pero a menudo fallan estrepitosamente al intentar extraer información de formatos visuales complejos, como documentos PDF (Portable Document Format - Formato de Documento Portátil) con diseños gráficos elaborados o estructuras no estándar. Esto provoca que perfiles técnicos altamente cualificados sean descartados injustamente por un simple fallo de análisis sintáctico (<em>parsing</em>).</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Para abordar este desafío, se implementa una estrategia de "comunicación en capas" mediante un "CV Anti-ATS". El perfil profesional se presenta de forma dual: una capa visual optimizada para la lectura humana y una capa estructurada en <abbr title="Merci Explica: JSON-LD es como etiquetas adicionales en un libro, que proporcionan contexto extra para ayudar a los lectores a entender mejor el contenido." tabindex="0">JSON-LD</abbr> (JavaScript Object Notation for Linked Data - Notación de Objetos JavaScript para Datos Enlazados) diseñada específicamente para el consumo directo por parte de los sistemas automatizados.</p>
+<p>Para abordar este desafío, se implementa una estrategia de "comunicación en capas" mediante un "CV Anti-ATS". El perfil profesional se presenta de forma dual: una capa visual optimizada para la lectura humana y una capa estructurada en <abbr title="Merci Explica: Una tarjeta de presentación secreta oculta en el código de tu web que los robots de Google leen para entender de qué va exactamente tu página." tabindex="0">JSON-LD</abbr> (JavaScript Object Notation for Linked Data - Notación de Objetos JavaScript para Datos Enlazados) diseñada específicamente para el consumo directo por parte de los sistemas automatizados.</p>
 <p>La implementación se basa en la inyección de un bloque <code>&lt;script type="application/ld+json"&gt;</code> dentro de la sección <code>&lt;head&gt;</code> de la página web (<code>/sobre-mi/index.html</code>). Este objeto JSON se adhiere estrictamente al estándar <code>schema.org/Person</code>, garantizando una precisión del 100% en la extracción de datos.</p>
 <p>Las propiedades clave utilizadas incluyen:</p>
 <ul>

@@ -6,7 +6,7 @@
     <title>Automatización del Dashboard: Extracción de métricas Core We...</title>
     <meta name="description" content="Cómo leer reportes de PageSpeed Insights con Python puro (pypdf) e inyectar las métricas dinámicamente en una portada HTML estática.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/automatizacion-del-dashboard-extraccion-de-metricas-core-web-vitals-desde-pdfs.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779658400">
+    <link rel="stylesheet" href="/css/main.css?v=1779659082">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Mantener actualizado el "Engineering Dashboard" de la portada con las métricas reales de Core Web Vitals (<abbr title="Merci Explica: LCP es como medir cuánto tiempo toma que tu sitio web muestre su contenido más importante al usuario." tabindex="0">LCP</abbr>, <abbr title="Merci Explica: La entrada es como los ingredientes de una receta, sin ellos no se puede preparar nada." tabindex="0">INP</abbr>, <abbr title="Merci Explica: Instrucción utilizada en interfaces de línea de comandos para limpiar el contenido visible del terminal." tabindex="0">CLS</abbr>, <abbr title="Merci Explica: Reloj digital que toca la melodía correcta al momento indicado." tabindex="0">TBT</abbr>) requería intervención manual tras cada auditoría en Google PageSpeed Insights. Copiar y pegar números desde un reporte a un archivo HTML genera fricción y es propenso a olvidos, rompiendo el principio de automatización <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr>.</p>
+<p>Mantener actualizado el "Engineering Dashboard" de la portada con las métricas reales de Core Web Vitals (<abbr title="Merci Explica: El tiempo que tarda en aparecer en pantalla el elemento visual más grande de tu página web, como el título principal o una gran foto." tabindex="0">LCP</abbr>, <abbr title="Merci Explica: El retraso o lentitud que sientes cuando haces clic en un botón y esperas a que la página reaccione." tabindex="0">INP</abbr>, <abbr title="Merci Explica: Mide cuánto saltan los textos o imágenes mientras la página web termina de cargar." tabindex="0">CLS</abbr>, <abbr title="Merci Explica: El tiempo acumulado en el que el ordenador estuvo tan ocupado calculando cosas que tu ratón o tus toques en la pantalla parecían no responder." tabindex="0">TBT</abbr>) requería intervención manual tras cada auditoría en Google PageSpeed Insights. Copiar y pegar números desde un reporte a un archivo HTML genera fricción y es propenso a olvidos, rompiendo el principio de automatización <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr>.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Desarrollamos el script <code>merci-extract-metrics.py</code> utilizando <code>pypdf</code>, una librería de Python puro (0 dependencias de binarios de sistema operativo).</p>
 <p>El flujo es el siguiente:

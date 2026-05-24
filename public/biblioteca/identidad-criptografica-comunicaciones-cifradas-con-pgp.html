@@ -6,7 +6,7 @@
     <title>Identidad Criptográfica: Comunicaciones Cifradas con PGP</title>
     <meta name="description" content="Generación de claves GnuPG y despliegue estático para comunicaciones E2EE (End-to-End Encryption) sin formularios PHP ni dependencias externas.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/identidad-criptografica-comunicaciones-cifradas-con-pgp.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779658400">
+    <link rel="stylesheet" href="/css/main.css?v=1779659082">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Exponer un formulario de contacto tradicional (PHP, Node) en una web estática rompe el paradigma de <em><abbr title="Merci Explica: Arquitectura para eliminar el ruido del software." tabindex="0">Zero-Bloat</abbr></em> y <em>0 dependencias bloqueantes</em>. Los formularios requieren backend, validación de spam (reCAPTCHA) y bases de datos, abriendo la puerta a inyecciones SQL o Cross-Site Scripting (<abbr title="Merci Explica: Cuerda para la protección contra ataques de inyección de código." tabindex="0">XSS</abbr>). Además, los correos enviados en texto plano pueden ser interceptados por cualquier nodo intermedio. La necesidad era clara: permitir que clientes y auditores enviaran información confidencial sin vulnerar la integridad de la arquitectura estática.</p>
+<p>Exponer un formulario de contacto tradicional (PHP, Node) en una web estática rompe el paradigma de <em><abbr title="Merci Explica: Construir una casa con lo mínimo e indispensable en lugar de comprar electrodomésticos enormes que gastan energía y nunca se usan." tabindex="0">Zero-Bloat</abbr></em> y <em>0 dependencias bloqueantes</em>. Los formularios requieren backend, validación de spam (reCAPTCHA) y bases de datos, abriendo la puerta a inyecciones SQL o Cross-Site Scripting (<abbr title="Merci Explica: Cuerda para la protección contra ataques de inyección de código." tabindex="0">XSS</abbr>). Además, los correos enviados en texto plano pueden ser interceptados por cualquier nodo intermedio. La necesidad era clara: permitir que clientes y auditores enviaran información confidencial sin vulnerar la integridad de la arquitectura estática.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se implementó un modelo de comunicación asimétrica utilizando el estándar <abbr title="Merci Explica: Como si fuera un cierre fuerte que protege tu maletín de robar." tabindex="0">PGP</abbr> (Pretty Good Privacy) mediante la herramienta nativa GnuPG.</p>
 <ol>
@@ -61,7 +61,7 @@
 </ol>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <ul>
-<li><strong>Seguridad por Diseño (Privacy by Design):</strong> Servir un archivo de texto plano de apenas 3 KB con la clave pública es infinitamente más seguro, barato y rápido que mantener una API de correo electrónico. Delegar el cifrado (<abbr title="Merci Explica: Cerradura digital que asegura que solo tú y el destinatario pueden abrir el paquete." tabindex="0">E2EE</abbr> - End-to-End Encryption) al cliente empodera al usuario y garantiza que la infraestructura del servidor web jamás conozca el contenido del mensaje.</li>
+<li><strong>Seguridad por Diseño (Privacy by Design):</strong> Servir un archivo de texto plano de apenas 3 KB con la clave pública es infinitamente más seguro, barato y rápido que mantener una API de correo electrónico. Delegar el cifrado (<abbr title="Merci Explica: Enviar una conversación dentro de una caja fuerte sellada de modo que ni el servicio de correos ni la operadora de internet tienen la llave para leerla." tabindex="0">E2EE</abbr> - End-to-End Encryption) al cliente empodera al usuario y garantiza que la infraestructura del servidor web jamás conozca el contenido del mensaje.</li>
 <li><strong>Autoridad Técnica:</strong> Exponer una clave PGP no es solo una medida de seguridad; es una declaración de principios. Comunica a otros ingenieros que el proyecto comprende y aplica la seguridad en profundidad (Defense in Depth).</li>
 </ul>
 <h2>Resumiendo (Lenguaje no técnico)</h2>

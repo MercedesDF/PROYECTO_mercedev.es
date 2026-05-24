@@ -6,7 +6,7 @@
     <title>Validación de Defensas DevSecOps con Chaos Monkey y merciaud...</title>
     <meta name="description" content="Se implementó un Chaos Monkey impulsado por IA para validar las defensas DevSecOps, identificando dos lecciones críticas sobre el mecanismo de Roll...">
     <link rel="canonical" href="https://mercedev.es/biblioteca/validacion-de-defensas-devsecops-con-chaos-monkey-y-merciauditpy.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779658400">
+    <link rel="stylesheet" href="/css/main.css?v=1779659082">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -55,7 +55,7 @@
 <h2>La Maniobra (Lógica)</h2>
 <p>Se implementó una solución arquitectónica que incluye:
 1. El uso de <code>git restore</code> dentro de un bloque <code>try...finally</code> para garantizar que el código no quede envenenado en caso de interrupciones manuales (Ctrl+C).
-2. La mejora de las Regex del auditor merciaudit.py para cazar etiquetas script maliciosas sin generar falsos positivos con datos estructurados <abbr title="Merci Explica: JSON-LD es como etiquetas adicionales en un libro, que proporcionan contexto extra para ayudar a los lectores a entender mejor el contenido." tabindex="0">JSON-LD</abbr>.</p>
+2. La mejora de las Regex del auditor merciaudit.py para cazar etiquetas script maliciosas sin generar falsos positivos con datos estructurados <abbr title="Merci Explica: Una tarjeta de presentación secreta oculta en el código de tu web que los robots de Google leen para entender de qué va exactamente tu página." tabindex="0">JSON-LD</abbr>.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <p>Se aprendió que el mecanismo de Rollback debe estar siempre dentro de un bloque <code>try...finally</code> para evitar dejar el código envenenado. Además, las Regex del auditor deben ser lo suficientemente robustas para distinguir entre etiquetas script maliciosas y datos estructurados JSON-LD. Esta solución es la óptima porque garantiza la integridad del código y reduce los falsos positivos, pero se ha asumido una deuda técnica en el futuro debido a la necesidad de mantener y mejorar continuamente estas soluciones.</p>
             </div>

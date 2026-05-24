@@ -6,7 +6,7 @@
     <title>Shift-Left AI: Inteligencia Artificial de Cero Latencia</title>
     <meta name="description" content="Cómo dotar a un asistente web de IA generativa sin exponer API Keys ni perjudicar el rendimiento (Core Web Vitals).">
     <link rel="canonical" href="https://mercedev.es/biblioteca/shift-left-ai-inteligencia-artificial-de-cero-latencia.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779658400">
+    <link rel="stylesheet" href="/css/main.css?v=1779659082">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -56,7 +56,7 @@
 1. <strong>Fuga de Secretos:</strong> Exponer la API Key en el código cliente es un riesgo crítico de seguridad.
 2. <strong>Rendimiento (100/100):</strong> La latencia de una petición de IA en tiempo real añade entre 2 y 5 segundos al <em>Time to Interactive</em> (Tiempo hasta ser Interactivo), destrozando la experiencia de usuario y las métricas <em>Core Web Vitals</em>.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Aplicamos el principio de <strong><abbr title="Merci Explica: Mecanismo para asegurar que las puertas estén cerradas incluso antes de que la casa esté lista." tabindex="0">Shift-Left</abbr> AI</strong> (mover la inteligencia hacia la izquierda del pipeline, a la fase de compilación).</p>
+<p>Aplicamos el principio de <strong><abbr title="Merci Explica: Adelantar los controles de calidad para encontrar los errores y agujeros de seguridad al escribir el código, en vez de descubrirlos el día de lanzamiento." tabindex="0">Shift-Left</abbr> AI</strong> (mover la inteligencia hacia la izquierda del pipeline, a la fase de compilación).</p>
 <ol>
 <li><strong>El Lóbulo Frontal en Python (<code>merci-brain.py</code>):</strong> Desarrollamos un orquestador local que se ejecuta durante la fase de <em>Build</em>. Este script escanea los metadatos YAML de cada artículo Markdown de la Biblioteca y consulta a la API de Gemini (usando nuestra llave segura del entorno local) para generar un saludo a medida.</li>
 <li><strong>Memoria Estática:</strong> Las respuestas de la IA se compilan en un pequeño diccionario estático (<code>brain_data.json</code>) que se deposita en la carpeta pública.</li>

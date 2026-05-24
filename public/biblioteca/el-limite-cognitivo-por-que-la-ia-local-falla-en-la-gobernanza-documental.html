@@ -6,7 +6,7 @@
     <title>El Límite Cognitivo: Por qué la IA Local Falla en la Goberna...</title>
     <meta name="description" content="Análisis estratégico sobre la viabilidad de los Small Language Models (SLMs) en tareas de orquestación de contenidos, RAG y sincronización SSOT.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/el-limite-cognitivo-por-que-la-ia-local-falla-en-la-gobernanza-documental.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779658400">
+    <link rel="stylesheet" href="/css/main.css?v=1779659082">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -56,7 +56,7 @@
 <h2>La Maniobra (Lógica)</h2>
 <p>Para intentar domar a los modelos locales, se desplegaron escudos <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr> de alto nivel:
 1. <strong>Inyección de Plantillas (One-Shot Prompting):</strong> Proveer el molde exacto para frenar la creatividad del modelo.
-2. <strong>Filtrado Semántico <abbr title="Merci Explica: Es como hacer una copia de seguridad del sistema y luego restaurarla cuando algo falla, asegurando que todo funcione igual que antes." tabindex="0">RAG</abbr>:</strong> Reducir la inyección del contexto a menos de 3000 caracteres extrayendo solo las entradas relevantes basadas en palabras clave.
+2. <strong>Filtrado Semántico <abbr title="Merci Explica: Mecanismo que le da a la Inteligencia Artificial un libro abierto con tus documentos para que busque la respuesta real antes de intentar adivinarla." tabindex="0">RAG</abbr>:</strong> Reducir la inyección del contexto a menos de 3000 caracteres extrayendo solo las entradas relevantes basadas en palabras clave.
 3. <strong>Resource Budgeting y Trazabilidad:</strong> Forzar el límite de contexto (<code>4096</code>), matar la temperatura (<code>0.0</code>), ampliar los <em>timeouts</em> (<code>600s</code>) y utilizar herramientas de red de bajo nivel (<code>tcpdump</code>) para depurar el payload.</p>
 <p>A pesar de estas contenciones de infraestructura, el análisis de red reveló la carencia cognitiva estructural de estos modelos: gastaban el 99.9% de su cuota de <em>tokens</em> en monólogos internos (Reasoning) intentando comprender la instrucción de formato, agotando la memoria antes de poder redactar el documento final.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>

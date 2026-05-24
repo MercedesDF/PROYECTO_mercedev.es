@@ -6,7 +6,7 @@
     <title>Automatización de Cache Busting dinámico en núcleo estático</title>
     <meta name="description" content="Resolución de discrepancias visuales por caché agresiva mediante inyección automática de timestamps.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/automatizacion-de-cache-busting-dinamico-en-nucleo-estatico.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779658400">
+    <link rel="stylesheet" href="/css/main.css?v=1779659082">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -60,7 +60,7 @@
 <li><strong>Inyección Quirúrgica:</strong> Mediante expresiones regulares (<code>re.sub</code>), el motor busca el patrón <code>?v=...</code> directamente en el código fuente de <code>public/index.html</code> y reemplaza el número antiguo por el <em>timestamp</em> (marca de tiempo) actualizado (ej. <code>?v=1715086000</code>).</li>
 </ol>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p><em>Fricción Cero y Repercusión en Cadena.</em> Tratar la portada (<code>public/index.html</code>) verdaderamente como la Única Fuente de Verdad (<abbr title="Merci Explica: Mecanismo para mantener una única fuente de verdad sobre los datos importantes dentro de un sistema." tabindex="0">SSOT</abbr> - Single Source of Truth) produce una automatización elegante. Dado que <code>merci-publish.py</code> inyecta la versión actualizada primero, cuando el script secundario <code>merci-sync-pages.py</code> se ejecuta inmediatamente después, recorta ese bloque HTML ya actualizado y lo propaga a páginas estáticas secundarias (como Contacto). Todo el ecosistema queda blindado contra cachés obsoletas sin que el desarrollador haya tenido que teclear un solo número.</p>
+<p><em>Fricción Cero y Repercusión en Cadena.</em> Tratar la portada (<code>public/index.html</code>) verdaderamente como la Única Fuente de Verdad (<abbr title="Merci Explica: Establecer una sola ley o un único documento oficial de donde todo el mundo deba sacar la información para que nunca haya datos contradictorios." tabindex="0">SSOT</abbr> - Single Source of Truth) produce una automatización elegante. Dado que <code>merci-publish.py</code> inyecta la versión actualizada primero, cuando el script secundario <code>merci-sync-pages.py</code> se ejecuta inmediatamente después, recorta ese bloque HTML ya actualizado y lo propaga a páginas estáticas secundarias (como Contacto). Todo el ecosistema queda blindado contra cachés obsoletas sin que el desarrollador haya tenido que teclear un solo número.</p>
             </div>
         </article>
     </main>

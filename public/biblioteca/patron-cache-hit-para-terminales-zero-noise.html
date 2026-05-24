@@ -6,7 +6,7 @@
     <title>Patrón Cache Hit para Terminales Zero-Noise — mercedev.es</title>
     <meta name="description" content="Implementación de archivos centinela temporales para silenciar las salidas de consola redundantes en orquestadores DevSecOps.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/patron-cache-hit-para-terminales-zero-noise.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779658400">
+    <link rel="stylesheet" href="/css/main.css?v=1779659082">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>El extractor Data-Driven de métricas <abbr title="Merci Explica: Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo." tabindex="0">SRE</abbr> (<code>merci-extract-metrics.py</code>) imprimía un bloque extenso de texto en la terminal cada vez que se ejecutaba el orquestador maestro (<code>merci total</code>), detallando la actualización del DOM. Dado que las auditorías externas de PageSpeed son puntuales, el 99% de las veces el script procesaba exactamente el mismo JSON, generando ruido visual innecesario y degradando la <em>Developer Experience</em> (<abbr title="Merci Explica: La experiencia que sientes cuando usas un producto o servicio digital, como si fuera un viaje en el espacio." tabindex="0">DX</abbr>).</p>
+<p>El extractor Data-Driven de métricas <abbr title="Merci Explica: Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo." tabindex="0">SRE</abbr> (<code>merci-extract-metrics.py</code>) imprimía un bloque extenso de texto en la terminal cada vez que se ejecutaba el orquestador maestro (<code>merci total</code>), detallando la actualización del DOM. Dado que las auditorías externas de PageSpeed son puntuales, el 99% de las veces el script procesaba exactamente el mismo JSON, generando ruido visual innecesario y degradando la <em>Developer Experience</em> (<abbr title="Merci Explica: La comodidad y felicidad del programador al trabajar con el código y las herramientas de un proyecto." tabindex="0">DX</abbr>).</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se implementó un patrón de <em>Cache Hit</em> basado en el disco duro. El script guarda el nombre del último reporte procesado en un archivo minúsculo y oculto (<code>.metrics_cache</code>). En ejecuciones posteriores, si el JSON más reciente de la carpeta coincide con el nombre almacenado en la caché, el script interrumpe el flujo y finaliza silenciosamente (<code>sys.exit(0)</code>), emitiendo únicamente una notificación en una sola línea.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>

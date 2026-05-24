@@ -6,7 +6,7 @@
     <title>Prevención de Fuga de Credenciales en Integración Continua L...</title>
     <meta name="description" content="Por qué un archivo .gitignore no es suficiente cuando automatizas commits y cómo crear un escudo activo.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/prevencion-de-fuga-de-credenciales-en-integracion-continua-local.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779658400">
+    <link rel="stylesheet" href="/css/main.css?v=1779659082">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -53,7 +53,7 @@
                 <h2>El Desafío (Síntoma)</h2>
 <p>Durante el desarrollo del motor de automatización social (LinkedIn), el script generó un archivo local con el token de acceso (<code>.linkedin_token.json</code>). Dado que el orquestador del proyecto (<code>merci-commit.py</code>) ejecuta un <code>git add .</code> automático para empaquetar los cambios, existía un riesgo crítico e inminente de Fuga de Datos (Data Leak): el token iba a ser inyectado en el control de versiones antes de poder ser excluido manualmente.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se detuvo el empaquetado y se aplicó una doble capa de contención (<abbr title="Merci Explica: Mecanismo para asegurar que las puertas estén cerradas incluso antes de que la casa esté lista." tabindex="0">Shift-Left</abbr> Security):
+<p>Se detuvo el empaquetado y se aplicó una doble capa de contención (<abbr title="Merci Explica: Adelantar los controles de calidad para encontrar los errores y agujeros de seguridad al escribir el código, en vez de descubrirlos el día de lanzamiento." tabindex="0">Shift-Left</abbr> Security):
 1. <strong>Defensa Pasiva:</strong> Se añadió el archivo <code>.linkedin_token.json</code> al <code>.gitignore</code>.
 2. <strong>Defensa Activa (Linter):</strong> Se parcheó el orquestador de auditoría (<code>merci-audit.py</code>) añadiendo la llave maestra a la regla estricta <code>BANNED_TRACKED_FILE</code>. Si en el futuro Git intenta rastrear este archivo, el auditor abortará el commit automáticamente, emitiendo un error fatal.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>

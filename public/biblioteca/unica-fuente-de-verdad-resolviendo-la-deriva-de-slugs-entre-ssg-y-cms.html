@@ -6,7 +6,7 @@
     <title>Única Fuente de Verdad: Resolviendo la Deriva de Slugs entre...</title>
     <meta name="description" content="Cómo resolver los conflictos de nomenclatura de URIs cuando se integran generadores estáticos (Python) con motores dinámicos (WordPress).">
     <link rel="canonical" href="https://mercedev.es/biblioteca/unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779658400">
+    <link rel="stylesheet" href="/css/main.css?v=1779659082">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -53,7 +53,7 @@
                 <h2>El Desafío (Síntoma)</h2>
 <p>En nuestra arquitectura híbrida, el orquestador maestro generaba automáticamente versiones en PDF de los artículos dinámicos para que los usuarios pudieran descargarlos. Sin embargo, nuestro rastreador de enlaces (<code>merci-linkcheck.py</code>) detectó masivos errores 404 (Not Found). Python estaba generando PDFs con nombres matemáticamente perfectos (ej. <code>mi-post.pdf</code>), pero WordPress, al detectar títulos similares en su papelera, alteraba silenciosamente los enlaces en producción (ej. <code>mi-post-2</code>). Al diferir los motores de nomenclatura, los botones de descarga de la web apuntaban a archivos que no existían.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>En ingeniería de software, cuando integras dos sistemas, solo uno puede ostentar la "Única Fuente de Verdad" (Single Source of Truth - <abbr title="Merci Explica: Mecanismo para mantener una única fuente de verdad sobre los datos importantes dentro de un sistema." tabindex="0">SSOT</abbr>). </p>
+<p>En ingeniería de software, cuando integras dos sistemas, solo uno puede ostentar la "Única Fuente de Verdad" (Single Source of Truth - <abbr title="Merci Explica: Establecer una sola ley o un único documento oficial de donde todo el mundo deba sacar la información para que nunca haya datos contradictorios." tabindex="0">SSOT</abbr>). </p>
 <p>En lugar de intentar programar en Python el complejo algoritmo de duplicidad de WordPress, invertimos el orden lógico de ejecución en nuestro script publicador Headless (<code>merci-wp.py</code>). En vez de <em>Fabricar PDF -&gt; Publicar en WP</em>, pasamos a <em>Publicar en WP -&gt; Leer respuesta de la API -&gt; Extraer el Slug definitivo -&gt; Fabricar PDF</em>.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <p>Esta maniobra es un ejemplo de manual de <strong>Tolerancia a Fallos y SSOT</strong>. En un ecosistema acoplado, el sistema que persiste los datos (la base de datos de WordPress) es el que manda sobre las URIs. </p>

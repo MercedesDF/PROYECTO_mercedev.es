@@ -6,7 +6,7 @@
     <title>Agente Sync SSOT: Curación Autónoma de la Deriva Documental</title>
     <meta name="description" content="Cómo delegamos la sincronización de estado entre la bitácora y el roadmap a un LLM para implementar Self-Healing Docs.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/agente-sync-ssot-curacion-autonoma-de-la-deriva-documental.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779658400">
+    <link rel="stylesheet" href="/css/main.css?v=1779659082">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>En entornos de desarrollo rápido, es común que la documentación sufra de "Deriva Documental" (<em>Document Drift</em>). Un desarrollador documenta un logro o la deprecación de un sistema en el registro de cambios (bitácora), pero olvida marcar la tarea correspondiente como completada en el plan de proyecto (Roadmap). Esta desconexión destruye la Única Fuente de Verdad (<abbr title="Merci Explica: Mecanismo para mantener una única fuente de verdad sobre los datos importantes dentro de un sistema." tabindex="0">SSOT</abbr> - Single Source of Truth) del ecosistema.</p>
+<p>En entornos de desarrollo rápido, es común que la documentación sufra de "Deriva Documental" (<em>Document Drift</em>). Un desarrollador documenta un logro o la deprecación de un sistema en el registro de cambios (bitácora), pero olvida marcar la tarea correspondiente como completada en el plan de proyecto (Roadmap). Esta desconexión destruye la Única Fuente de Verdad (<abbr title="Merci Explica: Establecer una sola ley o un único documento oficial de donde todo el mundo deba sacar la información para que nunca haya datos contradictorios." tabindex="0">SSOT</abbr> - Single Source of Truth) del ecosistema.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Para erradicar este error humano, se desarrolló un Agente de Auto-Sanación (<em>Self-Healing</em>) en Python (<code>merci-ssot.py</code>). Este script extrae de forma automática los últimos registros de la bitácora activa y el estado actual del Roadmap en Markdown.</p>
 <p>A continuación, inyecta ambos contextos en un modelo de lenguaje de frontera en la nube (Gemini 1.5 Flash), instruyéndole bajo un <em>System Prompt</em> estricto para que actúe como un auditor semántico. La IA evalúa si las tareas documentadas en la bitácora justifican marcar casillas de verificación (<code>- [x]</code>) en el Roadmap. Si detecta asimetrías, el agente reescribe físicamente el archivo del Roadmap en el disco duro, corrigiendo la deriva documental al instante.</p>
