@@ -6,7 +6,7 @@
     <title>Inyección Headless en WooCommerce con Python Puro — mercedev.es</title>
     <meta name="description" content="Cómo publicar productos en la tienda desde la terminal local sin usar el panel de administración de WordPress ni dependencias pesadas.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/inyeccion-headless-en-woocommerce-con-python-puro.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,12 +51,12 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Para auditar el diseño SASS de una tienda mínima viable (MVP) en el entorno de desarrollo local, era imperativo disponer de productos de prueba. Acceder al panel de administración de WordPress (GUI) para crear datos falsos genera fricción operativa y rompe el paradigma "CLI-first" (Interfaz de Línea de Comandos primero) de nuestra arquitectura.</p>
+<p>Para auditar el diseño <abbr title="Merci Explica: CSS con superpoderes." tabindex="0">SASS</abbr> de una tienda mínima viable (<abbr title="Merci Explica: Prototipo básico que muestra lo esencial para probar una idea." tabindex="0">MVP</abbr>) en el entorno de desarrollo local, era imperativo disponer de productos de prueba. Acceder al panel de administración de WordPress (<abbr title="Merci Explica: Ventana donde interactúas con el ordenador." tabindex="0">GUI</abbr>) para crear datos falsos genera fricción operativa y rompe el paradigma "CLI-first" (Interfaz de Línea de Comandos primero) de nuestra arquitectura.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se desarrolló un script de un solo uso (<code>merci-wc-mock.py</code>) utilizando exclusivamente la librería estándar de Python (<code>urllib.request</code>). El script consume de forma segura las credenciales almacenadas en el archivo local <code>.env</code>, las codifica en Base64 (Basic Auth) y dispara una petición POST con un <em>payload</em> en formato JSON directamente contra el endpoint nativo de WooCommerce (<code>/wp-json/wc/v3/products</code>).</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Este hito demuestra la verdadera potencia de una arquitectura Headless acoplada a un <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> monolítico. WooCommerce no es solo un plugin de comercio electrónico, es un motor de base de datos con una API REST completa.</p>
-<p>Al abstenernos de usar comandos <code>curl</code> crudos (que filtrarían las contraseñas en el historial bash) y rechazar librerías externas de terceros (como la dependencia de WP para Python), demostramos que la automatización Shift-Left y la inyección de datos pueden realizarse de forma ultrasegura y con latencia cero empleando las herramientas base del sistema operativo.</p>
+<p>Este hito demuestra la verdadera potencia de una arquitectura Headless acoplada a un <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> monolítico. WooCommerce no es solo un plugin de comercio electrónico, es un motor de base de datos con una API <abbr title="Merci Explica: Sistema de comunicación entre aplicaciones donde cada mensaje contiene toda la información necesaria para entender el contexto." tabindex="0">REST</abbr> completa.</p>
+<p>Al abstenernos de usar comandos <code>curl</code> crudos (que filtrarían las contraseñas en el historial bash) y rechazar librerías externas de terceros (como la dependencia de WP para Python), demostramos que la automatización <abbr title="Merci Explica: Mecanismo para asegurar que las puertas estén cerradas incluso antes de que la casa esté lista." tabindex="0">Shift-Left</abbr> y la inyección de datos pueden realizarse de forma ultrasegura y con latencia cero empleando las herramientas base del sistema operativo.</p>
             </div>
         </article>
     </main>

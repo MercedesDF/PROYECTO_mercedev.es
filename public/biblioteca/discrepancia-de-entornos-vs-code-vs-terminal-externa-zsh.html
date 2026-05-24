@@ -6,7 +6,7 @@
     <title>Discrepancia de Entornos: VS Code vs Terminal Externa (Zsh)</title>
     <meta name="description" content="Cómo resolver la activación de entornos virtuales de Python (.venv) cuando el editor lo hace mágicamente pero la terminal del sistema no.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,12 +51,12 @@
             </header>
             <div class="card__content">
                 <p><strong>Contexto:</strong>
-Al trabajar en el proyecto, se detectó que la terminal integrada del IDE (Integrated Development Environment - Entorno de Desarrollo Integrado) VS Code activaba automáticamente el entorno virtual de Python (mostrando <code>(.venv)</code> en el <em>prompt</em>). Sin embargo, al abrir una terminal externa (Zsh) en la misma carpeta, el entorno no existía, lo que provocaba errores de dependencias no encontradas (como <code>weasyprint</code> o <code>Pillow</code>) al intentar ejecutar los scripts del orquestador.</p>
+Al trabajar en el proyecto, se detectó que la terminal integrada del <abbr title="Merci Explica: Herramienta única para programadores que facilita la creación y mantenimiento de software." tabindex="0">IDE</abbr> (Integrated Development Environment - Entorno de Desarrollo Integrado) VS Code activaba automáticamente el entorno virtual de Python (mostrando <code>(.venv)</code> en el <em>prompt</em>). Sin embargo, al abrir una terminal externa (Zsh) en la misma carpeta, el entorno no existía, lo que provocaba errores de dependencias no encontradas (como <code>weasyprint</code> o <code>Pillow</code>) al intentar ejecutar los scripts del orquestador.</p>
 <p><strong>Hecho:</strong>
 - Se diagnosticó que VS Code inyecta comandos de activación en su propia sub-sesión de terminal.
 - Se aplicó la activación manual del entorno virtual en la sesión de la terminal externa del sistema operativo.</p>
 <p><strong>Detalle técnico:</strong>
-Para sincronizar el estado de una terminal externa POSIX (Portable Operating System Interface - Interfaz de Sistema Operativo Portátil) con el entorno del proyecto, se debe invocar el script de activación directamente. Situado en la raíz del repositorio, se ejecuta:</p>
+Para sincronizar el estado de una terminal externa <abbr title="Merci Explica: Base común para sistemas operativos Unix y Linux." tabindex="0">POSIX</abbr> (Portable Operating System Interface - Interfaz de Sistema Operativo Portátil) con el entorno del proyecto, se debe invocar el script de activación directamente. Situado en la raíz del repositorio, se ejecuta:</p>
 <pre><code class="language-bash"># Activar el entorno virtual en Zsh o Bash
 source .venv/bin/activate
 

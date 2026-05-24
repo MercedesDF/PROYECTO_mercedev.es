@@ -6,7 +6,7 @@
     <title>Estrategias de Integración Headless: WP y WooCommerce</title>
     <meta name="description" content="Resolución de ceguera de proxy, paridad Dev/Prod y sincronización bidireccional en un ecosistema CMS aislado.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/estrategias-de-integracion-headless-wp-y-woocommerce.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -54,15 +54,15 @@
 <h2>El Desafío (Síntoma)</h2>
 <p>La integración de un <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> (Content Management System) pesado como WordPress (WP) y WooCommerce en un núcleo estático de alto rendimiento (Core Web Vitals 100/100) introdujo múltiples vectores de fallo. Los desafíos documentados incluyeron:</p>
 <ul>
-<li><strong>Ceguera de Proxy:</strong> Varnish y Nginx ofuscaban el protocolo HTTPS y purgaban las cabeceras de autorización estándar, provocando errores de <em>Mixed Content</em> y bloqueos de la API REST (HTTP 401).</li>
+<li><strong>Ceguera de Proxy:</strong> Varnish y Nginx ofuscaban el protocolo HTTPS y purgaban las cabeceras de autorización estándar, provocando errores de <em>Mixed Content</em> y bloqueos de la API <abbr title="Merci Explica: Sistema de comunicación entre aplicaciones donde cada mensaje contiene toda la información necesaria para entender el contexto." tabindex="0">REST</abbr> (HTTP 401).</li>
 <li><strong>Deriva de Datos (Data Drift):</strong> Diferencias de IDs entre el entorno de desarrollo local y producción generaban conflictos al sincronizar contenido.</li>
-<li><strong>Contaminación de Rendimiento:</strong> WooCommerce inyectaba scripts en línea agresivos (Speculation Rules, fragmentos de carrito <abbr title="Merci Explica: El mecanismo que permite que una página web cargue o envíe datos en segundo plano sin que tengas que actualizar la pestaña." tabindex="0">AJAX</abbr>) que violaban la Política de Seguridad de Contenidos (CSP) y hundían el rendimiento móvil.</li>
+<li><strong>Contaminación de Rendimiento:</strong> WooCommerce inyectaba scripts en línea agresivos (Speculation Rules, fragmentos de carrito <abbr title="Merci Explica: El mecanismo que permite que una página web cargue o envíe datos en segundo plano sin que tengas que actualizar la pestaña." tabindex="0">AJAX</abbr>) que violaban la Política de Seguridad de Contenidos (<abbr title="Merci Explica: Política de seguridad que actúa como un guardián del contenido web." tabindex="0">CSP</abbr>) y hundían el rendimiento móvil.</li>
 </ul>
 <h2>La Maniobra (Lógica)</h2>
 <p>Para domar el CMS, se desplegó una estrategia de defensa en profundidad:</p>
 <ol>
 <li><strong>Bypass de Proxy y SSL:</strong> Se inyectó una cabecera HTTP gemela (<code>X-Authorization</code>) desde el orquestador Python (<code>merci-wp.py</code>) para atravesar Varnish, restaurándola luego a nivel de PHP en el Child Theme. El <em>Mixed Content</em> se resolvió forzando URLs relativas al protocolo (<code>//</code>) y leyendo <code>home_url()</code> en lugar de las variables brutas de servidor (<code>$_SERVER</code>).</li>
-<li><strong>SSOT Dinámico por Slug:</strong> Se erradicó el uso de IDs rígidos. <code>merci-wp.py</code> ahora interroga a la API REST de destino usando el nombre del archivo (slug). Esto logra paridad Dev/Prod absoluta, permitiendo actualizar el mismo archivo local contra diferentes bases de datos sin colisiones.</li>
+<li><strong><abbr title="Merci Explica: Mecanismo para mantener una única fuente de verdad sobre los datos importantes dentro de un sistema." tabindex="0">SSOT</abbr> Dinámico por Slug:</strong> Se erradicó el uso de IDs rígidos. <code>merci-wp.py</code> ahora interroga a la API REST de destino usando el nombre del archivo (slug). Esto logra paridad Dev/Prod absoluta, permitiendo actualizar el mismo archivo local contra diferentes bases de datos sin colisiones.</li>
 <li><strong>Escudo de Rendimiento y Kill-Switch:</strong> Se implementaron bloqueos estrictos en <code>functions.php</code> (desencolado masivo y Whitelist Criptográfico CSP en Nginx). Adicionalmente, el orquestador Python aplica un "Kill-Switch" que expulsa los artículos despublicados (<code>estado: "borrador"</code>) de vuelta al directorio de incubación local, previniendo posts fantasmas.</li>
 </ol>
 <h2>El Aprendizaje / Deuda Técnica</h2>

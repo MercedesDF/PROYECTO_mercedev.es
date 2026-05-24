@@ -6,7 +6,7 @@
     <title>Sanitización de Metadatos YAML: Prevención XSS y Rotura del ...</title>
     <meta name="description" content="Cómo el escapado de caracteres HTML en metadatos YAML previene inyecciones XSS y asegura la integridad del DOM en generadores estáticos.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/sanitizacion-de-metadatos-yaml-prevencion-xss-y-rotura-del-dom.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,9 +51,9 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Durante la generación del índice de la Biblioteca, la página estática dejó de cargar repentinamente y el contenido inferior desapareció. El problema se originó porque el campo <code>descripcion</code> de un artículo contenía etiquetas HTML literales (como <code>&lt;script src="..."&gt;</code>). Al inyectarse este texto "crudo" en la plantilla del SSG, el navegador lo interpretó como código ejecutable real, rompiendo la estructura del DOM al carecer de etiquetas de cierre adecuadas. Adicionalmente, esto abría una brecha de seguridad para ataques de Cross-Site Scripting (XSS).</p>
+<p>Durante la generación del índice de la Biblioteca, la página estática dejó de cargar repentinamente y el contenido inferior desapareció. El problema se originó porque el campo <code>descripcion</code> de un artículo contenía etiquetas HTML literales (como <code>&lt;script src="..."&gt;</code>). Al inyectarse este texto "crudo" en la plantilla del SSG, el navegador lo interpretó como código ejecutable real, rompiendo la estructura del DOM al carecer de etiquetas de cierre adecuadas. Adicionalmente, esto abría una brecha de seguridad para ataques de Cross-Site Scripting (<abbr title="Merci Explica: Cuerda para la protección contra ataques de inyección de código." tabindex="0">XSS</abbr>).</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se implementó un patrón de sanitización estricta ("Shift-Left Security") en los orquestadores <code>merci-publish.py</code> y <code>merci-wp.py</code>. Se utilizó la función nativa <code>html.escape()</code> de Python para procesar todos los campos de texto menores extraídos del YAML Frontmatter (título, descripción, fase, tipo, volumen, fecha) antes de su interpolación en las plantillas f-string de HTML y en la compilación de PDFs.</p>
+<p>Se implementó un patrón de sanitización estricta ("<abbr title="Merci Explica: Mecanismo para asegurar que las puertas estén cerradas incluso antes de que la casa esté lista." tabindex="0">Shift-Left</abbr> Security") en los orquestadores <code>merci-publish.py</code> y <code>merci-wp.py</code>. Se utilizó la función nativa <code>html.escape()</code> de Python para procesar todos los campos de texto menores extraídos del YAML Frontmatter (título, descripción, fase, tipo, volumen, fecha) antes de su interpolación en las plantillas f-string de HTML y en la compilación de PDFs.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <p>Confiar ciegamente en las entradas de datos, incluso cuando provienen de archivos Markdown locales redactados por el propio equipo, es un antipatrón arquitectónico. Las etiquetas literales pueden destruir interfaces visuales o romper generadores de PDF dependientes de etiquetas (como WeasyPrint). Sanitizar en tiempo de compilación (Build Time) cierra permanentemente la vía de inyección secundaria, demostrando que la seguridad debe aplicarse desde la extracción del dato y no solo en el entorno de ejecución del cliente.</p>
             </div>

@@ -6,7 +6,7 @@
     <title>Autenticación OIDC (OAuth 2.0) con Cero Dependencias</title>
     <meta name="description" content="Cómo domar la API de LinkedIn levantando un micro-servidor efímero en Vanilla Python.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/autenticacion-oidc-oauth-20-con-cero-dependencias.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Para automatizar las publicaciones del blog hacia LinkedIn, se requería una conexión autenticada. Utilizar "Tokens Estáticos" implicaba renovaciones manuales cada 60 días (fricción operativa). Implementar el flujo completo OIDC (OpenID Connect) garantiza autonomía perpetua, pero convencionalmente requiere librerías externas pesadas (como <code>requests_oauthlib</code> o <code>Flask</code>), violando la política fundacional de 0 dependencias bloqueantes del proyecto.</p>
+<p>Para automatizar las publicaciones del blog hacia LinkedIn, se requería una conexión autenticada. Utilizar "Tokens Estáticos" implicaba renovaciones manuales cada 60 días (fricción operativa). Implementar el flujo completo <abbr title="Merci Explica: Candado electrónico para proteger la información de usuario" tabindex="0">OIDC</abbr> (OpenID Connect) garantiza autonomía perpetua, pero convencionalmente requiere librerías externas pesadas (como <code>requests_oauthlib</code> o <code>Flask</code>), violando la política fundacional de 0 dependencias bloqueantes del proyecto.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se desarrolló un motor de autenticación utilizando exclusivamente la librería estándar de Python (<code>http.server</code> y <code>urllib</code>). 
 El script abre el navegador del usuario para solicitar permiso a LinkedIn, e inmediatamente levanta un micro-servidor web efímero (<code>localhost:8000/callback</code>). Este servidor intercepta el código de autorización devuelto por la red social, negocia el canje por el Token de Acceso mediante un POST seguro, y se apaga a sí mismo en milisegundos, guardando la llave localmente.</p>

@@ -6,7 +6,7 @@
     <title>Out-of-the-Box Experience: Placeholders Anti-403 y Marca Bla...</title>
     <meta name="description" content="Cómo garantizar una demostración impecable de un Boilerplate purgado inyectando plantillas de contingencia con layout heredado.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/out-of-the-box-experience-placeholders-anti-403-y-marca-blanca.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Tras ejecutar la instanciación destructiva (<code>merci-init.py</code>) para purgar la propiedad intelectual de la matriz, directorios como <code>/blog</code> o <code>/biblioteca</code> quedaban vacíos. Esto provocaba que, al navegar por el Showcase público, el servidor Nginx devolviera un hostil <code>403 Forbidden</code> al no encontrar un archivo <code>index.html</code> inicial, arruinando la "Out-of-the-Box Experience" (OOBE). Además, el avatar del asistente conservaba enlaces a los perfiles sociales de la autora original.</p>
+<p>Tras ejecutar la instanciación destructiva (<code>merci-init.py</code>) para purgar la propiedad intelectual de la matriz, directorios como <code>/blog</code> o <code>/biblioteca</code> quedaban vacíos. Esto provocaba que, al navegar por el Showcase público, el servidor Nginx devolviera un hostil <code>403 Forbidden</code> al no encontrar un archivo <code>index.html</code> inicial, arruinando la "Out-of-the-Box Experience" (<abbr title="Merci Explica: Manual del usuario digital" tabindex="0">OOBE</abbr>). Además, el avatar del asistente conservaba enlaces a los perfiles sociales de la autora original.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se dotó al instanciador de la capacidad de inyectar "Placeholders anti-403". El script lee el <code>index.html</code> principal, recorta los bloques estructurales (<code>&lt;header&gt;</code> y <code>&lt;footer&gt;</code>) y genera páginas de contingencia estáticas dentro de las carpetas vaciadas. Paralelamente, se aplicó una función de anonimización para sustituir los enlaces de LinkedIn y GitHub por URLs genéricas en el código de la UI.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>

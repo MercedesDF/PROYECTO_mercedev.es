@@ -6,7 +6,7 @@
     <title>Identidad Criptográfica: Comunicaciones Cifradas con PGP</title>
     <meta name="description" content="Generación de claves GnuPG y despliegue estático para comunicaciones E2EE (End-to-End Encryption) sin formularios PHP ni dependencias externas.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/identidad-criptografica-comunicaciones-cifradas-con-pgp.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,17 +51,17 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Exponer un formulario de contacto tradicional (PHP, Node) en una web estática rompe el paradigma de <em>Zero-Bloat</em> y <em>0 dependencias bloqueantes</em>. Los formularios requieren backend, validación de spam (reCAPTCHA) y bases de datos, abriendo la puerta a inyecciones SQL o Cross-Site Scripting (XSS). Además, los correos enviados en texto plano pueden ser interceptados por cualquier nodo intermedio. La necesidad era clara: permitir que clientes y auditores enviaran información confidencial sin vulnerar la integridad de la arquitectura estática.</p>
+<p>Exponer un formulario de contacto tradicional (PHP, Node) en una web estática rompe el paradigma de <em><abbr title="Merci Explica: Arquitectura para eliminar el ruido del software." tabindex="0">Zero-Bloat</abbr></em> y <em>0 dependencias bloqueantes</em>. Los formularios requieren backend, validación de spam (reCAPTCHA) y bases de datos, abriendo la puerta a inyecciones SQL o Cross-Site Scripting (<abbr title="Merci Explica: Cuerda para la protección contra ataques de inyección de código." tabindex="0">XSS</abbr>). Además, los correos enviados en texto plano pueden ser interceptados por cualquier nodo intermedio. La necesidad era clara: permitir que clientes y auditores enviaran información confidencial sin vulnerar la integridad de la arquitectura estática.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se implementó un modelo de comunicación asimétrica utilizando el estándar PGP (Pretty Good Privacy) mediante la herramienta nativa GnuPG.</p>
+<p>Se implementó un modelo de comunicación asimétrica utilizando el estándar <abbr title="Merci Explica: Como si fuera un cierre fuerte que protege tu maletín de robar." tabindex="0">PGP</abbr> (Pretty Good Privacy) mediante la herramienta nativa GnuPG.</p>
 <ol>
-<li><strong>Generación de Claves:</strong> Se generó un par de claves criptográficas locales utilizando un algoritmo robusto (RSA de 4096 bits o curva elíptica Ed25519) protegiendo la clave privada con una frase de paso (Passphrase) fuerte.</li>
-<li><strong>Exposición Estática:</strong> En lugar de desplegar una API REST para procesar mensajes, se exportó la clave pública (<code>gpg --armor --export</code>) a un archivo ASCII de texto plano (<code>llave-publica.asc</code>). Este archivo se depositó en el directorio <code>/public/</code> para ser servido directamente desde el servidor web como un activo estático más.</li>
+<li><strong>Generación de Claves:</strong> Se generó un par de claves criptográficas locales utilizando un algoritmo robusto (<abbr title="Merci Explica: Llave pública como llave de entrada, llave privada como llave de salida." tabindex="0">RSA</abbr> de 4096 bits o curva elíptica Ed25519) protegiendo la clave privada con una frase de paso (Passphrase) fuerte.</li>
+<li><strong>Exposición Estática:</strong> En lugar de desplegar una API <abbr title="Merci Explica: Sistema de comunicación entre aplicaciones donde cada mensaje contiene toda la información necesaria para entender el contexto." tabindex="0">REST</abbr> para procesar mensajes, se exportó la clave pública (<code>gpg --armor --export</code>) a un archivo ASCII de texto plano (<code>llave-publica.asc</code>). Este archivo se depositó en el directorio <code>/public/</code> para ser servido directamente desde el servidor web como un activo estático más.</li>
 <li><strong>Identidad Visual:</strong> En la página de contacto (<code>/contacto/index.html</code>), se publicó el enlace directo al archivo <code>.asc</code> junto con la Huella Digital (<em>Fingerprint</em>) criptográfica. Esto permite a los emisores verificar matemáticamente la autenticidad de la clave antes de cifrar su mensaje mediante su propio cliente de correo.</li>
 </ol>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <ul>
-<li><strong>Seguridad por Diseño (Privacy by Design):</strong> Servir un archivo de texto plano de apenas 3 KB con la clave pública es infinitamente más seguro, barato y rápido que mantener una API de correo electrónico. Delegar el cifrado (E2EE - End-to-End Encryption) al cliente empodera al usuario y garantiza que la infraestructura del servidor web jamás conozca el contenido del mensaje.</li>
+<li><strong>Seguridad por Diseño (Privacy by Design):</strong> Servir un archivo de texto plano de apenas 3 KB con la clave pública es infinitamente más seguro, barato y rápido que mantener una API de correo electrónico. Delegar el cifrado (<abbr title="Merci Explica: Cerradura digital que asegura que solo tú y el destinatario pueden abrir el paquete." tabindex="0">E2EE</abbr> - End-to-End Encryption) al cliente empodera al usuario y garantiza que la infraestructura del servidor web jamás conozca el contenido del mensaje.</li>
 <li><strong>Autoridad Técnica:</strong> Exponer una clave PGP no es solo una medida de seguridad; es una declaración de principios. Comunica a otros ingenieros que el proyecto comprende y aplica la seguridad en profundidad (Defense in Depth).</li>
 </ul>
 <h2>Resumiendo (Lenguaje no técnico)</h2>

@@ -6,7 +6,7 @@
     <title>Ceguera de Proxy y Bypass en Headless CMS — mercedev.es</title>
     <meta name="description" content="Cómo atravesar barreras de seguridad y cachés agresivas (Varnish/OPcache) al conectar un publicador Python con WordPress.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/ceguera-de-proxy-y-bypass-en-headless-cms.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,14 +51,14 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Al intentar publicar artículos en WordPress desde la terminal local hacia el servidor de producción mediante la API REST, el servidor devolvía constantemente un error <code>401 Unauthorized</code>. Sin embargo, las credenciales eran correctas y el mismo script funcionaba a la perfección en el entorno <code>localhost</code>. Simultáneamente, WordPress en producción se negaba a mostrar la opción para generar Contraseñas de Aplicación por considerar el entorno inseguro, a pesar de tener un certificado SSL/TLS válido.</p>
+<p>Al intentar publicar artículos en WordPress desde la terminal local hacia el servidor de producción mediante la API <abbr title="Merci Explica: Sistema de comunicación entre aplicaciones donde cada mensaje contiene toda la información necesaria para entender el contexto." tabindex="0">REST</abbr>, el servidor devolvía constantemente un error <code>401 Unauthorized</code>. Sin embargo, las credenciales eran correctas y el mismo script funcionaba a la perfección en el entorno <code>localhost</code>. Simultáneamente, WordPress en producción se negaba a mostrar la opción para generar Contraseñas de Aplicación por considerar el entorno inseguro, a pesar de tener un certificado SSL/TLS válido.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>El problema fue diagnosticado como <strong>Ceguera de Proxy</strong>. Servidores de alto rendimiento como CloudPanel utilizan Nginx y Varnish Cache por delante de PHP. Varnish, por seguridad, purga la cabecera <code>Authorization</code> antes de pasar la petición a PHP, dejando al <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> sin credenciales. Además, la conexión interna de Nginx a PHP se realiza por HTTP (terminación SSL en frontera), provocando la "Ceguera de HTTPS" en el núcleo de WordPress.</p>
 <p><strong>Soluciones aplicadas:</strong>
 1. <strong>Doble envío de credenciales:</strong> El script en Python envía la cabecera estándar y una cabecera de contrabando <code>X-Authorization</code>, la cual los proxies ignoran y dejan pasar intacta. Un filtro en <code>functions.php</code> lee esta cabecera y restaura la memoria global de PHP justo antes de que WP valide al usuario.
-2. <strong>Extracción por Terminal (WP-CLI):</strong> Ante la agresividad de OPcache sobrescribiendo variables de entorno, la contraseña maestra se generó descendiendo directamente al sistema operativo del servidor vía SSH usando <code>wp user application-password create</code>, saltándose al servidor web por completo.</p>
+2. <strong>Extracción por Terminal (<abbr title="Merci Explica: Comando mágico para administrar WordPress sin interfaz gráfica." tabindex="0">WP-CLI</abbr>):</strong> Ante la agresividad de OPcache sobrescribiendo variables de entorno, la contraseña maestra se generó descendiendo directamente al sistema operativo del servidor vía SSH usando <code>wp user application-password create</code>, saltándose al servidor web por completo.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Las configuraciones locales rara vez replican la agresividad de las barreras (WAF, Proxies, Cachés) de los entornos de producción en la nube. Las soluciones de enrutamiento temprano (<em>Shift-Left Routing</em>) inyectadas en el código de la aplicación son preferibles a alterar la infraestructura del servidor web, ya que garantizan que el ecosistema Headless siga siendo portable a cualquier otro proveedor de <em>hosting</em> en el futuro.</p>
+<p>Las configuraciones locales rara vez replican la agresividad de las barreras (<abbr title="Merci Explica: Muro de seguridad para aplicaciones web." tabindex="0">WAF</abbr>, Proxies, Cachés) de los entornos de producción en la nube. Las soluciones de enrutamiento temprano (<em><abbr title="Merci Explica: Mecanismo para asegurar que las puertas estén cerradas incluso antes de que la casa esté lista." tabindex="0">Shift-Left</abbr> Routing</em>) inyectadas en el código de la aplicación son preferibles a alterar la infraestructura del servidor web, ya que garantizan que el ecosistema Headless siga siendo portable a cualquier otro proveedor de <em>hosting</em> en el futuro.</p>
             </div>
         </article>
     </main>

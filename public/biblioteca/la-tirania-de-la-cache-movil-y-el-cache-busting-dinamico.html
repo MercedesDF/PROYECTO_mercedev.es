@@ -6,7 +6,7 @@
     <title>La tiranía de la caché móvil y el &#x27;Cache Busting&#x27; ...</title>
     <meta name="description" content="Cómo forzar a los navegadores móviles a actualizar CSS y JS en arquitecturas híbridas.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/la-tirania-de-la-cache-movil-y-el-cache-busting-dinamico.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Durante la auditoría de Control de Calidad (QA - Quality Assurance) en dispositivos físicos, se detectó que el menú de navegación y la interfaz de usuario (UI - User Interface) colapsaban en teléfonos y tablets, mientras que en los simuladores de PC funcionaban a la perfección. El diagnóstico reveló que los navegadores móviles (especialmente Chrome en Android y Safari en iOS) retienen versiones obsoletas de los archivos CSS (Cascading Style Sheets) y JS (JavaScript) mediante cachés extremadamente agresivas para ahorrar datos.</p>
+<p>Durante la auditoría de Control de Calidad (<abbr title="Merci Explica: Inspector de alta precisión que garantiza que todo funcione como debe." tabindex="0">QA</abbr> - Quality Assurance) en dispositivos físicos, se detectó que el menú de navegación y la interfaz de usuario (UI - User Interface) colapsaban en teléfonos y tablets, mientras que en los simuladores de PC funcionaban a la perfección. El diagnóstico reveló que los navegadores móviles (especialmente Chrome en Android y Safari en iOS) retienen versiones obsoletas de los archivos CSS (Cascading Style Sheets) y JS (JavaScript) mediante cachés extremadamente agresivas para ahorrar datos.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se implementó una estrategia de <em>Cache Busting</em> (Invalidación de Caché) dinámica. En el núcleo estático, se incrementaron manualmente los parámetros de versión (<code>?v=11</code>) en las etiquetas <code>&lt;link&gt;</code> y <code>&lt;script&gt;</code>. En la capa dinámica (WordPress), se utilizó la función nativa <code>time()</code> de PHP (Hypertext Preprocessor) para anexar una marca de tiempo unix exacta a cada petición (ej. <code>main.css?v=1714300000</code>).</p>
 <p><strong>Detalle Técnico:</strong></p>
@@ -59,7 +59,7 @@
 echo '&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/main.css?v=' . $css_v . '&quot;&gt;';
 </code></pre>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Nunca se debe confiar en los simuladores de dispositivos de las herramientas de desarrollador (DevTools) para dar por validado el rendimiento web o los estilos. La paridad Dev/Prod exige pruebas en hardware físico real. Adicionalmente, el uso de funciones dinámicas como <code>time()</code> en entornos de producción debe vigilarse para evitar saturar el servidor anfitrión (TTFB (Time To First Byte - Tiempo Hasta el Primer Byte)), evaluando la transición a <code>filemtime()</code> cuando la topología de directorios lo permita de forma robusta.</p>
+<p>Nunca se debe confiar en los simuladores de dispositivos de las herramientas de desarrollador (DevTools) para dar por validado el rendimiento web o los estilos. La paridad Dev/Prod exige pruebas en hardware físico real. Adicionalmente, el uso de funciones dinámicas como <code>time()</code> en entornos de producción debe vigilarse para evitar saturar el servidor anfitrión (<abbr title="Merci Explica: Primer contacto, indicando cuánto tiempo espera el usuario antes de recibir su primera reacción." tabindex="0">TTFB</abbr> (Time To First Byte - Tiempo Hasta el Primer Byte)), evaluando la transición a <code>filemtime()</code> cuando la topología de directorios lo permita de forma robusta.</p>
             </div>
         </article>
     </main>

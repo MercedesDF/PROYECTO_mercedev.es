@@ -6,7 +6,7 @@
     <title>Release Pipeline Iterativo: Agile en despliegue de plantilla...</title>
     <meta name="description" content="Cómo gobernar la actualización de un Boilerplate desde un proyecto matriz sin sufrir Deriva de Configuración.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/release-pipeline-iterativo-agile-en-despliegue-de-plantillas.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -53,11 +53,11 @@
                 <h2>El Desafío (Síntoma)</h2>
 <p>Al extraer un ecosistema base (Merci Boilerplate) a partir de un proyecto vivo (<code>mercedev.es</code>), surge el riesgo de la <strong>Deriva de Configuración (Configuration Drift)</strong>. Cuando se detecta un error en la plantilla exportada, el instinto natural del desarrollador es corregirlo directamente en el repositorio hijo. Esto provoca que el proyecto matriz y la plantilla se desincronicen de forma silenciosa, convirtiendo el mantenimiento a largo plazo en una deuda técnica insostenible.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se estableció un <strong>Release Pipeline Iterativo</strong> basado en principios Agile y de Única Fuente de Verdad (SSOT - Single Source of Truth). El protocolo innegociable para cada subida de versión es:</p>
+<p>Se estableció un <strong>Release Pipeline Iterativo</strong> basado en principios Agile y de Única Fuente de Verdad (<abbr title="Merci Explica: Mecanismo para mantener una única fuente de verdad sobre los datos importantes dentro de un sistema." tabindex="0">SSOT</abbr> - Single Source of Truth). El protocolo innegociable para cada subida de versión es:</p>
 <ol>
 <li><strong>Clonación efímera:</strong> Se clona la matriz en un directorio temporal y se ejecuta la purga de identidad y binarios (<code>merci-init.py</code>).</li>
 <li><strong>Despliegue Ágil:</strong> Se copian los archivos al repositorio destino mediante <code>rsync</code> (excluyendo historiales Git y metadatos documentales propios).</li>
-<li><strong>QA Fail-Fast:</strong> Se ejecuta el orquestador maestro (<code>merci-total</code>) en el destino.</li>
+<li><strong><abbr title="Merci Explica: Inspector de alta precisión que garantiza que todo funcione como debe." tabindex="0">QA</abbr> Fail-Fast:</strong> Se ejecuta el orquestador maestro (<code>merci-total</code>) en el destino.</li>
 <li><strong>Iteración estricta:</strong> Si existe el más mínimo fallo, se destruye el clon temporal, se aplica la corrección obligatoriamente en el <strong>proyecto matriz</strong> (<code>mercedev.es</code>) y se reinicia el ciclo desde el paso 1.</li>
 </ol>
 <h2>El Aprendizaje / Deuda Técnica</h2>

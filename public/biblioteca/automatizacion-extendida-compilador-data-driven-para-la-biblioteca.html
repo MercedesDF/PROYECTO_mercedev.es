@@ -6,7 +6,7 @@
     <title>Automatización Extendida: Compilador Data-Driven para la Bib...</title>
     <meta name="description" content="Evolución del agente autónomo hacia una arquitectura JSON (SSOT) para la compilación determinista del conocimiento.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/automatizacion-extendida-compilador-data-driven-para-la-biblioteca.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>A medida que el Agente Autónomo del glosario extraía e inyectaba nuevas definiciones técnicas (DevSecOps) directamente en el archivo Markdown (<code>glosario-tecnico.md</code>), se hicieron evidentes dos problemas estructurales:
+<p>A medida que el Agente Autónomo del glosario extraía e inyectaba nuevas definiciones técnicas (<abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr>) directamente en el archivo Markdown (<code>glosario-tecnico.md</code>), se hicieron evidentes dos problemas estructurales:
 1. <strong>Fragilidad de Formato:</strong> La Inteligencia Artificial, a pesar de usar Prompts estrictos, ocasionalmente sufría "alucinaciones de formato" (devolviendo <code>**Término**</code> en vez de <code>### Término</code>). Un simple error tipográfico de la IA rompía la visualización del documento.
 2. <strong>Desalineación Filosófica:</strong> El glosario Markdown estaba siendo tratado como una base de datos cuando, en realidad, en nuestro ecosistema SSG, la <em>Única Fuente de Verdad</em> es la bitácora de documentación. El glosario no debe ser un documento de trabajo, sino un <em>Art de Coté</em> (artefacto compilado).</p>
 <h2>La Maniobra (Lógica)</h2>
@@ -63,7 +63,7 @@
 </ol>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <ul>
-<li><strong>JSON sobre Markdown para Agentes:</strong> Cuando un Agente Autónomo tiene permisos de escritura continua, el formato de almacenamiento de estado debe ser estricto (JSON o Base de Datos). Dejar que un LLM manipule código Markdown interactivo o en bruto introduce Deuda Técnica impredecible. </li>
+<li><strong>JSON sobre Markdown para Agentes:</strong> Cuando un Agente Autónomo tiene permisos de escritura continua, el formato de almacenamiento de estado debe ser estricto (JSON o Base de Datos). Dejar que un <abbr title="Merci Explica: Máquina que aprende a procesar y generar texto humano de manera autónoma." tabindex="0">LLM</abbr> manipule código Markdown interactivo o en bruto introduce Deuda Técnica impredecible. </li>
 <li><strong>Aislamiento del Origen:</strong> Consolidar el paradigma de que "los archivos .md finales son de solo lectura (compilados)" simplifica el mantenimiento. Si el Markdown se corrompe por acción humana, la próxima ejecución del Build lo restaurará instantáneamente desde el JSON.</li>
 </ul>
 <h2>En resumen</h2>

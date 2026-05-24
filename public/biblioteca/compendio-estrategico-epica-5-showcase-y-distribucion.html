@@ -6,7 +6,7 @@
     <title>Compendio Estratégico: Épica 5 - Showcase y Distribución</title>
     <meta name="description" content="Estrategias de Dogfooding, Out-of-the-Box Experience y despliegue Zero-Friction para la demostración pública del framework.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/compendio-estrategico-epica-5-showcase-y-distribucion.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -52,7 +52,7 @@
             <div class="card__content">
                 <p><strong>Contexto:</strong> Un Boilerplate Open Source carece de tracción si los usuarios no pueden auditarlo visual e interactivamente antes de descargarlo. El objetivo era desplegar un entorno de demostración continuo sin arrastrar datos privados de la matriz.</p>
 <p><strong>Maniobras Arquitectónicas:</strong>
-1. <strong>Dogfooding Extremado:</strong> Se validó la OOBE (Out-of-the-Box Experience) de la plantilla. Al instanciarse, las carpetas vaciadas devolvían error 403. Se dotó a <code>merci-init.py</code> de la capacidad para inyectar "Placeholders anti-403" que heredan automáticamente el menú, footer y la IA de la portada principal, logrando una navegación ininterrumpida.
+1. <strong>Dogfooding Extremado:</strong> Se validó la <abbr title="Merci Explica: Manual del usuario digital" tabindex="0">OOBE</abbr> (Out-of-the-Box Experience) de la plantilla. Al instanciarse, las carpetas vaciadas devolvían error 403. Se dotó a <code>merci-init.py</code> de la capacidad para inyectar "Placeholders anti-403" que heredan automáticamente el menú, footer y la IA de la portada principal, logrando una navegación ininterrumpida.
 2. <strong>El Clon Efímero:</strong> Para aislar la infraestructura, el orquestador de despliegue (<code>merci-showcase.py</code>) copia el ecosistema a una carpeta temporal, lo purga de metadatos privados usando la propia herramienta de inicialización y despliega el código inmaculado.
 3. <strong>Hardening de Infraestructura:</strong> Se eliminó el "hardcoding" de variables, delegando rutas, dominios y llaves SSH personalizadas al archivo oculto <code>.env</code> y blindando el comando <code>rsync</code> contra los bloqueos inmutables de CloudPanel.</p>
 <p><strong>Aprendizaje / Deuda Técnica:</strong>

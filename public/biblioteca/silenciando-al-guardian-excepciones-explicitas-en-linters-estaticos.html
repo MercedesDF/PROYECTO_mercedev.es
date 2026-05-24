@@ -6,7 +6,7 @@
     <title>Silenciando al Guardián: Excepciones explícitas en linters e...</title>
     <meta name="description" content="Cómo gestionar falsos positivos en herramientas de auditoría de código (QA) mediante directivas de silenciamiento en línea.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/silenciando-al-guardian-excepciones-explicitas-en-linters-estaticos.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,12 +51,12 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Al implementar una nueva regla en el orquestador maestro (<code>merci-audit.py</code>) para prohibir y detectar estilos en línea <!-- merci-audit:silence-style -->(<code>style="..."</code>), la herramienta bloqueó la compilación de la biblioteca. El diagnóstico reveló un <strong>Falso Positivo Legítimo</strong>: el linter estaba escaneando un artículo técnico que explicaba cómo funciona la especificidad CSS, detectando los bloques de código de ejemplo como violaciones reales de la arquitectura SASS.</p>
+<p>Al implementar una nueva regla en el orquestador maestro (<code>merci-audit.py</code>) para prohibir y detectar estilos en línea <!-- merci-audit:silence-style -->(<code>style="..."</code>), la herramienta bloqueó la compilación de la biblioteca. El diagnóstico reveló un <strong>Falso Positivo Legítimo</strong>: el linter estaba escaneando un artículo técnico que explicaba cómo funciona la especificidad CSS, detectando los bloques de código de ejemplo como violaciones reales de la arquitectura <abbr title="Merci Explica: CSS con superpoderes." tabindex="0">SASS</abbr>.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Para solucionar esto, se descartó aplicar sobreingeniería a las Expresiones Regulares (RegEx) del auditor (intentar enseñarle a distinguir si el texto estaba dentro de una etiqueta <code>&lt;code&gt;</code> o no). En su lugar, se optó por la simplicidad:</p>
 <p>Se inyectó una válvula de escape en el código de Python que le instruye ignorar la línea actual si detecta el comentario HTML <code>&lt;!-- merci-audit:silence-style --&gt;</code>. Al añadir esta firma al final de la línea conflictiva en el Markdown, el linter la omite silenciosamente.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Una herramienta de QA (Quality Assurance - Aseguramiento de Calidad) implacable y sin excepciones es peligrosa, ya que incentiva a los desarrolladores a apagar el escudo por completo cuando se topan con un bloqueo.</p>
+<p>Una herramienta de <abbr title="Merci Explica: Inspector de alta precisión que garantiza que todo funcione como debe." tabindex="0">QA</abbr> (Quality Assurance - Aseguramiento de Calidad) implacable y sin excepciones es peligrosa, ya que incentiva a los desarrolladores a apagar el escudo por completo cuando se topan con un bloqueo.</p>
 <p>Permitir el silenciamiento en línea (Inline Silencing) es el estándar de la industria (como <code>eslint-disable-next-line</code> en JavaScript). Obliga al desarrollador a firmar explícitamente la excepción, dejando constancia de que ha revisado el código y asume la responsabilidad arquitectónica, sin comprometer la seguridad del resto del repositorio. El pragmatismo vence a la complejidad algorítmica.</p>
             </div>
         </article>

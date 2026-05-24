@@ -6,7 +6,7 @@
     <title>Actualización de la Política de Seguridad para Prevenir ataq...</title>
     <meta name="description" content="Se implementó una política de seguridad para bloquear etiquetas &lt;script src=&quot;...&quot;&gt; y &lt;link rel=&quot;stylesheet&quot;&gt; que ap...">
     <link rel="canonical" href="https://mercedev.es/biblioteca/actualizacion-de-la-politica-de-seguridad-para-prevenir-ataques-a-la-cadena-de-suministro.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -53,7 +53,7 @@
                 <h2>El Desafío (Síntoma)</h2>
 <p>Durante las pruebas finales de Chaos Engineering, se detectó que la IA logró evadir nuestras defensas inyectando una hoja de estilos CSS desde un dominio malicioso externo. Esto comprometía la seguridad del proyecto y violaba la regla arquitectónica de "Zero Bloat".</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Para proteger contra ataques a la cadena de suministro, se actualizó el Agente Auditor para bloquear cualquier etiqueta <code>&lt;script src="..."&gt;</code> o <code>&lt;link rel="stylesheet"&gt;</code> que apunte a dominios externos (distintos a localhost o mercedev.es). Además, se implementó una mecanismo de degradación elegante ante señales SIGINT (Ctrl+C), cerrando el pipeline con una experiencia de desarrollador (DX) impecable.</p>
+<p>Para proteger contra ataques a la cadena de suministro, se actualizó el Agente Auditor para bloquear cualquier etiqueta <code>&lt;script src="..."&gt;</code> o <code>&lt;link rel="stylesheet"&gt;</code> que apunte a dominios externos (distintos a localhost o mercedev.es). Además, se implementó una mecanismo de degradación elegante ante señales SIGINT (Ctrl+C), cerrando el pipeline con una experiencia de desarrollador (<abbr title="Merci Explica: La experiencia que sientes cuando usas un producto o servicio digital, como si fuera un viaje en el espacio." tabindex="0">DX</abbr>) impecable.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <p>Esta solución es la óptima porque asegura que solo se carguen recursos locales, minimizando el riesgo de ataques a la cadena de suministro. La implementación del mecanismo de degradación elegante mejora la experiencia del desarrollador al proporcionar una salida limpia y ordenada en caso de interrupción inesperada.</p>
             </div>

@@ -6,7 +6,7 @@
     <title>Aislamiento DLP: Protegiendo scripts de infraestructura matr...</title>
     <meta name="description" content="Cómo segregar los orquestadores destructivos y de uso exclusivo de la matriz sin romper el enrutador inteligente de la terminal.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/aislamiento-dlp-protegiendo-scripts-de-infraestructura-matriz.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -53,7 +53,7 @@
                 <h2>El Desafío (Síntoma)</h2>
 <p>El agente <code>merci-showcase.py</code> se utilizaba exclusivamente para desplegar el entorno de demostración del Boilerplate empleando credenciales de la autora. Mantenerlo en el directorio público <code>scripts/merci/</code> exponía esta herramienta de despliegue a los usuarios y, al no documentarlo en las instrucciones públicas para evitar confundirlos, el auditor de deriva documental (<code>merci-drift.py</code>) bloqueaba el pipeline por "fuga semántica".</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se aplicó el principio de Defensa en Profundidad (DLP - Data Leak Prevention). El script destructivo fue reubicado a un recinto de cuarentena (<code>scripts/matriz/</code>), el cual fue excluido explícitamente en el archivo <code>.gitignore</code>. Para no perder la comodidad operativa, el enrutador inteligente (<code>merci()</code>) en Zsh fue refactorizado para buscar también en esta carpeta privada, invocando las herramientas con total transparencia.</p>
+<p>Se aplicó el principio de Defensa en Profundidad (<abbr title="Merci Explica: Mecanismo de seguridad digital que actúa como un guardián vigilante para evitar la pérdida accidental o intencional de datos críticos." tabindex="0">DLP</abbr> - Data Leak Prevention). El script destructivo fue reubicado a un recinto de cuarentena (<code>scripts/matriz/</code>), el cual fue excluido explícitamente en el archivo <code>.gitignore</code>. Para no perder la comodidad operativa, el enrutador inteligente (<code>merci()</code>) en Zsh fue refactorizado para buscar también en esta carpeta privada, invocando las herramientas con total transparencia.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <p>Lo que es operativo para el proyecto matriz no siempre es útil para el derivado. Tratar de esconder scripts privados en carpetas públicas parcheando el linter (añadiendo excepciones en el código de auditoría) genera deuda técnica. El aislamiento físico de la propiedad intelectual es siempre superior a la ofuscación lógica.</p>
 <h2>En resumen</h2>

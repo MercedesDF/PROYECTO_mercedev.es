@@ -6,7 +6,7 @@
     <title>Consolidación del Enrutamiento Zero-JS: Limpieza de Clases L...</title>
     <meta name="description" content="Refactorización para delegar el resaltado de enlaces activos exclusivamente a la hoja de estilos mediante Body IDs, eliminando mutaciones del DOM.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>A pesar de haber implementado una arquitectura SASS basada en selectores de Body IDs (ej. <code>#page-home</code>) para manejar el resaltado visual del menú, el enlace activo fallaba en las páginas estáticas (Home, Sobre Mí, Contacto). El problema radicaba en la pervivencia de código <em>legacy</em>: la clase <code>nav__link--active</code> seguía incrustada en el archivo <code>index.html</code> original y el script de sincronización de páginas intentaba reescribirla dinámicamente en tiempo de compilación, interfiriendo con la lógica de la hoja de estilos.</p>
+<p>A pesar de haber implementado una arquitectura <abbr title="Merci Explica: CSS con superpoderes." tabindex="0">SASS</abbr> basada en selectores de Body IDs (ej. <code>#page-home</code>) para manejar el resaltado visual del menú, el enlace activo fallaba en las páginas estáticas (Home, Sobre Mí, Contacto). El problema radicaba en la pervivencia de código <em>legacy</em>: la clase <code>nav__link--active</code> seguía incrustada en el archivo <code>index.html</code> original y el script de sincronización de páginas intentaba reescribirla dinámicamente en tiempo de compilación, interfiriendo con la lógica de la hoja de estilos.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se ejecutó una limpieza estructural (Zero-JS Routing). Primero, se eliminó la clase <code>nav__link--active</code> y el atributo de accesibilidad <code>aria-current="page"</code> quemados en el archivo maestro de la portada. Segundo, se purgó la lógica de mutación de cadenas (uso de <code>replace()</code>) en <code>merci-sync-pages.py</code>, permitiendo que el bloque <code>&lt;header&gt;</code> se clone de manera 100% literal e inmaculada hacia todas las páginas secundarias estáticas.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>

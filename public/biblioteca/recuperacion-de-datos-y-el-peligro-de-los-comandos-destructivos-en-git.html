@@ -6,7 +6,7 @@
     <title>Recuperación de datos y el peligro de los comandos destructi...</title>
     <meta name="description" content="Por qué las interfaces gráficas mienten, la terminal dice la verdad, y cómo blindarse antes de reescribir el historial.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/recuperacion-de-datos-y-el-peligro-de-los-comandos-destructivos-en-git.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -54,13 +54,13 @@
 <p>Durante un intento de purgar material multimedia pesado del historial profundo de Git (reescritura de historial), la carpeta objetivo desapareció repentinamente del explorador de archivos del editor de código (VS Code). Se generó una alerta crítica por posible pérdida de datos no versionados (archivos <em>untracked</em>), asumiendo que el comando de consola había arrasado con el disco duro físico.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se aplicó ingeniería forense para determinar el estado real de la máquina:
-1. <strong>Descartar la ilusión óptica:</strong> Se utilizó la terminal nativa del sistema (<code>ls -la</code>) para confirmar si la desaparición era real o si la interfaz gráfica (GUI) estaba ocultando los archivos por estar listados en el <code>.gitignore</code>.
+1. <strong>Descartar la ilusión óptica:</strong> Se utilizó la terminal nativa del sistema (<code>ls -la</code>) para confirmar si la desaparición era real o si la interfaz gráfica (<abbr title="Merci Explica: Ventana donde interactúas con el ordenador." tabindex="0">GUI</abbr>) estaba ocultando los archivos por estar listados en el <code>.gitignore</code>.
 2. <strong>Rastreo de operaciones:</strong> Al confirmar la ausencia física, se dedujo que el comando <code>git rm --cached</code> no era el culpable (pues está diseñado para no tocar el disco). La causa raíz fue una manipulación accidental en la GUI (clic en "Descartar cambios"), la cual elimina archivos físicos sin red de seguridad.
 3. <strong>Rescate:</strong> Se localizaron y restauraron los archivos directamente desde la Papelera de reciclaje del sistema operativo anfitrión (Ubuntu) y, como medida de mitigación futura, se programó un script Python para generar copias de seguridad locales (<code>merci-backup.py</code>).</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Este incidente consolida tres reglas de arquitectura operativa innegociables en DevSecOps:</p>
+<p>Este incidente consolida tres reglas de arquitectura operativa innegociables en <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr>:</p>
 <ol>
-<li><strong>Las interfaces gráficas mienten; la terminal es la única fuente de verdad.</strong> Los editores de código modernos ocultan información por conveniencia. Ante la duda, el diagnóstico siempre debe realizarse desde una terminal nativa (fuera del IDE).</li>
+<li><strong>Las interfaces gráficas mienten; la terminal es la única fuente de verdad.</strong> Los editores de código modernos ocultan información por conveniencia. Ante la duda, el diagnóstico siempre debe realizarse desde una terminal nativa (fuera del <abbr title="Merci Explica: Herramienta única para programadores que facilita la creación y mantenimiento de software." tabindex="0">IDE</abbr>).</li>
 <li><strong>Git no protege lo que no conoce.</strong> Operar con archivos <em>untracked</em> (no rastreados) es caminar por la cuerda floja. Si se borran, Git no tiene memoria de ellos para restaurarlos.</li>
 <li><strong>Snapshots antes de la cirugía.</strong> Ejecutar comandos de reescritura de historial (<code>filter-branch</code>, <code>reset --hard</code>) o purgas de caché es una operación "a corazón abierto". Es obligatorio generar un archivo <code>.zip</code> con el estado íntegro del proyecto antes de alterar el motor de control de versiones.</li>
 </ol>

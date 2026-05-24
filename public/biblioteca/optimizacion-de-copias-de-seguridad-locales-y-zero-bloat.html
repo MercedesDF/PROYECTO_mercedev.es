@@ -6,7 +6,7 @@
     <title>Optimización de Copias de Seguridad Locales y Zero Bloat</title>
     <meta name="description" content="Cómo una auditoría en la terminal redujo el peso de los backups en un 99.3% aislando el código fuente de los binarios y el CMS.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/optimizacion-de-copias-de-seguridad-locales-y-zero-bloat.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>1. El Desafío (Síntoma)</h2>
-<p>Durante el ciclo de desarrollo, la herramienta local de copias de seguridad (<code>merci-backup.py</code>) estaba generando archivos ZIP con un peso superior a los 50 MB. Para un repositorio compuesto casi exclusivamente por archivos de texto plano (Markdown, HTML, SASS, Python), este tamaño era una anomalía crítica que indicaba la presencia de código "polizón".</p>
+<p>Durante el ciclo de desarrollo, la herramienta local de copias de seguridad (<code>merci-backup.py</code>) estaba generando archivos ZIP con un peso superior a los 50 MB. Para un repositorio compuesto casi exclusivamente por archivos de texto plano (Markdown, HTML, <abbr title="Merci Explica: CSS con superpoderes." tabindex="0">SASS</abbr>, Python), este tamaño era una anomalía crítica que indicaba la presencia de código "polizón".</p>
 <h2>2. La Maniobra (Lógica)</h2>
 <p>Para descubrir qué se estaba comprimiendo bajo el capó, se implementó un modo de "Caja de Cristal" en el script mediante la bandera <code>--verbose</code> (o <code>-v</code>). Al ejecutarlo, la terminal reveló la causa raíz: se estaba empaquetando la instalación completa de WordPress (<code>public/blog</code>), los binarios autogenerados por el compilador Dart Sass (<code>scripts/merci/bin</code>) y un cementerio de PDFs de auditorías antiguas.</p>
 <p>El fallo residía en la lógica de exclusión. El script ignoraba carpetas por su nombre genérico (ej. <code>backups</code> o <code>.git</code>), pero no se podía añadir la palabra <code>blog</code> a la lista negra porque eso habría destruido el respaldo de los artículos legítimos guardados en <code>laboratorio/blog/</code>.</p>
@@ -62,7 +62,7 @@ dirs[:] = [d for d in dirs if (Path(root) / d) not in EXCLUDE_PATHS]
 </code></pre>
 <p>Esto permitió bloquear quirúrgicamente la ruta <code>public/blog</code> (el <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> pesado) salvando <code>laboratorio/blog</code> (nuestro código fuente).</p>
 <h2>3. El Aprendizaje / Deuda Técnica</h2>
-<p>Este incidente refuerza dos grandes lecciones del paradigma DevSecOps:</p>
+<p>Este incidente refuerza dos grandes lecciones del paradigma <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr>:</p>
 <ol>
 <li><strong>Zero Bloat en Disaster Recovery:</strong> Una copia de seguridad de código fuente debe contener exclusivamente el estado inmutable del proyecto. Las dependencias externas, los binarios (Sass) o el CMS (WordPress) se instalan, se regeneran o se gestionan aparte. Tras el parche, el backup se redujo a <strong>0.35 MB (una optimización del 99.3%)</strong>.</li>
 <li><strong>Transparencia de las herramientas CLI:</strong> Toda herramienta de consola (CLI) que realice operaciones destructivas o de I/O masivo debe poseer un modo detallado (<code>--verbose</code>). Un script no debe ser nunca una caja negra; el desarrollador debe poder auditar su comportamiento en tiempo real a través de la salida estándar de la terminal.</li>

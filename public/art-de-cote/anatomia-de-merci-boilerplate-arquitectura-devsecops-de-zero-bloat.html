@@ -6,7 +6,7 @@
     <title>Anatomía de Merci Boilerplate v1.12 (Obsoleto) — mercedev.es</title>
     <meta name="description" content="Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 25 agentes Python y 100/100 Co...">
     <link rel="canonical" href="https://mercedev.es/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -55,7 +55,7 @@
 <p>⚠️ <strong>Aviso de obsolescencia:</strong> Este documento relata la arquitectura original (v1.12). <a href="/art-de-cote/anatomia-de-merci-boilerplate-v1151.html"><strong>Lee aquí la versión v1.15.1 actualizada</strong></a>.</p>
 </blockquote>
 <p><strong>Merci Boilerplate es lo opuesto.</strong> Lo que comenzó como un proyecto de investigación para aplicar metodologías de Ciberseguridad y Automatización, terminó evolucionando hacia un ecosistema operacional completo. </p>
-<p>El sistema surgió del rigor académico: se requería una arquitectura segura, sin frameworks opacos (Zero-Bloat), integrando sistemas Headless y aplicando metodologías Agile para mantener la deuda técnica a cero en cada fase. Todo guiado por especificaciones formales y documentado en una bitácora inmutable.</p>
+<p>El sistema surgió del rigor académico: se requería una arquitectura segura, sin frameworks opacos (<abbr title="Merci Explica: Arquitectura para eliminar el ruido del software." tabindex="0">Zero-Bloat</abbr>), integrando sistemas Headless y aplicando metodologías Agile para mantener la deuda técnica a cero en cada fase. Todo guiado por especificaciones formales y documentado en una bitácora inmutable.</p>
 <!-- linkedin: 
 Todo empezó con un objetivo simple: crear mi página web personal mientras termino un Máster en desarrollo web y estudio Ciberseguridad y Automatización en Google. 🛡️🐍
 
@@ -97,7 +97,7 @@ He liberado las entrañas técnicas y la historia de esta arquitectura en un nue
 <p>Las tres capas operan en paralelo sin contaminarse, unidas por Symlinks, Nginx y permisos estrictos:</p>
 <ul>
 <li>
-<p><strong>Capa Estática:</strong> HTML5 Semántico, SASS <abbr title="Merci Explica: Sistema de nomenclatura para clases CSS que facilita la organización y mantenimiento del código." tabindex="0">BEM</abbr> y Vanilla JS (0 dependencias externas, 0 librerías NPM en <em>runtime</em>).</p>
+<p><strong>Capa Estática:</strong> HTML5 Semántico, <abbr title="Merci Explica: CSS con superpoderes." tabindex="0">SASS</abbr> <abbr title="Merci Explica: Sistema de nomenclatura para clases CSS que facilita la organización y mantenimiento del código." tabindex="0">BEM</abbr> y Vanilla JS (0 dependencias externas, 0 librerías NPM en <em>runtime</em>).</p>
 </li>
 <li>
 <p><strong>Capa Dinámica:</strong> WordPress Headless para gestión de blogs, tiendas o bases de datos complejas.</p>
@@ -107,27 +107,27 @@ He liberado las entrañas técnicas y la historia de esta arquitectura en un nue
 </li>
 </ul>
 <p><strong>4. Gobernanza Operacional Reproducible</strong></p>
-<p>El repositorio incluye un <em>Deployment Playbook</em> paso a paso para servidores Ubuntu, SOPs (Standard Operating Procedures) de publicación dual y un <em>Checklist</em> de hardening. Todo lo necesario para operar en producción bajo estándares SRE.</p>
+<p>El repositorio incluye un <em>Deployment Playbook</em> paso a paso para servidores Ubuntu, SOPs (Standard Operating Procedures) de publicación dual y un <em>Checklist</em> de hardening. Todo lo necesario para operar en producción bajo estándares <abbr title="Merci Explica: Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo." tabindex="0">SRE</abbr>.</p>
 <h2>El Ecosistema de Agentes</h2>
 <p>El corazón del Boilerplate son sus 25+ agentes programados en Python puro, divididos en tres escuadrones:</p>
 <h3>Auditoría &amp; Seguridad (Escudo Activo)</h3>
 <ul>
-<li><code>merci-audit.py</code>: SAST (Static Application Security Testing) + DLP (Bloquea secretos antes del commit).</li>
-<li><code>merci-hardening.py</code>: Inyección automática de políticas estrictas CSP (Content Security Policy).</li>
+<li><code>merci-audit.py</code>: <abbr title="Merci Explica: Escaneo del código como si fuera un libro abierto." tabindex="0">SAST</abbr> (Static Application Security Testing) + <abbr title="Merci Explica: Mecanismo de seguridad digital que actúa como un guardián vigilante para evitar la pérdida accidental o intencional de datos críticos." tabindex="0">DLP</abbr> (Bloquea secretos antes del commit).</li>
+<li><code>merci-hardening.py</code>: Inyección automática de políticas estrictas <abbr title="Merci Explica: Política de seguridad que actúa como un guardián del contenido web." tabindex="0">CSP</abbr> (Content Security Policy).</li>
 <li><code>merci-chaos.py</code>: Ingeniería del caos. Inyecta vulnerabilidades controladas para validar la resiliencia del sistema.</li>
-<li><code>merci-linkcheck.py</code>: DAST (Dynamic Application Security Testing) que rastrea y bloquea despliegues si detecta enlaces rotos.</li>
+<li><code>merci-linkcheck.py</code>: <abbr title="Merci Explica: Escaneo interactivo del sistema mientras está en funcionamiento para detectar fallos de seguridad." tabindex="0">DAST</abbr> (Dynamic Application Security Testing) que rastrea y bloquea despliegues si detecta enlaces rotos.</li>
 </ul>
 <h3>IA &amp; Orquestación</h3>
 <ul>
-<li><code>merci-brain.py</code>: Base de conocimiento estática (Shift-Left IA) para el asistente web.</li>
+<li><code>merci-brain.py</code>: Base de conocimiento estática (<abbr title="Merci Explica: Mecanismo para asegurar que las puertas estén cerradas incluso antes de que la casa esté lista." tabindex="0">Shift-Left</abbr> IA) para el asistente web.</li>
 <li><code>merci-ssot.py</code>: Sincronización automática de documentación (Single Source of Truth).</li>
-<li><code>merci-librarian.py</code>: Agente técnico que formatea cuadernillos (Zero-Hallucination).</li>
+<li><code>merci-librarian.py</code>: Agente técnico que formatea cuadernillos (<abbr title="Merci Explica: Garantía de que la IA no invente datos, como si fuera un juez honesto en un tribunal." tabindex="0">Zero-Hallucination</abbr>).</li>
 <li><code>merci-blogger.py</code>: Agente de marketing para redacción DevRel.</li>
 </ul>
 <h3>Publicación &amp; Contenido</h3>
 <ul>
 <li><code>merci-publish.py</code> y <code>merci-wp.py</code>: Generador estático dual y publicador masivo Headless.</li>
-<li><code>merci-linkedin.py</code>: Buffer asíncrono y motor de autenticación OIDC.</li>
+<li><code>merci-linkedin.py</code>: Buffer asíncrono y motor de autenticación <abbr title="Merci Explica: Candado electrónico para proteger la información de usuario" tabindex="0">OIDC</abbr>.</li>
 <li><code>merci-optimizer.py</code>: Escalado y conversión a WebP automática.</li>
 </ul>
 <h2>El Contrato de Desarrollo</h2>

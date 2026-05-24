@@ -23,7 +23,7 @@
       "merci_explica": "Un historial específico donde anotamos qué le hemos enseñado o modificado a la Inteligencia Artificial del proyecto.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L130"
+          "L161"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L988"
@@ -50,7 +50,7 @@
       "merci_explica": "Es como un mapa mental que usan los compiladores para entender y desglosar el código de programación que escribimos.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L231"
+          "L262"
         ]
       }
     },
@@ -167,7 +167,7 @@
       "merci_explica": "Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L109"
+          "L140"
         ],
         "bitacora-mercedev-epic-05.md": [
           "L266"
@@ -180,6 +180,1539 @@
         ],
         "bitacora-mercedev-epic-02.md": [
           "L820"
+        ]
+      }
+    },
+    "CNAME": {
+      "nombre": "CNAME",
+      "ingles": "Canonical Name Record",
+      "espanol": "Registro de Nombre Canónico",
+      "definicion": "Tipo de registro DNS que apunta un nombre de dominio a otro nombre de dominio. Se utiliza comúnmente para redirigir tráfico web a diferentes servidores o servicios.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L3570"
+        ]
+      }
+    },
+    "COEP": {
+      "nombre": "COEP",
+      "ingles": "Cross-Origin Embedder Policy",
+      "espanol": "Política de Embebimiento Cross-Origin",
+      "definicion": "Seguridad de contenido que controla cómo un documento puede cargar recursos desde otros orígenes. Proporciona una capa adicional de protección contra ataques de embeudo.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L3369"
+        ]
+      }
+    },
+    "COOP": {
+      "nombre": "COOP",
+      "ingles": "Cross-Origin Opener Policy",
+      "espanol": "Política de Abrir Cross-Origin",
+      "definicion": "Seguridad de contenido que controla cómo un documento puede abrir nuevas ventanas o pestañas. Ayuda a prevenir la abertura accidental de ventanas no confiables.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L3362"
+        ]
+      }
+    },
+    "COPE": {
+      "nombre": "COPE",
+      "ingles": "Continuous Operation and Protection Environment",
+      "espanol": "Entorno de Operación y Protección Continua",
+      "definicion": "Ambiente diseñado para mantener la operación segura y continua de sistemas críticos, mediante el monitoreo constante y las medidas de protección preventivas.",
+      "merci_explica": "Casa segura donde se mantiene encendida una lámpara sin apagarla nunca.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L1531"
+        ]
+      }
+    },
+    "CRF": {
+      "nombre": "CRF",
+      "ingles": "Clinical Research Form",
+      "espanol": "Formulario de Investigación Clínica",
+      "definicion": "Hoja de datos utilizada en estudios clínicos para recopilar información detallada sobre los participantes y sus resultados de pruebas médicas.",
+      "merci_explica": "Ficha médica especializada para recolectar datos durante un experimento médico.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L5382"
+        ]
+      }
+    },
+    "CRLF": {
+      "nombre": "CRLF",
+      "ingles": "Carriage Return Line Feed",
+      "espanol": "Retorno de carro y avance de línea",
+      "definicion": "Secuencia de caracteres utilizada en documentos electrónicos para indicar el final de una línea, consistiendo en un retorno de carro seguido de un avance de línea.",
+      "merci_explica": "Combinación que indica el final de una línea en un texto impreso o digital.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L1654"
+        ]
+      }
+    },
+    "CSP": {
+      "nombre": "CSP",
+      "ingles": "Content Security Policy",
+      "espanol": "Política de Seguridad de Contenido",
+      "definicion": "Mecanismo que permite a los desarrolladores definir qué fuentes son seguras para cargar recursos en una página web, ayudando así a prevenir ataques como XSS (Cross-Site Scripting) y Clickjacking.",
+      "merci_explica": "Política de seguridad que actúa como un guardián del contenido web.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L119"
+        ]
+      }
+    },
+    "CTA": {
+      "nombre": "CTA",
+      "ingles": "Call To Action",
+      "espanol": "Llamado a la Acción",
+      "definicion": "Elemento en una página web o aplicación que invita al usuario a realizar una acción específica, como hacer clic en un botón, llenar un formulario o suscribirse.",
+      "merci_explica": "Botón mágico que insta a la persona a tomar una decisión.",
+      "apariciones": {
+        "bitacora-mercedev-epic-05.md": [
+          "L108"
+        ]
+      }
+    },
+    "CTR": {
+      "nombre": "CTR",
+      "ingles": "Click-Through Rate",
+      "espanol": "Tasa de Clics",
+      "definicion": "Medida utilizada para evaluar el rendimiento de un anuncio o enlace, calculada como la proporción de clics recibidos sobre el número total de veces que se ha mostrado ese anuncio.",
+      "merci_explica": "Porcentaje de personas que hacen clic en una publicidad después de verla.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L234"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L1593"
+        ]
+      }
+    },
+    "CVE": {
+      "nombre": "CVE",
+      "ingles": "Common Vulnerabilities and Exposures",
+      "espanol": "Comunes Vulnerabilidades y Expuestas",
+      "definicion": "Identificador único asignado a una vulnerabilidad conocida en un software o sistema.",
+      "merci_explica": "Número de identificación para cada fallo de seguridad conocido, como un número de serie para los productos.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L2966"
+        ]
+      }
+    },
+    "CWV": {
+      "nombre": "CWV",
+      "ingles": "Common Weakness Vulnerability Database",
+      "espanol": "Base de Datos de Vulnerabilidades Comunes",
+      "definicion": "Repositorio centralizado que almacena información sobre las vulnerabilidades comunes en el software.",
+      "merci_explica": "Banco de datos donde se recopilan y clasifican las debilidades más frecuentes en la seguridad del software.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L1767"
+        ]
+      }
+    },
+    "DAST": {
+      "nombre": "DAST",
+      "ingles": "Dynamic Application Security Testing",
+      "espanol": "Pruebas de Seguridad Dinámica de Aplicaciones",
+      "definicion": "Método de pruebas de seguridad que simula ataques contra una aplicación en tiempo real para identificar vulnerabilidades.",
+      "merci_explica": "Escaneo interactivo del sistema mientras está en funcionamiento para detectar fallos de seguridad.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L61"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L177"
+        ]
+      }
+    },
+    "DLP": {
+      "nombre": "DLP",
+      "ingles": "Data Loss Prevention",
+      "espanol": "Prevenir Pérdida de Datos",
+      "definicion": "Tecnología y políticas que utilizan para proteger la información sensible al detectar, clasificar y controlar su movimiento dentro y fuera de una organización.",
+      "merci_explica": "Mecanismo de seguridad digital que actúa como un guardián vigilante para evitar la pérdida accidental o intencional de datos críticos.",
+      "apariciones": {
+        "bitacora-mercedev-epic-05.md": [
+          "L74"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L189"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L409"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L296"
+        ]
+      }
+    },
+    "DOTALL": {
+      "nombre": "DOTALL",
+      "ingles": "Dot All Mode",
+      "espanol": "Modo 'Dot All'",
+      "definicion": "Configuración en expresiones regulares que permite al punto (.) coincidir con todos los caracteres, incluyendo los de nueva línea.",
+      "merci_explica": "Función en programación que permite a la expresión regular capturar cualquier carácter, incluso los saltos de línea.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L1945"
+        ]
+      }
+    },
+    "DPR": {
+      "nombre": "DPR",
+      "ingles": "Data Privacy Regulation",
+      "espanol": "Regulación de Privacidad de Datos",
+      "definicion": "Normativa y ley que establece los derechos de los individuos sobre sus datos personales y las medidas que deben tomar las organizaciones para proteger dichos datos.",
+      "merci_explica": "Ley que regula cómo se manejan y protegen los datos personales, garantizando la privacidad del usuario.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L251"
+        ]
+      }
+    },
+    "DR": {
+      "nombre": "DR",
+      "ingles": "Disaster Recovery",
+      "espanol": "Recuperación ante Desastres",
+      "definicion": "Proceso y planificación para restaurar la operatividad de una organización después de un incidente catastrófico que interrumpa sus operaciones críticas.",
+      "merci_explica": "Respaldo rápido como una repisa para evitar el colapso ante una catástrofe.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L1123"
+        ]
+      }
+    },
+    "DX": {
+      "nombre": "DX",
+      "ingles": "Digital Experience",
+      "espanol": "Experiencia Digital",
+      "definicion": "Conjunto de experiencias que los clientes y usuarios tienen al interactuar con la tecnología digital de una organización.",
+      "merci_explica": "La experiencia que sientes cuando usas un producto o servicio digital, como si fuera un viaje en el espacio.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L112"
+        ],
+        "bitacora-mercedev-epic-05.md": [
+          "L98"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L49"
+        ],
+        "bitacora-mercedev-epic-04.md": [
+          "L56"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L439"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L208"
+        ]
+      }
+    },
+    "DevSecOps": {
+      "nombre": "DevSecOps",
+      "ingles": "Development Security Operations",
+      "espanol": "Desarrollo Seguridad Operaciones",
+      "definicion": "Enfoque que integra las prácticas de seguridad en todas las etapas del ciclo de vida del desarrollo y operaciones, para garantizar la protección continua de los sistemas y aplicaciones.",
+      "merci_explica": "El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas.",
+      "apariciones": {
+        "bitacora-merci-boilerplate.md": [
+          "L17"
+        ],
+        "bitacora-mercedev-epic-06.md": [
+          "L39"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L103"
+        ],
+        "bitacora-mercedev-epic-04.md": [
+          "L79"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L59"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L47"
+        ]
+      }
+    },
+    "E2EE": {
+      "nombre": "E2EE",
+      "ingles": "End-to-End Encryption",
+      "espanol": "Cifrado Fin de Punto a Fin",
+      "definicion": "Tecnología que garantiza que solo el emisor y el receptor de un mensaje puedan leerlo, cifrando completamente la comunicación entre ellos en todo momento.",
+      "merci_explica": "Cerradura digital que asegura que solo tú y el destinatario pueden abrir el paquete.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L393"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L1403"
+        ]
+      }
+    },
+    "FCP": {
+      "nombre": "FCP",
+      "ingles": "First Class Passenger",
+      "espanol": "Pasajero de Primera Clase",
+      "definicion": "Proceso de seguridad en ciberseguridad que garantiza la confidencialidad, integridad y disponibilidad de los datos durante su transmisión o almacenamiento.",
+      "merci_explica": "Guardia del reino digital que protege tus bienes personales.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L199"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L158"
+        ]
+      }
+    },
+    "GC": {
+      "nombre": "GC",
+      "ingles": "Government Cloud",
+      "espanol": "Nube gubernamental",
+      "definicion": "Servicio de infraestructura en la nube gestionado por el gobierno, diseñado para almacenar y procesar datos confidenciales de manera segura.",
+      "merci_explica": "Casa digital del estado donde se almacenan los secretos gubernamentales.",
+      "apariciones": {
+        "bitacora-mercedev-epic-05.md": [
+          "L54"
+        ]
+      }
+    },
+    "GCP": {
+      "nombre": "GCP",
+      "ingles": "Google Cloud Platform",
+      "espanol": "Plataforma de Nubes de Google",
+      "definicion": "Conjunto de servicios y herramientas en la nube proporcionados por Google, que permiten a los desarrolladores y empresas crear, implementar y gestionar aplicaciones y datos en Internet.",
+      "merci_explica": "Caja mágica en la nube donde puedes almacenar tus datos y ejecutar tus aplicaciones.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L5533"
+        ]
+      }
+    },
+    "GDPR": {
+      "nombre": "GDPR",
+      "ingles": "General Data Protection Regulation",
+      "espanol": "Reglamento General de Protección de Datos",
+      "definicion": "Leyes y regulaciones europeas que protegen los derechos de los individuos en cuanto a la recopilación, almacenamiento, acceso y protección de sus datos personales.",
+      "merci_explica": "Norma legal para cuidar tus datos como si fueran tu propiedad.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L1403"
+        ]
+      }
+    },
+    "GGUF": {
+      "nombre": "GGUF",
+      "ingles": "Google Universal Fingerprinting",
+      "espanol": "Fingerprintaje Universal de Google",
+      "definicion": "Técnica utilizada por Google para identificar y rastrear dispositivos en Internet, basándose en una combinación de características únicas del dispositivo.",
+      "merci_explica": "Mano invisible que te reconoce a través de tu dispositivo sin necesidad de un nombre de usuario.",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L1066"
+        ]
+      }
+    },
+    "GPU": {
+      "nombre": "GPU",
+      "ingles": "Graphics Processing Unit",
+      "espanol": "Unidad de Procesamiento Gráfico",
+      "definicion": "Componente de hardware que se encarga de la renderización gráfica y el procesamiento de imágenes en computadoras, tablets y dispositivos móviles.",
+      "merci_explica": "Cerebro visual de la computadora.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L2685"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L784"
+        ]
+      }
+    },
+    "GUI": {
+      "nombre": "GUI",
+      "ingles": "Graphical User Interface",
+      "espanol": "Interfaz Gráfica de Usuario",
+      "definicion": "Sistema que permite a los usuarios interactuar con un software o sistema mediante gráficos, imágenes y elementos visuales en lugar de comandos de texto.",
+      "merci_explica": "Ventana donde interactúas con el ordenador.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L986"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L1042"
+        ]
+      }
+    },
+    "HSTS": {
+      "nombre": "HSTS",
+      "ingles": "HTTP Strict Transport Security",
+      "espanol": "Seguridad estricta de transporte HTTP",
+      "definicion": "Protocolo que impide que los usuarios accedan a un sitio web mediante conexiones no seguras (HTTPS) y fuerza el uso exclusivo de HTTPS para todas las solicitudes del usuario.",
+      "merci_explica": "Regla estricta que asegura que todo lo que sale de tu navegador sea seguro.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L3219"
+        ]
+      }
+    },
+    "IA-Fix": {
+      "nombre": "IA-Fix",
+      "ingles": "AI-Fix",
+      "espanol": "Corrección Automática de Inteligencia Artificial",
+      "definicion": "Proceso automatizado que utiliza algoritmos y técnicas de aprendizaje automático para identificar y corregir errores o deficiencias en el código fuente de software, mejorando así la calidad del mismo.",
+      "merci_explica": "Mejoramiento continuo del sistema mediante correcciones inteligentes.",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L1406"
+        ]
+      }
+    },
+    "IDE": {
+      "nombre": "IDE",
+      "ingles": "Integrated Development Environment",
+      "espanol": "Entorno de Desarrollo Integrado",
+      "definicion": "Software que proporciona un conjunto completo de herramientas y funcionalidades necesarias para desarrollar, depurar y gestionar proyectos de software en una sola interfaz.",
+      "merci_explica": "Herramienta única para programadores que facilita la creación y mantenimiento de software.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L1985"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L142"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L358"
+        ]
+      }
+    },
+    "IEEE": {
+      "nombre": "IEEE",
+      "ingles": "Institute of Electrical and Electronics Engineers",
+      "espanol": "Instituto de Ingeniería Eléctrica y Electrónica",
+      "definicion": "Organización internacional dedicada a la promoción, difusión y aplicación del conocimiento en el campo de la electrónica y la ingeniería eléctrica.",
+      "merci_explica": "Entidad que standardiza prácticas y tecnologías en el ámbito de la electricidad y la electrónica.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L635"
+        ]
+      }
+    },
+    "INP": {
+      "nombre": "INP",
+      "ingles": "Input",
+      "espanol": "Entrada",
+      "definicion": "Datos proporcionados por el usuario o desde otro sistema que son necesarios para realizar una operación específica.",
+      "merci_explica": "La entrada es como los ingredientes de una receta, sin ellos no se puede preparar nada.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L43"
+        ],
+        "bitacora-mercedev-epic-04.md": [
+          "L73"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L160"
+        ]
+      }
+    },
+    "JSON-LD": {
+      "nombre": "JSON-LD",
+      "ingles": "JSON-LD",
+      "espanol": "JSON con Datos Estructurados",
+      "definicion": "Formato de datos que utiliza JavaScript Object Notation (JSON) para codificar información adicional en una página web, mejorando la capacidad de los motores de búsqueda para entender y rastrear el contenido.",
+      "merci_explica": "JSON-LD es como etiquetas adicionales en un libro, que proporcionan contexto extra para ayudar a los lectores a entender mejor el contenido.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L447"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L233"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L43"
+        ]
+      }
+    },
+    "JWT": {
+      "nombre": "JWT",
+      "ingles": "JSON Web Token",
+      "espanol": "Token de Web JSON",
+      "definicion": "Formato de token compacto y seguro que se utiliza para transmitir información entre dos partes como un cliente y un servidor. Está basado en el estándar JSON (JavaScript Object Notation).",
+      "merci_explica": "JWT es como una cédula de identidad digital, que permite a los sistemas verificar la autenticidad y la integridad de la información sin necesidad de almacenarla.",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L1268"
+        ]
+      }
+    },
+    "KISS": {
+      "nombre": "KISS",
+      "ingles": "Keep It Simple, Stupid",
+      "espanol": "Manténlo sencillo, tonto",
+      "definicion": "Principe de diseño que sugiere simplificar la arquitectura y el código software para evitar complejidad innecesaria y mejorar la mantenibilidad.",
+      "merci_explica": "El KISS es como un planificador que dice: 'Si no lo necesitas, no lo hagas.'",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L229"
+        ]
+      }
+    },
+    "LA": {
+      "nombre": "LA",
+      "ingles": "Latency Analysis",
+      "espanol": "Análisis de Latencia",
+      "definicion": "Proceso de medición y análisis del tiempo que tarda un sistema o componente en responder a una solicitud, lo cual es crucial para mejorar la experiencia del usuario y garantizar la escalabilidad.",
+      "merci_explica": "La Latencia Analysis es como el cronómetro que mide cuánto tiempo toma que tu sitio web responda cuando alguien hace clic en un botón.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L4079"
+        ]
+      }
+    },
+    "LCP": {
+      "nombre": "LCP",
+      "ingles": " Largest Contentful Paint",
+      "espanol": "Máxima Pintura Contenida",
+      "definicion": "Medición del tiempo que tarda el navegador en pintar el primer elemento crítico visible de la página, lo cual es un indicador clave de la velocidad y rendimiento de una página web.",
+      "merci_explica": "LCP es como medir cuánto tiempo toma que tu sitio web muestre su contenido más importante al usuario.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L163"
+        ],
+        "bitacora-mercedev-epic-04.md": [
+          "L130"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L160"
+        ]
+      }
+    },
+    "LEMP": {
+      "nombre": "LEMP",
+      "ingles": "Linux, Nginx, MySQL, PHP",
+      "espanol": "LINUX, NGINX, MYSQL, PHP",
+      "definicion": "Conjunto de software libre que permite la creación y despliegue de aplicaciones web dinámicas. Linux es el sistema operativo, Nginx sirve como servidor web, MySQL almacena los datos en una base de datos relacional, y PHP procesa el código del lado del servidor.",
+      "merci_explica": "Pila de herramientas que permite construir aplicaciones web robustas y escalables.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L3773"
+        ]
+      }
+    },
+    "LF": {
+      "nombre": "LF",
+      "ingles": "Linux Foundation",
+      "espanol": "Fundación Linux",
+      "definicion": "Organización sin fines de lucro dedicada a promover la cultura, el desarrollo y la utilización del software libre. La Fundación Linux es responsable de mantener y mejorar proyectos como Linux.",
+      "merci_explica": "Entidad que respalda y nutre el ecosistema Linux.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L1654"
+        ]
+      }
+    },
+    "LLM": {
+      "nombre": "LLM",
+      "ingles": "Large Language Model",
+      "espanol": "Modelo de Lenguaje Grande",
+      "definicion": "Un tipo avanzado de modelo de inteligencia artificial diseñado para entender y generar texto en múltiples idiomas. Los modelos de lenguaje grande son fundamentales para aplicaciones como el chatbot, la traducción automática y la generación de contenido creativo.",
+      "merci_explica": "Máquina que aprende a procesar y generar texto humano de manera autónoma.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L41"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L441"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L222"
+        ]
+      }
+    },
+    "MIME": {
+      "nombre": "MIME",
+      "ingles": "Multipurpose Internet Mail Extensions",
+      "espanol": "Extensiones para Internet de Propósito General",
+      "definicion": "Formato estándar que describe el tipo de contenido en una transmisión de datos en Internet, como archivos adjuntos de correo electrónico o partes de un mensaje MIME.",
+      "merci_explica": "Etiqueta digital que identifica el tipo de contenido, como 'texto/html' para páginas web.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L3618"
+        ]
+      }
+    },
+    "MIME-sniffing": {
+      "nombre": "MIME-sniffing",
+      "ingles": "Multipurpose Internet Mail Extensions sniffing",
+      "espanol": "Inspección de Extensiones para Internet de Propósito General",
+      "definicion": "Proceso que un navegador utiliza para determinar el tipo de contenido de una respuesta HTTP basándose en la información proporcionada por el servidor, en lugar del tipo MIME declarado.",
+      "merci_explica": "Juega a adivinar el tipo de archivo basándose en su contenido, como si fuera un detective.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L3374"
+        ]
+      }
+    },
+    "MVP": {
+      "nombre": "MVP",
+      "ingles": "Minimum Viable Product",
+      "espanol": "Producto Mínimo Viable",
+      "definicion": "Versión básica y funcional de un producto que permite a los desarrolladores demostrar el concepto, validar la demanda del mercado y recoger retroalimentación antes de continuar con el desarrollo completo.",
+      "merci_explica": "Prototipo básico que muestra lo esencial para probar una idea.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L1197"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L1408"
+        ]
+      }
+    },
+    "NAS": {
+      "nombre": "NAS",
+      "ingles": "Network Attached Storage",
+      "espanol": "Almacenamiento Conectado a la Red",
+      "definicion": "Sistema de almacenamiento que se conecta a una red y permite que múltiples dispositivos accedan y compartan archivos y datos.",
+      "merci_explica": "Caja de seguridad en la nube para tus documentos.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L5596"
+        ]
+      }
+    },
+    "NAT": {
+      "nombre": "NAT",
+      "ingles": "Network Address Translation",
+      "espanol": "Traducción de Direcciones de Red",
+      "definicion": "Tecnología que permite a múltiples dispositivos en una red local compartir una única dirección IP pública al acceder a Internet.",
+      "merci_explica": "Portero virtual que protege tu hogar mientras te conectas a la web.",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L394"
+        ]
+      }
+    },
+    "NFKD": {
+      "nombre": "NFKD",
+      "ingles": "Normalization Form Canonical Composition Decomposition",
+      "espanol": "Forma Normalizada Canonica Composición Descomposición",
+      "definicion": "Proceso que convierte caracteres Unicode en su forma normalizada, asegurando que todos los caracteres sean representados de manera única y consistente.",
+      "merci_explica": "Limpia y organiza el texto para que se vea limpio y coherente.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L912"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L2498"
+        ]
+      }
+    },
+    "OG": {
+      "nombre": "OG",
+      "ingles": "Open Graph Protocol",
+      "espanol": "Protocolo de Gráfica Abierta",
+      "definicion": "Especificación que permite a las páginas web compartir metadatos en redes sociales, como imágenes y títulos, para mejorar la representación del contenido cuando se comparte.",
+      "merci_explica": "Código QR para compartir contenido",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L1562"
+        ]
+      }
+    },
+    "OIDC": {
+      "nombre": "OIDC",
+      "ingles": "OpenID Connect",
+      "espanol": "Conexión de OpenID",
+      "definicion": "Protocolo de autenticación basado en OAuth 2.0 que permite a los usuarios iniciar sesión en aplicaciones web utilizando sus cuentas de identidad existentes, como Google o Facebook.",
+      "merci_explica": "Candado electrónico para proteger la información de usuario",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L118"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L978"
+        ]
+      }
+    },
+    "OOBE": {
+      "nombre": "OOBE",
+      "ingles": "Out of the Box Experience",
+      "espanol": "Experiencia de Uso Inmediato",
+      "definicion": "Proceso de configuración inicial y presentación de un producto o servicio para que el usuario pueda comenzar a usarlo sin necesidad de instrucciones adicionales.",
+      "merci_explica": "Manual del usuario digital",
+      "apariciones": {
+        "bitacora-mercedev-epic-05.md": [
+          "L50"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L425"
+        ],
+        "bitacora-mercedev-epic-04.md": [
+          "L44"
+        ]
+      }
+    },
+    "OOM": {
+      "nombre": "OOM",
+      "ingles": "Out of Memory",
+      "espanol": "Sin Memoria",
+      "definicion": "Condición en la que un proceso de computadora se queda sin memoria RAM disponible para continuar su ejecución, lo que puede llevar a su finalización.",
+      "merci_explica": "Cuando un libro se llena y no hay espacio adicional para escribir más.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L2693"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L1024"
+        ]
+      }
+    },
+    "PGP": {
+      "nombre": "PGP",
+      "ingles": "Pretty Good Privacy",
+      "espanol": "Privacidad Aceptable",
+      "definicion": "Protocolo de cifrado utilizado para proteger la privacidad y la integridad de los datos en transmisión y almacenamiento.",
+      "merci_explica": "Como si fuera un cierre fuerte que protege tu maletín de robar.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L235"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L1355"
+        ]
+      }
+    },
+    "PHP-FPM": {
+      "nombre": "PHP-FPM",
+      "ingles": "PHP FastCGI Process Manager",
+      "espanol": "Manejador de Procesos PHP FastCGI",
+      "definicion": "Software que permite a los servidores web procesar solicitudes PHP de manera eficiente y segura, utilizando el protocolo FastCGI.",
+      "merci_explica": "Como si fuera un conductor que maneja eficientemente el tráfico en una carretera, asegurando que todos lleguen a su destino sin problemas.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L4106"
+        ]
+      }
+    },
+    "PII": {
+      "nombre": "PII",
+      "ingles": "Personally Identifiable Information",
+      "espanol": "Información Personalmente Identificable",
+      "definicion": "Datos que pueden ser utilizados para identificar a una persona individual, como nombre completo, dirección de correo electrónico o número de identificación oficial.",
+      "merci_explica": "Claves para la privacidad, como los datos con los que uno puede ser reconocido.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L478"
+        ]
+      }
+    },
+    "POO": {
+      "nombre": "POO",
+      "ingles": "Principles of Object-Oriented Programming",
+      "espanol": "Principios de Programación Orientada a Objetos",
+      "definicion": "Enfoque en la creación de objetos que encapsulan datos y comportamientos relacionados, facilitando la organización y reutilización del código.",
+      "merci_explica": "Arquitectura modular para construir software complejo.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L2088"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L602"
+        ]
+      }
+    },
+    "POSIX": {
+      "nombre": "POSIX",
+      "ingles": "Portable Operating System Interface",
+      "espanol": "Interfaz de Sistema Operativo Portátil",
+      "definicion": "Estandarización del sistema operativo que permite la compatibilidad entre diferentes plataformas Unix y Linux, asegurando una interfaz uniforme para aplicaciones.",
+      "merci_explica": "Base común para sistemas operativos Unix y Linux.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L566"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L206"
+        ]
+      }
+    },
+    "PR": {
+      "nombre": "PR",
+      "ingles": "Public Relations",
+      "espanol": "Relaciones Públicas",
+      "definicion": "Conjunto de técnicas y estrategias utilizadas por una organización para comunicarse con su público objetivo, construir y mantener una buena imagen corporativa, y gestionar la percepción pública.",
+      "merci_explica": "Cerco de protección que rodea a una empresa, protegiendo su reputación y comunicándose con sus clientes.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L26"
+        ],
+        "bitacora-mercedev-epic-05.md": [
+          "L26"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L28"
+        ],
+        "bitacora-mercedev-epic-04.md": [
+          "L26"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L29"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L28"
+        ]
+      }
+    },
+    "PSD": {
+      "nombre": "PSD",
+      "ingles": "Photoshop Design",
+      "espanol": "Diseño en Photoshop",
+      "definicion": "Proceso de creación o edición de imágenes digitales utilizando el software Adobe Photoshop, que permite a los diseñadores crear gráficos y editar fotografías con alta calidad.",
+      "merci_explica": "Herramienta maestra para transformar ideas visuales en realidad digital.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L5590"
+        ]
+      }
+    },
+    "QA": {
+      "nombre": "QA",
+      "ingles": "Quality Assurance",
+      "espanol": "Garantía de Calidad",
+      "definicion": "Proceso sistemático y documentado que se utiliza para asegurar que un producto o servicio cumple con los estándares de calidad definidos antes del lanzamiento.",
+      "merci_explica": "Inspector de alta precisión que garantiza que todo funcione como debe.",
+      "apariciones": {
+        "bitacora-mercedev-epic-05.md": [
+          "L81"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L85"
+        ],
+        "bitacora-mercedev-epic-04.md": [
+          "L52"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L171"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L582"
+        ]
+      }
+    },
+    "RAG": {
+      "nombre": "RAG",
+      "ingles": "Recovery As-Is",
+      "espanol": "Recuperación Como Está",
+      "definicion": "Proceso de recuperación que permite a un sistema o servicio devolverse a su estado anterior sin necesidad de realizar cambios significativos en el código fuente.",
+      "merci_explica": "Es como hacer una copia de seguridad del sistema y luego restaurarla cuando algo falla, asegurando que todo funcione igual que antes.",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L1156"
+        ]
+      }
+    },
+    "RAW": {
+      "nombre": "RAW",
+      "ingles": "Raw Data",
+      "espanol": "Datos Crudos",
+      "definicion": "Información no procesada o sin formato que se recopila directamente de fuentes originales.",
+      "merci_explica": "Son los datos brutos, como las imágenes tomadas con una cámara o los sonidos grabados con un microfón.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L5590"
+        ]
+      }
+    },
+    "RCE": {
+      "nombre": "RCE",
+      "ingles": "Remote Code Execution",
+      "espanol": "Ejecución de Código Remoto",
+      "definicion": "Ataque en el que un atacante ejecuta código malicioso en una máquina o sistema remoto sin autorización.",
+      "merci_explica": "Es como si alguien pudiera usar tu computadora para hacer cosas que no quieres, porque te han hackeado.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L73"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L4663"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L122"
+        ]
+      }
+    },
+    "REST": {
+      "nombre": "REST",
+      "ingles": "Representational State Transfer",
+      "espanol": "Transferencia de Estado Representacional",
+      "definicion": "Arquitectura de software que utiliza protocolos HTTP para implementar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) en recursos identificados por URLs. Cada solicitud del cliente a un servidor RESTful es independiente y puede ser procesada en paralelo.",
+      "merci_explica": "Sistema de comunicación entre aplicaciones donde cada mensaje contiene toda la información necesaria para entender el contexto.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L136"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L641"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L799"
+        ]
+      }
+    },
+    "ROI": {
+      "nombre": "ROI",
+      "ingles": "Return on Investment",
+      "espanol": "Retorno sobre Inversión",
+      "definicion": "Medida que evalúa la eficiencia de una inversión, calculada como la diferencia entre los beneficios generados y el costo inicial de la inversión. Se expresa generalmente como un porcentaje.",
+      "merci_explica": "Calculo que determina cuánto dinero se ha ganado o perdido en relación con el dinero invertido.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L1531"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L1203"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L1162"
+        ]
+      }
+    },
+    "RPM": {
+      "nombre": "RPM",
+      "ingles": "Revolutions Per Minute",
+      "espanol": "Revoluciones Por Minuto",
+      "definicion": "Medida de velocidad que indica cuántas veces se realiza una rotación completa en un minuto. Aunque no es específico del campo de Arquitectura o DevSecOps, este término puede referirse a la velocidad de procesamiento o la frecuencia de actualizaciones en sistemas de software.",
+      "merci_explica": "Velocidad medida por el número de rotaciones completas que realiza un motor o sistema dentro de un minuto.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L142"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L1282"
+        ]
+      }
+    },
+    "RSA": {
+      "nombre": "RSA",
+      "ingles": "Rivest-Shamir-Adleman",
+      "espanol": "Rivest-Shamir-Adleman",
+      "definicion": "Algoritmo de criptografía asimétrica que utiliza dos claves distintas: una pública para cifrar y otra privada para descifrar.",
+      "merci_explica": "Llave pública como llave de entrada, llave privada como llave de salida.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L381"
+        ]
+      }
+    },
+    "SASS": {
+      "nombre": "SASS",
+      "ingles": "Syntactically Awesome Style Sheets",
+      "espanol": "Hoja de Estilos Sintácticamente Agradable",
+      "definicion": "Preprocesador CSS que añade características avanzadas como variables, anidación y funciones para facilitar la creación y mantenimiento de hojas de estilos.",
+      "merci_explica": "CSS con superpoderes.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L423"
+        ],
+        "bitacora-mercedev-epic-04.md": [
+          "L98"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L105"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L1524"
+        ]
+      }
+    },
+    "SAST": {
+      "nombre": "SAST",
+      "ingles": "Static Application Security Testing",
+      "espanol": "Pruebas de Seguridad de Aplicaciones Estáticas",
+      "definicion": "Técnica que analiza el código fuente o binario de una aplicación sin ejecutarla, para identificar vulnerabilidades y riesgos de seguridad.",
+      "merci_explica": "Escaneo del código como si fuera un libro abierto.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L61"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L3501"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L248"
+        ]
+      }
+    },
+    "SELF-HEALING": {
+      "nombre": "SELF-HEALING",
+      "ingles": "Self-Healing",
+      "espanol": "Auto-reparación",
+      "definicion": "Capacidad de un sistema o componente para detectar y solucionar problemas automáticamente sin intervención humana.",
+      "merci_explica": "Sistema que se cura por sí mismo, como una planta que recupera las heridas.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L118"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L644"
+        ]
+      }
+    },
+    "SHA": {
+      "nombre": "SHA",
+      "ingles": "Secure Hash Algorithm",
+      "espanol": "Algoritmo de Resumen Seguro",
+      "definicion": "Conjunto de algoritmos de hash diseñados para garantizar la integridad y autenticidad de los datos mediante el generación de un resumen único.",
+      "merci_explica": "Doblado de un libro para verificar que no se ha alterado.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L940"
+        ]
+      }
+    },
+    "SHA-256": {
+      "nombre": "SHA-256",
+      "ingles": "Secure Hash Algorithm 256-bit",
+      "espanol": "Algoritmo de Resumen Seguro de 256 bits",
+      "definicion": "Versión específica del algoritmo SHA que genera un resumen de 256 bits (32 bytes) para garantizar la integridad y autenticidad de los datos.",
+      "merci_explica": "Código postal único para verificar la dirección exacta de una casa.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L3225"
+        ]
+      }
+    },
+    "SLM": {
+      "nombre": "SLM",
+      "ingles": "Service Level Management",
+      "espanol": "Gestión de Niveles de Servicio",
+      "definicion": "Proceso que permite definir, establecer, implementar y mantener los estándares y expectativas para el nivel de servicio que un sistema o organización proporciona a sus clientes o usuarios.",
+      "merci_explica": "Planificador de horarios escolares",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L252"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L753"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L158"
+        ]
+      }
+    },
+    "SMTP": {
+      "nombre": "SMTP",
+      "ingles": "Simple Mail Transfer Protocol",
+      "espanol": "Protocolo de Transferencia Simple de Correo",
+      "definicion": "Protocolo utilizado para enviar correos electrónicos a través de Internet. Permite la comunicación entre dos servidores de correo electrónico, asegurando que los mensajes sean entregados de manera segura y eficiente.",
+      "merci_explica": "Entregador de paquetes",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L1039"
+        ]
+      }
+    },
+    "SI": {
+      "nombre": "SI",
+      "ingles": "System Integration",
+      "espanol": "Integración del Sistema",
+      "definicion": "Proceso de unión y coordinación de diferentes componentes o sistemas para crear una solución completa y funcional.",
+      "merci_explica": "Conectar piezas como un rompecabezas, pero en lugar de formar una imagen, asegurarse de que todas las partes trabajen juntas sin problemas.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L158"
+        ]
+      }
+    },
+    "SOLID": {
+      "nombre": "SOLID",
+      "ingles": "Single Responsibility Principle, Open/Closed Principle, Liskov Substitution Principle, Interface Segregation Principle, Dependency Inversion Principle",
+      "espanol": "Principio de Responsabilidad Única, Principio Abierto/Cerrado, Principio de Sustitución de Liskov, Principio de Segregación de Interfaces, Principio de Inversión de Dependencias",
+      "definicion": "Conjunto de principios de diseño orientado a objetos que promueven la creación de software más flexible, mantenible y extensible.",
+      "merci_explica": "Reglas para construir una casa sólida: cada muro tiene su propia función, las puertas se pueden cambiar sin afectar el resto del edificio, etc.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L1833"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L3184"
+        ]
+      }
+    },
+    "SOP": {
+      "nombre": "SOP",
+      "ingles": "Standard Operating Procedure",
+      "espanol": "Procedimiento Operativo Estándar",
+      "definicion": "Conjunto de instrucciones detalladas y estándarizadas que describen cómo realizar una tarea o proceso en un entorno organizacional.",
+      "merci_explica": "Manual de instrucciones para cocinar un plato, asegurando que cada paso sea claro y siga las mismas reglas cada vez.",
+      "apariciones": {
+        "bitacora-mercedev-epic-05.md": [
+          "L156"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L339"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L97"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L532"
+        ]
+      }
+    },
+    "SRE": {
+      "nombre": "SRE",
+      "ingles": "Site Reliability Engineering",
+      "espanol": "Ingeniería de Fiabilidad del Sitio",
+      "definicion": "Área dentro de DevOps que se encarga de mejorar la confiabilidad, el rendimiento y la disponibilidad de los servicios digitales a través de prácticas de ingeniería.",
+      "merci_explica": "Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L347"
+        ],
+        "bitacora-mercedev-epic-04.md": [
+          "L46"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L48"
+        ]
+      }
+    },
+    "SRP": {
+      "nombre": "SRP",
+      "ingles": "Single Responsibility Principle",
+      "espanol": "Principio de Responsabilidad Única",
+      "definicion": "Regla de diseño que establece que una clase o módulo debe tener solo un motivo para cambiar, lo que facilita su mantenimiento y escalabilidad.",
+      "merci_explica": "Garantiza que cada componente del sistema tenga un propósito específico y no dependa de otros por más allá de lo necesario.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L1312"
+        ]
+      }
+    },
+    "SSOT": {
+      "nombre": "SSOT",
+      "ingles": "Single Source of Truth",
+      "espanol": "Un Único Origen de la Verdad",
+      "definicion": "Principio que indica que solo debe haber un lugar fiable donde se almacene y se actualice la información crítica, evitando conflictos y inconsistencias.",
+      "merci_explica": "Mecanismo para mantener una única fuente de verdad sobre los datos importantes dentro de un sistema.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L88"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L325"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L50"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L318"
+        ]
+      }
+    },
+    "SSRF": {
+      "nombre": "SSRF",
+      "ingles": "Server-Side Request Forgery",
+      "espanol": "Falso Pedido de Servidor Lado Servidor",
+      "definicion": "Ataque en el que un atacante forza a una aplicación web a realizar solicitudes HTTP o HTTPS a recursos no autorizados, utilizando los permisos del servidor.",
+      "merci_explica": "Cosa como una persona que te convence de ir a una tienda equivocada para comprar algo.",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L122"
+        ]
+      }
+    },
+    "Shift-Left": {
+      "nombre": "Shift-Left",
+      "ingles": "Despliegue Anticipado",
+      "espanol": "Despliegue Anticipado",
+      "definicion": "Enfoque en la implementación de prácticas de seguridad desde el inicio del ciclo de desarrollo, integrándolas en las fases tempranas para prevenir vulnerabilidades antes de que lleguen al entorno de producción.",
+      "merci_explica": "Mecanismo para asegurar que las puertas estén cerradas incluso antes de que la casa esté lista.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L152"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L61"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L413"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L238"
+        ]
+      }
+    },
+    "Shift-Right": {
+      "nombre": "Shift-Right",
+      "ingles": "Despliegue Retrasado",
+      "espanol": "Despliegue Retrasado",
+      "definicion": "Enfoque en el despliegue de aplicaciones y sistemas en fases tempranas del ciclo de vida, lo que permite identificar problemas y errores más fácilmente antes de la producción final.",
+      "merci_explica": "Mecanismo para asegurar que las puertas estén cerradas incluso después de que la casa esté lista.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L4246"
+        ]
+      }
+    },
+    "TBT": {
+      "nombre": "TBT",
+      "ingles": "Time-Based Trigger",
+      "espanol": "Desencadenador Basado en Tiempo",
+      "definicion": "Mecanismo que ejecuta una acción o proceso en función de un tiempo específico, establecido previamente.",
+      "merci_explica": "Reloj digital que toca la melodía correcta al momento indicado.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L184"
+        ],
+        "bitacora-mercedev-epic-05.md": [
+          "L77"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L203"
+        ],
+        "bitacora-mercedev-epic-04.md": [
+          "L52"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L160"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L612"
+        ]
+      }
+    },
+    "TCP": {
+      "nombre": "TCP",
+      "ingles": "Transmission Control Protocol",
+      "espanol": "Protocolo de Control de Transmisión",
+      "definicion": "Protocolo de red utilizado para establecer conexiones confiables entre dos puntos finales en una red, garantizando la entrega segura y ordenada de los datos.",
+      "merci_explica": "Vigía el camino hacia tu destino, asegurándose de que llegues sin errores.",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L408"
+        ]
+      }
+    },
+    "TIMESTAMP": {
+      "nombre": "TIMESTAMP",
+      "ingles": "Time Stamp",
+      "espanol": "Marca de Tiempo",
+      "definicion": "Etiqueta o marca que indica la fecha y hora exacta en que un evento ocurre.",
+      "merci_explica": "Fotografía del instante, marcando el momento preciso.",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L620"
+        ]
+      }
+    },
+    "TL": {
+      "nombre": "TL",
+      "ingles": "Time to Live",
+      "espanol": "Tiempo de Vida",
+      "definicion": "Duración durante la cual un recurso en una red puede ser utilizado antes de que expire y deba ser actualizado.",
+      "merci_explica": "Vigilante del tiempo, asegurando que los recursos no queden obsoletos.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L46"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L1123"
+        ]
+      }
+    },
+    "TTFB": {
+      "nombre": "TTFB",
+      "ingles": "Time to First Byte",
+      "espanol": "Tiempo hasta el Primer Byte",
+      "definicion": "Intervalo de tiempo desde que un cliente hace una solicitud hasta que recibe el primer byte de la respuesta del servidor.",
+      "merci_explica": "Primer contacto, indicando cuánto tiempo espera el usuario antes de recibir su primera reacción.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L2003"
+        ],
+        "bitacora-mercedev-epic-04.md": [
+          "L112"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L2070"
+        ]
+      }
+    },
+    "UFW": {
+      "nombre": "UFW",
+      "ingles": "Uncomplicated Firewall",
+      "espanol": "Filtro de Paquetes Simplificado",
+      "definicion": "Sistema de seguridad que permite o deniega el tráfico entrante y saliente en una red basado en reglas preestablecidas.",
+      "merci_explica": "Guardián de la puerta, controlando quién puede entrar y salir de la red.",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L404"
+        ]
+      }
+    },
+    "URI": {
+      "nombre": "URI",
+      "ingles": "Uniform Resource Identifier",
+      "espanol": "Identificador Uniforme de Recurso",
+      "definicion": "Cadena de texto que identifica de manera única un recurso en una red, como una página web o un archivo.",
+      "merci_explica": "Etiqueta única para ubicar y acceder a recursos en la web.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L173"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L912"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L1215"
+        ]
+      }
+    },
+    "UTF-8": {
+      "nombre": "UTF-8",
+      "ingles": "Unicode Transformation Format - 8-bit",
+      "espanol": "Formato de Transformación Unicode - 8 bits",
+      "definicion": "Codificación de caracteres que permite representar prácticamente todos los caracteres del mundo en un solo formato.",
+      "merci_explica": "Código universal para codificar texto, asegurando que cualquier carácter se pueda representar correctamente.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L4498"
+        ]
+      }
+    },
+    "VCL": {
+      "nombre": "VCL",
+      "ingles": "Virtual Controller Language",
+      "espanol": "Lenguaje de Control Virtual",
+      "definicion": "Lenguaje de programación utilizado para escribir reglas y políticas en sistemas de control virtual, como los servidores web.",
+      "merci_explica": "Lenguaje específico para configurar el comportamiento del sistema de control virtual.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L131"
+        ]
+      }
+    },
+    "WAF": {
+      "nombre": "WAF",
+      "ingles": "Web Application Firewall",
+      "espanol": "Filtro de Aplicaciones Web",
+      "definicion": "Software que protege aplicaciones web contra amenazas cibernéticas, como ataques XSS (Cross-Site Scripting) y SQL Injection.",
+      "merci_explica": "Muro de seguridad para aplicaciones web.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L952"
+        ]
+      }
+    },
+    "WAI-ARIA": {
+      "nombre": "WAI-ARIA",
+      "ingles": "Web Accessibility Initiative - Accessible Rich Internet Applications",
+      "espanol": "Iniciativa Web de Accesibilidad - Aplicaciones de Internet Ricas en Accesibilidad",
+      "definicion": "Conjunto de atributos y técnicas que mejoran la accesibilidad para personas con discapacidades visuales, auditivas o motoras en aplicaciones web interactivas.",
+      "merci_explica": "Herramienta para hacer que las aplicaciones web sean más fáciles de usar para todos.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L558"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L406"
+        ]
+      }
+    },
+    "WC": {
+      "nombre": "WC",
+      "ingles": "World Cup",
+      "espanol": "Copa del Mundo",
+      "definicion": "El mayor torneo internacional de fútbol, celebrado cada cuatro años entre selecciones nacionales.",
+      "merci_explica": "Juego anual de fútbol global.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L1207"
+        ]
+      }
+    },
+    "WET": {
+      "nombre": "WET",
+      "ingles": "Write Everything Twice",
+      "espanol": "Escribir Todo dos Vezes",
+      "definicion": "Práctica de desarrollo web en la que cada elemento del sitio web se define tanto en HTML como en CSS, lo que duplica el esfuerzo y aumenta la posibilidad de errores.",
+      "merci_explica": "Duplicado de código para asegurar consistencia visual.",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L594"
+        ]
+      }
+    },
+    "WP-CLI": {
+      "nombre": "WP-CLI",
+      "ingles": "WordPress Command Line Interface",
+      "espanol": "Interfaz de Línea de Comandos de WordPress",
+      "definicion": "Herramienta de línea de comandos que permite gestionar y automatizar tareas en un sitio web basado en WordPress, como la instalación, actualización y gestión de plugins y temas.",
+      "merci_explica": "Comando mágico para administrar WordPress sin interfaz gráfica.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L127"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L982"
+        ]
+      }
+    },
+    "XML-RPC": {
+      "nombre": "XML-RPC",
+      "ingles": "eXtensible Markup Language Remote Procedure Call",
+      "espanol": "Llamada a Procedimientos Remotos de Lenguaje de Marcado Extendible",
+      "definicion": "Protocolo de comunicación que permite la invocación remota de procedimientos en un servidor web utilizando XML como formato de datos.",
+      "merci_explica": "Comunicación entre sistemas a través de llamadas de funciones distantes.",
+      "apariciones": {
+        "bitacora-mercedev-epic-01.md": [
+          "L4598"
+        ]
+      }
+    },
+    "XSS": {
+      "nombre": "XSS",
+      "ingles": "Cross-Site Scripting",
+      "espanol": "Inyección de Códigos entre Sitios",
+      "definicion": "Ataque cibernético que permite a un atacante insertar scripts maliciosos en páginas web visitadas por otros usuarios, comprometiendo su seguridad y privacidad.",
+      "merci_explica": "Cuerda para la protección contra ataques de inyección de código.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L79"
+        ],
+        "bitacora-mercedev-epic-01.md": [
+          "L3259"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L88"
+        ]
+      }
+    },
+    "YAGNI": {
+      "nombre": "YAGNI",
+      "ingles": "You Aren't Gonna Need It",
+      "espanol": "No Necesitarás Eso",
+      "definicion": "Principe de diseño que sugiere no añadir funcionalidades o complejidad a un sistema hasta que sea estrictamente necesario, evitando así el desbordamiento de características innecesarias.",
+      "merci_explica": "Regla para mantener el software limpio y eficiente.",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L158"
+        ]
+      }
+    },
+    "Zero-Bloat": {
+      "nombre": "Zero-Bloat",
+      "ingles": "Zero Bloat",
+      "espanol": "Sin Sobrecarga",
+      "definicion": "Práctica de desarrollo que busca minimizar la cantidad de código innecesario o redundante en un proyecto, asegurando así una eficiencia óptima y un rendimiento optimizado.",
+      "merci_explica": "Arquitectura para eliminar el ruido del software.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L125"
+        ]
+      }
+    },
+    "Zero-Code": {
+      "nombre": "Zero-Code",
+      "ingles": "Zero-Code",
+      "espanol": "Cero Código",
+      "definicion": "Tecnología que permite la creación de aplicaciones software sin necesidad de escribir código fuente, utilizando herramientas gráficas o interfaces visuales.",
+      "merci_explica": "Puzzle digital que se desbloquea con arrastrar y soltar componentes predefinidos.",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L168"
+        ]
+      }
+    },
+    "Zero-Day": {
+      "nombre": "Zero-Day",
+      "ingles": "Zero-Day",
+      "espanol": "Cero Día",
+      "definicion": "Vulnerabilidad de seguridad en un software o sistema que no ha sido conocida ni parcheada por los fabricantes.",
+      "merci_explica": "Armadura invisible que se desvanece de repente, dejando al atacante sin protección.",
+      "apariciones": {
+        "bitacora-mercedev-epic-02.md": [
+          "L106"
+        ]
+      }
+    },
+    "Zero-Friction": {
+      "nombre": "Zero-Friction",
+      "ingles": "Zero-Friction",
+      "espanol": "Cero Fricción",
+      "definicion": "Proceso o sistema que es extremadamente simple y eficiente, minimizando los obstáculos y facilitando la realización de tareas.",
+      "merci_explica": "Bicicleta sin frenos que se mueve con solo el pedaleo.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L157"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L912"
+        ]
+      }
+    },
+    "Zero-Hallucination": {
+      "nombre": "Zero-Hallucination",
+      "ingles": "Zero-Hallucination",
+      "espanol": "Cero Hallucinación",
+      "definicion": "Proceso de entrenamiento en el que una inteligencia artificial se ajusta para no generar respuestas incorrectas o falsas, asegurando que solo proporcione información precisa y realista.",
+      "merci_explica": "Garantía de que la IA no invente datos, como si fuera un juez honesto en un tribunal.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L90"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L910"
+        ]
+      }
+    },
+    "Zero-Maintenance": {
+      "nombre": "Zero-Maintenance",
+      "ingles": "Zero-Maintenance",
+      "espanol": "Cero Mantenimiento",
+      "definicion": "Concepto de diseño y arquitectura que permite a los sistemas operativos o aplicaciones funcionar sin intervención humana, reduciendo al mínimo la necesidad de actualizaciones periódicas.",
+      "merci_explica": "Sistema que se limpia solo, como una casa limpiada por sí misma.",
+      "apariciones": {
+        "bitacora-mercedev-epic-03.md": [
+          "L988"
+        ]
+      }
+    },
+    "Zero-Risk": {
+      "nombre": "Zero-Risk",
+      "ingles": "Zero-Risk",
+      "espanol": "Cero Riesgo",
+      "definicion": "Estado o situación en la que no existe ninguna posibilidad de daño, pérdida o incidente negativo.",
+      "merci_explica": "Seguridad como una caja fuerte inalcanzable, sin posibilidad de robar nada.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L222"
+        ]
+      }
+    },
+    "Zero-Shot": {
+      "nombre": "Zero-Shot",
+      "ingles": "Zero-Shot Learning",
+      "espanol": "Aprendizaje Cero-Ejemplo",
+      "definicion": "Técnica de aprendizaje automático que permite a un modelo aprender y realizar tareas sin necesidad de entrenamiento previo en el conjunto de datos específico.",
+      "merci_explica": "Modelo que aprende a responder preguntas o realizar tareas con solo una observación, como si fuera un mago que sabe todo sin haber visto nada antes.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L98"
+        ],
+        "bitacora-mercedev-epic-03.md": [
+          "L656"
+        ],
+        "bitacora-mercedev-epic-02.md": [
+          "L1162"
         ]
       }
     }
@@ -245,11 +1778,57 @@
     "CD",
     "CHMOD",
     "CHOWN",
-    "CLI-first"
+    "CLI-first",
+    "DNS",
+    "DRY",
+    "HTML5",
+    "HTTP-01",
+    "IGUAL",
+    "IP",
+    "ISO",
+    "IV",
+    "JS",
+    "KB",
+    "LIMPIA",
+    "LITERAL",
+    "LM",
+    "LOS",
+    "MB",
+    "NO",
+    "OK",
+    "ON",
+    "ORIGINAL",
+    "PC",
+    "PISTAS",
+    "PNG",
+    "POR",
+    "PRINCIPIO",
+    "PRIVILEGES",
+    "PURGE",
+    "RAM",
+    "README-merci",
+    "REPRODUCE",
+    "RESUMAS",
+    "RGBA",
+    "ROADMAP",
+    "ROADMAP-AI",
+    "SER",
+    "SOS",
+    "SVG",
+    "SYSTEM",
+    "TO",
+    "USER",
+    "V2",
+    "VRAM",
+    "VS",
+    "WCAG",
+    "XYZ",
+    "ZIP"
   ],
   "rechazos": {
     "CPU": 1,
     "DPR": 1,
-    "GC": 1
+    "GC": 1,
+    "DRY": 2
   }
 }

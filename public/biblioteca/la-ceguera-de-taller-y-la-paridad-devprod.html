@@ -6,7 +6,7 @@
     <title>La Ceguera de Taller y la Paridad Dev/Prod — mercedev.es</title>
     <meta name="description" content="Por qué desarrollar estilos sin el motor subyacente local genera errores en cascada y cómo evitar la divergencia de infraestructura.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/la-ceguera-de-taller-y-la-paridad-devprod.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,12 +51,12 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Durante la estilización visual (SASS) de la tienda WooCommerce, el código CSS compilado no producía ningún efecto visible en el entorno local (localhost). Tras horas de depuración en la jerarquía de plantillas (<code>woocommerce.php</code>), se descubrió la causa raíz: el plugin de WooCommerce estaba instalado en el servidor remoto de producción, pero <strong>no existía</strong> en el entorno de desarrollo local. Estábamos programando a ciegas.</p>
+<p>Durante la estilización visual (<abbr title="Merci Explica: CSS con superpoderes." tabindex="0">SASS</abbr>) de la tienda WooCommerce, el código CSS compilado no producía ningún efecto visible en el entorno local (localhost). Tras horas de depuración en la jerarquía de plantillas (<code>woocommerce.php</code>), se descubrió la causa raíz: el plugin de WooCommerce estaba instalado en el servidor remoto de producción, pero <strong>no existía</strong> en el entorno de desarrollo local. Estábamos programando a ciegas.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se detuvo inmediatamente la escritura de código. Se restauró el principio de Paridad de Entornos (Dev/Prod Parity) obligando a replicar la topología de producción en la máquina de desarrollo: se instaló WooCommerce localmente, se configuraron las variables del <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> y se inyectaron datos de prueba mediante un script Headless. Solo entonces se retomó el flujo de diseño UI.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <p>Este es un ejemplo clásico de violación de la regla de <em>Paridad Desarrollo/Producción</em> (Dev/Prod Parity), uno de los pilares de la metodología de los Doce Factores (Twelve-Factor App).</p>
-<p>Escribir código en un entorno que no refleja matemáticamente la infraestructura de destino es un antipatrón que fomenta la "Ceguera de Taller" y el vicio de probar en producción. El aislamiento de procesos (DevSecOps) carece de valor si el ecosistema local no es un espejo fiel y funcional del motor final. El código no debe adaptarse al entorno; los entornos deben ser indistinguibles para el código.</p>
+<p>Escribir código en un entorno que no refleja matemáticamente la infraestructura de destino es un antipatrón que fomenta la "Ceguera de Taller" y el vicio de probar en producción. El aislamiento de procesos (<abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr>) carece de valor si el ecosistema local no es un espejo fiel y funcional del motor final. El código no debe adaptarse al entorno; los entornos deben ser indistinguibles para el código.</p>
             </div>
         </article>
     </main>

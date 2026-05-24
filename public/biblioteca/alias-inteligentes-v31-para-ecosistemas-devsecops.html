@@ -6,7 +6,7 @@
     <title>Alias Inteligentes (v3.1) para ecosistemas DevSecOps</title>
     <meta name="description" content="Evolución del enrutador Zsh: autodescubrimiento, parámetros infinitos y fallback dinámico de entorno virtual a global.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/alias-inteligentes-v31-para-ecosistemas-devsecops.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -97,7 +97,7 @@ Se clarificó la regla arquitectónica: la política de "0 dependencias" aplica 
     fi
 }
 </code></pre>
-<p><strong>El Aprendizaje (Aislamiento y DX):</strong> 
+<p><strong>El Aprendizaje (Aislamiento y <abbr title="Merci Explica: La experiencia que sientes cuando usas un producto o servicio digital, como si fuera un viaje en el espacio." tabindex="0">DX</abbr>):</strong> 
 Al usar la ruta explícita del binario (<code>.venv/bin/python</code>), el sistema operativo resuelve automáticamente las librerías instaladas en ese entorno aislado sin necesidad de que la sesión de la terminal esté "activada", logrando fricción cero.</p>
 <h3>Actualización v3.1: Fallback Dinámico a Python Global (Fail Gracefully)</h3>
 <p><strong>El Desafío (Síntoma):</strong> 
@@ -122,7 +122,7 @@ Se inyectó un condicional dentro del enrutador para aplicar una degradación el
 Dotar al alias de la inteligencia para sobrevivir en entornos limpios y hacer un fallback dinámico al binario global es un paso fundamental hacia el verdadero "Cero Mantenimiento" y una experiencia "Out-of-the-Box".</p>
 <p><strong>Fuentes / Bibliografía:</strong>
 *   Asistencia mediante IA sobre el comportamiento de <code>resolve().parents</code> en Python.
-*   Documentación POSIX sobre variables de expansión de shell (<code>$@</code>).</p>
+*   Documentación <abbr title="Merci Explica: Base común para sistemas operativos Unix y Linux." tabindex="0">POSIX</abbr> sobre variables de expansión de shell (<code>$@</code>).</p>
             </div>
         </article>
     </main>

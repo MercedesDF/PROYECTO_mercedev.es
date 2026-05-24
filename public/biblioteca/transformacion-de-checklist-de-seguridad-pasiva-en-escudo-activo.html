@@ -6,7 +6,7 @@
     <title>Transformación de Checklist de Seguridad Pasiva en Escudo Ac...</title>
     <meta name="description" content="Se convierte un checklist de seguridad pasivo en un escudo activo mediante merci-hardening.py, garantizando el Continuous Compliance.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/transformacion-de-checklist-de-seguridad-pasiva-en-escudo-activo.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -53,7 +53,7 @@
                 <h2>El Desafío (Síntoma)</h2>
 <p>Se detectó que el proyecto tenía un checklist de seguridad pasivo en texto plano, lo que no garantizaba una postura de seguridad real y continuo.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se creó merci-hardening.py, un agente que audita la postura de seguridad real de la infraestructura en local. El script comprueba empíricamente que el archivo .env tenga permisos 600, que el .gitignore contenga reglas DLP críticas, bloquea la exposición de archivos rogue como wp-config.php en la raíz y busca Mixed Content (http://) en el HTML estático.</p>
+<p>Se creó merci-hardening.py, un agente que audita la postura de seguridad real de la infraestructura en local. El script comprueba empíricamente que el archivo .env tenga permisos 600, que el .gitignore contenga reglas <abbr title="Merci Explica: Mecanismo de seguridad digital que actúa como un guardián vigilante para evitar la pérdida accidental o intencional de datos críticos." tabindex="0">DLP</abbr> críticas, bloquea la exposición de archivos rogue como wp-config.php en la raíz y busca Mixed Content (http://) en el HTML estático.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <p>Se garantiza el Continuous Compliance de la arquitectura antes de cada commit. La solución es óptima porque automatiza la verificación de seguridad, reduciendo el riesgo de vulnerabilidades y asegurando que los cambios cumplen con las políticas de seguridad establecidas.</p>
             </div>

@@ -6,7 +6,7 @@
     <title>Fix: Sincronización de DLP en .gitignore para docs/matriz</title>
     <meta name="description" content="Se añadió explícitamente el directorio &#x27;docs/matriz/&#x27; al archivo &#x27;.gitignore&#x27; para evitar que Git rastreara los archivos automá...">
     <link rel="canonical" href="https://mercedev.es/biblioteca/fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Se detectó un fallo bloqueante en bucle con la carpeta privada <code>docs/matriz</code>. A pesar de purgar la caché de Git con <code>git rm --cached</code>, los archivos volvían a aparecer al hacer el siguiente <code>merci commit</code>, lo que provocaba que el Agente Auditor volviera a saltar bloqueando el pipeline por DLP.</p>
+<p>Se detectó un fallo bloqueante en bucle con la carpeta privada <code>docs/matriz</code>. A pesar de purgar la caché de Git con <code>git rm --cached</code>, los archivos volvían a aparecer al hacer el siguiente <code>merci commit</code>, lo que provocaba que el Agente Auditor volviera a saltar bloqueando el pipeline por <abbr title="Merci Explica: Mecanismo de seguridad digital que actúa como un guardián vigilante para evitar la pérdida accidental o intencional de datos críticos." tabindex="0">DLP</abbr>.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se añadió explícitamente el directorio <code>docs/matriz/</code> al archivo <code>.gitignore</code>. Esta acción aseguró que Git no rastreara los archivos automáticamente, lo que evitó que el linter <code>merci-audit.py</code> continuara bloqueando el pipeline con un error <code>BANNED_TRACKED_FILE</code>.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>

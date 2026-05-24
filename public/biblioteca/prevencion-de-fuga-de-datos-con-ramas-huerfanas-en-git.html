@@ -6,7 +6,7 @@
     <title>Prevención de Fuga de Datos con Ramas Huérfanas en Git</title>
     <meta name="description" content="Cómo truncar el historial inmutable de un repositorio derivado para evitar exponer la propiedad intelectual de un proyecto matriz.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/prevencion-de-fuga-de-datos-con-ramas-huerfanas-en-git.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -79,7 +79,7 @@ git branch -m main
 git push -f origin main
 </code></pre>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>En DevSecOps (Development, Security, and Operations - Desarrollo, Seguridad y Operaciones), el principio de <em>Zero Trust</em> (Confianza Cero) también se aplica al historial del código. </p>
+<p>En <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr> (Development, Security, and Operations - Desarrollo, Seguridad y Operaciones), el principio de <em>Zero Trust</em> (Confianza Cero) también se aplica al historial del código. </p>
 <p>Sincronizar archivos limpios (el espacio físico) no purifica el espacio temporal. Un repositorio base o <em>Boilerplate</em> debe ser un lienzo en blanco absoluto. Truncar el historial asegura la sanitización total de la propiedad intelectual y previene el <em>Configuration Drift</em> (Deriva de Configuración) en proyectos derivados. </p>
 <p><em>Aviso operativo:</em> Forzar reescrituras de historial (<code>push -f</code>) es una maniobra destructiva que solo debe ejecutarse en repositorios fundacionales o ramas estrictamente personales. Hacerlo en ramas de colaboración activa destruirá el trabajo de otros desarrolladores.</p>
             </div>

@@ -6,7 +6,7 @@
     <title>Métrica SRE Exacta para Documentos en Promoción — mercedev.es</title>
     <meta name="description" content="Se implementó la métrica merci_documentos_promocion_total en merci-sre.py para alinear la telemetría con la realidad operativa.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/metrica-sre-exacta-para-documentos-en-promocion.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -55,9 +55,9 @@ Se implementó una métrica SRE exacta para contar documentos en promoción en e
 -->
 
 <h2>El Desafío (Síntoma)</h2>
-<p>Se detectó que Grafana y nuestro CLI hablaban idiomas distintos. <code>merci-promote.py</code> escanea todo el laboratorio buscando archivos con estado 'borrador', pero nuestra métrica SRE antigua solo contaba archivos físicos en la carpeta incubacion/. Para lograr una observabilidad perfecta, era necesario contar con una métrica que reflejara los archivos reales listos para ser promovidos.</p>
+<p>Se detectó que Grafana y nuestro CLI hablaban idiomas distintos. <code>merci-promote.py</code> escanea todo el laboratorio buscando archivos con estado 'borrador', pero nuestra métrica <abbr title="Merci Explica: Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo." tabindex="0">SRE</abbr> antigua solo contaba archivos físicos en la carpeta incubacion/. Para lograr una observabilidad perfecta, era necesario contar con una métrica que reflejara los archivos reales listos para ser promovidos.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se implementó la métrica <code>merci_documentos_promocion_total</code> en <code>scripts/merci/merci-sre.py</code>. Esta nueva métrica utiliza <code>rglob</code> y Expresiones Regulares (<code>re.search</code>) para buscar recursivamente la firma YAML <code>estado: "borrador"</code> en cualquier subcarpeta del laboratorio. Esto alinea la telemetría exacta con la realidad operativa, permitiendo ver en el Dashboard DevSecOps cuántos archivos están realmente listos para ser promovidos.</p>
+<p>Se implementó la métrica <code>merci_documentos_promocion_total</code> en <code>scripts/merci/merci-sre.py</code>. Esta nueva métrica utiliza <code>rglob</code> y Expresiones Regulares (<code>re.search</code>) para buscar recursivamente la firma YAML <code>estado: "borrador"</code> en cualquier subcarpeta del laboratorio. Esto alinea la telemetría exacta con la realidad operativa, permitiendo ver en el Dashboard <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr> cuántos archivos están realmente listos para ser promovidos.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <p>La solución es la óptima porque utiliza el mismo criterio de filtrado que <code>merci-promote.py</code>, garantizando consistencia y precisión en la medición. No se ha asumido ninguna deuda técnica significativa para el futuro, ya que la implementación es directa y no requiere cambios adicionales en otros sistemas.</p>
             </div>

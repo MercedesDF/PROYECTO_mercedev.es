@@ -36,6 +36,37 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-24 — AI & DevSecOps: Refinamiento Extremo del Agente Glosario (Positive Prompting)
+
+**Contexto:** Tras detectar que el LLM padecía del "Síndrome del Loro" (repitiendo instrucciones meta) y del "Elefante Rosa" (al prohibirle ciertas frases las usaba aún más, como "Es como..."), se requería una técnica de doma avanzada para forzar un tono corporativo y conciso.
+
+**Hecho:**
+- Se reescribió `laboratorio/prompts/prompt-glosario.md` con *Positive Prompting*, prohibiendo el uso de artículos iniciales ("Un", "La") y exigiendo que la respuesta comience directamente con el sustantivo.
+- Se inyectó la regla de `REDACCIÓN LIMPIA` para evitar que la IA incluya meta-instrucciones en su salida.
+- Se purgó `glosario-tecnico.json` de alucinaciones (como deducir que `LM` era *Last Modified* o `TL` era *Tactical Lead*).
+
+**Motivo / criterio:** *AI Governance y Prompt Hardening*. Los modelos locales pequeños responden infinitamente mejor a estructuras directas y ejemplos de cómo *deben* hacer las cosas en lugar de prohibiciones sobre cómo *no* hacerlas. Establecer reglas claras recupera el formato de diccionario técnico estricto.
+
+### 2026-05-24 — Fix: Resiliencia ante conflictos Git y recuperación de JSON malformado
+
+**Contexto:** Conflictos de versiones de Git y operaciones sucesivas habían revertido silenciosamente el archivo `prompt-glosario.md` a estados previos (Deriva de Código), y operaciones iterativas de *diff* habían corrompido las llaves del `glosario-tecnico.json`, paralizando el orquestador.
+
+**Hecho:** Se restauró la estructura del JSON saneando el array de términos y agregando los elementos erróneos a `ignorados`. Se reinyectaron definitivamente las Reglas 5 y 6 de endurecimiento en el prompt maestro.
+
+**Motivo / criterio:** *Disaster Recovery*. Estos fallos son inherentes a los ciclos ágiles veloces. La rápida recuperación mediante Git y parches de saneamiento consolida la fiabilidad de operar bajo una Única Fuente de Verdad y tener un *Fail-Fast* en los analizadores de código.
+
+### 2026-05-24 — UX/UI: Refactorización visual y semántica del Glosario Técnico
+
+**Contexto:** El formato del Glosario en HTML/PDF resultaba muy denso, con etiquetas `<br>` que no espaciaban adecuadamente los contenidos y textos encadenados que dificultaban la lectura en el producto final.
+
+**Hecho:**
+- Se refactorizó la función `compile_markdown` en `scripts/merci/merci-glosario.py`.
+- Se separó el Inglés y Español con un tabulador visual `|`.
+- Se implementaron saltos de párrafo dobles (`\n\n`) para espaciar definiciones y se limpió el encabezado para no repetir el título.
+- Se sustituyó la etiqueta `<code>` por cursivas puras de Markdown (`*`) para la sección interactiva "Merci Explica".
+
+**Motivo / criterio:** *UX Editorial y Markdown Purity*. Una enciclopedia técnica debe priorizar la ergonomía visual (espacios en blanco). Reducir el uso de etiquetas HTML en favor del Markdown nativo facilita un renderizado inmaculado tanto en el DOM como a través de la librería WeasyPrint en los PDFs descargables.
+
 ### 2026-05-24 — UX/Docs: Identidad de "Glosario Vivo" y Control de Versiones Offline
 
 **Contexto:** Se requería explicar claramente en la cabecera del glosario su naturaleza automatizada, y proveer un mecanismo visual en los PDFs descargados (o impresos) para que el lector sepa exactamente si su copia está obsoleta frente al entorno de producción.

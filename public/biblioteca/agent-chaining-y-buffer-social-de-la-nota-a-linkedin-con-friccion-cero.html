@@ -6,7 +6,7 @@
     <title>Agent Chaining y Buffer Social: De la Nota a LinkedIn con Fr...</title>
     <meta name="description" content="Implementación de flujos de trabajo con múltiples agentes locales y máquinas de estado para la automatización de marketing (Content Ops).">
     <link rel="canonical" href="https://mercedev.es/biblioteca/agent-chaining-y-buffer-social-de-la-nota-a-linkedin-con-friccion-cero.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>La creación de contenido técnico y su posterior promoción social requerían excesiva intervención manual. Obligar a un único Small Language Model (SLM) local a actuar como ingeniero técnico y como copywriter de marketing simultáneamente provocaba alucinaciones, saturación de la ventana de contexto y pérdida de formato. Además, publicar inmediatamente saturaba las redes sociales.</p>
+<p>La creación de contenido técnico y su posterior promoción social requerían excesiva intervención manual. Obligar a un único Small Language Model (<abbr title="Merci Explica: Planificador de horarios escolares" tabindex="0">SLM</abbr>) local a actuar como ingeniero técnico y como copywriter de marketing simultáneamente provocaba alucinaciones, saturación de la ventana de contexto y pérdida de formato. Además, publicar inmediatamente saturaba las redes sociales.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se implementó el patrón de <strong>Agent Chaining</strong> (Encadenamiento de Agentes). El Agente Bibliotecario (<code>merci-librarian.py</code>) estructura el documento técnico y, al finalizar, invoca programáticamente al Agente Blogger (<code>merci-blogger.py</code>), pasándole el control y calculando matemáticamente la URL canónica de destino. El Blogger redacta un <em>teaser</em> comercial y lo sella en el YAML Frontmatter con el metadato <code>estado_social: "en_cola"</code>. Finalmente, un demonio en el sistema operativo (Cronjob) ejecuta <code>merci-linkedin.py --auto</code> cada 3 días para consumir este <em>Buffer Social</em> de forma asíncrona.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>

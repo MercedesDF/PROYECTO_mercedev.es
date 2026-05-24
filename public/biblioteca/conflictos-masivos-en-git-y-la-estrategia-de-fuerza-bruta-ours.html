@@ -6,7 +6,7 @@
     <title>Conflictos masivos en Git y la estrategia de fuerza bruta (-...</title>
     <meta name="description" content="Cómo resolver colisiones de fusión destructivas cuando el entorno local es la única fuente de verdad.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/conflictos-masivos-en-git-y-la-estrategia-de-fuerza-bruta-ours.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -53,14 +53,14 @@
                 <h2>El Desafío (Síntoma)</h2>
 <p>Tras una reescritura de historial local (<code>git reset --soft</code>), el servidor remoto conservó una línea de tiempo "fantasma". Al intentar sincronizar mediante <code>git pull</code>, se desató un conflicto de fusión (Merge Conflict) masivo. Git inyectó marcadores de conflicto (<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>) en archivos de texto e impidió la fusión de archivos binarios (PDFs), bloqueando por completo el ciclo de Integración Continua (<abbr title="Merci Explica: Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano." tabindex="0">CI</abbr> - Continuous Integration).</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Dado que se tenía la certeza absoluta de que el entorno local era la Única Fuente de Verdad (SSOT - Single Source of Truth) y que el servidor remoto contenía basura obsoleta, se descartó la resolución manual archivo por archivo. 
+<p>Dado que se tenía la certeza absoluta de que el entorno local era la Única Fuente de Verdad (<abbr title="Merci Explica: Mecanismo para mantener una única fuente de verdad sobre los datos importantes dentro de un sistema." tabindex="0">SSOT</abbr> - Single Source of Truth) y que el servidor remoto contenía basura obsoleta, se descartó la resolución manual archivo por archivo. 
 Se ejecutó la estrategia de resolución por imposición local:</p>
 <pre><code class="language-bash">git checkout --ours .
 git add .
 git commit -m &quot;Merge branch 'main' - Resolución masiva de conflictos&quot;
 </code></pre>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Entrar en pánico o confiar en las interfaces gráficas (GUI - Graphical User Interface) de los editores de código ante conflictos masivos suele derivar en la pérdida de datos y en la desincronización de la bitácora. 
+<p>Entrar en pánico o confiar en las interfaces gráficas (<abbr title="Merci Explica: Ventana donde interactúas con el ordenador." tabindex="0">GUI</abbr> - Graphical User Interface) de los editores de código ante conflictos masivos suele derivar en la pérdida de datos y en la desincronización de la bitácora. 
 La terminal ofrece mecanismos de cirugía de alta precisión. Comprender el funcionamiento de estrategias como <code>--ours</code> (quedarse con la versión local) o <code>--theirs</code> (quedarse con la versión entrante) permite neutralizar colisiones catastróficas en apenas tres comandos, siempre y cuando la disciplina operativa (commits atómicos) se haya mantenido rigurosamente.</p>
             </div>
         </article>

@@ -6,7 +6,7 @@
     <title>La Guerra de la Especificidad CSS — mercedev.es</title>
     <meta name="description" content="Análisis forense de por qué la pseudo-clase :visited no se aplicaba a los enlaces, y cómo la jerarquía de selectores determina el resultado final.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/la-guerra-de-la-especificidad-css.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779643542">
+    <link rel="stylesheet" href="/css/main.css?v=1779658400">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>1. El Desafío (Síntoma)</h2>
-<p>Tras implementar la pseudo-clase <code>:visited</code> en la arquitectura SASS para mejorar la usabilidad, se detectó que los enlaces de los títulos en las tarjetas de la Biblioteca y los enlaces del índice autogenerado no cambiaban de color tras ser pulsados. El navegador parecía ignorar por completo la regla de estilo para los enlaces visitados.</p>
+<p>Tras implementar la pseudo-clase <code>:visited</code> en la arquitectura <abbr title="Merci Explica: CSS con superpoderes." tabindex="0">SASS</abbr> para mejorar la usabilidad, se detectó que los enlaces de los títulos en las tarjetas de la Biblioteca y los enlaces del índice autogenerado no cambiaban de color tras ser pulsados. El navegador parecía ignorar por completo la regla de estilo para los enlaces visitados.</p>
 <h2>2. La Maniobra (Lógica)</h2>
 <p>El diagnóstico reveló dos colisiones de <strong>Especificidad CSS</strong>, un sistema de puntuación invisible que usa el navegador para decidir qué regla aplicar cuando varias apuntan al mismo elemento.</p>
 <h4>Incidente 1: Estilos en Línea (Puntuación: 1000)</h4>
