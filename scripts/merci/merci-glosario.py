@@ -33,8 +33,10 @@ def load_glossary_state():
         with open(GLOSSARY_JSON, 'r', encoding='utf-8') as f:
             try:
                 return json.load(f)
-            except json.JSONDecodeError:
-                return {"terminos": {}, "ignorados": []}
+            except json.JSONDecodeError as e:
+                print(f"\n❌ [Merci Error] El archivo JSON del glosario está corrupto: {e}")
+                print("  🛑 El orquestador se ha detenido (Fail-Fast) para evitar la pérdida de datos y sobreescritura.")
+                sys.exit(1)
     return {"terminos": {}, "ignorados": []}
 
 def save_glossary_state(data):
@@ -103,7 +105,7 @@ def generate_with_ollama(system_prompt, user_prompt):
         "stream": False,
         "format": "json", # Garantiza respuesta JSON
         "options": {
-            "temperature": 0.1
+            "temperature": 0.4
         }
     }
     data = json.dumps(payload).encode('utf-8')
@@ -126,11 +128,12 @@ def compile_markdown(state_data):
     md += f"alt_portada: \"Diccionario técnico automatizado {fecha_hoy}\"\n"
     md += f"fecha: \"{fecha_hoy}\"\n"
     md += "---\n\n"
-    md += "# Glosario Técnico DevSecOps & Arquitectura\n\n"
-    md += "Este glosario contiene términos y expresiones informáticas de nivel intermedio y avanzado, extraídos del análisis de las bitácoras del proyecto.\n\n"
-    md += "## Índice Alfabético\n\n"
     
     terminos = state_data.get("terminos", {})
+    
+    md += "# Glosario Técnico DevSecOps & Arquitectura\n\n"
+    md += f"Este glosario contiene actualmente **{len(terminos)} términos y expresiones informáticas** de nivel intermedio y avanzado, extraídos del análisis de las bitácoras del proyecto.\n\n"
+    md += "## Índice Alfabético\n\n"
     
     if not terminos:
         md += "*Aún no se han consolidado términos técnicos en el glosario. El Agente Autónomo está a la espera de procesar la próxima remesa de la bitácora.*\n\n"
@@ -170,6 +173,17 @@ def main():
     if not use_ai:
         # MODO COMPILACIÓN: Ultra rápido para el pipeline CI/CD (merci total)
         print("⚡ [Merci Glosario] Modo Compilación. Construyendo Markdown desde JSON...")
+        
+        # Chequeo ultrarrápido de backlog pendiente para visibilidad (DX)
+        terminos_existentes = {k.lower() for k in state.get("terminos", {}).keys()}
+        terminos_ignorados = {k.lower() for k in state.get("ignorados", [])}
+        extracted, _ = extract_terms_from_bitacoras()
+        new_terms = [t for t in extracted.keys() if t.lower() not in terminos_existentes and t.lower() not in terminos_ignorados]
+        
+        if new_terms:
+            print(f"  ⚠️ [Info] Tienes {len(new_terms)} término(s) nuevo(s) en la bitácora sin definir.")
+            print(f"            Ejecuta 'merci glosario --ai' para revisarlos.")
+            
         compile_markdown(state)
         sys.exit(0)
 
@@ -197,6 +211,7 @@ def main():
     target_terms = []
     ignorados_en_sesion = []
     interrumpido = False
+    san_pedro_count = 0
     
     # Triage Interactivo: El humano decide qué términos se envían al modelo local
     print("🤖 Modo Triage Activo. Clasifica los términos para el siguiente lote:")
@@ -204,18 +219,38 @@ def main():
         if len(target_terms) >= MAX_TERMS_PER_RUN:
             break
             
-        try:
-            snippet = contexts.get(term, "")
-            resp = input(f"❓ ¿Procesar '{term}'? (Visto en: \"{snippet}\")\n  [S=Sí / n=No / i=Ignorar]: ").strip().lower()
-        except KeyboardInterrupt:
-            print("\n🛑 [Merci Glosario] Triage interrumpido por la usuaria. Guardando el progreso actual...")
-            interrumpido = True
+        resp = None
+        while True:
+            try:
+                snippet = contexts.get(term, "")
+                resp = input(f"❓ ¿Procesar '{term}'? (Visto en: \"{snippet}\")\n  [S=Sí / n=No / i=Ignorar]: ").strip().lower()
+                if resp in ['s', '', 'n', 'i']:
+                    break
+                print("  ❌ Opción no válida. Por favor, responde con 's', 'n' o 'i'.")
+            except KeyboardInterrupt:
+                print("\n🛑 [Merci Glosario] Triage interrumpido por la usuaria. Guardando el progreso actual...")
+                interrumpido = True
+                break
+                
+        if interrumpido:
             break
         
         if resp == 's' or resp == '':
             target_terms.append(term)
         elif resp == 'i':
             ignorados_en_sesion.append(term)
+        elif resp == 'n':
+            if "rechazos" not in state: state["rechazos"] = {}
+            state["rechazos"][term] = state["rechazos"].get(term, 0) + 1
+            
+            if state["rechazos"][term] >= 3:
+                print(f"  🐓 [San Pedro] '{term}' negado 3 veces. Enviado a la lista negra definitivamente.")
+                ignorados_en_sesion.append(term)
+                san_pedro_count += 1
+                del state["rechazos"][term]
+            else:
+                print(f"  ⏭️ '{term}' saltado por ahora ({state['rechazos'][term]}/3 avisos).")
+            save_glossary_state(state)
             
     if ignorados_en_sesion:
         if "ignorados" not in state: state["ignorados"] = []
@@ -223,11 +258,15 @@ def main():
         save_glossary_state(state) # Guardamos los nuevos ignorados inmediatamente
         
     if interrumpido:
+        if san_pedro_count > 0:
+            print(f"\n  🐓 [San Pedro] Resumen: {san_pedro_count} término(s) bloqueado(s) definitivamente en esta sesión.")
         print("✅ [Merci Glosario] Actualizando cuadernillo y cerrando limpiamente.")
         compile_markdown(state)
         sys.exit(130)
         
     if not target_terms:
+        if san_pedro_count > 0:
+            print(f"\n  🐓 [San Pedro] Resumen: {san_pedro_count} término(s) bloqueado(s) definitivamente en esta sesión.")
         print("✅ [Merci Glosario] Ningún término para procesar. Actualizando cuadernillo y saliendo.")
         compile_markdown(state)
         sys.exit(0)
@@ -237,11 +276,9 @@ def main():
     with open(PROMPT_FILE, 'r', encoding='utf-8') as f:
         system_prompt = f.read()
         
-    user_prompt = (
-        f"Tu única tarea es generar el JSON con las definiciones para TODOS Y CADA UNO de estos {len(target_terms)} términos:\n"
-        f"{', '.join(target_terms)}\n\n"
-        f"Recuerda: Tienes estrictamente PROHIBIDO filtrar. El array 'terminos' debe contener exactamente {len(target_terms)} elementos."
-    )
+    # QUÉ HACE: Solo transfiere los datos puros.
+    # POR QUÉ: Delega el 100% del comportamiento de la IA al archivo externo prompt-glosario.md (Separation of Concerns).
+    user_prompt = f"Términos a definir ({len(target_terms)} en total):\n{', '.join(target_terms)}"
     
     try:
         response_data = generate_with_ollama(system_prompt, user_prompt)
@@ -290,6 +327,9 @@ def main():
         save_glossary_state(state)
         compile_markdown(state)
         
+        if san_pedro_count > 0:
+            print(f"\n  🐓 [San Pedro] Resumen: {san_pedro_count} término(s) bloqueado(s) definitivamente en esta sesión.")
+            
         print(f"✅ [Merci Glosario] Extracción y compilación JSON completada con éxito.")
             
     except Exception as e:

@@ -1651,7 +1651,7 @@ Plantilla base para el registro de sesiones.
 
 **Hecho:** Se refactorizaron las expresiones regulares en `scripts/merci/merci-promote.py` para tolerar `\r\n` y se cambió la codificación de lectura a `utf-8-sig`.
 
-**Detalle técnico:** La expresión regular original `^---\n` era estricta con el salto de línea Unix (`LF`). Si el editor de texto guardaba el archivo con saltos de línea de Windows (`Retorno de carro y avance de línea (CRLF)`) o inyectaba un carácter BOM (*Byte Order Mark* - `\ufeff`) al inicio, el `match` fallaba silenciosamente. Se actualizó a `^\s*---\r?\n` para absorber caracteres invisibles y retornos de carro.
+**Detalle técnico:** La expresión regular original `^---\n` era estricta con el salto de línea Unix (`LF`). Si el editor de texto guardaba el archivo con saltos de línea de Windows —Retorno de carro y avance de línea (CRLF)— o inyectaba un carácter BOM (*Byte Order Mark* - `\ufeff`) al inicio, el `match` fallaba silenciosamente. Se actualizó a `^\s*---\r?\n` para absorber caracteres invisibles y retornos de carro.
 
 **Motivo / criterio:** *Robustez y Fricción Cero*. Un script de automatización CLI (Command Line Interface - Interfaz de Línea de Comandos) no debe colapsar por diferencias de codificación de texto a nivel de sistema operativo. Aplicar esta robustez evita bloqueos incomprensibles para el usuario.
 
@@ -3567,7 +3567,7 @@ Plantilla base para el registro de sesiones.
 - Se eliminó el subdominio `www.mercedev.es` de la lista de dominios solicitados (SANs) en la interfaz de CloudPanel.
 - Se emitió el certificado SSL/TLS exclusivamente para el dominio raíz (apex domain): `mercedev.es`.
 
-**Detalle técnico:** Let's Encrypt exige que todos los nombres de dominio de la solicitud resuelvan hacia la IP del servidor. Al carecer la Zona DNS de un registro 'A' o 'CNAME' explícito para el `www`, el desafío HTTP-01 fracasa.
+**Detalle técnico:** Let's Encrypt exige que todos los nombres de dominio de la solicitud resuelvan hacia la IP del servidor. Al carecer la Zona DNS de un registro 'A' o Nombre Canónico (CNAME) explícito para el `www`, el desafío HTTP-01 fracasa.
 
 **Motivo / criterio (Aprendizaje):** Austeridad técnica y URLs canónicas. El prefijo `www` es un artefacto de la web clásica. Renunciar a él reduce la complejidad de la Zona DNS y se alinea con la filosofía minimalista.
 
@@ -3853,7 +3853,7 @@ Validar en el navegador la carga de la página estática y la aparición de la i
 - Se blindó el `wp-config.php` inyectando Salts criptográficos oficiales y aplicando permisos de solo lectura para el dueño (`chmod 600`).
 - Se estableció el puente lógico creando un enlace simbólico desde `~/htdocs/mercedev.es/public/blog` hacia el directorio aislado de WordPress.
 
-**Detalle técnico:** La configuración manual del `wp-config.php` y la restricción estricta de permisos de sistema operativo (CHOWN/CHMOD) evitan depender del instalador web de WordPress, bloqueando cualquier posible vector de ataque o ejecución no autorizada durante el provisionamiento (Shift-Left Security).
+**Detalle técnico:** La configuración manual del `wp-config.php` y la restricción estricta de permisos de sistema operativo, como Cambiar Propietario (CHOWN) y Modificar Modo (CHMOD), evitan depender del instalador web de WordPress, bloqueando cualquier posible vector de ataque o ejecución no autorizada durante el provisionamiento (Shift-Left Security).
 
 **Motivo / criterio:** Aislar los riesgos del entorno dinámico. Si WordPress sufre una vulnerabilidad de escalada a través de un plugin en el futuro, el atacante se encontrará encapsulado en un directorio externo sin permisos para modificar el código fuente inmutable (HTML/CSS/JS) de la landing principal (`mercedev.es/public`).
 
@@ -5379,7 +5379,7 @@ FLUSH PRIVILEGES;
 
 **Motivo / criterio:** Facilitar la generación de evidencias sin interrumpir el flujo de trabajo manual, manteniendo la coherencia con la Regla 10 de gestión de archivos pesados.
 
-**Siguiente paso o deuda:** Validar el peso de los archivos generados y ajustar el **CRF** (Constant Rate Factor - Factor de Tasa Constante) si superan los 50MB por sesión.
+**Siguiente paso o deuda:** Validar el peso de los archivos generados y ajustar el Factor de Tasa Constante (CRF) si superan los 50MB por sesión.
 
 ### 2026-04-15 — Política de gestión de evidencias pesadas en el Laboratorio
 

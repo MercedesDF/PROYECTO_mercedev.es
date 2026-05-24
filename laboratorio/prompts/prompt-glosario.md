@@ -13,8 +13,8 @@ Te proporcionaremos una lista de términos que ya han sido validados. Debes defi
       "nombre": "API",
       "ingles": "Application Programming Interface",
       "espanol": "Interfaz de Programación de Aplicaciones",
-      "definicion": "Definición técnica, concisa y directa, orientada a rendimiento web o arquitectura. Utiliza siempre la terminología en CASTELLANO como base explicativa.",
-      "merci_explica": "Una analogía de 1 o 2 frases explicando el concepto como si fuera para un perfil de negocio o marketing."
+      "definicion": "Conjunto de reglas y protocolos que permite a diferentes aplicaciones de software comunicarse e intercambiar datos entre sí de manera segura y estructurada.",
+      "merci_explica": "Mecanismo seguro que permite a dos aplicaciones de software hablar e intercambiar información entre sí."
     }
   ]
 }

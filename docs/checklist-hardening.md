@@ -24,7 +24,7 @@ Este documento consolida las medidas de seguridad aplicadas en la arquitectura h
 - [x] **Principio de Mínimo Privilegio (Usuarios):**
   - Base de datos (`tu_base_datos`): Accedida mediante un usuario de MySQL dedicado (`tu_usuario_db`), sin privilegios globales.
   - WordPress no usa el usuario por defecto "admin".
-- [x] **Permisos de Sistema de Archivos (CHMOD/CHOWN):**
+- [x] **Permisos de Sistema de Archivos CHMOD/Cambiar Propietario (CHOWN):**
   - Directorio base: Propiedad exclusiva de `www-data:www-data`.
   - Directorios (`755`): Lectura/Ejecución para todos, escritura solo para `www-data`.
   - Archivos (`644`): Lectura para todos, escritura solo para `www-data`.

@@ -72,6 +72,7 @@ SKIP_DIR_NAMES = frozenset(
         "node_modules",
         ".assets-raw",
         "evidencias",
+        ".privado",
     }
 )
 

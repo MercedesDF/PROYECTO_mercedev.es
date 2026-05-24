@@ -36,6 +36,48 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-24 — Sec & AI: Endurecimiento de Prompts (Agent Chaining y Zero-Hallucination)
+
+**Contexto:** Los agentes Bibliotecario y Blogger mostraban propensión a omitir campos YAML obligatorios o incluir texto conversacional ("Aquí tienes el artículo..."), rompiendo el parseo posterior del pipeline (Agent Chaining). 
+
+**Hecho:** Se endurecieron los archivos `prompt-bibliotecario.md` y `prompt-blogger.md`.
+
+**Detalle técnico:** Se añadieron instrucciones innegociables: prohibición absoluta de conversación fuera del bloque de código y obligatoriedad estricta de todos los campos del YAML Frontmatter.
+
+**Motivo / criterio:** *Prompt Hardening*. Los modelos locales tienden a relajar el formato *Zero-Shot*. Imponer restricciones explícitas y blindar la estructura de salida asegura una integración de sistemas (Agent Chaining) libre de fricciones y fallos de parseo.
+
+**Siguiente paso o deuda:** Iniciar el diseño del catálogo de productos en WooCommerce.
+
+### 2026-05-24 — AI: Eliminación de "Mode Collapse" y "Síndrome del Loro" en Glosario
+
+**Contexto:** El agente Glosario generaba definiciones repetitivas (comenzando siempre con "Es como...") y copiaba meta-instrucciones del prompt dentro del JSON resultante, denotando un colapso de modo en el LLM (Qwen 2.5 Coder).
+
+**Hecho:** Se refactorizó iterativamente `prompt-glosario.md` aplicando *Positive Prompting*.
+
+**Detalle técnico:** Se eliminó la restricción negativa que causaba el "elefante rosa" y se sustituyó por una instrucción positiva estricta: iniciar directamente con el sustantivo y sin artículos ("Un", "La"). Se purgó la meta-instrucción del ejemplo JSON para evitar que la IA la repitiera (Síndrome del Loro) y se exigió la llave `merci_explica` incondicionalmente sin filtros de omisión.
+
+**Motivo / criterio:** *AI Psychology*. Los LLM pequeños operan mejor con ejemplos directos que con prohibiciones. Eliminar el ruido del *System Prompt* y establecer modelos positivos puros fuerza a la red neuronal a generar respuestas concisas, profesionales y corporativas, recuperando el rigor del diccionario técnico.
+
+### 2026-05-24 — UX/DX: Tolerancia a fallos con límite duro ("Lógica San Pedro") en Triage
+
+**Contexto:** Rechazar un término con 'N' en el triage interactivo obligaba a revisarlo eternamente, pero usar 'I' (Ignorar) era definitivo y susceptible al *Fat Finger Syndrome* (pulsación accidental).
+
+**Hecho:** Se implementó la "Lógica San Pedro" (3 strikes) en `scripts/merci/merci-glosario.py`.
+
+**Detalle técnico:** El script ahora almacena un contador de rechazos en el estado persistente (`glosario-tecnico.json`). Si un término es rechazado 3 veces con la tecla 'n', el sistema asume que no es útil y lo transfiere automáticamente a la lista negra (`ignorados`), eliminando la fricción de decisión.
+
+**Motivo / criterio:** *Developer Experience (DX)*. Proveer tolerancia a fallos manuales sin renunciar a la automatización de la limpieza. Si el usuario duda 3 veces, el sistema toma la decisión de purga por él, manteniendo el backlog manejable.
+
+### 2026-05-24 — Arch: Fail-Fast en Parser JSON del Glosario
+
+**Contexto:** Un error sintáctico en `glosario-tecnico.json` (llaves desajustadas tras un parche manual) provocó un *Silent Failure with Overwrite* en el orquestador, destruyendo todo el historial de términos al interpretar el archivo como vacío.
+
+**Hecho:** Se refactorizó la captura de excepciones en `load_glossary_state` de `scripts/merci/merci-glosario.py`.
+
+**Detalle técnico:** Se reemplazó el retorno de diccionario vacío por una salida fatal (`sys.exit(1)`) alertando sobre la corrupción, y se restauró el archivo JSON dañado mediante `git restore`. Adicionalmente se incluyó el recuento total de términos generados dinámicamente en el Markdown resultante.
+
+**Motivo / criterio:** *Fail-Fast y Single Source of Truth (SSOT)*. Los errores de lectura en las fuentes de verdad de datos nunca deben ser ignorados. Si un archivo matriz está corrupto, abortar incondicionalmente es la única garantía contra la sobreescritura destructiva.
+
 ### 2026-05-24 — Feat: Orquestación Headless del Catálogo (Tienda No Tienda)
 
 **Contexto:** La Épica 6 exige gobernar el e-commerce desde terminal. El script `merci-shop.py` estaba incompleto y no sincronizaba los archivos Markdown hacia WooCommerce.
