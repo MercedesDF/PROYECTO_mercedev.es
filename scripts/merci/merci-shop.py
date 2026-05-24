@@ -14,6 +14,12 @@ import base64
 import urllib.request
 import urllib.error
 from pathlib import Path
+import re
+
+try:
+    import markdown
+except ImportError:
+    pass
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 TIENDA_DIR = REPO_ROOT / "laboratorio" / "tienda"
@@ -77,6 +83,17 @@ def realizar_peticion_wc(url: str, auth_header: str, method: str = "GET", data: 
         print(f"  ❌ Error de conexión: {e}")
         return None
 
+def obtener_producto_por_slug(wc_endpoint: str, auth_header: str, slug: str):
+    """Busca si el producto ya existe en WooCommerce mediante su slug."""
+    url = f"{wc_endpoint}?slug={slug}"
+    try:
+        respuesta = realizar_peticion_wc(url, auth_header)
+        if respuesta and len(respuesta) > 0:
+            return respuesta[0].get("id")
+    except Exception:
+        pass
+    return None
+
 def main():
     print("\n🛒 [Merci Shop] Iniciando Orquestador Headless de WooCommerce...")
     
@@ -96,7 +113,61 @@ def main():
         
     # Aseguramos que la estantería del catálogo exista para futuros pasos
     TIENDA_DIR.mkdir(parents=True, exist_ok=True)
-    print("\n  [TODO] Siguiente paso: Parsear YAML de laboratorio/tienda/*.md y sincronizar el catálogo.")
+    
+    domain_root = wp_url.removesuffix('/blog')
+    productos_procesados = 0
+    
+    print("  📦 Sincronizando catálogo desde Markdowns...")
+    for md_file in TIENDA_DIR.glob("*.md"):
+        content = md_file.read_text(encoding="utf-8")
+        match = re.search(r"^\s*---\s*\n(.*?)\n---\s*(?:\n|$)(.*)", content, flags=re.DOTALL | re.MULTILINE)
+        if not match:
+            continue
+            
+        yaml_raw, md_body = match.groups()
+        meta = {}
+        for line in yaml_raw.splitlines():
+            if ":" in line:
+                key, val = line.split(":", 1)
+                meta[key.strip()] = val.strip().strip('"\'')
+                
+        if meta.get("estado", "borrador").lower() != "publicado":
+            continue
+            
+        nombre = meta.get("nombre", md_file.stem)
+        precio = meta.get("precio", "0.00")
+        imagen = meta.get("imagen", "")
+        slug = md_file.stem
+        
+        if "markdown" in sys.modules:
+            html_desc = markdown.markdown(md_body.strip(), extensions=['fenced_code'])
+        else:
+            html_desc = md_body.strip()
+        
+        payload = {
+            "name": nombre,
+            "type": "simple",
+            "regular_price": precio,
+            "description": html_desc,
+            "short_description": meta.get("descripcion_corta", ""),
+            "status": "publish"
+        }
+        
+        if imagen:
+            payload["images"] = [{"src": f"{domain_root}/assets/images/{imagen}"}]
+            
+        producto_id = obtener_producto_por_slug(wc_endpoint, auth_header, slug)
+        
+        if producto_id:
+            print(f"  🔄 Actualizando producto: {nombre} (ID: {producto_id})")
+            realizar_peticion_wc(f"{wc_endpoint}/{producto_id}", auth_header, method="PUT", data=payload)
+        else:
+            print(f"  ✨ Creando nuevo producto: {nombre}")
+            realizar_peticion_wc(wc_endpoint, auth_header, method="POST", data=payload)
+            
+        productos_procesados += 1
+        
+    print(f"\n✅ [Merci Shop] Sincronización finalizada. {productos_procesados} producto(s) procesado(s).")
 
 if __name__ == "__main__":
     try:

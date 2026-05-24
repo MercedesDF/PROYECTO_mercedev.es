@@ -52,6 +52,23 @@ def generar_sitemap():
    </url>"""
         bloques_url.append(bloque)
 
+    # QUÉ HACE: Inyecta las rutas dinámicas maestras (WordPress / WooCommerce)
+    # POR QUÉ: Al no ser archivos .html físicos, rglob no las encuentra, pero deben indexarse.
+    rutas_dinamicas = [
+        ("blog/", "0.9"),
+        ("blog/tienda/", "0.9")
+    ]
+    
+    for ruta, prioridad in rutas_dinamicas:
+        full_url = f"{DOMAIN}/{ruta}"
+        bloque = f"""   <url>
+      <loc>{full_url}</loc>
+      <lastmod>{ahora}</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>{prioridad}</priority>
+   </url>"""
+        bloques_url.append(bloque)
+
     # Ensambla y sobrescribe el documento XML final
     xml_final = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

@@ -36,6 +36,60 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-24 — Feat: Orquestación Headless del Catálogo (Tienda No Tienda)
+
+**Contexto:** La Épica 6 exige gobernar el e-commerce desde terminal. El script `merci-shop.py` estaba incompleto y no sincronizaba los archivos Markdown hacia WooCommerce.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-shop.py` para leer los archivos de `laboratorio/tienda/`, extraer el YAML Frontmatter y el contenido Markdown, y sincronizarlos contra la API REST nativa de WooCommerce (POST/PUT).
+
+**Detalle técnico:** Se implementó una lógica de autodescubrimiento por slug para discernir si el producto debe crearse (POST) o actualizarse (PUT). Las imágenes se mapean a rutas absolutas del dominio estático (`assets/images/`), evitando inyectar multimedia en la base de datos de WP.
+
+**Motivo / criterio:** *Single Source of Truth y Zero Bloat*. Gestionar el catálogo mediante Markdown puro permite versionar productos en Git, manteniendo la tienda sincronizada con el resto de la web sin depender del panel de administración del CMS.
+
+**Siguiente paso o deuda:** Iniciar la Épica 7 (Enriquecimiento Visual y Multimedia).
+
+### 2026-05-24 — Fix: Inclusión de rutas dinámicas en el mapa XML (Sitemap)
+
+**Contexto:** El rastreador de sitemap escaneaba archivos `.html` físicos, lo que dejaba fuera del `sitemap.xml` a las rutas maestras dinámicas gestionadas por Nginx y WordPress (`/blog` y `/blog/tienda`), perjudicando el SEO del proyecto.
+
+**Hecho:** Se actualizaron las reglas de descubrimiento en `scripts/merci/merci-sitemap.py`.
+
+**Detalle técnico:** Se inyectaron estáticamente las rutas `blog/` y `blog/tienda/` en la matriz de `rutas_dinamicas` con prioridad `0.9` y frecuencia `daily`.
+
+**Motivo / criterio:** *Shift-Left SEO*. Un ecosistema híbrido debe garantizar que los rastreadores indexen correctamente todas las fronteras de infraestructura (estáticas y dinámicas) desde un único archivo centralizado.
+
+### 2026-05-24 — Fix: Gobernanza IA estricta y Contexto Visual en Triage
+
+**Contexto:** La IA local (Ollama) descartaba términos técnicos válidos asumiendo que eran ruido, enviándolos a la lista de ignorados sin consultar a la autora. Además, se requería ver la frase exacta de origen durante el triage manual para discernir siglas ambiguas (ej. CD).
+
+**Hecho:**
+- Modificado `laboratorio/prompts/prompt-glosario.md` para prohibir explícitamente a la IA filtrar los términos suministrados.
+- Actualizado `scripts/merci/merci-glosario.py` para extraer y mostrar en consola 5 palabras antes y después del término hallado.
+- Ampliada la expresión regular del glosario para soportar palabras compuestas por guiones (ej. `AI-Changelog`).
+
+**Motivo / criterio:** *Human-in-the-Loop y Transparencia*. La IA debe ejecutar, no tomar decisiones de censura sobre la documentación. Mostrar el fragmento de la bitácora en la consola otorga el contexto necesario a la desarrolladora para autorizar o rechazar un término sin abrir el archivo original.
+
+### 2026-05-24 — Fix: Enlaces Permanentes (Permalinks) para historial SSG
+
+**Contexto:** Al aplicar el patrón de historial "Append-Only" a los cuadernillos antiguos (ej. Anatomía del Boilerplate), el motor SSG generaba un nuevo nombre de archivo HTML basado en el nuevo título "(Obsoleto)", rompiendo los enlaces originales compartidos en LinkedIn (Error 404).
+
+**Hecho:** Se implementó el soporte para la clave `slug` en el YAML Frontmatter procesado por `scripts/merci/merci-publish.py`.
+
+**Detalle técnico:** Si un archivo contiene `slug: "nombre-personalizado"`, el orquestador lo utiliza para generar la URL final en lugar de derivarla del título, preservando el enlace original intacto.
+
+**Motivo / criterio:** *SEO y Resiliencia de Enlaces*. Las URLs son promesas públicas. Mantener la URI constante mediante metadatos explícitos asegura que el tráfico proveniente de redes sociales no caiga en el vacío al catalogar un documento como obsoleto.
+
+### 2026-05-24 — Perf & DX: Burbuja Merci, Caché de Auditor y Mejoras en el Glosario
+
+**Contexto:** El tiempo de ejecución del orquestador se había disparado a ~15 segundos debido a un cuello de botella de I/O en el auditor al verificar las consolidaciones de acrónimos en disco. Además, se requería implementar la "Burbuja Merci" (tooltips de traducción) en el frontend sin añadir dependencias JS, y proteger el árbol de Git con limpiezas quirúrgicas (`merci-healer.py`).
+
+**Hecho:**
+- Inyectada una caché en memoria RAM (`MD_CONTENTS_CACHE`) en `scripts/merci/merci-audit.py` para erradicar el cuello de botella I/O.
+- Implementada la inyección dinámica de etiquetas nativas `<abbr>` en `scripts/merci/merci-publish.py` para los tooltips del glosario.
+- Desarrollado y ubicado el script de limpieza `merci-healer.py` en `laboratorio/scripts_temporales/`.
+
+**Motivo / criterio:** *Performance Driven Development y Zero-JS*. Retener los textos en RAM devuelve la auditoría a tiempos sub-segundo. Aprovechar atributos nativos de HTML (`<abbr>`) otorga interactividad didáctica sin penalizar el TBT con JavaScript de terceros. Aislar los scripts de un solo uso en temporales mantiene pura la carpeta de agentes.
+
 ### 2026-05-24 — Feat: Soberanía del Castellano y Ajuste de Linter SEO
 
 **Contexto:** La auditoría SEO bloqueaba el pipeline maestro debido a longitudes de metaetiquetas ligeramente superiores a los límites, generando saturación en la IA de reparación al intentar corregir decenas de archivos simultáneamente. Además, la portada y las plantillas requerían castellanización para alinear el proyecto con la regla de Soberanía del Castellano y mejorar la accesibilidad cognitiva ("Merci Explica").
