@@ -3,7 +3,7 @@ nombre: "Camiseta DevSecOps - Edición Limitada"
 precio: "25.50"
 descripcion_corta: "La camiseta oficial del ecosistema Merci. Algodón 100% orgánico con el logotipo de la orquestación híbrida."
 imagen: "camiseta-devsecops.webp"
-estado: "publicado"
+estado: "borrador"
 ---
 
 # Rendimiento Extremo en tu armario

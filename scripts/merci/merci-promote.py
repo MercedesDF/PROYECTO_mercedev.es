@@ -19,7 +19,8 @@ LABORATORIO_DIR = REPO_ROOT / "laboratorio"
 DESTINOS_DIR = [
     REPO_ROOT / "biblioteca",
     REPO_ROOT / "blog",
-    REPO_ROOT / "art-de-cote"
+    REPO_ROOT / "art-de-cote",
+    REPO_ROOT / "tienda"
 ]
 
 def slugify(texto: str) -> str:
@@ -131,16 +132,18 @@ def main():
     
     # 5. Auditoría interactiva y curación de datos (Shift-Left Quality)
     tema_actual = meta.get('tema', 'General')
-    es_blog = "blog" in tema_actual.lower()
+    tema_lower = tema_actual.lower()
+    es_blog = "blog" in tema_lower
+    es_tienda = "tienda" in tema_lower
 
-    if not es_blog:
+    if not es_blog and not es_tienda:
         nuevo_tema = input(f"  🏷️  Tema/Estantería [{tema_actual}]: ").strip() or tema_actual
     else:
         nuevo_tema = tema_actual
 
     nueva_desc = input(f"  📝 Descripción [{meta.get('descripcion', '')}]: ").strip() or meta.get('descripcion', '')
 
-    if not es_blog:
+    if not es_blog and not es_tienda:
         nuevo_alt = input(f"  👁️  Alt de la portada [{meta.get('alt_portada', '')}]: ").strip() or meta.get('alt_portada', '')
         nueva_fase = input(f"  🏗️  Fase del Roadmap [{meta.get('fase', '')}]: ").strip() or meta.get('fase', '')
     else:
@@ -155,16 +158,16 @@ def main():
     nueva_fecha = input(f"  📅 Fecha de publicación [{fecha_defecto}]: ").strip() or fecha_defecto
 
     # Bloqueo estricto si falta el atributo de accesibilidad (Solo para la Biblioteca/Proyectos)
-    if not es_blog and not nuevo_alt:
+    if not es_blog and not es_tienda and not nuevo_alt:
         print("  ❌ Error: El texto alternativo 'alt_portada' es obligatorio para mantener el 100/100 en WAI-ARIA.")
         return
 
     # 6. Máquina de Estados: Reconstrucción del YAML definitivo
     meta['tema'] = nuevo_tema
     meta['descripcion'] = nueva_desc
-    if not es_blog or nuevo_alt:
+    if (not es_blog and not es_tienda) or nuevo_alt:
         meta['alt_portada'] = nuevo_alt
-    if not es_blog or nueva_fase:
+    if (not es_blog and not es_tienda) or nueva_fase:
         meta['fase'] = nueva_fase
     meta['estado'] = 'publicado'  # Cambio de estado automatizado
     meta['fecha'] = nueva_fecha
@@ -186,6 +189,9 @@ def main():
     if "blog" in tema_normalizado:
         directorio_destino = REPO_ROOT / "blog"
         comando_sugerido = "merci wp"
+    elif "tienda" in tema_normalizado:
+        directorio_destino = REPO_ROOT / "tienda"
+        comando_sugerido = "merci shop"
     elif "art de" in tema_normalizado or "art-de-cote" in tema_normalizado:
         directorio_destino = REPO_ROOT / "art-de-cote"
         comando_sugerido = "merci total"
@@ -208,10 +214,12 @@ def main():
     print(f"  💡 Siguiente paso: Ejecuta '{comando_sugerido}' para aplicar los cambios.")
 
     # 9. Agent Chaining: Invocar al Agente Blogger
-    if not es_blog:
+    if not es_blog and not es_tienda:
         slug_destino = slugify(meta.get('titulo', borrador_elegido.name))
-        base_path = "/art-de-cote/" if ("art de" in tema_normalizado or "art-de-cote" in tema_normalizado) else "/biblioteca/"
-        url_promocion = f"{base_path}{slug_destino}.html"
+        if "art de" in tema_normalizado or "art-de-cote" in tema_normalizado:
+            url_promocion = f"/art-de-cote/{slug_destino}.html"
+        else:
+            url_promocion = f"/biblioteca/{slug_destino}.html"
         
         ya_promocionado = False
         # Escaneamos si el post promocional ya reside en la incubadora o en producción

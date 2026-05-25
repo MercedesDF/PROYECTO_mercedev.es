@@ -15,6 +15,7 @@ import urllib.request
 import urllib.error
 from pathlib import Path
 import re
+import shutil
 
 try:
     import markdown
@@ -22,7 +23,7 @@ except ImportError:
     pass
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-TIENDA_DIR = REPO_ROOT / "laboratorio" / "tienda"
+TIENDA_DIR = REPO_ROOT / "tienda"
 ENV_PATH = REPO_ROOT / ".env"
 
 def cargar_credenciales() -> tuple[str, str]:
@@ -131,13 +132,23 @@ def main():
                 key, val = line.split(":", 1)
                 meta[key.strip()] = val.strip().strip('"\'')
                 
+        slug = md_file.stem
+        producto_id = obtener_producto_por_slug(wc_endpoint, auth_header, slug)
+        nombre = meta.get("nombre", md_file.stem)
+
         if meta.get("estado", "borrador").lower() != "publicado":
+            if producto_id:
+                print(f"  🗑️ Despublicando producto (Kill-Switch): {nombre}")
+                realizar_peticion_wc(f"{wc_endpoint}/{producto_id}?force=true", auth_header, method="DELETE")
+                
+            destino_incubacion = REPO_ROOT / "laboratorio" / "incubacion" / md_file.name
+            destino_incubacion.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(md_file), str(destino_incubacion))
+            print(f"  ↩️ Devuelto a incubación: {md_file.name}")
             continue
             
-        nombre = meta.get("nombre", md_file.stem)
         precio = meta.get("precio", "0.00")
         imagen = meta.get("imagen", "")
-        slug = md_file.stem
         
         if "markdown" in sys.modules:
             html_desc = markdown.markdown(md_body.strip(), extensions=['fenced_code'])
@@ -156,8 +167,6 @@ def main():
         if imagen:
             payload["images"] = [{"src": f"{domain_root}/assets/images/{imagen}"}]
             
-        producto_id = obtener_producto_por_slug(wc_endpoint, auth_header, slug)
-        
         if producto_id:
             print(f"  🔄 Actualizando producto: {nombre} (ID: {producto_id})")
             realizar_peticion_wc(f"{wc_endpoint}/{producto_id}", auth_header, method="PUT", data=payload)

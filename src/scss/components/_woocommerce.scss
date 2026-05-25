@@ -102,6 +102,7 @@
     }
 
     div.images {
+      opacity: 1 !important; /* Fuerza la visibilidad que WC oculta esperando su JS pesado */
       max-width: 450px;
       margin: 0 auto 2rem auto;
       img {

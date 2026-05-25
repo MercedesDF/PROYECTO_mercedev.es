@@ -3,7 +3,7 @@ nombre: "Taza Merci en la Nube - Edición Telemetría"
 precio: "15.50"
 descripcion_corta: "El recipiente oficial para tus sesiones de debugging. Mantén tu café en estado 'Hot' mientras Merci orquesta tus contenedores desde la nube."
 imagen: "taza-negra-edicion-telemetria.webp"
-estado: "publicado"
+estado: "borrador"
 ---
 
 # Combustible para el Hilo Principal

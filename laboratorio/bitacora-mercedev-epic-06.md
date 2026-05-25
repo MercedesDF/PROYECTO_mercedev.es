@@ -36,6 +36,53 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-25 — Fix/Arch: SSOT de Tienda en la Raíz y Resolución de Variables
+
+**Contexto:** Se decidió igualar el ciclo de vida del catálogo de WooCommerce al del resto de contenidos (`blog`, `biblioteca`, `art-de-cote`). En lugar de permanecer en `laboratorio/tienda/`, los productos curados debían alojarse en el directorio raíz `tienda/`. Además, una versión previa de `merci-shop.py` sufrió un error de variables indefinidas (`producto_id`) y una mutilación de código por la interfaz de IA.
+
+**Hecho:**
+- Se estableció el directorio maestro `tienda/` en la raíz del repositorio.
+- Se refactorizó `scripts/merci/merci-promote.py` para enrutar automáticamente el atributo `tema: "tienda"` hacia este nuevo directorio y evadir las peticiones de metadatos innecesarios (`alt_portada`).
+- Se saneó la lógica del Kill-Switch en `scripts/merci/merci-shop.py`, solucionando el error `NameError: name 'producto_id' is not defined` y apuntando el escáner a la raíz `tienda/`.
+
+**Motivo / criterio:** *Simetría Arquitectónica y Robustez*. Elevar la tienda a la raíz completa el paradigma de SSOT para todos los destinos de publicación. Todo nace en `laboratorio/incubacion/`, el Agente de Promoción decide la ruta por su metadato, y los publicadores actúan. Se purga la deuda de código fallido recuperando el patrón "Fail-Safe".
+
+**Siguiente paso o deuda:** Validar la curación, mover los productos de la incubadora a la tienda mediante el promotor y sincronizar con la API de WooCommerce.
+
+### 2026-05-25 — Arch: Ciclo de vida unificado y Kill-Switch para Catálogo (SSOT)
+
+**Contexto:** Se detectó que los productos de la tienda carecían del ciclo de vida estándar del ecosistema. Mantenerlos permanentemente en el directorio de sincronización sin una bandeja de entrada y sin un mecanismo de despublicación automatizado (Kill-Switch) rompía la arquitectura y amenazaba con recrear la deriva de datos (Posts Zombis).
+
+**Hecho:**
+- Se estableció que los productos utilizarán la bandeja unificada (`laboratorio/incubacion/`) con el atributo `tema: "tienda"`.
+- Se inyectó el "Kill-Switch" en `scripts/merci/merci-shop.py`. Si un producto cambia a estado `borrador`, el orquestador lo elimina permanentemente de WooCommerce (`force=true` API DELETE) y mueve el archivo Markdown de vuelta a la incubadora.
+
+**Motivo / criterio:** *Single Source of Truth y Bandeja Unificada*. La creación de una nueva carpeta (`almacen/`) fragmentaría el ecosistema. Tratar a los productos como cualquier otro documento y aplicarles el mismo ciclo (Incubación -> Promoción -> Kill-Switch) garantiza cero fricción operativa. El borrado fuerte (`Hard Delete`) asegura que los slugs queden libres inmediatamente, evitando colisiones WAI-ARIA si se vuelve a crear.
+
+**Siguiente paso o deuda:** Integrar la Tienda en `merci-promote.py` y `merci-total.py`.
+
+### 2026-05-25 — Fix: Resolución de colisión WAI-ARIA por Productos Zombis (Soft-Delete)
+
+**Contexto:** El rastreador dinámico DAST (`merci-linkcheck.py`) bloqueó el pipeline reportando 26 errores WCAG de enlaces ambiguos en la tienda. Múltiples enlaces con el mismo nombre ("Nombre Accesible") apuntaban a destinos diferentes (ej. `.../producto/` vs `.../producto-2/`).
+
+**Hecho:** Se diagnosticó una Deriva de Datos (Data Drift) severa causada por la papelera de WordPress. Se purgó manualmente la base de datos eliminando permanentemente todos los productos y vaciando la papelera, para luego re-sincronizar el catálogo limpio con `merci shop`.
+
+**Motivo / criterio:** *Single Source of Truth y CMS Soft-Deletes*. Al borrar productos en WP, estos van a la papelera reteniendo su "slug". Cuando el orquestador Headless intentaba recrearlos, WP les asignaba un sufijo `-2` para evitar colisiones. En ejecuciones posteriores, el orquestador no encontraba el slug original y creaba duplicados infinitos. El rastreador de enlaces cumplió su función detectando que esta duplicidad generaba una trampa de accesibilidad. La solución definitiva en arquitecturas Headless es el borrado permanente (Hard Delete) para liberar los slugs.
+
+**Siguiente paso o deuda:** Validar el pipeline con `merci total` e inyectar el catálogo visualmente en el frontend de la tienda.
+
+### 2026-05-25 — Fix: Visibilidad de imagen en single-product y persistencia de Merci-coins
+
+**Contexto:** En la vista individual del producto, la imagen no se renderizaba (permanecía invisible). Además, los precios seguían mostrándose en Euros a pesar del diseño acordado en Merci-coins.
+
+**Hecho:**
+- Se inyectó `opacity: 1 !important;` al contenedor `div.images` en `_woocommerce.scss`.
+- Se consolidaron los filtros PHP (`woocommerce_currencies`, `woocommerce_currency_symbol`, `woocommerce_currency`) en `functions.php` para sobrescribir la moneda nativa.
+
+**Motivo / criterio:** *Zero JS Dependency y Configuration as Code*. WooCommerce oculta nativamente la imagen individual (`opacity: 0` en línea) esperando a que su pesado script de galería cargue para mostrarla. Como nosotros extirpamos ese JS para lograr el 100/100 de rendimiento, debíamos forzar su opacidad desde SASS. Por otro lado, la moneda se consolidó en PHP para evitar depender del panel de administración del CMS.
+
+**Siguiente paso o deuda:** Validar la visualización del producto individual y cerrar la Épica 6.
+
 ### 2026-05-25 — UX/UI: Refinamiento de la vista individual de producto
 
 **Contexto:** En la vista de producto individual del catálogo, la imagen ocupaba un 50% del ancho (`1fr 1fr`), resultando desproporcionadamente grande en pantallas de escritorio.

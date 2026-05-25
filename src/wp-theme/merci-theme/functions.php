@@ -293,3 +293,25 @@ if ( isset( $_SERVER['HTTP_X_AUTHORIZATION'] ) && ! isset( $_SERVER['HTTP_AUTHOR
 if ( isset( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) && ! isset( $_SERVER['HTTP_AUTHORIZATION'] ) ) {
     $_SERVER['HTTP_AUTHORIZATION'] = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
 }
+
+// =========================================================================
+// 9. SOPORTE PARA MERCI-COINS (Criptodivisa Mock)
+// =========================================================================
+add_filter('woocommerce_currencies', 'merci_add_custom_currency');
+function merci_add_custom_currency($currencies) {
+    $currencies['MC'] = __('Merci-coins', 'woocommerce');
+    return $currencies;
+}
+
+add_filter('woocommerce_currency_symbol', 'merci_add_custom_currency_symbol', 10, 2);
+function merci_add_custom_currency_symbol($currency_symbol, $currency) {
+    if ($currency === 'MC') {
+        $currency_symbol = 'MC 🪙';
+    }
+    return $currency_symbol;
+}
+
+add_filter('woocommerce_currency', 'merci_force_custom_currency');
+function merci_force_custom_currency($currency) {
+    return 'MC'; // Fuerza a que la tienda use siempre Merci-coins sin tocar el wp-admin
+}

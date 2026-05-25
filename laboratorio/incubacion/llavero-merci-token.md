@@ -3,7 +3,7 @@ nombre: "Llavero Merci - Token Físico de Acceso"
 precio: "8.50"
 descripcion_corta: "El segundo factor de autenticación definitivo. Lleva las llaves de tu infraestructura física bajo la supervisión de Merci."
 imagen: "llavero-blanco-mercedev.webp"
-estado: "publicado"
+estado: "borrador"
 ---
 
 # Hardening para tus llaves
