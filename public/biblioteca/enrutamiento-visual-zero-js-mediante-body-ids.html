@@ -6,7 +6,7 @@
     <title>Enrutamiento Visual Zero-JS mediante Body IDs — mercedev.es</title>
     <meta name="description" content="Técnica para resaltar dinámicamente enlaces activos en menús de sitios estáticos utilizando atributos SASS combinados y 0ms de latencia JavaScript.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/enrutamiento-visual-zero-js-mediante-body-ids.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779659082">
+    <link rel="stylesheet" href="/css/main.css?v=1779694342">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>En una arquitectura SSG (Static Site Generation - Generación de Sitios Estáticos) donde el menú principal (<code>&lt;header&gt;</code>) se extrae de un archivo base y se inyecta en el resto de páginas de forma idéntica, resultaba imposible añadir la clase <code>.active</code> directamente en el HTML del enlace activo. La solución tradicional requiere utilizar JavaScript cliente para leer <code>window.location.pathname</code>, lo que introduce latencia, aumenta el peso del DOM y viola la política estricta de Cero Dependencias del proyecto.</p>
+<p>En una arquitectura <abbr title="Merci Explica: Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas." tabindex="0">SSG</abbr> (Static Site Generation - Generación de Sitios Estáticos) donde el menú principal (<code>&lt;header&gt;</code>) se extrae de un archivo base y se inyecta en el resto de páginas de forma idéntica, resultaba imposible añadir la clase <code>.active</code> directamente en el HTML del enlace activo. La solución tradicional requiere utilizar JavaScript cliente para leer <code>window.location.pathname</code>, lo que introduce latencia, aumenta el peso del <abbr title="Merci Explica: Mapa mental de las partes de una página web que puede ser modificado por JavaScript." tabindex="0">DOM</abbr> y viola la política estricta de Cero Dependencias del proyecto.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se aplicó un patrón de enrutamiento puramente basado en CSS (Cascading Style Sheets) nativo. El orquestador Python, al compilar la vista estática, inyecta un identificador único en la etiqueta global del documento (ej. <code>&lt;body id="page-sobre-mi"&gt;</code>) basándose en el contexto del archivo.</p>
 <p>Posteriormente, en la arquitectura <abbr title="Merci Explica: CSS con superpoderes." tabindex="0">SASS</abbr>, se utilizan selectores descendentes de atributo combinado para interceptar el enlace que coincide con el ID de la página actual: <code>#page-sobre-mi .nav__link[href="/sobre-mi/"] { color: $color-primary; }</code>.</p>

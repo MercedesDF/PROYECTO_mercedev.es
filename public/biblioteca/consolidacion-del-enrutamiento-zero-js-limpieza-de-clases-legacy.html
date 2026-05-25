@@ -6,7 +6,7 @@
     <title>Consolidación del Enrutamiento Zero-JS: Limpieza de Clases L...</title>
     <meta name="description" content="Refactorización para delegar el resaltado de enlaces activos exclusivamente a la hoja de estilos mediante Body IDs, eliminando mutaciones del DOM.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779659082">
+    <link rel="stylesheet" href="/css/main.css?v=1779694342">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -55,7 +55,7 @@
 <h2>La Maniobra (Lógica)</h2>
 <p>Se ejecutó una limpieza estructural (Zero-JS Routing). Primero, se eliminó la clase <code>nav__link--active</code> y el atributo de accesibilidad <code>aria-current="page"</code> quemados en el archivo maestro de la portada. Segundo, se purgó la lógica de mutación de cadenas (uso de <code>replace()</code>) en <code>merci-sync-pages.py</code>, permitiendo que el bloque <code>&lt;header&gt;</code> se clone de manera 100% literal e inmaculada hacia todas las páginas secundarias estáticas.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Delegar la responsabilidad del estado de la interfaz de usuario (UI) puramente a la hoja de estilos es la máxima expresión de "Single Source of Truth". Modificar el DOM mediante scripts de compilación para alterar clases activas añade complejidad innecesaria. Al mantener el <code>&lt;header&gt;</code> idéntico en todo el ecosistema estático y dejar que el CSS resuelva el estado activo en base al contexto (<code>body id</code>), se logra un enrutamiento visual de latencia cero y se reduce radicalmente la deuda técnica.</p>
+<p>Delegar la responsabilidad del estado de la interfaz de usuario (UI) puramente a la hoja de estilos es la máxima expresión de "Single Source of Truth". Modificar el <abbr title="Merci Explica: Mapa mental de las partes de una página web que puede ser modificado por JavaScript." tabindex="0">DOM</abbr> mediante scripts de compilación para alterar clases activas añade complejidad innecesaria. Al mantener el <code>&lt;header&gt;</code> idéntico en todo el ecosistema estático y dejar que el CSS resuelva el estado activo en base al contexto (<code>body id</code>), se logra un enrutamiento visual de latencia cero y se reduce radicalmente la deuda técnica.</p>
             </div>
         </article>
     </main>

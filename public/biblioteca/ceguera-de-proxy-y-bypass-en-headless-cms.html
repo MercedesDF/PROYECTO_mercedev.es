@@ -6,7 +6,7 @@
     <title>Ceguera de Proxy y Bypass en Headless CMS — mercedev.es</title>
     <meta name="description" content="Cómo atravesar barreras de seguridad y cachés agresivas (Varnish/OPcache) al conectar un publicador Python con WordPress.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/ceguera-de-proxy-y-bypass-en-headless-cms.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779659082">
+    <link rel="stylesheet" href="/css/main.css?v=1779694342">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Al intentar publicar artículos en WordPress desde la terminal local hacia el servidor de producción mediante la API <abbr title="Merci Explica: Sistema de comunicación entre aplicaciones donde cada mensaje contiene toda la información necesaria para entender el contexto." tabindex="0">REST</abbr>, el servidor devolvía constantemente un error <code>401 Unauthorized</code>. Sin embargo, las credenciales eran correctas y el mismo script funcionaba a la perfección en el entorno <code>localhost</code>. Simultáneamente, WordPress en producción se negaba a mostrar la opción para generar Contraseñas de Aplicación por considerar el entorno inseguro, a pesar de tener un certificado SSL/TLS válido.</p>
+<p>Al intentar publicar artículos en WordPress desde la terminal local hacia el servidor de producción mediante la API <abbr title="Merci Explica: Sistema de comunicación entre aplicaciones donde cada mensaje contiene toda la información necesaria para entender el contexto." tabindex="0">REST</abbr>, el servidor devolvía constantemente un error <code>401 Unauthorized</code>. Sin embargo, las credenciales eran correctas y el mismo script funcionaba a la perfección en el entorno <code>localhost</code>. Simultáneamente, WordPress en producción se negaba a mostrar la opción para generar Contraseñas de Aplicación por considerar el entorno inseguro, a pesar de tener un certificado <abbr title="Merci Explica: Cerradura digital que asegura las conversaciones entre tu navegador y el sitio web." tabindex="0">SSL</abbr>/<abbr title="Merci Explica: Cerradura digital que protege tus conversaciones en línea." tabindex="0">TLS</abbr> válido.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>El problema fue diagnosticado como <strong>Ceguera de Proxy</strong>. Servidores de alto rendimiento como CloudPanel utilizan Nginx y Varnish Cache por delante de PHP. Varnish, por seguridad, purga la cabecera <code>Authorization</code> antes de pasar la petición a PHP, dejando al <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> sin credenciales. Además, la conexión interna de Nginx a PHP se realiza por HTTP (terminación SSL en frontera), provocando la "Ceguera de HTTPS" en el núcleo de WordPress.</p>
 <p><strong>Soluciones aplicadas:</strong>

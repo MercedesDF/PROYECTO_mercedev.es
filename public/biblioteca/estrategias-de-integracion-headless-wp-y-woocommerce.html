@@ -6,7 +6,7 @@
     <title>Estrategias de Integración Headless: WP y WooCommerce</title>
     <meta name="description" content="Resolución de ceguera de proxy, paridad Dev/Prod y sincronización bidireccional en un ecosistema CMS aislado.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/estrategias-de-integracion-headless-wp-y-woocommerce.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779659082">
+    <link rel="stylesheet" href="/css/main.css?v=1779694342">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -61,7 +61,7 @@
 <h2>La Maniobra (Lógica)</h2>
 <p>Para domar el CMS, se desplegó una estrategia de defensa en profundidad:</p>
 <ol>
-<li><strong>Bypass de Proxy y SSL:</strong> Se inyectó una cabecera HTTP gemela (<code>X-Authorization</code>) desde el orquestador Python (<code>merci-wp.py</code>) para atravesar Varnish, restaurándola luego a nivel de PHP en el Child Theme. El <em>Mixed Content</em> se resolvió forzando URLs relativas al protocolo (<code>//</code>) y leyendo <code>home_url()</code> en lugar de las variables brutas de servidor (<code>$_SERVER</code>).</li>
+<li><strong>Bypass de Proxy y <abbr title="Merci Explica: Cerradura digital que asegura las conversaciones entre tu navegador y el sitio web." tabindex="0">SSL</abbr>:</strong> Se inyectó una cabecera HTTP gemela (<code>X-Authorization</code>) desde el orquestador Python (<code>merci-wp.py</code>) para atravesar Varnish, restaurándola luego a nivel de PHP en el Child Theme. El <em>Mixed Content</em> se resolvió forzando URLs relativas al protocolo (<code>//</code>) y leyendo <code>home_url()</code> en lugar de las variables brutas de servidor (<code>$_SERVER</code>).</li>
 <li><strong><abbr title="Merci Explica: Establecer una sola ley o un único documento oficial de donde todo el mundo deba sacar la información para que nunca haya datos contradictorios." tabindex="0">SSOT</abbr> Dinámico por Slug:</strong> Se erradicó el uso de IDs rígidos. <code>merci-wp.py</code> ahora interroga a la API REST de destino usando el nombre del archivo (slug). Esto logra paridad Dev/Prod absoluta, permitiendo actualizar el mismo archivo local contra diferentes bases de datos sin colisiones.</li>
 <li><strong>Escudo de Rendimiento y Kill-Switch:</strong> Se implementaron bloqueos estrictos en <code>functions.php</code> (desencolado masivo y Whitelist Criptográfico CSP en Nginx). Adicionalmente, el orquestador Python aplica un "Kill-Switch" que expulsa los artículos despublicados (<code>estado: "borrador"</code>) de vuelta al directorio de incubación local, previniendo posts fantasmas.</li>
 </ol>
@@ -71,7 +71,7 @@
 <p>Para estudiar las batallas específicas libradas para domar el CMS, consulta:</p>
 <ul>
 <li><a href="/biblioteca/ceguera-de-proxy-y-bypass-en-headless-cms.html">Ceguera de Proxy y Bypass en Headless CMS</a></li>
-<li><a href="/biblioteca/unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms.html">Única Fuente de Verdad: Resolviendo la deriva de slugs entre SSG y CMS</a></li>
+<li><a href="/biblioteca/unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms.html">Única Fuente de Verdad: Resolviendo la deriva de slugs entre <abbr title="Merci Explica: Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas." tabindex="0">SSG</abbr> y CMS</a></li>
 <li><a href="/biblioteca/inyeccion-headless-en-woocommerce-con-python-puro.html">Inyección Headless en WooCommerce con Python Puro</a></li>
 <li><a href="/biblioteca/domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom.html">Domando a WooCommerce: Jerarquía de plantillas en temas custom</a></li>
 </ul>

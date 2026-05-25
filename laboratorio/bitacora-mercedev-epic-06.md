@@ -36,6 +36,20 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-25 — Observabilidad Profunda: Expansión de recolección en Agente Glosario
+
+**Contexto:** El autodescubrimiento y la sincronización automática de apariciones del glosario estaban acotados a rastrear únicamente el historial del laboratorio (bitácoras), estando ciegos ante la documentación matriz. Para lograr una Observabilidad Profunda matemática, era necesario rastrear qué términos están realmente vivos en las instrucciones, el README y la carpeta de documentación (`docs/`).
+
+**Hecho:**
+- Se refactorizó `scripts/merci/merci-glosario.py` para ampliar la matriz `archivos_objetivo`.
+- Se incluyeron los directorios `docs/**/*.md` y los manuales maestros `instrucciones.md` y `README.md`.
+
+**Detalle técnico:** Se reemplazó la iteración directa sobre `rglob` de bitácoras por una lista combinada (`archivos_objetivo.extend(...)`) que recolecta todas las fuentes de la "Única Fuente de Verdad" (SSOT) antes de realizar la lectura UTF-8 y extracción de términos.
+
+**Motivo / criterio:** *Observabilidad Profunda y Single Source of Truth*. Los conceptos nacen en la bitácora, pero su destino final es consolidarse en la documentación pública. Rastrear su presencia en los manuales base y la carpeta `docs` garantiza que la validación de términos vivos sea matemáticamente exacta, detectando también deudas de acrónimos en los documentos formativos.
+
+**Siguiente paso o deuda:** Validar la extracción de los nuevos términos y ejecutar el pipeline `merci-total`.
+
 ### 2026-05-24 — AI & DevSecOps: Refinamiento Extremo del Agente Glosario (Positive Prompting)
 
 **Contexto:** Tras detectar que el LLM padecía del "Síndrome del Loro" (repitiendo instrucciones meta) y del "Elefante Rosa" (al prohibirle ciertas frases las usaba aún más, como "Es como..."), se requería una técnica de doma avanzada para forzar un tono corporativo y conciso.

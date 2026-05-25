@@ -3,14 +3,14 @@ titulo: "Glosario Técnico"
 descripcion: "Diccionario Data-Driven compilado automáticamente por el Agente Glosario."
 tema: "DevSecOps y Gobernanza"
 estado: "publicado"
-alt_portada: "Diccionario técnico automatizado 2026-05-24"
-fecha: "2026-05-24"
+alt_portada: "Diccionario técnico automatizado 2026-05-25"
+fecha: "2026-05-25"
 ---
 
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 117 términos consolidados (Última actualización de datos: 2026-05-24 23:41).
+> **Versión de control:** 127 términos consolidados (Última actualización de datos: 2026-05-25 09:31).
 
 ## Índice Alfabético
 
@@ -35,7 +35,7 @@ fecha: "2026-05-24"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L988
-- bitacora-mercedev-epic-06.md: L161
+- bitacora-mercedev-epic-06.md: L175
 
 ---
 ### AJAX
@@ -68,7 +68,9 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Es como un mapa mental que usan los compiladores para entender y desglosar el código de programación que escribimos.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-06.md: L262
+- bitacora-mercedev-epic-06.md: L276
+- checklist-hardening.md: L57
+- instrucciones.md: L91
 
 ---
 ### ATS
@@ -94,6 +96,9 @@ fecha: "2026-05-24"
 - bitacora-mercedev-epic-03.md: L741
 - bitacora-mercedev-epic-04.md: L98
 - bitacora-mercedev-epic-05.md: L62
+- checklist-hardening.md: L51
+- ciclo-de-vida-contenidos.md: L9
+- instrucciones.md: L24
 
 ---
 ### BOM
@@ -115,6 +120,7 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano.*
 
 **Apariciones en Bitácoras:**
+- README.md: L88
 - bitacora-mercedev-epic-01.md: L206
 - bitacora-mercedev-epic-02.md: L484
 - bitacora-mercedev-epic-03.md: L115
@@ -141,6 +147,7 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Mide cuánto saltan los textos o imágenes mientras la página web termina de cargar.*
 
 **Apariciones en Bitácoras:**
+- README.md: L48
 - bitacora-mercedev-epic-01.md: L160
 
 ---
@@ -152,11 +159,16 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida.*
 
 **Apariciones en Bitácoras:**
+- README.md: L205
 - bitacora-mercedev-epic-01.md: L177
 - bitacora-mercedev-epic-02.md: L820
 - bitacora-mercedev-epic-03.md: L111
 - bitacora-mercedev-epic-05.md: L266
-- bitacora-mercedev-epic-06.md: L140
+- bitacora-mercedev-epic-06.md: L154
+- deployment-playbook.md: L34
+- flujo-publicacion-sop.md: L53
+- instrucciones.md: L87
+- integracion-wordpress.md: L13
 
 ---
 ### CNAME
@@ -175,6 +187,7 @@ fecha: "2026-05-24"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L3369
+- checklist-hardening.md: L38
 
 ---
 ### COOP
@@ -184,6 +197,8 @@ fecha: "2026-05-24"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L3362
+- checklist-hardening.md: L38
+- deployment-playbook.md: L47
 
 ---
 ### COPE
@@ -228,6 +243,19 @@ fecha: "2026-05-24"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L119
+- checklist-hardening.md: L8
+- deployment-playbook.md: L47
+
+---
+### CSS3
+**Inglés:** Cascading Style Sheets version 3 | **Español:** Hoja de Estilos Cascada versión 3
+
+**Definición:** Lenguaje utilizado para describir la apariencia y el formato de un documento escrito en HTML o XML.
+
+💡 **Merci Explica:** *Estilo de vestimenta para páginas web.*
+
+**Apariciones en Bitácoras:**
+- instrucciones.md: L24
 
 ---
 ### CTA
@@ -250,7 +278,7 @@ fecha: "2026-05-24"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-03.md: L1593
-- bitacora-mercedev-epic-06.md: L234
+- bitacora-mercedev-epic-06.md: L248
 
 ---
 ### CVE
@@ -283,8 +311,10 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Escaneo interactivo del sistema mientras está en funcionamiento para detectar fallos de seguridad.*
 
 **Apariciones en Bitácoras:**
+- README.md: L179
 - bitacora-mercedev-epic-01.md: L177
 - bitacora-mercedev-epic-03.md: L61
+- instrucciones.md: L35
 
 ---
 ### DevSecOps
@@ -295,12 +325,18 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas.*
 
 **Apariciones en Bitácoras:**
+- README.md: L5
 - bitacora-mercedev-epic-01.md: L59
 - bitacora-mercedev-epic-02.md: L47
 - bitacora-mercedev-epic-03.md: L103
 - bitacora-mercedev-epic-04.md: L79
-- bitacora-mercedev-epic-06.md: L39
+- bitacora-mercedev-epic-06.md: L53
 - bitacora-merci-boilerplate.md: L17
+- checklist-hardening.md: L43
+- ciclo-de-vida-contenidos.md: L16
+- instrucciones.md: L4
+- plantilla-cuadernillo.md: L10
+- plantilla-proyecto.md: L10
 
 ---
 ### DLP
@@ -315,6 +351,22 @@ fecha: "2026-05-24"
 - bitacora-mercedev-epic-02.md: L296
 - bitacora-mercedev-epic-03.md: L189
 - bitacora-mercedev-epic-05.md: L74
+- checklist-hardening.md: L48
+
+---
+### DOM
+**Inglés:** Document Object Model | **Español:** Modelo de Objeto del Documento
+
+**Definición:** Representación estructurada de un documento HTML que permite a los scripts interactuar con el contenido y la estructura de una página web.
+
+💡 **Merci Explica:** *Mapa mental de las partes de una página web que puede ser modificado por JavaScript.*
+
+**Apariciones en Bitácoras:**
+- bitacora-mercedev-epic-01.md: L540
+- bitacora-mercedev-epic-03.md: L215
+- bitacora-mercedev-epic-06.md: L82
+- checklist-hardening.md: L7
+- instrucciones.md: L25
 
 ---
 ### DOTALL
@@ -363,7 +415,7 @@ fecha: "2026-05-24"
 - bitacora-mercedev-epic-03.md: L49
 - bitacora-mercedev-epic-04.md: L56
 - bitacora-mercedev-epic-05.md: L98
-- bitacora-mercedev-epic-06.md: L112
+- bitacora-mercedev-epic-06.md: L126
 
 ---
 ### E2EE
@@ -446,6 +498,17 @@ fecha: "2026-05-24"
 - bitacora-mercedev-epic-02.md: L784
 
 ---
+### GSAP
+**Inglés:** GreenSock Animation Platform | **Español:** Plataforma de Animación GreenSock
+
+**Definición:** Biblioteca JavaScript utilizada para crear animaciones complejas y fluidas en páginas web.
+
+💡 **Merci Explica:** *Motor de cohetes para las transiciones visuales.*
+
+**Apariciones en Bitácoras:**
+- instrucciones.md: L137
+
+---
 ### GUI
 **Inglés:** Graphical User Interface | **Español:** Interfaz Gráfica de Usuario
 
@@ -467,6 +530,8 @@ fecha: "2026-05-24"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L3219
+- checklist-hardening.md: L37
+- deployment-playbook.md: L47
 
 ---
 ### IA-Fix
@@ -528,6 +593,8 @@ fecha: "2026-05-24"
 - bitacora-mercedev-epic-01.md: L233
 - bitacora-mercedev-epic-02.md: L43
 - bitacora-mercedev-epic-03.md: L447
+- ciclo-de-vida-contenidos.md: L8
+- instrucciones.md: L8
 
 ---
 ### JWT
@@ -584,7 +651,11 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Pila de herramientas que permite construir aplicaciones web robustas y escalables.*
 
 **Apariciones en Bitácoras:**
+- README.md: L204
 - bitacora-mercedev-epic-01.md: L3773
+- checklist-hardening.md: L22
+- deployment-playbook.md: L15
+- integracion-wordpress.md: L18
 
 ---
 ### LF
@@ -608,7 +679,18 @@ fecha: "2026-05-24"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L222
 - bitacora-mercedev-epic-03.md: L441
-- bitacora-mercedev-epic-06.md: L41
+- bitacora-mercedev-epic-06.md: L55
+
+---
+### LTS
+**Inglés:** Long Term Support | **Español:** Soporte a largo plazo
+
+**Definición:** Política de soporte ofrecida por una empresa o organización que proporciona actualizaciones y correcciones de errores durante un período prolongado.
+
+💡 **Merci Explica:** *Seguro contra el deterioro del software.*
+
+**Apariciones en Bitácoras:**
+- deployment-playbook.md: L9
 
 ---
 ### MIME
@@ -620,6 +702,7 @@ fecha: "2026-05-24"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L3618
+- checklist-hardening.md: L40
 
 ---
 ### MIME-sniffing
@@ -698,8 +781,10 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Candado electrónico para proteger la información de usuario*
 
 **Apariciones en Bitácoras:**
+- README.md: L97
 - bitacora-mercedev-epic-01.md: L118
 - bitacora-mercedev-epic-02.md: L978
+- instrucciones.md: L46
 
 ---
 ### OOBE
@@ -725,6 +810,17 @@ fecha: "2026-05-24"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L2693
 - bitacora-mercedev-epic-02.md: L1024
+
+---
+### PEP
+**Inglés:** Python Enhancement Proposal | **Español:** Propuesta de Mejora de Python
+
+**Definición:** Documentación formal que presenta y explica una propuesta para mejorar o añadir nuevas funcionalidades al lenguaje de programación Python.
+
+💡 **Merci Explica:** *Guía detallada para implementar mejoras en Python.*
+
+**Apariciones en Bitácoras:**
+- instrucciones.md: L90
 
 ---
 ### PGP
@@ -809,6 +905,7 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *El archivo de imagen original y pesado donde los diseñadores guardan sus diseños por capas, como un sándwich desarmable.*
 
 **Apariciones en Bitácoras:**
+- README.md: L69
 - bitacora-mercedev-epic-01.md: L5590
 
 ---
@@ -820,11 +917,15 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Inspector de alta precisión que garantiza que todo funcione como debe.*
 
 **Apariciones en Bitácoras:**
+- README.md: L80
 - bitacora-mercedev-epic-01.md: L171
 - bitacora-mercedev-epic-02.md: L582
 - bitacora-mercedev-epic-03.md: L85
 - bitacora-mercedev-epic-04.md: L52
 - bitacora-mercedev-epic-05.md: L81
+- flujo-publicacion-sop.md: L21
+- instrucciones.md: L50
+- mantenimiento-boilerplate-sop.md: L48
 
 ---
 ### RAG
@@ -846,6 +947,7 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Son los datos brutos, como las imágenes tomadas con una cámara o los sonidos grabados con un microfón.*
 
 **Apariciones en Bitácoras:**
+- README.md: L69
 - bitacora-mercedev-epic-01.md: L5590
 
 ---
@@ -860,6 +962,7 @@ fecha: "2026-05-24"
 - bitacora-mercedev-epic-01.md: L4663
 - bitacora-mercedev-epic-02.md: L122
 - bitacora-mercedev-epic-03.md: L73
+- checklist-hardening.md: L58
 
 ---
 ### REST
@@ -870,9 +973,14 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Sistema de comunicación entre aplicaciones donde cada mensaje contiene toda la información necesaria para entender el contexto.*
 
 **Apariciones en Bitácoras:**
+- README.md: L183
 - bitacora-mercedev-epic-01.md: L799
 - bitacora-mercedev-epic-03.md: L641
-- bitacora-mercedev-epic-06.md: L136
+- bitacora-mercedev-epic-06.md: L150
+- ciclo-de-vida-contenidos.md: L41
+- flujo-publicacion-sop.md: L30
+- instrucciones.md: L47
+- integracion-wordpress.md: L10
 
 ---
 ### ROI
@@ -911,6 +1019,17 @@ fecha: "2026-05-24"
 - bitacora-mercedev-epic-03.md: L381
 
 ---
+### RSD
+**Inglés:** Request for Security Decision | **Español:** Solicitud para una decisión de seguridad
+
+**Definición:** Proceso formal que permite a las organizaciones tomar decisiones sobre cómo manejar situaciones de seguridad, como el acceso a sistemas o la implementación de políticas de privacidad.
+
+💡 **Merci Explica:** *Procedimiento estructurado para resolver problemas de seguridad.*
+
+**Apariciones en Bitácoras:**
+- checklist-hardening.md: L19
+
+---
 ### SASS
 **Inglés:** Syntactically Awesome Style Sheets | **Español:** Hojas de Estilo Sintácticamente Asombrosas
 
@@ -919,10 +1038,12 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *CSS con superpoderes.*
 
 **Apariciones en Bitácoras:**
+- README.md: L48
 - bitacora-mercedev-epic-01.md: L105
 - bitacora-mercedev-epic-02.md: L1524
 - bitacora-mercedev-epic-03.md: L423
 - bitacora-mercedev-epic-04.md: L98
+- instrucciones.md: L24
 
 ---
 ### SAST
@@ -933,6 +1054,7 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Escaneo del código como si fuera un libro abierto.*
 
 **Apariciones en Bitácoras:**
+- README.md: L168
 - bitacora-mercedev-epic-01.md: L3501
 - bitacora-mercedev-epic-02.md: L248
 - bitacora-mercedev-epic-03.md: L61
@@ -970,6 +1092,7 @@ fecha: "2026-05-24"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L3225
+- checklist-hardening.md: L36
 
 ---
 ### Shift-Left
@@ -980,10 +1103,12 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Adelantar los controles de calidad para encontrar los errores y agujeros de seguridad al escribir el código, en vez de descubrirlos el día de lanzamiento.*
 
 **Apariciones en Bitácoras:**
+- README.md: L17
 - bitacora-mercedev-epic-01.md: L413
 - bitacora-mercedev-epic-02.md: L238
 - bitacora-mercedev-epic-03.md: L61
-- bitacora-mercedev-epic-06.md: L152
+- bitacora-mercedev-epic-06.md: L166
+- instrucciones.md: L4
 
 ---
 ### Shift-Right
@@ -1018,7 +1143,7 @@ fecha: "2026-05-24"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L158
 - bitacora-mercedev-epic-03.md: L753
-- bitacora-mercedev-epic-06.md: L252
+- bitacora-mercedev-epic-06.md: L266
 
 ---
 ### SMTP
@@ -1042,6 +1167,7 @@ fecha: "2026-05-24"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L3184
 - bitacora-mercedev-epic-03.md: L1833
+- instrucciones.md: L25
 
 ---
 ### SOP
@@ -1056,6 +1182,8 @@ fecha: "2026-05-24"
 - bitacora-mercedev-epic-02.md: L532
 - bitacora-mercedev-epic-03.md: L339
 - bitacora-mercedev-epic-05.md: L156
+- flujo-publicacion-sop.md: L2
+- mantenimiento-boilerplate-sop.md: L1
 
 ---
 ### SRE
@@ -1066,9 +1194,11 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo.*
 
 **Apariciones en Bitácoras:**
+- README.md: L13
 - bitacora-mercedev-epic-02.md: L48
 - bitacora-mercedev-epic-03.md: L347
 - bitacora-mercedev-epic-04.md: L46
+- deployment-playbook.md: L51
 
 ---
 ### SRP
@@ -1082,6 +1212,38 @@ fecha: "2026-05-24"
 - bitacora-mercedev-epic-03.md: L1312
 
 ---
+### SSG
+**Inglés:** Static Site Generator | **Español:** Generador de Sitios Estáticos
+
+**Definición:** Herramienta que convierte contenido dinámico en sitios web estáticos, mejorando la velocidad y seguridad del sitio.
+
+💡 **Merci Explica:** *Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas.*
+
+**Apariciones en Bitácoras:**
+- README.md: L177
+- bitacora-mercedev-epic-01.md: L99
+- bitacora-mercedev-epic-02.md: L80
+- bitacora-mercedev-epic-03.md: L476
+- bitacora-mercedev-epic-06.md: L179
+- ciclo-de-vida-contenidos.md: L7
+- flujo-publicacion-sop.md: L2
+- instrucciones.md: L36
+
+---
+### SSL
+**Inglés:** Secure Sockets Layer | **Español:** Capa de Enlace Seguro
+
+**Definición:** Protocolo de comunicación que proporciona una conexión segura entre un cliente y un servidor, protegiendo la información transmита.
+
+💡 **Merci Explica:** *Cerradura digital que asegura las conversaciones entre tu navegador y el sitio web.*
+
+**Apariciones en Bitácoras:**
+- bitacora-mercedev-epic-01.md: L984
+- bitacora-mercedev-epic-02.md: L1536
+- bitacora-mercedev-epic-05.md: L179
+- deployment-playbook.md: L43
+
+---
 ### SSOT
 **Inglés:** Single Source of Truth | **Español:** Única Fuente de Verdad
 
@@ -1090,10 +1252,14 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Establecer una sola ley o un único documento oficial de donde todo el mundo deba sacar la información para que nunca haya datos contradictorios.*
 
 **Apariciones en Bitácoras:**
+- README.md: L10
 - bitacora-mercedev-epic-01.md: L50
 - bitacora-mercedev-epic-02.md: L318
 - bitacora-mercedev-epic-03.md: L325
-- bitacora-mercedev-epic-06.md: L88
+- bitacora-mercedev-epic-06.md: L47
+- ciclo-de-vida-contenidos.md: L49
+- instrucciones.md: L37
+- mantenimiento-boilerplate-sop.md: L5
 
 ---
 ### SSRF
@@ -1115,12 +1281,13 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *El tiempo acumulado en el que el ordenador estuvo tan ocupado calculando cosas que tu ratón o tus toques en la pantalla parecían no responder.*
 
 **Apariciones en Bitácoras:**
+- README.md: L48
 - bitacora-mercedev-epic-01.md: L160
 - bitacora-mercedev-epic-02.md: L612
 - bitacora-mercedev-epic-03.md: L203
 - bitacora-mercedev-epic-04.md: L52
 - bitacora-mercedev-epic-05.md: L77
-- bitacora-mercedev-epic-06.md: L184
+- bitacora-mercedev-epic-06.md: L198
 
 ---
 ### TCP
@@ -1154,7 +1321,19 @@ fecha: "2026-05-24"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-03.md: L1123
-- bitacora-mercedev-epic-06.md: L46
+- bitacora-mercedev-epic-06.md: L60
+
+---
+### TLS
+**Inglés:** Transport Layer Security | **Español:** Capa de Seguridad de Transporte
+
+**Definición:** Protocolo de seguridad que garantiza la privacidad y integridad de las comunicaciones entre dos puntos finales a través de una red insegura, cifrando los datos en tránsito.
+
+💡 **Merci Explica:** *Cerradura digital que protege tus conversaciones en línea.*
+
+**Apariciones en Bitácoras:**
+- bitacora-mercedev-epic-01.md: L3444
+- deployment-playbook.md: L44
 
 ---
 ### TTFB
@@ -1191,7 +1370,7 @@ fecha: "2026-05-24"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L1215
 - bitacora-mercedev-epic-03.md: L912
-- bitacora-mercedev-epic-06.md: L173
+- bitacora-mercedev-epic-06.md: L187
 
 ---
 ### UTF-8
@@ -1203,6 +1382,7 @@ fecha: "2026-05-24"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L4498
+- bitacora-mercedev-epic-06.md: L47
 
 ---
 ### VCL
@@ -1237,6 +1417,10 @@ fecha: "2026-05-24"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L406
 - bitacora-mercedev-epic-03.md: L558
+- ciclo-de-vida-contenidos.md: L26
+- instrucciones.md: L30
+- plantilla-cuadernillo.md: L14
+- plantilla-proyecto.md: L16
 
 ---
 ### WC
@@ -1261,6 +1445,17 @@ fecha: "2026-05-24"
 - bitacora-mercedev-epic-02.md: L594
 
 ---
+### WLW
+**Inglés:** WebLogic Workshop | **Español:** Trabajo con WebLogic
+
+**Definición:** Entorno de desarrollo basado en Java que permite a los desarrolladores crear, depurar y desplegar aplicaciones web.
+
+💡 **Merci Explica:** *Herramienta integral para el desarrollo de aplicaciones web.*
+
+**Apariciones en Bitácoras:**
+- checklist-hardening.md: L19
+
+---
 ### WP-CLI
 **Inglés:** WordPress Command Line Interface | **Español:** Interfaz de Línea de Comandos de WordPress
 
@@ -1282,6 +1477,7 @@ fecha: "2026-05-24"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L4598
+- checklist-hardening.md: L15
 
 ---
 ### XSS
@@ -1295,6 +1491,8 @@ fecha: "2026-05-24"
 - bitacora-mercedev-epic-01.md: L3259
 - bitacora-mercedev-epic-02.md: L88
 - bitacora-mercedev-epic-03.md: L79
+- checklist-hardening.md: L36
+- deployment-playbook.md: L47
 
 ---
 ### YAGNI
@@ -1317,6 +1515,7 @@ fecha: "2026-05-24"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-03.md: L125
+- instrucciones.md: L88
 
 ---
 ### Zero-Code
@@ -1361,8 +1560,10 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Una medida de seguridad que previene que la Inteligencia Artificial te mienta y se invente cosas cuando no sabe una respuesta.*
 
 **Apariciones en Bitácoras:**
+- README.md: L87
 - bitacora-mercedev-epic-02.md: L910
-- bitacora-mercedev-epic-06.md: L90
+- bitacora-mercedev-epic-06.md: L104
+- instrucciones.md: L40
 
 ---
 ### Zero-Maintenance
@@ -1384,7 +1585,7 @@ fecha: "2026-05-24"
 💡 **Merci Explica:** *Seguridad como una caja fuerte inalcanzable, sin posibilidad de robar nada.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-06.md: L222
+- bitacora-mercedev-epic-06.md: L236
 
 ---
 ### Zero-Shot
@@ -1397,6 +1598,6 @@ fecha: "2026-05-24"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L1162
 - bitacora-mercedev-epic-03.md: L656
-- bitacora-mercedev-epic-06.md: L98
+- bitacora-mercedev-epic-06.md: L112
 
 ---

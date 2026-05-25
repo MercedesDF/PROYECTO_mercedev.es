@@ -6,7 +6,7 @@
     <title>Resolución de 404s Headless y Enlaces Ambiguos WAI-ARIA</title>
     <meta name="description" content="Cómo erradicar enlaces rotos en PDFs mediante un patrón de publicación en dos pasos y prevenir colisiones de accesibilidad WCAG inyectando dimensió...">
     <link rel="canonical" href="https://mercedev.es/biblioteca/resolucion-de-404s-headless-y-enlaces-ambiguos-wai-aria.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779659082">
+    <link rel="stylesheet" href="/css/main.css?v=1779694342">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -58,7 +58,7 @@
 <p><strong>1. Amputación de PDFs Dinámicos (Zero Bloat):</strong>
 Para resolver los 404 de los adjuntos rotos, se decidió extirpar completamente la generación de PDFs del orquestador Headless (<code>merci-wp.py</code>). El contenido dinámico y efímero del blog no requiere versiones descargables pesadas; estas se reservan exclusivamente para los manuales inmutables de la Biblioteca estática.</p>
 <p><strong>2. Accesibilidad con Dimensión Temporal:</strong>
-Para resolver la ambigüedad <abbr title="Merci Explica: Herramienta para hacer que las aplicaciones web sean más fáciles de usar para todos." tabindex="0">WAI-ARIA</abbr> sin alterar la interfaz visual, se inyectó la fecha de publicación en los atributos <code>aria-label</code> tanto del motor estático (SSG) como del Child Theme de WordPress (<code>index.php</code>). El código resultante se convierte en <code>&lt;a aria-label="Leer artículo completo: Título (YYYY-MM-DD)"&gt;</code>.</p>
+Para resolver la ambigüedad <abbr title="Merci Explica: Herramienta para hacer que las aplicaciones web sean más fáciles de usar para todos." tabindex="0">WAI-ARIA</abbr> sin alterar la interfaz visual, se inyectó la fecha de publicación en los atributos <code>aria-label</code> tanto del motor estático (<abbr title="Merci Explica: Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas." tabindex="0">SSG</abbr>) como del Child Theme de WordPress (<code>index.php</code>). El código resultante se convierte en <code>&lt;a aria-label="Leer artículo completo: Título (YYYY-MM-DD)"&gt;</code>.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <ul>
 <li><strong>Erradicar es mejor que parchear:</strong> Intentar crear flujos complejos (publicación en dos pasos) para mantener una funcionalidad innecesaria (PDFs de posts de blog) genera deuda técnica. La mejor solución <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr> suele ser borrar la característica superflua.</li>

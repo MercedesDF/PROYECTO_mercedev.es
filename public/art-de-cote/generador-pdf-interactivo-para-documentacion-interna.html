@@ -6,7 +6,7 @@
     <title>Generador PDF Interactivo para Documentación Interna</title>
     <meta name="description" content="Script táctico para renderizar manuales Markdown a PDF listos para imprimir, aislado del orquestador maestro SSG.">
     <link rel="canonical" href="https://mercedev.es/art-de-cote/generador-pdf-interactivo-para-documentacion-interna.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779659082">
+    <link rel="stylesheet" href="/css/main.css?v=1779694342">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -52,7 +52,7 @@
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
 <p>Durante el desarrollo del ecosistema, surgió la necesidad operativa de imprimir físicamente los manuales estructurales (como el ciclo de vida del YAML Frontmatter) para consulta rápida en el escritorio.</p>
-<p>Sin embargo, el motor de generación estática (SSG) de <code>merci-publish.py</code> está diseñado exclusivamente para renderizar y enrutar HTML optimizado hacia la red pública. Acoplar una librería de generación de PDFs dentro del orquestador principal habría supuesto una violación al principio de Responsabilidad Única (<em>Single Responsibility Principle</em>) y habría introducido dependencias pesadas (<code>weasyprint</code>) en un entorno que busca el "Zero Bloat".</p>
+<p>Sin embargo, el motor de generación estática (<abbr title="Merci Explica: Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas." tabindex="0">SSG</abbr>) de <code>merci-publish.py</code> está diseñado exclusivamente para renderizar y enrutar HTML optimizado hacia la red pública. Acoplar una librería de generación de PDFs dentro del orquestador principal habría supuesto una violación al principio de Responsabilidad Única (<em>Single Responsibility Principle</em>) y habría introducido dependencias pesadas (<code>weasyprint</code>) en un entorno que busca el "Zero Bloat".</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Para resolver la fricción sin comprometer la arquitectura, se diseñó un script táctico e independiente (<code>generar-pdf-docs.py</code>). Esta utilidad escanea de forma autónoma el directorio <code>docs/</code>, despliega un menú interactivo en la terminal y convierte el documento seleccionado a un PDF limpio.</p>
 <p>El script inyecta un CSS atómico basado en las variables visuales del proyecto matriz para asegurar consistencia corporativa incluso en papel. Al ser una herramienta puramente colateral, se ejecuta bajo demanda desde <code>laboratorio/scripts_temporales/</code>.</p>

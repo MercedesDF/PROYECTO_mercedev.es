@@ -6,7 +6,7 @@
     <title>Domando Rsync en IaaS Multi-Tenant: Permisos, .user.ini y Có...</title>
     <meta name="description" content="Resolución de colisiones críticas de despliegue continuo (CD) al utilizar rsync contra un entorno restrictivo de CloudPanel.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/domando-rsync-en-iaas-multi-tenant-permisos-userini-y-codigo-23.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779659082">
+    <link rel="stylesheet" href="/css/main.css?v=1779694342">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -53,7 +53,7 @@
                 <h3>El Desafío (Síntoma)</h3>
 <p>Durante el despliegue automatizado del Showcase hacia un subdominio gestionado por CloudPanel, el comando <code>rsync -avz --delete</code> falló reiteradamente devolviendo el fatídico "Código de Salida 23". Los errores oscilaban entre <code>Operation not permitted</code> al intentar cambiar las fechas de los directorios y bloqueos al intentar borrar archivos del servidor.</p>
 <h3>La Maniobra (Lógica)</h3>
-<p>Se analizó la arquitectura del servidor destino. CloudPanel protege la raíz de los sitios inyectando archivos inmutables a nivel de Kernel (<code>chattr +i</code> sobre <code>.user.ini</code>) y carpetas SSL (<code>.well-known</code>). Como el usuario SSH carece de privilegios <code>root</code>, se instruyó a Rsync para operar como un ciudadano educado relajando sus pretensiones de archivo (Archive Mode).
+<p>Se analizó la arquitectura del servidor destino. CloudPanel protege la raíz de los sitios inyectando archivos inmutables a nivel de Kernel (<code>chattr +i</code> sobre <code>.user.ini</code>) y carpetas <abbr title="Merci Explica: Cerradura digital que asegura las conversaciones entre tu navegador y el sitio web." tabindex="0">SSL</abbr> (<code>.well-known</code>). Como el usuario SSH carece de privilegios <code>root</code>, se instruyó a Rsync para operar como un ciudadano educado relajando sus pretensiones de archivo (Archive Mode).
 Se inyectaron las banderas <code>--no-o</code> (ignorar propietario), <code>--no-g</code> (ignorar grupo), <code>--no-perms</code> (ignorar chmod), <code>--omit-dir-times</code> (no alterar metadatos temporales de carpetas raíz) y exclusiones explícitas (<code>--exclude=/.well-known</code> y <code>--exclude=/.user.ini</code>). Además, se inyectó la llave SSH explícitamente vía variable <code>.env</code>.</p>
 <h3>El Aprendizaje / Deuda Técnica</h3>
 <p>La bandera <code>-a</code> (Archive) de Rsync asume un control casi total sobre la máquina destino, algo que un entorno IaaS (Infrastructure as a Service) multi-tenant o administrado siempre bloqueará por diseño de seguridad. Relajar la sincronización de metadatos estructurales (mientras se conserva la fecha de los archivos para caché) es el compromiso necesario para lograr un pipeline <abbr title="Merci Explica: Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano." tabindex="0">CI</abbr>/CD robusto y sin falsos negativos.</p>

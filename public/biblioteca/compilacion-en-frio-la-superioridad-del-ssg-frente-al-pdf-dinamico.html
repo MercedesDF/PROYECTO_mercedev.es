@@ -6,7 +6,7 @@
     <title>Compilación en Frío: La Superioridad del SSG frente al PDF D...</title>
     <meta name="description" content="Análisis arquitectónico sobre por qué asumir la carga computacional gráfica en Build-Time garantiza un ecosistema seguro, de nulo coste y Zero-JS.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/compilacion-en-frio-la-superioridad-del-ssg-frente-al-pdf-dinamico.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779659082">
+    <link rel="stylesheet" href="/css/main.css?v=1779694342">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -58,7 +58,7 @@
 </ul>
 </li>
 <li><strong>Generación en Servidor (Server-Side Rendering):</strong> Delegar la creación del PDF a un backend dinámico (PHP, Node.js) que se ejecuta en tiempo real cada vez que un usuario lo solicita.<ul>
-<li><em>Síntoma:</em> Rompe el paradigma de <strong>Sitio Estático (SSG)</strong>. Pintar un PDF es una tarea gráfica pesada (requiere calcular CSS, fuentes y cajas tipográficas). Exponer un endpoint dinámico de este tipo crea un vector masivo para ataques de Denegación de Servicio (DoS), permitiendo que un bot sature la CPU del servidor con múltiples peticiones simultáneas.</li>
+<li><em>Síntoma:</em> Rompe el paradigma de <strong>Sitio Estático (<abbr title="Merci Explica: Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas." tabindex="0">SSG</abbr>)</strong>. Pintar un PDF es una tarea gráfica pesada (requiere calcular CSS, fuentes y cajas tipográficas). Exponer un endpoint dinámico de este tipo crea un vector masivo para ataques de Denegación de Servicio (DoS), permitiendo que un bot sature la CPU del servidor con múltiples peticiones simultáneas.</li>
 </ul>
 </li>
 </ol>

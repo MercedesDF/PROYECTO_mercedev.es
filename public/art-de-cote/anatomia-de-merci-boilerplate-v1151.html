@@ -6,7 +6,7 @@
     <title>Anatomía de Merci Boilerplate v1.15.1 — mercedev.es</title>
     <meta name="description" content="Evolución del ecosistema DevSecOps: TBT 0ms, Telemetría SRE, Agent Chaining, Chaos Engineering y compilación SSG híbrida.">
     <link rel="canonical" href="https://mercedev.es/art-de-cote/anatomia-de-merci-boilerplate-v1151.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779659082">
+    <link rel="stylesheet" href="/css/main.css?v=1779694342">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -63,7 +63,7 @@ La Inteligencia Artificial está orquestada en local y en la nube creando autén
 *   <strong>Triage Interactivo:</strong> El Agente Glosario ahora expone el contexto de extracción al humano para evitar consumir inferencia de IA en falsos positivos.</p>
 <p><strong>3. Observabilidad SRE &amp; Chaos Engineering</strong>
 La infraestructura incluye un demonio <code>merci-sre.py</code> que ingiere telemetría continua hacia Prometheus y Grafana (IaC). Además, un "Mono del Caos" local inyecta vulnerabilidades <abbr title="Merci Explica: Cuerda para la protección contra ataques de inyección de código." tabindex="0">XSS</abbr> de forma autónoma para validar empíricamente que el linter <code>merci-audit.py</code> es infranqueable, registrando cada ataque en bitácoras privadas encriptadas.</p>
-<p><strong>4. Arquitectura SSG de Compilación Incremental</strong>
+<p><strong>4. Arquitectura <abbr title="Merci Explica: Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas." tabindex="0">SSG</abbr> de Compilación Incremental</strong>
 Las tres capas operan en paralelo sin contaminarse, y el orquestador principal ahora implementa Caché Semántica y <em>Mark &amp; Sweep</em>. Al evitar recomponer PDFs y HTMLs que no han cambiado, el tiempo total de compilación ha bajado a la asombrosa cifra de <strong>9.39 segundos</strong>.</p>
 <h2>La Filosofía "Standalone Compliance"</h2>
 <p>Toda esta orquestación se logra <strong>sin acoplamientos ni dependencias ocultas</strong>. Los 25+ agentes de Python obedecen a un "Presupuesto de Dependencias" estricto y utilizan exclusivamente binarios asilados y librerías nativas (<code>sqlite3</code>, <code>pathlib</code>). Ningún agente contamina la máquina anfitriona.</p>

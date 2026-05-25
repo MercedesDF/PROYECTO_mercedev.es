@@ -6,7 +6,7 @@
     <title>Normalización Robusta de Cadenas: El Poder de Casefold</title>
     <meta name="description" content="Resolución de duplicidad en estanterías del SSG mediante la normalización de cadenas independientes de capitalización.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/normalizacion-robusta-de-cadenas-el-poder-de-casefold.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779659082">
+    <link rel="stylesheet" href="/css/main.css?v=1779694342">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
             </header>
             <div class="card__content">
                 <h2>1. El Desafío (Síntoma)</h2>
-<p>Al compilar el índice curado de la Biblioteca mediante el orquestador SSG (Static Site Generation - Generación de Sitios Estáticos), se detectó una fragmentación en la Arquitectura de la Información. Una misma estantería temática (por ejemplo, "Arquitectura de Software") aparecía listada dos veces de forma independiente. </p>
+<p>Al compilar el índice curado de la Biblioteca mediante el orquestador <abbr title="Merci Explica: Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas." tabindex="0">SSG</abbr> (Static Site Generation - Generación de Sitios Estáticos), se detectó una fragmentación en la Arquitectura de la Información. Una misma estantería temática (por ejemplo, "Arquitectura de Software") aparecía listada dos veces de forma independiente. </p>
 <p>El origen del error radicaba en variaciones minúsculas de tipografía introducidas por el factor humano en el YAML Frontmatter de distintos artículos (ej. <code>tema: "Arquitectura de Software"</code> frente a <code>tema: "arquitectura de software"</code>). Dado que los diccionarios en Python son sensibles a mayúsculas y minúsculas (<em>case-sensitive</em>), el script interpretaba estas variaciones como categorías completamente distintas.</p>
 <h2>2. La Maniobra (Lógica)</h2>
 <p>Se implementó una normalización robusta de cadenas de texto directamente en el bucle de agrupación del script <code>scripts/merci/merci-publish.py</code>. </p>

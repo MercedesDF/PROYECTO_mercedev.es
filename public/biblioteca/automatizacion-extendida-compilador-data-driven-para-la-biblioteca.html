@@ -6,7 +6,7 @@
     <title>Automatización Extendida: Compilador Data-Driven para la Bib...</title>
     <meta name="description" content="Evolución del agente autónomo hacia una arquitectura JSON (SSOT) para la compilación determinista del conocimiento.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/automatizacion-extendida-compilador-data-driven-para-la-biblioteca.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779659082">
+    <link rel="stylesheet" href="/css/main.css?v=1779694342">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -53,7 +53,7 @@
                 <h2>El Desafío (Síntoma)</h2>
 <p>A medida que el Agente Autónomo del glosario extraía e inyectaba nuevas definiciones técnicas (<abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr>) directamente en el archivo Markdown (<code>glosario-tecnico.md</code>), se hicieron evidentes dos problemas estructurales:
 1. <strong>Fragilidad de Formato:</strong> La Inteligencia Artificial, a pesar de usar Prompts estrictos, ocasionalmente sufría "alucinaciones de formato" (devolviendo <code>**Término**</code> en vez de <code>### Término</code>). Un simple error tipográfico de la IA rompía la visualización del documento.
-2. <strong>Desalineación Filosófica:</strong> El glosario Markdown estaba siendo tratado como una base de datos cuando, en realidad, en nuestro ecosistema SSG, la <em>Única Fuente de Verdad</em> es la bitácora de documentación. El glosario no debe ser un documento de trabajo, sino un <em>Art de Coté</em> (artefacto compilado).</p>
+2. <strong>Desalineación Filosófica:</strong> El glosario Markdown estaba siendo tratado como una base de datos cuando, en realidad, en nuestro ecosistema <abbr title="Merci Explica: Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas." tabindex="0">SSG</abbr>, la <em>Única Fuente de Verdad</em> es la bitácora de documentación. El glosario no debe ser un documento de trabajo, sino un <em>Art de Coté</em> (artefacto compilado).</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se refactorizó el script <code>merci-glosario.py</code> abandonando la inyección directa en Markdown en favor de un enfoque <strong>Data-Driven (Basado en JSON)</strong>:</p>
 <ol>

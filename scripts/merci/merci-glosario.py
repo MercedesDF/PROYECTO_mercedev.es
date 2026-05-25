@@ -64,14 +64,28 @@ def extract_terms_from_bitacoras():
     ignore_words = {
         "HTML", "CSS", "JSON", "XML", "YAML", "HTTPS", "HTTP", "TODO", "FIXME", 
         "XXX", "ERROR", "WARN", "PHP", "URL", "CLI", "API", "OS", "PDF", "SEO",
-        "SSL", "TLS", "UI", "UX", "VPN", "WP", "ABSPATH", "ACPI", "ID", "SSH",
-        "ALL", "ANY", "AWS", "DOM", "SSG", "APLICA", "NOTA", "INFO", "DEBUG",
+        "UI", "UX", "VPN", "WP", "ABSPATH", "ACPI", "ID", "SSH",
+        "ALL", "ANY", "AWS","APLICA", "NOTA", "INFO", "DEBUG",
         "TRACE", "FATAL", "FAIL", "PASS", "TRUE", "FALSE", "NULL", "NONE",
         "ESTE", "ESTA", "ESTO", "PARA", "COMO", "PERO", "SIEMPRE", "NUNCA"
     }
     
-    # rglob para buscar también en subcarpetas (ej. laboratorio/historico/)
-    for filepath in BITACORA_DIR.rglob('bitacora*.md'):
+    archivos_objetivo = []
+    
+    # 1. Bitácoras (El flujo actual)
+    archivos_objetivo.extend(BITACORA_DIR.rglob('bitacora*.md'))
+    
+    # 2. Toda la documentación técnica pública
+    archivos_objetivo.extend((REPO_ROOT / "docs").rglob("*.md"))
+    
+    # 3. Manuales Operativos Maestros
+    manuales = [
+        REPO_ROOT / "instrucciones.md",
+        REPO_ROOT / "README.md"
+    ]
+    archivos_objetivo.extend([m for m in manuales if m.exists()])
+    
+    for filepath in archivos_objetivo:
         if not filepath.exists(): continue
         fname = filepath.name
         with open(filepath, 'r', encoding='utf-8') as f:

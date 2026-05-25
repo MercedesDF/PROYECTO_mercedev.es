@@ -6,7 +6,7 @@
     <title>Arquitectura Zero Maintenance: Compilación Incremental y st_...</title>
     <meta name="description" content="Evolución del pipeline maestro DevSecOps. De la fuerza bruta del Clean Build a la eficiencia del Mark &amp; Sweep y la auditoría física del sistema...">
     <link rel="canonical" href="https://mercedev.es/biblioteca/arquitectura-zero-maintenance-compilacion-incremental-y-st_mtime.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779659082">
+    <link rel="stylesheet" href="/css/main.css?v=1779694342">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -52,7 +52,7 @@
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
 <p>A medida que el ecosistema documental de mercedev.es crecía, el orquestador maestro (<code>merci-total.py</code>) comenzó a mostrar signos de fatiga, superando los 20 segundos de tiempo de ejecución. </p>
-<p>La inyección del <em>Profiler</em> reveló que el 90% de este tiempo (aprox. 8.5 segundos) era consumido por el motor de Generación de Sitios Estáticos (SSG) al compilar PDFs mediante WeasyPrint. El sistema operaba bajo un patrón <strong>Clean Build</strong>: en cada ejecución, eliminaba a ciegas todos los archivos generados y los volvía a renderizar desde cero, independientemente de si el documento original (Markdown) había sido modificado o no. </p>
+<p>La inyección del <em>Profiler</em> reveló que el 90% de este tiempo (aprox. 8.5 segundos) era consumido por el motor de Generación de Sitios Estáticos (<abbr title="Merci Explica: Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas." tabindex="0">SSG</abbr>) al compilar PDFs mediante WeasyPrint. El sistema operaba bajo un patrón <strong>Clean Build</strong>: en cada ejecución, eliminaba a ciegas todos los archivos generados y los volvía a renderizar desde cero, independientemente de si el documento original (Markdown) había sido modificado o no. </p>
 <p>Paralelamente, las herramientas de auditoría documental dependían de metadatos mantenidos manualmente por los humanos (fechas escritas en comentarios de texto) para calcular la deriva documental, provocando constantes falsos negativos por olvidos.</p>
 <h2>La Maniobra (Lógica)</h2>
 <p>Se ejecutó una refactorización transversal hacia el paradigma <strong>Zero Maintenance</strong> (Cero Mantenimiento Humano) e <strong>Incremental Build</strong> (Construcción Incremental):</p>
