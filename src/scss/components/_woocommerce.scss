@@ -81,7 +81,7 @@
      ======================================================== */
   
   /* QUÉ HACE: Deshace el estilo de tarjeta y crea un layout de 2 columnas. */
-  .single-product & {
+  &.single-product {
     div.product {
       background-color: transparent;
       border: none;
@@ -99,56 +99,82 @@
         grid-template-columns: 4fr 6fr;
         align-items: start;
       }
-    }
 
-    div.images {
-      opacity: 1 !important;
-      width: 100%;
-      max-width: 450px;
-      margin: 0 auto 2rem auto;
-      
-      figure, .woocommerce-product-gallery__wrapper, .woocommerce-product-gallery__image {
-        margin: 0;
+      /* Anidado estricto dentro de div.product para máxima especificidad */
+      div.images, .woocommerce-product-gallery {
         opacity: 1 !important;
         visibility: visible !important;
-      }
-
-      img {
-        display: block;
+        display: block !important;
         width: 100%;
-        height: auto;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        opacity: 1 !important;
-      }
-    }
+        max-width: 450px;
+        margin: 0 auto 2rem auto;
+        
+        figure, .woocommerce-product-gallery__wrapper, .woocommerce-product-gallery__image, a {
+          margin: 0;
+          opacity: 1 !important;
+          visibility: visible !important;
+          display: block !important;
+          width: 100%;
+        }
 
-    .price {
-      font-size: 1.5rem;
-      color: $color-primary;
-      margin-bottom: 1.5rem;
-    }
-
-    /* QUÉ HACE: Obliga a las pestañas de descripción a caer a una nueva fila ocupando el 100%. */
-    .woocommerce-tabs {
-      grid-column: 1 / -1;
-      margin-top: 3rem;
-      
-      ul.tabs {
-        list-style: none;
-        padding: 0;
-        display: flex;
-        gap: 2rem;
-        border-bottom: 1px solid rgba($color-text-base, 0.1);
-        margin-bottom: 2rem;
-
-        li {
-          padding-bottom: 0.5rem;
-          font-weight: 700;
-          cursor: pointer;
-          color: $color-text-base;
+        img {
+          display: block !important;
+          width: 100% !important;
+          height: auto !important;
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+          opacity: 1 !important;
+          visibility: visible !important;
         }
       }
-    }
-  }
-}
+
+      div.summary {
+        .product_title {
+          font-size: 2.5rem;
+          margin: 0 0 1rem 0;
+          color: $color-text-base;
+        }
+
+        .price {
+          font-size: 1.75rem;
+          font-weight: bold;
+          color: $color-primary;
+          margin-bottom: 2rem;
+          display: block;
+        }
+
+        .woocommerce-product-details__short-description {
+          margin-bottom: 2.5rem;
+          line-height: 1.7;
+          color: rgba($color-text-base, 0.9);
+        }
+
+        .product_meta {
+          display: none; /* Ocultamos basura de categorías y SKUs de WC */
+        }
+      }
+
+      /* QUÉ HACE: Obliga a las pestañas de descripción a caer a una nueva fila ocupando el 100%. */
+      .woocommerce-tabs {
+        grid-column: 1 / -1;
+        margin-top: 3rem;
+        
+        ul.tabs {
+          list-style: none;
+          padding: 0;
+          display: flex;
+          gap: 2rem;
+          border-bottom: 1px solid rgba($color-text-base, 0.1);
+          margin-bottom: 2rem;
+
+          li {
+            padding-bottom: 0.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: $color-text-base;
+          }
+        }
+      }
+    } /* Cierra div.product */
+  } /* Cierra .single-product & */
+} /* Cierra .woocommerce */

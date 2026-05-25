@@ -36,6 +36,30 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-25 — Fix: Resolución de anidamiento SASS (Selector Fantasma) en WooCommerce
+
+**Contexto:** El usuario reportó que el HTML de WooCommerce seguía inyectando `style="opacity: 0;"` en la galería de imágenes, impidiendo su visualización a pesar de las reglas `!important` de nuestro CSS.
+
+**Hecho:** Se corrigió un bug de anidamiento en `src/scss/components/_woocommerce.scss`, cambiando `.single-product &` por `&.single-product`.
+
+**Detalle técnico:** En SASS, el ampersand (`&`) representa al selector padre (`.woocommerce`). Escribir `.single-product &` generaba el selector `.single-product .woocommerce` (con espacio), buscando un elemento dentro de otro. Como WordPress inyecta ambas clases en la misma etiqueta `<body>`, el selector fallaba y todo el bloque CSS de la vista individual era ignorado por el navegador (Código Muerto). Al usar `&.single-product`, SASS genera `.woocommerce.single-product`, apuntando correctamente a la raíz y aplicando por fin nuestros `!important` para aplastar el estilo en línea de la galería.
+
+**Motivo / criterio:** *Deep CSS Debugging*. Conocer cómo compila SASS los selectores combinados es vital en arquitecturas BEM para no generar código fantasma inalcanzable por el DOM.
+
+**Siguiente paso o deuda:** Recompilar SASS, validar la vista y cerrar por fin la Épica 6.
+
+### 2026-05-25 — Fix: Resolución de Especificidad CSS en Single Product (WooCommerce)
+
+**Contexto:** La imagen del producto individual seguía invisible (aunque su enlace era clicable) y la descripción corta aparecía aglomerada junto al precio sin márgenes.
+
+**Hecho:** Se refactorizó la anidación en `src/scss/components/_woocommerce.scss`.
+- Se movieron los bloques `div.images`, `div.summary` y `.woocommerce-tabs` al interior de `div.product`.
+- Se restituyó el bloque `div.summary` que se había omitido en iteraciones anteriores.
+
+**Motivo / criterio:** *CSS Specificity (Especificidad CSS)*. Al estar los estilos flotando fuera de `div.product` en la estructura SASS, el compilador generaba selectores débiles (`.woocommerce div.images`). Esto permitía que el código nativo residual de WooCommerce aplastara nuestras reglas `opacity: 1` con su comportamiento de galería oculta. Anidarlos estrictamente multiplica la prioridad de nuestras reglas en la cascada CSS, forzando la visibilidad del bloque y aplicando los márgenes correctos a la descripción.
+
+**Siguiente paso o deuda:** Validar la restitución visual completa y pasar a la Épica 7.
+
 ### 2026-05-25 — Fix: Visibilidad absoluta de la galería WC y Corrección End-to-End de Despliegue
 
 **Contexto:** Al acceder a la vista de producto individual, la imagen seguía siendo invisible. Además, al revisar `merci-deploy.py`, se detectó un bug silencioso crítico: el orquestador de despliegue inyectaba las credenciales de producción en `os.environ`, pero `merci-wp.py` y `merci-shop.py` estaban codificados para leer rígidamente el archivo físico `.env`, por lo que nunca habían publicado en el servidor remoto de forma desatendida.
