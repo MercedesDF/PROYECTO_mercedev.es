@@ -225,16 +225,13 @@ def publicar_en_wordpress(filepath: str, creds: dict, sync_cache: dict, verbose:
                 print(f"  ✅ ¡Éxito! Post transferido correctamente.")
                 print(f"  🔗 Enlace de WP: {link}")
             
-            if not verbose and estado == "publicado":
-                print(f"  ✅ Sincronizado en WP: {target_path.name}")
-
             # QUÉ HACE: Expulsa físicamente el archivo origen hacia el entorno de incubación si es borrador.
             # POR QUÉ: Paridad de flujos. Mantiene las carpetas dinámicas raíz exclusivas para contenido en producción.
             if estado != "publicado" and not target_path.is_relative_to(REPO_ROOT / "laboratorio"):
                 destino_lab = REPO_ROOT / "laboratorio" / "incubacion" / target_path.name
                 destino_lab.parent.mkdir(parents=True, exist_ok=True)
                 shutil.move(str(target_path), str(destino_lab))
-                print(f"  🔙 Expulsando (Estado: {estado}): Moviendo '{target_path.name}' de vuelta a laboratorio/incubacion/")
+                if verbose: print(f"  🔙 Expulsando (Estado: {estado}): Moviendo '{target_path.name}' de vuelta a laboratorio/incubacion/")
             
             # Registrar sincronización exitosa en la caché
             sync_cache[file_key] = md_mtime
@@ -274,7 +271,7 @@ if __name__ == "__main__":
     # centinela (_entorno) permite detectar y descartar la caché de forma automática.
     entorno_activo = creds.get("WP_URL", "")
     if sync_cache.get("_entorno") != entorno_activo:
-        print(f"🔄 [Merci WP] Entorno cambiado a '{entorno_activo}'. Invalidando caché de sincronización...")
+        if is_verbose: print(f"🔄 [Merci WP] Entorno cambiado a '{entorno_activo}'. Invalidando caché de sincronización...")
         sync_cache = {"_entorno": entorno_activo}
     else:
         # Asegurar que la clave centinela está presente aunque la caché sea antigua
@@ -282,13 +279,16 @@ if __name__ == "__main__":
 
     # QUÉ HACE: Si se pasa un argumento, procesa ese archivo o carpeta. Si no, sincroniza masivamente.
     # POR QUÉ: Permite sincronizaciones atómicas globales (SSOT) evitando la deriva de configuración.
+    publicaciones_procesadas = 0
     if len(args) > 0:
         target = Path(args[0]).resolve()
         if target.is_dir():
             for md_file in target.rglob("*.md"):
-                publicar_en_wordpress(str(md_file), creds, sync_cache, is_verbose)
+                if publicar_en_wordpress(str(md_file), creds, sync_cache, is_verbose):
+                    publicaciones_procesadas += 1
         else:
-            publicar_en_wordpress(str(target), creds, sync_cache, is_verbose)
+            if publicar_en_wordpress(str(target), creds, sync_cache, is_verbose):
+                publicaciones_procesadas += 1
     else:
         if is_verbose:
             print("🔄 Sincronización masiva de carpetas dinámicas detectada...")
@@ -296,7 +296,8 @@ if __name__ == "__main__":
             if wp_dir.exists():
                 if is_verbose: print(f"\n📂 Escaneando directorio: {wp_dir.name}/")
                 for md_file in wp_dir.rglob("*.md"):
-                    publicar_en_wordpress(str(md_file), creds, sync_cache, is_verbose)
+                    if publicar_en_wordpress(str(md_file), creds, sync_cache, is_verbose):
+                        publicaciones_procesadas += 1
             else:
                 if is_verbose: print(f"\n⚠️  Directorio no encontrado: {wp_dir.name}/. Omitiendo.")
                 
@@ -307,4 +308,4 @@ if __name__ == "__main__":
     SYNC_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
     SYNC_CACHE_PATH.write_text(json.dumps(sync_cache, indent=2), encoding="utf-8")
 
-    print("\n✅ [Merci WP] Sincronización finalizada.")
+    print(f"✅ [Merci WP] Sincronización finalizada. {publicaciones_procesadas} publicacion(es) procesada(s).")

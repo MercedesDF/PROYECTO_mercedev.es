@@ -10,6 +10,7 @@ con la API REST de WooCommerce usando autenticación segura.
 import os
 import sys
 import json
+import argparse
 import base64
 import urllib.request
 import urllib.error
@@ -95,19 +96,24 @@ def obtener_producto_por_slug(wc_endpoint: str, auth_header: str, slug: str):
         pass
     return None
 
-def main():
-    print("\n🛒 [Merci Shop] Iniciando Orquestador Headless de WooCommerce...")
+def main(argv=None):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--verbose", "-v", action="store_true")
+    args = parser.parse_args(argv)
+    verbose = args.verbose
+
+    print("🛒 [Merci Shop] Iniciando Orquestador Headless de WooCommerce...")
     
     wp_url, auth_header = cargar_credenciales()
     wc_endpoint = f"{wp_url}/wp-json/wc/v3/products"
     
-    print(f"  🔗 Conectando a WooCommerce en: {wp_url}")
+    if verbose: print(f"  🔗 Conectando a WooCommerce en: {wp_url}")
     
     # Health Check: Intentamos traer solo 1 producto para validar credenciales
     respuesta = realizar_peticion_wc(f"{wc_endpoint}?per_page=1", auth_header)
     
     if respuesta is not None:
-        print("  ✅ Conexión exitosa. Autenticación verificada.")
+        if verbose: print("  ✅ Conexión exitosa. Autenticación verificada.")
     else:
         print("  🛑 Falló la validación de credenciales o el endpoint es inaccesible.")
         sys.exit(1)
@@ -118,7 +124,7 @@ def main():
     domain_root = wp_url.removesuffix('/blog')
     productos_procesados = 0
     
-    print("  📦 Sincronizando catálogo desde Markdowns...")
+    if verbose: print("  📦 Sincronizando catálogo desde Markdowns...")
     for md_file in TIENDA_DIR.glob("*.md"):
         content = md_file.read_text(encoding="utf-8")
         match = re.search(r"^\s*---\s*\n(.*?)\n---\s*(?:\n|$)(.*)", content, flags=re.DOTALL | re.MULTILINE)
@@ -138,13 +144,13 @@ def main():
 
         if meta.get("estado", "borrador").lower() != "publicado":
             if producto_id:
-                print(f"  🗑️ Despublicando producto (Kill-Switch): {nombre}")
+                if verbose: print(f"  🗑️ Despublicando producto (Kill-Switch): {nombre}")
                 realizar_peticion_wc(f"{wc_endpoint}/{producto_id}?force=true", auth_header, method="DELETE")
                 
             destino_incubacion = REPO_ROOT / "laboratorio" / "incubacion" / md_file.name
             destino_incubacion.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(md_file), str(destino_incubacion))
-            print(f"  ↩️ Devuelto a incubación: {md_file.name}")
+            if verbose: print(f"  ↩️ Devuelto a incubación: {md_file.name}")
             continue
             
         precio = meta.get("precio", "0.00")
@@ -157,6 +163,7 @@ def main():
         
         payload = {
             "name": nombre,
+            "slug": slug,
             "type": "simple",
             "regular_price": precio,
             "description": html_desc,
@@ -168,15 +175,15 @@ def main():
             payload["images"] = [{"src": f"{domain_root}/assets/images/{imagen}"}]
             
         if producto_id:
-            print(f"  🔄 Actualizando producto: {nombre} (ID: {producto_id})")
+            if verbose: print(f"  🔄 Actualizando producto: {nombre} (ID: {producto_id})")
             realizar_peticion_wc(f"{wc_endpoint}/{producto_id}", auth_header, method="PUT", data=payload)
         else:
-            print(f"  ✨ Creando nuevo producto: {nombre}")
+            if verbose: print(f"  ✨ Creando nuevo producto: {nombre}")
             realizar_peticion_wc(wc_endpoint, auth_header, method="POST", data=payload)
             
         productos_procesados += 1
         
-    print(f"\n✅ [Merci Shop] Sincronización finalizada. {productos_procesados} producto(s) procesado(s).")
+    print(f"✅ [Merci Shop] Sincronización finalizada. {productos_procesados} producto(s) procesado(s).")
 
 if __name__ == "__main__":
     try:

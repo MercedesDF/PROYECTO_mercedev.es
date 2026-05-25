@@ -36,6 +36,45 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-25 — UX/DX: Patrón "Silence is Golden" en orquestadores Headless
+
+**Contexto:** Al ejecutar el orquestador global, la salida en consola (stdout) de `merci-wp.py` y `merci-shop.py` era demasiado ruidosa, imprimiendo saltos de línea extra y detalles de cada archivo procesado que no aportaban valor en una ejecución exitosa.
+
+**Hecho:** 
+- Se implementó el argumento `--verbose` (o `-v`) en `scripts/merci/merci-shop.py` para silenciar los mensajes intermedios.
+- Se eliminaron los saltos de línea iniciales y finales (`\n`) para alinear el formato visual con `merci-total`.
+- Se aplicó la misma refactorización visual a `scripts/merci/merci-wp.py`, añadiendo un contador unificado de publicaciones procesadas.
+
+**Motivo / criterio:** *Silence is Golden y Clean DX*. Las herramientas de consola en un pipeline CI/CD deben ser discretas por defecto. Ocultar el ruido de sincronización permite que el orquestador maestro fluya visualmente limpio, reservando la verbosidad únicamente para depuración manual (`--verbose`) o errores críticos.
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para confirmar la limpieza visual, sellar con un commit atómico y cerrar definitivamente la Épica 6.
+
+### 2026-05-25 — Fix: Resolución de bucle de Zombis (Data Drift por Slug vs Nombre)
+
+**Contexto:** A pesar de haber purgado la base de datos y activado el Kill-Switch, el orquestador seguía multiplicando los productos en cada ejecución, generando sufijos `-2` y `-3` que rompían la auditoría WCAG (enlaces ambiguos).
+
+**Hecho:**
+- Se diagnosticó que WooCommerce autogeneraba el slug a partir del título, difiriendo del nombre del archivo Markdown (ej. `camiseta-devsecops-edicion-limitada` vs `camiseta-merci-devsecops`).
+- Se parcheó `scripts/merci/merci-shop.py` forzando la inyección explícita de `"slug": slug` en el payload JSON del POST/PUT.
+- Se purgó `wp_shortlink_wp_head` en `functions.php` para eliminar enlaces dinámicos `?p=` del escáner.
+
+**Motivo / criterio:** *Single Source of Truth (SSOT)*. El script de sincronización buscaba el slug del archivo físico, pero WP lo ignoraba y creaba uno nuevo basado en el título. Al no encontrar nunca el slug físico, el orquestador creaba un producto nuevo en cada pasada. Forzar el slug físico en el payload de WooCommerce alinea definitivamente al CMS con el sistema de archivos local, erradicando la clonación infinita de Zombis.
+
+**Siguiente paso o deuda:** Vaciar la papelera de WooCommerce por última vez, ejecutar `merci shop` y certificar el pipeline con `merci total`.
+
+### 2026-05-25 — UX/DX: Autodetección de productos en Agente Promotor
+
+**Contexto:** Al promover un producto de la tienda desde la bandeja de incubación, el asistente interactivo (`merci-promote.py`) solicitaba `Tema` y `Descripción` porque los productos carecían de `tema: "tienda"` explícito y usaban la clave `descripcion_corta` en lugar de `descripcion`.
+
+**Hecho:**
+- Se refactorizó `scripts/merci/merci-promote.py` para autodetectar productos si el YAML contiene el campo `precio` o `nombre`.
+- Se adaptó el menú para leer y reinyectar `descripcion_corta` y `nombre` si el archivo pertenece a la tienda.
+- Se omitió la pregunta irrelevante de "Fecha de publicación" para productos de WooCommerce.
+
+**Motivo / criterio:** *Fricción Cero y Context-Awareness*. Si la herramienta puede inferir el contexto (es un producto) por las variables presentes, no debe obligar al usuario a añadir etiquetas extra. Mapear dinámicamente las claves del YAML garantiza que el documento promovido siga siendo compatible con el publicador Headless de la tienda (`merci-shop.py`).
+
+**Siguiente paso o deuda:** Promover los productos de prueba hacia la raíz y ejecutar la sincronización mediante `merci-shop.py`.
+
 ### 2026-05-25 — Fix/Arch: SSOT de Tienda en la Raíz y Resolución de Variables
 
 **Contexto:** Se decidió igualar el ciclo de vida del catálogo de WooCommerce al del resto de contenidos (`blog`, `biblioteca`, `art-de-cote`). En lugar de permanecer en `laboratorio/tienda/`, los productos curados debían alojarse en el directorio raíz `tienda/`. Además, una versión previa de `merci-shop.py` sufrió un error de variables indefinidas (`producto_id`) y una mutilación de código por la interfaz de IA.

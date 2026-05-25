@@ -128,7 +128,13 @@ def main():
                 print("  👉 Solución: Promueve primero el documento técnico original (cuadernillo/compendio) y luego vuelve a intentar promover este artículo del blog.")
                 return
 
-    print(f"\n⚙️ Curación de metadatos para: {meta.get('titulo', borrador_elegido.name)}")
+    # Autodetección de productos de la tienda si el usuario olvidó poner tema: "tienda"
+    is_product = "precio" in meta or "nombre" in meta
+    if is_product and "tema" not in meta:
+        meta["tema"] = "tienda"
+        
+    titulo_mostrado = meta.get('titulo') or meta.get('nombre') or borrador_elegido.name
+    print(f"\n⚙️ Curación de metadatos para: {titulo_mostrado}")
     
     # 5. Auditoría interactiva y curación de datos (Shift-Left Quality)
     tema_actual = meta.get('tema', 'General')
@@ -141,7 +147,9 @@ def main():
     else:
         nuevo_tema = tema_actual
 
-    nueva_desc = input(f"  📝 Descripción [{meta.get('descripcion', '')}]: ").strip() or meta.get('descripcion', '')
+    desc_key = "descripcion_corta" if es_tienda else "descripcion"
+    desc_actual = meta.get(desc_key, "")
+    nueva_desc = input(f"  📝 Descripción [{desc_actual}]: ").strip() or desc_actual
 
     if not es_blog and not es_tienda:
         nuevo_alt = input(f"  👁️  Alt de la portada [{meta.get('alt_portada', '')}]: ").strip() or meta.get('alt_portada', '')
@@ -155,7 +163,10 @@ def main():
     if not fecha_defecto or fecha_defecto == "AAAA-MM-DD" or "YYYY" in fecha_defecto:
         fecha_defecto = datetime.now().strftime("%Y-%m-%d")
         
-    nueva_fecha = input(f"  📅 Fecha de publicación [{fecha_defecto}]: ").strip() or fecha_defecto
+    if not es_tienda:
+        nueva_fecha = input(f"  📅 Fecha de publicación [{fecha_defecto}]: ").strip() or fecha_defecto
+    else:
+        nueva_fecha = fecha_defecto
 
     # Bloqueo estricto si falta el atributo de accesibilidad (Solo para la Biblioteca/Proyectos)
     if not es_blog and not es_tienda and not nuevo_alt:
@@ -164,13 +175,15 @@ def main():
 
     # 6. Máquina de Estados: Reconstrucción del YAML definitivo
     meta['tema'] = nuevo_tema
-    meta['descripcion'] = nueva_desc
+    meta[desc_key] = nueva_desc
     if (not es_blog and not es_tienda) or nuevo_alt:
         meta['alt_portada'] = nuevo_alt
     if (not es_blog and not es_tienda) or nueva_fase:
         meta['fase'] = nueva_fase
     meta['estado'] = 'publicado'  # Cambio de estado automatizado
-    meta['fecha'] = nueva_fecha
+    
+    if nueva_fecha:
+        meta['fecha'] = nueva_fecha
 
     nuevo_yaml = "---\n"
     for k, v in meta.items():

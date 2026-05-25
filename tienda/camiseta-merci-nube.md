@@ -3,9 +3,10 @@ nombre: "Camiseta Merci en la Nube - Edición Shift-Left"
 precio: "28.00"
 descripcion_corta: "Lleva a la asistente IA favorita de tu ecosistema DevSecOps a todas partes. Diseño exclusivo con Merci flotando en su nube local."
 imagen: "camiseta-mercienlanube.webp"
-estado: "borrador"
+estado: "publicado"
+tema: "tienda"
+fecha: "2026-05-25"
 ---
-
 # Inteligencia Artificial con Cero Latencia
 
 Si eres fan de la orquestación local y del patrón *Fail-Fast*, esta camiseta es tu nuevo uniforme oficial. Representa a **Merci**, nuestra agente IA DevSecOps, vigilando el pipeline de Integración Continua desde su nube.

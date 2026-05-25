@@ -3,9 +3,10 @@ nombre: "Taza Merci en la Nube - Edición Telemetría"
 precio: "15.50"
 descripcion_corta: "El recipiente oficial para tus sesiones de debugging. Mantén tu café en estado 'Hot' mientras Merci orquesta tus contenedores desde la nube."
 imagen: "taza-negra-edicion-telemetria.webp"
-estado: "borrador"
+estado: "publicado"
+tema: "tienda"
+fecha: "2026-05-25"
 ---
-
 # Combustible para el Hilo Principal
 
 Un entorno DevSecOps no puede operar con el motor en frío. Esta taza ha sido diseñada como la infraestructura definitiva para inyectar cafeína directamente en tu sistema y mantener tu TBT (Total Blocking Time) a cero durante las madrugadas de código.
