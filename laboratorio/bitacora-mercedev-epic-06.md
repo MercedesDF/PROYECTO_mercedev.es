@@ -36,6 +36,59 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-25 — Perf: Caché HASH Incremental en Auditor Maestro
+
+**Contexto:** Se planteó la necesidad de reducir aún más el tiempo de ejecución de la auditoría masiva evitando el análisis de archivos que no habían sufrido modificaciones, aplicando el patrón de compilación incremental que ya se usa en SSG.
+
+**Hecho:**
+- Se refactorizó `scripts/merci/merci-audit.py` para implementar un registro criptográfico MD5 (`.audit_hash_cache.json`).
+- El orquestador ahora ignora los archivos cuyo contenido (HASH) no ha cambiado, siempre y cuando no tengan advertencias pendientes.
+- Se incluyó un "Detector de Reglas Globales" que invalida toda la caché automáticamente si se altera el diccionario del glosario, las dependencias (`requirements.txt`) o el propio script del linter.
+
+**Motivo / criterio:** *Zero Maintenance y Shift-Left Performance*. Auditar a ciegas casi 400 archivos cuando solo has modificado uno es un desperdicio de I/O y ciclos de CPU. Implementar un caché criptográfico inteligente reduce el QA (Aseguramiento de Calidad) total a fracciones de segundo, garantizando a la vez que las dependencias globales o archivos con deuda técnica (WARNs) nunca escapen al escáner.
+
+**Siguiente paso o deuda:** Iniciar la estructura de la tienda en WooCommerce (Épica 6).
+
+### 2026-05-25 — Arch: Diferenciación de alcances (Audit Scope vs Backup Scope)
+
+**Contexto:** Tras visualizar que `merci-audit.py` escaneaba 388 archivos, surgió el debate arquitectónico sobre si el auditor debería limitarse únicamente a los archivos que se incluyen en la copia de seguridad.
+
+**Hecho:**
+- Se estableció como regla de arquitectura que el alcance del QA y el alcance del Backup son asimétricos por naturaleza.
+- Se añadió el directorio `auditorias-pagespeed.web.dev` al conjunto `SKIP_DIR_NAMES` en `merci-audit.py`.
+
+**Motivo / criterio:** *Separation of Concerns*. El Backup guarda el origen inmutable (código), pero el Auditor debe vigilar el artefacto final (HTML/CSS en `public/`) para garantizar que el compilador SSG no introduce brechas de seguridad o fallos de SEO. Sin embargo, auditar reportes masivos de terceros (los JSON de PageSpeed) buscando errores de sintaxis es un desperdicio de I/O. Excluir esta carpeta refina el alcance del auditor eliminando "ruido" externo.
+
+**Siguiente paso o deuda:** Iniciar la estructura de la tienda en WooCommerce (Épica 6).
+
+### 2026-05-25 — Sec: Escudos DevSecOps para E-commerce Headless (WooCommerce)
+
+**Contexto:** Preparación para gestionar el catálogo de productos mediante archivos Markdown (Tienda No Tienda). Era necesario inyectar barreras de seguridad (Shift-Left) en el auditor maestro para prevenir fugas de tokens de la API, inyecciones XSS en descripciones y manipulación de la lógica de negocio (precios anómalos).
+
+**Hecho:** 
+- Se refactorizó `scripts/merci/merci-audit.py` añadiendo las tres reglas de seguridad.
+- Se inyectaron los patrones regex para claves de WooCommerce (`ck_`, `cs_`) en `SECRET_PATTERNS`.
+- Se amplió `audit_inline_scripts` para bloquear etiquetas `<script>` en los archivos Markdown de `laboratorio/tienda/` (Stored XSS).
+- Se creó la nueva regla `audit_shop_yaml` para validar matemáticamente que el campo `precio` de los markdowns de productos sea un número de coma flotante igual o superior a `0`.
+
+**Motivo / criterio:** *Defensa en Profundidad (Defense in Depth)*. En arquitecturas SSG y Headless, el archivo local es la base de datos. Tratar el Markdown con la misma rigurosidad con la que se trataría un payload de API evita que vulnerabilidades lógicas viajen desde el repositorio hasta el frontend del CMS.
+
+**Siguiente paso o deuda:** Crear la estructura `laboratorio/tienda/`, redactar el primer producto de prueba en Markdown y ejecutar la sincronización mediante `merci-shop.py`.
+
+### 2026-05-25 — Perf/Fix: Caché Singleton en Auditor y robustez de rutas (I/O)
+
+**Contexto:** Gracias al modo `--verbose`, se detectó que el orquestador `merci-audit.py` generaba un cuello de botella de I/O al auditar masivamente (388 archivos), deteniéndose visiblemente en la lectura del JSON del glosario para validar acrónimos. Además, el escáner de markdowns era vulnerable a rutas absolutas del entorno host.
+
+**Hecho:**
+- Se inyectó el patrón Singleton (`GLOSARIO_WATCHLIST_CACHE`) en `merci-audit.py` para cargar el diccionario de acrónimos una sola vez en memoria RAM.
+- Se refactorizó la comprobación de directorios ignorados (`SKIP_DIR_NAMES`) para usar `path.relative_to(REPO_ROOT)`.
+
+**Detalle técnico:** Extraer la lectura de `glosario-tecnico.json` fuera del bucle de validación de cada archivo evita reabrir y parsear el mismo archivo en el disco cientos de veces. Reemplazar `path.parts` (que incluye carpetas base del SO anfitrión) por `relative.parts` sella un bug lógico de evasión que se activaba si el repositorio se clonaba dentro de una carpeta llamada, por ejemplo, `venv/`.
+
+**Motivo / criterio:** *Performance Driven Development y Robustez*. Retener textos en RAM devuelve la auditoría a tiempos sub-segundo, recuperando la velocidad del CI/CD. La robustez de rutas es esencial para garantizar el agnosticismo del sistema operativo anfitrión.
+
+**Siguiente paso o deuda:** Iniciar la estructura de la tienda en WooCommerce (Épica 6).
+
 ### 2026-05-25 — Observabilidad Profunda: Expansión de recolección en Agente Glosario
 
 **Contexto:** El autodescubrimiento y la sincronización automática de apariciones del glosario estaban acotados a rastrear únicamente el historial del laboratorio (bitácoras), estando ciegos ante la documentación matriz. Para lograr una Observabilidad Profunda matemática, era necesario rastrear qué términos están realmente vivos en las instrucciones, el README y la carpeta de documentación (`docs/`).

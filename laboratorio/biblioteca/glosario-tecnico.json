@@ -23,7 +23,7 @@
       "merci_explica": "Un historial específico donde anotamos qué le hemos enseñado o modificado a la Inteligencia Artificial del proyecto.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L175"
+          "L228"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L988"
@@ -50,7 +50,7 @@
       "merci_explica": "Es como un mapa mental que usan los compiladores para entender y desglosar el código de programación que escribimos.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L276"
+          "L329"
         ],
         "checklist-hardening.md": [
           "L57"
@@ -133,6 +133,9 @@
       "definicion": "Práctica de desarrollo en la que el código fuente se integra automáticamente a una rama principal o versión estable con frecuencia, generalmente varias veces al día.",
       "merci_explica": "Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano.",
       "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L88"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L115"
         ],
@@ -188,7 +191,7 @@
       "merci_explica": "Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L154"
+          "L74"
         ],
         "bitacora-mercedev-epic-05.md": [
           "L266"
@@ -335,7 +338,7 @@
       "merci_explica": "Porcentaje de personas que hacen clic en una publicidad después de verla.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L248"
+          "L301"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L1593"
@@ -455,7 +458,7 @@
       "merci_explica": "La comodidad y felicidad del programador al trabajar con el código y las herramientas de un proyecto.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L126"
+          "L179"
         ],
         "bitacora-mercedev-epic-05.md": [
           "L98"
@@ -485,7 +488,7 @@
           "L17"
         ],
         "bitacora-mercedev-epic-06.md": [
-          "L53"
+          "L64"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L103"
@@ -827,7 +830,7 @@
       "merci_explica": "Máquina que aprende a procesar y generar texto humano de manera autónoma.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L55"
+          "L108"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L441"
@@ -1102,6 +1105,9 @@
       "definicion": "Proceso sistemático y documentado que se utiliza para asegurar que un producto o servicio cumple con los estándares de calidad definidos antes del lanzamiento.",
       "merci_explica": "Inspector de alta precisión que garantiza que todo funcione como debe.",
       "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L48"
+        ],
         "bitacora-mercedev-epic-05.md": [
           "L81"
         ],
@@ -1187,7 +1193,7 @@
       "merci_explica": "Sistema de comunicación entre aplicaciones donde cada mensaje contiene toda la información necesaria para entender el contexto.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L150"
+          "L203"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L641"
@@ -1355,7 +1361,7 @@
       "merci_explica": "Un cerebro artificial compacto que puede pensar y hablar directamente en tu ordenador sin necesidad de conectarse a servidores en la nube gigantescos.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L266"
+          "L319"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L753"
@@ -1478,7 +1484,7 @@
       "merci_explica": "Establecer una sola ley o un único documento oficial de donde todo el mundo deba sacar la información para que nunca haya datos contradictorios.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L47"
+          "L100"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L325"
@@ -1523,7 +1529,7 @@
       "merci_explica": "Adelantar los controles de calidad para encontrar los errores y agujeros de seguridad al escribir el código, en vez de descubrirlos el día de lanzamiento.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L166"
+          "L48"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L61"
@@ -1562,7 +1568,7 @@
       "merci_explica": "El tiempo acumulado en el que el ordenador estuvo tan ocupado calculando cosas que tu ratón o tus toques en la pantalla parecían no responder.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L198"
+          "L251"
         ],
         "bitacora-mercedev-epic-05.md": [
           "L77"
@@ -1616,7 +1622,7 @@
       "merci_explica": "Vigilante del tiempo, asegurando que los recursos no queden obsoletos.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L60"
+          "L113"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L1123"
@@ -1661,7 +1667,7 @@
       "merci_explica": "Etiqueta única para ubicar y acceder a recursos en la web.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L187"
+          "L240"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L912"
@@ -1679,7 +1685,7 @@
       "merci_explica": "Código universal para codificar texto, asegurando que cualquier carácter se pueda representar correctamente.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L47"
+          "L100"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L4498"
@@ -1798,6 +1804,9 @@
       "definicion": "Ataque cibernético que permite a un atacante insertar scripts maliciosos en páginas web visitadas por otros usuarios, comprometiendo su seguridad y privacidad.",
       "merci_explica": "Cuerda para la protección contra ataques de inyección de código.",
       "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L66"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L79"
         ],
@@ -1889,7 +1898,7 @@
       "merci_explica": "Una medida de seguridad que previene que la Inteligencia Artificial te mienta y se invente cosas cuando no sabe una respuesta.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L104"
+          "L157"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L910"
@@ -1922,7 +1931,7 @@
       "merci_explica": "Seguridad como una caja fuerte inalcanzable, sin posibilidad de robar nada.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L236"
+          "L289"
         ]
       }
     },
@@ -1934,7 +1943,7 @@
       "merci_explica": "Modelo que aprende a responder preguntas o realizar tareas con solo una observación, como si fuera un mago que sabe todo sin haber visto nada antes.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L112"
+          "L165"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L656"
@@ -2024,7 +2033,7 @@
       "merci_explica": "Mapa mental de las partes de una página web que puede ser modificado por JavaScript.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L82"
+          "L135"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L215"
@@ -2048,7 +2057,7 @@
       "merci_explica": "Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L179"
+          "L41"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L476"
@@ -2105,6 +2114,30 @@
           "L3444"
         ],
         "deployment-playbook.md": [
+          "L44"
+        ]
+      }
+    },
+    "HASH": {
+      "nombre": "HASH",
+      "ingles": "Hash",
+      "espanol": "Resumen de Datos",
+      "definicion": "Algoritmo que transforma una serie de datos de cualquier tamaño en un resumen fijo de longitud, generalmente codificado en formato hexadecimal. Este proceso es irreversible y único para cada entrada.",
+      "merci_explica": "Clave única que identifica de manera segura la integridad de los datos.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
+          "L39"
+        ]
+      }
+    },
+    "MD5": {
+      "nombre": "MD5",
+      "ingles": "Message Digest Algorithm 5",
+      "espanol": "Algoritmo de Resumen de Mensaje 5",
+      "definicion": "Algoritmo específico de hash que produce un resumen de 128 bits (32 caracteres hexadecimales) a partir de cualquier cantidad de datos. Aunque ha sido superado por más seguros, sigue siendo ampliamente utilizado para verificar integridad en aplicaciones legacy.",
+      "merci_explica": "Sumario digital que garantiza la inalterabilidad de los datos originales.",
+      "apariciones": {
+        "bitacora-mercedev-epic-06.md": [
           "L44"
         ]
       }
@@ -2225,12 +2258,14 @@
     "PASO",
     "PROHIBIDO",
     "SAMEORIGIN",
-    "SIN"
+    "SIN",
+    "SO"
   ],
   "rechazos": {
     "CPU": 1,
     "DPR": 1,
     "GC": 1,
-    "DRY": 2
+    "DRY": 2,
+    "SO": 1
   }
 }

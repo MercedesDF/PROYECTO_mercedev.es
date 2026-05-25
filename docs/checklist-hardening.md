@@ -16,7 +16,7 @@ Este documento consolida las medidas de seguridad aplicadas en la arquitectura h
   - *Motivo:* Cierra uno de los vectores más comunes para ataques DDoS (Distributed Denial of Service - Denegación de Servicio Distribuida) y de fuerza bruta en WordPress.
 - [x] **Ofuscación de Errores de Login:** Mensajes de error genéricos implementados (`login_errors`).
   - *Motivo:* Evita la enumeración de usuarios válidos (el atacante no sabe si falla el usuario o la contraseña).
-- [x] **Limpieza de Cabeceras:** Eliminación de enlaces RSD y WLW Manifest.
+- [x] **Limpieza de Cabeceras:** Eliminación de enlaces Solicitud para una decisión de seguridad (RSD) y Trabajo con WebLogic (WLW) Manifest.
   - *Motivo:* Reducción de superficie de ataque y limpieza de código basura no utilizado.
 
 ## 3. Capa de Infraestructura (Servidor LEMP (Linux, Nginx, MySQL/MariaDB, PHP))

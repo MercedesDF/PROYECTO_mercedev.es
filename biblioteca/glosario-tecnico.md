@@ -10,7 +10,7 @@ fecha: "2026-05-25"
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 127 términos consolidados (Última actualización de datos: 2026-05-25 09:31).
+> **Versión de control:** 129 términos consolidados (Última actualización de datos: 2026-05-25 10:12).
 
 ## Índice Alfabético
 
@@ -35,7 +35,7 @@ fecha: "2026-05-25"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L988
-- bitacora-mercedev-epic-06.md: L175
+- bitacora-mercedev-epic-06.md: L228
 
 ---
 ### AJAX
@@ -68,7 +68,7 @@ fecha: "2026-05-25"
 💡 **Merci Explica:** *Es como un mapa mental que usan los compiladores para entender y desglosar el código de programación que escribimos.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-06.md: L276
+- bitacora-mercedev-epic-06.md: L329
 - checklist-hardening.md: L57
 - instrucciones.md: L91
 
@@ -125,6 +125,7 @@ fecha: "2026-05-25"
 - bitacora-mercedev-epic-02.md: L484
 - bitacora-mercedev-epic-03.md: L115
 - bitacora-mercedev-epic-04.md: L120
+- bitacora-mercedev-epic-06.md: L88
 
 ---
 ### CLI-First
@@ -164,7 +165,7 @@ fecha: "2026-05-25"
 - bitacora-mercedev-epic-02.md: L820
 - bitacora-mercedev-epic-03.md: L111
 - bitacora-mercedev-epic-05.md: L266
-- bitacora-mercedev-epic-06.md: L154
+- bitacora-mercedev-epic-06.md: L74
 - deployment-playbook.md: L34
 - flujo-publicacion-sop.md: L53
 - instrucciones.md: L87
@@ -278,7 +279,7 @@ fecha: "2026-05-25"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-03.md: L1593
-- bitacora-mercedev-epic-06.md: L248
+- bitacora-mercedev-epic-06.md: L301
 
 ---
 ### CVE
@@ -330,7 +331,7 @@ fecha: "2026-05-25"
 - bitacora-mercedev-epic-02.md: L47
 - bitacora-mercedev-epic-03.md: L103
 - bitacora-mercedev-epic-04.md: L79
-- bitacora-mercedev-epic-06.md: L53
+- bitacora-mercedev-epic-06.md: L64
 - bitacora-merci-boilerplate.md: L17
 - checklist-hardening.md: L43
 - ciclo-de-vida-contenidos.md: L16
@@ -364,7 +365,7 @@ fecha: "2026-05-25"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L540
 - bitacora-mercedev-epic-03.md: L215
-- bitacora-mercedev-epic-06.md: L82
+- bitacora-mercedev-epic-06.md: L135
 - checklist-hardening.md: L7
 - instrucciones.md: L25
 
@@ -415,7 +416,7 @@ fecha: "2026-05-25"
 - bitacora-mercedev-epic-03.md: L49
 - bitacora-mercedev-epic-04.md: L56
 - bitacora-mercedev-epic-05.md: L98
-- bitacora-mercedev-epic-06.md: L126
+- bitacora-mercedev-epic-06.md: L179
 
 ---
 ### E2EE
@@ -519,6 +520,17 @@ fecha: "2026-05-25"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L986
 - bitacora-mercedev-epic-02.md: L1042
+
+---
+### HASH
+**Inglés:** Hash | **Español:** Resumen de Datos
+
+**Definición:** Algoritmo que transforma una serie de datos de cualquier tamaño en un resumen fijo de longitud, generalmente codificado en formato hexadecimal. Este proceso es irreversible y único para cada entrada.
+
+💡 **Merci Explica:** *Clave única que identifica de manera segura la integridad de los datos.*
+
+**Apariciones en Bitácoras:**
+- bitacora-mercedev-epic-06.md: L39
 
 ---
 ### HSTS
@@ -679,7 +691,7 @@ fecha: "2026-05-25"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L222
 - bitacora-mercedev-epic-03.md: L441
-- bitacora-mercedev-epic-06.md: L55
+- bitacora-mercedev-epic-06.md: L108
 
 ---
 ### LTS
@@ -691,6 +703,17 @@ fecha: "2026-05-25"
 
 **Apariciones en Bitácoras:**
 - deployment-playbook.md: L9
+
+---
+### MD5
+**Inglés:** Message Digest Algorithm 5 | **Español:** Algoritmo de Resumen de Mensaje 5
+
+**Definición:** Algoritmo específico de hash que produce un resumen de 128 bits (32 caracteres hexadecimales) a partir de cualquier cantidad de datos. Aunque ha sido superado por más seguros, sigue siendo ampliamente utilizado para verificar integridad en aplicaciones legacy.
+
+💡 **Merci Explica:** *Sumario digital que garantiza la inalterabilidad de los datos originales.*
+
+**Apariciones en Bitácoras:**
+- bitacora-mercedev-epic-06.md: L44
 
 ---
 ### MIME
@@ -923,6 +946,7 @@ fecha: "2026-05-25"
 - bitacora-mercedev-epic-03.md: L85
 - bitacora-mercedev-epic-04.md: L52
 - bitacora-mercedev-epic-05.md: L81
+- bitacora-mercedev-epic-06.md: L48
 - flujo-publicacion-sop.md: L21
 - instrucciones.md: L50
 - mantenimiento-boilerplate-sop.md: L48
@@ -976,7 +1000,7 @@ fecha: "2026-05-25"
 - README.md: L183
 - bitacora-mercedev-epic-01.md: L799
 - bitacora-mercedev-epic-03.md: L641
-- bitacora-mercedev-epic-06.md: L150
+- bitacora-mercedev-epic-06.md: L203
 - ciclo-de-vida-contenidos.md: L41
 - flujo-publicacion-sop.md: L30
 - instrucciones.md: L47
@@ -1107,7 +1131,7 @@ fecha: "2026-05-25"
 - bitacora-mercedev-epic-01.md: L413
 - bitacora-mercedev-epic-02.md: L238
 - bitacora-mercedev-epic-03.md: L61
-- bitacora-mercedev-epic-06.md: L166
+- bitacora-mercedev-epic-06.md: L48
 - instrucciones.md: L4
 
 ---
@@ -1143,7 +1167,7 @@ fecha: "2026-05-25"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L158
 - bitacora-mercedev-epic-03.md: L753
-- bitacora-mercedev-epic-06.md: L266
+- bitacora-mercedev-epic-06.md: L319
 
 ---
 ### SMTP
@@ -1224,7 +1248,7 @@ fecha: "2026-05-25"
 - bitacora-mercedev-epic-01.md: L99
 - bitacora-mercedev-epic-02.md: L80
 - bitacora-mercedev-epic-03.md: L476
-- bitacora-mercedev-epic-06.md: L179
+- bitacora-mercedev-epic-06.md: L41
 - ciclo-de-vida-contenidos.md: L7
 - flujo-publicacion-sop.md: L2
 - instrucciones.md: L36
@@ -1256,7 +1280,7 @@ fecha: "2026-05-25"
 - bitacora-mercedev-epic-01.md: L50
 - bitacora-mercedev-epic-02.md: L318
 - bitacora-mercedev-epic-03.md: L325
-- bitacora-mercedev-epic-06.md: L47
+- bitacora-mercedev-epic-06.md: L100
 - ciclo-de-vida-contenidos.md: L49
 - instrucciones.md: L37
 - mantenimiento-boilerplate-sop.md: L5
@@ -1287,7 +1311,7 @@ fecha: "2026-05-25"
 - bitacora-mercedev-epic-03.md: L203
 - bitacora-mercedev-epic-04.md: L52
 - bitacora-mercedev-epic-05.md: L77
-- bitacora-mercedev-epic-06.md: L198
+- bitacora-mercedev-epic-06.md: L251
 
 ---
 ### TCP
@@ -1321,7 +1345,7 @@ fecha: "2026-05-25"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-03.md: L1123
-- bitacora-mercedev-epic-06.md: L60
+- bitacora-mercedev-epic-06.md: L113
 
 ---
 ### TLS
@@ -1370,7 +1394,7 @@ fecha: "2026-05-25"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L1215
 - bitacora-mercedev-epic-03.md: L912
-- bitacora-mercedev-epic-06.md: L187
+- bitacora-mercedev-epic-06.md: L240
 
 ---
 ### UTF-8
@@ -1382,7 +1406,7 @@ fecha: "2026-05-25"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L4498
-- bitacora-mercedev-epic-06.md: L47
+- bitacora-mercedev-epic-06.md: L100
 
 ---
 ### VCL
@@ -1491,6 +1515,7 @@ fecha: "2026-05-25"
 - bitacora-mercedev-epic-01.md: L3259
 - bitacora-mercedev-epic-02.md: L88
 - bitacora-mercedev-epic-03.md: L79
+- bitacora-mercedev-epic-06.md: L66
 - checklist-hardening.md: L36
 - deployment-playbook.md: L47
 
@@ -1562,7 +1587,7 @@ fecha: "2026-05-25"
 **Apariciones en Bitácoras:**
 - README.md: L87
 - bitacora-mercedev-epic-02.md: L910
-- bitacora-mercedev-epic-06.md: L104
+- bitacora-mercedev-epic-06.md: L157
 - instrucciones.md: L40
 
 ---
@@ -1585,7 +1610,7 @@ fecha: "2026-05-25"
 💡 **Merci Explica:** *Seguridad como una caja fuerte inalcanzable, sin posibilidad de robar nada.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-06.md: L236
+- bitacora-mercedev-epic-06.md: L289
 
 ---
 ### Zero-Shot
@@ -1598,6 +1623,6 @@ fecha: "2026-05-25"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L1162
 - bitacora-mercedev-epic-03.md: L656
-- bitacora-mercedev-epic-06.md: L112
+- bitacora-mercedev-epic-06.md: L165
 
 ---
