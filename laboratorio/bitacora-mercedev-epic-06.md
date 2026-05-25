@@ -36,6 +36,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-25 — Fix: Alineación Mobile-First en vista individual y Cierre de Tareas E-commerce
+
+**Contexto:** La vista de producto individual (single-product) forzaba `text-align: left` desde resoluciones móviles, rompiendo la coherencia visual con el resto del diseño Mobile-First. Además, faltaba sellar formalmente las tareas de modo simulación/catálogo en el Roadmap.
+
+**Hecho:**
+- Se modificó `src/scss/components/_woocommerce.scss` estableciendo `text-align: center` por defecto y reservando `text-align: left` exclusivamente para el *breakpoint* de escritorio (`min-width: 768px`).
+- Se marcaron como completadas las tareas del modo simulación y estilización del checkout en el `ROADMAP.md`.
+
+**Motivo / criterio:** *Mobile-First Design y Arquitectura por Sustracción*. En pantallas pequeñas, el texto centrado acompaña mejor a la imagen apilada verticalmente. Respecto al Roadmap, al haber extirpado los botones de compra y el carrito (Modo Catálogo puro sin AJAX), cumplimos el objetivo de "simular sin pasarelas" y "mantener el TBT en 0ms" mediante la eliminación radical del problema. El mejor código de checkout es el que no existe.
+
+**Siguiente paso o deuda:** Iniciar la Épica 7 (Enriquecimiento Visual y Multimedia).
+
 ### 2026-05-25 — Fix: Resolución de anidamiento SASS (Selector Fantasma) en WooCommerce
 
 **Contexto:** El usuario reportó que el HTML de WooCommerce seguía inyectando `style="opacity: 0;"` en la galería de imágenes, impidiendo su visualización a pesar de las reglas `!important` de nuestro CSS.

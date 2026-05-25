@@ -86,7 +86,7 @@
       background-color: transparent;
       border: none;
       box-shadow: none;
-      text-align: left;
+      text-align: center;
       padding: 0;
       display: grid;
       gap: 3rem;
@@ -98,6 +98,7 @@
       @media (min-width: 768px) {
         grid-template-columns: 4fr 6fr;
         align-items: start;
+        text-align: left;
       }
 
       /* Anidado estricto dentro de div.product para máxima especificidad */
