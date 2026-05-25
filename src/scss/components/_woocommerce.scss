@@ -102,12 +102,24 @@
     }
 
     div.images {
-      opacity: 1 !important; /* Fuerza la visibilidad que WC oculta esperando su JS pesado */
+      opacity: 1 !important;
+      width: 100%;
       max-width: 450px;
       margin: 0 auto 2rem auto;
+      
+      figure, .woocommerce-product-gallery__wrapper, .woocommerce-product-gallery__image {
+        margin: 0;
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+
       img {
+        display: block;
+        width: 100%;
+        height: auto;
         border-radius: 8px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        opacity: 1 !important;
       }
     }
 

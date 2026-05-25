@@ -67,6 +67,8 @@ def main():
             custom_env["WP_APP_PASSWORD"] = prod_pass
             if not run_local_command(f"{sys.executable} {REPO_ROOT}/scripts/merci/merci-wp.py", "📦 Inyectando artículos Headless en CMS de producción...", custom_env):
                 print("  ⚠️ La sincronización de WP falló. Continuando con el despliegue estático...")
+            else:
+                run_local_command(f"{sys.executable} {REPO_ROOT}/scripts/merci/merci-shop.py", "🛒 Inyectando catálogo de tienda en WooCommerce de producción...", custom_env)
 
     if not run_local_command("git push origin main", "📤 Subiendo código local a GitHub (git push)..."):
         sys.exit(1)

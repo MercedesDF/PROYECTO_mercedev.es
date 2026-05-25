@@ -10,6 +10,7 @@ manteniendo la seguridad de las credenciales mediante .env.
 """
 
 import sys
+import os
 import re
 import json
 import base64
@@ -52,18 +53,19 @@ def cargar_credenciales():
     POR QUÉ: Evita la dependencia externa de 'python-dotenv', manteniendo el script ultraligero 
     (regla de 0 dependencias) y asegurando las credenciales localmente (Shift-Left Security).
     """
-    if not ENV_FILE.exists():
-        print("❌ [Merci WP] Error: No se encontró el archivo .env seguro.")
-        print("Crea un archivo .env en la raíz con WP_URL, WP_USER y WP_APP_PASSWORD.")
-        sys.exit(1)
-        
     credenciales = {}
-    content = ENV_FILE.read_text(encoding="utf-8")
-    for line in content.splitlines():
-        line = line.strip()
-        if line and not line.startswith("#"):
-            key, val = line.split("=", 1)
-            credenciales[key.strip()] = val.strip().strip('"\'')
+    if ENV_FILE.exists():
+        content = ENV_FILE.read_text(encoding="utf-8")
+        for line in content.splitlines():
+            line = line.strip()
+            if line and not line.startswith("#"):
+                key, val = line.split("=", 1)
+                credenciales[key.strip()] = val.strip().strip('"\'')
+                
+    # Prioridad a las variables inyectadas por el SO (vital para merci-deploy.py)
+    if os.environ.get("WP_URL"): credenciales["WP_URL"] = os.environ.get("WP_URL")
+    if os.environ.get("WP_USER"): credenciales["WP_USER"] = os.environ.get("WP_USER")
+    if os.environ.get("WP_APP_PASSWORD"): credenciales["WP_APP_PASSWORD"] = os.environ.get("WP_APP_PASSWORD")
             
     return credenciales
 

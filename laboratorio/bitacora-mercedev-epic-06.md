@@ -36,6 +36,31 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-25 — Fix: Visibilidad absoluta de la galería WC y Corrección End-to-End de Despliegue
+
+**Contexto:** Al acceder a la vista de producto individual, la imagen seguía siendo invisible. Además, al revisar `merci-deploy.py`, se detectó un bug silencioso crítico: el orquestador de despliegue inyectaba las credenciales de producción en `os.environ`, pero `merci-wp.py` y `merci-shop.py` estaban codificados para leer rígidamente el archivo físico `.env`, por lo que nunca habían publicado en el servidor remoto de forma desatendida.
+
+**Hecho:**
+- Se forzó `opacity: 1 !important` y `display: block` a toda la estructura anidada de la galería de WooCommerce (`figure`, `.woocommerce-product-gallery__wrapper`) en `_woocommerce.scss`.
+- Se refactorizó la función `cargar_credenciales()` en `merci-wp.py` y `merci-shop.py` para priorizar las variables de entorno del Sistema Operativo (`os.environ.get`) sobre el archivo físico.
+- Se inyectó la llamada a `merci-shop.py` en la cadena de `scripts/merci/merci-deploy.py`.
+
+**Motivo / criterio:** *Robustez CSS y Cloud Parity*. WooCommerce inyecta contenedores `<figure>` que arrastran la opacidad 0 si no se bloquean a fondo. Por el lado del Backend, un orquestador Headless que ignora el entorno del sistema destruye el flujo CI/CD. Permitir que `os.environ` sobrescriba el archivo físico garantiza que `merci-deploy.py` pueda falsificar (mock) las credenciales de producción en memoria sin alterar los archivos de desarrollo local.
+
+**Siguiente paso o deuda:** Validar la visualización del producto, realizar el Sello Definitivo (`merci commit`) y cerrar oficialmente la Épica 6.
+
+### 2026-05-25 — Docs/CD: Actualización de Roadmap y flujo de despliegue para la Tienda
+
+**Contexto:** La Épica 6 (E-commerce Híbrido Extremo) no había sido marcada formalmente en el Roadmap tras completar la instanciación del catálogo, y el orquestador supremo de despliegue a producción (`merci-completo.py`) aún no contemplaba la sincronización del catálogo hacia el WooCommerce en la nube.
+
+**Hecho:**
+- Se marcaron como completadas las tareas de la Fase 1 en `ROADMAP.md` (Catálogo, modo simulación/catálogo y orquestación local).
+- Se planificó la inyección de `merci-shop.py` en el pipeline de despliegue a producción.
+
+**Motivo / criterio:** *Governance y Continuous Deployment*. Mantener la Única Fuente de Verdad (Roadmap) actualizada es innegociable. Por otro lado, al igual que los artículos del blog se sincronizan con la API de producción, los productos de la tienda deben viajar al servidor remoto automáticamente durante la ejecución del orquestador de despliegue para mantener la Paridad Dev/Prod.
+
+**Siguiente paso o deuda:** Inyectar la lógica de WooCommerce en `merci-completo.py` y `merci-deploy.py` para finalizar la automatización del despliegue en producción.
+
 ### 2026-05-25 — UX/DX: Patrón "Silence is Golden" en orquestadores Headless
 
 **Contexto:** Al ejecutar el orquestador global, la salida en consola (stdout) de `merci-wp.py` y `merci-shop.py` era demasiado ruidosa, imprimiendo saltos de línea extra y detalles de cada archivo procesado que no aportaban valor en una ejecución exitosa.

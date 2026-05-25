@@ -33,21 +33,18 @@ def cargar_credenciales() -> tuple[str, str]:
     POR QUÉ: Evita tener credenciales hardcodeadas (quemadas) en el código,
     respetando el principio Zero Trust y la seguridad Shift-Left.
     """
-    if not ENV_PATH.exists():
-        print("❌ No se encontró el archivo .env")
-        sys.exit(1)
-        
     env_vars = {}
-    for line in ENV_PATH.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"): continue
-        if "=" in line:
-            key, val = line.split("=", 1)
-            env_vars[key.strip()] = val.strip().strip("'\"")
+    if ENV_PATH.exists():
+        for line in ENV_PATH.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#"): continue
+            if "=" in line:
+                key, val = line.split("=", 1)
+                env_vars[key.strip()] = val.strip().strip("'\"")
             
-    wp_url = env_vars.get("WP_URL", "").rstrip("/")
-    wp_user = env_vars.get("WP_USER", "")
-    wp_pass = env_vars.get("WP_APP_PASSWORD", "")
+    wp_url = (os.environ.get("WP_URL") or env_vars.get("WP_URL", "")).rstrip("/")
+    wp_user = os.environ.get("WP_USER") or env_vars.get("WP_USER", "")
+    wp_pass = os.environ.get("WP_APP_PASSWORD") or env_vars.get("WP_APP_PASSWORD", "")
     
     if not wp_url or not wp_user or not wp_pass:
         print("❌ Faltan credenciales (WP_URL, WP_USER, WP_APP_PASSWORD) en el .env")
