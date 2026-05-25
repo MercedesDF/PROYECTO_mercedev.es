@@ -36,6 +36,40 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-25 — UX/UI: Refinamiento de la vista individual de producto
+
+**Contexto:** En la vista de producto individual del catálogo, la imagen ocupaba un 50% del ancho (`1fr 1fr`), resultando desproporcionadamente grande en pantallas de escritorio.
+
+**Hecho:** Se ajustó la cuadrícula a proporciones `4fr 6fr` y se limitó el contenedor de la imagen (`div.images`) a un `max-width` de `450px` en `_woocommerce.scss`.
+
+**Motivo / criterio:** *Proporcionalidad y Diseño de Interfaz*. Reducir el peso visual de la imagen frente a la descripción mejora el equilibrio de la página de producto y evita que las imágenes se sobredimensionen, lo cual rompía la experiencia de compra. Se inyectó además un ligero sombreado y borde redondeado para realzar el acabado "Premium" del producto.
+
+**Siguiente paso o deuda:** Compilar, verificar en el navegador y cerrar la Épica 6.
+
+### 2026-05-25 — UX/UI: Maquetación SASS del Catálogo (Tienda No Tienda)
+
+**Contexto:** Al estar deshabilitados los estilos nativos de WooCommerce (Zero-Bloat), el HTML del catálogo inyectado por la API REST se renderizaba desnudo. Era necesario aplicar la arquitectura de estilos SASS 7-1 para integrar los productos visualmente con el diseño de la web.
+
+**Hecho:**
+- Se reestructuró el archivo `src/scss/components/_woocommerce.scss` con estilos en cuadrícula (Grid).
+- Se definieron reglas específicas para el catálogo (`ul.products`) y para la vista de producto individual (`div.product`).
+
+**Motivo / criterio:** *Zero Bloat y UI Cohesion*. Purgar los 100KB de estilos genéricos que WooCommerce inyecta por defecto y sustituirlos por unas pocas líneas de CSS Grid altamente específicas nos garantiza retener el 100/100 en Core Web Vitals mientras el catálogo respira la misma identidad de marca que el núcleo estático.
+
+**Siguiente paso o deuda:** Compilar el CSS, verificar el catálogo en el entorno de desarrollo local y dar por cerrada la Épica 6.
+
+### 2026-05-25 — Feat: Criptodivisa nativa (Merci-coins) para la Tienda No Tienda
+
+**Contexto:** Al tratarse de una demostración técnica de e-commerce ("Tienda No Tienda") sin pasarelas de pago reales, el uso de moneda fiat tradicional (Euros/Dólares) rompía la inmersión del "Storytelling Técnico".
+
+**Hecho:**
+- Se definió la moneda oficial del ecosistema: **Merci-coins (MC)**.
+- Se preparó la inyección de los filtros `woocommerce_currencies`, `woocommerce_currency_symbol` y `woocommerce_currency` en `functions.php` del Child Theme.
+
+**Motivo / criterio:** *Gamificación y Zero GUI*. Sustituir el símbolo monetario tradicional por una divisa ficticia (MC 🪙) refuerza ante el usuario que está navegando por un entorno de demostración técnica, previniendo cualquier confusión sobre ventas reales. Forzar la moneda mediante hooks de PHP evita tener que configurarla manualmente en el panel de administración de WordPress.
+
+**Siguiente paso o deuda:** Inyectar los filtros en `functions.php` e integrar el catálogo visualmente en el frontend usando SASS.
+
 ### 2026-05-25 — Perf: Caché HASH Incremental en Auditor Maestro
 
 **Contexto:** Se planteó la necesidad de reducir aún más el tiempo de ejecución de la auditoría masiva evitando el análisis de archivos que no habían sufrido modificaciones, aplicando el patrón de compilación incremental que ya se usa en SSG.
