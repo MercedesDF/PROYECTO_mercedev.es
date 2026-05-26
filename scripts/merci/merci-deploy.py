@@ -46,6 +46,12 @@ def run_remote_command(command, description):
 def main():
     print("🚀 [Merci Deploy] Iniciando orquestación de despliegue en producción...")
 
+    if not run_local_command("git push origin main", "📤 Subiendo código local a GitHub (git push)..."):
+        sys.exit(1)
+
+    if not run_remote_command(f"cd {REMOTE_WEB_DIR} && git pull origin main", "📥 Sincronizando código desde GitHub (git pull)..."):
+        sys.exit(1)
+
     # 0. Sincronización Headless WP en Producción (Evita editar .env a mano)
     env_path = REPO_ROOT / ".env"
     if env_path.exists():
@@ -70,12 +76,6 @@ def main():
             else:
                 run_local_command(f"{sys.executable} {REPO_ROOT}/scripts/merci/merci-shop.py", "🛒 Inyectando catálogo de tienda en WooCommerce de producción...", custom_env)
 
-    if not run_local_command("git push origin main", "📤 Subiendo código local a GitHub (git push)..."):
-        sys.exit(1)
-
-    if not run_remote_command(f"cd {REMOTE_WEB_DIR} && git pull origin main", "📥 Sincronizando código desde GitHub (git pull)..."):
-        sys.exit(1)
-
     # QUÉ HACE: Purga la caché enviando peticiones HTTP PURGE locales desde el propio servidor.
     # POR QUÉ: Permite vaciar Varnish sin requerir permisos root (clpctl) ni instalar plugins PHP en WordPress.
     run_remote_command(f"curl -s -X PURGE https://{SSH_HOST}/ > /dev/null", "🧹 Purgando caché de la portada (Varnish)...")
@@ -84,4 +84,8 @@ def main():
     print("\n🎉 ¡Despliegue completado! La producción está actualizada y la caché es fresca (Zero-Plugins).")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n🛑 [Merci Deploy] Despliegue cancelado por la usuaria. Saliendo limpiamente.")
+        sys.exit(130)

@@ -98,6 +98,7 @@ El proyecto prioriza la automatización reproducible, auditoría continua, reduc
 | `merci-wp.py` | Publicación Headless WordPress |
 | `merci-shop.py` | Orquestador Headless para catálogo WooCommerce |
 | `merci-deploy.py` | Despliegue remoto y purga de caché (Varnish) |
+| `merci-release.py`| Exportación y sincronización local al Boilerplate |
 
 ### Observabilidad & Seguridad
 | Script | Función |
@@ -184,6 +185,7 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 - `merci-deploy.py`: Agente de Despliegue Remoto (CD Local) para sincronización SSH y purga de Varnish.
 - `merci-completo.py`: Orquestador Supremo DevSecOps que encadena QA, commit atómico y despliegue a producción.
 - `merci-showcase.py`: Orquestador de despliegue interactivo para la demo pública del Boilerplate (Clon Efímero).
+- `merci-release.py`: Orquestador de exportación para empaquetar y sincronizar el Boilerplate localmente.
 - `merci-extract-metrics.py`: Extractor Data-Driven de métricas Core Web Vitals desde archivos JSON estructurados.
 - `merci-telemetry.py`: Inyector dinámico de telemetría del proyecto (Commits, Agentes, Docs).
 - `merci-styles.py` y `merci-watcher.py`: Compilador SASS 7-1 local y vigilante en tiempo real.

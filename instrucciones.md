@@ -47,6 +47,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
   - `merci-wp.py`: Sincronizador Headless para inyección masiva en WordPress vía API REST.
   - `merci-shop.py`: Orquestador Headless de catálogo para WooCommerce (Tienda No Tienda).
   - `merci-deploy.py`: Agente de Despliegue Remoto para sincronización SSH y purga de Varnish en producción.
+  - `merci-release.py`: Orquestador de exportación para empaquetar y sincronizar el Boilerplate localmente.
   - `merci-completo.py`: Orquestador Supremo DevSecOps que encadena QA, commit atómico y despliegue a producción.
   - `merci-extract-metrics.py`: Extractor automatizado de métricas Core Web Vitals desde PDFs.
   - `merci-telemetry.py`: Inyector dinámico de telemetría del proyecto (Commits, Agentes, Docs).
@@ -76,7 +77,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 2. **Paso a Paso:** Adherencia estricta a las fases de implementación.
 3. **Control de Comprensión:** Validación de conceptos antes de proceder.
 4. **Seguridad Shift-Left:** Mitigación de vulnerabilidades desde la fase de diseño.
-5. **Manejo de Errores:** Todo código debe incluir gestión de excepciones para evitar colapsos.
+5. **Manejo de Errores y Salida Elegante (Fail Gracefully):** Todo código debe incluir gestión de excepciones para evitar colapsos. Además, **todo script** del ecosistema debe capturar la interrupción por teclado (`KeyboardInterrupt` / `Ctrl+C`) en su bloque principal para garantizar una salida limpia, emitiendo un mensaje educado y un código `sys.exit(130)` en lugar de imprimir trazas de error (Tracebacks) en la terminal.
 6. **Bitácora en laboratorio:** Mantener actualizadas las bitácoras por Épica (`laboratorio/bitacora-mercedev-epic-NN.md`) con el contexto de cada sesión o tema cerrado (qué se hizo, por qué, comandos o rutas útiles). Las entradas del **registro cronológico** se **añaden siempre al principio del archivo** (orden cronológico inverso: lo más reciente arriba) para facilitar consulta inmediata del último estado. No se sustituye ni se borra el texto ya archivado salvo corrección puntual (p. ej. dato erróneo o material sensible), dejando claro en la propia entrada el motivo. Sirve de memoria para el desarrollador y, al concluir la Épica, de borrador curado para trasladar piezas definitivas a `biblioteca/`, usando la plantilla y los criterios descritos en ese archivo.
 7. **Documentación versionada impersonal:** En archivos del repositorio visibles al público (`README.md`, `docs/`, `laboratorio/`, públicos, etc.) no deben figurar recordatorios en segunda persona ni “notas al autor” (p. ej. “cuando tengas tiempo añade…”). Ese tipo de seguimiento vive **fuera del repo** (agenda, notas privadas, issue tracker). El texto en Git debe leerse bien a un colaborador o visitante anónimo.
 8. **Redacción impersonal en laboratorio:** En `laboratorio/` usar estilo impersonal. Para los hechos consumados usar pasado en voz pasiva/impersonal (p. ej. "Se validaron los metadatos", "Se documentó la deuda"), y reservar el infinitivo exclusivamente para objetivos, tareas pendientes o siguientes pasos (p. ej. "Siguiente paso: Validar metadatos"). Evitar redacción en primera/segunda persona.

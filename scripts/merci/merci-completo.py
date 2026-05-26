@@ -8,6 +8,7 @@ Ejecuta en cadena: QA (merci total) -> Sello (merci commit) -> Producción (merc
 
 import subprocess
 import sys
+import os
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -17,8 +18,10 @@ def ejecutar_fase(script, nombre):
     print(f"🌟 INICIANDO FASE: {nombre}")
     print(f"{'='*60}\n")
     
+    custom_env = os.environ.copy()
+    custom_env["MERCI_IS_COMPLETO"] = "1"
     # Ejecutamos sin capturar salida para preservar interactividad (ej. inputs de merci-commit) y colores
-    result = subprocess.run([sys.executable, str(REPO_ROOT / "scripts" / "merci" / script)])
+    result = subprocess.run([sys.executable, str(REPO_ROOT / "scripts" / "merci" / script)], env=custom_env)
     if result.returncode != 0:
         print(f"\n❌ [Merci Completo] La cadena se rompió en la fase: {nombre}. Abortando despliegue global.")
         sys.exit(1)
@@ -35,4 +38,8 @@ def main():
     print(f"{'='*60}\n")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n🛑 [Merci Completo] Cadena de suministro interrumpida por la usuaria. Saliendo limpiamente.")
+        sys.exit(130)

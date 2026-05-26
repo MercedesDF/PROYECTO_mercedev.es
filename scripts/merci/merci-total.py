@@ -13,6 +13,7 @@ import subprocess
 import time
 import json
 import sys
+import os
 from pathlib import Path
 
 # Definimos la ruta base donde residen los scripts
@@ -102,6 +103,9 @@ def main():
     for s_name, s_time in script_durations.items():
         print(f"  {s_name:<25} : {s_time:>5.2f}s")
     print("-" * 40)
+    
+    if not os.environ.get("MERCI_IS_COMPLETO"):
+        print("\n💡 [Merci DX] Todo en verde. Si tu iteración ha finalizado, ejecuta 'merci completo' para sellar y subir a producción.\n")
 
 if __name__ == "__main__":
     try:

@@ -40,18 +40,98 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) en sus 7 pasos, certificando formalmente la Épica 6 tras decidir aplazar los detalles visuales de la tienda a la Épica 7.
 
-**Hecho:** Se inicia la ejecución del checklist de cierre (Pendiente de validación final):
-- [x] **1. Deuda Técnica:** 0 TODOs bloqueantes. Los refinamientos visuales del catálogo se delegan a la Épica 7 como decisión arquitectónica.
+**Hecho:** Se ejecutó y validó el checklist completo:
+- [x] **1. Deuda Técnica:** 0 TODOs bloqueantes. El ecosistema superó los OOBE en entornos limpios y estandarizó KeyboardInterrupts.
 - [x] **2. Cosecha de Conocimiento:** Creado el compendio estratégico `cuadernillo-compendio-epica-06-ecommerce.md` en incubación.
-- [x] **3. Auditoría Documental:** `ROADMAP.md` actualizado cerrando la Épica 6 y abriendo la Épica 7.
-- [ ] **4. Evaluación de Release:** Ejecutar actualización del repositorio `merci-boilerplate` y la demo en `merci showcase`.
-- [ ] **5. Certificación de Rendimiento:** Carrito Zero-JS validado con TBT 0ms.
-- [ ] **6. Snapshot:** Backup local (merci backup) pendiente de ejecución.
-- [ ] **7. Sello Definitivo:** Commit atómico de consolidación pendiente.
+- [x] **3. Auditoría Documental:** `ROADMAP.md` actualizado cerrando la Épica 6. SOP de mantenimiento reescrito.
+- [x] **4. Evaluación de Release:** Repositorio `merci-boilerplate` y la demo en `merci showcase` actualizados con éxito.
+- [x] **5. Certificación de Rendimiento:** Carrito Zero-JS validado con TBT 0ms.
+- [x] **6. Snapshot:** Backup local (merci backup) ejecutado.
+- [x] **7. Sello Definitivo:** Commit atómico de consolidación sellado.
 
 **Motivo / criterio:** *Governance y QA Assurance*. Cumplir el protocolo innegociable de cierre evita arrastrar deuda técnica y asegura que el conocimiento (Zero-JS Cart, E-commerce Headless) queda destilado en la biblioteca antes de iniciar la capa visual de la Épica 7.
 
-**Siguiente paso o deuda:** Finalizar los pasos 4, 5, 6 y 7 marcándolos con una 'x' tras su ejecución exitosa, y arrancar la Épica 7.
+**Siguiente paso o deuda:** Arrancar oficialmente la Épica 7.
+
+### 2026-05-26 — Fix/Docs: Saneamiento de Deriva Documental en Boilerplate (merci-shop.py)
+
+**Contexto:** Al validar el Boilerplate mediante el orquestador de release, el agente de deriva documental (`merci-drift.py`) bloqueó el pipeline detectando que `merci-shop.py` existía en el código pero no figuraba en `instrucciones.md` del clon.
+
+**Hecho:** Se inyectó la documentación de `merci-shop.py` en el Shadow Doc `instrucciones-merci.md`.
+
+**Motivo / criterio:** *Single Source of Truth y Zero Document Drift*. El archivo `instrucciones-merci.md` reemplaza a las instrucciones de la matriz durante la instanciación. Al haber añadido la tienda al Boilerplate, el script Headless de WooCommerce debe figurar en la biblia pública para que el clon nazca con 0 advertencias de deriva.
+
+### 2026-05-26 — Hotfix/DX: Sincronización de cambios no comiteados en Release
+
+**Contexto:** Al ejecutar `merci release` con cambios locales pendientes (uncommitted), el orquestador fallaba porque evaluaba el estado antiguo del repositorio.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-release.py` para inyectar una sincronización `rsync` del árbol de trabajo actual inmediatamente después del `git clone`.
+
+**Motivo / criterio:** *GitOps Paradox (El Huevo o la Gallina)*. `git clone` copia exclusivamente el código sellado en commits. Si la desarrolladora estaba testeando un parche (como el *Fail Gracefully* de la tienda) previo a su consolidación, el clon efímero heredaba la versión rota y colapsaba. Copiar los archivos físicos locales sobre el clon garantiza que el *Release Pipeline* audite el estado real y exacto del IDE antes del commit definitivo.
+
+**Siguiente paso o deuda:** Finalizar validación y sellar la Épica 6.
+
+### 2026-05-26 — Fix/DX: Degradación Elegante en Orquestadores Headless (OOBE)
+
+**Contexto:** Al instanciar el Boilerplate mediante `merci release`, el orquestador maestro (`merci total`) falló en la fase de QA. El script `merci-shop.py` intentó realizar un *Health Check* contra la URL ficticia (`http://tu-dominio-local.com`) generada por defecto en el `.env`, devolviendo un error fatal (`sys.exit(1)`) y rompiendo el pipeline.
+
+**Hecho:** Se implementó el patrón *Fail Gracefully* en `scripts/merci/merci-shop.py` y `scripts/merci/merci-wp.py`. Si los endpoints son inaccesibles o faltan credenciales, los scripts ahora emiten una advertencia informativa y salen limpiamente (`sys.exit(0)`).
+
+**Motivo / criterio:** *Out-of-the-Box Experience (OOBE)*. Un repositorio recién clonado nace sin un CMS configurado. Las herramientas de sincronización Headless deben ser lo suficientemente inteligentes para detectar un entorno "virgen" y omitirse en silencio, permitiendo que la compilación estática y las auditorías SEO/Seguridad finalicen con éxito en la primera ejecución del usuario.
+
+**Siguiente paso o deuda:** Re-ejecutar `merci release` para confirmar la publicación.
+
+### 2026-05-26 — Docs/DX: Reescritura del SOP de Mantenimiento del Boilerplate
+
+**Contexto:** Se detectó que el Procedimiento Operativo Estándar (`docs/matriz/mantenimiento-boilerplate-sop.md`) describía un flujo manual obsoleto que ya no correspondía a la realidad operativa de `merci-release.py`, generando una deuda documental.
+
+**Hecho:** Se reescribió por completo el archivo `docs/matriz/mantenimiento-boilerplate-sop.md`.
+
+**Motivo / criterio:** *Single Source of Truth (SSOT) y Zero Document Drift*. Eliminar las guías manuales obsoletas y documentar el funcionamiento "bajo el capó" del orquestador infunde confianza en la herramienta automatizada y previene que el desarrollador intente realizar pasos redundantes a mano.
+
+**Siguiente paso o deuda:** Finalizar release.
+
+### 2026-05-26 — Feat/DX: Automatización integral (End-to-End) de la Release
+
+**Contexto:** Aunque el script `merci-release.py` automatizaba la exportación de archivos, el desarrollador aún debía cambiar de directorio, inferir la versión y lanzar manualmente la auditoría, el commit y el push.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-release.py` para lograr la automatización total (Full End-to-End).
+
+**Detalle técnico:** Se implementó una ruta por defecto inteligente resolviendo la carpeta hermana del proyecto. Tras el `rsync`, el script extrae la versión del `README.md` mediante Expresiones Regulares, inyecta la auditoría (`merci total`) usando el mismo entorno virtual del sistema anfitrión, y ejecuta las órdenes de Git para empaquetar y subir el resultado a la nube (siempre que la auditoría haya arrojado 0 errores). 
+
+**Motivo / criterio:** *Fricción Cero Extrema*. Si un script sabe hacia dónde enviar los archivos, también puede asumir la responsabilidad de validarlos y publicarlos. Este desarrollo convierte el tedioso y frágil Procedimiento Operativo de Mantenimiento (`mantenimiento-boilerplate-sop.md`) en una única tecla (*Enter*), reduciendo a cero la carga operativa de las exportaciones.
+
+### 2026-05-26 — Docs/DX: Norma universal de Salida Elegante (KeyboardInterrupt)
+
+**Contexto:** Al interrumpir procesos en terminal (`Ctrl+C`), algunos scripts arrojaban un `Traceback` crudo, rompiendo la filosofía de "Silence is Golden" y empeorando la Experiencia de Desarrollador (DX).
+
+**Hecho:** Se actualizó la Regla 5 en `instrucciones.md` para hacer obligatoria la captura de `KeyboardInterrupt` en todos los scripts del ecosistema, forzando una salida limpia con `sys.exit(130)`. Se parchearon los orquestadores principales (`merci-completo`, `merci-init`, `merci-deploy`, `merci-commit`, `merci-wp`).
+
+**Motivo / criterio:** *Fail Gracefully y Clean DX*. Un framework maduro (nivel Enterprise) no debe escupir errores de intérprete cuando el usuario cancela intencionalmente una operación. La estandarización de esta captura protege la higiene de la terminal.
+
+### 2026-05-26 — Feat/DX: Automatización del Release Pipeline (merci-release.py)
+
+**Contexto:** Actualizar el repositorio derivado `merci-boilerplate` requería un SOP manual tedioso (clonar a carpeta temporal, ejecutar script destructivo, rsync y borrado), propenso a errores humanos (Deriva de Configuración).
+
+**Hecho:** Se desarrolló el orquestador `scripts/merci/merci-release.py` y se documentó en los manuales exclusivos de la matriz (`README.md` e `instrucciones.md`). Se instruyó a `merci-init.py` para purgar este script de los clones.
+
+**Motivo / criterio:** *Zero Maintenance y Automation*. Si existe un SOP que exige teclear comandos mecánicos, es deuda técnica operativa. Aplicar el patrón "Clon Efímero" reduce la exportación a un único comando desatendido. Extirpar el script del Boilerplate protege la plantilla, ya que la lógica de exportación es incumbencia exclusiva de la matriz (Separation of Concerns).
+
+### 2026-05-26 — UX/DX: Inyección de Call-to-Action en el Orquestador Maestro
+
+**Contexto:** El desarrollador completaba ejecuciones exitosas de `merci total` (QA y Build) pero el flujo carecía de un recordatorio claro sobre el siguiente paso lógico (sellar y desplegar), generando fricción cognitiva.
+
+**Hecho:** Se inyectó un mensaje "Call to Action" al final de `merci-total.py` sugiriendo la ejecución de `merci completo`. Para evitar redundancia, se modificó `merci-completo.py` para inyectar la variable de entorno `MERCI_IS_COMPLETO=1`, permitiendo al orquestador maestro silenciar el recordatorio si ya está siendo ejecutado dentro de la cadena global.
+
+**Motivo / criterio:** *Developer Experience (DX) y Fricción Cero*. Las herramientas de consola deben guiar al usuario. Añadir un recordatorio visual justo cuando el pipeline brilla en verde facilita el estado de flujo (Flow State) y fomenta el uso del orquestador End-to-End en lugar de comandos aislados.
+
+### 2026-05-26 — Hotfix: Condición de carrera en orquestador de despliegue (Imágenes 404)
+
+**Contexto:** Al añadir nuevos productos a la tienda y ejecutar el despliegue a producción (`merci completo`), los productos no aparecían en el WooCommerce remoto, a pesar de funcionar perfectamente en local.
+
+**Hecho:** Se refactorizó el orden de ejecución en `scripts/merci/merci-deploy.py`, moviendo los comandos de sincronización de código (`git push` y `git pull`) **antes** de la sincronización Headless de los CMS (`merci-wp.py` y `merci-shop.py`).
+
+**Motivo / criterio:** *Condición de Carrera (Race Condition)*. La API de WooCommerce *descarga* la imagen del producto desde la URL proporcionada. Al ejecutar la inyección del CMS antes del `git pull`, WooCommerce intentaba descargar una imagen (`.webp`) que aún no existía en el servidor, recibiendo un error 404 y abortando la creación del producto. Invertir el orden garantiza que los *assets* estáticos ya residan en producción antes de que la base de datos intente consumirlos.
 
 ### 2026-05-26 — Docs: Release v1.16.0 del Boilerplate (E-commerce Híbrido)
 
