@@ -36,6 +36,33 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-26 — Milestone: Sello Definitivo y Certificación de Épica 6 (E-commerce)
+
+**Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) en sus 7 pasos, certificando formalmente la Épica 6 tras decidir aplazar los detalles visuales de la tienda a la Épica 7.
+
+**Hecho:** Se inicia la ejecución del checklist de cierre (Pendiente de validación final):
+- [x] **1. Deuda Técnica:** 0 TODOs bloqueantes. Los refinamientos visuales del catálogo se delegan a la Épica 7 como decisión arquitectónica.
+- [x] **2. Cosecha de Conocimiento:** Creado el compendio estratégico `cuadernillo-compendio-epica-06-ecommerce.md` en incubación.
+- [x] **3. Auditoría Documental:** `ROADMAP.md` actualizado cerrando la Épica 6 y abriendo la Épica 7.
+- [ ] **4. Evaluación de Release:** Ejecutar actualización del repositorio `merci-boilerplate` y la demo en `merci showcase`.
+- [ ] **5. Certificación de Rendimiento:** Carrito Zero-JS validado con TBT 0ms.
+- [ ] **6. Snapshot:** Backup local (merci backup) pendiente de ejecución.
+- [ ] **7. Sello Definitivo:** Commit atómico de consolidación pendiente.
+
+**Motivo / criterio:** *Governance y QA Assurance*. Cumplir el protocolo innegociable de cierre evita arrastrar deuda técnica y asegura que el conocimiento (Zero-JS Cart, E-commerce Headless) queda destilado en la biblioteca antes de iniciar la capa visual de la Épica 7.
+
+**Siguiente paso o deuda:** Finalizar los pasos 4, 5, 6 y 7 marcándolos con una 'x' tras su ejecución exitosa, y arrancar la Épica 7.
+
+### 2026-05-26 — Docs: Release v1.16.0 del Boilerplate (E-commerce Híbrido)
+
+**Contexto:** Tras culminar la Épica 6 y resolver la deuda técnica de despliegue global de la tienda, es obligatorio (por la Regla 7 del DoD) exportar estas arquitecturas avanzadas al repositorio público antes de continuar con otras épicas.
+
+**Hecho:** Se actualizó `README-merci.md` a la versión `v1.16.0` documentando el Catálogo Headless (`merci-shop.py`) y la arquitectura de Carrito Zero-JS con TBT 0ms.
+
+**Motivo / criterio:** *Release Management y Zero Technical Debt*. El Boilerplate debe recibir incondicionalmente las mejoras de infraestructura desarrolladas en la matriz para no sufrir Deriva de Configuración. Al empaquetar la lógica Zero-JS y los orquestadores Headless, entregamos a la comunidad un framework de e-commerce ultrarrápido y seguro.
+
+**Siguiente paso o deuda:** Ejecutar el SOP de mantenimiento del Boilerplate y el orquestador de Showcase.
+
 ### 2026-05-25 — Fix: Resolución de enlaces rotos (PDF) y Errores JS en Carrito WC
 
 **Contexto:** El rastreador dinámico DAST (`merci-linkcheck.py`) bloqueó el orquestador maestro al detectar un error 404 (`carrito.pdf`) en la página del carrito. Adicionalmente, la consola del navegador estaba plagada de errores `ReferenceError: wp is not defined`.

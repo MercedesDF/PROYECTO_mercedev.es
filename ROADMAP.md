@@ -231,7 +231,7 @@
 
 ---
 
-## ÉPICA 6: E-COMMERCE HÍBRIDO EXTREMO (En curso)
+## ÉPICA 6: E-COMMERCE HÍBRIDO EXTREMO (Concluida)
 
 ### Fase 1: Catálogo Headless y E-commerce Simulado (Mock)
 - [x] Diseñar plantilla base en Markdown (YAML Frontmatter) para productos (precio, SKU, imagen, descripción).
@@ -242,7 +242,7 @@
 
 ---
 
-## ÉPICA 7: ENRIQUECIMIENTO VISUAL Y MULTIMEDIA (En cola)
+## ÉPICA 7: ENRIQUECIMIENTO VISUAL Y MULTIMEDIA (En curso)
 
 ### Fase 1: Evolución UI/UX y Contenido
 - [ ] Diseñar e implementar mejoras visuales avanzadas (espaciados, tipografía, paleta extendida) sin comprometer el 100/100 de rendimiento.

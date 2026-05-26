@@ -31,7 +31,7 @@ def main():
     
     print(f"\n{'='*60}")
     print("🏆 [Merci Completo] ¡Cadena de Suministro ejecutada con éxito absoluto!")
-    print("   Tu ecosistema está auditado, empaquetado, sincronizado en CMS y desplegado en Producción.")
+    print("   Tu ecosistema está auditado, empaquetado, sincronizado en CMS/Catálogo y desplegado en Producción.")
     print(f"{'='*60}\n")
 
 if __name__ == "__main__":

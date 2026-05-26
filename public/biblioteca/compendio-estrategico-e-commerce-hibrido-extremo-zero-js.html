@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actualización de la Política de Seguridad para Prevenir ataq...</title>
-    <meta name="description" content="Se implementó una política de seguridad para bloquear etiquetas &lt;script src=&quot;...&quot;&gt; y &lt;link rel=&quot;stylesheet&quot;&gt; que ap...">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/actualizacion-de-la-politica-de-seguridad-para-prevenir-ataques-a-la-cadena-de-suministro.html">
+    <title>Compendio Estratégico: E-commerce Híbrido Extremo (Zero-JS)</title>
+    <meta name="description" content="Resumen arquitectónico de la Épica 6: Inyección Headless de catálogo y Carrito Zero-JS con TBT 0ms.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/compendio-estrategico-e-commerce-hibrido-extremo-zero-js.html">
     <link rel="stylesheet" href="/css/main.css?v=1779792136">
     <script src="/js/MerciController.js?v=1779435203" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Actualizaci\u00f3n de la Pol\u00edtica de Seguridad para Prevenir ataques a la cadena de suministro",
-      "description": "Se implement\u00f3 una pol\u00edtica de seguridad para bloquear etiquetas <script src=\"...\"> y <link rel=\"stylesheet\"> que apunte a dominios externos, protegiendo as\u00ed la regla arquitect\u00f3nica de 'Zero Bloat' y evitando ataques a la cadena de suministro.",
-      "url": "https://mercedev.es/biblioteca/actualizacion-de-la-politica-de-seguridad-para-prevenir-ataques-a-la-cadena-de-suministro.html"
+      "headline": "Compendio Estrat\u00e9gico: E-commerce H\u00edbrido Extremo (Zero-JS)",
+      "description": "Resumen arquitect\u00f3nico de la \u00c9pica 6: Inyecci\u00f3n Headless de cat\u00e1logo y Carrito Zero-JS con TBT 0ms.",
+      "url": "https://mercedev.es/biblioteca/compendio-estrategico-e-commerce-hibrido-extremo-zero-js.html"
     }
     </script>
 </head>
@@ -43,19 +43,25 @@
         </nav>
     </header>
     <main class="main--padded section" id="main">
-        <article class="card card--booklet">
+        <article class="card card--book">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                    <h1 class="home-card__title--highlight">Actualización de la Política de Seguridad para Prevenir ataques a la cadena de suministro</h1>
-                <a href="/descargas/actualizacion-de-la-politica-de-seguridad-para-prevenir-ataques-a-la-cadena-de-suministro.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+                    <h1 class="home-card__title--highlight">Compendio Estratégico: E-commerce Híbrido Extremo (Zero-JS)</h1>
+                <a href="/descargas/compendio-estrategico-e-commerce-hibrido-extremo-zero-js.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
             </header>
             <div class="card__content">
-                <h2>El Desafío (Síntoma)</h2>
-<p>Durante las pruebas finales de Chaos Engineering, se detectó que la IA logró evadir nuestras defensas inyectando una hoja de estilos CSS desde un dominio malicioso externo. Esto comprometía la seguridad del proyecto y violaba la regla arquitectónica de "Zero Bloat".</p>
-<h2>La Maniobra (Lógica)</h2>
-<p>Para proteger contra ataques a la cadena de suministro, se actualizó el Agente Auditor para bloquear cualquier etiqueta <code>&lt;script src="..."&gt;</code> o <code>&lt;link rel="stylesheet"&gt;</code> que apunte a dominios externos (distintos a localhost o mercedev.es). Además, se implementó una mecanismo de degradación elegante ante señales SIGINT (Ctrl+C), cerrando el pipeline con una experiencia de desarrollador (<abbr title="Merci Explica: La comodidad y felicidad del programador al trabajar con el código y las herramientas de un proyecto." tabindex="0">DX</abbr>) impecable.</p>
-<h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Esta solución es la óptima porque asegura que solo se carguen recursos locales, minimizando el riesgo de ataques a la cadena de suministro. La implementación del mecanismo de degradación elegante mejora la experiencia del desarrollador al proporcionar una salida limpia y ordenada en caso de interrupción inesperada.</p>
+                <h1>Compendio Estratégico: E-commerce Híbrido Extremo (Zero-JS)</h1>
+<h2>El Desafío</h2>
+<p>Integrar un motor de comercio electrónico pesado (WooCommerce) en una arquitectura orientada al rendimiento extremo (100/100 Core Web Vitals), sin degradar el Tiempo de Bloqueo Total (<abbr title="Merci Explica: El tiempo acumulado en el que el ordenador estuvo tan ocupado calculando cosas que tu ratón o tus toques en la pantalla parecían no responder." tabindex="0">TBT</abbr>) y manteniendo la filosofía Headless para el catálogo de productos.</p>
+<h2>La Maniobra</h2>
+<p>La Épica 6 abordó el reto a través de dos ejes arquitectónicos:</p>
+<ol>
+<li><strong>Catálogo Headless (<code>merci-shop.py</code>):</strong> Los productos se escriben en Markdown con metadatos YAML y se inyectan directamente vía API <abbr title="Merci Explica: Sistema de comunicación entre aplicaciones donde cada mensaje contiene toda la información necesaria para entender el contexto." tabindex="0">REST</abbr>, tratando a WooCommerce como un simple motor de base de datos pasivo.</li>
+<li><strong>Carrito Zero-JS:</strong> Se desencolaron absolutamente todos los scripts <abbr title="Merci Explica: El mecanismo que permite que una página web cargue o envíe datos en segundo plano sin que tengas que actualizar la pestaña." tabindex="0">AJAX</abbr> (<code>wc-cart-fragments</code>), librerías de bloques Gutenberg y frameworks de React inyectados por las versiones modernas del <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr>. Al aplicar auto-sanación en la base de datos (convirtiendo bloques a shortcodes clásicos), obligamos a WooCommerce a funcionar con peticiones <code>POST</code> HTML nativas.</li>
+</ol>
+<h2>El Aprendizaje</h2>
+<p>El "Mejor código es el que no existe". Al obligar a WooCommerce a comportarse como una aplicación de los años 90 (recargando la página entera tras enviar un formulario POST en lugar de usar pesadas llamadas AJAX), eliminamos toda carga de procesamiento de JavaScript en el navegador del cliente. </p>
+<p>El resultado empírico es un TBT (Total Blocking Time) garantizado de 0ms, demostrando que es posible tener un e-commerce 100% funcional y ultrarrápido si se extirpa implacablemente la dependencia de JavaScript en el lado del cliente (Client-side rendering).</p>
             </div>
         </article>
     </main>

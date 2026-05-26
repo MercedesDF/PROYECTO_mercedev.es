@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selectores Fantasma y la Guerra de Especificidad CSS en SASS</title>
+    <meta name="description" content="Cómo un espacio en blanco en el anidamiento SASS puede generar código muerto y cómo vencer la especificidad impuesta por CMS pesados.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/selectores-fantasma-y-la-guerra-de-especificidad-css-en-sass.html">
+    <link rel="stylesheet" href="/css/main.css?v=1779792136">
+    <script src="/js/MerciController.js?v=1779435203" defer></script>
+    <script src="/js/main.js?v=1779435201" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Selectores Fantasma y la Guerra de Especificidad CSS en SASS",
+      "description": "C\u00f3mo un espacio en blanco en el anidamiento SASS puede generar c\u00f3digo muerto y c\u00f3mo vencer la especificidad impuesta por CMS pesados.",
+      "url": "https://mercedev.es/biblioteca/selectores-fantasma-y-la-guerra-de-especificidad-css-en-sass.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="low" decoding="async">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Portada</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--book">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Selectores Fantasma y la Guerra de Especificidad CSS en SASS</h1>
+                <a href="/descargas/selectores-fantasma-y-la-guerra-de-especificidad-css-en-sass.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h1>Selectores Fantasma y la Guerra de Especificidad CSS en <abbr title="Merci Explica: CSS con superpoderes." tabindex="0">SASS</abbr></h1>
+<h2>El Desafío</h2>
+<p>Al inyectar estilos personalizados para domar la vista individual de un producto en WooCommerce, el navegador ignoraba sistemáticamente las reglas CSS con <code>!important</code>. La imagen del producto permanecía invisible (<code>opacity: 0</code> inyectado en línea por el <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr>) a pesar de que el código SASS parecía sintácticamente perfecto.</p>
+<p>El análisis forense reveló dos problemas que actuaban en conjunto: una especificidad débil que perdía frente a los estilos residuales del CMS, y un bloque entero de CSS convertido en "Código Muerto" inalcanzable por el <abbr title="Merci Explica: Mapa mental de las partes de una página web que puede ser modificado por JavaScript." tabindex="0">DOM</abbr>.</p>
+<h2>La Maniobra</h2>
+<p>Se aplicaron dos correcciones quirúrgicas en la arquitectura SASS (<code>_woocommerce.scss</code>):</p>
+<ol>
+<li><strong>Corrección de anidamiento (Nesting):</strong> Se detectó que el selector <code>.single-product &amp;</code> compilaba con un espacio (<code>.single-product .woocommerce</code>), obligando al navegador a buscar un contenedor dentro de otro. Como WordPress inyecta ambas clases en la misma etiqueta <code>&lt;body&gt;</code>, el selector fallaba. Se invirtió a <code>&amp;.single-product</code>, lo que compila como <code>.woocommerce.single-product</code> (sin espacio), apuntando directamente al elemento raíz.</li>
+<li><strong>Aumento de especificidad:</strong> Los bloques internos (<code>div.images</code>, <code>div.summary</code>) estaban flotando en la raíz del componente. Se movieron e anidaron estrictamente dentro de <code>div.product</code>, generando un selector combinado ultra-específico (<code>.single-product .woocommerce div.product div.images</code>) capaz de destrozar cualquier estilo residual.</li>
+</ol>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>En arquitecturas CSS <abbr title="Merci Explica: Sistema de nomenclatura para clases CSS que facilita la organización y mantenimiento del código." tabindex="0">BEM</abbr> potenciadas por SASS, el símbolo <em>ampersand</em> (<code>&amp;</code>) es un arma de doble filo. No comprender cómo el compilador traduce la anidación genera <strong>Selectores Fantasma</strong>: código CSS que se descarga y procesa, pero que el navegador jamás aplica porque el DOM no coincide con la jerarquía esperada.</p>
+<p>Además, cuando se combate contra frameworks pesados o CMS que abusan de estilos por defecto, la solución rara vez es añadir más <code>!important</code>. La verdadera victoria se logra aumentando el peso matemático del selector en la cascada CSS mediante un anidamiento estricto y contextual.</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" fetchpriority="low" decoding="async">
+        </button>
+    </aside>
+</body>
+</html>
