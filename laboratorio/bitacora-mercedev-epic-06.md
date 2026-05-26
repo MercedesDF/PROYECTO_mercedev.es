@@ -53,13 +53,33 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Siguiente paso o deuda:** Arrancar oficialmente la Épica 7.
 
+### 2026-05-26 — Hotfix/Perf: Amputación de bucle DB en `init` y sellado de Sourcebuster
+
+**Contexto:** Tras el último despliegue, el informe de rendimiento mostró un retroceso a 79/100. El análisis forense reveló un TTFB (Tiempo hasta el Primer Byte) crítico de ~1000ms que hundía el LCP, además de la persistencia del script `sourcebuster`.
+
+**Hecho:** 
+- Se extirpó el hook `init` que ejecutaba `merci_forzar_shortcodes_zero_js` en `functions.php`.
+- Se interceptó la opción nativa de WooCommerce (`pre_option_woocommerce_order_attribution_tracking_enabled`) y se elevó la prioridad de `wp_dequeue_script` a `999`.
+
+**Motivo / criterio:** *Backend Performance y Evasión de Scripts*. La rutina de auto-sanación de la base de datos cumplió su misión curando los bloques en iteraciones pasadas. Dejarla en el hook `init` provocaba que WordPress escaneara la base de datos completa (`get_posts` masivo) en cada petición, estrangulando brutalmente el tiempo de respuesta del servidor (TTFB). Amputarla devuelve el backend a tiempos de milisegundos. Además, elevar la prioridad de purga a `999` y falsear el registro de la DB aniquila definitivamente el rastreador escurridizo de WooCommerce.
+
+### 2026-05-26 — Hotfix/Perf: Aniquilación definitiva de Sourcebuster (Order Attribution)
+
+**Contexto:** El informe de Catchpoint reveló que la puntuación de rendimiento cayó a 83/100 por un TBT de ~320ms, causado por la carga persistente de `sourcebuster.min.js` en producción.
+
+**Hecho:** Se inyectó el filtro `woocommerce_order_attribution_tracking_enabled` retornando `false` en `functions.php`.
+
+**Motivo / criterio:** *Zero-JS y Evasión de Hook*. Las versiones modernas de WooCommerce (8.5+) incluyen una funcionalidad de rastreo de origen ("Order Attribution") que inyecta el script `sourcebuster.min.js` de forma tardía o condicional, evadiendo las directivas `wp_deregister_script` declaradas en el hook estándar. Apagar la funcionalidad desde su filtro raíz erradica la inyección y restaura el TBT a 0ms.
+
+**Siguiente paso o deuda:** Re-evaluar en producción para confirmar el 100/100 definitivo.
+
 ### 2026-05-26 — Hotfix/UX: Enlace de retorno contextual en Carrito y Checkout
 
 **Contexto:** Las páginas transaccionales nativas de WooCommerce (Carrito, Checkout) heredaban la plantilla genérica del CMS (`index.php`), mostrando un enlace estático de "← Volver al Blog" que rompía el flujo de compra.
 
 **Hecho:** Se instruyó modificar `src/wp-theme/merci-theme/index.php` introduciendo lógica condicional (`is_cart() || is_checkout()`) para inyectar dinámicamente el enlace "← Volver a la Tienda" (`/blog/tienda/`).
 
-**Motivo / criterio:** *Context-Awareness y Retención de Flujo (Funnel)*. Un usuario en la caja registradora debe tener una vía de escape natural hacia las estanterías de la tienda, no hacia los artículos del blog. Adaptar la navegación estructural de la plantilla base al contexto de WooCommerce evita fugas de conversión y fricción cognitiva.
+**Motivo / criterio:** *Context-Awareness y Retención de Flujo (Funnel)*. Durante el proceso de pago se debe contar con una vía de escape natural hacia las estanterías de la tienda, no hacia los artículos del blog. Adaptar la navegación estructural de la plantilla base al contexto de WooCommerce evita fugas de conversión y fricción cognitiva.
 
 **Siguiente paso o deuda:** Re-evaluar en producción (Catchpoint) para confirmar el 100/100.
 
@@ -111,7 +131,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Hecho:** Se refactorizó `scripts/merci/merci-release.py` para inyectar una sincronización `rsync` del árbol de trabajo actual inmediatamente después del `git clone`.
 
-**Motivo / criterio:** *GitOps Paradox (El Huevo o la Gallina)*. `git clone` copia exclusivamente el código sellado en commits. Si la desarrolladora estaba testeando un parche (como el *Fail Gracefully* de la tienda) previo a su consolidación, el clon efímero heredaba la versión rota y colapsaba. Copiar los archivos físicos locales sobre el clon garantiza que el *Release Pipeline* audite el estado real y exacto del IDE antes del commit definitivo.
+**Motivo / criterio:** *GitOps Paradox (El Huevo o la Gallina)*. `git clone` copia exclusivamente el código sellado en commits. Si se estaba testeando un parche (como el *Fail Gracefully* de la tienda) previo a su consolidación, el clon efímero heredaba la versión rota y colapsaba. Copiar los archivos físicos locales sobre el clon garantiza que el *Release Pipeline* audite el estado real y exacto del entorno local antes del commit definitivo.
 
 **Siguiente paso o deuda:** Finalizar validación y sellar la Épica 6.
 
@@ -121,7 +141,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Hecho:** Se implementó el patrón *Fail Gracefully* en `scripts/merci/merci-shop.py` y `scripts/merci/merci-wp.py`. Si los endpoints son inaccesibles o faltan credenciales, los scripts ahora emiten una advertencia informativa y salen limpiamente (`sys.exit(0)`).
 
-**Motivo / criterio:** *Out-of-the-Box Experience (OOBE)*. Un repositorio recién clonado nace sin un CMS configurado. Las herramientas de sincronización Headless deben ser lo suficientemente inteligentes para detectar un entorno "virgen" y omitirse en silencio, permitiendo que la compilación estática y las auditorías SEO/Seguridad finalicen con éxito en la primera ejecución del usuario.
+**Motivo / criterio:** *Out-of-the-Box Experience (OOBE)*. Un repositorio recién clonado nace sin un CMS configurado. Las herramientas de sincronización Headless deben ser lo suficientemente inteligentes para detectar un entorno "virgen" y omitirse en silencio, permitiendo que la compilación estática y las auditorías SEO/Seguridad finalicen con éxito en la primera ejecución de la plantilla.
 
 **Siguiente paso o deuda:** Re-ejecutar `merci release` para confirmar la publicación.
 
@@ -131,13 +151,13 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Hecho:** Se reescribió por completo el archivo `docs/matriz/mantenimiento-boilerplate-sop.md`.
 
-**Motivo / criterio:** *Single Source of Truth (SSOT) y Zero Document Drift*. Eliminar las guías manuales obsoletas y documentar el funcionamiento "bajo el capó" del orquestador infunde confianza en la herramienta automatizada y previene que el desarrollador intente realizar pasos redundantes a mano.
+**Motivo / criterio:** *Single Source of Truth (SSOT) y Zero Document Drift*. Eliminar las guías manuales obsoletas y documentar el funcionamiento "bajo el capó" del orquestador infunde confianza en la herramienta automatizada y previene la ejecución de pasos redundantes a mano.
 
 **Siguiente paso o deuda:** Finalizar release.
 
 ### 2026-05-26 — Feat/DX: Automatización integral (End-to-End) de la Release
 
-**Contexto:** Aunque el script `merci-release.py` automatizaba la exportación de archivos, el desarrollador aún debía cambiar de directorio, inferir la versión y lanzar manualmente la auditoría, el commit y el push.
+**Contexto:** Aunque el script `merci-release.py` automatizaba la exportación de archivos, aún se debía cambiar de directorio, inferir la versión y lanzar manualmente la auditoría, el commit y el push.
 
 **Hecho:** Se refactorizó `scripts/merci/merci-release.py` para lograr la automatización total (Full End-to-End).
 
@@ -151,7 +171,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Hecho:** Se actualizó la Regla 5 en `instrucciones.md` para hacer obligatoria la captura de `KeyboardInterrupt` en todos los scripts del ecosistema, forzando una salida limpia con `sys.exit(130)`. Se parchearon los orquestadores principales (`merci-completo`, `merci-init`, `merci-deploy`, `merci-commit`, `merci-wp`).
 
-**Motivo / criterio:** *Fail Gracefully y Clean DX*. Un framework maduro (nivel Enterprise) no debe escupir errores de intérprete cuando el usuario cancela intencionalmente una operación. La estandarización de esta captura protege la higiene de la terminal.
+**Motivo / criterio:** *Fail Gracefully y Clean DX*. Un framework maduro (nivel Enterprise) no debe escupir errores de intérprete cuando se cancela intencionalmente una operación. La estandarización de esta captura protege la higiene de la terminal.
 
 ### 2026-05-26 — Feat/DX: Automatización del Release Pipeline (merci-release.py)
 
@@ -163,11 +183,11 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ### 2026-05-26 — UX/DX: Inyección de Call-to-Action en el Orquestador Maestro
 
-**Contexto:** El desarrollador completaba ejecuciones exitosas de `merci total` (QA y Build) pero el flujo carecía de un recordatorio claro sobre el siguiente paso lógico (sellar y desplegar), generando fricción cognitiva.
+**Contexto:** Se completaban ejecuciones exitosas de `merci total` (QA y Build) pero el flujo carecía de un recordatorio claro sobre el siguiente paso lógico (sellar y desplegar), generando fricción cognitiva.
 
 **Hecho:** Se inyectó un mensaje "Call to Action" al final de `merci-total.py` sugiriendo la ejecución de `merci completo`. Para evitar redundancia, se modificó `merci-completo.py` para inyectar la variable de entorno `MERCI_IS_COMPLETO=1`, permitiendo al orquestador maestro silenciar el recordatorio si ya está siendo ejecutado dentro de la cadena global.
 
-**Motivo / criterio:** *Developer Experience (DX) y Fricción Cero*. Las herramientas de consola deben guiar al usuario. Añadir un recordatorio visual justo cuando el pipeline brilla en verde facilita el estado de flujo (Flow State) y fomenta el uso del orquestador End-to-End en lugar de comandos aislados.
+**Motivo / criterio:** *Developer Experience (DX) y Fricción Cero*. Las herramientas de consola deben guiar durante la ejecución. Añadir un recordatorio visual justo cuando el pipeline brilla en verde facilita el estado de flujo (Flow State) y fomenta el uso del orquestador End-to-End en lugar de comandos aislados.
 
 ### 2026-05-26 — Hotfix: Condición de carrera en orquestador de despliegue (Imágenes 404)
 
@@ -183,7 +203,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Hecho:** Se actualizó `README-merci.md` a la versión `v1.16.0` documentando el Catálogo Headless (`merci-shop.py`) y la arquitectura de Carrito Zero-JS con TBT 0ms.
 
-**Motivo / criterio:** *Release Management y Zero Technical Debt*. El Boilerplate debe recibir incondicionalmente las mejoras de infraestructura desarrolladas en la matriz para no sufrir Deriva de Configuración. Al empaquetar la lógica Zero-JS y los orquestadores Headless, entregamos a la comunidad un framework de e-commerce ultrarrápido y seguro.
+**Motivo / criterio:** *Release Management y Zero Technical Debt*. El Boilerplate debe recibir incondicionalmente las mejoras de infraestructura desarrolladas en la matriz para no sufrir Deriva de Configuración. Al empaquetar la lógica Zero-JS y los orquestadores Headless, se entrega a la comunidad un framework de e-commerce ultrarrápido y seguro.
 
 **Siguiente paso o deuda:** Ejecutar el SOP de mantenimiento del Boilerplate y el orquestador de Showcase.
 
@@ -208,7 +228,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 - Se extrajo y unificó la regla CSS `.button` en `src/scss/components/_woocommerce.scss` aplicando `!important` para aplastar cualquier estilo residual de WooCommerce en todas las vistas (Catálogo, Producto, Carrito y Checkout).
 - Se estableció el Procedimiento Operativo para que WooCommerce funcione fluidamente en modo Zero-JS: crear las páginas por defecto y forzar la redirección tras añadir al carrito.
 
-**Motivo / criterio:** *CSS Specificity y UX Zero-JS*. La regla anterior estaba anidada dentro del componente de cuadrícula (`.products .product`), dejando huérfanos a los botones de la vista individual. Al globalizarla, blindamos todos los formularios de la tienda. Para suplir la ausencia de los pesados scripts AJAX, se instruye al CMS para que redireccione inmediatamente a la página de carrito, ofreciendo al usuario una confirmación visual instantánea de su acción.
+**Motivo / criterio:** *CSS Specificity y UX Zero-JS*. La regla anterior estaba anidada dentro del componente de cuadrícula (`.products .product`), dejando huérfanos a los botones de la vista individual. Al globalizarla, se blindan todos los formularios de la tienda. Para suplir la ausencia de los pesados scripts AJAX, se instruye al CMS para que redireccione inmediatamente a la página de carrito, ofreciendo una confirmación visual instantánea de la acción.
 
 **Siguiente paso o deuda:** Validar la estilización de los botones, crear las páginas del carrito en WP y cerrar la Épica 6.
 
@@ -236,11 +256,11 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ### 2026-05-25 — Fix: Resolución de anidamiento SASS (Selector Fantasma) en WooCommerce
 
-**Contexto:** El usuario reportó que el HTML de WooCommerce seguía inyectando `style="opacity: 0;"` en la galería de imágenes, impidiendo su visualización a pesar de las reglas `!important` de nuestro CSS.
+**Contexto:** Se reportó que el HTML de WooCommerce seguía inyectando `style="opacity: 0;"` en la galería de imágenes, impidiendo su visualización a pesar de las reglas `!important` del CSS.
 
 **Hecho:** Se corrigió un bug de anidamiento en `src/scss/components/_woocommerce.scss`, cambiando `.single-product &` por `&.single-product`.
 
-**Detalle técnico:** En SASS, el ampersand (`&`) representa al selector padre (`.woocommerce`). Escribir `.single-product &` generaba el selector `.single-product .woocommerce` (con espacio), buscando un elemento dentro de otro. Como WordPress inyecta ambas clases en la misma etiqueta `<body>`, el selector fallaba y todo el bloque CSS de la vista individual era ignorado por el navegador (Código Muerto). Al usar `&.single-product`, SASS genera `.woocommerce.single-product`, apuntando correctamente a la raíz y aplicando por fin nuestros `!important` para aplastar el estilo en línea de la galería.
+**Detalle técnico:** En SASS, el ampersand (`&`) representa al selector padre (`.woocommerce`). Escribir `.single-product &` generaba el selector `.single-product .woocommerce` (con espacio), buscando un elemento dentro de otro. Como WordPress inyecta ambas clases en la misma etiqueta `<body>`, el selector fallaba y todo el bloque CSS de la vista individual era ignorado por el navegador (Código Muerto). Al usar `&.single-product`, SASS genera `.woocommerce.single-product`, apuntando correctamente a la raíz y aplicando por fin los `!important` para aplastar el estilo en línea de la galería.
 
 **Motivo / criterio:** *Deep CSS Debugging*. Conocer cómo compila SASS los selectores combinados es vital en arquitecturas BEM para no generar código fantasma inalcanzable por el DOM.
 
@@ -254,7 +274,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 - Se movieron los bloques `div.images`, `div.summary` y `.woocommerce-tabs` al interior de `div.product`.
 - Se restituyó el bloque `div.summary` que se había omitido en iteraciones anteriores.
 
-**Motivo / criterio:** *CSS Specificity (Especificidad CSS)*. Al estar los estilos flotando fuera de `div.product` en la estructura SASS, el compilador generaba selectores débiles (`.woocommerce div.images`). Esto permitía que el código nativo residual de WooCommerce aplastara nuestras reglas `opacity: 1` con su comportamiento de galería oculta. Anidarlos estrictamente multiplica la prioridad de nuestras reglas en la cascada CSS, forzando la visibilidad del bloque y aplicando los márgenes correctos a la descripción.
+**Motivo / criterio:** *CSS Specificity (Especificidad CSS)*. Al estar los estilos flotando fuera de `div.product` en la estructura SASS, el compilador generaba selectores débiles (`.woocommerce div.images`). Esto permitía que el código nativo residual de WooCommerce aplastara las reglas `opacity: 1` con su comportamiento de galería oculta. Anidarlos estrictamente multiplica la prioridad de las reglas en la cascada CSS, forzando la visibilidad del bloque y aplicando los márgenes correctos a la descripción.
 
 **Siguiente paso o deuda:** Validar la restitución visual completa y pasar a la Épica 7.
 
@@ -318,7 +338,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 - Se adaptó el menú para leer y reinyectar `descripcion_corta` y `nombre` si el archivo pertenece a la tienda.
 - Se omitió la pregunta irrelevante de "Fecha de publicación" para productos de WooCommerce.
 
-**Motivo / criterio:** *Fricción Cero y Context-Awareness*. Si la herramienta puede inferir el contexto (es un producto) por las variables presentes, no debe obligar al usuario a añadir etiquetas extra. Mapear dinámicamente las claves del YAML garantiza que el documento promovido siga siendo compatible con el publicador Headless de la tienda (`merci-shop.py`).
+**Motivo / criterio:** *Fricción Cero y Context-Awareness*. Si la herramienta puede inferir el contexto (es un producto) por las variables presentes, no se debe exigir la adición de etiquetas extra. Mapear dinámicamente las claves del YAML garantiza que el documento promovido siga siendo compatible con el publicador Headless de la tienda (`merci-shop.py`).
 
 **Siguiente paso o deuda:** Promover los productos de prueba hacia la raíz y ejecutar la sincronización mediante `merci-shop.py`.
 
@@ -365,7 +385,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 - Se inyectó `opacity: 1 !important;` al contenedor `div.images` en `_woocommerce.scss`.
 - Se consolidaron los filtros PHP (`woocommerce_currencies`, `woocommerce_currency_symbol`, `woocommerce_currency`) en `functions.php` para sobrescribir la moneda nativa.
 
-**Motivo / criterio:** *Zero JS Dependency y Configuration as Code*. WooCommerce oculta nativamente la imagen individual (`opacity: 0` en línea) esperando a que su pesado script de galería cargue para mostrarla. Como nosotros extirpamos ese JS para lograr el 100/100 de rendimiento, debíamos forzar su opacidad desde SASS. Por otro lado, la moneda se consolidó en PHP para evitar depender del panel de administración del CMS.
+**Motivo / criterio:** *Zero JS Dependency y Configuration as Code*. WooCommerce oculta nativamente la imagen individual (`opacity: 0` en línea) esperando a que el pesado script de galería cargue para mostrarla. Al extirpar ese JS para lograr el 100/100 de rendimiento, se debió forzar su opacidad desde SASS. Por otro lado, la moneda se consolidó en PHP para evitar depender del panel de administración del CMS.
 
 **Siguiente paso o deuda:** Validar la visualización del producto individual y cerrar la Épica 6.
 
@@ -594,7 +614,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 - Actualizado `scripts/merci/merci-glosario.py` para extraer y mostrar en consola 5 palabras antes y después del término hallado.
 - Ampliada la expresión regular del glosario para soportar palabras compuestas por guiones (ej. `AI-Changelog`).
 
-**Motivo / criterio:** *Human-in-the-Loop y Transparencia*. La IA debe ejecutar, no tomar decisiones de censura sobre la documentación. Mostrar el fragmento de la bitácora en la consola otorga el contexto necesario a la desarrolladora para autorizar o rechazar un término sin abrir el archivo original.
+**Motivo / criterio:** *Human-in-the-Loop y Transparencia*. La IA debe ejecutar, no tomar decisiones de censura sobre la documentación. Mostrar el fragmento de la bitácora en la consola otorga el contexto necesario para autorizar o rechazar un término sin abrir el archivo original.
 
 ### 2026-05-24 — Fix: Enlaces Permanentes (Permalinks) para historial SSG
 
@@ -641,7 +661,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 - Purgada la lista masiva de "ignorados" en `glosario-tecnico.json`.
 - Corregida la numeración documental en los comentarios de `merci-total.py`.
 
-**Motivo / criterio:** *Fricción Cero, Gobernanza IA y DevRel*. Permitir a la desarrolladora actuar como "Gatekeeper" antes de consumir recursos locales optimiza el tiempo y previene el *blacklisting* accidental. Proveer una analogía no técnica ("Merci Explica") democratiza el conocimiento, cumpliendo el propósito formativo de la Biblioteca. El manejo de señales (SIGINT) garantiza la inmutabilidad de los datos rescatando el trabajo hecho.
+**Motivo / criterio:** *Fricción Cero, Gobernanza IA y DevRel*. Permitir la actuación como "Gatekeeper" antes de consumir recursos locales optimiza el tiempo y previene el *blacklisting* accidental. Proveer una analogía no técnica ("Merci Explica") democratiza el conocimiento, cumpliendo el propósito formativo de la Biblioteca. El manejo de señales (SIGINT) garantiza la inmutabilidad de los datos rescatando el trabajo hecho.
 
 **Siguiente paso o deuda:** Evaluar la castellanización de los textos públicos de la web y expandir la comprensión documental para reforzar la regla de Soberanía del Castellano.
 
