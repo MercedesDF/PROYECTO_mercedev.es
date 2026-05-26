@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutorial: Cómo enviar correos cifrados con PGP — mercedev.es</title>
-    <meta name="description" content="Guía paso a paso para proteger tus comunicaciones por correo electrónico utilizando cifrado asimétrico PGP.">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/tutorial-como-enviar-correos-cifrados-con-pgp.html">
+    <title>Domando a WooCommerce: Evasión de Hooks y Rastreo Fantasma</title>
+    <meta name="description" content="Cómo neutralizar la inyección tardía de scripts de rastreo y evitar el colapso del TTFB en arquitecturas Zero-JS.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/domando-a-woocommerce-evasion-de-hooks-y-rastreo-fantasma.html">
     <link rel="stylesheet" href="/css/main.css?v=1779818385">
     <script src="/js/MerciController.js?v=1779793228" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Tutorial: C\u00f3mo enviar correos cifrados con PGP",
-      "description": "Gu\u00eda paso a paso para proteger tus comunicaciones por correo electr\u00f3nico utilizando cifrado asim\u00e9trico PGP.",
-      "url": "https://mercedev.es/biblioteca/tutorial-como-enviar-correos-cifrados-con-pgp.html"
+      "headline": "Domando a WooCommerce: Evasi\u00f3n de Hooks y Rastreo Fantasma",
+      "description": "C\u00f3mo neutralizar la inyecci\u00f3n tard\u00eda de scripts de rastreo y evitar el colapso del TTFB en arquitecturas Zero-JS.",
+      "url": "https://mercedev.es/biblioteca/domando-a-woocommerce-evasion-de-hooks-y-rastreo-fantasma.html"
     }
     </script>
 </head>
@@ -43,40 +43,24 @@
         </nav>
     </header>
     <main class="main--padded section" id="main">
-        <article class="card card--booklet">
+        <article class="card card--book">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                    <h1 class="home-card__title--highlight">Tutorial: Cómo enviar correos cifrados con PGP</h1>
-                <a href="/descargas/tutorial-como-enviar-correos-cifrados-con-pgp.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+                    <h1 class="home-card__title--highlight">Domando a WooCommerce: Evasión de Hooks y Rastreo Fantasma</h1>
+                <a href="/descargas/domando-a-woocommerce-evasion-de-hooks-y-rastreo-fantasma.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
             </header>
             <div class="card__content">
-                <h2>El concepto (Sin tecnicismos)</h2>
-<p>El cifrado <abbr title="Merci Explica: Como si fuera un cierre fuerte que protege tu maletín de robar." tabindex="0">PGP</abbr> (Pretty Good Privacy) funciona con un sistema de "dos llaves" (criptografía asimétrica):
-1. <strong>La Llave Pública:</strong> Es como un buzón abierto. Cualquiera puede usarla para meter un mensaje y cerrarlo. Se puede compartir libremente.
-2. <strong>La Llave Privada:</strong> Es la única que puede abrir ese buzón. Nunca se comparte y está protegida por contraseña.</p>
-<p>Cuando descargas mi llave pública desde la página de contacto, tu ordenador la usa para "cerrar" el mensaje. Una vez cifrado, ni siquiera tú puedes volver a leerlo. Solo yo, con mi llave privada, podré descifrarlo al recibirlo.</p>
-<h2>Opción 1: Mozilla Thunderbird (La más fácil)</h2>
-<p>Thunderbird es un gestor de correo gratuito que trae PGP integrado de fábrica.
-1. Descarga e instala <a href="https://www.thunderbird.net/">Thunderbird</a>.
-2. Configura tu cuenta de correo habitual (Gmail, Outlook, etc.).
-3. Ve a <strong>Herramientas &gt; Administrador de claves OpenPGP</strong>.
-4. Selecciona <strong>Archivo &gt; Importar clave(s) pública(s) de un archivo</strong> y elige el archivo <code>llave-publica.asc</code> que descargaste de mi web.
-5. Al redactar un nuevo mensaje para mí, activa el botón <strong>Cifrar</strong> en la barra superior. ¡Listo!</p>
-<h2>Opción 2: Correo web (Gmail/Outlook) con Mailvelope</h2>
-<p>Si prefieres seguir usando tu correo directamente desde el navegador:
-1. Instala la extensión gratuita Mailvelope para Chrome, Edge o Firefox.
-2. Abre las opciones de la extensión y ve al <strong>Administrador de Claves</strong>.
-3. Haz clic en <strong>Importar</strong> y sube el archivo <code>llave-publica.asc</code>.
-4. Cuando abras Gmail o Outlook, verás el icono de Mailvelope integrado en el editor de mensajes. Úsalo para escribir y cifrar el correo antes de darle a enviar.</p>
-<h2>Opción 3: Terminal (Para ingenieros)</h2>
-<p>Si ya usas GnuPG en tu sistema Linux o macOS:</p>
-<pre><code class="language-bash"># 1. Importa la clave
-gpg --import llave-publica.asc
-
-# 2. Cifra tu mensaje (genera un archivo .asc)
-gpg --encrypt --armor --recipient mercedev@mercedev.es mensaje.txt
-</code></pre>
-<p>Copia el bloque de texto cifrado resultante y pégalo en un correo normal.</p>
+                <h1>Domando a WooCommerce: Evasión de Hooks y Rastreo Fantasma</h1>
+<h2>El Desafío</h2>
+<p>Durante la optimización extrema de una tienda híbrida (búsqueda del <abbr title="Merci Explica: El tiempo acumulado en el que el ordenador estuvo tan ocupado calculando cosas que tu ratón o tus toques en la pantalla parecían no responder." tabindex="0">TBT</abbr> 0ms), los análisis de rendimiento revelaron dos anomalías críticas: un Tiempo hasta el Primer Byte (<abbr title="Merci Explica: Primer contacto, indicando cuánto tiempo espera el usuario antes de recibir su primera reacción." tabindex="0">TTFB</abbr>) de casi 1000ms que estrangulaba el servidor, y la persistencia de un script de rastreo (<code>sourcebuster.min.js</code>) con un Tiempo de Bloqueo Total (TBT) de ~320ms. El script lograba evadir las órdenes estándar de purga (<code>wp_deregister_script</code> con prioridad 100) porque las versiones modernas de WooCommerce (8.5+) lo inyectan de forma condicional y tardía para su característica de "Order Attribution" (Rastreo de origen de pedidos).</p>
+<h2>La Maniobra</h2>
+<ol>
+<li><strong>Amputación del cuello de botella <abbr title="Merci Explica: Caja fuerte digital donde se guardan todos los datos importantes de una organización." tabindex="0">DB</abbr>:</strong> Se extirpó una rutina de auto-sanación de bloques que colgaba del hook <code>init</code>. Escanear la base de datos en cada petición HTTP aniquilaba el TTFB.</li>
+<li><strong>El Exterminador de Scripts:</strong> En lugar de intentar cazar el script en el <em>frontend</em>, se cortó la funcionalidad de raíz en el <em>backend</em>. Se inyectaron los filtros <code>woocommerce_order_attribution_tracking_enabled</code> (retornando <code>false</code>) y <code>pre_option_woocommerce_order_attribution_tracking_enabled</code> (retornando <code>'no'</code>). Además, se elevó la prioridad de purga general a <code>999</code>.</li>
+</ol>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Combatir contra el código basura de los grandes <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> no siempre se gana en la capa de presentación (Frontend). Plugins pesados utilizan patrones escurridizos para forzar sus lógicas de telemetría y rastreo de usuarios. </p>
+<p>La verdadera ingeniería de rendimiento exige conocer la arquitectura subyacente: apagar la característica (Feature Flag) directamente interceptando la consulta a la base de datos (<code>pre_option</code>) es la única garantía de que el código hostil jamás llegará a encolarse, devolviendo el rendimiento a un inmaculado 100/100.</p>
             </div>
         </article>
     </main>
