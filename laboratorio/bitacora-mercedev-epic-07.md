@@ -20,6 +20,28 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-26 — Docs: Resolución de Deriva Documental y Release v1.16.1
+
+**Contexto:** Tras finalizar la Épica 6 (E-commerce Híbrido), se detectó que los documentos fundacionales (`flujo-publicacion-sop.md`, `checklist-hardening.md`, `integracion-wordpress.md`) no habían sido actualizados con los nuevos protocolos de publicación de la tienda y las barreras de seguridad (Hardening) implementadas contra WooCommerce.
+
+**Hecho:** Se actualizaron los manuales maestros inyectando el "Flujo 3: Tienda", los escudos contra telemetría/inyecciones en línea y la arquitectura Zero-JS. Se empaquetó la versión `v1.16.1` en `README-merci.md`.
+
+**Motivo / criterio:** *Zero Document Drift y Release Management*. Dado que la carpeta `docs/` se exporta íntegramente al `merci-boilerplate`, actualizar la matriz exige lanzar una nueva versión de parche (Patch Release) para que los proyectos derivados nazcan con las instrucciones de seguridad y operativas precisas, respetando la Regla 14.
+
+**Siguiente paso o deuda:** Exportar el Boilerplate (`merci release`) y continuar con el diseño de la Paleta Premium en la Épica 7.
+
+### 2026-05-26 — UI/UX: Definición de Paleta Premium y Escala Base (Fase 1)
+
+**Contexto:** Arranca la Épica 7 (Enriquecimiento Visual). Las variables base en SASS eran demasiado parcas y carecían de tonos de superficie (surface), grises tipográficos (text-muted) y un sistema de sombras, lo que limitaba el diseño "Premium" del proyecto.
+
+**Hecho:** Se extendió `src/scss/abstracts/_variables.scss`.
+- Se inyectaron `$color-surface`, `$color-border` y `$color-text-muted` basados en la paleta *Slate* para un diseño más moderno.
+- Se formalizó la fuente monoespaciada (`$font-family-mono`) y una escala de sombras (`$shadow-sm`, `$shadow-hover`).
+
+**Motivo / criterio:** *Design System Scalability*. Un buen diseño UI/UX (User Interface / User Experience) no usa el negro puro para los textos ni el blanco puro para todas las cajas. Definir "superficies" y "sombras" mediante variables semánticas centralizadas prepara el terreno para modernizar los cuadernillos y tarjetas de WooCommerce sin ensuciar la arquitectura CSS con valores *hardcoded*.
+
+**Siguiente paso o deuda:** Reemplazar los colores *hardcoded* (quemados) en los componentes actuales (`_prose.scss`, `_card.scss`) por las nuevas variables semánticas, o implementar el botón de Showcase.
+
 ### 2026-05-26 — Docs/UX: Inclusión de botón de retorno para el Showcase en el Roadmap
 
 **Contexto:** Se detectó la necesidad de evitar fugas de tráfico desde la demostración pública (`boilerplate.mercedev.es`) hacia el exterior, facilitando un camino claro de regreso al ecosistema principal.

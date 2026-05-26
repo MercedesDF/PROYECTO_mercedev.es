@@ -46,16 +46,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 - [x] **3. Auditoría Documental:** `ROADMAP.md` actualizado cerrando la Épica 6. SOP de mantenimiento reescrito.
 - [x] **4. Evaluación de Release:** Repositorio `merci-boilerplate` y la demo en `merci showcase` actualizados con éxito.
 - [x] **5. Certificación de Rendimiento:** Carrito Zero-JS validado con TBT 0ms.
-- [x] **6. Snapshot:** Backup local (merci backup) ejecutado.
-- [x] **7. Sello Definitivo:** Commit atómico de consolidación sellado.
+- [x] **6. Release merci-boilerplate:** Actualización completa del Boilerplate.
+- [x] **7. Snapshot:** Backup local (merci backup) ejecutado.
+- [x] **8. Sello Definitivo:** Commit atómico de consolidación sellado.
 
 **Motivo / criterio:** *Governance y QA Assurance*. Cumplir el protocolo innegociable de cierre evita arrastrar deuda técnica y asegura que el conocimiento (Zero-JS Cart, E-commerce Headless) queda destilado en la biblioteca antes de iniciar la capa visual de la Épica 7.
 
 **Siguiente paso o deuda:** Arrancar oficialmente la Épica 7.
+### 2026-05-26 — Docs: Resolución de Deriva Documental y Release v1.16.1
+
+**Contexto:** Tras finalizar la Épica 6 (E-commerce Híbrido), se detectó que los documentos fundacionales (`flujo-publicacion-sop.md`, `checklist-hardening.md`, `integracion-wordpress.md`) no habían sido actualizados con los nuevos protocolos de publicación de la tienda y las barreras de seguridad (Hardening) implementadas contra WooCommerce.
+
+**Hecho:** Se actualizaron los manuales maestros inyectando el "Flujo 3: Tienda", los escudos contra telemetría/inyecciones en línea y la arquitectura Zero-JS. Se empaquetó la versión `v1.16.1` en `README-merci.md`.
+
+**Motivo / criterio:** *Zero Document Drift y Release Management*. Dado que la carpeta `docs/` se exporta íntegramente al `merci-boilerplate`, actualizar la matriz exige lanzar una nueva versión de parche (Patch Release) para que los proyectos derivados nazcan con las instrucciones de seguridad y operativas precisas, respetando la Regla 14.
+
+**Siguiente paso o deuda:** Exportar el Boilerplate (`merci release`) y continuar con el diseño de la Paleta Premium en la Épica 7.
 
 ### 2026-05-26 — Hotfix/Perf: Amputación de bucle DB en `init` y sellado de Sourcebuster
 
-**Contexto:** Tras el último despliegue, el informe de rendimiento mostró un retroceso a 79/100. El análisis forense reveló un TTFB (Tiempo hasta el Primer Byte) crítico de ~1000ms que hundía el LCP, además de la persistencia del script `sourcebuster`.
+**Contexto:** Tras el último despliegue, el informe de rendimiento mostró un retroceso a 81/100. El análisis forense reveló un TTFB (Tiempo hasta el Primer Byte) crítico de ~1000ms que hundía el LCP, además de la persistencia del script `sourcebuster`.
 
 **Hecho:** 
 - Se extirpó el hook `init` que ejecutaba `merci_forzar_shortcodes_zero_js` en `functions.php`.
