@@ -46,7 +46,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 - [x] **3. Auditoría Documental:** `ROADMAP.md` actualizado cerrando la Épica 6. SOP de mantenimiento reescrito.
 - [x] **4. Evaluación de Release:** Repositorio `merci-boilerplate` y la demo en `merci showcase` actualizados con éxito.
 - [x] **5. Certificación de Rendimiento:** Carrito Zero-JS validado con TBT 0ms.
-- [x] **6. Release merci-boilerplate:** Actualización completa del Boilerplate.
+- [x] **6. Release merci-boilerplate:** Actualización completa del Boilerplate a la versión `v1.16.1`.
 - [x] **7. Snapshot:** Backup local (merci backup) ejecutado.
 - [x] **8. Sello Definitivo:** Commit atómico de consolidación sellado.
 

@@ -84,7 +84,7 @@ def main():
     # Solo hacemos commit y push si realmente hay cambios tras el rsync
     status = subprocess.run(["git", "status", "--porcelain"], cwd=str(dest_path), capture_output=True, text=True)
     if status.stdout.strip():
-        subprocess.run(["git", "commit", "-m", f"chore: release {version}"], cwd=str(dest_path), check=True)
+        subprocess.run(["git", "commit", "-m", f"feat: release \"{version}\""], cwd=str(dest_path), check=True)
         subprocess.run(["git", "push"], cwd=str(dest_path), check=True)
         print(f"\n🎉 [Merci Release] ¡Publicación completa! La {version} está en la nube.")
     else:
