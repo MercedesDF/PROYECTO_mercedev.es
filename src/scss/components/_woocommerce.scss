@@ -269,3 +269,20 @@
     }
   }
 } /* Cierra .woocommerce */
+
+/* ========================================================
+   Corrección de Navegación Contextual (Zero-JS Routing)
+   ======================================================== */
+
+/* QUÉ HACE: Fuerza el resaltado de la pestaña "Tienda" y apaga "Blog" en flujos de compra. */
+/* POR QUÉ: El carrito y checkout nativos heredan el body id="page-blog". Anulamos el CSS base. */
+#page-blog.woocommerce-cart, #page-blog.woocommerce-checkout {
+  .header .nav__link[href="/blog/"] {
+    color: $color-text-base;
+    font-weight: 500;
+  }
+  .header .nav__link[href="/blog/tienda/"] {
+    color: #c2410c;
+    font-weight: 600;
+  }
+}

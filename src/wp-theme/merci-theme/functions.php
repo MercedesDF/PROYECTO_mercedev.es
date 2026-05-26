@@ -185,6 +185,11 @@ add_action('template_redirect', function() {
     }
 }, 0);
 
+// QUÉ HACE: Enruta los enlaces "Volver a la tienda" y "Continuar comprando" del carrito.
+// POR QUÉ: Al no tener una página "Shop" estática configurada en WP, WC redirige al blog por defecto.
+add_filter( 'woocommerce_return_to_shop_redirect', function() { return '/blog/tienda/'; } );
+add_filter( 'woocommerce_continue_shopping_redirect', function() { return '/blog/tienda/'; } );
+
 // =========================================================================
 // 4. HARDENING Y SEGURIDAD (Fase 5.2)
 // =========================================================================

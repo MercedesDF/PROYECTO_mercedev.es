@@ -53,6 +53,28 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Siguiente paso o deuda:** Arrancar oficialmente la Épica 7.
 
+### 2026-05-26 — Hotfix/UX: Enlace de retorno contextual en Carrito y Checkout
+
+**Contexto:** Las páginas transaccionales nativas de WooCommerce (Carrito, Checkout) heredaban la plantilla genérica del CMS (`index.php`), mostrando un enlace estático de "← Volver al Blog" que rompía el flujo de compra.
+
+**Hecho:** Se instruyó modificar `src/wp-theme/merci-theme/index.php` introduciendo lógica condicional (`is_cart() || is_checkout()`) para inyectar dinámicamente el enlace "← Volver a la Tienda" (`/blog/tienda/`).
+
+**Motivo / criterio:** *Context-Awareness y Retención de Flujo (Funnel)*. Un usuario en la caja registradora debe tener una vía de escape natural hacia las estanterías de la tienda, no hacia los artículos del blog. Adaptar la navegación estructural de la plantilla base al contexto de WooCommerce evita fugas de conversión y fricción cognitiva.
+
+**Siguiente paso o deuda:** Re-evaluar en producción (Catchpoint) para confirmar el 100/100.
+
+### 2026-05-26 — Hotfix/UX: Enrutamiento de Retorno y Pestaña Activa en Carrito
+
+**Contexto:** Se detectó que el botón "Volver a la tienda" en el carrito vacío redirigía a la raíz del blog, y el menú de navegación (Zero-JS Routing) resaltaba erróneamente la pestaña "Blog" en lugar de "Tienda" durante los flujos de caja.
+
+**Hecho:** 
+- Se inyectaron los filtros `woocommerce_return_to_shop_redirect` y `woocommerce_continue_shopping_redirect` en `functions.php` para forzar la URL `/blog/tienda/`.
+- Se añadieron reglas CSS de alta especificidad en `_woocommerce.scss` (`#page-blog.woocommerce-cart`) para apagar el resaltado de la pestaña del blog y encender la de la tienda.
+
+**Motivo / criterio:** *UX Consistency y Zero-JS Routing*. Al carecer de una página de tienda nativa configurada en el panel de WP (porque nuestro catálogo es Headless), WooCommerce redirigía al archivo genérico del blog como *fallback*. Para la navegación, las páginas de WC heredan el `id="page-blog"`; aprovechar las clases automáticas del CMS (`.woocommerce-cart`) en SASS corrige el estado visual sin necesidad de inyectar JavaScript para leer la URL.
+
+**Siguiente paso o deuda:** Recompilar el CSS, verificar la navegación y pasar definitivamente a la Épica 7.
+
 ### 2026-05-26 — Hotfix/Perf: Accesibilidad WCAG y Erradicación de Sourcebuster
 
 **Contexto:** El informe de Catchpoint arrojó una caída de accesibilidad (96/100) por contraste insuficiente en el botón de añadir al carrito, y un TBT residual de ~185ms causado por dependencias anidadas de WooCommerce (Sourcebuster y CSS de bloques).
