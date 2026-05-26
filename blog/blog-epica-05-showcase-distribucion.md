@@ -3,7 +3,7 @@ titulo: "El Arte del Showcase: Despliegues Zero-Friction y Experiencia Out-of-th
 descripcion: "Descubre cómo se orquestó la Épica 5 para desplegar una demostración pública impecable mediante clones efímeros y aislamiento DLP."
 tipo: "articulo"
 estado: "publicado"
-estado_social: "en_cola"
+estado_social: "aprobado"
 tema: "Blog"
 fase: "Epic 5 - Fase 1"
 fecha: "2026-05-23"

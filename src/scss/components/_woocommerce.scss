@@ -178,4 +178,91 @@
       }
     } /* Cierra div.product */
   } /* Cierra .single-product & */
+
+  /* ========================================================
+     Vistas de Carrito y Checkout (Zero-JS Simulation)
+     ======================================================== */
+  
+  .woocommerce-notices-wrapper {
+    margin-bottom: 2rem;
+    
+    .woocommerce-message, .woocommerce-error, .woocommerce-info {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: #065f46;
+      padding: 1rem;
+      border-left: 4px solid #10b981;
+      border-radius: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      
+      a.button {
+        background-color: #065f46;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+        margin-top: 0;
+      }
+    }
+    
+    .woocommerce-error {
+      background-color: rgba(220, 38, 38, 0.1);
+      color: #991b1b;
+      border-color: #dc2626;
+    }
+  }
+
+  table.shop_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    
+    th, td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+      text-align: left;
+    }
+    
+    img {
+      max-width: 60px;
+      border-radius: 4px;
+    }
+    
+    .actions {
+      text-align: right;
+      padding-top: 1rem;
+    }
+  }
+
+  .cart-collaterals, .woocommerce-checkout-payment {
+    background-color: hsl(0, 0%, 98%);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+  }
+
+  form.checkout {
+    display: grid;
+    gap: 2rem;
+    
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    h3 {
+      color: $color-primary;
+    }
+    
+    .form-row {
+      margin-bottom: 1rem;
+      label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+      input, textarea, select {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid rgba(15, 23, 42, 0.2);
+        border-radius: 4px;
+      }
+    }
+  }
 } /* Cierra .woocommerce */

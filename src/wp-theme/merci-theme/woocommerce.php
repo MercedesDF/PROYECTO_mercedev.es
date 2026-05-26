@@ -32,6 +32,7 @@ $js_main_v = time();
             <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
             <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
             <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="<?php echo function_exists('wc_get_cart_url') ? esc_url(wc_get_cart_url()) : '/blog/carrito/'; ?>" class="nav__link">🛒 Carrito</a>
             <a href="/contacto/" class="nav__link">Contacto</a>
         </nav>
     </header>
