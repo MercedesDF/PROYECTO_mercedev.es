@@ -478,6 +478,9 @@
         "bitacora-mercedev-epic-03.md": [
           "L49"
         ],
+        "bitacora-mercedev-epic-07.md": [
+          "L34"
+        ],
         "bitacora-mercedev-epic-04.md": [
           "L56"
         ],
@@ -1298,7 +1301,7 @@
           "L423"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L24"
+          "L36"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
@@ -1518,6 +1521,9 @@
         ],
         "bitacora-mercedev-epic-03.md": [
           "L325"
+        ],
+        "bitacora-mercedev-epic-07.md": [
+          "L34"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L50"
@@ -2217,6 +2223,18 @@
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
           "L75"
+        ]
+      }
+    },
+    "FIFO": {
+      "nombre": "FIFO",
+      "ingles": "First In, First Out",
+      "espanol": "Primero En Entrar, Primero En Salir",
+      "definicion": "Mecanismo de gestión de recursos en el que los elementos se procesan o se almacenan en el orden en que llegaron. El primer elemento añadido es el primero en ser atendido.",
+      "merci_explica": "Cola de supermercado, donde la persona que llega primero es la primera en salir.",
+      "apariciones": {
+        "bitacora-mercedev-epic-07.md": [
+          "L25"
         ]
       }
     }

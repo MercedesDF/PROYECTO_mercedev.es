@@ -10,7 +10,7 @@ fecha: "2026-05-27"
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 131 términos consolidados (Última actualización de datos: 2026-05-27 10:21).
+> **Versión de control:** 132 términos consolidados (Última actualización de datos: 2026-05-27 11:41).
 
 ## Índice Alfabético
 
@@ -432,6 +432,7 @@ fecha: "2026-05-27"
 - bitacora-mercedev-epic-04.md: L56
 - bitacora-mercedev-epic-05.md: L98
 - bitacora-mercedev-epic-06.md: L57
+- bitacora-mercedev-epic-07.md: L34
 
 ---
 ### E2EE
@@ -456,6 +457,17 @@ fecha: "2026-05-27"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L158
 - bitacora-mercedev-epic-03.md: L199
+
+---
+### FIFO
+**Inglés:** First In, First Out | **Español:** Primero En Entrar, Primero En Salir
+
+**Definición:** Mecanismo de gestión de recursos en el que los elementos se procesan o se almacenan en el orden en que llegaron. El primer elemento añadido es el primero en ser atendido.
+
+💡 **Merci Explica:** *Cola de supermercado, donde la persona que llega primero es la primera en salir.*
+
+**Apariciones en Bitácoras:**
+- bitacora-mercedev-epic-07.md: L25
 
 ---
 ### GC
@@ -1097,7 +1109,7 @@ fecha: "2026-05-27"
 - bitacora-mercedev-epic-03.md: L423
 - bitacora-mercedev-epic-04.md: L98
 - bitacora-mercedev-epic-06.md: L113
-- bitacora-mercedev-epic-07.md: L24
+- bitacora-mercedev-epic-07.md: L36
 - instrucciones.md: L24
 
 ---
@@ -1313,6 +1325,7 @@ fecha: "2026-05-27"
 - bitacora-mercedev-epic-02.md: L318
 - bitacora-mercedev-epic-03.md: L325
 - bitacora-mercedev-epic-06.md: L173
+- bitacora-mercedev-epic-07.md: L34
 - ciclo-de-vida-contenidos.md: L49
 - instrucciones.md: L37
 - mantenimiento-boilerplate-sop.md: L5
