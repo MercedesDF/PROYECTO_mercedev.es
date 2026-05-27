@@ -322,7 +322,7 @@ def procesar_linkedin(modo_auto=False):
             print(f"\n  📝 Revisando: {archivo.name} ({post['fecha']})")
             print(f"  💬 Previsualización:\n{texto_post}\n")
             
-            confirmacion = input("  👉 ¿Acción para este post? [s=Aprobar / d=Desencolar / N=Omitir]: ").strip().lower()
+            confirmacion = input("  👉 ¿Acción para este post? [s=Aprobar / d=Descartar / N=Omitir]: ").strip().lower()
             if confirmacion == 's':
                 nuevo_yaml = re.sub(r'^estado_social:\s*["\']?en_cola["\']?', 'estado_social: "aprobado"', yaml_block, flags=re.MULTILINE)
                 nuevo_contenido = content.replace(yaml_block, nuevo_yaml)
@@ -332,11 +332,15 @@ def procesar_linkedin(modo_auto=False):
                 en_cola.pop(idx)
                 aprobados.append(post)
             elif confirmacion == 'd':
-                nuevo_yaml = re.sub(r'^estado_social:\s*["\']?en_cola["\']?', 'estado_social: "ignorado"', yaml_block, flags=re.MULTILINE)
-                nuevo_contenido = content.replace(yaml_block, nuevo_yaml)
-                archivo.write_text(nuevo_contenido, encoding="utf-8")
-                print(f"  🗑️ Post desencolado (estado_social: ignorado).")
-                en_cola.pop(idx)
+                seguro = input("  ⚠️ ¿Realmente quieres olvidar esta publicación permanentemente? (s/N): ").strip().lower()
+                if seguro == 's':
+                    nuevo_yaml = re.sub(r'^estado_social:\s*["\']?en_cola["\']?', 'estado_social: "ignorado"', yaml_block, flags=re.MULTILINE)
+                    nuevo_contenido = content.replace(yaml_block, nuevo_yaml)
+                    archivo.write_text(nuevo_contenido, encoding="utf-8")
+                    print(f"  🗑️ Post descartado permanentemente (estado_social: ignorado).")
+                    en_cola.pop(idx)
+                else:
+                    print("  ⏭️ Operación cancelada. Dejado en la cola.")
             else:
                 print("  ⏭️ Omitido. Dejado en la cola.")
                 
@@ -353,10 +357,11 @@ def procesar_linkedin(modo_auto=False):
                     
                 print("\n  ⚙️  Acciones de la cola:")
                 print("    [1] Asignar posición exacta a un post (1, 2, 3...)")
-                print("    [2] Desencolar un post (Mover a ignorado)")
+                print("    [2] Devolver a revisión (Mover a en_cola)")
+                print("    [3] Descartar un post permanentemente (Mover a ignorado)")
                 print("    [0] Finalizar y salir")
                 
-                accion = input("\n  👉 Elige una acción (0-2): ").strip()
+                accion = input("\n  👉 Elige una acción (0-3): ").strip()
                 
                 if accion == '0' or not accion:
                     break
@@ -384,7 +389,7 @@ def procesar_linkedin(modo_auto=False):
                     except ValueError:
                         print("  ❌ Entrada inválida.")
                 elif accion == '2':
-                    opcion_des = input("  👉 ¿Qué post quieres desencolar? (Elige número): ").strip()
+                    opcion_des = input("  👉 ¿Qué post quieres devolver a revisión? (Elige número): ").strip()
                     try:
                         idx_des = int(opcion_des) - 1
                         if 0 <= idx_des < len(aprobados):
@@ -394,11 +399,35 @@ def procesar_linkedin(modo_auto=False):
                             
                             if "orden_social:" in p_content:
                                 p_content = re.sub(r'^orden_social:\s*\d+\r?\n?', '', p_content, flags=re.MULTILINE)
-                            p_content = re.sub(r'^estado_social:\s*["\']?aprobado["\']?', 'estado_social: "ignorado"', p_content, flags=re.MULTILINE)
+                            p_content = re.sub(r'^estado_social:\s*["\']?aprobado["\']?', 'estado_social: "en_cola"', p_content, flags=re.MULTILINE)
                             
                             p_arch.write_text(p_content, encoding="utf-8")
                             aprobados.pop(idx_des)
-                            print(f"  🗑️ ¡Hecho! '{p_arch.name}' ha sido desencolado y marcado como ignorado.")
+                            print(f"  ⏪ ¡Hecho! '{p_arch.name}' ha sido devuelto a la cola de revisión.")
+                        else:
+                            print("  ❌ Post no encontrado.")
+                    except ValueError:
+                        print("  ❌ Entrada inválida.")
+                elif accion == '3':
+                    opcion_des = input("  👉 ¿Qué post quieres descartar permanentemente? (Elige número): ").strip()
+                    try:
+                        idx_des = int(opcion_des) - 1
+                        if 0 <= idx_des < len(aprobados):
+                            post_des = aprobados[idx_des]
+                            seguro = input(f"  ⚠️ ¿Realmente quieres olvidar la publicación '{post_des['archivo'].name}' permanentemente? (s/N): ").strip().lower()
+                            if seguro == 's':
+                                p_arch = post_des["archivo"]
+                                p_content = p_arch.read_text(encoding="utf-8")
+                                
+                                if "orden_social:" in p_content:
+                                    p_content = re.sub(r'^orden_social:\s*\d+\r?\n?', '', p_content, flags=re.MULTILINE)
+                                p_content = re.sub(r'^estado_social:\s*["\']?aprobado["\']?', 'estado_social: "ignorado"', p_content, flags=re.MULTILINE)
+                                
+                                p_arch.write_text(p_content, encoding="utf-8")
+                                aprobados.pop(idx_des)
+                                print(f"  🗑️ ¡Hecho! '{p_arch.name}' ha sido descartado permanentemente.")
+                            else:
+                                print("  ⏭️ Operación cancelada. El post se mantiene en la cola.")
                         else:
                             print("  ❌ Post no encontrado.")
                     except ValueError:

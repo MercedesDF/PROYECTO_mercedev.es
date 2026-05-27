@@ -27,9 +27,9 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 **Hecho:**
 - Se introdujo el nuevo metadato `orden_social` en la máquina de estados del YAML Frontmatter.
 - Se refactorizó `scripts/merci/merci-linkedin.py` inyectando un submenú interactivo para la cola de publicaciones aprobadas.
-- Se implementó la acción de "Desencolar" (mutación al estado `ignorado`) tanto en la fase de revisión como en el gestor de la cola final.
+- Se implementó la acción de "Devolver a revisión" (estado `en_cola`) y el descarte permanente (`ignorado`) con confirmación explícita anti-errores.
 
-**Detalle técnico:** El script ahora parsea y manipula el campo `orden_social` mediante expresiones regulares (`re.sub`), actualizando físicamente el archivo Markdown en disco. Los artículos sin este campo asumen la prioridad más baja (`999`) y se ordenan por fecha. El menú interactivo en terminal permite inyectar numéricamente una prioridad (1, 2, 3...) o extraer un post aprobado enviándolo a la papelera lógica.
+**Detalle técnico:** El script ahora parsea y manipula el campo `orden_social` mediante expresiones regulares (`re.sub`), actualizando físicamente el archivo Markdown en disco. Los artículos sin este campo asumen la prioridad más baja (`999`). El submenú permite asignar posiciones, devolver borradores al buffer o ejecutar un "Hard Delete" lógico hacia `ignorado` protegido por un *prompt* de seguridad con emojis (`⚠️`).
 
 **Motivo / criterio:** *Developer Experience (DX) y Content Ops*. Modificar archivos Markdown a mano para alterar el orden de publicación de una campaña de marketing genera alta fricción operativa. Delegar el trabajo pesado de reescritura de metadatos YAML al orquestador CLI consolida una experiencia de *Fricción Cero*, manteniendo a su vez la Única Fuente de Verdad (SSOT) permanentemente sincronizada.
 

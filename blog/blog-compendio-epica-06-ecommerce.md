@@ -3,6 +3,7 @@ titulo: "Desbloqueando la Velocidad del E-commerce con Zero-JS"
 descripcion: "Optimización de WooCommerce para un Tiempo de Bloqueo Total de 0ms en una arquitectura híbrida extrema."
 estado: "publicado"
 estado_social: "aprobado"
+orden_social: 2
 tema: "Blog"
 alt_portada: "Ejemplo de tienda online híbrida con velocidad instantánea"
 fase: "Epic 6 - Fase 1"
