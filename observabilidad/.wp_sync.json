@@ -1,5 +1,5 @@
 {
-  "_entorno": "https://mercedev.es/blog",
+  "_entorno": "http://localhost/blog",
   "blog/blog-pdf-estatico.md": 1779520986,
   "blog/2026-05-01-anuncio.md": 1777712012,
   "blog/blog-optimizacion-del-dashboard-de-grafana-para-mejorar-la-experiencia-del-autor.md": 1779523072,
@@ -15,5 +15,6 @@
   "blog/blog-arquitectura-zero-maintenance.md": 1779520982,
   "blog/blog-epica-03-devrel-observabilidad.md": 1779523070,
   "blog/blog-compendio-epica-06-ecommerce.md": 1779792041,
-  "blog/blog-consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.md": 1779520171
+  "blog/blog-consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.md": 1779520171,
+  "blog/blog-orquestacion-ecosistema-merci.md": 1779872766
 }

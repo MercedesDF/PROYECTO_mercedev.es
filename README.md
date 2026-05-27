@@ -241,11 +241,11 @@ El proyecto se organiza en grandes "Épicas" arquitectónicas. El desglose detal
 - **Epic-05: Showcase y Distribución del Boilerplate** — Demostración interactiva y despliegue automatizado de la plantilla pública.
   - Estado: ✅ Completada (2026-05-23)
 
-- **Epic-06: E-commerce Híbrido Extremo** — Pasarelas de pago en WooCommerce aisladas con Web Workers (Partytown) para mantener TBT en 0ms.
-  - Estado: 🔄 En curso.
+- **Epic-06: E-commerce Híbrido Extremo** — Catálogo Headless gestionado mediante Markdown y Carrito Zero-JS con TBT 0ms (Tienda No Tienda).
+  - Estado: ✅ Completada (2026-05-26)
 
 - **Epic-07: Enriquecimiento Visual y Multimedia** — Evolución de la interfaz de usuario (UI/UX) e integración de vídeos optimizados respetando el rendimiento extremo.
-  - Estado: ⏳ En cola.
+  - Estado: 🔄 En curso.
 
 
 ## Licencia

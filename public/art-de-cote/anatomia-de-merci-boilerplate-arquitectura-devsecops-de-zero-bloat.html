@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anatomía de Merci Boilerplate v1.12 (Obsoleto) — mercedev.es</title>
-    <meta name="description" content="Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 25 agentes Python y 100/100 Co...">
+    <title>Anatomía de Merci Boilerplate (v1.16.1) — mercedev.es</title>
+    <meta name="description" content="Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 32 agentes Python y 100/100 Co...">
     <link rel="canonical" href="https://mercedev.es/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779818385">
+    <link rel="stylesheet" href="/css/main.css?v=1779873893">
     <script src="/js/MerciController.js?v=1779793228" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Anatom\u00eda de Merci Boilerplate v1.12 (Obsoleto)",
-      "description": "Descubre las entra\u00f1as t\u00e9cnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 25 agentes Python y 100/100 Core Web Vitals.",
+      "headline": "Anatom\u00eda de Merci Boilerplate (v1.16.1)",
+      "description": "Descubre las entra\u00f1as t\u00e9cnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 32 agentes Python y 100/100 Core Web Vitals.",
       "url": "https://mercedev.es/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html"
     }
     </script>
@@ -43,98 +43,77 @@
         </nav>
     </header>
     <main class="main--padded section" id="main">
-        <article class="card card--book">
+        <article class="card card--booklet">
             <a href="/art-de-cote/" class="card__back-link">← Volver a Art de Coté</a>
             <header>
-                    <h1 class="home-card__title--highlight">Anatomía de Merci Boilerplate v1.12 (Obsoleto)</h1>
+                    <h1 class="home-card__title--highlight">Anatomía de Merci Boilerplate (v1.16.1)</h1>
                 <a href="/descargas/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
             </header>
             <div class="card__content">
                 <p>La mayoría de plantillas web (boilerplates) actuales entregan un sitio funcional a costa de inyectar megabytes de librerías en el navegador, oscurecer la infraestructura y acumular deuda técnica desde el commit cero. </p>
-<blockquote>
-<p>⚠️ <strong>Aviso de obsolescencia:</strong> Este documento relata la arquitectura original (v1.12). <a href="/art-de-cote/anatomia-de-merci-boilerplate-v1151.html"><strong>Lee aquí la versión v1.15.1 actualizada</strong></a>.</p>
-</blockquote>
-<p><strong>Merci Boilerplate es lo opuesto.</strong> Lo que comenzó como un proyecto de investigación para aplicar metodologías de Ciberseguridad y Automatización, terminó evolucionando hacia un ecosistema operacional completo. </p>
-<p>El sistema surgió del rigor académico: se requería una arquitectura segura, sin frameworks opacos (<abbr title="Merci Explica: Construir una casa con lo mínimo e indispensable en lugar de comprar electrodomésticos enormes que gastan energía y nunca se usan." tabindex="0">Zero-Bloat</abbr>), integrando sistemas Headless y aplicando metodologías Agile para mantener la deuda técnica a cero en cada fase. Todo guiado por especificaciones formales y documentado en una bitácora inmutable.</p>
-<!-- linkedin: 
-Todo empezó con un objetivo simple: crear mi página web personal mientras termino un Máster en desarrollo web y estudio Ciberseguridad y Automatización en Google. 🛡️🐍
-
-Quería algo seguro, ultraligero y sin frameworks de JavaScript que no llegaban a resultarme cómodos. Como estoy aprendiendo de forma continua, me obsesioné con documentar cada fallo y cada decisión en una bitácora para no perder el progreso. He aplicado lo que he aprendido en mis cursos de Agile y Project Management: no avanzar de fase sin dejar la deuda técnica a cero. 
-
-Este "portfolio simple" escaló. Se convirtió en una arquitectura de 3 capas, integrando un ejercicio de mi máster y más de 25 agentes de Python orquestando todo el ecosistema. 
-
-Hoy, el alma de ese proyecto vivo de aprendizaje que es mi página web se ha convertido en **Merci Boilerplate**, un sistema operacional DevSecOps real y en producción:
-
-✅ 100/100 Core Web Vitals
-✅ 0 dependencias externas en el navegador (Zero-Bloat)
-✅ Orquestación IA Híbrida (Local + Cloud)
-
-He liberado las entrañas técnicas y la historia de esta arquitectura en un nuevo "Arte Colateral". 👇
-
-#DevSecOps #Ciberseguridad #Python #WebPerformance #ZeroBloat #Agile #LearningByDoing
--->
-
-<h2>4 Verdades sobre este Boilerplate</h2>
-<p><strong>1. No es una plantilla visual, es una infraestructura</strong></p>
-<p>Incluye más de 25 herramientas Python propias para automatizar tareas críticas: auditoría de código, generación <abbr title="Merci Explica: Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas." tabindex="0">SSG</abbr>, sincronización con <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr>, observabilidad de métricas e integración continua de IA.</p>
-<p><strong>2. Hybrid Stack de IA (Sin punto único de fallo)</strong></p>
-<p>La Inteligencia Artificial está orquestada de forma local y en la nube:</p>
+<p><strong>Merci Boilerplate v1.16.1 es el antídoto.</strong> Lo que comenzó como un proyecto de investigación <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr>, ha madurado en un ecosistema operacional extremo y autónomo. </p>
+<p>El sistema surgió del rigor académico y evolucionó bajo el escrutinio de <strong>Chaos Engineering</strong>: una arquitectura segura, 0 dependencias externas en tiempo de ejecución (<abbr title="Merci Explica: Construir una casa con lo mínimo e indispensable en lugar de comprar electrodomésticos enormes que gastan energía y nunca se usan." tabindex="0">Zero-Bloat</abbr>), integrando <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> Headless y aplicando metodologías <abbr title="Merci Explica: Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo." tabindex="0">SRE</abbr> (Site Reliability Engineering) para garantizar telemetría constante.</p>
+<h2>5 Pilares de la Arquitectura actual</h2>
+<p><strong>1. Rendimiento Extremo (<abbr title="Merci Explica: El tiempo acumulado en el que el ordenador estuvo tan ocupado calculando cosas que tu ratón o tus toques en la pantalla parecían no responder." tabindex="0">TBT</abbr> 0ms Real) y E-commerce Zero-JS</strong>
+El núcleo fragmenta tareas asíncronas de Javascript (<em>Yielding</em>) y prioriza la red nativa (<code>fetchpriority</code>). La tienda WooCommerce opera como un Catálogo Headless inyectado desde Markdown, con un carrito de compra que funciona mediante formularios nativos (Zero-JS Cart). El resultado: un <strong>Total Blocking Time de 0ms</strong> empírico, incluso en pasarelas transaccionales bajo simulaciones 4G.</p>
+<p><strong>2. Orquestación Autónoma del Release (Clon Efímero)</strong>
+La distribución de la plantilla está 100% automatizada. El agente <code>merci-release.py</code> se encarga de clonar el código en un directorio efímero, purgar la telemetría y metadatos personales mediante <code>merci-init.py</code>, auditar el resultado con <abbr title="Merci Explica: Inspector de alta precisión que garantiza que todo funcione como debe." tabindex="0">QA</abbr> estricto y publicar en el repositorio hijo sin riesgo de Deriva de Configuración.</p>
+<p><strong>3. Hybrid Stack de IA (Agent Chaining)</strong>
+La Inteligencia Artificial está orquestada en local y en la nube creando auténticas cadenas de montaje de contenido:
+*   <strong>Agente Bibliotecario (<abbr title="Merci Explica: Una medida de seguridad que previene que la Inteligencia Artificial te mienta y se invente cosas cuando no sabe una respuesta." tabindex="0">Zero-Hallucination</abbr>):</strong> Transforma notas de terminal en Markdown puro (Ollama).
+*   <strong>Agente Blogger (DevRel):</strong> Toma el relevo, redacta la promoción para el blog y encola el post para redes sociales, inyectando URLs canónicas automáticamente.
+*   <strong>Triage Interactivo:</strong> El Agente Glosario expone el contexto de extracción al humano para evitar consumir inferencia de IA en falsos positivos.</p>
+<p><strong>4. Observabilidad SRE &amp; Chaos Engineering</strong>
+La infraestructura incluye un demonio <code>merci-sre.py</code> que ingiere telemetría continua hacia Prometheus y Grafana (IaC). Además, un "Mono del Caos" local inyecta vulnerabilidades <abbr title="Merci Explica: Cuerda para la protección contra ataques de inyección de código." tabindex="0">XSS</abbr> de forma autónoma para validar empíricamente que el linter <code>merci-audit.py</code> es infranqueable, registrando cada ataque en bitácoras privadas encriptadas.</p>
+<p><strong>5. Arquitectura <abbr title="Merci Explica: Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas." tabindex="0">SSG</abbr> de Compilación Incremental</strong>
+Las tres capas operan en paralelo sin contaminarse, y el orquestador principal ahora implementa Caché Semántica y <em>Mark &amp; Sweep</em>. Al evitar recomponer PDFs y HTMLs que no han cambiado, el tiempo total de compilación se mantiene en la barrera Sub-10s.</p>
+<h2>El Ecosistema de Agentes (32 herramientas)</h2>
+<p>El corazón del Boilerplate son sus 32 agentes programados en Python puro, organizados para gobernar cada aspecto del ciclo de vida:</p>
+<h3>Auditoría, Seguridad y QA</h3>
 <ul>
-<li>
-<p><strong>Ollama (qwen2.5-coder):</strong> Ejecución local con latencia cero y privacidad absoluta de los datos.</p>
-</li>
-<li>
-<p><strong>Gemini Flash API:</strong> Análisis semánticos complejos en la nube.</p>
-</li>
-<li>
-<p><strong>LiteLLM:</strong> Actúa como proxy agnóstico.</p>
-</li>
-<li>
-<p><strong>Graceful degradation:</strong> Si el proveedor Cloud se cae, el sistema local asume el control. Si ambos fallan, el pipeline no colapsa, simplemente se degrada a funciones estáticas.</p>
-</li>
+<li><code>merci-audit.py</code>: <abbr title="Merci Explica: Escaneo del código como si fuera un libro abierto." tabindex="0">SAST</abbr> + Prevención de secretos y validación WAI-<abbr title="Merci Explica: Etiquetas invisibles que le ponemos al código para que los lectores de pantalla puedan explicarle la web a las personas con discapacidades visuales." tabindex="0">ARIA</abbr>.</li>
+<li><code>merci-hardening.py</code>: Inyección automática de políticas <abbr title="Merci Explica: Política de seguridad que actúa como un guardián del contenido web." tabindex="0">CSP</abbr> y Hardening de Infraestructura.</li>
+<li><code>merci-chaos.py</code>: Ingeniería del caos. Inyecta vulnerabilidades controladas para validar defensas.</li>
+<li><code>merci-linkcheck.py</code>: <abbr title="Merci Explica: Escaneo interactivo del sistema mientras está en funcionamiento para detectar fallos de seguridad." tabindex="0">DAST</abbr> que rastrea despliegues detectando 404s y enlaces ambiguos (<abbr title="Merci Explica: Herramienta para hacer que las aplicaciones web sean más fáciles de usar para todos." tabindex="0">WAI-ARIA</abbr>).</li>
+<li><code>merci-drift.py</code>: Detector de Deriva Documental temporal y semántica.</li>
+<li><code>merci-extract-metrics.py</code>: Extractor Data-Driven de métricas Core Web Vitals (JSON).</li>
+<li><code>merci-sre.py</code>: Demonio SRE para ingesta de métricas en Prometheus.</li>
+<li><code>merci-telemetry.py</code>: Inyector dinámico de telemetría del proyecto (Commits, Docs).</li>
+<li><code>merci-sitemap.py</code>: Gestión y actualización automatizada de fechas en el mapa del sitio XML.</li>
 </ul>
-<p><strong>3. Arquitectura 3 capas (Completamente aislada)</strong></p>
-<p>Las tres capas operan en paralelo sin contaminarse, unidas por Symlinks, Nginx y permisos estrictos:</p>
+<h3>IA &amp; Gestión del Conocimiento</h3>
 <ul>
-<li>
-<p><strong>Capa Estática:</strong> HTML5 Semántico, <abbr title="Merci Explica: CSS con superpoderes." tabindex="0">SASS</abbr> <abbr title="Merci Explica: Sistema de nomenclatura para clases CSS que facilita la organización y mantenimiento del código." tabindex="0">BEM</abbr> y Vanilla JS (0 dependencias externas, 0 librerías NPM en <em>runtime</em>).</p>
-</li>
-<li>
-<p><strong>Capa Dinámica:</strong> WordPress Headless para gestión de blogs, tiendas o bases de datos complejas.</p>
-</li>
-<li>
-<p><strong>Capa de Orquestación:</strong> Agentes autónomos (Self-healing, Auto-documentación).</p>
-</li>
+<li><code>merci-brain.py</code>: Base de conocimiento estática (<abbr title="Merci Explica: Adelantar los controles de calidad para encontrar los errores y agujeros de seguridad al escribir el código, en vez de descubrirlos el día de lanzamiento." tabindex="0">Shift-Left</abbr> IA).</li>
+<li><code>merci-ssot.py</code>: Sincronización documental autónoma (<abbr title="Merci Explica: Es como el diario o acta de decisiones del proyecto. Apuntamos el &#x27;porqué&#x27; elegimos una tecnología o camino para no olvidarlo meses después." tabindex="0">ADR</abbr>).</li>
+<li><code>merci-librarian.py</code>: Agente técnico formateador (Zero-Hallucination).</li>
+<li><code>merci-glosario.py</code>: Compilador de Glosario Autónomo.</li>
+<li><code>merci-blogger.py</code>: Agente de redacción DevRel y Social.</li>
+<li><code>merci-auto-fix.py</code>: Agente autónomo de reparación en la nube (GitHub Actions).</li>
 </ul>
-<p><strong>4. Gobernanza Operacional Reproducible</strong></p>
-<p>El repositorio incluye un <em>Deployment Playbook</em> paso a paso para servidores Ubuntu, SOPs (Standard Operating Procedures) de publicación dual y un <em>Checklist</em> de hardening. Todo lo necesario para operar en producción bajo estándares <abbr title="Merci Explica: Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo." tabindex="0">SRE</abbr>.</p>
-<h2>El Ecosistema de Agentes</h2>
-<p>El corazón del Boilerplate son sus 25+ agentes programados en Python puro, divididos en tres escuadrones:</p>
-<h3>Auditoría &amp; Seguridad (Escudo Activo)</h3>
+<h3>Publicación, E-commerce y Distribución</h3>
 <ul>
-<li><code>merci-audit.py</code>: <abbr title="Merci Explica: Escaneo del código como si fuera un libro abierto." tabindex="0">SAST</abbr> (Static Application Security Testing) + <abbr title="Merci Explica: Mecanismo de seguridad digital que actúa como un guardián vigilante para evitar la pérdida accidental o intencional de datos críticos." tabindex="0">DLP</abbr> (Bloquea secretos antes del commit).</li>
-<li><code>merci-hardening.py</code>: Inyección automática de políticas estrictas <abbr title="Merci Explica: Política de seguridad que actúa como un guardián del contenido web." tabindex="0">CSP</abbr> (Content Security Policy).</li>
-<li><code>merci-chaos.py</code>: Ingeniería del caos. Inyecta vulnerabilidades controladas para validar la resiliencia del sistema.</li>
-<li><code>merci-linkcheck.py</code>: <abbr title="Merci Explica: Escaneo interactivo del sistema mientras está en funcionamiento para detectar fallos de seguridad." tabindex="0">DAST</abbr> (Dynamic Application Security Testing) que rastrea y bloquea despliegues si detecta enlaces rotos.</li>
+<li><code>merci-publish.py</code> y <code>merci-promote.py</code>: Motor SSG y promoción.</li>
+<li><code>merci-sync-pages.py</code>: Sincronizador de estructuras <abbr title="Merci Explica: Establecer una sola ley o un único documento oficial de donde todo el mundo deba sacar la información para que nunca haya datos contradictorios." tabindex="0">SSOT</abbr>.</li>
+<li><code>merci-wp.py</code>: Publicador Headless para WordPress vía API <abbr title="Merci Explica: Sistema de comunicación entre aplicaciones donde cada mensaje contiene toda la información necesaria para entender el contexto." tabindex="0">REST</abbr>.</li>
+<li><code>merci-shop.py</code>: Orquestador Headless de catálogo WooCommerce (Tienda No Tienda).</li>
+<li><code>merci-linkedin.py</code> y <code>merci-queue.py</code>: Motor <abbr title="Merci Explica: Candado electrónico para proteger la información de usuario" tabindex="0">OIDC</abbr> y visor de buffer social.</li>
+<li><code>merci-optimizer.py</code> y <code>merci-assets-watcher.py</code>: Compiladores WebP automáticos.</li>
+<li><code>merci-styles.py</code> y <code>merci-watcher.py</code>: Compiladores <abbr title="Merci Explica: CSS con superpoderes." tabindex="0">SASS</abbr> 7-1.</li>
 </ul>
-<h3>IA &amp; Orquestación</h3>
+<h3>Orquestación y Despliegue</h3>
 <ul>
-<li><code>merci-brain.py</code>: Base de conocimiento estática (<abbr title="Merci Explica: Adelantar los controles de calidad para encontrar los errores y agujeros de seguridad al escribir el código, en vez de descubrirlos el día de lanzamiento." tabindex="0">Shift-Left</abbr> IA) para el asistente web.</li>
-<li><code>merci-ssot.py</code>: Sincronización automática de documentación (Single Source of Truth).</li>
-<li><code>merci-librarian.py</code>: Agente técnico que formatea cuadernillos (<abbr title="Merci Explica: Una medida de seguridad que previene que la Inteligencia Artificial te mienta y se invente cosas cuando no sabe una respuesta." tabindex="0">Zero-Hallucination</abbr>).</li>
-<li><code>merci-blogger.py</code>: Agente de marketing para redacción DevRel.</li>
+<li><code>merci-total.py</code>: Orquestador maestro local (Build &amp; QA).</li>
+<li><code>merci-commit.py</code>: Empaquetado atómico impulsado por bitácora.</li>
+<li><code>merci-deploy.py</code>: Agente de despliegue remoto (sincronización SSH y purga Varnish).</li>
+<li><code>merci-completo.py</code>: Orquestador Supremo DevSecOps (QA -&gt; Commit -&gt; Deploy).</li>
+<li><code>merci-showcase.py</code>: Despliegue interactivo de demo pública (Clon Efímero).</li>
+<li><code>merci-release.py</code>: Orquestador de exportación al Boilerplate.</li>
+<li><code>merci-init.py</code>: Inicializador destructivo para nuevos repositorios derivados.</li>
+<li><code>merci-backup.py</code>: Generador instantáneo de instantáneas locales (ZIP).</li>
 </ul>
-<h3>Publicación &amp; Contenido</h3>
-<ul>
-<li><code>merci-publish.py</code> y <code>merci-wp.py</code>: Generador estático dual y publicador masivo Headless.</li>
-<li><code>merci-linkedin.py</code>: Buffer asíncrono y motor de autenticación <abbr title="Merci Explica: Candado electrónico para proteger la información de usuario" tabindex="0">OIDC</abbr>.</li>
-<li><code>merci-optimizer.py</code>: Escalado y conversión a WebP automática.</li>
-</ul>
-<h2>El Contrato de Desarrollo</h2>
-<p>La filosofía principal de Merci es el <strong>Spec-Driven Development</strong>. Todo clon del repositorio incluye un archivo <code>instrucciones.md</code>. 
-No es una guía de uso, es un "contrato vinculante" que define exactamente qué está permitido hacer (ej. <em>Vanilla JS</em>) y qué está prohibido (ej. <em>Frameworks reactivos o estilos en línea</em>). El orquestador de <em>commits</em> valida estas especificaciones en cada guardado.</p>
-<p>Si estás listo para adoptar una infraestructura donde el rendimiento y la seguridad no son una promesa, sino una métrica auditable, <strong>eres bienvenido a clonarlo</strong>.
-Para aquellos entornos donde el rendimiento y la seguridad no son una promesa, sino una métrica auditable, el repositorio base se encuentra disponible para su clonación y estudio.</p>
+<h2>El Contrato de Desarrollo (Spec-Driven)</h2>
+<p>La filosofía principal de Merci es el <strong>Spec-Driven Development</strong>. Todo clon del repositorio incluye un archivo <code>instrucciones.md</code> que define exactamente qué está permitido hacer (ej. <em>Vanilla JS</em>) y qué está prohibido (ej. <em>Frameworks reactivos o estilos en línea</em>).
+Si estás listo para adoptar una infraestructura donde el rendimiento y la seguridad no son una promesa, sino una métrica auditable, <strong>eres bienvenido a clonarlo</strong>.</p>
 <p>🔗 <strong>Repositorio Oficial de Merci Boilerplate en GitHub</strong>
 https://github.com/MercedesDF/merci-boilerplate</p>
             </div>

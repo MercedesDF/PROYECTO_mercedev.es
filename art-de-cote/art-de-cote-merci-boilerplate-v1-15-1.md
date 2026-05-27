@@ -1,13 +1,16 @@
 ---
-titulo: "Anatomía de Merci Boilerplate v1.15.1"
+titulo: "Anatomía de Merci Boilerplate v1.15.1 (Obsoleto)"
 descripcion: "Evolución del ecosistema DevSecOps: TBT 0ms, Telemetría SRE, Agent Chaining, Chaos Engineering y compilación SSG híbrida."
 estado: "publicado"
-tema: "Art de Coté"
+tema: "Boilerplate: Histórico"
 alt_portada: "Métricas 100/100 absolutas y terminales de agentes Python orquestando la infraestructura local SRE."
 fase: "Epic 4 - Fase 1"
 fecha: "2026-05-24"
+slug: "anatomia-de-merci-boilerplate-v1151"
 ---
 La mayoría de plantillas web (boilerplates) actuales entregan un sitio funcional a costa de inyectar megabytes de librerías en el navegador, oscurecer la infraestructura y acumular deuda técnica desde el *commit* cero. 
+
+> ⚠️ **Aviso de obsolescencia:** Este documento relata la arquitectura intermedia (v1.15.1). [**Lee aquí la versión v1.16.1 actualizada**](/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html).
 
 **Merci Boilerplate v1.15.1 es el antídoto.** Lo que comenzó como un proyecto de investigación DevSecOps, ha madurado en un ecosistema operacional extremo. 
 

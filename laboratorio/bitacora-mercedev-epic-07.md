@@ -19,6 +19,21 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 ---
 
 ## Registro cronológico
+
+### 2026-05-27 — Feat/DevRel: Gestor de Cola Social Interactivo (Buffer Management)
+
+**Contexto:** El orquestador social (`merci-linkedin.py`) publicaba estrictamente en orden cronológico (FIFO) basándose en la fecha de publicación. Se requería la capacidad de reordenar dinámicamente las publicaciones (asignando posiciones exactas) y desencolar artículos directamente desde la terminal, asimilando funciones de un gestor profesional tipo Buffer o Hootsuite.
+
+**Hecho:**
+- Se introdujo el nuevo metadato `orden_social` en la máquina de estados del YAML Frontmatter.
+- Se refactorizó `scripts/merci/merci-linkedin.py` inyectando un submenú interactivo para la cola de publicaciones aprobadas.
+- Se implementó la acción de "Desencolar" (mutación al estado `ignorado`) tanto en la fase de revisión como en el gestor de la cola final.
+
+**Detalle técnico:** El script ahora parsea y manipula el campo `orden_social` mediante expresiones regulares (`re.sub`), actualizando físicamente el archivo Markdown en disco. Los artículos sin este campo asumen la prioridad más baja (`999`) y se ordenan por fecha. El menú interactivo en terminal permite inyectar numéricamente una prioridad (1, 2, 3...) o extraer un post aprobado enviándolo a la papelera lógica.
+
+**Motivo / criterio:** *Developer Experience (DX) y Content Ops*. Modificar archivos Markdown a mano para alterar el orden de publicación de una campaña de marketing genera alta fricción operativa. Delegar el trabajo pesado de reescritura de metadatos YAML al orquestador CLI consolida una experiencia de *Fricción Cero*, manteniendo a su vez la Única Fuente de Verdad (SSOT) permanentemente sincronizada.
+
+**Siguiente paso o deuda:** Iniciar la Fase 1 de la Épica 7 aplicando las nuevas variables de color semánticas a la arquitectura SASS (`_card.scss`, `_prose.scss`).
 ### 2026-05-26 — UI/UX: Definición de Paleta Premium y Escala Base (Fase 1)
 
 **Contexto:** Arranca la Épica 7 (Enriquecimiento Visual). Las variables base en SASS eran demasiado parcas y carecían de tonos de superficie (surface), grises tipográficos (text-muted) y un sistema de sombras, lo que limitaba el diseño "Premium" del proyecto.

@@ -6,8 +6,8 @@ Actualmente, solo la última versión mayor del Boilerplate recibe actualizacion
 
 | Versión | Soportada          |
 | ------- | ------------------ |
-| v1.12.x | ✅ Sí              |
-| < v1.12 | ❌ No (Deprecada)  |
+| v1.16.x | ✅ Sí              |
+| < v1.16 | ❌ No (Deprecada)  |
 
 ## Reportar una Vulnerabilidad
 
