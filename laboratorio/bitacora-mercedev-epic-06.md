@@ -53,6 +53,15 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 **Motivo / criterio:** *Governance y QA Assurance*. Cumplir el protocolo innegociable de cierre evita arrastrar deuda técnica y asegura que el conocimiento (Zero-JS Cart, E-commerce Headless) queda destilado en la biblioteca antes de iniciar la capa visual de la Épica 7.
 
 **Siguiente paso o deuda:** Arrancar oficialmente la Épica 7.
+
+### 2026-05-26 — Fix/DX: Restauración de nomenclatura semántica en orquestador de Release
+
+**Contexto:** Se detectó que `merci-release.py` utilizaba el prefijo `chore: release vX.X.X` al realizar el commit automático en el Boilerplate, rompiendo la convención histórica del proyecto (`feat: release "vX.X.X"`).
+
+**Hecho:** Se parcheó `scripts/merci/merci-release.py` para restituir el formato exacto del mensaje de commit con prefijo `feat:` y la versión entrecomillada.
+
+**Motivo / criterio:** *Consistency*. Las convenciones de nomenclatura en Git son vitales para la legibilidad del historial. Aunque `chore` es un estándar aceptado para empaquetados, respetar la convención histórica del proyecto evita disonancia cognitiva al auditar los repositorios derivados.
+
 ### 2026-05-26 — Docs: Resolución de Deriva Documental y Release v1.16.1
 
 **Contexto:** Tras finalizar la Épica 6 (E-commerce Híbrido), se detectó que los documentos fundacionales (`flujo-publicacion-sop.md`, `checklist-hardening.md`, `integracion-wordpress.md`) no habían sido actualizados con los nuevos protocolos de publicación de la tienda y las barreras de seguridad (Hardening) implementadas contra WooCommerce.
