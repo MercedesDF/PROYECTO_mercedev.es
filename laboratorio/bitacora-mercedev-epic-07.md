@@ -20,6 +20,15 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-28 — Feat/UX: Planificación de Refinamiento Visual para E-Commerce (Fase 2)
+
+**Contexto (Desafío):** Al revisar la integración de la tienda (WooCommerce) desplegada en fases anteriores, se identificó que la maquetación visual actual, especialmente el flujo y diseño del carrito de compra, no alcanza los estándares de experiencia de usuario (UX) ni el nivel estético premium exigido por la Fase 2 de esta Épica.
+
+**Maniobra:**
+- Se documentó formalmente la deuda de diseño en el `ROADMAP.md` (Épica 7, Fase 2), blindando el requisito innegociable de rediseñar el carrito y la tienda sin comprometer el rendimiento base (Zero-Bloat).
+
+**Deuda Técnica (Siguiente paso):** Iniciar la Fase 2 refinando y perfeccionando la maquetación visual de la tienda utilizando la arquitectura SASS 7-1, asegurando la coherencia visual con el ecosistema y la accesibilidad plena.
+
 ### 2026-05-28 — Feat/SRE: Cierre de Fase 1 - Rendimiento Perfecto (100/100) y Hardening de Despliegue
 
 **Contexto (Desafío):** Para cerrar la Fase 1 de la Épica 7 (Enriquecimiento Visual), quedaban dos flecos bloqueantes. 1) La auditoría de PageSpeed del *Boilerplate* devolvía un 98 en Rendimiento debido a un *Cumulative Layout Shift (CLS) de 0.095*, provocado porque las imágenes agnósticas de reemplazo (`tu_logo.webp`, `tu_avatar.webp`) no coincidían con la relación de aspecto estricta reservada en el HTML (`263x65` y `80x80`). 2) El despliegue automatizado (`merci deploy`) fallaba en el servidor de producción porque Git intentaba sobreescribir el enlace simbólico físico de infraestructura (`public/assets`).
