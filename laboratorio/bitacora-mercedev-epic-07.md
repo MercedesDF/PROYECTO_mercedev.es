@@ -20,6 +20,32 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-28 — Feat/SRE: Ajustes Quirúrgicos en el Ecosistema Showcase y Boilerplate
+
+**Contexto (Desafío):** Durante la auditoría del Clon Efímero (Showcase) se detectaron discrepancias visuales y arquitectónicas: el Asistente Merci (`<aside>`) no renderizaba en las páginas autogeneradas, el Hero de portada perdía el diseño bicolor en el título, la página `art-de-cote` se colaba en el boilerplate, y la navegación persistía en el F5 para cargar la nueva caché.
+
+**Maniobra:**
+- **Inyección de Dependencias:** Se refactorizó la llamada de `merci-showcase.py` a `merci-init.py` forzando el argumento explícito `--ia`, evitando que la guillotina del boilerplate amputase el código fuente de Merci antes de la clonación de páginas de contingencia.
+- **Micro-Diseño en Python:** Se reescribió el motor de anonimización de la Portada en `merci-init.py`. Ahora, intercepta dinámicamente las últimas 3 letras del nuevo dominio antes de la extensión y las encapsula en `<span class="hero__highlight">`, preservando la dualidad de colores corporativa.
+- **Cierre Perimetral:** Se extrajo explícitamente `art-de-cote` de las rutinas de reconstrucción (`.gitkeep`) y se añadió su destrucción física en el bloque principal de purgas de `merci-init.py`. Además, se implementó una purga global del enlace en el menú de navegación (`<nav>`) para que el boilerplate nazca sin ese acceso.
+- **Identidad Agnóstica:** En lugar de renombrar las imágenes de marcador de posición (`tu_logo.webp`, `tu_avatar.webp`) para que suplanten a las originales, se modificó `merci-init.py` para purgar los originales (`logo.webp`, `Merci-en-la-nube.webp`) y reescribir dinámicamente las rutas del código fuente (`replace_in_files`) hacia los nuevos marcadores. Así, el código generado refleja la identidad correcta.
+- **Rendimiento Dinámico:** Se inyectó `<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">` directamente desde `merci-showcase.py` al HEAD de todas las páginas para forzar descargas estáticas, solventando el F5 fantasma.
+- **Cerebro Artificial:** Se enriqueció el `brain_data.json` *fallback* con rutas directas (ej. `/biblioteca/`, `/blog/`) permitiendo frases descriptivas reales del asistente sin consumo de API.
+
+**Aprendizaje:** *Orquestación Modular (Coupling vs Cohesion)*. El hecho de que el Showcase inyecte plantillas dependa de un parámetro opcional (`--ia`) en otro script (`merci-init.py`) demuestra que la automatización exige contratos de estado explícitos. Si un orquestador B llama a C, B debe pasar todos los parámetros necesarios para garantizar la coherencia de estado.
+
+### 2026-05-28 — Feat/SRE: Inyección de Telemetría Aislada y Gemelos Multimedia en el Showcase
+
+**Contexto (Desafío):** Al instanciar el *Boilerplate* (Clon Efímero) para el Showcase en vivo, este heredaba la última telemetría de `mercedev.es` o fallaba en la auditoría inicial de Lighthouse con errores 404 porque el inicializador (`merci-init.py`) purgaba las imágenes personales del autor original sin proveer *placeholders*. Además, las métricas vivas de Git (Commits, Líneas) se reseteaban a "N/D", dando una impresión de proyecto vacío.
+
+**Maniobra:**
+- **Roadmap:** Se reestructuró la Épica 7 en el archivo `ROADMAP.md` para segmentar claramente la Fase 1 (Telemetría y Activos), Fase 2 (UI/UX y Estilos) y Fase 3 (Multimedia).
+- **Gemelos Multimedia:** Se crearon las imágenes `tu_logo.webp` y `tu_avatar.webp` en `assets/images/`. Se refactorizó `merci-init.py` para purgar `logo.webp` y `Merci-en-la-nube.webp` y renombrar los archivos *tu_* a los nombres definitivos en el nuevo proyecto, evitando así cualquier error 404 en el DOM de la portada.
+- **Telemetría Aislada:** Se generó `merci-boilerplate.template.json` dentro de `auditorias-pagespeed.web.dev/` emulando una auditoría perfecta de Lighthouse (100/100, FCP óptimo).
+- **Orquestación Showcase:** Se actualizó `scripts/matriz/merci-showcase.py`. Ahora, tras inyectar la guillotina de inicialización, purga las auditorías reales, renombra la plantilla JSON, borra la caché de métricas y ejecuta `merci-extract-metrics.py` internamente para sobrescribir los marcadores del HTML con los valores ideales. Finalmente, usa expresiones regulares para reemplazar los "N/D" estáticos por valores simbólicos ("1").
+
+**Aprendizaje:** *Inyección Controlada en CI/CD Aislados*. La mejor forma de dotar de vida a un proyecto demostrativo es reutilizar sus propios motores (como `merci-extract-metrics.py`). Suministrando una "plantilla semilla" (seed template) en el orquestador temporal, el ecosistema funciona como si acabara de recibir una auditoría real, garantizando la consistencia y aislando los datos de la matriz.
+
 ### 2026-05-28 — Fix: Resolución de Caché Huérfana en Showcase (Cache Busting)
 
 **Contexto (Desafío):** Al compilar el Clon Efímero (Showcase) con `merci-showcase.py`, el botón de retorno flotante solo aparecía visible en la Portada y en *Sobre Mí*. En el resto de páginas (Biblioteca, Blog), el usuario tenía que pulsar F5 para verlo. El problema era un error de caché huérfana introducido por `merci-init.py`.
@@ -86,7 +112,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 - Se diseñó el componente SASS flotante `src/scss/components/_showcase.scss` (y se enlazó en el índice) con posición fija y diseño responsive, aislado mediante BEM (`.showcase-return`).
 - Se refactorizó el orquestador de despliegue `scripts/matriz/merci-showcase.py` para inyectar dinámicamente el HTML del botón de retorno justo después de la etiqueta `<body>` en *todos* los archivos HTML del Clon Efímero temporal (`scratch/showcase_build/`).
 
-**Motivo / criterio:** *Aislamiento Arquitectónico (Zero Bloat)*. Inyectar el botón durante el ciclo de vida del "Clon Efímero" justo antes de subirlo por RSYNC permite que el código fuente matriz permanezca completamente agnóstico y limpio. Los usuarios que clonen el Boilerplate en sus máquinas jamás verán este botón, pero estará siempre presente en la demostración en vivo.
+**Motivo / criterio:** *Aislamiento Arquitectónico (Zero Bloat)*. Inyectar el botón durante el ciclo de vida del "Clon Efímero" justo antes de subirlo por RSYNC (Remote Sync - Sincronización Remota) permite que el código fuente matriz permanezca completamente agnóstico y limpio. Los usuarios que clonen el Boilerplate en sus máquinas jamás verán este botón, pero estará siempre presente en la demostración en vivo.
 
 **Siguiente paso o deuda:** Continuar con la Fase 1 de la Épica 7 enfocándose en la experiencia de contenido multimedia.
 

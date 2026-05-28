@@ -10,7 +10,7 @@ fecha: "2026-05-28"
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 133 términos consolidados (Última actualización de datos: 2026-05-28 09:18).
+> **Versión de control:** 133 términos consolidados (Última actualización de datos: 2026-05-28 18:47).
 
 ## Índice Alfabético
 
@@ -99,7 +99,7 @@ fecha: "2026-05-28"
 - bitacora-mercedev-epic-04.md: L98
 - bitacora-mercedev-epic-05.md: L62
 - bitacora-mercedev-epic-06.md: L284
-- bitacora-mercedev-epic-07.md: L86
+- bitacora-mercedev-epic-07.md: L112
 - checklist-hardening.md: L57
 - ciclo-de-vida-contenidos.md: L9
 - instrucciones.md: L24
@@ -130,6 +130,7 @@ fecha: "2026-05-28"
 - bitacora-mercedev-epic-03.md: L115
 - bitacora-mercedev-epic-04.md: L120
 - bitacora-mercedev-epic-06.md: L309
+- bitacora-mercedev-epic-07.md: L47
 
 ---
 ### CLI-First
@@ -382,6 +383,7 @@ fecha: "2026-05-28"
 - bitacora-mercedev-epic-01.md: L540
 - bitacora-mercedev-epic-03.md: L215
 - bitacora-mercedev-epic-06.md: L284
+- bitacora-mercedev-epic-07.md: L43
 - checklist-hardening.md: L7
 - instrucciones.md: L25
 
@@ -433,7 +435,7 @@ fecha: "2026-05-28"
 - bitacora-mercedev-epic-04.md: L56
 - bitacora-mercedev-epic-05.md: L98
 - bitacora-mercedev-epic-06.md: L57
-- bitacora-mercedev-epic-07.md: L133
+- bitacora-mercedev-epic-07.md: L159
 
 ---
 ### E2EE
@@ -458,6 +460,7 @@ fecha: "2026-05-28"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L158
 - bitacora-mercedev-epic-03.md: L199
+- bitacora-mercedev-epic-07.md: L44
 
 ---
 ### FIFO
@@ -468,7 +471,7 @@ fecha: "2026-05-28"
 💡 **Merci Explica:** *Cola de supermercado, donde la persona que llega primero es la primera en salir.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-07.md: L124
+- bitacora-mercedev-epic-07.md: L150
 
 ---
 ### GC
@@ -885,7 +888,7 @@ fecha: "2026-05-28"
 💡 **Merci Explica:** *Guía detallada para implementar mejoras en Python.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-07.md: L101
+- bitacora-mercedev-epic-07.md: L127
 - instrucciones.md: L91
 
 ---
@@ -990,7 +993,7 @@ fecha: "2026-05-28"
 - bitacora-mercedev-epic-04.md: L52
 - bitacora-mercedev-epic-05.md: L81
 - bitacora-mercedev-epic-06.md: L53
-- bitacora-mercedev-epic-07.md: L34
+- bitacora-mercedev-epic-07.md: L60
 - flujo-publicacion-sop.md: L21
 - instrucciones.md: L51
 - mantenimiento-boilerplate-sop.md: L48
@@ -1106,7 +1109,7 @@ fecha: "2026-05-28"
 💡 **Merci Explica:** *Mecanismo eficiente para mantener dos conjuntos de archivos actualizados automáticamente.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-07.md: L89
+- bitacora-mercedev-epic-07.md: L115
 
 ---
 ### SASS
@@ -1123,7 +1126,7 @@ fecha: "2026-05-28"
 - bitacora-mercedev-epic-03.md: L423
 - bitacora-mercedev-epic-04.md: L98
 - bitacora-mercedev-epic-06.md: L113
-- bitacora-mercedev-epic-07.md: L86
+- bitacora-mercedev-epic-07.md: L112
 - instrucciones.md: L24
 
 ---
@@ -1280,7 +1283,7 @@ fecha: "2026-05-28"
 - bitacora-mercedev-epic-02.md: L48
 - bitacora-mercedev-epic-03.md: L347
 - bitacora-mercedev-epic-04.md: L46
-- bitacora-mercedev-epic-07.md: L34
+- bitacora-mercedev-epic-07.md: L23
 - deployment-playbook.md: L51
 
 ---
@@ -1308,7 +1311,7 @@ fecha: "2026-05-28"
 - bitacora-mercedev-epic-02.md: L80
 - bitacora-mercedev-epic-03.md: L476
 - bitacora-mercedev-epic-06.md: L447
-- bitacora-mercedev-epic-07.md: L31
+- bitacora-mercedev-epic-07.md: L57
 - ciclo-de-vida-contenidos.md: L7
 - flujo-publicacion-sop.md: L2
 - instrucciones.md: L36
@@ -1341,7 +1344,7 @@ fecha: "2026-05-28"
 - bitacora-mercedev-epic-02.md: L318
 - bitacora-mercedev-epic-03.md: L325
 - bitacora-mercedev-epic-06.md: L173
-- bitacora-mercedev-epic-07.md: L47
+- bitacora-mercedev-epic-07.md: L73
 - ciclo-de-vida-contenidos.md: L49
 - instrucciones.md: L37
 - mantenimiento-boilerplate-sop.md: L5
@@ -1506,7 +1509,7 @@ fecha: "2026-05-28"
 - bitacora-mercedev-epic-01.md: L406
 - bitacora-mercedev-epic-03.md: L558
 - bitacora-mercedev-epic-06.md: L385
-- bitacora-mercedev-epic-07.md: L61
+- bitacora-mercedev-epic-07.md: L87
 - ciclo-de-vida-contenidos.md: L26
 - flujo-publicacion-sop.md: L62
 - instrucciones.md: L30
