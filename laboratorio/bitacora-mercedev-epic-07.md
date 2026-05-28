@@ -20,6 +20,17 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-28 — Fix/QA: Resolución definitiva de Aspect Ratio en marcadores (100/100)
+
+**Contexto (Desafío):** A pesar de los recortes previos, la auditoría de PageSpeed (28 de mayo, 20:17) devolvía un 96/100 en Recomendaciones (Best Practices) alertando que `tu_avatar.webp` tenía una "relación de aspecto incorrecta". Las dimensiones físicas seguían sin ser exactamente 1:1 (eran 406x389), entrando en conflicto con el `width="80" height="80"` del DOM.
+
+**Maniobra:**
+- Se redimensionó mediante Python (Pillow, escalado Lanczos) `tu_avatar.webp` a unas dimensiones precisas de `160x160` (proporción 1:1 estricta, resolucion 2x Retina).
+- Preventivamente, se ajustó `tu_logo.webp` a `526x130` (proporción estricta de 263:65).
+- Tras el ajuste milimétrico, se superaron todas las advertencias de Lighthouse, consolidando por completo la auditoría a 100/100.
+
+**Aprendizaje:** *Tolerancia Cero de Lighthouse al Aspect Ratio*. Lighthouse no perdona ni siquiera desviaciones de 1 píxel en el recorte físico. Para evitar advertencias de *Best Practices*, los archivos de imagen deben generarse garantizando una proporción matemática exacta frente al espacio reservado en la etiqueta `<img width="..." height="...">`.
+
 ### 2026-05-28 — Feat/UX: Planificación de Refinamiento Visual para E-Commerce (Fase 2)
 
 **Contexto (Desafío):** Al revisar la integración de la tienda (WooCommerce) desplegada en fases anteriores, se identificó que la maquetación visual actual, especialmente el flujo y diseño del carrito de compra, no alcanza los estándares de experiencia de usuario (UX) ni el nivel estético premium exigido por la Fase 2 de esta Épica.
