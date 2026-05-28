@@ -42,9 +42,9 @@
     </script>
 </head>
 <body class="page" id="page-home">
-    <!-- Ancla invisible WAI-ARIA para Volver Arriba -->
-    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
-    <header class="header">
+    <!-- QUÉ HACE: Centraliza el foco de "Volver arriba" semánticamente en el header -->
+    <!-- POR QUÉ: Elimina el anti-patrón de accesibilidad de usar divs invisibles con tabindex="-1" -->
+    <header class="header" id="top">
         <a href="/" class="header__brand">
             <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="low" decoding="async">
         </a>

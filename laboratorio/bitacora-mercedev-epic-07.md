@@ -20,6 +20,21 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-28 — QA/SRE: Resolución de Deuda Técnica (Auditoría de Arquitectura)
+
+**Contexto:** Tras la auditoría de arquitectura de hoy, se procedió a saldar la deuda técnica reportada para alinear el proyecto al 100% con las reglas.
+
+**Hecho:**
+- Se renombró el archivo del blog usando el prefijo taxonómico correcto (`blog-2026-05-01-anuncio.md`).
+- Se corrigió el anti-patrón WAI-ARIA en `public/index.html`, eliminando el `div` invisible y asignando el ancla `id="top"` directamente a la etiqueta `<header>`, mitigando los problemas de foco en lectores de pantalla.
+- Se completó la estructura arquitectónica SASS 7-1 creando el directorio `/src/scss/pages/` y su respectivo archivo `_index.scss`, enlazado en `main.scss`.
+- Se refactorizó `merci-blogger.py` extrayendo el módulo `unicodedata` de una función local al bloque de importaciones globales (Top-level imports), alineándolo con PEP 8 y la Regla 16.
+- Las importaciones en bloques `try/except` de otros scripts (`markdown`, `litellm`) se confirmaron como excepciones válidas al amparo de la política de Degradación Elegante (Graceful Degradation) y Zero Bloat.
+
+**Motivo / criterio:** *Higiene y Cumplimiento Normativo*. Las reglas del proyecto son innegociables. Saldar las pequeñas fricciones arquitectónicas a medida que se detectan previene la deriva técnica silenciosa.
+
+**Siguiente paso o deuda:** Iniciar las mejoras visuales y multimedia planificadas para la Épica 7 (Fase 1).
+
 ### 2026-05-28 — QA/SRE: Auditoría de Arquitectura (Reglas de Higiene)
 
 **Contexto:** Se realizó una auditoría de la arquitectura y configuración del proyecto.
