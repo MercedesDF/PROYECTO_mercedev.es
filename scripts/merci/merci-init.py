@@ -214,16 +214,26 @@ def generar_placeholders_directorios(nuevo_dominio: str):
     # POR QUÉ: Reutilizar el header y footer reales en las páginas de contingencia
     # hace que la experiencia de navegación sea 100% coherente, incluso en rutas vacías.
     header_html, footer_html = "", ""
+    css_url, js_ctrl_url, js_main_url = "/css/main.css?v=1", "/js/MerciController.js?v=1", "/js/main.js?v=1"
     index_path = REPO_ROOT / "public" / "index.html"
     if index_path.exists():
         index_content = index_path.read_text(encoding="utf-8")
         h_match = re.search(r"(<header.*?</header>)", index_content, re.DOTALL | re.IGNORECASE)
         f_match = re.search(r"(<footer.*?</footer>)", index_content, re.DOTALL | re.IGNORECASE)
         m_match = re.search(r"(<!-- Asistente Merci -->.*?</aside>)", index_content, re.DOTALL | re.IGNORECASE)
+        
+        css_match = re.search(r'<link rel="stylesheet" href="(/css/main\.css\?v=\d+)">', index_content)
+        js_ctrl_match = re.search(r'<script src="(/js/MerciController\.js\?v=\d+)"', index_content)
+        js_main_match = re.search(r'<script src="(/js/main\.js\?v=\d+)"', index_content)
+        
         header_html = h_match.group(1) if h_match else ""
         footer_html = f_match.group(1) if f_match else ""
         if m_match:
             footer_html += f"\n\n    {m_match.group(1)}"
+            
+        if css_match: css_url = css_match.group(1)
+        if js_ctrl_match: js_ctrl_url = js_ctrl_match.group(1)
+        if js_main_match: js_main_url = js_main_match.group(1)
 
     print("  🏗️  Generando páginas de contingencia (Anti-403 Forbidden)...")
     blog_symlink = REPO_ROOT / "public" / "blog"
@@ -251,9 +261,9 @@ def generar_placeholders_directorios(nuevo_dominio: str):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{titulo} - {nuevo_dominio}</title>
     <!-- merci-audit:silence-seo -->
-    <link rel="stylesheet" href="/css/main.css?v=1">
-    <script src="/js/MerciController.js?v=1" defer></script>
-    <script src="/js/main.js?v=1" defer></script>
+    <link rel="stylesheet" href="{css_url}">
+    <script src="{js_ctrl_url}" defer></script>
+    <script src="{js_main_url}" defer></script>
 </head>
 <body class="page" id="{body_id}">
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div> <!-- merci-audit:silence-style -->
