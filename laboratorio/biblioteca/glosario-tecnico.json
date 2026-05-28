@@ -2303,6 +2303,18 @@
           "L73"
         ]
       }
+    },
+    "Zero-Shift": {
+      "nombre": "Zero-Shift",
+      "ingles": "Zero-Shift",
+      "espanol": "Cero-Desplazamiento",
+      "definicion": "Proceso de actualización o cambio en un sistema sin interrupción del servicio, permitiendo que los usuarios continúen interactuando con el sistema mientras se realiza la modificación.",
+      "merci_explica": "Apagón cero para el sistema.",
+      "apariciones": {
+        "bitacora-mercedev-epic-07.md": [
+          "L28"
+        ]
+      }
     }
   },
   "ignorados": [

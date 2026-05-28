@@ -10,7 +10,7 @@ fecha: "2026-05-28"
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 134 términos consolidados (Última actualización de datos: 2026-05-28 19:52).
+> **Versión de control:** 135 términos consolidados (Última actualización de datos: 2026-05-28 19:54).
 
 ## Índice Alfabético
 
@@ -1688,6 +1688,17 @@ fecha: "2026-05-28"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-06.md: L695
+
+---
+### Zero-Shift
+**Inglés:** Zero-Shift | **Español:** Cero-Desplazamiento
+
+**Definición:** Proceso de actualización o cambio en un sistema sin interrupción del servicio, permitiendo que los usuarios continúen interactuando con el sistema mientras se realiza la modificación.
+
+💡 **Merci Explica:** *Apagón cero para el sistema.*
+
+**Apariciones en Bitácoras:**
+- bitacora-mercedev-epic-07.md: L28
 
 ---
 ### Zero-Shot
