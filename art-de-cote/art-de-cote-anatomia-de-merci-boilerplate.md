@@ -1,17 +1,17 @@
 ---
-titulo: "Anatomía de Merci Boilerplate (v1.16.1)"
+titulo: "Anatomía de Merci Boilerplate (v1.17.0)"
 descripcion: "Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 32 agentes Python y 100/100 Core Web Vitals."
 estado: "publicado"
 tema: "Art de Coté"
 tipo: "cuadernillo"
-alt_portada: "Esquema conceptual de la arquitectura DevSecOps de Merci Boilerplate v1.16.1."
-fase: "Epic 6 - Fase 1"
-fecha: "2026-05-27"
+alt_portada: "Esquema conceptual de la arquitectura DevSecOps de Merci Boilerplate v1.17.0."
+fase: "Epic 7 - Fase 1"
+fecha: "2026-05-28"
 slug: "anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat"
 ---
 La mayoría de plantillas web (boilerplates) actuales entregan un sitio funcional a costa de inyectar megabytes de librerías en el navegador, oscurecer la infraestructura y acumular deuda técnica desde el commit cero. 
 
-**Merci Boilerplate v1.16.1 es el antídoto.** Lo que comenzó como un proyecto de investigación DevSecOps, ha madurado en un ecosistema operacional extremo y autónomo. 
+**Merci Boilerplate v1.17.0 es el antídoto.** Lo que comenzó como un proyecto de investigación DevSecOps, ha madurado en un ecosistema operacional extremo y autónomo. 
 
 El sistema surgió del rigor académico y evolucionó bajo el escrutinio de **Chaos Engineering**: una arquitectura segura, 0 dependencias externas en tiempo de ejecución (Zero-Bloat), integrando CMS Headless y aplicando metodologías SRE (Site Reliability Engineering) para garantizar telemetría constante.
 
@@ -21,7 +21,7 @@ El sistema surgió del rigor académico y evolucionó bajo el escrutinio de **Ch
 El núcleo fragmenta tareas asíncronas de Javascript (*Yielding*) y prioriza la red nativa (`fetchpriority`). La tienda WooCommerce opera como un Catálogo Headless inyectado desde Markdown, con un carrito de compra que funciona mediante formularios nativos (Zero-JS Cart). El resultado: un **Total Blocking Time de 0ms** empírico, incluso en pasarelas transaccionales bajo simulaciones 4G.
 
 **2. Orquestación Autónoma del Release (Clon Efímero)**
-La distribución de la plantilla está 100% automatizada. El agente `merci-release.py` se encarga de clonar el código en un directorio efímero, purgar la telemetría y metadatos personales mediante `merci-init.py`, auditar el resultado con QA estricto y publicar en el repositorio hijo sin riesgo de Deriva de Configuración.
+La distribución de la plantilla está 100% automatizada. El agente `merci-release.py` se encarga de clonar el código en un directorio efímero, aplicar una **Purga de Identidad Agnóstica** (erradicando la telemetría, menú de Art de Coté y metadatos personales) e instanciar el patrón **Gemelo Multimedia** (`tu_logo.webp`). Para evitar el envenenamiento de caché persistente de Nginx, inyecta programáticamente un *Timestamp de Época* como cache-buster dinámico, garantizando que el Showcase siempre despliegue los recursos frescos en la matriz pública sin riesgo de Deriva de Configuración.
 
 **3. Hybrid Stack de IA (Agent Chaining)**
 La Inteligencia Artificial está orquestada en local y en la nube creando auténticas cadenas de montaje de contenido:

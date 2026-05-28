@@ -507,11 +507,13 @@ def main():
     
     # Aplicar patrón Gemelos Multimedia
     print("  🖼️  Aplicando patrón Gemelos Multimedia (reemplazando recursos de matriz en el código)...")
-    replace_in_files("/assets/images/logo.webp?v=2", "/assets/images/tu_logo.webp?v=3")
-    replace_in_files("/assets/images/logo.webp", "/assets/images/tu_logo.webp")
+    import time
+    v_buste = int(time.time())
+    replace_in_files("/assets/images/logo.webp?v=2", f"/assets/images/tu_logo.webp?v={v_buste}")
+    replace_in_files("/assets/images/logo.webp", f"/assets/images/tu_logo.webp?v={v_buste}")
     
     if incluir_ia:
-        replace_in_files("/assets/images/Merci-en-la-nube.webp", "/assets/images/tu_avatar.webp?v=3")
+        replace_in_files("/assets/images/Merci-en-la-nube.webp", f"/assets/images/tu_avatar.webp?v={v_buste}")
     
     generar_placeholders_directorios(nuevo_dominio)
     

@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anatomía de Merci Boilerplate (v1.16.1) — mercedev.es</title>
+    <title>Anatomía de Merci Boilerplate (v1.17.0) — mercedev.es</title>
     <meta name="description" content="Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 32 agentes Python y 100/100 Co...">
     <link rel="canonical" href="https://mercedev.es/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779987158">
+    <link rel="stylesheet" href="/css/main.css?v=1779989916">
     <script src="/js/MerciController.js?v=1779793228" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Anatom\u00eda de Merci Boilerplate (v1.16.1)",
+      "headline": "Anatom\u00eda de Merci Boilerplate (v1.17.0)",
       "description": "Descubre las entra\u00f1as t\u00e9cnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 32 agentes Python y 100/100 Core Web Vitals.",
       "url": "https://mercedev.es/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html"
     }
@@ -46,18 +46,18 @@
         <article class="card card--booklet">
             <a href="/art-de-cote/" class="card__back-link">← Volver a Art de Coté</a>
             <header>
-                    <h1 class="home-card__title--highlight">Anatomía de Merci Boilerplate (v1.16.1)</h1>
+                    <h1 class="home-card__title--highlight">Anatomía de Merci Boilerplate (v1.17.0)</h1>
                 <a href="/descargas/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
             </header>
             <div class="card__content">
                 <p>La mayoría de plantillas web (boilerplates) actuales entregan un sitio funcional a costa de inyectar megabytes de librerías en el navegador, oscurecer la infraestructura y acumular deuda técnica desde el commit cero. </p>
-<p><strong>Merci Boilerplate v1.16.1 es el antídoto.</strong> Lo que comenzó como un proyecto de investigación <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr>, ha madurado en un ecosistema operacional extremo y autónomo. </p>
+<p><strong>Merci Boilerplate v1.17.0 es el antídoto.</strong> Lo que comenzó como un proyecto de investigación <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr>, ha madurado en un ecosistema operacional extremo y autónomo. </p>
 <p>El sistema surgió del rigor académico y evolucionó bajo el escrutinio de <strong>Chaos Engineering</strong>: una arquitectura segura, 0 dependencias externas en tiempo de ejecución (<abbr title="Merci Explica: Construir una casa con lo mínimo e indispensable en lugar de comprar electrodomésticos enormes que gastan energía y nunca se usan." tabindex="0">Zero-Bloat</abbr>), integrando <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> Headless y aplicando metodologías <abbr title="Merci Explica: Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo." tabindex="0">SRE</abbr> (Site Reliability Engineering) para garantizar telemetría constante.</p>
 <h2>5 Pilares de la Arquitectura actual</h2>
 <p><strong>1. Rendimiento Extremo (<abbr title="Merci Explica: El tiempo acumulado en el que el ordenador estuvo tan ocupado calculando cosas que tu ratón o tus toques en la pantalla parecían no responder." tabindex="0">TBT</abbr> 0ms Real) y E-commerce Zero-JS</strong>
 El núcleo fragmenta tareas asíncronas de Javascript (<em>Yielding</em>) y prioriza la red nativa (<code>fetchpriority</code>). La tienda WooCommerce opera como un Catálogo Headless inyectado desde Markdown, con un carrito de compra que funciona mediante formularios nativos (Zero-JS Cart). El resultado: un <strong>Total Blocking Time de 0ms</strong> empírico, incluso en pasarelas transaccionales bajo simulaciones 4G.</p>
 <p><strong>2. Orquestación Autónoma del Release (Clon Efímero)</strong>
-La distribución de la plantilla está 100% automatizada. El agente <code>merci-release.py</code> se encarga de clonar el código en un directorio efímero, purgar la telemetría y metadatos personales mediante <code>merci-init.py</code>, auditar el resultado con <abbr title="Merci Explica: Inspector de alta precisión que garantiza que todo funcione como debe." tabindex="0">QA</abbr> estricto y publicar en el repositorio hijo sin riesgo de Deriva de Configuración.</p>
+La distribución de la plantilla está 100% automatizada. El agente <code>merci-release.py</code> se encarga de clonar el código en un directorio efímero, aplicar una <strong>Purga de Identidad Agnóstica</strong> (erradicando la telemetría, menú de Art de Coté y metadatos personales) e instanciar el patrón <strong>Gemelo Multimedia</strong> (<code>tu_logo.webp</code>). Para evitar el envenenamiento de caché persistente de Nginx, inyecta programáticamente un <em>Timestamp de Época</em> como cache-buster dinámico, garantizando que el Showcase siempre despliegue los recursos frescos en la matriz pública sin riesgo de Deriva de Configuración.</p>
 <p><strong>3. Hybrid Stack de IA (Agent Chaining)</strong>
 La Inteligencia Artificial está orquestada en local y en la nube creando auténticas cadenas de montaje de contenido:
 *   <strong>Agente Bibliotecario (<abbr title="Merci Explica: Una medida de seguridad que previene que la Inteligencia Artificial te mienta y se invente cosas cuando no sabe una respuesta." tabindex="0">Zero-Hallucination</abbr>):</strong> Transforma notas de terminal en Markdown puro (Ollama).
@@ -69,7 +69,7 @@ La infraestructura incluye un demonio <code>merci-sre.py</code> que ingiere tele
 Las tres capas operan en paralelo sin contaminarse, y el orquestador principal ahora implementa Caché Semántica y <em>Mark &amp; Sweep</em>. Al evitar recomponer PDFs y HTMLs que no han cambiado, el tiempo total de compilación se mantiene en la barrera Sub-10s.</p>
 <h2>El Ecosistema de Agentes (32 herramientas)</h2>
 <p>El corazón del Boilerplate son sus 32 agentes programados en Python puro, organizados para gobernar cada aspecto del ciclo de vida:</p>
-<h3>Auditoría, Seguridad y QA</h3>
+<h3>Auditoría, Seguridad y <abbr title="Merci Explica: Inspector de alta precisión que garantiza que todo funcione como debe." tabindex="0">QA</abbr></h3>
 <ul>
 <li><code>merci-audit.py</code>: <abbr title="Merci Explica: Escaneo del código como si fuera un libro abierto." tabindex="0">SAST</abbr> + Prevención de secretos y validación WAI-<abbr title="Merci Explica: Etiquetas invisibles que le ponemos al código para que los lectores de pantalla puedan explicarle la web a las personas con discapacidades visuales." tabindex="0">ARIA</abbr>.</li>
 <li><code>merci-hardening.py</code>: Inyección automática de políticas <abbr title="Merci Explica: Política de seguridad que actúa como un guardián del contenido web." tabindex="0">CSP</abbr> y Hardening de Infraestructura.</li>

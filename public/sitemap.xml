@@ -349,6 +349,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/invalidacion-dinamica-de-cache-y-patron-de-gemelos-multimedia</loc>
+      <lastmod>2026-05-28</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/la-guerra-de-la-especificidad-css</loc>
       <lastmod>2026-05-28</lastmod>
       <changefreq>weekly</changefreq>

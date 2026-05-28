@@ -107,7 +107,7 @@
           "L741"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L112"
+          "L113"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
@@ -152,7 +152,7 @@
           "L115"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L47"
+          "L48"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L120"
@@ -224,7 +224,7 @@
           "L34"
         ],
         "flujo-publicacion-sop.md": [
-          "L68"
+          "L87"
         ],
         "integracion-wordpress.md": [
           "L13"
@@ -427,6 +427,9 @@
         "bitacora-mercedev-epic-02.md": [
           "L296"
         ],
+        "flujo-publicacion-sop.md": [
+          "L68"
+        ],
         "checklist-hardening.md": [
           "L54"
         ]
@@ -485,7 +488,7 @@
           "L49"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L159"
+          "L160"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L56"
@@ -569,7 +572,7 @@
           "L199"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L44"
+          "L45"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L158"
@@ -1148,7 +1151,7 @@
           "L85"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L60"
+          "L61"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L52"
@@ -1313,7 +1316,7 @@
           "L423"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L112"
+          "L113"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
@@ -1538,7 +1541,7 @@
           "L325"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L73"
+          "L74"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L50"
@@ -1790,7 +1793,7 @@
           "L558"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L87"
+          "L88"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L406"
@@ -2075,7 +2078,7 @@
       "merci_explica": "Guía detallada para implementar mejoras en Python.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L127"
+          "L128"
         ],
         "instrucciones.md": [
           "L91"
@@ -2120,7 +2123,7 @@
           "L215"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L43"
+          "L44"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L540"
@@ -2147,7 +2150,7 @@
           "L476"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L57"
+          "L58"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L99"
@@ -2261,7 +2264,7 @@
       "merci_explica": "Cola de supermercado, donde la persona que llega primero es la primera en salir.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L150"
+          "L151"
         ]
       }
     },
@@ -2273,7 +2276,22 @@
       "merci_explica": "Mecanismo eficiente para mantener dos conjuntos de archivos actualizados automáticamente.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L115"
+          "L116"
+        ]
+      }
+    },
+    "Zero-Stale": {
+      "nombre": "Zero-Stale",
+      "ingles": "Zero-Stale",
+      "espanol": "Cero Obsoleto",
+      "definicion": "Estado de un sistema o recurso en el que no hay información desactualizada ni datos obsoletos, asegurando así la precisión y relevancia de toda la información manejada.",
+      "merci_explica": "Caja fuerte segura para almacenar recuerdos frescos y actualizados.",
+      "apariciones": {
+        "bitacora-mercedev-epic-07.md": [
+          "L32"
+        ],
+        "flujo-publicacion-sop.md": [
+          "L73"
         ]
       }
     }

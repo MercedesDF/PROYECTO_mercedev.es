@@ -244,14 +244,16 @@
 
 ## ÉPICA 7: ENRIQUECIMIENTO VISUAL Y MULTIMEDIA (En curso)
 
-### Fase 1: Telemetría y Activos del Showcase
+### Fase 1: Telemetría y Activos del Showcase (Completada)
 - [x] Implementar botón de retorno ("Volver a mercedev.es") en la interfaz del Showcase para evitar fugas de tráfico.
-- [ ] Desvincular telemetría del Showcase: inyectar un reporte base ideal (`merci-boilerplate.json`) en lugar de usar los datos de la matriz.
-- [ ] Implementar patrón Gemelo Multimedia: cargar `tu_logo.webp` y `tu_avatar.webp` en la inicialización para prevenir errores 404 en el primer análisis.
+- [x] Desvincular telemetría del Showcase: inyectar un reporte base ideal (`merci-boilerplate.json`) en lugar de usar los datos de la matriz.
+- [x] Implementar patrón Gemelo Multimedia: purgar imágenes de matriz, cargar `tu_logo.webp` y `tu_avatar.webp` y forzar cache-busting en la inicialización.
+- [x] Implementar Purga de Identidad Agnóstica: erradicar enlaces hardcodeados de Art de Coté en el menú y evitar bloqueos en las páginas secundarias de contingencia.
 
-### Fase 2: Refinamiento de Estilos UI/UX
+### Fase 2: Refinamiento de Estilos UI/UX y Accesibilidad
+- [ ] Revisar el nivel de contraste y adaptar los colores de los botones de la portada (hover) para cumplir con accesibilidad WCAG.
 - [ ] Diseñar e implementar mejoras visuales avanzadas (espaciados, tipografía, paleta extendida) sin comprometer el 100/100 de rendimiento.
 - [ ] Refinar las animaciones (CSS) y microinteracciones del ecosistema.
 
-### Fase 3: Integración Multimedia
-- [ ] Integrar soporte para videos optimizados y multimedia enriquecida en la portada y Biblioteca.
+### Fase 3: Integración Multimedia Avanzada
+- [ ] Integrar soporte para videos optimizados y multimedia enriquecida en la portada y Biblioteca (imágenes de alta resolución).

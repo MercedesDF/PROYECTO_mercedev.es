@@ -62,6 +62,9 @@ Este documento consolida las medidas de seguridad aplicadas en la arquitectura h
 - [x] **Blindaje Supply Chain (Cadena de Suministro) — `audit_python_imports`:**
   - La regla de auditoría usa AST (Abstract Syntax Tree - Árbol de Sintaxis Abstracta) para validar que todas las importaciones Python pertenezcan a la `stdlib` o a la lista blanca estricta de `requirements.txt`.
   - *Motivo:* Un ecosistema puede estar blindado contra XSS o inyección SQL, pero si el código importa una librería maliciosa no registrada, el servidor queda comprometido (RCE - Remote Code Execution - Ejecución Remota de Código). Vulnerabilidad descubierta y parcheada mediante Chaos Engineering.
+- [x] **DLP en Distribución (Clones Efímeros):**
+  - El orquestador de Showcase y Release purga los recursos gráficos (`.webp`) de la matriz y destruye físicamente el menú y carpeta de "Art de Coté" antes de cada sincronización.
+  - *Motivo:* Blindaje definitivo de identidad (Data Leak Prevention) para que la demostración pública y el código distribuido en GitHub sean 100% agnósticos y no hereden rastros de la autora.
 - [x] **Caché Multi-Entorno en Publicador Headless (`merci-wp.py`):**
   - El archivo `observabilidad/.wp_sync.json` almacena la clave centinela `_entorno` (valor del `WP_URL` activo). Al cambiar de entorno (local ↔ producción), la caché se invalida automáticamente sin intervención manual.
   - *Motivo:* Un Cache Hit válido para `localhost` es un Cache Hit falso para producción. Sin esta guardia, el publicador omite silenciosamente todos los artículos al cambiar el `WP_URL` del `.env`.
