@@ -20,6 +20,20 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-28 — QA/SRE: Auditoría de Arquitectura (Reglas de Higiene)
+
+**Contexto:** Se realizó una auditoría de la arquitectura y configuración del proyecto.
+
+**Hecho:**
+- Se detectó una desviación en la regla de nomenclatura (Taxonomía SSOT, Regla 19) en el archivo `/blog/2026-05-01-anuncio.md`.
+- Se identificaron violaciones a la convención PEP 8 (Regla 16) sobre la higiene de importaciones en scripts de automatización (`merci-wp.py`, `merci-audit.py`, etc.).
+- Se descubrió un anti-patrón de accesibilidad en `public/index.html` con un ancla invisible (`<div id="top" tabindex="-1">`) empleada para la función "Volver arriba".
+- Se constató la ausencia del directorio `pages/` dentro de `src/scss/`, rompiendo parcialmente el canon SASS 7-1.
+
+**Motivo / criterio:** Verificación del cumplimiento estricto de las directrices marcadas en `instrucciones.md` (0 dependencias, rendimiento extremo, y Desarrollo Guiado por Especificaciones).
+
+**Siguiente paso o deuda:** Iniciar refactorizaciones propuestas, priorizando nomenclatura del archivo en el blog y el ajuste del ancla en `index.html`.
+
 ### 2026-05-27 — Feat/DevRel: Gestor de Cola Social Interactivo (Buffer Management)
 
 **Contexto:** El orquestador social (`merci-linkedin.py`) publicaba estrictamente en orden cronológico (FIFO) basándose en la fecha de publicación. Se requería la capacidad de reordenar dinámicamente las publicaciones (asignando posiciones exactas) y desencolar artículos directamente desde la terminal, asimilando funciones de un gestor profesional tipo Buffer o Hootsuite.
