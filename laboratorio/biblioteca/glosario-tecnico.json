@@ -107,7 +107,7 @@
           "L741"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L74"
+          "L86"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
@@ -482,7 +482,7 @@
           "L49"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L121"
+          "L133"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L56"
@@ -1142,7 +1142,7 @@
           "L85"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L23"
+          "L34"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L52"
@@ -1307,7 +1307,7 @@
           "L423"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L74"
+          "L86"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
@@ -1490,7 +1490,7 @@
           "L347"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L23"
+          "L34"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L46"
@@ -1532,7 +1532,7 @@
           "L325"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L35"
+          "L47"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L50"
@@ -1784,7 +1784,7 @@
           "L558"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L49"
+          "L61"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L406"
@@ -2069,7 +2069,7 @@
       "merci_explica": "Guía detallada para implementar mejoras en Python.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L89"
+          "L101"
         ],
         "instrucciones.md": [
           "L91"
@@ -2138,7 +2138,7 @@
           "L476"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L44"
+          "L31"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L99"
@@ -2252,7 +2252,7 @@
       "merci_explica": "Cola de supermercado, donde la persona que llega primero es la primera en salir.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L112"
+          "L124"
         ]
       }
     },
@@ -2264,7 +2264,7 @@
       "merci_explica": "Mecanismo eficiente para mantener dos conjuntos de archivos actualizados automáticamente.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L77"
+          "L89"
         ]
       }
     }
@@ -2386,7 +2386,8 @@
     "SAMEORIGIN",
     "SIN",
     "SO",
-    "DEBEN"
+    "DEBEN",
+    "F5"
   ],
   "rechazos": {
     "CPU": 1,

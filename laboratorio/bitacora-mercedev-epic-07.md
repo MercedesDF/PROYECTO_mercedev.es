@@ -20,6 +20,17 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-28 — Fix: Resolución de Caché Huérfana en Showcase (Cache Busting)
+
+**Contexto (Desafío):** Al compilar el Clon Efímero (Showcase) con `merci-showcase.py`, el botón de retorno flotante solo aparecía visible en la Portada y en *Sobre Mí*. En el resto de páginas (Biblioteca, Blog), el usuario tenía que pulsar F5 para verlo. El problema era un error de caché huérfana introducido por `merci-init.py`.
+
+**Maniobra:**
+- El script destructivo `merci-init.py` generaba las páginas secundarias de contingencia con una versión *hardcodeada* de los *assets* (`href="/css/main.css?v=1"`). Al cargarse la página en el navegador del usuario, este detectaba el `v=1` e inmediatamente servía una versión de CSS antigua (de antes de que creáramos la clase `.showcase-return`).
+- Se refactorizó la función `generar_placeholders_directorios()` en `merci-init.py` para que lea dinámicamente la portada (`index.html`) mediante expresiones regulares, extraiga los *Cache Busters* reales (ej. `?v=1779950634`) y los inyecte en las nuevas páginas generadas.
+
+**Aprendizaje:** *La cadena de suministro del CSS*. Cuando un generador de páginas (SSG o en este caso, un script de Inicialización) inyecta etiquetas `<link>`, debe respetar siempre el sistema de purga de caché maestro. Dejar un `?v=1` estático es una garantía matemática de desincronización visual para los usuarios recurrentes.
+
+
 ### 2026-05-28 — QA/SRE: Resolución de Deuda de Accesibilidad (Contrastes WCAG AA)
 
 **Contexto (Desafío):** Se detectó que el estado `:hover` de varios botones secundarios no superaba el umbral de contraste requerido por Lighthouse (WCAG AA ratio > 4.5:1), lo que ponía en riesgo la calificación de 100/100 en Accesibilidad.
@@ -29,6 +40,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 - **Botones de Portada:** En `src/scss/components/_hero.scss`, se rediseñó el estado `:hover` de los botones base (`.hero__btn`). Ahora realizan una inversión semántica (Fondo: `$color-text-base` / Texto: `$color-bg-base`) generando un contraste extremo (> 15:1) y un aspecto más *Premium*. También se reemplazaron sus bordes *hardcoded* (`#cbd5e1`) por la nueva variable `$color-border`.
 
 **Aprendizaje / Deuda:** *El engaño del color primario*. Es habitual utilizar el color primario de marca como fondo de botón, pero colores vibrantes (como el naranja) rara vez ofrecen contraste suficiente contra texto blanco. Siempre se debe tener definida una variable derivada más oscura (como `$color-regular`) exclusivamente para garantizar legibilidad en bloques sólidos o estados interactivos.
+
 
 ### 2026-05-28 — QA/SRE: Resolución del Catch-22 en Sincronización Estricta (Zero Trust)
 

@@ -244,8 +244,14 @@
 
 ## ÉPICA 7: ENRIQUECIMIENTO VISUAL Y MULTIMEDIA (En curso)
 
-### Fase 1: Evolución UI/UX y Contenido
-- [ ] Diseñar e implementar mejoras visuales avanzadas (espaciados, tipografía, paleta extendida) sin comprometer el 100/100 de rendimiento.
-- [ ] Integrar soporte para videos optimizados y multimedia enriquecida en la portada y Biblioteca.
-- [ ] Refinar las animaciones (CSS) y microinteracciones del ecosistema.
+### Fase 1: Telemetría y Activos del Showcase
 - [x] Implementar botón de retorno ("Volver a mercedev.es") en la interfaz del Showcase para evitar fugas de tráfico.
+- [ ] Desvincular telemetría del Showcase: inyectar un reporte base ideal (`merci-boilerplate.json`) en lugar de usar los datos de la matriz.
+- [ ] Implementar patrón Gemelo Multimedia: cargar `tu_logo.webp` y `tu_avatar.webp` en la inicialización para prevenir errores 404 en el primer análisis.
+
+### Fase 2: Refinamiento de Estilos UI/UX
+- [ ] Diseñar e implementar mejoras visuales avanzadas (espaciados, tipografía, paleta extendida) sin comprometer el 100/100 de rendimiento.
+- [ ] Refinar las animaciones (CSS) y microinteracciones del ecosistema.
+
+### Fase 3: Integración Multimedia
+- [ ] Integrar soporte para videos optimizados y multimedia enriquecida en la portada y Biblioteca.

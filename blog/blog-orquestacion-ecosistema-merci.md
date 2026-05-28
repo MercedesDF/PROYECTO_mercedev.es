@@ -2,11 +2,12 @@
 titulo: "Evolución DevSecOps: Cómo 32 Scripts se Convirtieron en un Solo Comando"
 descripcion: "La automatización no nace, se construye paso a paso. Análisis de la evolución desde scripts individuales hasta alcanzar un pipeline maestro que audita, empaqueta y despliega en producción."
 estado: "publicado"
-estado_social: "aprobado"
+estado_social: "publicado_linkedin"
 orden_social: 1
 tema: "Blog"
 fase: "Epic 7 - Fase 1"
 fecha: "2026-05-27"
+linkedin_id: "urn:li:share:7465673226749136896"
 ---
 <!-- linkedin:
 La automatización real no se construye en un día, evoluciona. 🚀 
