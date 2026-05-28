@@ -20,6 +20,64 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-28 — QA/SRE: Resolución de Deuda de Accesibilidad (Contrastes WCAG AA)
+
+**Contexto (Desafío):** Se detectó que el estado `:hover` de varios botones secundarios no superaba el umbral de contraste requerido por Lighthouse (WCAG AA ratio > 4.5:1), lo que ponía en riesgo la calificación de 100/100 en Accesibilidad.
+
+**Maniobra:**
+- **Showcase:** En `src/scss/components/_showcase.scss` y `merci-showcase.py`, se rediseñó por completo el botón flotante para que emule el aspecto del componente `.hero__badge` de la portada (con la etiqueta lateral "Matriz"). Además, se inyectó explícitamente la regla `&:visited { color: $color-text-base; }` para neutralizar el comportamiento nativo del navegador que teñía las letras de naranja una vez que el usuario había visitado el enlace, arruinando el contraste sobre fondos oscuros.
+- **Botones de Portada:** En `src/scss/components/_hero.scss`, se rediseñó el estado `:hover` de los botones base (`.hero__btn`). Ahora realizan una inversión semántica (Fondo: `$color-text-base` / Texto: `$color-bg-base`) generando un contraste extremo (> 15:1) y un aspecto más *Premium*. También se reemplazaron sus bordes *hardcoded* (`#cbd5e1`) por la nueva variable `$color-border`.
+
+**Aprendizaje / Deuda:** *El engaño del color primario*. Es habitual utilizar el color primario de marca como fondo de botón, pero colores vibrantes (como el naranja) rara vez ofrecen contraste suficiente contra texto blanco. Siempre se debe tener definida una variable derivada más oscura (como `$color-regular`) exclusivamente para garantizar legibilidad en bloques sólidos o estados interactivos.
+
+### 2026-05-28 — QA/SRE: Resolución del Catch-22 en Sincronización Estricta (Zero Trust)
+
+**Contexto (Desafío):** Al restaurar la expresión regular estricta (`<header class="header" id="top">`) en `merci-sync-pages.py`, el script extrajo correctamente el bloque de la portada (SSOT), pero colapsó al intentar inyectarlo en las páginas secundarias (`contacto/index.html` y `sobre-mi/index.html`).
+
+**Maniobra:**
+- Se analizó el flujo de reemplazo: el orquestador usaba la **misma expresión regular estricta** para extraer de la portada y para buscar qué bloque reemplazar en el destino.
+- Como las páginas secundarias aún tenían la estructura vieja (`<header class="header">` sin el `id="top"`), la validación estricta falló al no encontrar una coincidencia exacta en ellas, bloqueando el pipeline.
+- En lugar de relajar la seguridad de la Regex, se editaron manualmente las páginas secundarias para añadir el atributo `id="top"` (y eliminar el antiguo `div` invisible). 
+
+**Aprendizaje / Deuda:** *Catch-22 de Sincronización Estricta*. En una arquitectura gobernada por SSOT (Single Source of Truth) y validación *Zero Trust*, las páginas secundarias **heredan** la estructura de la principal. Si se altera estructuralmente la firma de un bloque (añadiendo IDs o clases base) en la portada, dicha alteración debe replicarse manualmente una primera vez en el resto de los `index.html` estáticos. De lo contrario, el orquestador estricto no reconocerá el bloque obsoleto y se negará a sobrescribirlo, protegiendo así el código pero requiriendo intervención humana explícita.
+
+### 2026-05-28 — QA/SRE: Resolución de colapso en el Pipeline SSG (Regex Drift)
+
+**Contexto (Desafío):** Al ejecutar el pipeline maestro (`merci total`), el orquestador `merci-sync-pages.py` colapsó con el error `No se pudo extraer el bloque Header de la portada`, deteniendo todo el proceso de compilación estática.
+
+**Maniobra:**
+- Se detectó que la causa raíz fue la corrección de accesibilidad (WAI-ARIA) realizada en la auditoría anterior, donde se asignó el atributo `id="top"` directamente a la etiqueta `<header class="header">`.
+- El script de sincronización usaba la expresión regular `r'(<header class="header">.*?</header>)'`, por lo que dejó de encontrar el bloque.
+- Se intentó flexibilizar con `[^>]*>`, pero se descartó inmediatamente por motivos de seguridad (Zero Trust).
+- Se refactorizó `scripts/merci/merci-sync-pages.py` endureciendo la expresión regular a la firma exacta: `r'(<header class="header" id="top">.*?</header>)'`.
+
+**Aprendizaje / Deuda:** *Zero Trust y Strict Regex*. Flexibilizar una expresión regular para que acepte "cualquier atributo" (`[^>]*>`) abre la puerta a inyecciones silenciosas (ej: estilos *inline* o código malicioso inyectado localmente) que el script propagaría a ciegas por todo el ecosistema. Mantener las expresiones regulares estrictas actúa como una validación implícita de integridad (Integrity Check) deteniendo el pipeline si el SSOT muta de forma inesperada.
+
+### 2026-05-28 — UI/UX: Implementación de Paleta Premium y Sombras (Fase 1)
+
+**Contexto:** Retomando la Épica 7, era necesario aplicar las variables semánticas (superficies, grises tipográficos y sombras) previamente definidas en la escala base para enriquecer el diseño y alejarlo del aspecto "por defecto" del navegador, logrando un estilo más Premium.
+
+**Hecho:**
+- Se inyectaron oficialmente las variables `$color-surface`, `$color-border`, `$color-text-muted`, `$font-family-mono`, `$shadow-sm` y `$shadow-hover` en `src/scss/abstracts/_variables.scss`.
+- Se refactorizó `src/scss/components/_prose.scss` reemplazando los colores quemados (`#64748b`, `#334155`) y bordes RGBA por las variables `$color-text-muted`, `$color-text-base` y `$color-border`.
+- Se refactorizó `src/scss/components/_card.scss` sustituyendo el fondo transparente por `$color-surface` y el borde por `$color-border`. Se inyectó `$shadow-hover` en el estado `:hover` de las tarjetas para dotarlas de micro-interacción de elevación.
+
+**Motivo / criterio:** *Design System Scalability y Estética Premium*. Eliminar los colores *hardcoded* (quemados) descentralizados previene la deuda técnica visual. Además, la adición de `$color-surface` y sombras sutiles eleva la percepción de calidad de la interfaz manteniéndose en un peso de 0 KB de dependencias (solo CSS puro).
+
+**Siguiente paso o deuda:** Iniciar el refinamiento tipográfico general y evaluar la necesidad de micro-animaciones adicionales.
+
+### 2026-05-28 — Feat/UX: Botón de Retorno del Showcase (Clon Efímero)
+
+**Contexto:** Se detectó el riesgo de fuga de tráfico en la demostración pública (`boilerplate.mercedev.es`). Los visitantes que llegaban al Showcase carecían de una vía intuitiva para regresar a la web principal de la autora.
+
+**Hecho:**
+- Se diseñó el componente SASS flotante `src/scss/components/_showcase.scss` (y se enlazó en el índice) con posición fija y diseño responsive, aislado mediante BEM (`.showcase-return`).
+- Se refactorizó el orquestador de despliegue `scripts/matriz/merci-showcase.py` para inyectar dinámicamente el HTML del botón de retorno justo después de la etiqueta `<body>` en *todos* los archivos HTML del Clon Efímero temporal (`scratch/showcase_build/`).
+
+**Motivo / criterio:** *Aislamiento Arquitectónico (Zero Bloat)*. Inyectar el botón durante el ciclo de vida del "Clon Efímero" justo antes de subirlo por RSYNC permite que el código fuente matriz permanezca completamente agnóstico y limpio. Los usuarios que clonen el Boilerplate en sus máquinas jamás verán este botón, pero estará siempre presente en la demostración en vivo.
+
+**Siguiente paso o deuda:** Continuar con la Fase 1 de la Épica 7 enfocándose en la experiencia de contenido multimedia.
+
 ### 2026-05-28 — QA/SRE: Resolución de Deuda Técnica (Auditoría de Arquitectura)
 
 **Contexto:** Tras la auditoría de arquitectura de hoy, se procedió a saldar la deuda técnica reportada para alinear el proyecto al 100% con las reglas.

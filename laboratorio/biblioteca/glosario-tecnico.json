@@ -106,6 +106,9 @@
         "bitacora-mercedev-epic-03.md": [
           "L741"
         ],
+        "bitacora-mercedev-epic-07.md": [
+          "L74"
+        ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
         ],
@@ -479,7 +482,7 @@
           "L49"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L34"
+          "L121"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L56"
@@ -1138,6 +1141,9 @@
         "bitacora-mercedev-epic-03.md": [
           "L85"
         ],
+        "bitacora-mercedev-epic-07.md": [
+          "L23"
+        ],
         "bitacora-mercedev-epic-04.md": [
           "L52"
         ],
@@ -1301,7 +1307,7 @@
           "L423"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L36"
+          "L74"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
@@ -1483,6 +1489,9 @@
         "bitacora-mercedev-epic-03.md": [
           "L347"
         ],
+        "bitacora-mercedev-epic-07.md": [
+          "L23"
+        ],
         "bitacora-mercedev-epic-04.md": [
           "L46"
         ],
@@ -1523,7 +1532,7 @@
           "L325"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L34"
+          "L35"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L50"
@@ -1773,6 +1782,9 @@
         ],
         "bitacora-mercedev-epic-03.md": [
           "L558"
+        ],
+        "bitacora-mercedev-epic-07.md": [
+          "L49"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L406"
@@ -2033,7 +2045,7 @@
       "merci_explica": "Motor de cohetes para las transiciones visuales.",
       "apariciones": {
         "instrucciones.md": [
-          "L139"
+          "L140"
         ]
       }
     },
@@ -2056,6 +2068,9 @@
       "definicion": "Documentación formal que presenta y explica una propuesta para mejorar o añadir nuevas funcionalidades al lenguaje de programación Python.",
       "merci_explica": "Guía detallada para implementar mejoras en Python.",
       "apariciones": {
+        "bitacora-mercedev-epic-07.md": [
+          "L89"
+        ],
         "instrucciones.md": [
           "L91"
         ]
@@ -2121,6 +2136,9 @@
         ],
         "bitacora-mercedev-epic-03.md": [
           "L476"
+        ],
+        "bitacora-mercedev-epic-07.md": [
+          "L44"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L99"
@@ -2234,7 +2252,19 @@
       "merci_explica": "Cola de supermercado, donde la persona que llega primero es la primera en salir.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L25"
+          "L112"
+        ]
+      }
+    },
+    "RSYNC": {
+      "nombre": "RSYNC",
+      "ingles": "Remote Sync",
+      "espanol": "Sincronización Remota",
+      "definicion": "Herramienta de software que permite la sincronización bidireccional de archivos y directorios entre dos ubicaciones, local o remota, manteniendo una copia exacta en ambos lugares.",
+      "merci_explica": "Mecanismo eficiente para mantener dos conjuntos de archivos actualizados automáticamente.",
+      "apariciones": {
+        "bitacora-mercedev-epic-07.md": [
+          "L77"
         ]
       }
     }

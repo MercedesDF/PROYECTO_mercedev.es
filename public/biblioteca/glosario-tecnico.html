@@ -6,7 +6,7 @@
     <title>Glosario Técnico — mercedev.es</title>
     <meta name="description" content="Diccionario Data-Driven compilado automáticamente por el Agente Glosario.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/glosario-tecnico.html">
-    <link rel="stylesheet" href="/css/main.css?v=1779874938">
+    <link rel="stylesheet" href="/css/main.css?v=1779951778">
     <script src="/js/MerciController.js?v=1779793228" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -21,7 +21,7 @@
 </head>
 <body class="page" id="page-biblioteca">
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
-    <header class="header">
+    <header class="header" id="top">
         <a href="/" class="header__brand">
             <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="low" decoding="async">
         </a>
@@ -53,7 +53,7 @@
                 <h1>Glosario Técnico <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr> &amp; Arquitectura</h1>
 <blockquote>
 <p><strong>Estado del Documento:</strong> Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-<strong>Versión de control:</strong> 132 términos consolidados (Última actualización de datos: 2026-05-27 11:41).</p>
+<strong>Versión de control:</strong> 133 términos consolidados (Última actualización de datos: 2026-05-28 09:02).</p>
 </blockquote>
 <h2>Índice Alfabético</h2>
 <h3><abbr title="Merci Explica: Es como el diario o acta de decisiones del proyecto. Apuntamos el &#x27;porqué&#x27; elegimos una tecnología o camino para no olvidarlo meses después." tabindex="0">ADR</abbr></h3>
@@ -114,6 +114,7 @@
 - bitacora-mercedev-epic-04.md: L98
 - bitacora-mercedev-epic-05.md: L62
 - bitacora-mercedev-epic-06.md: L284
+- bitacora-mercedev-epic-07.md: L74
 - checklist-hardening.md: L57
 - ciclo-de-vida-contenidos.md: L9
 - instrucciones.md: L24</p>
@@ -346,7 +347,7 @@
 - bitacora-mercedev-epic-04.md: L56
 - bitacora-mercedev-epic-05.md: L98
 - bitacora-mercedev-epic-06.md: L57
-- bitacora-mercedev-epic-07.md: L34</p>
+- bitacora-mercedev-epic-07.md: L121</p>
 <hr />
 <h3><abbr title="Merci Explica: Enviar una conversación dentro de una caja fuerte sellada de modo que ni el servicio de correos ni la operadora de internet tienen la llave para leerla." tabindex="0">E2EE</abbr></h3>
 <p><strong>Inglés:</strong> End-to-End Encryption | <strong>Español:</strong> Cifrado de Extremo a Extremo</p>
@@ -369,7 +370,7 @@
 <p><strong>Definición:</strong> Mecanismo de gestión de recursos en el que los elementos se procesan o se almacenan en el orden en que llegaron. El primer elemento añadido es el primero en ser atendido.</p>
 <p>💡 <strong>Merci Explica:</strong> <em>Cola de supermercado, donde la persona que llega primero es la primera en salir.</em></p>
 <p><strong>Apariciones en Bitácoras:</strong>
-- bitacora-mercedev-epic-07.md: L25</p>
+- bitacora-mercedev-epic-07.md: L112</p>
 <hr />
 <h3><abbr title="Merci Explica: Servicio de limpieza invisible que vacía la memoria de tu computadora eliminando datos que el programa ya no necesita." tabindex="0">GC</abbr></h3>
 <p><strong>Inglés:</strong> Garbage Collector | <strong>Español:</strong> Recolector de Basura</p>
@@ -412,7 +413,7 @@
 <p><strong>Definición:</strong> Biblioteca JavaScript utilizada para crear animaciones complejas y fluidas en páginas web.</p>
 <p>💡 <strong>Merci Explica:</strong> <em>Motor de cohetes para las transiciones visuales.</em></p>
 <p><strong>Apariciones en Bitácoras:</strong>
-- instrucciones.md: L139</p>
+- instrucciones.md: L140</p>
 <hr />
 <h3><abbr title="Merci Explica: Ventana donde interactúas con el ordenador." tabindex="0">GUI</abbr></h3>
 <p><strong>Inglés:</strong> Graphical User Interface | <strong>Español:</strong> Interfaz Gráfica de Usuario</p>
@@ -646,6 +647,7 @@
 <p><strong>Definición:</strong> Documentación formal que presenta y explica una propuesta para mejorar o añadir nuevas funcionalidades al lenguaje de programación Python.</p>
 <p>💡 <strong>Merci Explica:</strong> <em>Guía detallada para implementar mejoras en Python.</em></p>
 <p><strong>Apariciones en Bitácoras:</strong>
+- bitacora-mercedev-epic-07.md: L89
 - instrucciones.md: L91</p>
 <hr />
 <h3><abbr title="Merci Explica: Como si fuera un cierre fuerte que protege tu maletín de robar." tabindex="0">PGP</abbr></h3>
@@ -718,6 +720,7 @@
 - bitacora-mercedev-epic-04.md: L52
 - bitacora-mercedev-epic-05.md: L81
 - bitacora-mercedev-epic-06.md: L53
+- bitacora-mercedev-epic-07.md: L23
 - flujo-publicacion-sop.md: L21
 - instrucciones.md: L51
 - mantenimiento-boilerplate-sop.md: L48</p>
@@ -792,6 +795,13 @@
 <p><strong>Apariciones en Bitácoras:</strong>
 - checklist-hardening.md: L19</p>
 <hr />
+<h3><abbr title="Merci Explica: Mecanismo eficiente para mantener dos conjuntos de archivos actualizados automáticamente." tabindex="0">RSYNC</abbr></h3>
+<p><strong>Inglés:</strong> Remote Sync | <strong>Español:</strong> Sincronización Remota</p>
+<p><strong>Definición:</strong> Herramienta de software que permite la sincronización bidireccional de archivos y directorios entre dos ubicaciones, local o remota, manteniendo una copia exacta en ambos lugares.</p>
+<p>💡 <strong>Merci Explica:</strong> <em>Mecanismo eficiente para mantener dos conjuntos de archivos actualizados automáticamente.</em></p>
+<p><strong>Apariciones en Bitácoras:</strong>
+- bitacora-mercedev-epic-07.md: L77</p>
+<hr />
 <h3><abbr title="Merci Explica: CSS con superpoderes." tabindex="0">SASS</abbr></h3>
 <p><strong>Inglés:</strong> Syntactically Awesome Style Sheets | <strong>Español:</strong> Hojas de Estilo Sintácticamente Asombrosas</p>
 <p><strong>Definición:</strong> Preprocesador CSS que añade características avanzadas como variables, anidación y funciones para facilitar la creación y mantenimiento de hojas de estilos.</p>
@@ -803,7 +813,7 @@
 - bitacora-mercedev-epic-03.md: L423
 - bitacora-mercedev-epic-04.md: L98
 - bitacora-mercedev-epic-06.md: L113
-- bitacora-mercedev-epic-07.md: L36
+- bitacora-mercedev-epic-07.md: L74
 - instrucciones.md: L24</p>
 <hr />
 <h3><abbr title="Merci Explica: Escaneo del código como si fuera un libro abierto." tabindex="0">SAST</abbr></h3>
@@ -912,6 +922,7 @@
 - bitacora-mercedev-epic-02.md: L48
 - bitacora-mercedev-epic-03.md: L347
 - bitacora-mercedev-epic-04.md: L46
+- bitacora-mercedev-epic-07.md: L23
 - deployment-playbook.md: L51</p>
 <hr />
 <h3><abbr title="Merci Explica: Garantiza que cada componente del sistema tenga un propósito específico y no dependa de otros por más allá de lo necesario." tabindex="0">SRP</abbr></h3>
@@ -931,6 +942,7 @@
 - bitacora-mercedev-epic-02.md: L80
 - bitacora-mercedev-epic-03.md: L476
 - bitacora-mercedev-epic-06.md: L447
+- bitacora-mercedev-epic-07.md: L44
 - ciclo-de-vida-contenidos.md: L7
 - flujo-publicacion-sop.md: L2
 - instrucciones.md: L36</p>
@@ -955,7 +967,7 @@
 - bitacora-mercedev-epic-02.md: L318
 - bitacora-mercedev-epic-03.md: L325
 - bitacora-mercedev-epic-06.md: L173
-- bitacora-mercedev-epic-07.md: L34
+- bitacora-mercedev-epic-07.md: L35
 - ciclo-de-vida-contenidos.md: L49
 - instrucciones.md: L37
 - mantenimiento-boilerplate-sop.md: L5</p>
@@ -1068,6 +1080,7 @@
 - bitacora-mercedev-epic-01.md: L406
 - bitacora-mercedev-epic-03.md: L558
 - bitacora-mercedev-epic-06.md: L385
+- bitacora-mercedev-epic-07.md: L49
 - ciclo-de-vida-contenidos.md: L26
 - flujo-publicacion-sop.md: L62
 - instrucciones.md: L30

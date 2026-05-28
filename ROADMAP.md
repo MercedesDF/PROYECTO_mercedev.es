@@ -248,4 +248,4 @@
 - [ ] Diseñar e implementar mejoras visuales avanzadas (espaciados, tipografía, paleta extendida) sin comprometer el 100/100 de rendimiento.
 - [ ] Integrar soporte para videos optimizados y multimedia enriquecida en la portada y Biblioteca.
 - [ ] Refinar las animaciones (CSS) y microinteracciones del ecosistema.
-- [ ] Implementar botón de retorno ("Volver a mercedev.es") en la interfaz del Showcase para evitar fugas de tráfico.
+- [x] Implementar botón de retorno ("Volver a mercedev.es") en la interfaz del Showcase para evitar fugas de tráfico.
