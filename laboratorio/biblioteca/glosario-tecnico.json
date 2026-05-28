@@ -107,7 +107,7 @@
           "L741"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L113"
+          "L133"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
@@ -152,7 +152,7 @@
           "L115"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L48"
+          "L68"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L120"
@@ -190,6 +190,9 @@
       "definicion": "Métrica de Core Web Vitals que mide la inestabilidad visual de una página web, cuantificando cuánto cambian de posición los elementos visibles durante la carga.",
       "merci_explica": "Mide cuánto saltan los textos o imágenes mientras la página web termina de cargar.",
       "apariciones": {
+        "bitacora-mercedev-epic-07.md": [
+          "L25"
+        ],
         "bitacora-mercedev-epic-01.md": [
           "L160"
         ],
@@ -213,6 +216,9 @@
         ],
         "bitacora-mercedev-epic-03.md": [
           "L111"
+        ],
+        "bitacora-mercedev-epic-07.md": [
+          "L29"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L177"
@@ -488,7 +494,7 @@
           "L49"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L160"
+          "L180"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L56"
@@ -572,7 +578,7 @@
           "L199"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L45"
+          "L65"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L158"
@@ -1151,7 +1157,7 @@
           "L85"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L61"
+          "L81"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L52"
@@ -1316,7 +1322,7 @@
           "L423"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L113"
+          "L133"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
@@ -1474,6 +1480,9 @@
         "bitacora-mercedev-epic-03.md": [
           "L339"
         ],
+        "bitacora-mercedev-epic-07.md": [
+          "L37"
+        ],
         "bitacora-mercedev-epic-01.md": [
           "L97"
         ],
@@ -1541,7 +1550,7 @@
           "L325"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L74"
+          "L94"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L50"
@@ -1793,7 +1802,7 @@
           "L558"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L88"
+          "L108"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L406"
@@ -2078,7 +2087,7 @@
       "merci_explica": "Guía detallada para implementar mejoras en Python.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L128"
+          "L148"
         ],
         "instrucciones.md": [
           "L91"
@@ -2123,7 +2132,7 @@
           "L215"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L44"
+          "L64"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L540"
@@ -2150,7 +2159,7 @@
           "L476"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L58"
+          "L78"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L99"
@@ -2264,7 +2273,7 @@
       "merci_explica": "Cola de supermercado, donde la persona que llega primero es la primera en salir.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L151"
+          "L171"
         ]
       }
     },
@@ -2276,7 +2285,7 @@
       "merci_explica": "Mecanismo eficiente para mantener dos conjuntos de archivos actualizados automáticamente.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L116"
+          "L136"
         ]
       }
     },
@@ -2288,7 +2297,7 @@
       "merci_explica": "Caja fuerte segura para almacenar recuerdos frescos y actualizados.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L32"
+          "L52"
         ],
         "flujo-publicacion-sop.md": [
           "L73"

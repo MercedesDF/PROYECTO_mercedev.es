@@ -20,6 +20,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-28 — Feat/SRE: Cierre de Fase 1 - Rendimiento Perfecto (100/100) y Hardening de Despliegue
+
+**Contexto (Desafío):** Para cerrar la Fase 1 de la Épica 7 (Enriquecimiento Visual), quedaban dos flecos bloqueantes. 1) La auditoría de PageSpeed del *Boilerplate* devolvía un 98 en Rendimiento debido a un *Cumulative Layout Shift (CLS) de 0.095*, provocado porque las imágenes agnósticas de reemplazo (`tu_logo.webp`, `tu_avatar.webp`) no coincidían con la relación de aspecto estricta reservada en el HTML (`263x65` y `80x80`). 2) El despliegue automatizado (`merci deploy`) fallaba en el servidor de producción porque Git intentaba sobreescribir el enlace simbólico físico de infraestructura (`public/assets`).
+
+**Maniobra:**
+- **Zero-Shift Rendering:** En lugar de ensuciar el HTML o inyectar JavaScript, se utilizó `ImageMagick` (`convert`) directamente desde terminal para recortar (crop) y redimensionar milimétricamente las imágenes agnósticas de reemplazo a `263x65` y `80x80`. El navegador ahora reserva la caja exacta que necesita la imagen al descargarse, eliminando cualquier recálculo de CSS (`height: auto`) y logrando la aniquilación del salto visual (CLS = 0).
+- **GitOps (Infraestructura Excluida):** Se diagnosticó que el `git pull` en el servidor abortaba para proteger su symlink local. Se reparó desenlazando dinámicamente `public/assets` de Git (`git rm --cached`) y añadiéndolo permanentemente a la zona segura del `.gitignore` bajo la política de *Enlaces simbólicos de infraestructura CMS*. El despliegue ahora realiza un *fast-forward* limpio.
+- **Validación Final (End-to-End):** Se orquestó la cadena completa mediante `merci total` → `merci release` → `merci showcase` → `merci completo`, confirmando que la matriz sincroniza los activos, el clon efímero los purga y el servidor los despliega sin intervención manual.
+
+**Aprendizaje:** *Principio de Separación de Preocupaciones en GitOps*. Los enlaces simbólicos (symlinks) que unen los directorios de construcción locales con la raíz pública del servidor (`public/assets`) son parte de la *infraestructura física* del entorno destino, no del código fuente. Versionarlos contamina el repositorio y rompe las pipelines de despliegue continuo.
+
+**Protocolo Estricto de Cierre de Fase (Definition of Done):**
+- [x] **1. Conciliación de Deuda Técnica:** Solucionado el CLS (Zero-Shift) y excluido el symlink `public/assets` de GitOps. No queda deuda bloqueante.
+- [x] **2. Cosecha de Conocimiento:** Creado y purgado el cuadernillo de gemelos multimedia y caché (`blog-gemelos-multimedia-y-cache.md`).
+- [x] **3. Auditoría Documental:** Roadmap actualizado y SOP revisado para el nuevo flujo de release y showcase.
+- [x] **4. Evaluación de Release (Boilerplate):** Orquestado el `merci release` y modificado el inicializador (`merci-init.py`) para soportar la identidad agnóstica exacta.
+- [x] **5. Certificación de Rendimiento (9 Casos):** Json validado (100/100) tras el parche del aspect-ratio.
+- [x] **6. Snapshot (Backup Local):** Backup de seguridad realizado previamente al sellado.
+- [x] **7. Sello Definitivo:** Lanzando `merci completo` para sellar la Fase 1.
+
 ### 2026-05-28 — Feat/SRE: Ajustes Quirúrgicos en el Ecosistema Showcase y Boilerplate
 
 **Contexto (Desafío):** Durante la auditoría del Clon Efímero (Showcase) se detectaron discrepancias visuales y arquitectónicas: el Asistente Merci (`<aside>`) no renderizaba en las páginas autogeneradas, el Hero de portada perdía el diseño bicolor en el título, la página `art-de-cote` se colaba en el boilerplate, y la navegación persistía en el F5 para cargar la nueva caché.
