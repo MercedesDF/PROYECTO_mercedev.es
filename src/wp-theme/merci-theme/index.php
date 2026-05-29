@@ -61,9 +61,9 @@ if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
 
         if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
             $header_title = "Merci'<span class=\"hero__highlight\">Shop</span>";
-            $header_desc = 'La <strong><em>tienda no tienda</em></strong><br>con el merchandising oficial del ecosistema Merci.';
+            $header_desc = '<strong><em>la tienda no tienda</em></strong><br>merchandising oficial del ecosistema Mercí';
         } elseif ( is_home() || is_archive() ) {
-            $header_title = 'Blog';
+            $header_title = 'b<span class="hero__highlight">log</span>';
             $header_desc = 'Bitácora cronológica, diario de desarrollo y artículos de marketing.';
             $hero_modifier = ' hero--compact';
         }

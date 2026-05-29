@@ -236,9 +236,12 @@
     }
     
     .woocommerce-info--store-notice {
+      display: block; /* QUÉ HACE: Anula el display: flex base para que los saltos de línea (<br>) fluyan correctamente */
       margin-top: 0;
       justify-content: center;
       text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
     
     .woocommerce-error {

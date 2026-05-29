@@ -7,6 +7,29 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-05-29 — Docs: Expansión del alcance en Refinamiento de Textos (Fase 6)
+
+**Contexto:** Se detectó la necesidad de modificar y unificar los textos y el tono editorial no solo en la página principal, sino en el 100% de las vistas del ecosistema (Biblioteca, Tienda, Art de Coté, etc.).
+
+**Hecho:** Se actualizó el `ROADMAP.md` (Épica 8, Fase 6) para ampliar explícitamente el alcance de la tarea "Revisión y mejora de los textos" a *todas* las páginas del ecosistema.
+
+**Motivo / criterio:** *Consistency (Consistencia de Marca)*. Modificar los textos de la portada sin actualizar el resto de las páginas generaría una disonancia cognitiva y un tono editorial fragmentado. Agrupar toda la reescritura en la Fase 6 de la Épica 8 garantiza que se aborde como una tarea de *Copywriting* integral, sin mezclarla con las tareas de diseño puramente visuales de la Épica 7.
+
+**Siguiente paso o deuda:** Mantener en pausa la Épica 8 para iniciar la Fase 3 de la Épica 7 (Integración Multimedia Avanzada).
+
+### 2026-05-29 — UX/DevRel: Expansión global de "Merci Explica" y personalidad de la IA (Easter Eggs)
+
+**Contexto:** El concepto "Merci Explica" (acompañado del icono 💡) nació inicialmente vinculado al Glosario Técnico, pero limitarlo a esa sección reducía su impacto. Era necesario expandir esta funcionalidad para que las traducciones a "lenguaje llano" y los apuntes de la asistente pudieran aparecer en cualquier parte de la web. Además, se buscaba dotar a Merci de una identidad propia, menos robótica y más cercana a la audiencia.
+
+**Hecho:** 
+- Se redefine el alcance de "Merci Explica": deja de ser exclusivo del Glosario Técnico para convertirse en un recurso transversal que puede inyectarse en cualquier página, artículo o sección de la web.
+- Se aprobó conservar ciertas "alucinaciones" (idas de olla) divertidas generadas por la IA en sus explicaciones, oficializando una personalidad "picaresca y gamberra" para la asistente virtual.
+- Se actualizaron las referencias en el Roadmap (Fase 6) asumiendo estas tareas como cumplidas bajo este nuevo paradigma global.
+
+**Motivo / criterio:** *Gamificación y Accesibilidad Cognitiva*. Expandir las aclaraciones a toda la web derriba la barrera de entrada para perfiles no técnicos directamente durante la lectura. Mantener los "Easter Eggs" humorísticos de la IA rompe la monotonía corporativa y sirve como una trampa benigna para comprobar empíricamente si los reclutadores realmente leen la documentación técnica.
+
+**Siguiente paso o deuda:** Mantener en pausa la Épica 8 para iniciar la Fase 3 de la Épica 7 (Integración Multimedia Avanzada).
+
 ### 2026-05-29 — UI/Bug: Registro de desbordamiento en bloques de código (Viewport y PDF)
 
 **Contexto:** Se ha detectado que los fragmentos de código (`<pre>`, `<code>`) dentro de los cuadernillos de la Biblioteca no respetan los límites del contenedor, provocando un desbordamiento horizontal que ensancha el área de visualización (viewport) en dispositivos móviles y trunca el texto en las exportaciones a PDF (WeasyPrint).

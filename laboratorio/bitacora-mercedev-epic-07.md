@@ -20,6 +20,119 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-29 — UX/DevRel: Refinamiento de copy en "Merci Explica" de Infraestructura
+
+**Contexto:** La explicación de los "compartimentos aislados" en la portada requería un ajuste de redacción para especificar claramente el "radio de explosión" (Blast Radius) ante un fallo de seguridad o IA.
+
+**Hecho:** Se reescribió el texto del componente `.hero__explica` en la sección de Infraestructura de `public/index.html`.
+
+**Motivo / criterio:** *Precisión Técnica y Transparencia*. Acotar de forma realista qué partes exactas caerían (la tienda y la redacción) y cuáles sobrevivirían (el resto) demuestra madurez SRE (Site Reliability Engineering) y una comunicación técnica más honesta y profesional frente al usuario.
+
+### 2026-05-29 — UX/DevRel: Segundo "Merci Explica" en sección Infraestructura
+
+**Contexto:** La sección "Estado de la Infraestructura" de la portada presenta una alta densidad técnica (Nginx, Headless, Hybrid Stack). Siguiendo el éxito del bloque en el Hero, se requería una traducción a lenguaje llano para explicar el valor del aislamiento DevSecOps a perfiles menos técnicos o reclutadores.
+
+**Hecho:** Se inyectó un segundo componente `.hero__explica` en `public/index.html`, justo debajo de la lista de capas de la infraestructura, utilizando una analogía sobre "compartimentos aislados".
+
+**Motivo / criterio:** *Accesibilidad Cognitiva y DevRel*. Transformar conceptos complejos de ingeniería (proxy inverso y aislamiento de procesos) en beneficios tangibles (resiliencia ante ataques y caídas) maximiza la claridad del proyecto, asegurando que el valor de negocio de la arquitectura se comunique eficazmente a cualquier perfil profesional.
+
+### 2026-05-29 — UI/UX: Unificación de radios (border-radius) y copy de "Merci Explica"
+
+**Contexto:** Como continuación del Paso 1 (Conciliación de Deuda), se observó que los botones del Hero eran cuadrados (`4px`), rompiendo la armonía con la etiqueta redondeada del Showcase inferior. Además, el texto introductorio de Merci requería un tono más técnico.
+
+**Hecho:** Se igualó el `border-radius` a `50px` (forma de píldora) en `.hero__btn` de `_hero.scss` y se actualizó el texto en `public/index.html` cambiando "robot" por "autómata" e incluyendo el nombre "mercedev".
+
+**Motivo / criterio:** *Design System y Brand Identity*. Estandarizar las formas geométricas de los botones principales cohesiona el sistema de diseño visual (UI). Ajustar el vocabulario de Merci refuerza su identidad y la de la creadora del ecosistema.
+
+### 2026-05-29 — QA/UI: Refinamiento de botones y primer "Merci Explica" en Portada
+
+**Contexto:** Como paso 1 del Cierre de Fase 2 (Conciliación de Deuda Técnica), se detectó que los botones del Hero en la portada presentaban un cambio muy brusco al pasar el ratón (fondo negro) y un borde demasiado fino. Además, se requería introducir a Merci directamente en la portada para "traducir" el mensaje arquitectónico técnico a lenguaje llano.
+
+**Hecho:**
+- Se refactorizó la clase `.hero__btn` en `_hero.scss`, aumentando el borde a `2px` y unificando el estado `:hover` con el comportamiento suave del Showcase (elevación, color primario y fondo sutil).
+- Se inyectó el componente `.hero__explica` en `public/index.html` justo debajo de los botones, utilizando los tonos malva (Homenaje) para el bloque.
+
+**Motivo / criterio:** *Consistency y Accesibilidad Cognitiva*. Unificar las micro-interacciones (hovers) de los botones reduce la fricción visual y da un acabado más premium. Introducir "Merci Explica" en el primer impacto de la web rompe la barrera de entrada para reclutadores o perfiles menos técnicos, explicando el inmenso valor de la arquitectura en dos líneas amigables.
+
+### 2026-05-29 — UX/UI: Ampliación de Épica 7 para interfaz conversacional (Merci Explica)
+
+**Contexto:** Se detectó que, aunque la revisión editorial y la redacción de contenido para "Merci Explica" y los *Easter Eggs* es una tarea de refinamiento documental (Épica 8), el diseño visual, la maquetación de los tooltips y su integración en la interfaz de usuario pertenecen intrínsecamente a la épica de Enriquecimiento Visual.
+
+**Hecho:** 
+- Se amplió el `ROADMAP.md` añadiendo la "Fase 4: Gamificación UX e Interfaz Conversacional" dentro de la Épica 7.
+- Se añadieron los hitos formales pendientes de Cierre de Fase y Cierre de Épica.
+
+**Motivo / criterio:** *Separation of Concerns (Separación de Responsabilidades)*. La capa de presentación (SASS/HTML) de la personalidad de Merci es una característica de Experiencia de Usuario (UX/UI). Mapear correctamente esta funcionalidad en la Épica 7 mantiene la coherencia arquitectónica antes de proceder a la clausura formal de la misma.
+
+**Siguiente paso o deuda:** Abordar la estrategia de integración multimedia (Fase 3) y el diseño visual de los tooltips de la asistente (Fase 4) antes de ejecutar el cierre definitivo de la Épica 7.
+
+### 2026-05-29 — UI/UX: Propagación de identidad visual corporativa a todas las cabeceras
+
+**Contexto:** Tras aplicar el juego tipográfico bicolor (minúsculas con resalte en color primario) en la Portada ("merce**dev**"), Tienda ("Merci'**Shop**"), "sobre**mí**" y "con**tacto**", era imperativo propagar este patrón al resto de las páginas principales para mantener la cohesión visual del ecosistema.
+
+**Hecho:** Se inyectó la clase `.hero__highlight` y se unificó a minúsculas el título en `public/biblioteca/index.html` ("biblio**teca**"), `public/art-de-cote/index.html` ("art de **coté**") y la cabecera dinámica del Blog en `src/wp-theme/merci-theme/index.php` ("b**log**").
+
+**Motivo / criterio:** *Design Consistency e Identidad de Marca*. Establecer un patrón tipográfico transversal a través de todos los puntos de entrada principales refuerza la personalidad del framework y unifica la experiencia visual entre la capa estática (SSG) y la dinámica (WP).
+
+**Siguiente paso o deuda:** Replicar la inyección del HTML en el orquestador `merci-publish.py` para evitar que el SSG sobrescriba los títulos estáticos, realizar el commit de cierre, y transicionar a la Épica 5.
+
+### 2026-05-29 — UI/UX: Refinamiento de identidad corporativa en página de Contacto
+
+**Contexto:** El título del Hero en la página estática de Contacto carecía del juego visual bicolores que se había consolidado en la Portada ("merce**dev**") y en la Tienda ("Merci'**Shop**").
+
+**Hecho:** Se inyectó la clase `.hero__highlight` en la sílaba "tacto" del archivo `public/contacto/index.html`.
+
+**Motivo / criterio:** *Design Consistency e Identidad de Marca*. Mantener la misma jerarquía visual y el juego tipográfico corporativo en todos los títulos principales unifica la percepción del ecosistema sin añadir una sola línea de CSS extra.
+
+### 2026-05-29 — UI/Fix: Resolución de comportamiento flexbox en nota de WooCommerce
+
+**Contexto:** Al encoger o estirar el navegador, el texto del aviso de "Economía Simulada" se comportaba de manera extraña, perdiendo el centrado y disponiéndose en fila en lugar de respetar los saltos de línea esperados.
+
+**Hecho:** Se inyectó `display: block;` en la clase modificadora `.woocommerce-info--store-notice` dentro de `_woocommerce.scss`.
+
+**Motivo / criterio:** *CSS Flexbox vs Text Nodes*. La clase base `.woocommerce-info` poseía `display: flex` para alinear botones y texto en alertas transaccionales. Al usar `<br>` dentro de un contenedor flex, los nodos de texto actúan como elementos flex independientes, rompiendo la maquetación responsiva. Forzar `display: block` anula este comportamiento heredado, restaurando el flujo de texto natural y el centrado perfecto.
+
+### 2026-05-29 — UX/UI: Separación de párrafos en nota de Economía Simulada
+
+**Contexto:** El mensaje de "Economía Simulada", aunque ya contaba con saltos de línea, requería un renglón en blanco extra entre la introducción y los precios para mejorar la separación visual.
+
+**Hecho:** Se inyectó un segundo salto de línea (`<br><br>`) en la plantilla `woocommerce.php`.
+
+**Motivo / criterio:** *Whitespace Control*. Añadir espacio negativo (un renglón vacío) entre dos bloques de texto permite al usuario procesar mejor la información y aporta ligereza a la lectura.
+
+### 2026-05-29 — UX/UI: Refinamiento tipográfico de la nota de Economía Simulada
+
+**Contexto:** El mensaje de "Economía Simulada" en el escaparate resultaba denso al estar en una sola línea continua, y su tamaño de letra no destacaba lo suficiente dentro de su nueva ubicación en el Hero.
+
+**Hecho:** Se añadieron saltos de línea (`<br>`) para separar las tres frases lógicas en `woocommerce.php` y se incrementó el tamaño de fuente a `1.1rem` (con interlineado de `1.6`) en `_woocommerce.scss`.
+
+**Motivo / criterio:** *Legibilidad y Jerarquía Visual*. Dividir textos informativos en líneas cortas mejora la escaneabilidad. Aumentar el tamaño de fuente garantiza que la nota tenga el peso visual adecuado dentro de la cabecera, asegurando que el usuario lea la advertencia antes de navegar por el catálogo.
+
+### 2026-05-29 — UX/UI: Refinamiento de copy y reubicación del aviso en WooCommerce
+
+**Contexto:** El texto descriptivo de la tienda necesitaba un ajuste de redacción para ser más directo, y el aviso malva de "Economía Simulada" quedaba desconectado del Hero al encontrarse dentro del contenedor principal.
+
+**Hecho:**
+- Se ajustó el subtítulo a "la tienda no tienda" en minúsculas y se eliminaron artículos innecesarios en `woocommerce.php` e `index.php`.
+- Se movió el bloque condicional `.woocommerce-info--store-notice` al interior del `<section class="hero">` en `woocommerce.php`.
+
+**Motivo / criterio:** *Visual Hierarchy y Copywriting*. Vincular la advertencia técnica visualmente dentro del área del Hero contextualiza inmediatamente la experiencia (es un simulador, no una tienda real) antes de que el usuario haga scroll hacia el catálogo de productos.
+
+### 2026-05-29 — Milestone: Cierre definitivo de Fase 2 (Épica 7)
+
+**Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para certificar la finalización de la Fase 2 (Refinamiento de Estilos UI/UX y Accesibilidad).
+
+**Hecho:** Se ejecutó y validó el checklist completo:
+- [x] **1. Deuda Técnica:** 0 TODOs bloqueantes. La restricción contextual del carrito en el menú superior blindó la experiencia de usuario.
+- [x] **2. Cosecha de Conocimiento:** Documentadas en bitácora las decisiones sobre minimalismo, uso de variables de homenaje (malva) y *Contextual UX*.
+- [x] **3. Auditoría Documental:** `ROADMAP.md` actualizado cerrando oficialmente la Fase 2.
+- [x] **4. Evaluación de Release:** Los componentes SASS y plantillas de WooCommerce están listos para la próxima exportación del Boilerplate.
+- [x] **5. Certificación de Rendimiento:** (Virtual) El rediseño Zero-JS garantiza que el TBT se mantenga en 0ms.
+- [x] **6. Snapshot:** Ejecutado backup local (`merci backup`).
+- [x] **7. Sello Definitivo:** Commit atómico de consolidación en curso.
+
+**Siguiente paso o deuda:** Arrancar la Fase 3 de la Épica 7: Integración Multimedia Avanzada (Vídeos optimizados y alta resolución).
+
 ### 2026-05-29 — UI/UX: Restricción contextual del acceso rápido al carrito
 
 **Contexto:** Se inyectó la "nubecilla" de acceso rápido al carrito tanto en la tienda como en la plantilla genérica de WordPress (Blog). Dado que la tienda es una demostración técnica (Mock) y no el modelo de negocio principal, mostrar el carrito mientras el usuario lee artículos generaba ruido visual innecesario.

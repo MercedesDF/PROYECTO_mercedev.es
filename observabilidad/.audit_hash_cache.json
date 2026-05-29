@@ -17,7 +17,7 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/.vscode/settings.json": "8ab8729084acaaa571a2c5e90f13a6ef",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/README-merci.md": "e951fcfe309003ddea5cbfba784bdf15",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/README.md": "72139bfb4af5250c09e927084edf747c",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/ROADMAP.md": "7db4bd1c1739243309d4d90f7ef40a80",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/ROADMAP.md": "25c168ddeb2dc9ff52e989b8f408773e",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/SECURITY.md": "4eba491193923c598fa5c7f9f9b089f2",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/art-de-cote/art-de-cote-anatomia-de-merci-boilerplate.md": "b0e7e696af55d175b57f1117949f3728",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/art-de-cote/art-de-cote-creoquemehanhackeado.md": "f6bbf953c2c0471db97dd59bd53b2ea1",
@@ -145,7 +145,7 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-04.md": "862a87881462a37535e3b7152e1b5f3d",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-05.md": "fb00276344d72ce9ab40541fd3384283",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-06.md": "8b80012a29fd4837b00c665a41c30f40",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-07.md": "8143e41c2970f30cb6ec581b4de4f32b",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-07.md": "55b0f0bfc939b3d3dd54e97faaa30d2b",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-08.md": "aea6124c7c0d19209cce86c3c15fd2a1",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-merci-boilerplate.md": "f21cf94e737161495419a8d71ef56fa0",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/incubacion/cuadernillo-patron-gemelo-multimedia-showcase.md": "0bd38ac6b7fcd31b18f0451dc98aa204",
@@ -275,7 +275,7 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/biblioteca/unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms.html": "305fdff020ea2d6daf8031b6095344b6",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/biblioteca/validacion-de-defensas-devsecops-con-chaos-monkey-y-merciauditpy.html": "6e1e37e4c1ce0f4f7f047bd679109802",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/contacto/index.html": "243c90a91efec89126879baaeae8563d",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/css/main.css": "6ce07d4c82f05585a76621a679661f74",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/css/main.css": "c329fe9504ee47a43db6e211aeca4f99",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/index.html": "bea393771ce1f284a69dc83e46bb3441",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/js/MerciController.js": "181bde329fc3f13323de68a6c3d0ac83",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/js/brain_data.json": "cf4d02b6585b176ca2c0b97af38fd2ea",
@@ -340,7 +340,7 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/scss/components/_prose.scss": "746446e0ab10501a2d571a0203a02e10",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/scss/components/_section.scss": "c363c2350055401ac9be5aba2f918eda",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/scss/components/_showcase.scss": "f7e9dd1b4ca80e284dd3c7a6d5e2c990",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/scss/components/_woocommerce.scss": "74f9d4f2f3f4935c031fc78d507d090f",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/scss/components/_woocommerce.scss": "69a6fcc71b2b8acc3d37f3e1e38f24b5",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/scss/layout/_footer.scss": "f7a3f8406a9d999659a706f00d411e7b",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/scss/layout/_header.scss": "0ef40b49a218f20b4b4b4851d8abc21b",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/scss/layout/_index.scss": "7f170d69bb70622086cf30d833aad049",
@@ -348,7 +348,7 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/scss/main.scss": "971a509fbef28a8e77b98e788b61aa2d",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/scss/pages/_index.scss": "f1f6f4a8eee6adf0226e26be2e854788",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/wp-theme/merci-theme/_home.scss": "d41d8cd98f00b204e9800998ecf8427e",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/wp-theme/merci-theme/index.php": "774dd6230270d46dd58f7f884f4d150b",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/wp-theme/merci-theme/index.php": "30a5fb3b4d1b42c7a9c1723867c65b22",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/wp-theme/merci-theme/style.css": "9bb27fd2115d222e9b4901911640510f",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/test_purge.py": "c4b6fb6dc411ddd585f449fee92b1691",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/tienda/camiseta-merci-devsecops.md": "5b07481d941224ca58f5657daf1d2da2",
@@ -356,6 +356,6 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/tienda/llavero-merci-token.md": "9ad6ff498e3b95a8a478d2759a638aa9",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/tienda/taza-merci-nube.md": "e611d3361021cfaa67a9fa06957f3197",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/wp-theme/merci-theme/functions.php": "75c0bf4f23cfc10fcc9c766310dbf07b",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/wp-theme/merci-theme/woocommerce.php": "ffce62fab4a7b02e665b3ece63beb4f3"
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/wp-theme/merci-theme/woocommerce.php": "b0d31c072d052f05968b5f17b9e0128e"
   }
 }

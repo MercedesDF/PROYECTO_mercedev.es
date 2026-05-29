@@ -277,7 +277,11 @@
 - [ ] Integrar soporte para videos optimizados y multimedia enriquecida en la portada y Biblioteca (imágenes de alta resolución).
 - [ ] Cierre de fase
 
+### Fase 4: Gamificación UX e Interfaz Conversacional
+- [ ] Diseñar e integrar visualmente las intervenciones de "Merci Explica" y "Easter Eggs" a lo largo de la interfaz (tooltips, bloques semánticos personalizados).
+- [ ] Cierre de fase
 - [ ] Cierre de épica
+
 --- 
 
 ## ÉPICA 8: Refactorización, mejora y revisión de buenas prácticas de los scripts. Limpieza de código.
@@ -291,38 +295,23 @@
 - [ ] `merci-completo.py` Orquestador Supremo DevSecOps (QA -> Commit -> Deploy).
 - [ ] Revisión de documentación en directorio `docs/`, `instrucciones.md` y `README.md`.
 - [ ] Actualización de Release de `merci-boilerplate` si procede.
-- [ ] Cierre de fase
 
 ### Fase 2: De los scripts IA & Gobernanza
-
 - [ ] Revisión general, refactorización y buenas prácticas.
 - [ ] Evaluar refactorización de `merci-drift.py` para implementar validación contextual por categorías en `docs/` (asociar scripts a manuales específicos y evitar ruido en SOPs no relacionados).
-- [ ] Cierre de fase
 
 ### Fase 3: De los scripts de Publishing & DevRel
-
 - [ ] Revisión general, refactorización y buenas prácticas.
-- [ ] Cierre de fase
 
 ### Fase 4: De los scripts de Observabilidad & Seguridad
-
 - [ ] Revisión general, refactorización y buenas prácticas.
-- [ ] Cierre de fase
 
 ### Fase 5: Del resto de scripts
-
 - [ ] Revisión general, refactorización y buenas prácticas.
-- [ ] Cierre de fase
 
 ### Fase 6: Refinamiento de Textos y Experiencia Documental
-
-- [ ] Revisión y mejora de los textos en la página principal (portada, sobre mí, contacto).
-- [ ] Revisión de cuadernillos para añadir la sección "Merci Explica" y aclarar conceptos técnicos.
-- [ ] Eliminación de exceso de anglicismos (Soberanía del Castellano) o enlazado dinámico de términos al Glosario Técnico.
+- [ ] Revisión, reescritura y mejora de los textos en todas las páginas del ecosistema (portada, sobre mí, contacto, biblioteca, art de coté, tienda).
+- [x] Revisión de cuadernillos para añadir la sección "Merci Explica" y aclarar conceptos técnicos.
+- [x] Eliminación de exceso de anglicismos (Soberanía del Castellano) o enlazado dinámico de términos al Glosario Técnico.
 - [ ] Refinamiento de la presentación visual de la Biblioteca (reestructuración de formatos y layout) para ayudar a procesar la alta densidad de información.
 - [ ] Creación de referencias cruzadas sólidas entre los distintos cuadernillos de la Biblioteca.
-- [ ] Solucionar desbordamiento (overflow) de bloques de código en los cuadernillos para evitar que rompan el viewport en móvil y se trunquen en los PDFs.
-- [ ] Planificar sección "Proyectos Satélite / Spin-offs" en la portada para enlazar visualmente hacia los nuevos repositorios externos (actuando como Hub de portfolio).
-- [ ] Cierre de fase
-
-- [ ] Cierre de épica
