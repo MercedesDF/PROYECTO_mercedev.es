@@ -20,6 +20,18 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-29 — Docs: Inyección de Protocolo de Cierre en Roadmap y ampliación de Auditoría
+
+**Contexto:** Para mitigar la pérdida de atención (Attention Drop) de los LLMs locales durante la orquestación, era necesario crear un anclaje semántico de las reglas de cierre de fase directamente en el Roadmap. Además, la regla de auditoría documental del "Definition of Done" omitía la revisión del directorio de manuales (`docs/`) y el archivo de políticas (`SECURITY.md`).
+
+**Hecho:**
+- Se inyectó el "Protocolo Estricto de Cierre" (Definition of Done) como un bloque de cita (`>`) en la cabecera de `ROADMAP.md` para evitar interferencias con las métricas SRE.
+- Se amplió el paso 3 (Auditoría Documental) en `instrucciones.md` para incluir explícitamente la revisión del directorio `docs/` y del archivo `SECURITY.md`.
+
+**Motivo / criterio:** *In-Context Learning y Zero Document Drift*. Exponer el checklist de cierre directamente en el documento de trabajo del Agente SSOT actúa como un recordatorio persistente (Zero-Shot) que reduce las alucinaciones y omisiones. Ampliar el alcance de la auditoría garantiza que las políticas de seguridad y los manuales operativos evolucionen a la par que el código.
+
+**Siguiente paso o deuda:** Iniciar el refinamiento de la maquetación visual del E-Commerce (Fase 2 de la Épica 7) utilizando la arquitectura SASS.
+
 ### 2026-05-28 — Fix/QA: Resolución definitiva de Aspect Ratio en marcadores (100/100)
 
 **Contexto (Desafío):** A pesar de los recortes previos, la auditoría de PageSpeed (28 de mayo, 20:17) devolvía un 96/100 en Recomendaciones (Best Practices) alertando que `tu_avatar.webp` tenía una "relación de aspecto incorrecta". Las dimensiones físicas seguían sin ser exactamente 1:1 (eran 406x389), entrando en conflicto con el `width="80" height="80"` del DOM.

@@ -2,6 +2,22 @@
 
 Única Fuente de Verdad (SSOT) del avance del proyecto y de las automatizaciones DevSecOps.
 
+> **Protocolo Estricto de Cierre (Definition of Done)**
+> Para cada fase, respetar el cierre final (ver detalles en instrucciones.md):
+
+> 🛡️ **Cierre de fase:**
+> 1. Conciliación de Deuda Técnica
+> 2. Cosecha de Conocimiento
+> 3. Auditoría Documental
+> 4. Evaluación de Release (Boilerplate)
+> 5. Certificación de Rendimiento (9 Casos)
+> 6. Snapshot (Backup Local)
+> 7. Sello Definitivo
+> 
+> 📚 **Cierre de Épica:** Generación de compendio cada fin de épica.
+
+---
+
 ## ÉPICA 1: FUNDACIÓN DEVSECOPS (Concluida)
 
 ### Fase 1 - Infraestructura y Automatización Base
@@ -248,14 +264,64 @@
 - [x] Implementar botón de retorno ("Volver a mercedev.es") en la interfaz del Showcase para evitar fugas de tráfico.
 - [x] Desvincular telemetría del Showcase: inyectar un reporte base ideal (`merci-boilerplate.json`) en lugar de usar los datos de la matriz.
 - [x] Implementar patrón Gemelo Multimedia: purgar imágenes de matriz, cargar `tu_logo.webp` y `tu_avatar.webp` y forzar cache-busting en la inicialización.
-
 - [x] Implementar Purga de Identidad Agnóstica: erradicar enlaces hardcodeados de Art de Coté en el menú y evitar bloqueos en las páginas secundarias de contingencia.
 
 ### Fase 2: Refinamiento de Estilos UI/UX y Accesibilidad
-- [ ] Refinar y perfeccionar la maquetación visual de la tienda (WooCommerce), haciendo especial énfasis en la experiencia de usuario (UX) y el diseño del carrito de compra.
+- [ ] Refinar y perfeccionar la maquetación visual de la tienda (WooCommerce), haciendo especial énfasis en la experiencia de usuario (UX) y el diseño del carrito de compra. Mobile first.
 - [ ] Revisar el nivel de contraste y adaptar los colores de los botones de la portada (hover) para cumplir con accesibilidad WCAG.
 - [ ] Diseñar e implementar mejoras visuales avanzadas (espaciados, tipografía, paleta extendida) sin comprometer el 100/100 de rendimiento.
 - [ ] Refinar las animaciones (CSS) y microinteracciones del ecosistema.
+- [ ] Cierre de fase
 
 ### Fase 3: Integración Multimedia Avanzada
 - [ ] Integrar soporte para videos optimizados y multimedia enriquecida en la portada y Biblioteca (imágenes de alta resolución).
+- [ ] Cierre de fase
+
+- [ ] Cierre de épica
+--- 
+
+## ÉPICA 8: Refactorización, mejora y revisión de buenas prácticas de los scripts. Limpieza de código.
+
+### Fase 1: De los scripts Core Pipeline
+
+- [ ] `merci-total.py` Orquestador maestro.
+- [ ] `merci-audit.py` Auditoría estática y bloqueo de secretos.
+- [ ] `merci-commit.py` Commits atómicos guiados.
+- [ ] `merci-init.py` Instanciador de nuevos repositorios.
+- [ ] `merci-completo.py` Orquestador Supremo DevSecOps (QA -> Commit -> Deploy).
+- [ ] Revisión de documentación en directorio `docs/`, `instrucciones.md` y `README.md`.
+- [ ] Actualización de Release de `merci-boilerplate` si procede.
+- [ ] Cierre de fase
+
+### Fase 2: De los scripts IA & Gobernanza
+
+- [ ] Revisión general, refactorización y buenas prácticas.
+- [ ] Evaluar refactorización de `merci-drift.py` para implementar validación contextual por categorías en `docs/` (asociar scripts a manuales específicos y evitar ruido en SOPs no relacionados).
+- [ ] Cierre de fase
+
+### Fase 3: De los scripts de Publishing & DevRel
+
+- [ ] Revisión general, refactorización y buenas prácticas.
+- [ ] Cierre de fase
+
+### Fase 4: De los scripts de Observabilidad & Seguridad
+
+- [ ] Revisión general, refactorización y buenas prácticas.
+- [ ] Cierre de fase
+
+### Fase 5: Del resto de scripts
+
+- [ ] Revisión general, refactorización y buenas prácticas.
+- [ ] Cierre de fase
+
+### Fase 6: Refinamiento de Textos y Experiencia Documental
+
+- [ ] Revisión y mejora de los textos en la página principal (portada, sobre mí, contacto).
+- [ ] Revisión de cuadernillos para añadir la sección "Merci Explica" y aclarar conceptos técnicos.
+- [ ] Eliminación de exceso de anglicismos (Soberanía del Castellano) o enlazado dinámico de términos al Glosario Técnico.
+- [ ] Refinamiento de la presentación visual de la Biblioteca (reestructuración de formatos y layout) para ayudar a procesar la alta densidad de información.
+- [ ] Creación de referencias cruzadas sólidas entre los distintos cuadernillos de la Biblioteca.
+- [ ] Planificar sección "Proyectos Satélite / Spin-offs" en la portada para enlazar visualmente hacia los nuevos repositorios externos (actuando como Hub de portfolio).
+- [ ] Cierre de fase
+
+- [ ] Cierre de épica
