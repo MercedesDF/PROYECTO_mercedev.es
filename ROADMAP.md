@@ -267,10 +267,10 @@
 - [x] Implementar Purga de Identidad Agnóstica: erradicar enlaces hardcodeados de Art de Coté en el menú y evitar bloqueos en las páginas secundarias de contingencia.
 
 ### Fase 2: Refinamiento de Estilos UI/UX y Accesibilidad
-- [ ] Refinar y perfeccionar la maquetación visual de la tienda (WooCommerce), haciendo especial énfasis en la experiencia de usuario (UX) y el diseño del carrito de compra. Mobile first.
-- [ ] Revisar el nivel de contraste y adaptar los colores de los botones de la portada (hover) para cumplir con accesibilidad WCAG.
-- [ ] Diseñar e implementar mejoras visuales avanzadas (espaciados, tipografía, paleta extendida) sin comprometer el 100/100 de rendimiento.
-- [ ] Refinar las animaciones (CSS) y microinteracciones del ecosistema.
+- [x] Refinar y perfeccionar la maquetación visual de la tienda (WooCommerce), haciendo especial énfasis en la experiencia de usuario (UX) y el diseño del carrito de compra. Mobile first.
+- [x] Revisar el nivel de contraste y adaptar los colores de los botones de la portada (hover) para cumplir con accesibilidad WCAG.
+- [x] Diseñar e implementar mejoras visuales avanzadas (espaciados, tipografía, paleta extendida) sin comprometer el 100/100 de rendimiento.
+- [x] Refinar las animaciones (CSS) y microinteracciones del ecosistema.
 - [ ] Cierre de fase
 
 ### Fase 3: Integración Multimedia Avanzada

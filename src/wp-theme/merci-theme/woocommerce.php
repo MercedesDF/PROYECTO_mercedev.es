@@ -22,6 +22,17 @@ $js_main_v = time();
         <a href="/" class="header__brand">
             <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="low" decoding="async">
         </a>
+        
+        <?php 
+        $cart_count = ( class_exists('WooCommerce') && !is_null(WC()->cart) ) ? WC()->cart->get_cart_contents_count() : 0;
+        ?>
+        <a href="<?php echo function_exists('wc_get_cart_url') ? esc_url(wc_get_cart_url()) : '/blog/carrito/'; ?>" class="header__cart-mobile" aria-label="Ver carrito">
+            ☁️
+            <?php if ( $cart_count > 0 ) : ?>
+                <span class="header__cart-count"><?php echo $cart_count; ?></span>
+            <?php endif; ?>
+        </a>
+        
         <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
             <span class="header__toggle-icon"></span>
         </button>

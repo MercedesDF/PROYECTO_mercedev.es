@@ -20,6 +20,36 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-29 — UI/UX: Restricción contextual del acceso rápido al carrito
+
+**Contexto:** Se inyectó la "nubecilla" de acceso rápido al carrito tanto en la tienda como en la plantilla genérica de WordPress (Blog). Dado que la tienda es una demostración técnica (Mock) y no el modelo de negocio principal, mostrar el carrito mientras el usuario lee artículos generaba ruido visual innecesario.
+
+**Hecho:** Se extirpó el bloque HTML y PHP del componente `.header__cart-mobile` del archivo `src/wp-theme/merci-theme/index.php`, restringiendo su existencia única y exclusivamente a `woocommerce.php`.
+
+**Motivo / criterio:** *Contextual UX y Separation of Concerns*. El usuario no se encuentra en un "flujo de compra" cuando lee un artículo de DevSecOps o DevRel. Limitar la presencia del carrito al ámbito estrictamente transaccional protege el diseño minimalista de la web y evita distracciones.
+
+**Siguiente paso o deuda:** Hacer un commit de consolidación de la Fase 2 y transicionar a la Fase 3.
+
+### 2026-05-29 — UI/UX: Acceso Rápido al Carrito en Mobile (Nubecilla)
+
+**Contexto:** En la vista móvil, el acceso al carrito quedaba oculto dentro del menú hamburguesa, añadiendo fricción al flujo de compra. Se requería un acceso directo visible en todo momento para la tienda.
+
+**Hecho:** 
+- Se inyectó el componente `.header__cart-mobile` (una nubecilla ☁️ con contador dinámico de artículos) justo antes del botón del menú en `woocommerce.php` e `index.php`.
+- Se añadieron las reglas CSS responsivas en `_woocommerce.scss` para mostrarlo exclusivamente en resoluciones móviles y ocultarlo en escritorio.
+
+**Motivo / criterio:** *Frictionless Checkout y Mobile-First*. Reducir los clics necesarios para acceder al carrito (de 2 a 1) es una regla de oro en e-commerce. La inyección de PHP puro lee la sesión del carrito sin depender de JavaScript AJAX, manteniendo el TBT en 0ms y respetando el *Zero-Bloat*. Usar una nubecilla refuerza el branding de "Merci en la nube" aportando un toque lúdico e inmersivo.
+
+**Siguiente paso o deuda:** Realizar un commit de consolidación de la Fase 2.
+
+### 2026-05-29 — QA/SRE: Verificación y finalización de Fase 2 (UI/UX)
+
+**Contexto:** Al disponerse a corregir la accesibilidad de los botones de la Portada, se verificó mediante el código fuente (`_hero.scss`) y el historial (auditoría del 28 de mayo) que dicha deuda de contraste WCAG AA ya había sido solventada previamente.
+
+**Hecho:** Se marcaron como completadas todas las tareas de la Fase 2 en el `ROADMAP.md`, incluyendo el rediseño del e-commerce, la paleta extendida y las micro-interacciones.
+
+**Siguiente paso o deuda:** Ejecutar el Protocolo de Cierre de Fase (Definition of Done) para la Fase 2 y transicionar a la Fase 3 (Integración Multimedia Avanzada).
+
 ### 2026-05-29 — QA/Refactor: Extracción de colores hardcoded a variables (Homenaje)
 
 **Contexto:** Los colores malva introducidos como homenaje personal se implementaron con valores hexadecimales fijos (`#8b5cf6` y `#5b21b6`) en los componentes, violando el principio *Single Source of Truth* de la arquitectura SASS.
