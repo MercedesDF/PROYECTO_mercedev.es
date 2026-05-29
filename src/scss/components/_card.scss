@@ -19,7 +19,7 @@
 
     // Al hacer hover sobre cualquier parte de la tarjeta, el título se ilumina
     .card__title a {
-      color: $color-primary;
+      color: $color-homage; // Homenaje: Malva vibrante
     }
   }
 
@@ -99,7 +99,7 @@
 
   // Modificador BEM para Libros (Biblioteca técnica temática)
   &--book {
-    border-top: 3px solid #8b5cf6; // Acento malva (Homenaje / técnico consolidado)
+    border-top: 3px solid $color-homage; // Acento malva (Homenaje / técnico consolidado)
   }
 }
 

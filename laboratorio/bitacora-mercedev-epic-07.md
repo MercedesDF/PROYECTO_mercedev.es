@@ -20,6 +20,26 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-29 — QA/Refactor: Extracción de colores hardcoded a variables (Homenaje)
+
+**Contexto:** Los colores malva introducidos como homenaje personal se implementaron con valores hexadecimales fijos (`#8b5cf6` y `#5b21b6`) en los componentes, violando el principio *Single Source of Truth* de la arquitectura SASS.
+
+**Hecho:** Se definieron las variables `$color-homage` y `$color-homage-dark` en `_variables.scss`, y se refactorizaron los componentes `_card.scss` y `_woocommerce.scss` para consumirlas (usando `rgba($color-homage, 0.1)` para los fondos translúcidos).
+
+**Motivo / criterio:** *Zero Technical Debt y Mantenibilidad*. Dejar colores *hardcoded* (quemados) en múltiples archivos descentraliza el control de la paleta. Extraerlos a variables globales asegura que la hoja de estilos sea matemáticamente consistente y fácilmente mantenible a largo plazo.
+
+**Siguiente paso o deuda:** Finalizar el contraste WCAG de los botones en la portada.
+
+### 2026-05-29 — UI/UX: Modificación del hover en tarjetas al tono Malva (Homenaje)
+
+**Contexto:** Para unificar el homenaje personal (tono malva) en toda la biblioteca, se estableció que la micro-interacción al pasar el ratón (hover) sobre las tarjetas ilumine el título con este mismo color en lugar del tono original.
+
+**Hecho:** Se actualizó el componente `src/scss/components/_card.scss`, cambiando el `color` de `.card__title a` en el estado `:hover` de la tarjeta a `#8b5cf6` (Malva vibrante).
+
+**Motivo / criterio:** *Cohesión Visual y Diseño Emocional*. Extender el color de acento a las micro-interacciones de la tarjeta unifica la identidad visual del homenaje, creando un patrón cromático coherente que el usuario asocia inmediatamente con el conocimiento consolidado y eliminando tonos residuales.
+
+**Siguiente paso o deuda:** Iniciar la corrección del contraste WCAG de los botones de la Portada.
+
 ### 2026-05-29 — UI/UX: Extensión del tono Malva a las tarjetas de la Biblioteca (Compendios)
 
 **Contexto:** Tras aplicar el tono malva a los avisos de WooCommerce como homenaje personal, se decidió extender este color a las tarjetas de "Libros/Compendios" en la Biblioteca, que anteriormente utilizaban un verde genérico.
