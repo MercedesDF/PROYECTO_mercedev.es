@@ -321,6 +321,7 @@
 - [ ] Eliminación de exceso de anglicismos (Soberanía del Castellano) o enlazado dinámico de términos al Glosario Técnico.
 - [ ] Refinamiento de la presentación visual de la Biblioteca (reestructuración de formatos y layout) para ayudar a procesar la alta densidad de información.
 - [ ] Creación de referencias cruzadas sólidas entre los distintos cuadernillos de la Biblioteca.
+- [ ] Solucionar desbordamiento (overflow) de bloques de código en los cuadernillos para evitar que rompan el viewport en móvil y se trunquen en los PDFs.
 - [ ] Planificar sección "Proyectos Satélite / Spin-offs" en la portada para enlazar visualmente hacia los nuevos repositorios externos (actuando como Hub de portfolio).
 - [ ] Cierre de fase
 

@@ -17,7 +17,7 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/.vscode/settings.json": "8ab8729084acaaa571a2c5e90f13a6ef",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/README-merci.md": "e951fcfe309003ddea5cbfba784bdf15",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/README.md": "72139bfb4af5250c09e927084edf747c",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/ROADMAP.md": "da8a0c19977a0edd5737eb707c374dda",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/ROADMAP.md": "008d9789ebe45333491bbd710eae841d",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/SECURITY.md": "4eba491193923c598fa5c7f9f9b089f2",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/art-de-cote/art-de-cote-anatomia-de-merci-boilerplate.md": "b0e7e696af55d175b57f1117949f3728",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/art-de-cote/art-de-cote-creoquemehanhackeado.md": "f6bbf953c2c0471db97dd59bd53b2ea1",
@@ -138,7 +138,7 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/docs/plantilla-producto.md": "1c31ae53efd62e1c9b57ec68eaef4fbb",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/docs/plantilla-proyecto.md": "9ee3eaabf1e835a4cb0176c27f6db790",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/instrucciones-merci.md": "911f44cc8749e4518bfda0f70f48e41b",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/instrucciones.md": "ebd85cfc694811c254760c628380f9c4",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/instrucciones.md": "505c89b47e03d9be2b209e5304488462",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/biblioteca/glosario-tecnico.json": "8f283acb6f15e6c77636009ce1ed5fd5",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-01.md": "bb16fb295d8200156e31d01f9116d758",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-02.md": "7fae65ea72b673df6ea585fe5b260730",
@@ -146,7 +146,7 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-04.md": "862a87881462a37535e3b7152e1b5f3d",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-05.md": "fb00276344d72ce9ab40541fd3384283",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-06.md": "8b80012a29fd4837b00c665a41c30f40",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-07.md": "661d55be28ab623fe0e0970f67ccff16",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-07.md": "5a6cc515411b3539e81508047af80765",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-merci-boilerplate.md": "f21cf94e737161495419a8d71ef56fa0",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/notas_rapidas/_procesadas/agente-hardening.txt": "9d54ba5de4bdf89048a52ef257e0c8d9",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/notas_rapidas/_procesadas/bug-footer.txt": "09a58e535f2af56724c577e6a5584f36",
@@ -354,6 +354,9 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/tienda/camiseta-merci-devsecops.md": "5b07481d941224ca58f5657daf1d2da2",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/tienda/camiseta-merci-nube.md": "95fdcfd3f14bb6e24f4194b3fdf6fce5",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/tienda/llavero-merci-token.md": "9ad6ff498e3b95a8a478d2759a638aa9",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/tienda/taza-merci-nube.md": "e611d3361021cfaa67a9fa06957f3197"
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/tienda/taza-merci-nube.md": "e611d3361021cfaa67a9fa06957f3197",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-08.md": "1cd47106fee6a3db32fde29d4f053b39",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/incubacion/cuadernillo-patron-gemelo-multimedia-showcase.md": "480cfebc1d7b733445c5447c7a0eb41e",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/incubacion/nota-ideacion-spin-offs.md": "89d1fc11ccadc6330e11db5b734626eb"
   }
 }

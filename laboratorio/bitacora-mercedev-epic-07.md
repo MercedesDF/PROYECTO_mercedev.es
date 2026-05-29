@@ -20,6 +20,16 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-29 — UI/UX: Inicio de rediseño Mobile-First para el carrito de WooCommerce
+
+**Contexto:** La vista del carrito de WooCommerce (`/carrito`) hereda la estructura de tablas nativa del CMS (`table.shop_table`). En dispositivos móviles, esta tabla rompe completamente el diseño responsivo, apretando el contenido o forzando un scroll horizontal inaceptable para la experiencia de usuario.
+
+**Hecho:** Se inicia oficialmente el rediseño del carrito de compra correspondiente a la Fase 2 de la Épica 7.
+
+**Motivo / criterio:** *Mobile-First Design*. En lugar de intentar encoger una tabla HTML, la estrategia *Zero-Bloat* pasa por mutar la propiedad `display` nativa de la tabla (`table`, `tr`, `td`) a `block` en dispositivos móviles, transformando cada fila de producto en una "tarjeta" apilada verticalmente. Solo a partir de resoluciones de escritorio (`min-width: 768px`) se restaurará el comportamiento tabular.
+
+**Siguiente paso o deuda:** Implementar las reglas CSS en `_woocommerce.scss` para reestructurar la tabla nativa de WooCommerce.
+
 ### 2026-05-29 — Docs: Inyección de Protocolo de Cierre en Roadmap y ampliación de Auditoría
 
 **Contexto:** Para mitigar la pérdida de atención (Attention Drop) de los LLMs locales durante la orquestación, era necesario crear un anclaje semántico de las reglas de cierre de fase directamente en el Roadmap. Además, la regla de auditoría documental del "Definition of Done" omitía la revisión del directorio de manuales (`docs/`) y el archivo de políticas (`SECURITY.md`).
