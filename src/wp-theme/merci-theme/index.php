@@ -59,8 +59,8 @@ if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
         $hero_modifier = '';
 
         if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
-            $header_title = 'Tienda';
-            $header_desc = 'Catálogo de recursos, herramientas y merchandising oficial del entorno Merci Boilerplate.';
+            $header_title = "Merci'<span class=\"hero__highlight\">Shop</span>";
+            $header_desc = 'La <strong><em>tienda no tienda</em></strong><br>con el merchandising oficial del ecosistema Merci.';
         } elseif ( is_home() || is_archive() ) {
             $header_title = 'Blog';
             $header_desc = 'Bitácora cronológica, diario de desarrollo y artículos de marketing.';

@@ -39,8 +39,8 @@ $js_main_v = time();
 
     <main class="main" id="main">
         <section class="hero">
-            <h1 class="hero__title">Tienda</h1>
-            <p class="hero__subtitle">Catálogo de recursos, herramientas y merchandising oficial.</p>
+            <h1 class="hero__title">Merci'<span class="hero__highlight">Shop</span></h1>
+            <p class="hero__subtitle">La <strong><em>tienda no tienda</em></strong><br>con el merchandising oficial del ecosistema Merci.</p>
         </section>
         <section class="section">
             <?php if ( is_product() ) : ?>
@@ -49,7 +49,7 @@ $js_main_v = time();
                 <div class="woocommerce">
                     <div class="woocommerce-notices-wrapper">
                         <div class="woocommerce-info woocommerce-info--store-notice">
-                            ℹ️ <strong>Economía Simulada:</strong> Este catálogo es una demostración técnica (E-commerce Zero-JS). Los precios están en <em>Merci-coins</em> (MC <img src="/favicon.ico" alt="Llama" width="16" height="16" class="merci-coin-icon">). ¡Añade al carrito sin miedo!
+                            ℹ️ <strong>Economía Simulada:</strong> Este catálogo es una demostración técnica (E-commerce Zero-JS). Los precios están en <em>Merci-coins</em> <img src="/favicon.ico" alt="Llama" width="16" height="16" class="merci-coin-icon"> ¡Añade al carrito sin miedo!
                         </div>
                     </div>
                 </div>

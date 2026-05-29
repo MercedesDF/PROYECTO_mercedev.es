@@ -20,6 +20,84 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-29 — UI/UX: Extensión del tono Malva a las tarjetas de la Biblioteca (Compendios)
+
+**Contexto:** Tras aplicar el tono malva a los avisos de WooCommerce como homenaje personal, se decidió extender este color a las tarjetas de "Libros/Compendios" en la Biblioteca, que anteriormente utilizaban un verde genérico.
+
+**Hecho:** Se modificó la regla `border-top` de la clase modificadora `.card--book` en `src/scss/components/_card.scss` para utilizar el color `#8b5cf6` (Malva vibrante) en lugar de `#10b981` (Verde).
+
+**Motivo / criterio:** *Cohesión Emocional y Estética*. Expandir el homenaje personal a los documentos más importantes del proyecto (los compendios y libros de la biblioteca) refuerza la identidad visual única del Boilerplate, eliminando colores genéricos y dándole un toque mucho más distintivo al núcleo del conocimiento.
+
+**Siguiente paso o deuda:** Hacer un commit de consolidación y corregir el contraste WCAG de los botones de la Portada.
+
+### 2026-05-29 — UI/UX: Rebranding de avisos de tienda a tono Malva (Homenaje)
+
+**Contexto:** Cambiar el color verde estándar de los avisos de WooCommerce (`.woocommerce-info`) por un tono malva como homenaje personal a la madre de la autora, manteniendo intacta la puntuación de 100/100 en accesibilidad (WCAG).
+
+**Hecho:** Se actualizaron las variables cromáticas en `_woocommerce.scss`, sustituyendo el verde por una paleta malva: fondo `rgba(139, 92, 246, 0.1)`, borde `#8b5cf6` y texto `#5b21b6`.
+
+**Motivo / criterio:** *Emotional Design y Matemáticas WCAG*. El diseño emocional conecta a la creadora con su producto. Técnicamente, el tono malva oscuro (`#5b21b6`) sobre el fondo malva translúcido genera un ratio de contraste de ~8:1, superando no solo el estándar AA (4.5:1) sino también el estricto nivel AAA (7:1) de Lighthouse, garantizando la preservación del 100/100 en accesibilidad.
+
+**Siguiente paso o deuda:** Finalizar el contraste de los botones principales en la portada (WCAG hover).
+
+### 2026-05-29 — UX/UI: Refinamiento tipográfico en cabecera de WooCommerce
+
+**Contexto:** El título de la tienda ("Merci'Shop") carecía de contraste visual con el branding de la marca, y el subtítulo resultaba difícil de leer en pantallas móviles al ser una sola línea larga y continua.
+
+**Hecho:** Se inyectó la clase BEM `.hero__highlight` en la palabra "Shop" del título y se implementó un salto de línea (`<br>`) combinado con negrita y cursiva (`<strong><em>`) para la frase "*tienda no tienda*" en `woocommerce.php` e `index.php`.
+
+**Motivo / criterio:** *Visual Hierarchy y Escaneabilidad*. Destacar la última palabra con el color corporativo naranja guía la mirada y refuerza la identidad visual de la tienda (haciendo juego con la moneda). Añadir un salto de línea y engrosar la tipografía clave aporta ritmo de lectura de eslogan, mejorando la retención del mensaje.
+
+**Siguiente paso o deuda:** Re-ejecutar `merci commit` para consolidar los cambios visuales y pasar a la auditoría de contraste WCAG de los botones en la portada.
+
+### 2026-05-29 — UX/UI: Rebranding del Hero de WooCommerce (Merci'Shop)
+
+**Contexto:** La cabecera de la tienda utilizaba el título genérico "Tienda" y un subtítulo estándar, lo cual carecía de personalidad y no transmitía la naturaleza simulada (Mock) del e-commerce.
+
+**Hecho:** Se actualizaron las plantillas `woocommerce.php` e `index.php` cambiando el título del Hero a "Merci'Shop" y el subtítulo a "La *tienda no tienda* con el merchandising oficial del ecosistema Merci.".
+
+**Motivo / criterio:** *UX Copywriting e Identidad de Marca*. El texto (copy) es una pieza fundamental de la interfaz de usuario. Darle un nombre propio a la tienda y usar tipografía enfatizada (`<em>`) en el concepto "tienda no tienda" refuerza el Storytelling técnico y el componente lúdico de la demostración.
+
+**Siguiente paso o deuda:** Abordar finalmente la accesibilidad y el contraste de los botones en la Portada principal (Fase 2).
+
+### 2026-05-29 — UI/Fix: Ajuste tipográfico en nota de economía simulada
+
+**Contexto:** Los paréntesis que envolvían al icono de la llama en el mensaje del escaparate generaban un desajuste visual y un espaciado extraño en la línea de texto.
+
+**Hecho:** Se eliminaron los paréntesis alrededor de la etiqueta `<img>` en `woocommerce.php`.
+
+**Motivo / criterio:** *Pixel Perfect UI*. Los iconos que actúan como símbolos ortográficos o logogramas no necesitan ser envueltos en signos de puntuación, ya que respiran por sí mismos gracias a sus márgenes CSS.
+
+### 2026-05-29 — UI/UX: Centrado de nota aclaratoria y eliminación de texto residual
+
+**Contexto:** La nota aclaratoria del escaparate ("Economía Simulada") heredaba comportamientos flexbox diseñados para alertas con botones, viéndose descentrada y mal maquetada. Además, conservaba el texto "MC" junto a la llama, contradiciendo el minimalismo aplicado previamente en la moneda de la tienda.
+
+**Hecho:**
+- Se eliminó el texto "MC" del aviso en `woocommerce.php`.
+- Se inyectó `justify-content: center` y `text-align: center` en la clase modificadora `.woocommerce-info--store-notice` dentro de `_woocommerce.scss`.
+
+**Motivo / criterio:** *Consistency y UX*. Mantener el diseño limpio e igualitario en toda la tienda. Adaptar los modificadores BEM evita romper los avisos nativos de WooCommerce y soluciona la alineación de este mensaje en particular.
+
+### 2026-05-29 — UX/UI: Refinamiento minimalista del símbolo de la moneda (Favicon)
+
+**Contexto:** La combinación de las letras "MC" junto al icono de la llama en los precios resultaba visualmente redundante y recargaba la interfaz de la tienda.
+
+**Hecho:**
+- Se eliminó el texto "MC" del filtro `woocommerce_currency_symbol` en `functions.php`, dejando exclusivamente la etiqueta `<img>`.
+- Se aumentó el tamaño de la clase `.merci-coin-icon` en `_woocommerce.scss` de `1.1em` a `1.3em` y se ajustó su margen lateral para darle más respiro visual respecto a los números.
+
+**Motivo / criterio:** *Minimalismo y Clean UI*. Confiar el branding enteramente al imagotipo (el favicon de la llama) sin texto de apoyo reduce el ruido cognitivo y aporta un acabado mucho más limpio y profesional a los precios de la tienda.
+
+### 2026-05-29 — QA/Fix: Resolución de especificidad CSS en icono de moneda (Favicon)
+
+**Contexto:** Al inyectar el icono de la llama como moneda, la clase genérica `.woocommerce .product img` (que fuerza `width: 100%`) aplastaba a la clase `.merci-coin-icon` por tener mayor especificidad. Esto provocaba que el icono de la moneda se viera gigantesco y rompiera el diseño de las tarjetas del catálogo.
+
+**Hecho:** Se blindó la clase `.merci-coin-icon` en `_woocommerce.scss` utilizando la unidad relativa `1.1em` e `!important` para sus dimensiones y márgenes.
+
+**Motivo / criterio:** *Defensive CSS y Tipografía Fluida*. Forzar la unidad `em` garantiza que el icono escale de forma automática y proporcional al tamaño de la tipografía del precio (sea un `h2` o un `span`), y el uso de `!important` lo inmuniza contra futuras reglas agresivas de imágenes en el CMS.
+
+**Siguiente paso o deuda:** Recompilar y pasar a corregir el contraste WCAG de los botones de la Portada.
+
 ### 2026-05-29 — QA/Fix: Resolución de estilos en línea (UI_INLINE_STYLE) en WooCommerce
 
 **Contexto:** El auditor maestro (`merci-audit.py`) bloqueó el commit de la moneda gráfica al detectar atributos `style="..."` inyectados en `functions.php` y `woocommerce.php`.
