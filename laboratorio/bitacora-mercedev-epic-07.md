@@ -20,6 +20,29 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-29 — QA/Fix: Resolución de estilos en línea (UI_INLINE_STYLE) en WooCommerce
+
+**Contexto:** El auditor maestro (`merci-audit.py`) bloqueó el commit de la moneda gráfica al detectar atributos `style="..."` inyectados en `functions.php` y `woocommerce.php`.
+
+**Hecho:** Se extrajeron los estilos en línea a las clases BEM `.merci-coin-icon` y `.woocommerce-info--store-notice` en `src/scss/components/_woocommerce.scss`, eliminando los atributos `style` de las plantillas PHP.
+
+**Motivo / criterio:** *Strict QA y BEM*. El linter cumple su función de escudo activo. Permitir estilos en línea, aunque sea para un simple margen o un icono, abre la puerta a la degradación del código y a la pérdida de control de especificidad (Guerra de Especificidad CSS).
+
+**Siguiente paso o deuda:** Re-ejecutar `merci commit` y proceder con los contrastes WCAG de los botones de la portada.
+
+### 2026-05-29 — UX/UI: Moneda gráfica (Favicon) y Storytelling Técnico
+
+**Contexto:** Como la tienda es una demostración técnica (Tienda No Tienda), mantener una moneda ficticia genérica (MC 🪙) no era suficientemente inmersivo ni aclaraba al usuario el propósito de la tienda. Además, la caja de texto del cupón de descuento sufría el mismo problema de usabilidad que las cantidades: heredaba un estilo diminuto del navegador.
+
+**Hecho:**
+- Se estandarizó la caja del cupón en `_woocommerce.scss` con tipografía `1rem`, padding amplio y bordes semánticos, igualando el estilo Premium del resto del carrito.
+- Se sustituyó el emoji genérico (🪙) de la moneda oficial por una etiqueta `<img>` apuntando al `/favicon.ico` (la llama del sitio) en el filtro `woocommerce_currency_symbol` de `functions.php`.
+- Se inyectó una nota aclaratoria (Storytelling) directamente en el escaparate de la tienda (`woocommerce.php`) informando al visitante que puede finalizar compras de prueba sin riesgo.
+
+**Motivo / criterio:** *Gamificación e Inmersión*. Transformar el símbolo monetario en el propio imagotipo de la autora aporta un toque corporativo único, y la nota informativa elimina cualquier fricción o miedo del usuario a interactuar con un e-commerce que no conoce.
+
+**Siguiente paso o deuda:** Finalizar los ajustes de la tienda y dar el salto, por fin, a corregir los contrastes WCAG de los botones de la Portada.
+
 ### 2026-05-29 — UI/UX: Refinamiento de interacciones y formularios en WooCommerce
 
 **Contexto:** Tras aplicar el rediseño Mobile-First al carrito, se detectaron fricciones de experiencia de usuario (UX): la página completa "saltaba" al pasar el ratón (heredando el efecto `:hover` de las tarjetas de la biblioteca), las imágenes perdían su proporción (aspect ratio) por atributos HTML nativos, y los selectores de cantidad (`input[type="number"]`) eran gigantes e ilegibles.

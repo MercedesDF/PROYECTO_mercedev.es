@@ -199,6 +199,14 @@
       background-color: $color-surface;
     }
   }
+
+  /* QUÉ HACE: Estilo global de la moneda gráfica */
+  .merci-coin-icon {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateY(-2px);
+    margin-left: 2px;
+  }
   
   .woocommerce-notices-wrapper {
     margin-bottom: 2rem;
@@ -221,6 +229,10 @@
         font-size: 0.9rem;
         margin-top: 0;
       }
+    }
+    
+    .woocommerce-info--store-notice {
+      margin-top: 0;
     }
     
     .woocommerce-error {
@@ -321,7 +333,14 @@
         flex-direction: column;
         gap: 0.5rem;
         width: 100%;
-        input { width: 100%; }
+        input { 
+          width: 100%;
+          padding: 0.8rem;
+          font-size: 1rem;
+          border: 1px solid $color-border;
+          border-radius: 4px;
+          background-color: $color-surface;
+        }
       }
       
       button { width: 100%; }
