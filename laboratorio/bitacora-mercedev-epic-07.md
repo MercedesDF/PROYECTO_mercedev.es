@@ -20,6 +20,19 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-29 — UI/UX: Refinamiento de interacciones y formularios en WooCommerce
+
+**Contexto:** Tras aplicar el rediseño Mobile-First al carrito, se detectaron fricciones de experiencia de usuario (UX): la página completa "saltaba" al pasar el ratón (heredando el efecto `:hover` de las tarjetas de la biblioteca), las imágenes perdían su proporción (aspect ratio) por atributos HTML nativos, y los selectores de cantidad (`input[type="number"]`) eran gigantes e ilegibles.
+
+**Hecho:** 
+- Se inyectó una regla en `_woocommerce.scss` para anular la transformación y la sombra (`transform: none; box-shadow: none;`) en `article.card:hover` exclusivamente para el contenedor del carrito y checkout.
+- Se forzó `height: auto` en las miniaturas de producto para contrarrestar el atributo `height="300"` nativo del CMS.
+- Se estandarizó el cajón de cantidades (`.quantity input.qty`) a `80px` de ancho, texto centrado, borde semántico (`$color-border`) y tipografía de `1.25rem`.
+
+**Motivo / criterio:** *Frictionless Checkout y Micro-interacciones (UX)*. Las animaciones de elevación aportan valor en tarjetas de lectura (biblioteca), pero en un formulario transaccional generan inseguridad y molestia. Controlar matemáticamente los inputs HTML5 garantiza que la tienda mantenga un aspecto *Premium* sin depender de librerías JavaScript adicionales.
+
+**Siguiente paso o deuda:** Reemplazar el texto del símbolo de la moneda ("MC") por el emoji de la llama (🔥) en `functions.php`, inyectar una nota aclaratoria sobre la economía ficticia en el escaparate de la tienda, y corregir los contrastes WCAG de los botones de la portada.
+
 ### 2026-05-29 — UI/UX: Inicio de rediseño Mobile-First para el carrito de WooCommerce
 
 **Contexto:** La vista del carrito de WooCommerce (`/carrito`) hereda la estructura de tablas nativa del CMS (`table.shop_table`). En dispositivos móviles, esta tabla rompe completamente el diseño responsivo, apretando el contenido o forzando un scroll horizontal inaceptable para la experiencia de usuario.

@@ -9,6 +9,7 @@ Soberanía del Castellano: Al usar acrónimos o anglicismos, priorizar SIEMPRE e
 
 ## 1. Filosofía del Proyecto (El Núcleo Operativo)
 - **Contenido > Diseño:** Enfoque minimalista inspirado en *motherfuckingwebsite.com*. Prioridad absoluta al rendimiento (Core Web Vitals: 100/100) y a la accesibilidad.
+Mobile first.
 - **Gestión del Conocimiento (La Biblioteca):** Se descarta el concepto de "blog" tradicional. La "Biblioteca" es el núcleo de la documentación técnica y el activo principal.
 - **Trazabilidad del Error (Divulgación Responsable):** Cada vulnerabilidad o decisión técnica se documenta como un activo de valor en 3 átomos. *Regla DevSecOps:* "Documenta la cura en público, mantén el veneno en privado". Nunca se expone el payload exacto o un vector no parcheado en la bitácora pública; para los datos forenses crudos se utiliza el directorio `.privado/`.
   1. **El Desafío (Síntoma):** Definición abstraída del problema técnico o vulnerabilidad encontrada.
