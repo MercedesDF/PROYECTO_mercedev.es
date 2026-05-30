@@ -3,8 +3,8 @@ titulo: "Glosario Técnico"
 descripcion: "Diccionario Data-Driven compilado automáticamente por el Agente Glosario."
 tema: "DevSecOps y Gobernanza"
 estado: "publicado"
-alt_portada: "Diccionario técnico automatizado 2026-05-29"
-fecha: "2026-05-29"
+alt_portada: "Diccionario técnico automatizado 2026-05-31"
+fecha: "2026-05-31"
 ---
 
 # Glosario Técnico DevSecOps & Arquitectura
