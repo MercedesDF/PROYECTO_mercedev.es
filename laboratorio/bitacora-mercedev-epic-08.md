@@ -7,6 +7,32 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-05-31 — UX/DevRel: Refinamiento del storytelling en "Sobre Mí"
+
+**Contexto:** La introducción de la transición profesional en el currículum semántico sonaba poco natural y desconectada de la metáfora de la ingeniería civil ("aprendí a ejecutar cualquier proceso").
+
+**Hecho:** Se reescribieron las dos primeras frases en `public/sobre-mi/index.html` para enfocar la narrativa en la proyección y construcción de infraestructuras físicas.
+
+**Motivo / criterio:** *Storytelling Técnico y Coherencia*. Conectar explícitamente la creación de infraestructuras físicas con la metáfora de los "cimientos" de software aporta mucha más fuerza narrativa y naturalidad al texto.
+
+### 2026-05-31 — UX/Fix: Corrección de copy sobre comandos de actualización (Boilerplate)
+
+**Contexto:** La portada indicaba erróneamente que "un solo comando" generaba tanto el repositorio del Boilerplate como la demo pública (Showcase), cuando en realidad la arquitectura actual delega esta responsabilidad en dos orquestadores distintos (`merci release` y `merci showcase`).
+
+**Hecho:** Se corrigió la frase en `public/index.html` cambiando "un solo comando" por "dos comandos".
+
+**Motivo / criterio:** *Precisión Técnica*. En un proyecto donde la documentación es código (Spec as Source), el copy editorial y de marketing no puede contradecir la realidad operativa de la infraestructura local.
+
+### 2026-05-31 — UX/DevRel: Refinamiento de Copywriting en Portada y Sobre mí
+
+**Contexto:** La Épica 8 exige una revisión y mejora de los textos del ecosistema para alinearlos con el tono editorial definitivo, mejorando el "Storytelling Técnico" sin romper la UI.
+
+**Hecho:** Se actualizaron los textos de `public/index.html` y `public/sobre-mi/index.html` conservando íntegramente la estructura HTML, las clases BEM y los Dashboards dinámicos de métricas.
+
+**Detalle técnico:** Se eliminó la antigua sección "La Evolución" de la portada a favor del nuevo copy introductorio. En la página "Sobre Mí", se sustituyeron los apartados antiguos por los nuevos epígrafes (`La transición estructural`, `Cómo trabajo`, `Sobre Merci`), preservando el cuadro de mandos dinámico (`.hero__dashboard--standalone`).
+
+**Motivo / criterio:** *Copywriting y Autoridad Técnica*. Los textos son parte integral de la interfaz (UI). Alinear la narrativa hacia el rigor de la ingeniería estructural consolida el mensaje y mejora radicalmente la percepción de madurez técnica del producto, justificando el trabajo de infraestructura subyacente.
+
 ### 2026-05-29 — Docs: Expansión del alcance en Refinamiento de Textos (Fase 6)
 
 **Contexto:** Se detectó la necesidad de modificar y unificar los textos y el tono editorial no solo en la página principal, sino en el 100% de las vistas del ecosistema (Biblioteca, Tienda, Art de Coté, etc.).
