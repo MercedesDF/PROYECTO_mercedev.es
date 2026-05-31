@@ -186,7 +186,7 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 - `merci-completo.py`: Orquestador Supremo DevSecOps que encadena QA, commit atómico y despliegue a producción.
 - `merci-showcase.py`: Orquestador de despliegue interactivo para la demo pública del Boilerplate (Clon Efímero).
 - `merci-release.py`: Orquestador de exportación para empaquetar y sincronizar el Boilerplate localmente.
-- `merci-extract-metrics.py`: Extractor Data-Driven de métricas Core Web Vitals desde archivos JSON estructurados.
+- `merci-extract-metrics.py`: Extractor autónomo Data-Driven de métricas Core Web Vitals vía API PageSpeed Insights.
 - `merci-telemetry.py`: Inyector dinámico de telemetría del proyecto (Commits, Agentes, Docs).
 - `merci-styles.py` y `merci-watcher.py`: Compilador SASS 7-1 local y vigilante en tiempo real.
 - `merci-optimizer.py` y `merci-assets-watcher.py`: Optimizador WebP y agente vigilante de activos multimedia en segundo plano.

@@ -23,7 +23,7 @@
       "merci_explica": "Un historial específico donde anotamos qué le hemos enseñado o modificado a la Inteligencia Artificial del proyecto.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L648"
+          "L634"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L988"
@@ -38,10 +38,10 @@
       "merci_explica": "El mecanismo que permite que una página web cargue o envíe datos en segundo plano sin que tengas que actualizar la pestaña.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L258"
+          "L244"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L154"
+          "L200"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L3315"
@@ -59,7 +59,7 @@
       "merci_explica": "Es como un mapa mental que usan los compiladores para entender y desglosar el código de programación que escribimos.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L749"
+          "L735"
         ],
         "checklist-hardening.md": [
           "L63"
@@ -101,7 +101,7 @@
       "merci_explica": "Sistema de nomenclatura para clases CSS que facilita la organización y mantenimiento del código.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L298"
+          "L284"
         ],
         "bitacora-mercedev-epic-05.md": [
           "L62"
@@ -110,13 +110,16 @@
           "L741"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L210"
+          "L256"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L105"
+        ],
+        "bitacora-mercedev-epic-08.md": [
+          "L46"
         ],
         "checklist-hardening.md": [
           "L57"
@@ -149,13 +152,13 @@
       "merci_explica": "Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L49"
+          "L309"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L115"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L387"
+          "L65"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L120"
@@ -194,7 +197,7 @@
       "merci_explica": "Mide cuánto saltan los textos o imágenes mientras la página web termina de cargar.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L344"
+          "L390"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L160"
@@ -212,7 +215,7 @@
       "merci_explica": "Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L111"
+          "L97"
         ],
         "bitacora-mercedev-epic-05.md": [
           "L266"
@@ -221,7 +224,7 @@
           "L111"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L260"
+          "L306"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L177"
@@ -362,7 +365,7 @@
       "merci_explica": "Porcentaje de personas que hacen clic en una publicidad después de verla.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L721"
+          "L707"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L1593"
@@ -401,7 +404,7 @@
       "merci_explica": "Escaneo interactivo del sistema mientras está en funcionamiento para detectar fallos de seguridad.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L245"
+          "L231"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L61"
@@ -488,7 +491,7 @@
       "merci_explica": "La comodidad y felicidad del programador al trabajar con el código y las herramientas de un proyecto.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L71"
+          "L57"
         ],
         "bitacora-mercedev-epic-05.md": [
           "L98"
@@ -497,7 +500,7 @@
           "L49"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L499"
+          "L545"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L56"
@@ -521,13 +524,13 @@
           "L17"
         ],
         "bitacora-mercedev-epic-06.md": [
-          "L484"
+          "L470"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L103"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L33"
+          "L79"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L79"
@@ -539,7 +542,7 @@
           "L47"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L59"
+          "L101"
         ],
         "plantilla-proyecto.md": [
           "L10"
@@ -587,7 +590,7 @@
           "L199"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L384"
+          "L430"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L158"
@@ -665,7 +668,7 @@
       "merci_explica": "Ventana donde interactúas con el ordenador.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L455"
+          "L441"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L986"
@@ -821,10 +824,13 @@
       "merci_explica": "El tiempo que tarda en aparecer en pantalla el elemento visual más grande de tu página web, como el título principal o una gran foto.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L91"
+          "L77"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L163"
+        ],
+        "bitacora-mercedev-epic-07.md": [
+          "L27"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L130"
@@ -878,7 +884,7 @@
       "merci_explica": "Máquina que aprende a procesar y generar texto humano de manera autónoma.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L528"
+          "L514"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L441"
@@ -1010,7 +1016,7 @@
       "merci_explica": "Manual del usuario digital",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L58"
+          "L44"
         ],
         "bitacora-mercedev-epic-05.md": [
           "L50"
@@ -1157,7 +1163,7 @@
       "merci_explica": "Inspector de alta precisión que garantiza que todo funcione como debe.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L67"
+          "L53"
         ],
         "bitacora-mercedev-epic-05.md": [
           "L81"
@@ -1166,7 +1172,7 @@
           "L85"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L47"
+          "L39"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L52"
@@ -1247,10 +1253,13 @@
       "merci_explica": "Sistema de comunicación entre aplicaciones donde cada mensaje contiene toda la información necesaria para entender el contexto.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L437"
+          "L423"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L641"
+        ],
+        "bitacora-mercedev-epic-07.md": [
+          "L47"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L799"
@@ -1325,13 +1334,13 @@
       "merci_explica": "CSS con superpoderes.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L127"
+          "L113"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L423"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L65"
+          "L111"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
@@ -1421,7 +1430,7 @@
       "merci_explica": "Un cerebro artificial compacto que puede pensar y hablar directamente en tu ordenador sin necesidad de conectarse a servidores en la nube gigantescos.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L739"
+          "L725"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L753"
@@ -1481,7 +1490,7 @@
       "merci_explica": "Manual de instrucciones para cocinar un plato, asegurando que cada paso sea claro y siga las mismas reglas cada vez.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L60"
+          "L46"
         ],
         "bitacora-mercedev-epic-05.md": [
           "L156"
@@ -1490,7 +1499,7 @@
           "L339"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L356"
+          "L402"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L97"
@@ -1499,7 +1508,7 @@
           "L532"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L55"
+          "L97"
         ],
         "flujo-publicacion-sop.md": [
           "L2"
@@ -1516,9 +1525,6 @@
       "definicion": "Área dentro de DevOps que se encarga de mejorar la confiabilidad, el rendimiento y la disponibilidad de los servicios digitales a través de prácticas de ingeniería.",
       "merci_explica": "Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo.",
       "apariciones": {
-        "bitacora-mercedev-epic-06.md": [
-          "L51"
-        ],
         "bitacora-mercedev-epic-03.md": [
           "L347"
         ],
@@ -1559,13 +1565,13 @@
       "merci_explica": "Establecer una sola ley o un único documento oficial de donde todo el mundo deba sacar la información para que nunca haya datos contradictorios.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L187"
+          "L173"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L325"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L318"
+          "L364"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L50"
@@ -1607,7 +1613,7 @@
       "merci_explica": "Adelantar los controles de calidad para encontrar los errores y agujeros de seguridad al escribir el código, en vez de descubrirlos el día de lanzamiento.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L468"
+          "L454"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L61"
@@ -1646,7 +1652,7 @@
       "merci_explica": "El tiempo acumulado en el que el ordenador estuvo tan ocupado calculando cosas que tu ratón o tus toques en la pantalla parecían no responder.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L62"
+          "L48"
         ],
         "bitacora-mercedev-epic-05.md": [
           "L77"
@@ -1655,7 +1661,7 @@
           "L203"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L130"
+          "L27"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L52"
@@ -1709,7 +1715,7 @@
       "merci_explica": "Vigilante del tiempo, asegurando que los recursos no queden obsoletos.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L533"
+          "L519"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L1123"
@@ -1724,7 +1730,7 @@
       "merci_explica": "Primer contacto, indicando cuánto tiempo espera el usuario antes de recibir su primera reacción.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L91"
+          "L77"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L2003"
@@ -1757,7 +1763,7 @@
       "merci_explica": "Etiqueta única para ubicar y acceder a recursos en la web.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L660"
+          "L646"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L912"
@@ -1775,7 +1781,7 @@
       "merci_explica": "Código universal para codificar texto, asegurando que cualquier carácter se pueda representar correctamente.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L520"
+          "L506"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L4498"
@@ -1814,13 +1820,13 @@
       "merci_explica": "Herramienta para hacer que las aplicaciones web sean más fáciles de usar para todos.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L399"
+          "L385"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L558"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L427"
+          "L473"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L406"
@@ -1850,7 +1856,7 @@
       "merci_explica": "El programa que añade un carrito de compras y pasarela de pago para convertir tu página web normal en una tienda online.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L127"
+          "L113"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L1207"
@@ -1871,7 +1877,7 @@
           "L594"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L69"
+          "L111"
         ]
       }
     },
@@ -1913,7 +1919,7 @@
       "merci_explica": "Cuerda para la protección contra ataques de inyección de código.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L486"
+          "L472"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L79"
@@ -1952,16 +1958,16 @@
       "merci_explica": "Construir una casa con lo mínimo e indispensable en lugar de comprar electrodomésticos enormes que gastan energía y nunca se usan.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L139"
+          "L125"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L125"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L154"
+          "L200"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L49"
+          "L91"
         ],
         "instrucciones.md": [
           "L90"
@@ -2015,7 +2021,7 @@
       "merci_explica": "Una medida de seguridad que previene que la Inteligencia Artificial te mienta y se invente cosas cuando no sabe una respuesta.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L577"
+          "L563"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L910"
@@ -2048,7 +2054,7 @@
       "merci_explica": "Seguridad como una caja fuerte inalcanzable, sin posibilidad de robar nada.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L709"
+          "L695"
         ]
       }
     },
@@ -2060,13 +2066,13 @@
       "merci_explica": "Modelo que aprende a responder preguntas o realizar tareas con solo una observación, como si fuera un mago que sabe todo sin haber visto nada antes.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L585"
+          "L571"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L656"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L318"
+          "L364"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L1162"
@@ -2117,10 +2123,10 @@
       "merci_explica": "Guía detallada para implementar mejoras en Python.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L467"
+          "L513"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L69"
+          "L111"
         ],
         "instrucciones.md": [
           "L92"
@@ -2159,16 +2165,19 @@
       "merci_explica": "Mapa mental de las partes de una página web que puede ser modificado por JavaScript.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L298"
+          "L284"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L215"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L324"
+          "L370"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L540"
+        ],
+        "bitacora-mercedev-epic-08.md": [
+          "L22"
         ],
         "checklist-hardening.md": [
           "L7"
@@ -2186,19 +2195,22 @@
       "merci_explica": "Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L461"
+          "L447"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L476"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L75"
+          "L121"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L99"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L80"
+        ],
+        "bitacora-mercedev-epic-08.md": [
+          "L16"
         ],
         "flujo-publicacion-sop.md": [
           "L2"
@@ -2258,7 +2270,7 @@
       "merci_explica": "Clave única que identifica de manera segura la integridad de los datos.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L459"
+          "L445"
         ]
       }
     },
@@ -2270,7 +2282,7 @@
       "merci_explica": "Sumario digital que garantiza la inalterabilidad de los datos originales.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L464"
+          "L450"
         ]
       }
     },
@@ -2282,10 +2294,10 @@
       "merci_explica": "El moderador es como el conductor de un tren, guiando a todos hacia su destino con calma y eficiencia.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L452"
+          "L438"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L236"
+          "L282"
         ]
       }
     },
@@ -2297,7 +2309,7 @@
       "merci_explica": "Caja fuerte digital donde se guardan todos los datos importantes de una organización.",
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
-          "L89"
+          "L75"
         ]
       }
     },
@@ -2309,7 +2321,7 @@
       "merci_explica": "Cola de supermercado, donde la persona que llega primero es la primera en salir.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L490"
+          "L536"
         ]
       }
     },
@@ -2321,7 +2333,7 @@
       "merci_explica": "Mecanismo eficiente para mantener dos conjuntos de archivos actualizados automáticamente.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L455"
+          "L501"
         ]
       }
     },
@@ -2333,7 +2345,7 @@
       "merci_explica": "Caja fuerte segura para almacenar recuerdos frescos y actualizados.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L371"
+          "L417"
         ],
         "flujo-publicacion-sop.md": [
           "L73"
@@ -2348,7 +2360,7 @@
       "merci_explica": "Apagón cero para el sistema.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L347"
+          "L393"
         ]
       }
     }

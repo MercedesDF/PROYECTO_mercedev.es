@@ -57,7 +57,6 @@ if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
         // 1. Inyección de Cabeceras Estilo "Boilerplate" para Vistas Dinámicas
         $header_title = '';
         $header_desc = '';
-        $hero_modifier = '';
 
         if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
             $header_title = "Merci'<span class=\"hero__highlight\">Shop</span>";
@@ -65,12 +64,11 @@ if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
         } elseif ( is_home() || is_archive() ) {
             $header_title = 'b<span class="hero__highlight">log</span>';
             $header_desc = 'Bitácora cronológica, diario de desarrollo y artículos de marketing.';
-            $hero_modifier = ' hero--compact';
         }
 
         if ( $header_title ) : 
         ?>
-            <section class="hero<?php echo $hero_modifier; ?>">
+            <section class="hero">
                 <h1 class="hero__title"><?php echo $header_title; ?></h1>
                 <p class="hero__subtitle"><?php echo $header_desc; ?></p>
             </section>

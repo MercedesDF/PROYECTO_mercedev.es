@@ -7,6 +7,22 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-05-31 — UI/UX: Eliminación de Hero compacto en el Blog
+
+**Contexto:** Al navegar entre la portada, la biblioteca y el blog, se producía un salto visual molesto debido a que la cabecera del blog utilizaba un modificador de altura reducida (`.hero--compact`), rompiendo la consistencia de la interfaz.
+
+**Hecho:** Se eliminó la lógica de inyección de la variable `$hero_modifier` en `src/wp-theme/merci-theme/index.php`, estandarizando el bloque a `<section class="hero">`.
+
+**Motivo / criterio:** *Design Consistency y Pixel Perfect UI*. Todas las páginas principales del ecosistema deben compartir las mismas dimensiones de cabecera (`min-height: 40vh` con centrado Flexbox) para que la navegación entre la capa estática (SSG) y la dinámica (WP) se perciba unificada, fluida y sin saltos de contenido.
+
+### 2026-05-31 — UX/Fix: Refinamiento de textos y corrección visual en índices SSG
+
+**Contexto:** El índice autogenerado de la Biblioteca requería actualizar su *copy* para alinear la narrativa ("El conocimiento inmutable del ecosistema"). Además, se detectó un bug visual heredado: el generador estático usaba la variable incorrecta para el subtítulo y perdía el formato bicolor corporativo al intentar limpiar la etiqueta `<title>` para el SEO.
+
+**Hecho:** Se refactorizó `scripts/merci/merci-publish.py` inyectando los nuevos textos (incluyendo la mención a "metodología Spec as Source"). Se separó la variable `title_html` de `titulo_seo` para preservar la clase `.hero__highlight` y se inyectó la variable `hero_subtitle_html` correctamente en el DOM de la cabecera.
+
+**Motivo / criterio:** *Copywriting y Pixel Perfect UI*. Las páginas generadas dinámicamente por el motor SSG deben proyectar la misma madurez editorial y visual que las páginas estáticas. Separar el marcado HTML de la lógica SEO resuelve la deuda técnica visual sin penalizar a los rastreadores web.
+
 ### 2026-05-31 — UX/DevRel: Refinamiento del storytelling en "Sobre Mí"
 
 **Contexto:** La introducción de la transición profesional en el currículum semántico sonaba poco natural y desconectada de la metáfora de la ingeniería civil ("aprendí a ejecutar cualquier proceso").

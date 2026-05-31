@@ -50,7 +50,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
   - `merci-deploy.py`: Agente de Despliegue Remoto para sincronización SSH y purga de Varnish en producción.
   - `merci-release.py`: Orquestador de exportación para empaquetar y sincronizar el Boilerplate localmente.
   - `merci-completo.py`: Orquestador Supremo DevSecOps que encadena QA, commit atómico y despliegue a producción.
-  - `merci-extract-metrics.py`: Extractor automatizado de métricas Core Web Vitals desde PDFs.
+  - `merci-extract-metrics.py`: Extractor autónomo de métricas Core Web Vitals (API PageSpeed Insights).
   - `merci-telemetry.py`: Inyector dinámico de telemetría del proyecto (Commits, Agentes, Docs).
   - `merci-sre.py`: Demonio de telemetría pasiva para la ingesta de datos en Prometheus y Grafana.
   - `merci-hardening.py`: Agente de auditoría continua de seguridad pasiva e infraestructura.
@@ -149,6 +149,6 @@ Antes de dar por concluida una Fase del Roadmap y transicionar a la siguiente, e
 2. **Cosecha de Conocimiento:** ¿Están creados todos los cuadernillos de los desafíos superados (incluyendo los aprendizajes extraídos al saldar la deuda técnica del paso 1)? Deben ser curados (`merci promote`) y compilados (`merci total`).
 3. **Auditoría Documental:** ¿Está toda la documentación base correcta? El `README.md` debe tener los hitos marcados (`[x]`) y la biblia (`instrucciones.md`) debe reflejar las nuevas directrices o herramientas creadas. Revisión de documentación en directorio docs/ y revisión de SECURITY.md
 4. **Evaluación de Release (Boilerplate):** ¿Se han modificado scripts del ecosistema (`merci-*.py`), configuraciones base o arquitectura que pertenezcan a la plantilla pública? Si la respuesta es sí, se DEBE registrar en la bitácora, **actualizar el cuadernillo "Anatomía de Merci Boilerplate"**, y ejecutar el *Release Pipeline* para subir una nueva versión de `merci-boilerplate` antes de continuar.
-5. **Certificación de Rendimiento (9 Casos):** Ejecutar las auditorías externas (Catchpoint/PageSpeed) en los 9 escenarios críticos (Portada, Biblioteca, Blog × Escritorio, Móvil 5G, Móvil 4G). Descargar el JSON del peor caso (Portada en Móvil 4G) en último lugar para que el orquestador lo inyecte en el dashboard de la web como sello empírico de la release.
+5. **Certificación de Rendimiento (9 Casos):** Ejecutar las auditorías externas (Catchpoint/PageSpeed) en los 9 escenarios críticos. El agente `merci-extract-metrics.py` interrogará automáticamente a la API de PageSpeed para inyectar las métricas móviles en el dashboard de la web como sello empírico de la release.
 6. **Snapshot (Backup Local):** Generar una copia de seguridad del repositorio en su estado estable (`merci-backup.py`) para tener un punto de restauración garantizado antes de alterar la arquitectura en la siguiente fase.
 7. **Sello Definitivo:** Una vez confirmados los 6 puntos anteriores, se emite la orden explícita de confirmación y se otorga luz verde para iniciar la conceptualización de la siguiente fase lógica.

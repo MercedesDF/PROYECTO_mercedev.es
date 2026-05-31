@@ -324,8 +324,16 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
 
 def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, canonical_url, header_html, footer_html, css_v: int, js_c_v: int, js_m_v: int):
     print(f"📖 Generando índice temático para {title}...")
-    title_html = html.escape(title)
+    
+    if title == "La Biblioteca":
+        title_html = 'la biblio<span class="hero__highlight">teca</span>'
+    elif title == "Art de Coté":
+        title_html = 'art de <span class="hero__highlight">coté</span>'
+    else:
+        title_html = html.escape(title)
+        
     meta_desc_html = html.escape(meta_desc)
+    hero_subtitle_html = html.escape(hero_subtitle)
     
     # Agrupar publicaciones por tema (Estanterías)
     estanterias = {}
@@ -441,9 +449,9 @@ def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, can
         </a>"""
         
     # QUÉ HACE: Trunca metadatos para el índice
-    titulo_seo = f"{title_html} — mercedev.es"
+    titulo_seo = f"{title} — mercedev.es"
     if len(titulo_seo) > 65:
-        titulo_seo = f"{title_html[:60]}..." if len(title_html) > 60 else title_html
+        titulo_seo = f"{title[:60]}..." if len(title) > 60 else title
         
     desc_seo = meta_desc_html
     if len(desc_seo) > 150:
@@ -477,7 +485,7 @@ def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, can
         <!-- QUÉ HACE: Sección Hero unificada con el resto del ecosistema -->
         <section class="hero">
             <h1 class="hero__title">{title_html}</h1>
-            <p class="hero__subtitle">{meta_desc_html}</p>
+            <p class="hero__subtitle">{hero_subtitle_html}</p>
             {badge_html}
         </section>
         
@@ -564,7 +572,7 @@ def main(): # type: ignore
                 
     if publicaciones_bib:
         PUBLIC_BIBLIOTECA.mkdir(parents=True, exist_ok=True)
-        generar_indice(publicaciones_bib, PUBLIC_BIBLIOTECA / "index.html", "La Biblioteca", "Índice de publicaciones técnicas y proyectos de la Biblioteca.", "Documentación técnica, proyectos DevSecOps y arquitectura de software. El activo de conocimiento central del ecosistema.", "https://mercedev.es/biblioteca/", header_html, footer_html, css_version, js_controller_version, js_main_version)
+        generar_indice(publicaciones_bib, PUBLIC_BIBLIOTECA / "index.html", "La Biblioteca", "Archivo técnico y documentación oficial. Compendios de arquitectura DevSecOps, automatización Python y metodologías Zero-Bloat.", "El conocimiento inmutable del ecosistema. Documentación técnica, metodología Spec as Source y cuadernillos de ingeniería DevSecOps. Todo lo que el sistema construye, la biblioteca lo preserva.", "https://mercedev.es/biblioteca/", header_html, footer_html, css_version, js_controller_version, js_main_version)
         
     if publicaciones_art:
         PUBLIC_ART_DE_COTE.mkdir(parents=True, exist_ok=True)

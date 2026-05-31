@@ -280,11 +280,12 @@
 ### Fase 4: Gamificación UX e Interfaz Conversacional
 - [ ] Diseñar e integrar visualmente las intervenciones de "Merci Explica" y "Easter Eggs" a lo largo de la interfaz (tooltips, bloques semánticos personalizados).
 - [ ] Cierre de fase
-- [ ] Cierre de épica
 
 ### Fase 5: Telemetría Autónoma (PageSpeed API)
 - [x] Refactorizar `merci-extract-metrics.py` para integrarse con la API de Google PageSpeed Insights (eliminando los JSON manuales).
 - [x] Añadir `PAGESPEED_API_KEY` al `.env` y ajustar el parseo a la estructura `.lighthouseResult`.
+- [ ] Cierre de fase
+- [ ] Cierre de épica
 
 --- 
 
