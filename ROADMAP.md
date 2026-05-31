@@ -282,6 +282,10 @@
 - [ ] Cierre de fase
 - [ ] Cierre de épica
 
+### Fase 5: Telemetría Autónoma (PageSpeed API)
+- [x] Refactorizar `merci-extract-metrics.py` para integrarse con la API de Google PageSpeed Insights (eliminando los JSON manuales).
+- [x] Añadir `PAGESPEED_API_KEY` al `.env` y ajustar el parseo a la estructura `.lighthouseResult`.
+
 --- 
 
 ## ÉPICA 8: Refactorización, mejora y revisión de buenas prácticas de los scripts. Limpieza de código.

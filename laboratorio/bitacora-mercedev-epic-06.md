@@ -36,20 +36,6 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
-### 2026-05-30 — Perf: Desglose de tiempos de ejecución en Orquestador Supremo
-
-**Contexto:** El orquestador supremo (`merci-completo.py`) ejecutaba la cadena de suministro End-to-End (Compilación -> Sello -> Despliegue) pero carecía de observabilidad sobre cuánto tiempo tomaba cada fase individual, a diferencia de `merci-total.py`.
-
-**Hecho:**
-- Se refactorizó `scripts/merci/merci-completo.py` para calcular e imprimir el desglose de duraciones.
-- Se añadió la exportación del artefacto de telemetría `.completo_duration.json` en la carpeta `observabilidad/`.
-
-**Detalle técnico:** Se integraron los módulos `time` y `json` para registrar el tiempo exacto que toma cada subproceso (`merci-total`, `merci-commit`, `merci-deploy`). Al terminar, la métrica se vuelca al archivo JSON de telemetría y se muestra una tabla en la terminal con la precisión de dos decimales.
-
-**Motivo / criterio:** *Deep Observability y Performance Driven Development*. Para optimizar el ciclo de vida del desarrollo (CI/CD local), es vital saber dónde ocurren los cuellos de botella (ej. ¿tarda más en auditar o en subir al servidor?). Replicar esta capacidad en el orquestador supremo consolida la cultura de medición estricta.
-
-**Siguiente paso o deuda:** Evaluar si se añade esta nueva métrica global al Agente SRE para su ingesta en Grafana.
-
 ### 2026-05-26 — Milestone: Sello Definitivo y Certificación de Épica 6 (E-commerce)
 
 **Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) en sus 7 pasos, certificando formalmente la Épica 6 tras decidir aplazar los detalles visuales de la tienda a la Épica 7.

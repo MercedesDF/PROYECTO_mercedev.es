@@ -20,6 +20,52 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-05-31 — Test: Validación End-to-End de Telemetría Autónoma (PageSpeed API)
+
+**Contexto:** Tras obtener el error 429 por cuotas anónimas, era necesario validar el agente extractor con una clave API legítima de Google Cloud para confirmar la inyección de los Core Web Vitals en la portada.
+
+**Hecho:** Se aprovisionó `PAGESPEED_API_KEY` en el archivo `.env` y se ejecutó `merci-extract-metrics.py`, obteniendo métricas perfectas (LCP 1.0s, TBT 0ms) inyectadas correctamente en el Dashboard.
+
+**Motivo / criterio:** *Zero Maintenance y End-to-End Testing*. Validar que el parseo del árbol `.lighthouseResult` nativo de Google es correcto certifica la autonomía total del sistema SRE. La extracción de JSON manuales queda definitivamente obsoleta.
+
+### 2026-05-31 — Milestone: Telemetría Autónoma y Gestión de Cuotas (HTTP 429)
+
+**Contexto:** Tras refactorizar el agente extractor de métricas para consumir la API de PageSpeed Insights, la ejecución en modo anónimo reveló un límite de tasa de peticiones muy severo por parte de Google (`HTTP 429: Too Many Requests`).
+
+**Hecho:**
+- Se validó la resiliencia del pipeline maestro (`merci total`), el cual toleró el error HTTP de la API sin romperse, demostrando el éxito del patrón *Fail Gracefully* (Degradación Elegante).
+- Se certificó el cierre de la Fase 5 de la Épica 7 marcando sus tareas en el `ROADMAP.md`.
+
+**Motivo / criterio:** *Fail-Safe y Zero Bloat*. Que un servicio externo rechace una petición por falta de autenticación es un escenario previsible. El pipeline no debe colapsar por falta de métricas, garantizando que el resto de las auditorías de código (QA) continúen su curso.
+
+**Siguiente paso o deuda:** Generar una API Key válida (`AIza...`) para restablecer el flujo SRE, y continuar con las fases restantes de la Épica 7.
+
+### 2026-05-31 — Arch/Discovery: Automatización total de auditorías vía PageSpeed Insights API
+
+**Contexto:** Actualmente, el agente `merci-extract-metrics.py` dependía de la descarga manual de reportes JSON generados en auditorías externas (Catchpoint/PageSpeed) para nutrir el Dashboard de la portada, introduciendo un paso manual de fricción operativa.
+
+**Hecho:** Se descubrió la viabilidad de utilizar la API REST nativa y gratuita de Google PageSpeed Insights (límite de 25.000 peticiones/día) para extraer estas métricas programáticamente. Se agenda la refactorización de la herramienta.
+
+**Detalle técnico:** El endpoint `https://www.googleapis.com/pagespeedonline/v5/runPagespeed` devuelve el árbol de datos estructurado exacto que el ecosistema necesita. Requerirá añadir `PAGESPEED_API_KEY` al archivo `.env` y sustituir la lectura de archivos físicos locales por una llamada HTTP nativa (`urllib`).
+
+**Motivo / criterio:** *End-to-End Automation y Zero Maintenance*. Eliminar el último paso manual de arrastrar y soltar archivos JSON completa la automatización absoluta de la telemetría SRE. Si la máquina puede interrogar la API por sí misma, el desarrollador no debe hacerlo.
+
+**Siguiente paso o deuda:** Refactorizar `merci-extract-metrics.py` para consumir esta API (adaptando el parser a la estructura `.lighthouseResult`) y gestionar sus llamadas dentro del orquestador maestro para la próxima fase.
+
+### 2026-05-30 — Perf: Desglose de tiempos de ejecución en Orquestador Supremo
+
+**Contexto:** El orquestador supremo (`merci-completo.py`) ejecutaba la cadena de suministro End-to-End (Compilación -> Sello -> Despliegue) pero carecía de observabilidad sobre cuánto tiempo tomaba cada fase individual, a diferencia de `merci-total.py`.
+
+**Hecho:**
+- Se refactorizó `scripts/merci/merci-completo.py` para calcular e imprimir el desglose de duraciones.
+- Se añadió la exportación del artefacto de telemetría `.completo_duration.json` en la carpeta `observabilidad/`.
+
+**Detalle técnico:** Se integraron los módulos `time` y `json` para registrar el tiempo exacto que toma cada subproceso (`merci-total`, `merci-commit`, `merci-deploy`). Al terminar, la métrica se vuelca al archivo JSON de telemetría y se muestra una tabla en la terminal con la precisión de dos decimales.
+
+**Motivo / criterio:** *Deep Observability y Performance Driven Development*. Para optimizar el ciclo de vida del desarrollo (CI/CD local), es vital saber dónde ocurren los cuellos de botella (ej. ¿tarda más en auditar o en subir al servidor?). Replicar esta capacidad en el orquestador supremo consolida la cultura de medición estricta.
+
+**Siguiente paso o deuda:** Evaluar si se añade esta nueva métrica global al Agente SRE para su ingesta en Grafana.
+
 ### 2026-05-29 — UX/DevRel: Refinamiento de copy en "Merci Explica" de Infraestructura
 
 **Contexto:** La explicación de los "compartimentos aislados" en la portada requería un ajuste de redacción para especificar claramente el "radio de explosión" (Blast Radius) ante un fallo de seguridad o IA.
