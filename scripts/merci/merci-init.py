@@ -124,6 +124,17 @@ def anonimizar_portada(nuevo_dominio: str):
         </article>"""
         
         content = re.sub(r'<article class="prose">.*?</article>', nuevo_prose, content, flags=re.DOTALL | re.IGNORECASE)
+
+        # QUÉ HACE: Purga los textos personales del Hero y los bloques "Merci Explica" de la matriz.
+        # POR QUÉ: Prevención de Fuga de Datos (DLP). Evita que la identidad, el copy de marketing
+        # o explicaciones de la autora matriz se filtren en la demo pública del Showcase/Boilerplate.
+        content = re.sub(r'<h2 class="hero__statement">.*?</h2>', '<h2 class="hero__statement">proyecto instanciado<br>infraestructura lista</h2>', content, flags=re.DOTALL | re.IGNORECASE)
+        content = re.sub(r'<p class="hero__subtitle">.*?</p>', '<p class="hero__subtitle">El ecosistema DevSecOps ha sido inicializado con éxito. El código base, los orquestadores y la infraestructura están listos para recibir tu proyecto.</p>', content, flags=re.DOTALL | re.IGNORECASE)
+        content = content.replace('¿quieres conocerme?', 'Ver perfil')
+
+        explica_pattern = re.compile(r'<(div|aside) class="hero__explica">.*?</\1>', re.DOTALL | re.IGNORECASE)
+        content = explica_pattern.sub('', content)
+
         index_path.write_text(content, encoding="utf-8")
 
 def anonimizar_paginas_secundarias(nuevo_nombre: str, nuevo_dominio: str):

@@ -20,6 +20,27 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-06-01 — Fix/DLP: Fuga de identidad en Hero de la matriz hacia el Showcase
+
+**Contexto (Desafío):** Al ejecutar el Showcase o instanciar un nuevo Boilerplate, se filtraban los textos personales del Hero de la matriz ("proyecto vivo...", "Un solo comando...") y los bloques de "Merci Explica", arruinando la experiencia de "lienzo en blanco".
+
+**Hecho (Maniobra):** Se refactorizó la función `anonimizar_portada()` en `merci-init.py`. Se flexibilizó la expresión regular `explica_pattern` para atrapar tanto `<aside>` como `<div>`, purgando todos los bloques de la IA. Se añadieron reemplazos Regex para sobrescribir `<h2 class="hero__statement">` y `<p class="hero__subtitle">` con textos genéricos.
+
+**Motivo / criterio (Aprendizaje):** *Data Leak Prevention (DLP)*. La guillotina de instanciación debe ser implacable. Depender de etiquetas HTML fijas (como `<aside>` en vez de `<div>`) o ignorar el subtítulo genera puntos ciegos. Endurecer el purgado asegura un Showcase y Boilerplate 100% agnósticos.
+
+### 2026-06-01 — Fix: Aislamiento de contexto en Showcase (Fuga de Datos)
+
+**Contexto (Desafío):** Se detectó una fuga de datos y de contexto en la demo pública (`boilerplate.mercedev.es`). La portada del Showcase conservaba el bloque "Merci Explica" de la matriz y, lo que es más grave, inyectaba las métricas de rendimiento reales de `mercedev.es` en lugar de las métricas ideales del Boilerplate.
+
+**Hecho (Maniobra):**
+- Se parcheó `merci-init.py` para que purgue el bloque `<aside class="hero__explica">` del `index.html` durante la anonimización.
+- Se refactorizó `merci-extract-metrics.py` para que su ruta raíz (`REPO_ROOT`) pueda ser controlada por una variable de entorno (`MERCI_PROJECT_ROOT`), desacoplándolo de su ubicación física.
+- Se actualizó el orquestador `merci-showcase.py` para que copie la plantilla de métricas del Boilerplate, purgue la caché del clon y ejecute el extractor de métricas en el contexto del directorio efímero.
+
+**Motivo / criterio (Aprendizaje):** *Context-Awareness y Aislamiento de Entornos*. Un script de automatización no debe asumir que siempre se ejecuta sobre su propio proyecto. Al hacerlo "consciente del contexto" mediante variables de entorno, permitimos que los orquestadores lo invoquen sobre copias temporales, garantizando que el Showcase sea un reflejo 100% fiel y agnóstico del Boilerplate, sin fugas de datos ni de identidad.
+
+**Siguiente paso o deuda:** Re-ejecutar `merci showcase` para validar el entorno purgado, y continuar con la Fase 3 de la Épica 7 (Integración Multimedia Avanzada).
+
 ### 2026-06-01 — Docs/QA: Corrección manual de tono impersonal en post de marketing
 
 **Contexto:** A pesar de haber refactorizado el prompt del Agente Blogger, el modelo (SLM local) deslizó sutilmente la primera persona del plural ("Nuestra solución...", "ajustamos la paleta") en el artículo de marketing generado `blog-animaciones-css-y-accesibilidad-wcag.md`.

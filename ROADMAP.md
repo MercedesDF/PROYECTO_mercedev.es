@@ -264,7 +264,8 @@
 - [x] Implementar botón de retorno ("Volver a mercedev.es") en la interfaz del Showcase para evitar fugas de tráfico.
 - [x] Desvincular telemetría del Showcase: inyectar un reporte base ideal (`merci-boilerplate.json`) en lugar de usar los datos de la matriz.
 - [x] Implementar patrón Gemelo Multimedia: purgar imágenes de matriz, cargar `tu_logo.webp` y `tu_avatar.webp` y forzar cache-busting en la inicialización.
-- [x] Implementar Purga de Identidad Agnóstica: erradicar enlaces hardcodeados de Art de Coté en el menú y evitar bloqueos en las páginas secundarias de contingencia.
+- [x] Implementar Purga de Identidad Agnóstica: erradicar enlaces hardcodeados de Art de Coté y bloqueos 403 en páginas de contingencia.
+- [x] Purgar fugas de identidad visual del asistente ("Merci Explica") en la portada del orquestador de Showcase.
 
 ### Fase 2: Refinamiento de Estilos UI/UX y Accesibilidad
 - [x] Refinar y perfeccionar la maquetación visual de la tienda (WooCommerce), haciendo especial énfasis en la experiencia de usuario (UX) y el diseño del carrito de compra. Mobile first.

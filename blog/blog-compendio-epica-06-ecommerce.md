@@ -2,12 +2,13 @@
 titulo: "Desbloqueando la Velocidad del E-commerce con Zero-JS"
 descripcion: "Optimización de WooCommerce para un Tiempo de Bloqueo Total de 0ms en una arquitectura híbrida extrema."
 estado: "publicado"
-estado_social: "aprobado"
+estado_social: "publicado_linkedin"
 orden_social: 2
 tema: "Blog"
 alt_portada: "Ejemplo de tienda online híbrida con velocidad instantánea"
 fase: "Epic 6 - Fase 1"
 fecha: "2026-05-26"
+linkedin_id: "urn:li:share:7467122777473302528"
 ---
 <!-- linkedin:
 La eliminación de la dependencia de JavaScript en el lado del cliente es un paso crucial hacia una experiencia web ultra-rápida. Se ha demostrado que, al forzar a WooCommerce a funcionar como una aplicación de los años 90 (recargando la página entera tras enviar un formulario POST), se puede lograr un TBT garantizado de 0ms. 
