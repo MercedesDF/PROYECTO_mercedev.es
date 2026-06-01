@@ -20,6 +20,44 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-06-01 — Fix/QA: Saneamiento agresivo (Regex) de API Key
+
+**Contexto:** Tras limpiar las comillas del `.env`, el extractor seguía colapsando con el error de red `URL can't contain control characters`. Esto indicaba la presencia de caracteres invisibles, espacios de no separación o saltos de carro residuales (`\r`) arrastrados al copiar la clave, que el método `.strip()` nativo no lograba purgar.
+
+**Hecho:** Se implementó una sanitización estricta (Allowlist) en `merci-extract-metrics.py` utilizando expresiones regulares (`re.sub(r'[^A-Za-z0-9_\-]', '', raw_key)`).
+
+**Motivo / criterio:** *Zero Trust Input Validation*. No basta con intentar predecir y eliminar los caracteres "malos" (Blacklist). La única forma de blindar el pipeline contra el envenenamiento de variables de entorno y errores de copiar/pegar es permitir *exclusivamente* los caracteres estructuralmente legítimos de una API Key (letras, números y guiones).
+
+**Siguiente paso o deuda:** Re-ejecutar el extractor, confirmar la inyección y proceder con el Snapshot y Sello Definitivo de la Fase 2 (UI/UX).
+
+### 2026-06-01 — Fix/QA: Resolución de caracteres de control en extractor de métricas
+
+**Contexto:** Al ejecutar `merci-extract-metrics.py` con una API Key provista en el archivo `.env`, el script colapsó con un error de red (`URL can't contain control characters`) debido a comillas y espacios residuales arrastrados al copiar y pegar.
+
+**Hecho:** Se refactorizó la función `load_api_key()` en `scripts/merci/merci-extract-metrics.py` para purgar todas las comillas (`"` y `'`) mediante encadenamiento de `replace()` antes de aplicar `strip()`.
+
+**Motivo / criterio:** *Defensive Programming (Programación Defensiva)*. El parseo manual de archivos `.env` es frágil ante errores humanos de formateo. Sanitizar agresivamente la clave antes de inyectarla en la petición HTTP protege la autonomía del flujo SRE, garantizando que el pipeline no se rompa por un simple espacio en blanco.
+
+**Siguiente paso o deuda:** Re-ejecutar el extractor para confirmar la telemetría, y proceder con el Snapshot y Sello Definitivo de la Fase 2 (UI/UX).
+
+### 2026-06-01 — Docs/SRE: Auditoría documental y preparación de v1.18.0
+
+**Contexto:** Avanzar en los pasos de consolidación previos al cierre final de la Fase 2, asegurando que la documentación refleja la evolución del ecosistema visual y de accesibilidad.
+
+**Hecho:** Se auditaron los documentos de la carpeta `docs/` y se preparó el terreno para la Release v1.18.0 del Boilerplate.
+
+**Detalle técnico:** La auditoría confirmó que la política Zero-JS para animaciones ya estaba cubierta por la Regla 6.6 en `instrucciones.md` ("Cero dependencias visuales"). Se validó la actualización pendiente del `README-merci.md` con las novedades de la v1.18.0.
+
+**Motivo / criterio:** *Auditoría Continua*. Revisar la documentación maestra antes de sellar garantiza que no haya deriva de políticas. El ecosistema es coherente con sus propias reglas, eliminando la necesidad de modificaciones adicionales en la normativa del proyecto.
+
+### 2026-06-01 — Docs: Cosecha de Conocimiento (Animaciones CSS y WCAG)
+
+**Contexto:** Extraer y consolidar el conocimiento técnico adquirido durante el refinamiento de UI/UX para evitar que las lecciones sobre rendimiento y accesibilidad se pierdan en el historial.
+
+**Hecho:** Se redactó el borrador `cuadernillo-animaciones-css-y-accesibilidad-wcag.md` en la bandeja de `incubacion/`.
+
+**Motivo / criterio:** *Gestión del Conocimiento (3 Átomos)*. Documentar que la preservación del 100/100 en accesibilidad se logra invirtiendo el contraste semántico (y no confiando en tonos primarios brillantes) es un activo reutilizable clave para futuras interfaces distribuidas en el Boilerplate.
+
 ### 2026-05-31 — Test: Validación End-to-End de Telemetría Autónoma (PageSpeed API)
 
 **Contexto:** Tras obtener el error 429 por cuotas anónimas, era necesario validar el agente extractor con una clave API legítima de Google Cloud para confirmar la inyección de los Core Web Vitals en la portada.

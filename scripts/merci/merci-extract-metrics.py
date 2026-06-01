@@ -36,7 +36,10 @@ def load_api_key():
         return None
     for line in env_file.read_text(encoding="utf-8").splitlines():
         if line.startswith("PAGESPEED_API_KEY="):
-            key = line.split("=", 1)[1].strip().strip('"\'')
+            # Extraemos ignorando comentarios inline y purgamos TODO lo que no sea alfanumérico o guiones
+            raw_key = line.split("=", 1)[1].split("#")[0]
+            key = re.sub(r'[^A-Za-z0-9_\-]', '', raw_key)
+            
             if key and not key.startswith("AIza"):
                 print(f"  ⚠️ [Merci Warn] La clave '{key[:5]}...' no es una API Key válida de Google (debe empezar por 'AIza').")
                 return None

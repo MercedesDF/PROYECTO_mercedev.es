@@ -271,7 +271,7 @@
 - [x] Revisar el nivel de contraste y adaptar los colores de los botones de la portada (hover) para cumplir con accesibilidad WCAG.
 - [x] Diseñar e implementar mejoras visuales avanzadas (espaciados, tipografía, paleta extendida) sin comprometer el 100/100 de rendimiento.
 - [x] Refinar las animaciones (CSS) y microinteracciones del ecosistema.
-- [ ] Cierre de fase
+- [x] Cierre de fase
 
 ### Fase 3: Integración Multimedia Avanzada
 - [ ] Integrar soporte para videos optimizados y multimedia enriquecida en la portada y Biblioteca (imágenes de alta resolución).
@@ -320,3 +320,12 @@
 - [x] Eliminación de exceso de anglicismos (Soberanía del Castellano) o enlazado dinámico de términos al Glosario Técnico.
 - [ ] Refinamiento de la presentación visual de la Biblioteca (reestructuración de formatos y layout) para ayudar a procesar la alta densidad de información.
 - [ ] Creación de referencias cruzadas sólidas entre los distintos cuadernillos de la Biblioteca.
+
+---
+
+## 💡 IDEAS FUTURAS (Backlog)
+
+Iniciativas documentadas para futuras iteraciones que actualmente no pertenecen a las épicas activas:
+
+- [ ] **Sellos de Rendimiento Granulares por URL:** Inyectar un *micro-badge* visual Zero-JS en los metadatos de los artículos (Biblioteca/Blog) o al final del texto con el resultado individual de rendimiento (100/100).
+  - *Deuda Técnica (CI/CD):* Auditar múltiples URLs dinámicas penalizaría drásticamente el tiempo del pipeline. Requiere diseñar previamente un sistema de "Muestra Representativa" (auditar solo la plantilla genérica) o una caché de validación en GitHub Actions basada en fechas físicas (`st_mtime`).
