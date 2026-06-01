@@ -20,6 +20,63 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-06-01 — Docs/QA: Corrección manual de tono impersonal en post de marketing
+
+**Contexto:** A pesar de haber refactorizado el prompt del Agente Blogger, el modelo (SLM local) deslizó sutilmente la primera persona del plural ("Nuestra solución...", "ajustamos la paleta") en el artículo de marketing generado `blog-animaciones-css-y-accesibilidad-wcag.md`.
+
+**Hecho:** Se corrigió manualmente el archivo en incubación, sustituyendo los posesivos y verbos conjugados por voz pasiva e impersonal ("La solución...", "se ajustó la paleta").
+
+**Motivo / criterio:** *Límites Cognitivos y QA Humano*. Los modelos locales pequeños pueden sufrir "amnesia de contexto" o deslices estilísticos puntuales, incluso con System Prompts estrictos, cuando se les exige redactar con *Storytelling*. La revisión humana rápida (QA) antes de la promoción es el escudo definitivo para garantizar que la Guía de Voz Editorial se cumpla al 100%.
+
+### 2026-06-01 — Docs/QA: Asignación explícita de fase en YAML Frontmatter
+
+**Contexto:** Se verificó que el campo `fase` en los cuadernillos en incubación estaba inicializado como vacío (`""`), contraviniendo la norma actualizada de la plantilla que exige el formato `Epic X - Fase Y`.
+
+**Hecho:** Se actualizaron los metadatos YAML inyectando `Epic 7 - Fase 2` en el cuadernillo de animaciones CSS y `Epic 7 - Fase 1` en el del patrón gemelo multimedia.
+
+**Motivo / criterio:** *Trazabilidad Histórica*. Vincular un documento técnico a la épica y fase exacta en la que fue concebido permite a los lectores entender el contexto arquitectónico bajo el cual se tomaron esas decisiones, enriqueciendo el valor del ecosistema.
+
+### 2026-06-01 — Docs/QA: Corrección de campos faltantes en YAML Frontmatter
+
+**Contexto:** Se detectó la ausencia del campo `fase` en los cuadernillos recién incubados, así como una fecha sin inicializar (`AAAA-MM-DD`), lo cual incumple la estructura de la `plantilla-cuadernillo.md`.
+
+**Hecho:** Se inyectó el atributo `fase: ""` y se estableció la fecha correcta en los archivos `cuadernillo-animaciones-css-y-accesibilidad-wcag.md` y `cuadernillo-patron-gemelo-multimedia-showcase.md`.
+
+**Motivo / criterio:** *Strict QA Documental*. Respetar al 100% la estructura de las plantillas garantiza la interoperabilidad de los orquestadores (como `merci-promote` y `merci-publish`) que parsean el YAML de manera estricta.
+
+### 2026-06-01 — Docs/QA: Corrección de metadato WAI-ARIA en cuadernillos
+
+**Contexto:** En preparación para la promoción de los cuadernillos en incubación, se detectó que faltaba el atributo obligatorio `alt_portada` en el YAML Frontmatter de dos documentos, lo cual habría bloqueado el orquestador de publicación (`merci-publish.py`).
+
+**Hecho:** Se inyectó el metadato `alt_portada` con descripciones visuales adecuadas en `cuadernillo-animaciones-css-y-accesibilidad-wcag.md` y `cuadernillo-patron-gemelo-multimedia-showcase.md`.
+
+**Motivo / criterio:** *Shift-Left Accessibility*. El linter exige este atributo para garantizar que el 100/100 en accesibilidad WAI-ARIA no se degrade. Proveerlo desde la fase de incubación elimina fricciones futuras durante el empaquetado y promoción.
+
+### 2026-06-01 — Docs/DevRel: Inyección de "Merci Explica" en cuadernillo Gemelo Multimedia
+
+**Contexto:** Al auditar la plantilla de los cuadernillos, se detectó que un borrador previo en la incubadora (`cuadernillo-patron-gemelo-multimedia-showcase.md`) carecía de la sección final de accesibilidad cognitiva.
+
+**Hecho:** Se inyectó el bloque `### 💡 En resumen (Merci Explica):` con una analogía sobre "vender una casa amueblada" para explicar el reemplazo de assets sin romper el layout.
+
+**Motivo / criterio:** *Accesibilidad Cognitiva y Docs-as-Code*. Garantizar que todo el conocimiento técnico del proyecto, incluso el generado en fases anteriores, cumpla con el nuevo estándar divulgativo antes de ser promovido a la Biblioteca.
+
+### 2026-06-01 — Milestone: Cierre definitivo de Fase 2 (Épica 7) y Release v1.18.0
+
+**Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para certificar la finalización de la Fase 2 (Refinamiento de Estilos UI/UX y Accesibilidad) y preparar la liberación del Boilerplate.
+
+**Hecho:** Se ejecutó y validó el checklist completo:
+- [x] **1. Deuda Técnica:** 0 TODOs bloqueantes. Paleta de contraste WCAG AAA, microinteracciones Zero-JS y sanitización Zero Trust (Regex) de la API de PageSpeed.
+- [x] **2. Cosecha de Conocimiento:** Cuadernillo `cuadernillo-animaciones-css-y-accesibilidad-wcag.md` incubado.
+- [x] **3. Auditoría Documental:** `ROADMAP.md` y manuales en `docs/` auditados y actualizados.
+- [x] **4. Evaluación de Release:** Boilerplate actualizado a v1.18.0 en `README-merci.md` con las novedades de E-commerce Híbrido, UI y WCAG.
+- [x] **5. Certificación de Rendimiento:** API de PageSpeed Autónoma ejecutada, confirmando TBT 0ms y cuádruple 100/100 inyectados en portada.
+- [x] **6. Snapshot:** Backup local ejecutado.
+- [x] **7. Sello Definitivo:** Commit atómico de consolidación generado.
+
+**Motivo / criterio:** *Governance y QA Assurance*. Completar los 7 pasos innegociables asegura que la capa visual del ecosistema es robusta, inclusiva y matemáticamente perfecta antes de introducir la carga pesada de multimedia (Fase 3).
+
+**Siguiente paso o deuda:** Ejecutar `merci release` para exportar el Boilerplate v1.18.0 e iniciar la Fase 3 (Integración Multimedia Avanzada) con la estrategia de carga de vídeos.
+
 ### 2026-06-01 — Fix/QA: Saneamiento agresivo (Regex) de API Key
 
 **Contexto:** Tras limpiar las comillas del `.env`, el extractor seguía colapsando con el error de red `URL can't contain control characters`. Esto indicaba la presencia de caracteres invisibles, espacios de no separación o saltos de carro residuales (`\r`) arrastrados al copiar la clave, que el método `.strip()` nativo no lograba purgar.

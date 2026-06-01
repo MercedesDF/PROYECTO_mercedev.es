@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microinteracciones Zero-JS y Accesibilidad WCAG — mercedev.es</title>
+    <meta name="description" content="Cómo implementar animaciones fluidas y cumplir con los estándares de contraste sin sacrificar el rendimiento extremo.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/microinteracciones-zero-js-y-accesibilidad-wcag.html">
+    <link rel="stylesheet" href="/css/main.css?v=1780300563">
+    <script src="/js/MerciController.js?v=1779793228" defer></script>
+    <script src="/js/main.js?v=1779435201" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Microinteracciones Zero-JS y Accesibilidad WCAG",
+      "description": "C\u00f3mo implementar animaciones fluidas y cumplir con los est\u00e1ndares de contraste sin sacrificar el rendimiento extremo.",
+      "url": "https://mercedev.es/biblioteca/microinteracciones-zero-js-y-accesibilidad-wcag.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header" id="top">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="low" decoding="async">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Portada</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Microinteracciones Zero-JS y Accesibilidad WCAG</h1>
+                <a href="/descargas/microinteracciones-zero-js-y-accesibilidad-wcag.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h3>1. El Desafío (Síntoma)</h3>
+<p>Enriquecer la estética visual (UI/UX) del ecosistema, implementando microinteracciones modernas (como elevación de tarjetas y transiciones en botones) y ampliando la paleta de colores corporativa. El reto principal consistía en lograr este enriquecimiento sin introducir librerías de JavaScript que penalizaran el Tiempo de Bloqueo Total (<abbr title="Merci Explica: El tiempo acumulado en el que el ordenador estuvo tan ocupado calculando cosas que tu ratón o tus toques en la pantalla parecían no responder." tabindex="0">TBT</abbr>) y garantizando simultáneamente el cumplimiento estricto de las directrices de accesibilidad y contraste WAI-<abbr title="Merci Explica: Etiquetas invisibles que le ponemos al código para que los lectores de pantalla puedan explicarle la web a las personas con discapacidades visuales." tabindex="0">ARIA</abbr> (WCAG AA/AAA).</p>
+<h3>2. La Maniobra (Lógica)</h3>
+<p>Se adoptó una política estricta de <em>Zero-JS</em> para la capa de presentación. Todas las animaciones y microinteracciones se delegaron íntegramente a transiciones nativas de CSS y variables <abbr title="Merci Explica: CSS con superpoderes." tabindex="0">SASS</abbr> (<code>_variables.scss</code>). </p>
+<p>En paralelo, se realizó un ajuste quirúrgico de la paleta de colores. Por ejemplo, al implementar el tono malva (Homenaje) en los avisos de la tienda, se validó matemáticamente el ratio de contraste entre el texto (<code>#5b21b6</code>) y el fondo translúcido (<code>rgba(139, 92, 246, 0.1)</code>), obteniendo un ratio superior a 7:1, lo que satisface el nivel más estricto (AAA). En los botones de la portada, se rediseñó el estado <code>:hover</code> aplicando una inversión semántica (Fondo claro / Texto oscuro) para asegurar un contraste visual superior a 15:1.</p>
+<h3>3. El Aprendizaje/Deuda Técnica</h3>
+<p><strong>El engaño del color primario:</strong> Es un error común de diseño utilizar el color primario de la marca (a menudo tonos vibrantes como naranjas o malvas claros) como fondo de botón con texto blanco. Estos colores vibrantes rara vez superan el ratio 4.5:1 exigido por Lighthouse. La solución arquitectónica es derivar siempre variables específicas (<code>$color-regular</code> o <code>$color-homage-dark</code>) para asegurar la legibilidad en bloques sólidos interactivos.</p>
+<p><strong>El hilo principal es sagrado:</strong> Delegar las animaciones de interfaz al CSS nativo no solo reduce el peso de transferencia (cero dependencias externas), sino que permite que el navegador optimice los cálculos gráficos mediante la Unidad de Procesamiento Gráfico (<abbr title="Merci Explica: Cerebro visual de la computadora." tabindex="0">GPU</abbr>), manteniendo el hilo principal libre de bloqueos y conservando el TBT en unos perfectos 0ms.</p>
+<h3>💡 En resumen (Merci Explica):</h3>
+<p>Imagina que el "hilo principal" del navegador es el único camarero en un restaurante muy ocupado. Si le pedimos que, además de tomar notas y servir platos, se ponga a hacer malabares (usando librerías de animaciones JavaScript), el servicio se bloqueará y los clientes tendrán que esperar. Al delegar estas animaciones a CSS puro, es como contratar a un malabarista profesional independiente (la tarjeta gráfica de tu ordenador). El restaurante luce increíble y dinámico, pero el camarero sigue 100% libre para atender tus pedidos al instante (0ms de latencia).</p>
+            </div>
+        </article>
+    </main>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" fetchpriority="low" decoding="async">
+        </button>
+    </aside>
+</body>
+</html>

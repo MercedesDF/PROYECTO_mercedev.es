@@ -145,6 +145,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/el-patron-gemelo-multimedia-cero-fugas-y-cero-latencia</loc>
+      <lastmod>2026-06-01</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/prueba-de-integracion-wp-y-linkedin</loc>
       <lastmod>2026-06-01</lastmod>
       <changefreq>weekly</changefreq>
@@ -404,6 +410,12 @@
    </url>
    <url>
       <loc>https://mercedev.es/biblioteca/identidad-criptografica-comunicaciones-cifradas-con-pgp</loc>
+      <lastmod>2026-06-01</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://mercedev.es/biblioteca/microinteracciones-zero-js-y-accesibilidad-wcag</loc>
       <lastmod>2026-06-01</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.7</priority>
