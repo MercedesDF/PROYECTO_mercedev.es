@@ -20,20 +20,32 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
-### 2026-06-06 — Implementación: Integración de compresión de vídeo en el optimizador de activos
+### 2026-06-06 — Pruebas: Validación empírica de compresión de vídeo y caché
 
-**Contexto (Desafío):** Para iniciar la Fase 3 de la Épica 7, se requiere un mecanismo local de procesamiento de vídeo que automatice la codificación a formatos WebM y MP4 ultraligeros, de modo que se evite la carga de scripts de terceros y se preserve el rendimiento extremo del sitio.
+**Contexto (Desafío):** Comprobar la tasa de compresión del pipeline local, el tiempo necesario de procesamiento y validar que la caché incremental evita retrasos repetitivos de codificación en el flujo diario.
 
 **Hecho (Maniobra):**
-- Se unificó la lógica de procesamiento de recursos multimedia ampliando el script **[merci-optimizer.py](file:///home/hildegahr/Escritorio/PROYECTO_mercedev.es/scripts/merci/merci-optimizer.py)**. Se añadió la detección y codificación de vídeos (formatos `.mp4`, `.mov`, `.avi`, `.webm`) usando la herramienta de Codificación de Audio y Vídeo (FFmpeg).
-- Se configuró la codificación a formato WebM (códec VP9 con Factor de Calidad Constante (CRF - Constant Rate Factor) 32) y MP4 (códec H.264 con CRF 28), exportando los resultados a `assets/videos/`.
-- Se adaptó el vigilante **[merci-assets-watcher.py](file:///home/hildegahr/Escritorio/PROYECTO_mercedev.es/scripts/merci/merci-assets-watcher.py)** para reaccionar a cambios en extensiones de vídeo en segundo plano.
-- Se implementó la captura de excepciones y la salida limpia en caso de interrupción por teclado (`KeyboardInterrupt`), retornando el código de estado `130`.
+- Se copió un vídeo de sesión de 35.8 megabytes (MB) (`test_evidencia.webm`) a la carpeta de crudos y se ejecutó la compresión.
+- Se obtuvo una reducción de peso del 58% en formato WebM (VP9, 15.0 MB) tras 5 minutos y 26 segundos de procesamiento, y un archivo MP4 (H.264, 35.7 MB) de respaldo.
+- Se validó que la segunda ejecución del optimizador se salta el archivo por caché en 0.07 segundos basándose en la fecha de modificación (`st_mtime`).
+
+**Motivo / criterio (Aprendizaje):** *Zero-Bloat*. La validación empírica confirma que la compresión es altamente efectiva y que la caché impide retrasos innecesarios en la ejecución de la auditoría completa (`merci total`).
+
+**Siguiente paso o deuda:** Siguiente paso: Integrar el soporte multimedia en la maquetación HTML de la portada y documentar el uso en la Biblioteca.
+
+### 2026-06-06 — Implementación: Integración de compresión de vídeo en el optimizador de activos
+
+**Contexto (Desafío):** Habilitar procesamiento de vídeo local utilizando FFmpeg sin depender de scripts pesados de terceros para la Fase 3 de la Épica 7.
+
+**Hecho (Maniobra):**
+- Se amplió el script **[scripts/merci/merci-optimizer.py](./scripts/merci/merci-optimizer.py)** para detectar y comprimir vídeos (`.mp4`, `.mov`, `.avi`, `.webm`) de la carpeta de crudos hacia `assets/videos/`.
+- Se adaptó el vigilante **[scripts/merci/merci-assets-watcher.py](./scripts/merci/merci-assets-watcher.py)** para que monitorice extensiones de vídeo en tiempo real.
+- Se gestionó la interrupción por teclado (`KeyboardInterrupt`) para salir de forma elegante con código de estado `130`.
 - Se probó la ejecución local con éxito bajo el entorno virtual.
 
-**Motivo / criterio (Aprendizaje):** *Zero-Dependency Assets*. La centralización de optimización de activos simplifica el mantenimiento al evitar la dispersión de scripts auxiliares. Se implementó una lógica condicional para Pillow, garantizando que el optimizador funcione aunque solo se disponga de FFmpeg.
+**Motivo / criterio (Aprendizaje):** *Zero-Dependency Assets*. Consolidación de herramientas multimedia en un único optimizador.
 
-**Siguiente paso o deuda:** Siguiente paso: Añadir un vídeo de prueba en `.assets-raw/` para verificar la compresión y la respuesta del vigilante de activos. Integrar la compatibilidad multimedia en la maquetación HTML de la portada y documentar el uso en la Biblioteca.
+**Siguiente paso o deuda:** Siguiente paso: Realizar pruebas de rendimiento con vídeos de evidencias reales.
 
 ### 2026-06-01 — Fix/DLP: Fuga de identidad en Hero de la matriz hacia el Showcase
 
