@@ -2,7 +2,8 @@
 titulo: "El Patrón Gemelo Multimedia: Cero Fugas y Cero Latencia"
 descripcion: "Estrategia DevSecOps para instanciar repositorios y demos (Showcases) aplicando prevención de pérdida de datos sin provocar errores 404 ni penalizaciones en Core Web Vitals."
 estado: "publicado"
-estado_social: "en_cola"
+estado_social: "aprobado"
+orden_social: 2
 tema: "Blog"
 fecha: "2026-05-28"
 fase: "Epic 7 - Fase 1"

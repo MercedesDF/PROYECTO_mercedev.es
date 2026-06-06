@@ -20,6 +20,21 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-06-06 — Implementación: Integración de compresión de vídeo en el optimizador de activos
+
+**Contexto (Desafío):** Para iniciar la Fase 3 de la Épica 7, se requiere un mecanismo local de procesamiento de vídeo que automatice la codificación a formatos WebM y MP4 ultraligeros, de modo que se evite la carga de scripts de terceros y se preserve el rendimiento extremo del sitio.
+
+**Hecho (Maniobra):**
+- Se unificó la lógica de procesamiento de recursos multimedia ampliando el script **[merci-optimizer.py](file:///home/hildegahr/Escritorio/PROYECTO_mercedev.es/scripts/merci/merci-optimizer.py)**. Se añadió la detección y codificación de vídeos (formatos `.mp4`, `.mov`, `.avi`, `.webm`) usando la herramienta de Codificación de Audio y Vídeo (FFmpeg).
+- Se configuró la codificación a formato WebM (códec VP9 con Factor de Calidad Constante (CRF - Constant Rate Factor) 32) y MP4 (códec H.264 con CRF 28), exportando los resultados a `assets/videos/`.
+- Se adaptó el vigilante **[merci-assets-watcher.py](file:///home/hildegahr/Escritorio/PROYECTO_mercedev.es/scripts/merci/merci-assets-watcher.py)** para reaccionar a cambios en extensiones de vídeo en segundo plano.
+- Se implementó la captura de excepciones y la salida limpia en caso de interrupción por teclado (`KeyboardInterrupt`), retornando el código de estado `130`.
+- Se probó la ejecución local con éxito bajo el entorno virtual.
+
+**Motivo / criterio (Aprendizaje):** *Zero-Dependency Assets*. La centralización de optimización de activos simplifica el mantenimiento al evitar la dispersión de scripts auxiliares. Se implementó una lógica condicional para Pillow, garantizando que el optimizador funcione aunque solo se disponga de FFmpeg.
+
+**Siguiente paso o deuda:** Siguiente paso: Añadir un vídeo de prueba en `.assets-raw/` para verificar la compresión y la respuesta del vigilante de activos. Integrar la compatibilidad multimedia en la maquetación HTML de la portada y documentar el uso en la Biblioteca.
+
 ### 2026-06-01 — Fix/DLP: Fuga de identidad en Hero de la matriz hacia el Showcase
 
 **Contexto (Desafío):** Al ejecutar el Showcase o instanciar un nuevo Boilerplate, se filtraban los textos personales del Hero de la matriz ("proyecto vivo...", "Un solo comando...") y los bloques de "Merci Explica", arruinando la experiencia de "lienzo en blanco".
