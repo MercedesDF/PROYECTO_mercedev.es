@@ -7,6 +7,20 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-08 — Refactor: Enrutamiento dinámico en merci-optimizer.py
+
+**Contexto:** (Desafío) El script de optimización de imágenes (`merci-optimizer.py`) estaba rígidamente acoplado a la raíz del proyecto matriz mediante `Path(__file__).resolve().parents[2]`. Esto impedía su ejecución nativa para optimizar activos multimedia en directorios de otros proyectos externos desde la misma terminal sin copiar el script físicamente.
+
+**Hecho:** (Maniobra)
+- Se refactorizó la resolución de la constante `REPO_ROOT` en `scripts/merci/merci-optimizer.py`.
+- Se implementó la captura dinámica del directorio de trabajo mediante argumentos pasados por terminal (`sys.argv`) o como respaldo el directorio de trabajo actual (`os.getcwd()`).
+- Se incluyó filtrado de banderas (`-v`, `--verbose`) para evitar colisiones en las rutas.
+- Se actualizó la Fase 5 de la Épica 8 en el `ROADMAP.md`.
+
+**Motivo / criterio:** (Aprendizaje) *Portabilidad y Standalone Compliance*. Un script utilitario de optimización de imágenes no debe estar acoplado a la topología de su repositorio origen si su función es puramente algorítmica y agnóstica. Dotarlo de enrutamiento dinámico lo convierte en una utilidad transversal, maximizando el Retorno de la Inversión (ROI) del código creado.
+
+**Siguiente paso o deuda:** Evaluar la refactorización de otros scripts aislados (como `merci-styles.py` o `merci-audit.py`) para dotarlos de la misma portabilidad.
+
 ### 2026-05-31 — UI/UX: Eliminación de Hero compacto en el Blog
 
 **Contexto:** Al navegar entre la portada, la biblioteca y el blog, se producía un salto visual molesto debido a que la cabecera del blog utilizaba un modificador de altura reducida (`.hero--compact`), rompiendo la consistencia de la interfaz.

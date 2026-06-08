@@ -9,6 +9,7 @@ y genera versiones optimizadas (WebP para imágenes, WebM/MP4 para vídeos) en `
 """
 
 import sys
+import os
 import subprocess
 from pathlib import Path
 
@@ -21,7 +22,14 @@ except ImportError:
     HAS_PILLOW = False
 
 # --- Configuración de rutas y parámetros ---
-REPO_ROOT = Path(__file__).resolve().parents[2]
+# Enrutamiento dinámico: Usa la ruta pasada por terminal o el directorio actual (pwd).
+# Ignora los flags de verbosidad (-v, --verbose).
+_args = [arg for arg in sys.argv[1:] if arg not in ("-v", "--verbose")]
+_target_path = Path(_args[0]).resolve() if _args else Path(os.getcwd()).resolve()
+
+# Si se apunta directamente a .assets-raw, asumimos su padre como raíz del proyecto.
+REPO_ROOT = _target_path.parent if _target_path.name == ".assets-raw" else _target_path
+
 SOURCE_DIR = REPO_ROOT / ".assets-raw"
 DEST_IMAGES_DIR = REPO_ROOT / "assets/images"
 DEST_VIDEOS_DIR = REPO_ROOT / "assets/videos"
@@ -145,14 +153,17 @@ def optimize_videos(verbose=False):
 
         print(f"⚙️  Procesando vídeo: {video_path.name}")
 
-        # Compresión a formato libre WebM (Codec VP9, calidad CRF 32 para balance peso/rendimiento)
+        # Compresión a formato libre WebM (Codec VP9, calidad CRF 36 para balance peso/rendimiento)
+        # Implementación del patrón "Video-as-GIF": Se elimina la pista de audio (-an)
+        # y se reducen los fotogramas a 15 fps (-r 15) para reducir drásticamente el peso
+        # permitiendo que el vídeo se comporte visualmente como un GIF ligero.
         if needs_webm:
             if verbose:
-                print(f"   🎥 Codificando WebM (VP9)...")
+                print(f"   🎥 Codificando WebM (VP9) en modo Video-as-GIF...")
             cmd_webm = [
                 "ffmpeg", "-y", "-i", str(video_path),
-                "-c:v", "libvpx-vp9", "-crf", "32", "-b:v", "0",
-                "-c:a", "libvorbis", "-nostdin", str(output_webm)
+                "-c:v", "libvpx-vp9", "-crf", "36", "-b:v", "0",
+                "-r", "15", "-an", "-nostdin", str(output_webm)
             ]
             try:
                 subprocess.run(cmd_webm, capture_output=True, check=True)
@@ -161,14 +172,15 @@ def optimize_videos(verbose=False):
             except subprocess.CalledProcessError as e:
                 print(f"❌ Error al codificar WebM para {video_path.name}: {e.stderr.decode().strip()}", file=sys.stderr)
 
-        # Compresión a formato MP4 de respaldo (Codec H.264 compatible, calidad CRF 28)
+        # Compresión a formato MP4 de respaldo (Codec H.264 compatible, calidad CRF 30)
+        # Al igual que en WebM, amputamos el audio y bajamos a 15 fps para el patrón "Video-as-GIF".
         if needs_mp4:
             if verbose:
-                print(f"   🎥 Codificando MP4 (H.264)...")
+                print(f"   🎥 Codificando MP4 (H.264) en modo Video-as-GIF...")
             cmd_mp4 = [
                 "ffmpeg", "-y", "-i", str(video_path),
-                "-c:v", "libx264", "-crf", "28", "-preset", "fast",
-                "-c:a", "aac", "-b:a", "128k", "-nostdin", str(output_mp4)
+                "-c:v", "libx264", "-crf", "30", "-preset", "fast",
+                "-r", "15", "-an", "-nostdin", str(output_mp4)
             ]
             try:
                 subprocess.run(cmd_mp4, capture_output=True, check=True)

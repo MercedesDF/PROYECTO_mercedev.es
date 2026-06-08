@@ -41,7 +41,7 @@
           "L244"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L332"
+          "L343"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L3315"
@@ -110,7 +110,7 @@
           "L741"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L388"
+          "L399"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
@@ -158,7 +158,7 @@
           "L115"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L197"
+          "L208"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L120"
@@ -197,7 +197,7 @@
       "merci_explica": "Mide cuánto saltan los textos o imágenes mientras la página web termina de cargar.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L522"
+          "L533"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L160"
@@ -224,7 +224,7 @@
           "L111"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L438"
+          "L449"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L177"
@@ -310,9 +310,6 @@
       "definicion": "Método de compresión de video que ajusta la tasa de bits dinámicamente para mantener un nivel de calidad visual constante en lugar de un tamaño de archivo predecible.",
       "merci_explica": "Control de calidad de video que le dice al compresor que use más espacio solo en escenas complejas para mantener la imagen nítida.",
       "apariciones": {
-        "bitacora-mercedev-epic-07.md": [
-          "L29"
-        ],
         "bitacora-mercedev-epic-01.md": [
           "L5382"
         ]
@@ -437,7 +434,7 @@
           "L189"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L39"
+          "L50"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L409"
@@ -506,7 +503,7 @@
           "L49"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L677"
+          "L688"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L56"
@@ -536,7 +533,7 @@
           "L103"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L211"
+          "L222"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L79"
@@ -596,7 +593,7 @@
           "L199"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L562"
+          "L573"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L158"
@@ -836,7 +833,7 @@
           "L163"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L159"
+          "L170"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L130"
@@ -1178,7 +1175,7 @@
           "L85"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L60"
+          "L71"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L52"
@@ -1265,7 +1262,7 @@
           "L641"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L179"
+          "L190"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L799"
@@ -1346,7 +1343,7 @@
           "L423"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L243"
+          "L254"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
@@ -1442,7 +1439,7 @@
           "L753"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L62"
+          "L73"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L158"
@@ -1508,7 +1505,7 @@
           "L339"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L534"
+          "L545"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L97"
@@ -1538,7 +1535,7 @@
           "L347"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L133"
+          "L144"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L46"
@@ -1580,7 +1577,7 @@
           "L325"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L496"
+          "L507"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L50"
@@ -1628,7 +1625,7 @@
           "L61"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L90"
+          "L101"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L413"
@@ -1673,7 +1670,7 @@
           "L203"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L109"
+          "L120"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L52"
@@ -1838,7 +1835,7 @@
           "L558"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L84"
+          "L95"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L406"
@@ -1976,7 +1973,7 @@
           "L125"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L332"
+          "L32"
         ],
         "bitacora-mercedev-epic-08.md": [
           "L91"
@@ -2084,7 +2081,7 @@
           "L656"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L496"
+          "L507"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L1162"
@@ -2135,7 +2132,7 @@
       "merci_explica": "Guía detallada para implementar mejoras en Python.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L645"
+          "L656"
         ],
         "bitacora-mercedev-epic-08.md": [
           "L111"
@@ -2183,7 +2180,7 @@
           "L215"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L502"
+          "L513"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L540"
@@ -2213,7 +2210,7 @@
           "L476"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L253"
+          "L264"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L99"
@@ -2309,7 +2306,7 @@
           "L438"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L414"
+          "L425"
         ]
       }
     },
@@ -2333,7 +2330,7 @@
       "merci_explica": "Cola de supermercado, donde la persona que llega primero es la primera en salir.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L668"
+          "L679"
         ]
       }
     },
@@ -2345,7 +2342,7 @@
       "merci_explica": "Mecanismo eficiente para mantener dos conjuntos de archivos actualizados automáticamente.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L633"
+          "L644"
         ]
       }
     },
@@ -2357,7 +2354,7 @@
       "merci_explica": "Caja fuerte segura para almacenar recuerdos frescos y actualizados.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L549"
+          "L560"
         ],
         "flujo-publicacion-sop.md": [
           "L73"
@@ -2372,7 +2369,31 @@
       "merci_explica": "Apagón cero para el sistema.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L525"
+          "L536"
+        ]
+      }
+    },
+    "VP9": {
+      "nombre": "VP9",
+      "ingles": "Video Processing Unit 9th Generation",
+      "espanol": "Unidad de Procesamiento de Video 9ª Generación",
+      "definicion": "Formato de codificación de video desarrollado por Google que ofrece una alta eficiencia en términos de compresión y calidad visual.",
+      "merci_explica": "Codificador de vídeo avanzado para optimizar el almacenamiento y la transmisión.",
+      "apariciones": {
+        "bitacora-mercedev-epic-07.md": [
+          "L29"
+        ]
+      }
+    },
+    "Zero-Dependency": {
+      "nombre": "Zero-Dependency",
+      "ingles": "No Dependency",
+      "espanol": "Sin Dependencia",
+      "definicion": "Característica o diseño de un sistema o componente que no requiere ninguna otra aplicación, biblioteca o servicio externo para funcionar correctamente.",
+      "merci_explica": "Software autónomo que opera sin necesidad de plugins o complementos adicionales.",
+      "apariciones": {
+        "bitacora-mercedev-epic-07.md": [
+          "L46"
         ]
       }
     }

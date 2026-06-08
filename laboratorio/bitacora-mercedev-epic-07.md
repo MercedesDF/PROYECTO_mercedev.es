@@ -20,6 +20,20 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-06-06 — Arquitectura/Rendimiento: Implementación del patrón "Video-as-GIF"
+
+**Contexto (Desafío):** Reducir drásticamente el peso de las grabaciones de terminal (screencasts) y vídeos de la interfaz para emular el comportamiento de un GIF, ya que el formato `.gif` real es altamente ineficiente en términos de rendimiento (impacto negativo en Core Web Vitals).
+
+**Hecho (Maniobra):**
+- Se modificaron las directivas de FFmpeg en el script `scripts/merci/merci-optimizer.py`.
+- Se implementó la bandera `-an` para amputar completamente la pista de audio de los archivos WebM y MP4 resultantes.
+- Se fijó la tasa a 15 fotogramas por segundo (`-r 15`) para reducir severamente la carga de procesamiento y peso del archivo.
+- Se incluyeron comentarios explicativos en español en el script detallando el qué y el porqué de la maniobra arquitectónica ("Video-as-GIF").
+
+**Motivo / criterio (Aprendizaje):** *Zero-Bloat & Performance*. Servir un vídeo sin audio y a bajos FPS mediante las etiquetas HTML `<video autoplay loop muted playsinline>` logra exactamente la misma función visual que un GIF animado, pero pesando una mínima fracción de su tamaño, asegurando la retención del objetivo de 100/100 en Core Web Vitals.
+
+**Siguiente paso o deuda:** Siguiente paso: Integrar el soporte multimedia en la maquetación HTML de la portada utilizando las etiquetas `<video>` correspondientes y documentar el uso en la Biblioteca.
+
 ### 2026-06-06 — Pruebas: Validación empírica de compresión de vídeo y caché
 
 **Contexto (Desafío):** Comprobar la tasa de compresión del pipeline local, el tiempo necesario de procesamiento y validar que la caché incremental evita retrasos repetitivos de codificación en el flujo diario.
@@ -34,6 +48,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 **Siguiente paso o deuda:** Siguiente paso: Integrar el soporte multimedia en la maquetación HTML de la portada y documentar el uso en la Biblioteca.
 
 ### 2026-06-06 — Implementación: Integración de compresión de vídeo en el optimizador de activos
+(A partir de aquí, se prueba Antigravity en la terminal).
 
 **Contexto (Desafío):** Habilitar procesamiento de vídeo local utilizando FFmpeg sin depender de scripts pesados de terceros para la Fase 3 de la Épica 7.
 
