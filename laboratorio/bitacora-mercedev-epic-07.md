@@ -30,7 +30,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 - Se fijó la tasa a 15 fotogramas por segundo (`-r 15`) para reducir severamente la carga de procesamiento y peso del archivo.
 - Se incluyeron comentarios explicativos en español en el script detallando el qué y el porqué de la maniobra arquitectónica ("Video-as-GIF").
 
-**Motivo / criterio (Aprendizaje):** *Zero-Bloat & Performance*. Servir un vídeo sin audio y a bajos FPS mediante las etiquetas HTML `<video autoplay loop muted playsinline>` logra exactamente la misma función visual que un GIF animado, pero pesando una mínima fracción de su tamaño, asegurando la retención del objetivo de 100/100 en Core Web Vitals.
+**Motivo / criterio (Aprendizaje):** *Zero-Bloat & Performance*. Servir un vídeo sin audio y a bajos Fotogramas Por Segundo (FPS) mediante las etiquetas HTML `<video autoplay loop muted playsinline>` logra exactamente la misma función visual que un GIF animado, pero pesando una mínima fracción de su tamaño, asegurando la retención del objetivo de 100/100 en Core Web Vitals.
 
 **Siguiente paso o deuda:** Siguiente paso: Integrar el soporte multimedia en la maquetación HTML de la portada utilizando las etiquetas `<video>` correspondientes y documentar el uso en la Biblioteca.
 
@@ -40,7 +40,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 **Hecho (Maniobra):**
 - Se copió un vídeo de sesión de 35.8 megabytes (MB) (`test_evidencia.webm`) a la carpeta de crudos y se ejecutó la compresión.
-- Se obtuvo una reducción de peso del 58% en formato WebM (VP9, 15.0 MB) tras 5 minutos y 26 segundos de procesamiento, y un archivo MP4 (H.264, 35.7 MB) de respaldo.
+- Se obtuvo una reducción de peso del 58% en formato WebM usando la Unidad de Procesamiento de Video 9ª Generación (VP9), con un peso de 15.0 MB tras 5 minutos y 26 segundos de procesamiento, y un archivo MP4 (H.264, 35.7 MB) de respaldo.
 - Se validó que la segunda ejecución del optimizador se salta el archivo por caché en 0.07 segundos basándose en la fecha de modificación (`st_mtime`).
 
 **Motivo / criterio (Aprendizaje):** *Zero-Bloat*. La validación empírica confirma que la compresión es altamente efectiva y que la caché impide retrasos innecesarios en la ejecución de la auditoría completa (`merci total`).

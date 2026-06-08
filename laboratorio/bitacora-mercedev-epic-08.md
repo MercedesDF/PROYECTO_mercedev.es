@@ -7,6 +7,32 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-08 — Feat/Arch: Enrutamiento dinámico y Modo In-Place en merci-styles.py
+
+**Contexto:** (Desafío) El compilador de SASS (`merci-styles.py`) dependía de las rutas rígidas de la matriz (`src/scss/main.scss` a `public/css/main.css`), impidiendo compilar hojas de estilo en repositorios de clientes externos.
+
+**Hecho:** (Maniobra)
+- Se refactorizó `scripts/merci/merci-styles.py` introduciendo el enrutamiento dinámico con `os.getcwd()` y la bandera `IS_EXTERNAL`.
+- En Modo Externo, el script escanea el directorio objetivo buscando el primer `main.scss` o `style.scss` disponible, y lo compila "in-place" depositando el archivo `.css` resultante en el mismo directorio.
+- El binario pesado de Dart Sass se sigue descargando y aislando en la matriz (`scripts/merci/bin`), protegiendo el entorno del cliente.
+
+**Motivo / criterio:** (Aprendizaje) *Compilación Standalone Zero-Bloat*. Separar el motor de compilación del código fuente permite utilizar herramientas locales pesadas para procesar código ajeno sin contaminar su infraestructura. El cliente obtiene un `.css` minificado impecable sin instalar ecosistemas completos de preprocesadores (Node.js/NPM).
+
+**Siguiente paso o deuda:** Validar la compilación SASS en un proyecto externo.
+
+### 2026-06-08 — Feat/Arch: Modo Externo en orquestador de commits (merci-commit.py)
+
+**Contexto:** (Desafío) El script `merci-commit.py` dependía de la lectura obligatoria de la bitácora en la carpeta `laboratorio/` de la matriz, lo que impedía utilizarlo para empaquetar código y realizar *Conventional Commits* en repositorios de clientes o directorios externos de forma nativa.
+
+**Hecho:** (Maniobra)
+- Se refactorizó `scripts/merci/merci-commit.py` inyectando enrutamiento dinámico (`os.getcwd()`).
+- Se introdujo el flag de contexto `IS_EXTERNAL`.
+- Si se invoca en un repositorio ajeno, el orquestador desactiva la búsqueda de bitácoras del laboratorio y provee un prompt interactivo limpio para registrar un commit manual estandarizado, aplicando el empaquetado (`git add .`) directamente en la carpeta del cliente.
+
+**Motivo / criterio:** (Aprendizaje) *Universalidad DevSecOps*. La disciplina de *Conventional Commits* y el empaquetado atómico no deben ser exclusivos del proyecto público. Dotar al orquestador de commits de capacidades externas permite estandarizar el historial de Git en cualquier auditoría o proyecto ajeno sin acoplarse a la estructura de archivos de la matriz.
+
+**Siguiente paso o deuda:** Validar el commit en el entorno del cliente y proceder con la refactorización de `merci-styles.py`.
+
 ### 2026-06-08 — Arch/AI: Diseño de 'Context Bridge' (Puente de Conocimiento entre IAs)
 
 **Contexto:** (Desafío) Las IAs de los entornos de desarrollo (como Gemini Code Assist) operan bajo el problema de "Ceguera de Área de Trabajo" (Workspace Siloing), limitándose a leer únicamente los archivos de la carpeta abierta. Esto impedía que el asistente del repositorio privado (`~/auditorias`) conociera el estado actualizado de las herramientas públicas del ecosistema matriz.

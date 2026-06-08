@@ -315,6 +315,7 @@
 ### Fase 5: Del resto de scripts
 - [ ] Revisión general, refactorización y buenas prácticas.
 - [x] Refactorizar `merci-optimizer.py` implementando enrutamiento dinámico para proyectos externos.
+- [x] Refactorizar `merci-styles.py` para compilación SASS universal.
 
 ### Fase 6: Refinamiento de Textos y Experiencia Documental
 - [ ] Revisión, reescritura y mejora de los textos en todas las páginas del ecosistema (portada, sobre mí, contacto, biblioteca, art de coté, tienda).
