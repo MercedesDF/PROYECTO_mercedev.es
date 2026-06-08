@@ -28,10 +28,10 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 ### 2.2. Automatización y Control (Backend / DevSecOps local)
 - **Entorno:** Terminal **zsh** en sistema **Ubuntu**.
 - **Python (Sistema "Merci"):** Motor de auditoría y automatización.
-  - `merci-audit.py`: Análisis estático, escaneo de secretos y validación WAI-ARIA/SEO (Git pre-commit).
+  - `merci-audit.py`: Análisis estático (SAST) con "Modo Externo" dinámico para auditar código de clientes silenciando el sesgo estructural.
   - `merci-auto-fix.py`: Agente autónomo de reparación en la nube (GitHub Actions).
   - `merci-commit.py`: Empaquetado atómico impulsado por la lectura de la bitácora.
-  - `merci-optimizer.py` y `merci-assets-watcher.py`: Procesamiento WebP y vigilante automatizado en segundo plano.
+  - `merci-optimizer.py` y `merci-assets-watcher.py`: Procesamiento WebP con enrutamiento dinámico (Modo In-Place) y vigilante en segundo plano.
   - `merci-sitemap.py`: Gestión y actualización automatizada de fechas en `sitemap.xml`.
   - `merci-linkcheck.py`: Rastreador dinámico (DAST) para auditar enlaces rotos HTTP y ambigüedad WAI-ARIA.
   - `merci-publish.py` y `merci-promote.py`: Motor SSG y asistente interactivo de enrutamiento contextual.
@@ -63,6 +63,13 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
 - **WordPress:** Aislado en subdirectorios (`/blog` y `/tienda`).
 - **Integración:** *Child Theme* ultraligero vinculado al CSS del núcleo estático.
 - **Comercio Electrónico:** WooCommerce optimizado para catálogo de merchandising de **Merci** sin impacto en el rendimiento.
+
+### 2.4. Ecosistema Comercial Privado (Pro-Tools)
+La autora mantiene un repositorio aislado (`~/auditorias/`) protegido por reglas DLP, que aloja volcados de clientes y herramientas "Enterprise" para auditorías y reparaciones masivas. Aunque su código no se versiona aquí, el asistente de este repositorio público **debe conocer su existencia** para sugerir mejoras o sinergias.
+- **Arsenal Privado Actual:**
+  - `agentes/merci-webp-injector.py`: Inyector masivo de imágenes WebP sobre código HTML/CSS estático en clientes.
+
+*(Regla de Interacción: Si al desarrollar en el proyecto público se te ocurre una idea de monetización, inyección en clientes o hacking ético que no encaje en el Boilerplate, debes proponer conceptualmente que la autora desarrolle un nuevo agente en su repositorio privado).*
 
 ## 3. Estructura de Directorios Aprobada
 - `/docs`: Estrategia y directrices.

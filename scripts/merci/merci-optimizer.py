@@ -27,10 +27,23 @@ except ImportError:
 _args = [arg for arg in sys.argv[1:] if arg not in ("-v", "--verbose")]
 _target_path = Path(_args[0]).resolve() if _args else Path(os.getcwd()).resolve()
 
-# Si se apunta directamente a .assets-raw, asumimos su padre como raíz del proyecto.
-REPO_ROOT = _target_path.parent if _target_path.name == ".assets-raw" else _target_path
+# Motor de deducción de contexto:
+if _target_path.name == ".assets-raw":
+    # Caso 1: Se apunta directamente a la carpeta cruda
+    SOURCE_DIR = _target_path
+    REPO_ROOT = _target_path.parent
+    IS_EXTERNAL = False
+elif (_target_path / ".assets-raw").is_dir():
+    # Caso 2: Se apunta a la raíz de un proyecto Merci (contiene .assets-raw)
+    REPO_ROOT = _target_path
+    SOURCE_DIR = REPO_ROOT / ".assets-raw"
+    IS_EXTERNAL = False
+else:
+    # Caso 3: Carpeta genérica externa (se escanea directamente)
+    REPO_ROOT = _target_path
+    SOURCE_DIR = _target_path
+    IS_EXTERNAL = True
 
-SOURCE_DIR = REPO_ROOT / ".assets-raw"
 DEST_IMAGES_DIR = REPO_ROOT / "assets/images"
 DEST_VIDEOS_DIR = REPO_ROOT / "assets/videos"
 
@@ -47,11 +60,13 @@ def optimize_images(verbose=False):
         return
 
     print(f"🔎 Escaneando {SOURCE_DIR} en busca de imágenes...")
-    DEST_IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+    
+    if not IS_EXTERNAL:
+        DEST_IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 
-    image_files = list(SOURCE_DIR.glob("*.png")) + \
-                  list(SOURCE_DIR.glob("*.jpg")) + \
-                  list(SOURCE_DIR.glob("*.jpeg"))
+    image_files = list(SOURCE_DIR.rglob("*.png")) + \
+                  list(SOURCE_DIR.rglob("*.jpg")) + \
+                  list(SOURCE_DIR.rglob("*.jpeg"))
 
     if not image_files:
         print("✅ No se encontraron nuevas imágenes para optimizar.")
@@ -59,7 +74,8 @@ def optimize_images(verbose=False):
 
     for image_path in image_files:
         # Caché Incremental: Evita reprocesar si la imagen WebP base ya existe y es más reciente
-        base_output = DEST_IMAGES_DIR / f"{image_path.stem}.webp"
+        target_dir = image_path.parent if IS_EXTERNAL else DEST_IMAGES_DIR
+        base_output = target_dir / f"{image_path.stem}.webp"
         if base_output.exists() and int(base_output.stat().st_mtime) >= int(image_path.stat().st_mtime):
             if verbose:
                 print(f"   ⏭️ Saltando (Caché): {image_path.name}")
@@ -91,6 +107,12 @@ def optimize_images(verbose=False):
                 if verbose:
                     print(f"   ✨ Generado base: {base_output.name}")
 
+                # En modo externo, omitimos la generación masiva de resoluciones responsivas
+                if IS_EXTERNAL:
+                    if not verbose:
+                        print(f"  ✅ Optimizada in-place: {image_path.name}")
+                    continue
+
                 for width in TARGET_WIDTHS:
                     if width >= img.width:
                         continue
@@ -101,7 +123,7 @@ def optimize_images(verbose=False):
                     resized_img = img.resize((width, new_height), Image.Resampling.LANCZOS)
                     
                     output_filename = f"{image_path.stem}-{width}w.webp"
-                    output_path = DEST_IMAGES_DIR / output_filename
+                    output_path = target_dir / output_filename
                     
                     resized_img.save(output_path, "WEBP", quality=WEBP_QUALITY)
                     if verbose:
@@ -119,12 +141,13 @@ def optimize_videos(verbose=False):
     para la web (WebM y MP4) utilizando FFmpeg de forma desatendida.
     """
     print(f"\n🔎 Escaneando {SOURCE_DIR} en busca de vídeos...")
-    DEST_VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
+    if not IS_EXTERNAL:
+        DEST_VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
 
-    video_files = list(SOURCE_DIR.glob("*.mp4")) + \
-                  list(SOURCE_DIR.glob("*.mov")) + \
-                  list(SOURCE_DIR.glob("*.avi")) + \
-                  list(SOURCE_DIR.glob("*.webm"))
+    video_files = list(SOURCE_DIR.rglob("*.mp4")) + \
+                  list(SOURCE_DIR.rglob("*.mov")) + \
+                  list(SOURCE_DIR.rglob("*.avi")) + \
+                  list(SOURCE_DIR.rglob("*.webm"))
 
     if not video_files:
         print("✅ No se encontraron nuevos vídeos para optimizar.")
@@ -139,8 +162,9 @@ def optimize_videos(verbose=False):
 
     for video_path in video_files:
         # Definir los archivos de salida optimizados
-        output_webm = DEST_VIDEOS_DIR / f"{video_path.stem}.webm"
-        output_mp4 = DEST_VIDEOS_DIR / f"{video_path.stem}.mp4"
+        target_dir = video_path.parent if IS_EXTERNAL else DEST_VIDEOS_DIR
+        output_webm = target_dir / f"{video_path.stem}.webm"
+        output_mp4 = target_dir / f"{video_path.stem}.mp4"
 
         # Verificar si ya existe una versión optimizada actualizada (Caché Incremental)
         needs_webm = not output_webm.exists() or int(output_webm.stat().st_mtime) < int(video_path.stat().st_mtime)

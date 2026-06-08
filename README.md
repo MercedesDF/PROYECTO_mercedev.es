@@ -74,7 +74,7 @@ El proyecto prioriza la automatización reproducible, auditoría continua, reduc
 | Script | Función |
 |--------|---------|
 | `merci-total.py` | Orquestador maestro |
-| `merci-audit.py` | Auditoría estática y bloqueo de secretos |
+| `merci-audit.py` | Auditoría estática (SAST) y Modo Externo |
 | `merci-commit.py` | Commits atómicos guiados |
 | `merci-init.py` | Instanciador de nuevos repositorios |
 | `merci-completo.py` | Orquestador Supremo DevSecOps (QA -> Commit -> Deploy) |
@@ -166,7 +166,7 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 | `.assets-raw/` | Originales sin procesar en el entorno local; Git ignora el contenido salvo `.gitkeep` (PSD/RAW/vídeo no van al remoto). |
 
 ### Ecosistema Merci (Scripts Principales)
-- `merci-audit.py`: Auditoría estática y bloqueo de secretos (SAST - Static Application Security Testing - Pruebas Estáticas de Seguridad de Aplicaciones).
+- `merci-audit.py`: Auditoría estática y bloqueo de secretos (SAST). Incluye Modo Externo agnóstico para repositorios de clientes.
 - `merci-auto-fix.py`: Agente autónomo de auto-reparación de código en la nube (GitHub Actions).
 - `merci-commit.py`: Empaquetado atómico impulsado por la lectura de la bitácora.
 - `merci-total.py`: Orquestador maestro del pipeline local.
@@ -189,7 +189,7 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 - `merci-extract-metrics.py`: Extractor autónomo Data-Driven de métricas Core Web Vitals vía API PageSpeed Insights.
 - `merci-telemetry.py`: Inyector dinámico de telemetría del proyecto (Commits, Agentes, Docs).
 - `merci-styles.py` y `merci-watcher.py`: Compilador SASS 7-1 local y vigilante en tiempo real.
-- `merci-optimizer.py` y `merci-assets-watcher.py`: Optimizador WebP y agente vigilante de activos multimedia en segundo plano.
+- `merci-optimizer.py` y `merci-assets-watcher.py`: Optimizador WebP (con Modo In-Place recursivo para proyectos externos) y agente vigilante.
 - `merci-sre.py`: Demonio de telemetría pasiva para la ingesta de datos en Prometheus y Grafana.
 - `merci-hardening.py`: Agente de auditoría continua de seguridad pasiva e infraestructura.
 - `merci-chaos.py`: Agente de Chaos Engineering con IA local para inyección y validación de vulnerabilidades.

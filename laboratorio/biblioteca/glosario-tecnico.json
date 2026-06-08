@@ -41,7 +41,7 @@
           "L244"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L343"
+          "L358"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L3315"
@@ -110,7 +110,7 @@
           "L741"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L399"
+          "L414"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
@@ -119,7 +119,7 @@
           "L105"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L46"
+          "L109"
         ],
         "checklist-hardening.md": [
           "L57"
@@ -158,7 +158,7 @@
           "L115"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L208"
+          "L223"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L120"
@@ -197,7 +197,7 @@
       "merci_explica": "Mide cuánto saltan los textos o imágenes mientras la página web termina de cargar.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L533"
+          "L548"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L160"
@@ -224,13 +224,16 @@
           "L111"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L449"
+          "L464"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L177"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L820"
+        ],
+        "bitacora-mercedev-epic-08.md": [
+          "L43"
         ],
         "deployment-playbook.md": [
           "L34"
@@ -434,7 +437,7 @@
           "L189"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L50"
+          "L65"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L409"
@@ -503,7 +506,7 @@
           "L49"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L688"
+          "L703"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L56"
@@ -533,7 +536,7 @@
           "L103"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L222"
+          "L237"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L79"
@@ -545,7 +548,7 @@
           "L47"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L101"
+          "L43"
         ],
         "plantilla-proyecto.md": [
           "L5"
@@ -593,7 +596,7 @@
           "L199"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L573"
+          "L588"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L158"
@@ -833,7 +836,7 @@
           "L163"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L170"
+          "L185"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L130"
@@ -1175,7 +1178,7 @@
           "L85"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L71"
+          "L86"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L52"
@@ -1185,6 +1188,9 @@
         ],
         "bitacora-mercedev-epic-02.md": [
           "L582"
+        ],
+        "bitacora-mercedev-epic-08.md": [
+          "L30"
         ],
         "flujo-publicacion-sop.md": [
           "L21"
@@ -1262,7 +1268,7 @@
           "L641"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L190"
+          "L205"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L799"
@@ -1299,6 +1305,9 @@
         ],
         "bitacora-mercedev-epic-02.md": [
           "L1162"
+        ],
+        "bitacora-mercedev-epic-08.md": [
+          "L69"
         ]
       }
     },
@@ -1343,7 +1352,7 @@
           "L423"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L254"
+          "L269"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L98"
@@ -1439,7 +1448,7 @@
           "L753"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L73"
+          "L88"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L158"
@@ -1505,7 +1514,7 @@
           "L339"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L545"
+          "L560"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L97"
@@ -1514,7 +1523,7 @@
           "L532"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L97"
+          "L160"
         ],
         "flujo-publicacion-sop.md": [
           "L2"
@@ -1535,13 +1544,16 @@
           "L347"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L144"
+          "L159"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L46"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L48"
+        ],
+        "bitacora-mercedev-epic-08.md": [
+          "L30"
         ],
         "deployment-playbook.md": [
           "L51"
@@ -1577,7 +1589,7 @@
           "L325"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L507"
+          "L522"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L50"
@@ -1625,7 +1637,7 @@
           "L61"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L101"
+          "L116"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L413"
@@ -1670,7 +1682,7 @@
           "L203"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L120"
+          "L135"
         ],
         "bitacora-mercedev-epic-04.md": [
           "L52"
@@ -1835,7 +1847,7 @@
           "L558"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L95"
+          "L110"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L406"
@@ -1886,7 +1898,7 @@
           "L594"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L111"
+          "L174"
         ]
       }
     },
@@ -1973,10 +1985,10 @@
           "L125"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L32"
+          "L33"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L91"
+          "L154"
         ],
         "instrucciones.md": [
           "L90"
@@ -2081,7 +2093,7 @@
           "L656"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L507"
+          "L522"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L1162"
@@ -2132,10 +2144,10 @@
       "merci_explica": "Guía detallada para implementar mejoras en Python.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L656"
+          "L671"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L111"
+          "L174"
         ],
         "instrucciones.md": [
           "L92"
@@ -2180,13 +2192,13 @@
           "L215"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L513"
+          "L528"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L540"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L22"
+          "L85"
         ],
         "checklist-hardening.md": [
           "L7"
@@ -2210,7 +2222,7 @@
           "L476"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L264"
+          "L279"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L99"
@@ -2219,7 +2231,7 @@
           "L80"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L16"
+          "L79"
         ],
         "flujo-publicacion-sop.md": [
           "L2"
@@ -2306,7 +2318,7 @@
           "L438"
         ],
         "bitacora-mercedev-epic-07.md": [
-          "L425"
+          "L440"
         ]
       }
     },
@@ -2319,6 +2331,9 @@
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
           "L75"
+        ],
+        "bitacora-mercedev-epic-08.md": [
+          "L16"
         ]
       }
     },
@@ -2330,7 +2345,7 @@
       "merci_explica": "Cola de supermercado, donde la persona que llega primero es la primera en salir.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L679"
+          "L694"
         ]
       }
     },
@@ -2342,7 +2357,7 @@
       "merci_explica": "Mecanismo eficiente para mantener dos conjuntos de archivos actualizados automáticamente.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L644"
+          "L659"
         ]
       }
     },
@@ -2354,7 +2369,7 @@
       "merci_explica": "Caja fuerte segura para almacenar recuerdos frescos y actualizados.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L560"
+          "L575"
         ],
         "flujo-publicacion-sop.md": [
           "L73"
@@ -2369,7 +2384,7 @@
       "merci_explica": "Apagón cero para el sistema.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L536"
+          "L551"
         ]
       }
     },
@@ -2381,7 +2396,7 @@
       "merci_explica": "Codificador de vídeo avanzado para optimizar el almacenamiento y la transmisión.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L29"
+          "L43"
         ]
       }
     },
@@ -2393,7 +2408,7 @@
       "merci_explica": "Software autónomo que opera sin necesidad de plugins o complementos adicionales.",
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
-          "L46"
+          "L61"
         ]
       }
     }

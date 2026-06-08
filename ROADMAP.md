@@ -295,7 +295,7 @@
 ### Fase 1: De los scripts Core Pipeline
 
 - [ ] `merci-total.py` Orquestador maestro.
-- [ ] `merci-audit.py` Auditoría estática y bloqueo de secretos.
+- [x] `merci-audit.py` Auditoría estática (Modo Externo) y bloqueo de secretos.
 - [ ] `merci-commit.py` Commits atómicos guiados.
 - [ ] `merci-init.py` Instanciador de nuevos repositorios.
 - [ ] `merci-completo.py` Orquestador Supremo DevSecOps (QA -> Commit -> Deploy).

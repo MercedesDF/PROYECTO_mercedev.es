@@ -7,6 +7,118 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-08 — Arch/AI: Diseño de 'Context Bridge' (Puente de Conocimiento entre IAs)
+
+**Contexto:** (Desafío) Las IAs de los entornos de desarrollo (como Gemini Code Assist) operan bajo el problema de "Ceguera de Área de Trabajo" (Workspace Siloing), limitándose a leer únicamente los archivos de la carpeta abierta. Esto impedía que el asistente del repositorio privado (`~/auditorias`) conociera el estado actualizado de las herramientas públicas del ecosistema matriz.
+
+**Hecho:** (Maniobra)
+- Se diseñó la arquitectura de un Contrato de Datos (Data Contract) mediante un puente físico.
+- El repositorio público utilizará su carpeta `.privado/` para exportar un manifiesto (ej. `merci-capabilities.md`) con el listado actualizado de su arsenal.
+- El repositorio comercial ejecutará un agente puente (`merci-bridge.py`) para ingerir este manifiesto en su propio espacio de trabajo, alimentando a su IA local.
+
+**Motivo / criterio:** (Aprendizaje) *Inter-Process Communication para IAs y DLP*. Resolver la ceguera de contexto mediante un archivo de intercambio de texto unidireccional protege la barrera de fuga de datos (Data Leak Prevention) mientras dota a la IA privada de un mapa exacto de las capacidades públicas, permitiéndole sugerir herramientas transversales para auditar clientes.
+
+**Siguiente paso o deuda:** Crear el agente puente en el repositorio comercial e integrarlo en las directrices.
+
+### 2026-06-08 — Docs/QA: Sincronización de capacidades universales en manuales
+
+**Contexto:** (Desafío) Tras dotar al optimizador de imágenes y al auditor de código de capacidades de enrutamiento dinámico y "Modo Externo", su descripción en los manuales públicos de la matriz quedó obsoleta (Deriva Documental), definiéndolos únicamente como herramientas locales.
+
+**Hecho:** (Maniobra)
+- Se actualizaron `README.md` e `instrucciones.md` para reflejar el "Modo Externo" agnóstico de `merci-audit.py` y el "Modo In-Place" recursivo de `merci-optimizer.py`.
+- Se marcó la refactorización de `merci-audit.py` como completada en la Fase 1 de la Épica 8 en el `ROADMAP.md`.
+
+**Motivo / criterio:** (Aprendizaje) *Single Source of Truth y Marketing de Autoridad*. Exponer públicamente que el ecosistema Merci contiene herramientas capaces de auditar y reparar de forma agnóstica proyectos ajenos eleva el prestigio del repositorio (DevRel). La documentación siempre debe estar alineada con el verdadero potencial de la arquitectura.
+
+**Siguiente paso o deuda:** Iniciar la refactorización de `merci-styles.py` para otorgarle capacidades de compilación universal de SASS.
+
+### 2026-06-08 — Docs/Gov: Mapeo de contexto cruzado para IAs (Cross-Context)
+
+**Contexto:** (Desafío) Al dividir el ecosistema en un repositorio público (Boilerplate) y uno privado (Pro-Tools), la IA del repositorio público quedó "ciega" respecto a las herramientas de facturación, impidiendo que sugiriera sinergias o ideas de negocio.
+
+**Hecho:** (Maniobra)
+- Se inyectó la nueva sección "2.4. Ecosistema Comercial Privado (Pro-Tools)" en `instrucciones.md`.
+- Se definió una "Interfaz de Conocimiento": el repositorio público no contiene el código privado, pero lista las "firmas" o capacidades de las herramientas comerciales (ej. `merci-webp-injector.py`).
+
+**Motivo / criterio:** (Aprendizaje) *AI Cross-Pollination*. Las IAs operan aisladas por ventana/proyecto. Si queremos que el asistente arquitectónico (público) alimente de ideas al asistente hacker (privado), debemos proveerle un "mapa conceptual" de las armas disponibles en el otro lado del muro. Esto permite generar un ecosistema de ideas bidireccional sin comprometer la Prevención de Fuga de Datos (DLP).
+
+**Siguiente paso o deuda:** Continuar con la refactorización de scripts como `merci-styles.py` para enrutamiento dinámico.
+
+### 2026-06-08 — Feat/Security: Modo Auditoría Externa en merci-audit.py
+
+**Contexto:** (Desafío) Se necesitaba escanear repositorios externos (clientes de auditoría) en busca de vulnerabilidades, pero aplicar el linter `merci-audit.py` en un proyecto no nativo (como un clon de WordPress) generaba miles de falsos positivos al violar las reglas estructurales del Boilerplate (uso de estilos y scripts en línea).
+
+**Hecho:** (Maniobra)
+- Se modificó el comportamiento por defecto del parámetro `--root` en `merci-audit.py` para usar el directorio de trabajo actual (`os.getcwd()`).
+- Se implementó la validación contextual `is_external`.
+- Si el script detecta que audita un directorio ajeno a su repositorio origen, silencia dinámicamente las reglas de purismo UI/UX (CSS/JS en línea, Assets externos) y se enfoca exclusivamente en reglas de seguridad DevSecOps y SEO (Exposición de secretos, funciones PHP peligrosas, `eval()` en JavaScript y metadatos vacíos).
+
+**Motivo / criterio:** (Aprendizaje) *Universalidad y Reducción de Ruido*. Un auditor de seguridad es inútil si su salida (output) satura al ingeniero con ruido. Silenciar las aserciones de código "estéticas" al auditar un CMS ajeno convierte a este script en un escáner SAST (Static Application Security Testing) portátil, elevando su valor como herramienta pública sin sacrificar la rigurosidad en el propio proyecto matriz.
+
+**Siguiente paso o deuda:** Lanzar la herramienta de auditoría desde la carpeta del cliente y buscar brechas de seguridad ocultas.
+
+### 2026-06-08 — Docs/Arch: Estrategias de entrega WebP In-Place (Servidor vs Estático)
+
+**Contexto:** (Desafío) Tras optimizar las imágenes de un WordPress ajeno "in-place" (junto a los originales), surgió el desafío de cómo forzar al frontend a consumir los nuevos archivos `.webp` sin romper la web original ni instalar plugins pesados.
+
+**Hecho:** (Maniobra)
+- Se documentaron y evaluaron dos vías de integración "Zero-Bloat" para clientes:
+  1. **Vía Servidor (Nginx / Apache):** Uso de reescritura condicional (`try_files` / `mod_rewrite`) evaluando la cabecera `Accept: image/webp` para servir el archivo optimizado de forma transparente (Cero fricción HTML).
+  2. **Vía Estática (Agente Python):** Creación de un script reemplazador propietario privado (`merci-webp-injector.py`) para auditorías estáticas, que busca y sustituye las extensiones de imagen en archivos HTML/CSS de volcados estáticos.
+
+**Motivo / criterio:** (Aprendizaje) *Infrastructure Agnosticism*. Dependiendo de si se audita un servidor vivo (donde tocar el código o DB es peligroso) o un volcado HTML estático, la ingeniera DevSecOps debe contar con estrategias de inyección flexibles que no dependan de herramientas de terceros (plugins de WP) para demostrar el 100/100 de rendimiento.
+
+**Siguiente paso o deuda:** Proveer el script de reemplazo estático en la carpeta privada `~/auditorias/` y aplicar las reglas de Nginx/Apache en los servidores de los clientes correspondientes.
+
+### 2026-06-08 — Arch/Gov: Segregación de herramientas Pro y datos de clientes
+
+**Contexto:** (Desafío) Al convertir los scripts locales en herramientas de auditoría universal para clientes externos, surgió la duda sobre dónde almacenar los scripts propietarios y los repositorios auditados para no exponer la ventaja competitiva (Propiedad Intelectual) ni vulnerar la privacidad de los clientes en el GitHub público de `mercedev.es`.
+
+**Hecho:** (Maniobra)
+- Se estableció la política de "Doble Repositorio" (Open-Core): herramientas base como `merci-optimizer.py` se mantienen públicas como demostración de autoridad técnica (DevRel), pero herramientas futuras de explotación, orquestación masiva o facturación se aislarán en un repositorio privado (ej. `merci-pro-tools`).
+- Se determinó que los datos de clientes (clones de WordPress, volcados de DB) vivirán en un directorio físico completamente ajeno al árbol del proyecto (ej. `~/auditorias/`), nunca dentro del repositorio local para evitar riesgos críticos de fuga de datos.
+
+**Motivo / criterio:** (Aprendizaje) *Data Leak Prevention Extremo y Modelos de Negocio*. Mezclar datos de clientes en una carpeta de un proyecto Open Source es un riesgo crítico (un fallo en `.gitignore` podría filtrar una web ajena). Retener scripts "Enterprise" protege el modelo de negocio, mientras que regalar la infraestructura base genera autoridad.
+
+**Siguiente paso o deuda:** Establecer el directorio `~/auditorias` en el sistema anfitrión y continuar utilizando los alias globales de Zsh para invocar las herramientas públicas sobre estos directorios privados.
+
+### 2026-06-08 — Test: Validación End-to-End de optimización recursiva "In-Place"
+
+**Contexto:** (Desafío) Tras dotar a `merci-optimizer.py` de recursividad y agnosticismo de directorios, era imperativo certificar que la herramienta podía comprimir un repositorio ajeno real (un clon de WordPress) sin alterar su delicada arquitectura de carpetas.
+
+**Hecho:** (Maniobra)
+- Se ejecutó `merci optimizer` directamente sobre la carpeta `wp-content/uploads/` de una auditoría externa.
+- El script procesó recursivamente subcarpetas y generó copias `.webp` ultraligeras de 20 imágenes (PNG y JPG) conservando exactamente la misma ubicación que sus originales.
+
+**Motivo / criterio:** (Aprendizaje) *Empirical QA Assurance*. Comprobar con fuego real que el script respeta el patrón *In-Place* certifica su validez como herramienta de SRE y auditoría externa. La infraestructura de compresión ya no depende de la matriz `mercedev.es` para funcionar, alcanzando un grado de utilidad universal.
+
+**Siguiente paso o deuda:** Proveer el mecanismo (mediante reescritura HTML o reglas de servidor Nginx/Apache) para que el frontend del proyecto externo consuma los nuevos archivos WebP en lugar de los pesados JPG/PNG originales.
+
+### 2026-06-08 — Feat/Arch: Recursividad y Modo In-Place en merci-optimizer.py
+
+**Contexto:** (Desafío) Al intentar auditar repositorios de terceros estructurados (como un `wp-content/uploads/`), el optimizador generaba la carpeta sesgada `assets/images/` y no encontraba archivos debido a que no buceaba recursivamente en las subcarpetas del año/mes de WordPress.
+
+**Hecho:** (Maniobra)
+- Se refactorizó `scripts/merci/merci-optimizer.py` reemplazando los métodos `.glob()` por `.rglob()` para habilitar la exploración recursiva infinita.
+- Se introdujo la bandera de contexto `IS_EXTERNAL` en el motor lógico.
+- Si se detecta un directorio externo (Caso 3), el orquestador ahora activa el modo "In-Place": omite la creación de la carpeta `assets/`, guarda las variantes WebP directamente junto a sus respectivos archivos originales en cualquier subcarpeta, y silencia la generación de tamaños responsivos extra para evitar contaminar ecosistemas ajenos.
+
+**Motivo / criterio:** (Aprendizaje) *Agnosticismo Radical*. Eliminar los sesgos del Boilerplate (Boilerplate Bias) en los scripts utilitarios los convierte en verdaderas armas DevSecOps portátiles. Una herramienta de optimización debe ser capaz de entrar a cualquier laberinto de carpetas en cualquier CMS del mundo, optimizar de forma invisible, y salir sin romper la infraestructura que acaba de curar.
+
+**Siguiente paso o deuda:** Ejecutar la auditoría en la carpeta de WordPress descargada para certificar la conversión "in-place" y continuar afinando los scripts SRE.
+
+### 2026-06-08 — Fix/UX: Modo genérico para directorios externos en merci-optimizer.py
+
+**Contexto:** (Desafío) Al intentar optimizar imágenes de un proyecto WordPress descargado directamente en su carpeta `wp-content/uploads/`, el orquestador seguía forzando la búsqueda de un subdirectorio `.assets-raw/`, devolviendo cero resultados.
+
+**Hecho:** (Maniobra)
+- Se refactorizó el motor de deducción de contexto en `scripts/merci/merci-optimizer.py`.
+- Se implementó una lógica de 3 casos: si la ruta es `.assets-raw`, si es un proyecto tipo Merci (contiene el subdirectorio), o si es una carpeta genérica externa (se asume y escanea la carpeta directamente).
+
+**Motivo / criterio:** (Aprendizaje) *Out-of-the-Box Experience y Fricción Cero*. Un script verdaderamente agnóstico no debe imponer la topología de su ecosistema nativo a repositorios externos. Si el usuario apunta a una carpeta de imágenes y no existe la estructura de Merci, el script debe ser inteligente y escanear el directorio en crudo sin exigir reestructuraciones manuales.
+
+**Siguiente paso o deuda:** Validar la optimización de imágenes en el proyecto de WordPress externo.
+
 ### 2026-06-08 — Refactor: Enrutamiento dinámico en merci-optimizer.py
 
 **Contexto:** (Desafío) El script de optimización de imágenes (`merci-optimizer.py`) estaba rígidamente acoplado a la raíz del proyecto matriz mediante `Path(__file__).resolve().parents[2]`. Esto impedía su ejecución nativa para optimizar activos multimedia en directorios de otros proyectos externos desde la misma terminal sin copiar el script físicamente.
