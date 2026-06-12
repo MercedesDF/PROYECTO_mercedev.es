@@ -247,6 +247,9 @@ El proyecto se organiza en grandes "Épicas" arquitectónicas. El desglose detal
 - **Epic-07: Enriquecimiento Visual y Multimedia** — Evolución de la interfaz de usuario (UI/UX) e integración de vídeos optimizados respetando el rendimiento extremo.
   - Estado: 🔄 En curso.
 
+- **Epic-08: Refactorización y Limpieza de Código** — Depuración y buenas prácticas (PEP 8) del ecosistema de scripts en Python, inyección de tipado y robustez en la gestión de errores.
+  - Estado: 🔄 En curso.
+
 
 ## Licencia
 

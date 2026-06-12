@@ -294,12 +294,12 @@
 
 ### Fase 1: De los scripts Core Pipeline
 
-- [ ] `merci-total.py` Orquestador maestro.
+- [x] `merci-total.py` Orquestador maestro.
 - [x] `merci-audit.py` Auditoría estática (Modo Externo) y bloqueo de secretos.
-- [ ] `merci-commit.py` Commits atómicos guiados.
-- [ ] `merci-init.py` Instanciador de nuevos repositorios.
-- [ ] `merci-completo.py` Orquestador Supremo DevSecOps (QA -> Commit -> Deploy).
-- [ ] Revisión de documentación en directorio `docs/`, `instrucciones.md` y `README.md`.
+- [x] `merci-commit.py` Commits atómicos guiados.
+- [x] `merci-init.py` Instanciador de nuevos repositorios.
+- [x] `merci-completo.py` Orquestador Supremo DevSecOps (QA -> Commit -> Deploy).
+- [x] Revisión de documentación en directorio `docs/`, `instrucciones.md` y `README.md`.
 - [ ] Actualización de Release de `merci-boilerplate` si procede.
 
 ### Fase 2: De los scripts IA & Gobernanza

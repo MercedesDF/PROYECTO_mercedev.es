@@ -7,11 +7,11 @@ Automatiza el SOP de mantenimiento: Clona el proyecto en un directorio efímero,
 lo purga con merci-init.py y lo sincroniza vía rsync al repositorio local del Boilerplate.
 """
 
-import os
-import sys
-import subprocess
-import tempfile
+import argparse
 import re
+import subprocess
+import sys
+import tempfile
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -22,11 +22,20 @@ def main():
     # 1. Resolver ruta del repositorio destino (Hermano de la matriz por defecto)
     default_dest = (REPO_ROOT.parent / "merci-boilerplate").resolve()
     
-    print("\n👉 Introduce la ruta a tu REPOSITORIO OFICIAL LOCAL de 'merci-boilerplate'")
-    print("   (El script creará el clon efímero en segundo plano de forma invisible)")
-    dest_input = input(f"   [Enter] para usar por defecto: {default_dest}\n   O escribe una ruta alternativa: ").strip()
+    parser = argparse.ArgumentParser(description="Orquestador de exportación al Boilerplate.")
+    parser.add_argument('--dest', type=str, help="Ruta al repositorio de merci-boilerplate")
+    parser.add_argument('--non-interactive', action='store_true', help="Ejecutar en modo no interactivo sin prompts")
+    args = parser.parse_known_args()[0]
     
-    dest_path = Path(dest_input).resolve() if dest_input else default_dest
+    if args.dest:
+        dest_path = Path(args.dest).resolve()
+    elif args.non_interactive:
+        dest_path = default_dest
+    else:
+        print("\n👉 Introduce la ruta a tu REPOSITORIO OFICIAL LOCAL de 'merci-boilerplate'")
+        print("   (El script creará el clon efímero en segundo plano de forma invisible)")
+        dest_input = input(f"   [Enter] para usar por defecto: {default_dest}\n   O escribe una ruta alternativa: ").strip()
+        dest_path = Path(dest_input).resolve() if dest_input else default_dest
     
     if not dest_path.exists() or not (dest_path / ".git").is_dir():
         print(f"  ❌ Error: La ruta '{dest_path}' no parece ser un repositorio Git válido.")
@@ -47,8 +56,17 @@ def main():
         
         print("  🧹 Ejecutando instanciación destructiva (merci-init.py) en el clon efímero...")
         init_script = tmp_repo / "scripts" / "merci" / "merci-init.py"
-        # Permitimos la salida estándar por si merci-init pide confirmación (y/n)
-        result_init = subprocess.run([sys.executable, str(init_script)], cwd=str(tmp_repo))
+        
+        # Invocación no interactiva con argumentos de marca blanca
+        init_cmd = [
+            sys.executable,
+            str(init_script),
+            "--force",
+            "--dominio", "tuempresa.es",
+            "--nombre", "Tu Empresa",
+            "--ia"
+        ]
+        result_init = subprocess.run(init_cmd, cwd=str(tmp_repo))
         if result_init.returncode != 0:
             print("  ❌ Error durante la instanciación. Abortando.")
             sys.exit(1)

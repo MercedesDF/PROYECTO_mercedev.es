@@ -7,6 +7,48 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-12 — Release/CI-CD: Publicación no interactiva de Merci Boilerplate v1.18.0
+
+**Contexto:** (Desafío) El orquestador de exportación `merci-release.py` exigía interacción por teclado por parte del usuario y disparaba `merci-init.py` en caliente, provocando excepciones fatales de fin de archivo (`EOFError`) cuando se ejecutaba en entornos desatendidos o automatizados de manera asíncrona.
+
+**Hecho:** (Maniobra)
+- Se incorporó soporte para el analizador de argumentos (`argparse`) en `scripts/merci/merci-release.py`, añadiendo el flag `--non-interactive`.
+- Se reconfiguró el lanzamiento interno de `merci-init.py` en el clon efímero para invocarlo de manera directa pasando las banderas `--force`, `--dominio "tuempresa.es"`, `--nombre "Tu Empresa"` y `--ia`.
+- Se ejecutó de forma no interactiva el release pipeline, validando la compilación del Boilerplate con `merci total` local y publicando exitosamente los cambios de la versión `v1.18.0` en GitHub.
+- Se dio por cerrada la Fase 1 (Core Pipeline) de la Épica 8 en el Roadmap maestro.
+
+**Motivo / criterio:** (Aprendizaje) *Idempotencia y Desacoplamiento de Entrada Estándar*. Diseñar scripts DevSecOps asumiendo la presencia constante de un operador humano al teclado rompe la automatización. Proveer vías no interactivas (`argparse`, variables de entorno) blinda el pipeline para ejecuciones desatendidas y sistemas de Integración Continua (CI).
+
+**Siguiente paso o deuda:** Iniciar la Fase 2 (IA & Gobernanza) analizando y refactorizando el script `merci-brain.py`.
+
+### 2026-06-12 — Docs/QA: Estilo impersonal en manuales y sincronización de Roadmap en README.md
+
+**Contexto:** (Desafío) El Roadmap resumido en el archivo `README.md` carecía del estado y registro de la Épica 8, lo que provocaba una asimetría respecto al `ROADMAP.md` maestro. Por otro lado, existían algunas conjugaciones en segunda persona en los manuales de `docs/` (`ciclo-de-vida-contenidos.md` y `flujo-publicacion-sop.md`) que vulneraban las directrices de estilo impersonal (reglas 7 y 8).
+
+**Hecho:** (Maniobra)
+- Se actualizó la sección "Roadmap y Estado del Proyecto" de `README.md` incorporando la Épica 8 (*Refactorización y Limpieza de Código*) en estado "En curso".
+- Se revisaron y reescribieron las secciones de `docs/ciclo-de-vida-contenidos.md` y `docs/flujo-publicacion-sop.md` que contenían verbos y pronombres en segunda persona (ej. "te preguntará", "tengas que", "lo pasas"), cambiándolas a una redacción estrictamente impersonal y pasiva.
+- Se comprobó la ausencia de notas de recordatorio personales en el directorio de documentación.
+
+**Motivo / criterio:** (Aprendizaje) *Higiene Editorial y Consistencia del Roadmap*. Respetar la soberanía del estilo impersonal en la documentación técnica pública eleva el tono profesional y la claridad del proyecto, y mantener alineados los roadmaps en los distintos puntos de lectura evita contradicciones operativas.
+
+**Siguiente paso o deuda:** Finalizar el cierre de la Fase 1 de la Épica 8. Siguiente paso: iniciar la Fase 2 (IA & Gobernanza) analizando y refactorizando el script `merci-brain.py`.
+
+### 2026-06-12 — Refactor/QA: Tipado, docstrings y robustez en orquestador merci-completo.py
+
+**Contexto:** (Desafío) El orquestador supremo `merci-completo.py` carecía de anotaciones de tipo estático y docstrings estructurados según las especificaciones del proyecto. Adicionalmente, no controlaba excepciones imprevistas al invocar los procesos del pipeline (como `FileNotFoundError` o `PermissionError`), lo que podía generar volcados de pila innecesarios.
+
+**Hecho:** (Maniobra)
+- Se ordenaron alfabéticamente las importaciones de la biblioteca estándar según las pautas de PEP 8.
+- Se agregaron anotaciones de tipo estático a todas las funciones (ej. `script: str`, `nombre: str`, retornos `float` y `None`).
+- Se definieron docstrings en español estructurados (*QUÉ HACE* y *POR QUÉ*) para todas las funciones.
+- Se encapsuló la llamada a `subprocess.run()` dentro de `ejecutar_fase()` y el inicio en `__main__` en bloques `try...except Exception` para atrapar fallos del sistema operativos y notificar de manera limpia y legible antes de salir con código `1`.
+- Se verificó el script compilándolo y validándolo con `merci-audit.py`.
+
+**Motivo / criterio:** (Aprendizaje) *Higiene y Control de Flujo DevSecOps*. Garantizar la robustez del orquestador supremo es fundamental, ya que cualquier error de infraestructura local debe detener de manera controlada el pipeline de publicación e impedir que un fallo silencioso comprometa la release.
+
+**Siguiente paso o deuda:** Con la refactorización de `merci-completo.py`, se concluye la revisión de scripts en la Fase 1 de la Épica 8. El siguiente paso es iniciar la auditoría documental del directorio `docs/`, `instrucciones.md` y `README.md` antes de pasar a la Fase 2 (IA & Gobernanza).
+
 ### 2026-06-12 — Refactor/QA: PEP 8, tipado, docstrings e higiene de imports en merci-init.py
 
 **Contexto:** (Desafío) El inicializador del Boilerplate `merci-init.py` contenía importaciones internas prohibidas por la regla 16 de `instrucciones.md` (importación de `time` en medio del cuerpo de una función) y carecía de una declaración ordenada de imports, anotaciones de tipo estático y docstrings estructurados según las directrices del proyecto. Asimismo, errores imprevistos de I/O en la purga de directorios podían lanzar volcados de pila sin una salida controlada.

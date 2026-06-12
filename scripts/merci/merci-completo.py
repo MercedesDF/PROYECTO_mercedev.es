@@ -6,16 +6,20 @@ merci-completo.py — Orquestador Supremo DevSecOps (End-to-End).
 Ejecuta en cadena: QA (merci total) -> Sello (merci commit) -> Producción (merci deploy).
 """
 
+import json
+import os
 import subprocess
 import sys
-import os
 import time
-import json
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
-def ejecutar_fase(script, nombre):
+def ejecutar_fase(script: str, nombre: str) -> float:
+    """
+    QUÉ HACE: Ejecuta un script del pipeline en un subproceso con variables de entorno específicas.
+    POR QUÉ: Centraliza la ejecución de cada hito de la cadena de suministro controlando su código de retorno.
+    """
     print(f"\n{'='*60}")
     print(f"🌟 INICIANDO FASE: {nombre}")
     print(f"{'='*60}\n")
@@ -24,7 +28,12 @@ def ejecutar_fase(script, nombre):
     custom_env["MERCI_IS_COMPLETO"] = "1"
     # Ejecutamos sin capturar salida para preservar interactividad (ej. inputs de merci-commit) y colores
     start_time = time.time()
-    result = subprocess.run([sys.executable, str(REPO_ROOT / "scripts" / "merci" / script)], env=custom_env)
+    try:
+        result = subprocess.run([sys.executable, str(REPO_ROOT / "scripts" / "merci" / script)], env=custom_env)
+    except Exception as e:
+        print(f"\n❌ [Merci Completo] Error al lanzar el subproceso '{script}': {e}")
+        sys.exit(1)
+        
     end_time = time.time()
     
     if result.returncode != 0:
@@ -33,7 +42,11 @@ def ejecutar_fase(script, nombre):
         
     return end_time - start_time
 
-def main():
+def main() -> None:
+    """
+    QUÉ HACE: Orquesta la ejecución completa de QA, empaquetado y despliegue del proyecto.
+    POR QUÉ: Garantiza una integración y entrega continuas robustas mediante un pipeline unificado.
+    """
     start_time = time.time()
     print("🚀 [Merci Completo] Iniciando Cadena de Suministro End-to-End...")
     
@@ -47,6 +60,7 @@ def main():
     obs_dir = REPO_ROOT / "observabilidad"
     obs_dir.mkdir(exist_ok=True)
     
+    # Exportar tanto el total como el desglose SRE
     pipeline_data = {
         "duration_seconds": total_duration,
         "breakdown": fases_durations
@@ -71,3 +85,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n🛑 [Merci Completo] Cadena de suministro interrumpida por la usuaria. Saliendo limpiamente.")
         sys.exit(130)
+    except Exception as e:
+        print(f"\n❌ [Merci Completo] Error inesperado en el orquestador supremo: {e}")
+        sys.exit(1)

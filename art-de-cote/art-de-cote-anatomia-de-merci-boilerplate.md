@@ -1,17 +1,17 @@
 ---
-titulo: "Anatomía de Merci Boilerplate (v1.17.0)"
+titulo: "Anatomía de Merci Boilerplate (v1.18.0)"
 descripcion: "Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 32 agentes Python y 100/100 Core Web Vitals."
 estado: "publicado"
 tema: "Art de Coté"
 tipo: "cuadernillo"
-alt_portada: "Esquema conceptual de la arquitectura DevSecOps de Merci Boilerplate v1.17.0."
-fase: "Epic 7 - Fase 1"
-fecha: "2026-05-28"
+alt_portada: "Esquema conceptual de la arquitectura DevSecOps de Merci Boilerplate v1.18.0."
+fase: "Epic 8 - Fase 1"
+fecha: "2026-06-12"
 slug: "anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat"
 ---
 La mayoría de plantillas web (boilerplates) actuales entregan un sitio funcional a costa de inyectar megabytes de librerías en el navegador, oscurecer la infraestructura y acumular deuda técnica desde el commit cero. 
 
-**Merci Boilerplate v1.17.0 es el antídoto.** Lo que comenzó como un proyecto de investigación DevSecOps, ha madurado en un ecosistema operacional extremo y autónomo. 
+**Merci Boilerplate v1.18.0 es el antídoto.** Lo que comenzó como un proyecto de investigación DevSecOps, ha madurado en un ecosistema operacional extremo y autónomo. 
 
 El sistema surgió del rigor académico y evolucionó bajo el escrutinio de **Chaos Engineering**: una arquitectura segura, 0 dependencias externas en tiempo de ejecución (Zero-Bloat), integrando CMS Headless y aplicando metodologías SRE (Site Reliability Engineering) para garantizar telemetría constante.
 
@@ -32,8 +32,8 @@ La Inteligencia Artificial está orquestada en local y en la nube creando autén
 **4. Observabilidad SRE & Chaos Engineering**
 La infraestructura incluye un demonio `merci-sre.py` que ingiere telemetría continua hacia Prometheus y Grafana (IaC). Además, un "Mono del Caos" local inyecta vulnerabilidades XSS de forma autónoma para validar empíricamente que el linter `merci-audit.py` es infranqueable, registrando cada ataque en bitácoras privadas encriptadas.
 
-**5. Arquitectura SSG de Compilación Incremental**
-Las tres capas operan en paralelo sin contaminarse, y el orquestador principal ahora implementa Caché Semántica y *Mark & Sweep*. Al evitar recomponer PDFs y HTMLs que no han cambiado, el tiempo total de compilación se mantiene en la barrera Sub-10s.
+**5. Arquitectura SSG de Compilación Incremental y Robustez del Pipeline (v1.18.0)**
+Las tres capas operan en paralelo sin contaminarse, y el orquestador principal ahora implementa Caché Semántica y *Mark & Sweep*, manteniendo el tiempo total de compilación en la barrera Sub-10s. En la v1.18.0, se refactorizó el Core Pipeline para inyectar anotaciones de tipo estático y control robusto de excepciones (KeyboardInterrupt, fallos de subprocesos), garantizando que anomalías en caliente no muestren volcados de pila y se resuelvan con una salida elegante.
 
 ## El Ecosistema de Agentes (32 herramientas)
 
