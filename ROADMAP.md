@@ -303,8 +303,13 @@
 - [x] Actualización de Release de `merci-boilerplate` si procede.
 
 ### Fase 2: De los scripts IA & Gobernanza
-- [x] Revisión general, refactorización y buenas prácticas.
-- [x] Evaluar refactorización de `merci-drift.py` para implementar validación contextual por categorías en `docs/` (asociar scripts a manuales específicos y evitar ruido en SOPs no relacionados).
+- [x] `merci-brain.py` Generador de base de conocimientos IA estática.
+- [x] `merci-ssot.py` Script temporal de auditoría de deriva.
+- [x] `merci-librarian.py` Agente de formateo e ingesta local de IA.
+- [x] `merci-glosario.py` Compilador de Glosario Autónomo.
+- [x] `merci-blogger.py` Agente Redactor DevRel.
+- [x] `merci-auto-fix.py` Agente de auto-reparación (con fix para LiteLLM).
+- [x] `merci-drift.py` Linter de deriva documental con validación contextual por categorías.
 
 ### Fase 3: De los scripts de Publishing & DevRel
 - [ ] Revisión general, refactorización y buenas prácticas.
