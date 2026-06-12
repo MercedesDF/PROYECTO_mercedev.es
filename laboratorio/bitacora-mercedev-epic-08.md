@@ -7,6 +7,23 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-12 — Refactor/QA: Robustez, tipado y docstrings en scripts de Observabilidad & Seguridad (Fase 4)
+
+**Contexto:** (Desafío) Los scripts de la Fase 4 (Observabilidad & Seguridad) carecían de tipado estático completo en sus firmas y de docstrings estructurados uniformes. Adicionalmente, el control de excepciones e interrupciones del teclado (`KeyboardInterrupt`) requería robustecimiento en scripts críticos como `merci-sre.py`, `merci-extract-metrics.py`, `merci-hardening.py`, `merci-linkcheck.py` y `merci-chaos.py`.
+
+**Hecho:** (Maniobra)
+- Se refactorizaron 5 scripts de la categoría de observabilidad y seguridad: `merci-sre.py`, `merci-extract-metrics.py`, `merci-hardening.py`, `merci-linkcheck.py` y `merci-chaos.py` en `scripts/merci/`.
+- Se inyectaron anotaciones de tipo estático en parámetros y retornos de funciones, y se estructuraron docstrings explicativos (*QUÉ HACE* / *POR QUÉ*) en castellano.
+- Se reordenaron las importaciones conforme al estándar de estilo PEP 8.
+- Se encapsuló la ejecución en bloques de control de excepciones y capturadores de interrupción `KeyboardInterrupt` para salir limpiamente con código `130`.
+- Se corrigió una duplicación de firmas y una sintaxis errónea en la invocación de `sys.exit()` del bloque principal en `merci-linkcheck.py`.
+- Se validó la estabilidad del pipeline ejecutando `merci-total.py` de forma satisfactoria (100% de éxito).
+- Se actualizó la lista de scripts individuales de la Fase 4 en `ROADMAP.md`.
+
+**Motivo / criterio:** (Aprendizaje) *Seguridad Estructural y SRE Resiliente*. Estandarizar el tipado y los manejadores de salida en scripts de seguridad y observabilidad asegura la consistencia de las auditorías locales. El control de cancelaciones evita volcados de pila innecesarios (tracebacks) en la terminal de la ingeniera y promueve una experiencia de desarrollo limpia.
+
+**Siguiente paso o deuda:** Sellar los cambios de la Fase 4 en Git y prepararse para la Fase 5 (Del resto de scripts).
+
 ### 2026-06-12 — Refactor/QA: Robustez, tipado y docstrings en scripts de Publishing & DevRel (Fase 3)
 
 **Contexto:** (Desafío) Los scripts asociados a la Fase 3 (Publishing & DevRel) presentaban falta de homogeneidad en la tipificación estática, docstrings incompletos y carecían de manejadores elegantes para interrupciones por teclado (`KeyboardInterrupt`) o fallos genéricos, comprometiendo la experiencia de desarrollo (DX) y la solidez del pipeline ante ejecuciones fallidas o canceladas.

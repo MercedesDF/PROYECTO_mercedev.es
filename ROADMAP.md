@@ -323,7 +323,11 @@
 - [x] `merci-showcase.py` Clon efímero y actualizador de la demo interactiva (en `scripts/matriz/`).
 
 ### Fase 4: De los scripts de Observabilidad & Seguridad
-- [ ] Revisión general, refactorización y buenas prácticas.
+- [x] `merci-sre.py` Agente de Observabilidad y Métricas para Prometheus.
+- [x] `merci-extract-metrics.py` Extractor autónomo de Lighthouse y PageSpeed.
+- [x] `merci-hardening.py` Validador continuo de políticas de seguridad.
+- [x] `merci-linkcheck.py` Rastreador de enlaces rotos y linter WCAG/WAI-ARIA.
+- [x] `merci-chaos.py` Simulador de fallos de Chaos Engineering.
 
 ### Fase 5: Del resto de scripts
 - [ ] Revisión general, refactorización y buenas prácticas.
