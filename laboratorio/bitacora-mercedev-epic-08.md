@@ -7,6 +7,20 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-12 — Ops/IaC: Corrección del aprovisionamiento automático y reubicación de archivos de Grafana
+
+**Contexto:** (Desafío) La pila de observabilidad (Prometheus y Grafana) presentaba problemas de persistencia y carga automática de la configuración en su arranque (IaC) al tener archivos de aprovisionamiento duplicados o en rutas incorrectas en el anfitrión, además de problemas de permisos (`root:root`) en directorios auto-generados por el demonio Docker.
+
+**Hecho:** (Maniobra)
+- Se corrigieron los permisos de propiedad de los directorios en el anfitrión (`chown -R 1000:1000`) para posibilitar el acceso al usuario local.
+- Se reubicaron los archivos de configuración de provisionado a sus directorios correctos: `prometheus.yaml` y `default.yaml` bajo `observabilidad/provisioning/` y `merci-dashboard.json` bajo `observabilidad/dashboards/`.
+- Se restableció la contraseña de administración de Grafana utilizando el comando interno de versión 13 en el contenedor (`/usr/share/grafana/bin/grafana cli`).
+- Se verificó mediante la API y logs de Grafana la correcta carga automática de la fuente de datos Prometheus y el cuadro de mando `DevSecOps/mercedev.es` en su inicio.
+
+**Motivo / criterio:** (Aprendizaje) *Infraestructura como Código Limpia y Segura*. Disponer de archivos de provisionamiento ordenados y en rutas que respeten el estándar del contenedor de Grafana garantiza la idempotencia del despliegue local de observabilidad sin requerir configuración manual reiterada tras cada reinicio del contenedor.
+
+**Siguiente paso o deuda:** Iniciar la Fase 6 (Refinamiento de Textos y Experiencia Documental) para mejorar visual y narrativamente todas las secciones del ecosistema.
+
 ### 2026-06-12 — Refactor/QA: Robustez, tipado y docstrings en scripts utilitarios auxiliares (Fase 5)
 
 **Contexto:** (Desafío) Los scripts utilitarios y demonios de monitoreo de la Fase 5 (vigilantes, backups, colas y sincronizadores) mostraban firmas de función sin tipado estático, docstrings asimétricos y salidas no controladas ante interrupciones de teclado (`KeyboardInterrupt`), dificultando el mantenimiento y robustez general del ecosistema de scripts locales.
