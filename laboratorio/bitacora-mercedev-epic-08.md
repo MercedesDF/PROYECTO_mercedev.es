@@ -7,6 +7,22 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-12 — Refactor/QA: Robustez, tipado y docstrings en scripts utilitarios auxiliares (Fase 5)
+
+**Contexto:** (Desafío) Los scripts utilitarios y demonios de monitoreo de la Fase 5 (vigilantes, backups, colas y sincronizadores) mostraban firmas de función sin tipado estático, docstrings asimétricos y salidas no controladas ante interrupciones de teclado (`KeyboardInterrupt`), dificultando el mantenimiento y robustez general del ecosistema de scripts locales.
+
+**Hecho:** (Maniobra)
+- Se refactorizaron 5 scripts utilitarios: `merci-watcher.py`, `merci-assets-watcher.py`, `merci-backup.py`, `merci-queue.py` y `merci-sync-pages.py` en `scripts/merci/`.
+- Se inyectaron anotaciones de tipo estático en parámetros y retornos, y se estructuraron docstrings explicativos (*QUÉ HACE* / *POR QUÉ*) en castellano.
+- Se ordenaron las importaciones según el estándar de estilo PEP 8.
+- Se encapsularon las ejecuciones y se interceptaron las interrupciones `KeyboardInterrupt` en el bloque principal de cada script, saliendo de forma controlada con código `130`.
+- Se validó la paridad estructural ejecutando el pipeline completo mediante `merci-total.py` con un 100% de éxito.
+- Se actualizaron las tareas específicas de la Fase 5 en `ROADMAP.md`.
+
+**Motivo / criterio:** (Aprendizaje) *Higiene en Demonios Locales y Herramientas Auxiliares*. Los procesos que corren en segundo plano (vigilantes de archivos) o bajo demanda (backups) deben poseer los mismos estándares de calidad y control de errores que los componentes del núcleo. La unificación del código de retorno en `130` asegura un comportamiento estándar en entornos POSIX.
+
+**Siguiente paso o deuda:** Sellar los cambios de la Fase 5 mediante `merci-commit.py` y dar por concluida la refactorización sistemática de scripts de la Épica 8, preparándose para la Fase 6 (Refinamiento de textos y experiencia documental).
+
 ### 2026-06-12 — Refactor/QA: Robustez, tipado y docstrings en scripts de Observabilidad & Seguridad (Fase 4)
 
 **Contexto:** (Desafío) Los scripts de la Fase 4 (Observabilidad & Seguridad) carecían de tipado estático completo en sus firmas y de docstrings estructurados uniformes. Adicionalmente, el control de excepciones e interrupciones del teclado (`KeyboardInterrupt`) requería robustecimiento en scripts críticos como `merci-sre.py`, `merci-extract-metrics.py`, `merci-hardening.py`, `merci-linkcheck.py` y `merci-chaos.py`.

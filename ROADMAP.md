@@ -330,7 +330,11 @@
 - [x] `merci-chaos.py` Simulador de fallos de Chaos Engineering.
 
 ### Fase 5: Del resto de scripts
-- [ ] Revisión general, refactorización y buenas prácticas.
+- [x] `merci-watcher.py` Vigilante y recompilador de archivos SASS.
+- [x] `merci-assets-watcher.py` Vigilante y optimizador automático de imágenes.
+- [x] `merci-backup.py` Utilidad de empaquetado de copias de seguridad locales.
+- [x] `merci-queue.py` Visor de la cola de publicación de redes sociales.
+- [x] `merci-sync-pages.py` Sincronizador de estructuras estáticas comunes (SSOT).
 - [x] Refactorizar `merci-optimizer.py` implementando enrutamiento dinámico para proyectos externos.
 - [x] Refactorizar `merci-styles.py` para compilación SASS universal.
 
