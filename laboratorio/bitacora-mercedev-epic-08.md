@@ -7,6 +7,20 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-12 — Refactor/QA: Control de excepciones y PEP 8 en merci-total.py
+
+**Contexto:** (Desafío) El script orquestador `merci-total.py` carecía de control de excepciones genéricas al lanzar subprocesos, lo que podía provocar volcados de pila crudos (tracebacks) en la terminal si ocurrían errores de sistema (como fallos de permisos o archivos no ejecutables), vulnerando la regla de "Fail Gracefully". Además, no contaba con tipado ni docstring estructurado en la función principal.
+
+**Hecho:** (Maniobra)
+- Se reordenaron las importaciones del orquestador alfabéticamente siguiendo la guía de estilo PEP 8.
+- Se añadió tipado de retorno `-> None` y un docstring explicativo estructurado (*QUÉ HACE* y *POR QUÉ*) a la función `main()`.
+- Se introdujo un bloque de captura `except Exception as e` en el bucle de ejecución de subprocesos para atrapar fallos inesperados de infraestructura (ej. `OSError`, `PermissionError`) y salir limpiamente con código `1` y un mensaje inteligible en lugar de un traceback crudo.
+- Se verificó la sintaxis del script compilándolo y se ejecutó la auditoría local confirmando la ausencia de hallazgos bloqueantes.
+
+**Motivo / criterio:** (Aprendizaje) *Higiene y Robustez DevSecOps*. Todo script de automatización en un pipeline debe comportarse como un binario de calidad de software, proporcionando salidas limpias ante cualquier error de sistema para preservar la DX (Developer Experience) y alinearse con las pautas de estilo.
+
+**Siguiente paso o deuda:** Continuar con la refactorización y revisión de buenas prácticas del resto de scripts de la Fase 1 de la Épica 8, tales como `merci-commit.py` o `merci-init.py`.
+
 ### 2026-06-08 — Feat/Arch: Enrutamiento dinámico y Modo In-Place en merci-styles.py
 
 **Contexto:** (Desafío) El compilador de SASS (`merci-styles.py`) dependía de las rutas rígidas de la matriz (`src/scss/main.scss` a `public/css/main.css`), impidiendo compilar hojas de estilo en repositorios de clientes externos.
