@@ -300,11 +300,11 @@
 - [x] `merci-init.py` Instanciador de nuevos repositorios.
 - [x] `merci-completo.py` Orquestador Supremo DevSecOps (QA -> Commit -> Deploy).
 - [x] Revisión de documentación en directorio `docs/`, `instrucciones.md` y `README.md`.
-- [ ] Actualización de Release de `merci-boilerplate` si procede.
+- [x] Actualización de Release de `merci-boilerplate` si procede.
 
 ### Fase 2: De los scripts IA & Gobernanza
-- [ ] Revisión general, refactorización y buenas prácticas.
-- [ ] Evaluar refactorización de `merci-drift.py` para implementar validación contextual por categorías en `docs/` (asociar scripts a manuales específicos y evitar ruido en SOPs no relacionados).
+- [x] Revisión general, refactorización y buenas prácticas.
+- [x] Evaluar refactorización de `merci-drift.py` para implementar validación contextual por categorías en `docs/` (asociar scripts a manuales específicos y evitar ruido en SOPs no relacionados).
 
 ### Fase 3: De los scripts de Publishing & DevRel
 - [ ] Revisión general, refactorización y buenas prácticas.

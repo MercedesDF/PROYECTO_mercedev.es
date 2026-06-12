@@ -10,14 +10,14 @@ ROADMAP.md (Roadmap Maestro) necesita ser actualizado
 auto-sana el archivo del Roadmap reescribiéndolo automáticamente.
 """
 
-import sys
-from pathlib import Path
-import warnings
 import json
-import urllib.request
-import re
-import os
 import logging
+import os
+import re
+import sys
+import urllib.request
+import warnings
+from pathlib import Path
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 
@@ -36,16 +36,21 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 ROADMAP_PATH = REPO_ROOT / "ROADMAP.md"
 PROMPT_PATH = REPO_ROOT / "laboratorio" / "prompts" / "prompt-ssot.md"
 
-def obtener_bitacora_activa():
-    """Busca dinámicamente la bitácora más reciente en el laboratorio."""
+def obtener_bitacora_activa() -> Path | None:
+    """
+    QUÉ HACE: Busca dinámicamente la bitácora más reciente en el laboratorio.
+    POR QUÉ: Determina de forma autónoma cuál es el frente de trabajo activo y de dónde extraer metadatos.
+    """
     bitacoras = list((REPO_ROOT / "laboratorio").glob("bitacora-mercedev-epic-*.md"))
     if not bitacoras:
         return None
     return max(bitacoras, key=lambda p: p.stat().st_mtime)
 
-
-def extract_json_array(text: str) -> list:
-    """Extrae un array JSON de la respuesta de la IA, ignorando texto basura."""
+def extract_json_array(text: str) -> list[str]:
+    """
+    QUÉ HACE: Extrae un array JSON de la respuesta de la IA, ignorando texto basura.
+    POR QUÉ: Permite limpiar la salida de los modelos de lenguaje que inyectan explicaciones adicionales.
+    """
     match = re.search(r'\[.*?\]', text, re.DOTALL)
     if match:
         try:
@@ -54,7 +59,11 @@ def extract_json_array(text: str) -> list:
             pass
     return []
 
-def main():
+def main() -> None:
+    """
+    QUÉ HACE: Analiza las últimas entradas de la bitácora activa y verifica si el ROADMAP.md necesita ser actualizado.
+    POR QUÉ: Corrige la deriva documental sincronizando el estado real del proyecto con la Única Fuente de Verdad.
+    """
     print("\n🤖 [Merci SSOT] Analizando deriva documental entre Bitácora y Roadmap...")
     
     BITACORA_PATH = obtener_bitacora_activa()
@@ -133,4 +142,8 @@ def main():
         sys.exit(1)
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(f"❌ [Merci SSOT] Error fatal inesperado: {e}")
+        sys.exit(1)

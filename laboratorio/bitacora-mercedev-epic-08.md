@@ -7,6 +7,23 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-12 — Refactor/QA: Tipado, docstrings, robustez en scripts de IA/Gobernanza y resolución de Deriva Documental
+
+**Contexto:** (Desafío) Los scripts de la Fase 2 (IA & Gobernanza) presentaban asimetrías de tipado estático, docstrings y control de excepciones. Adicionalmente, existía un error de invocación de API crítico en `merci-auto-fix.py` al acceder a `choices.message` en lugar de `choices[0].message`. Por último, el detector de deriva documental `merci-drift.py` alertaba de la ausencia de documentación de varios scripts activos (`merci-deploy.py`, `merci-publish.py`, `merci-wp.py`, `merci-shop.py`, `merci-hardening.py`) en sus respectivos manuales específicos en `docs/`.
+
+**Hecho:** (Maniobra)
+- Se refactorizaron sistemáticamente los scripts `merci-brain.py`, `merci-ssot.py`, `merci-librarian.py`, `merci-glosario.py`, `merci-blogger.py`, `merci-auto-fix.py` y `merci-drift.py` en `scripts/merci/` y `laboratorio/scripts_temporales/`.
+- Se inyectó tipado estático completo en parámetros y retornos, se ordenaron las importaciones según PEP 8, y se estructuraron docstrings explicando el qué hace y por qué en castellano.
+- Se encapsuló la ejecución en bloques `try...except Exception` con captura de `KeyboardInterrupt` (Ctrl+C) saliendo con código `130` y mensaje limpio.
+- Se corrigió el bug de LiteLLM en `merci-auto-fix.py` indexando correctamente choices (`[0]`).
+- Se reescribió `merci-drift.py` implementando validación contextual por categorías a través de `SCRIPT_MAPPINGS`.
+- Se actualizaron los manuales de `docs/` (`deployment-playbook.md`, `flujo-publicacion-sop.md`, `integracion-wordpress.md` y `checklist-hardening.md`) para documentar e integrar de forma impersonal todos los scripts previamente en deriva.
+- Se ejecutó el pipeline completo mediante `merci-total.py`, certificando un 100% de éxito con cero advertencias y deriva documental solucionada.
+
+**Motivo / criterio:** (Aprendizaje) *Seguridad en el Lado Izquierdo (Shift-Left Security) y Coherencia Documental*. La eliminación de errores de indexación de APIs en scripts automatizados evita caídas en CI/CD. La sincronización estricta por categorías documentales garantiza la trazabilidad operativa y el orden del ecosistema sin generar ruido.
+
+**Siguiente paso o deuda:** Sellar los cambios en Git y actualizar el Roadmap maestro para dar por concluida la Fase 2.
+
 ### 2026-06-12 — Release/CI-CD: Publicación no interactiva de Merci Boilerplate v1.18.0
 
 **Contexto:** (Desafío) El orquestador de exportación `merci-release.py` exigía interacción por teclado por parte del usuario y disparaba `merci-init.py` en caliente, provocando excepciones fatales de fin de archivo (`EOFError`) cuando se ejecutaba en entornos desatendidos o automatizados de manera asíncrona.

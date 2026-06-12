@@ -22,6 +22,10 @@ Por diseño arquitectónico (Environment Segregation), el núcleo estático (Bib
    ```bash
    merci total
    ```
+   *Nota:* Detrás de escena, se ejecuta el script `merci-publish.py` para transformar los documentos Markdown de la biblioteca en páginas HTML estáticas y maquetar los PDFs correspondientes. De ser necesario, se puede ejecutar la compilación de forma directa con:
+   ```bash
+   python3 scripts/merci/merci-publish.py
+   ```
 4. **Sello y Empaquetado:** Sellar la publicación añadiendo los archivos a Git (`merci commit`).
 
 ---

@@ -119,7 +119,7 @@
           "L105"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L285"
+          "L286"
         ],
         "checklist-hardening.md": [
           "L57"
@@ -170,7 +170,10 @@
           "L484"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L20"
+          "L21"
+        ],
+        "checklist-hardening.md": [
+          "L77"
         ],
         "README.md": [
           "L88"
@@ -236,13 +239,13 @@
           "L820"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L169"
+          "L170"
         ],
         "deployment-playbook.md": [
           "L34"
         ],
         "flujo-publicacion-sop.md": [
-          "L87"
+          "L91"
         ],
         "integracion-wordpress.md": [
           "L13"
@@ -449,10 +452,10 @@
           "L296"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L132"
+          "L133"
         ],
         "flujo-publicacion-sop.md": [
-          "L68"
+          "L72"
         ],
         "checklist-hardening.md": [
           "L54"
@@ -527,7 +530,7 @@
           "L208"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L93"
+          "L94"
         ]
       }
     },
@@ -560,7 +563,7 @@
           "L47"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L20"
+          "L21"
         ],
         "plantilla-proyecto.md": [
           "L5"
@@ -1202,7 +1205,7 @@
           "L582"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L24"
+          "L25"
         ],
         "flujo-publicacion-sop.md": [
           "L21"
@@ -1286,7 +1289,7 @@
           "L799"
         ],
         "flujo-publicacion-sop.md": [
-          "L30"
+          "L34"
         ],
         "integracion-wordpress.md": [
           "L10"
@@ -1319,7 +1322,7 @@
           "L1162"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L245"
+          "L246"
         ]
       }
     },
@@ -1376,7 +1379,7 @@
           "L1524"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L99"
+          "L100"
         ],
         "instrucciones.md": [
           "L25"
@@ -1403,7 +1406,7 @@
           "L248"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L169"
+          "L170"
         ],
         "instrucciones.md": [
           "L31"
@@ -1544,7 +1547,7 @@
           "L532"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L336"
+          "L337"
         ],
         "flujo-publicacion-sop.md": [
           "L2"
@@ -1574,7 +1577,7 @@
           "L48"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L206"
+          "L207"
         ],
         "deployment-playbook.md": [
           "L51"
@@ -1877,7 +1880,7 @@
           "L11"
         ],
         "flujo-publicacion-sop.md": [
-          "L62"
+          "L66"
         ],
         "ciclo-de-vida-contenidos.md": [
           "L26"
@@ -1919,7 +1922,7 @@
           "L594"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L350"
+          "L351"
         ]
       }
     },
@@ -2009,7 +2012,7 @@
           "L33"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L106"
+          "L107"
         ],
         "instrucciones.md": [
           "L97"
@@ -2168,7 +2171,7 @@
           "L671"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L42"
+          "L43"
         ],
         "instrucciones.md": [
           "L99"
@@ -2222,7 +2225,7 @@
           "L540"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L261"
+          "L262"
         ],
         "checklist-hardening.md": [
           "L7"
@@ -2255,7 +2258,7 @@
           "L80"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L255"
+          "L256"
         ],
         "flujo-publicacion-sop.md": [
           "L2"
@@ -2357,7 +2360,7 @@
           "L75"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L182"
+          "L183"
         ]
       }
     },
@@ -2396,7 +2399,7 @@
           "L575"
         ],
         "flujo-publicacion-sop.md": [
-          "L73"
+          "L77"
         ]
       }
     },
