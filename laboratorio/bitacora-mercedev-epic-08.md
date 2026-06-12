@@ -15,6 +15,7 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 - Se incorporó soporte para el analizador de argumentos (`argparse`) en `scripts/merci/merci-release.py`, añadiendo el flag `--non-interactive`.
 - Se reconfiguró el lanzamiento interno de `merci-init.py` en el clon efímero para invocarlo de manera directa pasando las banderas `--force`, `--dominio "tuempresa.es"`, `--nombre "Tu Empresa"` y `--ia`.
 - Se ejecutó de forma no interactiva el release pipeline, validando la compilación del Boilerplate con `merci total` local y publicando exitosamente los cambios de la versión `v1.18.0` en GitHub.
+- Se actualizó y homogeneizó con estilo impersonal el archivo [SECURITY.md](file:///home/hildegahr/Escritorio/PROYECTO_mercedev.es/SECURITY.md) para reflejar el soporte oficial de la rama v1.18.x.
 - Se dio por cerrada la Fase 1 (Core Pipeline) de la Épica 8 en el Roadmap maestro.
 
 **Motivo / criterio:** (Aprendizaje) *Idempotencia y Desacoplamiento de Entrada Estándar*. Diseñar scripts DevSecOps asumiendo la presencia constante de un operador humano al teclado rompe la automatización. Proveer vías no interactivas (`argparse`, variables de entorno) blinda el pipeline para ejecuciones desatendidas y sistemas de Integración Continua (CI).

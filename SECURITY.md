@@ -6,10 +6,10 @@ Actualmente, solo la última versión mayor del Boilerplate recibe actualizacion
 
 | Versión | Soportada          |
 | ------- | ------------------ |
-| v1.16.x | ✅ Sí              |
-| < v1.16 | ❌ No (Deprecada)  |
+| v1.18.x | ✅ Sí              |
+| < v1.18 | ❌ No (Deprecada)  |
 
 ## Reportar una Vulnerabilidad
 
-Si descubres una vulnerabilidad de seguridad en este proyecto, por favor **NO** crees una *Issue* pública. 
-Utiliza el sistema de [Private Vulnerability Reporting](https://github.com/MercedesDF/PROYECTO_mercedev.es/security/advisories/new) de GitHub para reportarlo de forma confidencial a la autora. Te responderemos a la mayor brevedad posible para coordinar un parche antes de su divulgación.
+Si se descubre una vulnerabilidad de seguridad en este proyecto, se solicita **NO** crear una *Issue* pública. 
+Se debe utilizar el sistema de [Private Vulnerability Reporting](https://github.com/MercedesDF/PROYECTO_mercedev.es/security/advisories/new) de GitHub para realizar el reporte de forma confidencial a la autora. Se responderá a la mayor brevedad posible para coordinar un parche antes de su divulgación.
