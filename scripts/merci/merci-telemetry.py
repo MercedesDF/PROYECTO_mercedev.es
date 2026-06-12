@@ -19,6 +19,10 @@ INDEX_HTML = REPO_ROOT / "public" / "index.html"
 SOBRE_MI_HTML = REPO_ROOT / "public" / "sobre-mi" / "index.html"
 
 def get_git_commits() -> str:
+    """
+    QUÉ HACE: Obtiene el número total de commits en la rama actual de Git.
+    POR QUÉ: Permite exponer en los tableros del sitio web la cantidad de commits realizados.
+    """
     try:
         result = subprocess.run(["git", "rev-list", "--count", "HEAD"], cwd=REPO_ROOT, capture_output=True, text=True, check=True)
         return result.stdout.strip()
@@ -26,6 +30,10 @@ def get_git_commits() -> str:
         return "N/D"
 
 def get_active_days() -> str:
+    """
+    QUÉ HACE: Obtiene el número de días únicos en los que se han realizado commits de Git.
+    POR QUÉ: Cuantifica el número de días de trabajo real dedicados al desarrollo del proyecto.
+    """
     try:
         # Extrae fechas únicas de commits para contar solo los días de trabajo real
         result = subprocess.run("git log --format='%cd' --date=short | sort -u | wc -l", cwd=REPO_ROOT, shell=True, capture_output=True, text=True, check=True)
@@ -34,11 +42,19 @@ def get_active_days() -> str:
         return "N/D"
 
 def get_agent_count() -> str:
+    """
+    QUÉ HACE: Cuenta la cantidad de scripts Python (agentes) presentes en scripts/merci/.
+    POR QUÉ: Expone el tamaño del arsenal de agentes de automatización del ecosistema.
+    """
     agentes = list((REPO_ROOT / "scripts" / "merci").glob("*.py"))
     # Restamos __init__.py si llegara a existir para que sea exacto
     return str(len([a for a in agentes if a.name != "__init__.py"]))
 
 def get_doc_lines() -> str:
+    """
+    QUÉ HACE: Cuenta el total de líneas en todos los archivos Markdown del proyecto.
+    POR QUÉ: Mide el volumen de documentación técnica acumulada en el repositorio.
+    """
     total_lines = 0
     for md_file in REPO_ROOT.rglob("*.md"):
         if any(part in {".venv", "node_modules", ".git"} for part in md_file.parts):
@@ -51,6 +67,10 @@ def get_doc_lines() -> str:
     return f"{total_lines:,}".replace(",", ".")
 
 def get_latest_release() -> str:
+    """
+    QUÉ HACE: Lee el número de la última release de Merci Boilerplate desde README-merci.md.
+    POR QUÉ: Obtiene la versión actual para inyectarla en los dashboards y vistas.
+    """
     readme_merci = REPO_ROOT / "README-merci.md"
     if readme_merci.exists():
         content = readme_merci.read_text(encoding="utf-8")
@@ -59,7 +79,11 @@ def get_latest_release() -> str:
             return match.group(1)
     return "v1.0.0"
 
-def inject_metrics(html_path: Path, metrics: dict):
+def inject_metrics(html_path: Path, metrics: dict[str, str]) -> None:
+    """
+    QUÉ HACE: Inyecta las métricas calculadas en un archivo HTML específico utilizando expresiones regulares.
+    POR QUÉ: Automatiza la actualización visual de los tableros en las páginas estáticas.
+    """
     if not html_path.exists():
         return
 
@@ -72,11 +96,22 @@ def inject_metrics(html_path: Path, metrics: dict):
         
     html_path.write_text(html, encoding="utf-8")
 
-def main():
+def main() -> None:
+    """
+    QUÉ HACE: Orquesta el cálculo e inyección de todas las métricas en los HTMLs del sitio.
+    POR QUÉ: Garantiza que la telemetría visible en la portada y sobre mí esté actualizada.
+    """
     print("📈 [Merci Telemetry] Calculando métricas de ingeniería del proyecto...")
     metrics = {"Commit": get_git_commits(), "Agente": get_agent_count(), "Línea": get_doc_lines(), "Release": get_latest_release(), "Versión": get_latest_release(), "Día": get_active_days()}
     inject_metrics(INDEX_HTML, metrics)
     inject_metrics(SOBRE_MI_HTML, metrics)
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n🛑 [Merci Telemetry] Ejecución interrumpida por la usuaria. Saliendo limpiamente.")
+        sys.exit(130)
+    except Exception as e:
+        print(f"❌ [Merci Telemetry] Error fatal inesperado: {e}")
+        sys.exit(1)

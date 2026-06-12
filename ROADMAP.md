@@ -312,7 +312,15 @@
 - [x] `merci-drift.py` Linter de deriva documental con validación contextual por categorías.
 
 ### Fase 3: De los scripts de Publishing & DevRel
-- [ ] Revisión general, refactorización y buenas prácticas.
+- [x] `merci-publish.py` Compilador SSG y generador del índice de la biblioteca.
+- [x] `merci-telemetry.py` Exportador de métricas y estadísticas de ingeniería.
+- [x] `merci-promote.py` Promotor de artículos de laboratorio a biblioteca.
+- [x] `merci-linkedin.py` Automatizador de publicaciones en cola de LinkedIn.
+- [x] `merci-wp.py` Publicador Headless e integrador de WordPress.
+- [x] `merci-shop.py` Sincronizador de catálogo de WooCommerce.
+- [x] `merci-deploy.py` Orquestador de despliegue en producción.
+- [x] `merci-release.py` Generador de releases para merci-boilerplate.
+- [x] `merci-showcase.py` Clon efímero y actualizador de la demo interactiva (en `scripts/matriz/`).
 
 ### Fase 4: De los scripts de Observabilidad & Seguridad
 - [ ] Revisión general, refactorización y buenas prácticas.

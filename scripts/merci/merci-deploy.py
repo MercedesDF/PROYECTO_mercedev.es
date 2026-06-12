@@ -7,9 +7,9 @@ Conecta por SSH al servidor de producción, sincroniza el código fuente
 y purga la caché de Varnish automáticamente.
 """
 
+import os
 import subprocess
 import sys
-import os
 from pathlib import Path
 
 # Configuración del entorno de producción
@@ -19,7 +19,11 @@ REMOTE_WEB_DIR = "~/htdocs/mercedev.es"
 REMOTE_WP_DIR = "~/htdocs/wordpress"
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
-def run_local_command(command, description, custom_env=None):
+def run_local_command(command: str, description: str, custom_env: dict[str, str] | None = None) -> bool:
+    """
+    QUÉ HACE: Ejecuta un comando en la shell del sistema local.
+    POR QUÉ: Centraliza la subida de código o la inyección de contenidos controlando el código de retorno.
+    """
     print(f"  {description}")
     result = subprocess.run(command, shell=True, capture_output=True, text=True, env=custom_env)
     
@@ -30,7 +34,11 @@ def run_local_command(command, description, custom_env=None):
     print("    ✅ Hecho.")
     return True
 
-def run_remote_command(command, description):
+def run_remote_command(command: str, description: str) -> bool:
+    """
+    QUÉ HACE: Ejecuta un comando remoto a través de una conexión SSH sin interacción.
+    POR QUÉ: Permite automatizar la actualización y purga de caché en el VPS de producción.
+    """
     print(f"  {description}")
     # Se asume que las claves SSH están configuradas (sin contraseña interactiva)
     ssh_cmd = ["ssh", "-o", "StrictHostKeyChecking=accept-new", f"{SSH_USER}@{SSH_HOST}", command]
@@ -43,7 +51,11 @@ def run_remote_command(command, description):
     print("    ✅ Hecho.")
     return True
 
-def main():
+def main() -> None:
+    """
+    QUÉ HACE: Orquesta el flujo de despliegue continuo subiendo el código a Git, tirándolo en producción y purgando la caché de Varnish.
+    POR QUÉ: Provee un mecanismo automatizado de despliegue de un solo paso libre de plugins.
+    """
     print("🚀 [Merci Deploy] Iniciando orquestación de despliegue en producción...")
 
     if not run_local_command("git push origin main", "📤 Subiendo código local a GitHub (git push)..."):
@@ -52,7 +64,7 @@ def main():
     if not run_remote_command(f"cd {REMOTE_WEB_DIR} && git pull origin main", "📥 Sincronizando código desde GitHub (git pull)..."):
         sys.exit(1)
 
-    # 0. Sincronización Headless WP en Producción (Evita editar .env a mano)
+    # Sincronización Headless WP en Producción (Evita editar .env a mano)
     env_path = REPO_ROOT / ".env"
     if env_path.exists():
         env_data = {}
@@ -76,8 +88,7 @@ def main():
             else:
                 run_local_command(f"{sys.executable} {REPO_ROOT}/scripts/merci/merci-shop.py", "🛒 Inyectando catálogo de tienda en WooCommerce de producción...", custom_env)
 
-    # QUÉ HACE: Purga la caché enviando peticiones HTTP PURGE locales desde el propio servidor.
-    # POR QUÉ: Permite vaciar Varnish sin requerir permisos root (clpctl) ni instalar plugins PHP en WordPress.
+    # Purgar la caché enviando peticiones HTTP PURGE locales desde el propio servidor.
     run_remote_command(f"curl -s -X PURGE https://{SSH_HOST}/ > /dev/null", "🧹 Purgando caché de la portada (Varnish)...")
     run_remote_command(f"curl -s -X PURGE https://{SSH_HOST}/blog/ > /dev/null", "🧹 Purgando caché del blog (Varnish)...")
     
@@ -89,3 +100,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n🛑 [Merci Deploy] Despliegue cancelado por la usuaria. Saliendo limpiamente.")
         sys.exit(130)
+    except Exception as e:
+        print(f"❌ [Merci Deploy] Error fatal inesperado: {e}")
+        sys.exit(1)

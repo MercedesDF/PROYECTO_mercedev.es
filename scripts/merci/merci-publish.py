@@ -6,14 +6,14 @@ merci-publish.py — Orquestador maestro de publicación (Fase 7.1).
 Transforma documentos Markdown de la biblioteca en páginas HTML estáticas.
 """
 
-import argparse
-import re
-import sys
-import shutil
-import unicodedata
 import html
 import json
+import re
+import shutil
+import sys
+import unicodedata
 from pathlib import Path
+from typing import Any
 
 try:
     import markdown
@@ -50,7 +50,7 @@ def slugify(texto: str) -> str:
     # Reemplaza múltiples espacios o guiones por un solo guion
     return re.sub(r'[-\s]+', '-', texto).strip('-_')
 
-def limpiar_archivos_zombis(archivos_validos: set):
+def limpiar_archivos_zombis(archivos_validos: set[Path]) -> None:
     """
     QUÉ HACE: Patrón Mark and Sweep (Garbage Collection). Borra archivos que ya no tienen un Markdown origen.
     POR QUÉ: Permite la 'Compilación Incremental' reteniendo PDFs cacheados, pero erradica 
@@ -71,7 +71,11 @@ def limpiar_archivos_zombis(archivos_validos: set):
     if zombis > 0:
         print(f"  🧹 [Merci Publish] Purga Incremental: {zombis} artefacto(s) zombi(s) eliminado(s).")
 
-def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: int, js_c_v: int, js_m_v: int):
+def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: int, js_c_v: int, js_m_v: int) -> dict[str, Any] | bool:
+    """
+    QUÉ HACE: Procesa un archivo Markdown, extrae su YAML Frontmatter, genera su HTML y su PDF, y retorna sus metadatos.
+    POR QUÉ: Centraliza la conversión individual de documentos Markdown para inyectar plantillas comunes y metadatos SEO.
+    """
     content = filepath.read_text(encoding="utf-8")
     
     # 1. Extraer YAML Frontmatter y Cuerpo del Markdown
@@ -322,7 +326,23 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
         "slug": slug
     }
 
-def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, canonical_url, header_html, footer_html, css_v: int, js_c_v: int, js_m_v: int):
+def generar_indice(
+    publicaciones: list[dict[str, Any]],
+    out_path: Path,
+    title: str,
+    meta_desc: str,
+    hero_subtitle: str,
+    canonical_url: str,
+    header_html: str,
+    footer_html: str,
+    css_v: int,
+    js_c_v: int,
+    js_m_v: int
+) -> None:
+    """
+    QUÉ HACE: Genera el índice HTML temático para las publicaciones de la Biblioteca o Art de Coté.
+    POR QUÉ: Agrupa las publicaciones en estanterías temáticas y crea navegación accesible intra-página.
+    """
     print(f"📖 Generando índice temático para {title}...")
     
     if title == "La Biblioteca":
@@ -506,7 +526,11 @@ def generar_indice(publicaciones, out_path, title, meta_desc, hero_subtitle, can
     out_path.write_text(html_final, encoding="utf-8")
     print(f"  ✅ Índice generado con éxito: {out_path.relative_to(REPO_ROOT)}")
 
-def main(): # type: ignore
+def main() -> None:
+    """
+    QUÉ HACE: Orquesta la compilación estática (SSG) de todos los archivos Markdown de la Biblioteca y Art de Coté.
+    POR QUÉ: Automatiza la generación y sincronización del núcleo estático del sitio web.
+    """
     print("🚀 [Merci Publish] Iniciando orquestador de publicación...")
     
     # Set para rastrear archivos legítimos y purgar zombis al final (Garbage Collection)
@@ -584,4 +608,11 @@ def main(): # type: ignore
     print("🚀 [Merci Publish] Pipeline de conversión finalizado.")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n🛑 [Merci Publish] Compilación interrumpida por la usuaria. Saliendo limpiamente.")
+        sys.exit(130)
+    except Exception as e:
+        print(f"❌ [Merci Publish] Error fatal inesperado: {e}")
+        sys.exit(1)

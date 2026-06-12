@@ -16,7 +16,11 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
-def main():
+def main() -> None:
+    """
+    QUÉ HACE: Orquesta la exportación del Boilerplate, creando un clon efímero, purgando la identidad, sincronizando el código y realizando la publicación en GitHub.
+    POR QUÉ: Garantiza una distribución libre de datos personales de forma 100% reproducible y desatendida.
+    """
     print("🚀 [Merci Release] Iniciando orquestador de exportación al Boilerplate...")
     
     # 1. Resolver ruta del repositorio destino (Hermano de la matriz por defecto)
@@ -80,7 +84,7 @@ def main():
     # 3. Flujo de Publicación (Automated QA, Commit & Push)
     print("\n🚀 [Merci Release] Fase 2: Auditoría y Publicación")
     
-    # QUÉ HACE: Extrae la versión del README.md (que ya fue renombrado de README-merci.md por merci-init)
+    # Extrae la versión del README.md (que ya fue renombrado de README-merci.md por merci-init)
     readme_path = dest_path / "README.md"
     version = "vX.X.X"
     if readme_path.exists():
@@ -90,7 +94,7 @@ def main():
     print(f"  🔍 Versión detectada para la release: {version}")
     print("  🧪 Ejecutando 'merci total' en el Boilerplate para QA estricto...")
     
-    # QUÉ HACE: Ejecuta el orquestador maestro utilizando el entorno virtual actual (sys.executable)
+    # Ejecuta el orquestador maestro utilizando el entorno virtual actual (sys.executable)
     result_total = subprocess.run([sys.executable, "scripts/merci/merci-total.py"], cwd=str(dest_path))
     if result_total.returncode != 0:
         print("\n  ❌ 'merci total' falló en el Boilerplate. Revisa los errores en la terminal antes de publicar.")
@@ -114,3 +118,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n🛑 [Merci Release] Operación cancelada por la usuaria. Saliendo limpiamente.")
         sys.exit(130)
+    except Exception as e:
+        print(f"❌ [Merci Release] Error fatal inesperado: {e}")
+        sys.exit(1)

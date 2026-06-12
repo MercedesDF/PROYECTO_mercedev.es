@@ -7,6 +7,23 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-12 — Refactor/QA: Robustez, tipado y docstrings en scripts de Publishing & DevRel (Fase 3)
+
+**Contexto:** (Desafío) Los scripts asociados a la Fase 3 (Publishing & DevRel) presentaban falta de homogeneidad en la tipificación estática, docstrings incompletos y carecían de manejadores elegantes para interrupciones por teclado (`KeyboardInterrupt`) o fallos genéricos, comprometiendo la experiencia de desarrollo (DX) y la solidez del pipeline ante ejecuciones fallidas o canceladas.
+
+**Hecho:** (Maniobra)
+- Se refactorizaron sistemáticamente 9 scripts: `merci-publish.py`, `merci-telemetry.py`, `merci-promote.py`, `merci-linkedin.py`, `merci-wp.py`, `merci-shop.py`, `merci-deploy.py` y `merci-release.py` (ubicados en `scripts/merci/`), además de `merci-showcase.py` (ubicado en `scripts/matriz/`).
+- Se introdujo tipado estático estricto para argumentos y retornos de funciones, y se estructuraron sus docstrings explicativos (*QUÉ HACE* / *POR QUÉ*) en castellano.
+- Se ordenaron las importaciones de acuerdo a PEP 8 y se encapsuló la ejecución en bloques `try...except` y captura de `KeyboardInterrupt` con salida controlada en código `130`.
+- Se documentó la integración de Grafana v13 en el contenedor de observabilidad, utilizando el comando `/usr/share/grafana/bin/grafana cli` en lugar del antiguo `grafana-cli` no disponible.
+- Se aisló físicamente `merci-showcase.py` en el directorio de la matriz para evitar riesgos de fugas de credenciales (DLP).
+- Se ejecutó el pipeline completo a través de `merci-total.py`, logrando un 100% de éxito en la compilación y validación del entorno.
+- Se actualizó el listado detallado de scripts de la Fase 3 en `ROADMAP.md`.
+
+**Motivo / criterio:** (Aprendizaje) *Robustez en Flujos de Publicación e Higiene de Código*. Uniformar las capas de control y tipado de los scripts de distribución social y despliegue reduce la fragilidad del ecosistema y garantiza que cualquier fallo en redes o WordPress falle elegantemente sin comprometer el pipeline maestro.
+
+**Siguiente paso o deuda:** Sellar los cambios de la Fase 3 mediante `merci-commit.py` e iniciar la Fase 4 (scripts de Observabilidad & Seguridad).
+
 ### 2026-06-12 — Refactor/QA: Tipado, docstrings, robustez en scripts de IA/Gobernanza y resolución de Deriva Documental
 
 **Contexto:** (Desafío) Los scripts de la Fase 2 (IA & Gobernanza) presentaban asimetrías de tipado estático, docstrings y control de excepciones. Adicionalmente, existía un error de invocación de API crítico en `merci-auto-fix.py` al acceder a `choices.message` en lugar de `choices[0].message`. Por último, el detector de deriva documental `merci-drift.py` alertaba de la ausencia de documentación de varios scripts activos (`merci-deploy.py`, `merci-publish.py`, `merci-wp.py`, `merci-shop.py`, `merci-hardening.py`) en sus respectivos manuales específicos en `docs/`.

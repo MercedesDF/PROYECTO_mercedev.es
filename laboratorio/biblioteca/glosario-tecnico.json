@@ -119,7 +119,7 @@
           "L105"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L286"
+          "L303"
         ],
         "checklist-hardening.md": [
           "L57"
@@ -170,7 +170,7 @@
           "L484"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L21"
+          "L23"
         ],
         "checklist-hardening.md": [
           "L77"
@@ -239,7 +239,7 @@
           "L820"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L170"
+          "L187"
         ],
         "deployment-playbook.md": [
           "L34"
@@ -452,7 +452,7 @@
           "L296"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L133"
+          "L150"
         ],
         "flujo-publicacion-sop.md": [
           "L72"
@@ -530,7 +530,7 @@
           "L208"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L94"
+          "L111"
         ]
       }
     },
@@ -563,7 +563,7 @@
           "L47"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L21"
+          "L38"
         ],
         "plantilla-proyecto.md": [
           "L5"
@@ -1205,7 +1205,7 @@
           "L582"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L25"
+          "L10"
         ],
         "flujo-publicacion-sop.md": [
           "L21"
@@ -1322,7 +1322,7 @@
           "L1162"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L246"
+          "L263"
         ]
       }
     },
@@ -1379,7 +1379,7 @@
           "L1524"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L100"
+          "L117"
         ],
         "instrucciones.md": [
           "L25"
@@ -1406,7 +1406,7 @@
           "L248"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L170"
+          "L187"
         ],
         "instrucciones.md": [
           "L31"
@@ -1547,7 +1547,7 @@
           "L532"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L337"
+          "L354"
         ],
         "flujo-publicacion-sop.md": [
           "L2"
@@ -1577,7 +1577,7 @@
           "L48"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L207"
+          "L224"
         ],
         "deployment-playbook.md": [
           "L51"
@@ -1668,6 +1668,9 @@
         ],
         "bitacora-mercedev-epic-02.md": [
           "L238"
+        ],
+        "bitacora-mercedev-epic-08.md": [
+          "L23"
         ],
         "instrucciones.md": [
           "L4"
@@ -1922,7 +1925,7 @@
           "L594"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L351"
+          "L368"
         ]
       }
     },
@@ -2012,7 +2015,7 @@
           "L33"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L107"
+          "L124"
         ],
         "instrucciones.md": [
           "L97"
@@ -2171,7 +2174,7 @@
           "L671"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L43"
+          "L16"
         ],
         "instrucciones.md": [
           "L99"
@@ -2225,7 +2228,7 @@
           "L540"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L262"
+          "L279"
         ],
         "checklist-hardening.md": [
           "L7"
@@ -2258,7 +2261,7 @@
           "L80"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L256"
+          "L273"
         ],
         "flujo-publicacion-sop.md": [
           "L2"
@@ -2360,7 +2363,7 @@
           "L75"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L183"
+          "L200"
         ]
       }
     },
