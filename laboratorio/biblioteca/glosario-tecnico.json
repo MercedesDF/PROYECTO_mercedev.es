@@ -11,7 +11,7 @@
           "L45"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L606"
+          "L621"
         ]
       }
     },
@@ -26,7 +26,7 @@
           "L634"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L988"
+          "L1003"
         ]
       }
     },
@@ -119,7 +119,7 @@
           "L105"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L367"
+          "L381"
         ],
         "checklist-hardening.md": [
           "L57"
@@ -167,10 +167,10 @@
           "L206"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L484"
+          "L499"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L87"
+          "L101"
         ],
         "checklist-hardening.md": [
           "L77"
@@ -191,7 +191,7 @@
           "L1237"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L1086"
+          "L1101"
         ]
       }
     },
@@ -207,6 +207,9 @@
         ],
         "bitacora-mercedev-epic-01.md": [
           "L160"
+        ],
+        "bitacora-mercedev-epic-08.md": [
+          "L16"
         ],
         "README.md": [
           "L48"
@@ -236,10 +239,10 @@
           "L177"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L820"
+          "L835"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L251"
+          "L265"
         ],
         "deployment-playbook.md": [
           "L34"
@@ -449,10 +452,10 @@
           "L409"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L296"
+          "L311"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L66"
+          "L80"
         ],
         "flujo-publicacion-sop.md": [
           "L72"
@@ -527,10 +530,10 @@
           "L439"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L208"
+          "L223"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L59"
+          "L73"
         ]
       }
     },
@@ -560,10 +563,10 @@
           "L59"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L47"
+          "L52"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L18"
+          "L10"
         ],
         "plantilla-proyecto.md": [
           "L5"
@@ -662,7 +665,7 @@
       "merci_explica": "Archivo empaquetado que contiene el cerebro de una inteligencia artificial para que puedas ejecutarla en tu propia computadora.",
       "apariciones": {
         "bitacora-mercedev-epic-02.md": [
-          "L1066"
+          "L1081"
         ]
       }
     },
@@ -677,7 +680,7 @@
           "L2685"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L784"
+          "L799"
         ]
       }
     },
@@ -695,7 +698,7 @@
           "L986"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L1042"
+          "L1057"
         ]
       }
     },
@@ -725,7 +728,7 @@
       "merci_explica": "Mejoramiento continuo del sistema mediante correcciones inteligentes.",
       "apariciones": {
         "bitacora-mercedev-epic-02.md": [
-          "L1406"
+          "L1421"
         ]
       }
     },
@@ -743,7 +746,7 @@
           "L142"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L358"
+          "L41"
         ]
       }
     },
@@ -791,7 +794,7 @@
           "L233"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L43"
+          "L58"
         ],
         "ciclo-de-vida-contenidos.md": [
           "L8"
@@ -809,7 +812,7 @@
       "merci_explica": "JWT es como una cédula de identidad digital, que permite a los sistemas verificar la autenticidad y la integridad de la información sin necesidad de almacenarla.",
       "apariciones": {
         "bitacora-mercedev-epic-02.md": [
-          "L1268"
+          "L1283"
         ]
       }
     },
@@ -858,6 +861,9 @@
         ],
         "bitacora-mercedev-epic-01.md": [
           "L160"
+        ],
+        "bitacora-mercedev-epic-08.md": [
+          "L16"
         ]
       }
     },
@@ -911,7 +917,7 @@
           "L441"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L222"
+          "L237"
         ]
       }
     },
@@ -953,7 +959,7 @@
           "L1197"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L1408"
+          "L1423"
         ]
       }
     },
@@ -977,7 +983,7 @@
       "merci_explica": "Portero virtual que protege tu hogar mientras te conectas a la web.",
       "apariciones": {
         "bitacora-mercedev-epic-02.md": [
-          "L394"
+          "L409"
         ]
       }
     },
@@ -1019,7 +1025,7 @@
           "L118"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L978"
+          "L993"
         ],
         "instrucciones.md": [
           "L47"
@@ -1061,7 +1067,7 @@
           "L2693"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L1024"
+          "L1039"
         ]
       }
     },
@@ -1115,7 +1121,7 @@
           "L2088"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L602"
+          "L617"
         ]
       }
     },
@@ -1130,10 +1136,10 @@
           "L566"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L206"
+          "L221"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L36"
+          "L50"
         ]
       }
     },
@@ -1205,10 +1211,10 @@
           "L171"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L582"
+          "L597"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L24"
+          "L38"
         ],
         "flujo-publicacion-sop.md": [
           "L21"
@@ -1232,7 +1238,7 @@
       "merci_explica": "Mecanismo que le da a la Inteligencia Artificial un libro abierto con tus documentos para que busque la respuesta real antes de intentar adivinarla.",
       "apariciones": {
         "bitacora-mercedev-epic-02.md": [
-          "L1156"
+          "L1171"
         ]
       }
     },
@@ -1265,7 +1271,7 @@
           "L4663"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L122"
+          "L137"
         ],
         "checklist-hardening.md": [
           "L64"
@@ -1322,10 +1328,10 @@
           "L1203"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L1162"
+          "L1177"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L327"
+          "L341"
         ]
       }
     },
@@ -1340,7 +1346,7 @@
           "L142"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L1282"
+          "L1297"
         ]
       }
     },
@@ -1379,10 +1385,10 @@
           "L105"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L1524"
+          "L1539"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L181"
+          "L195"
         ],
         "instrucciones.md": [
           "L25"
@@ -1406,10 +1412,10 @@
           "L3501"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L248"
+          "L263"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L251"
+          "L265"
         ],
         "instrucciones.md": [
           "L31"
@@ -1430,7 +1436,7 @@
           "L118"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L644"
+          "L659"
         ]
       }
     },
@@ -1478,7 +1484,7 @@
           "L88"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L158"
+          "L173"
         ]
       }
     },
@@ -1547,10 +1553,10 @@
           "L97"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L532"
+          "L547"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L418"
+          "L432"
         ],
         "flujo-publicacion-sop.md": [
           "L2"
@@ -1577,10 +1583,10 @@
           "L46"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L48"
+          "L63"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L53"
+          "L10"
         ],
         "deployment-playbook.md": [
           "L51"
@@ -1622,7 +1628,7 @@
           "L50"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L318"
+          "L52"
         ],
         "ciclo-de-vida-contenidos.md": [
           "L49"
@@ -1646,7 +1652,7 @@
       "merci_explica": "Cuando un pirata engaña a tu servidor para que abra puertas internas de la base de datos de tu empresa como si fuera un empleado autorizado.",
       "apariciones": {
         "bitacora-mercedev-epic-02.md": [
-          "L122"
+          "L137"
         ]
       }
     },
@@ -1670,10 +1676,10 @@
           "L413"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L238"
+          "L253"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L87"
+          "L101"
         ],
         "instrucciones.md": [
           "L4"
@@ -1721,7 +1727,10 @@
           "L160"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L612"
+          "L627"
+        ],
+        "bitacora-mercedev-epic-08.md": [
+          "L16"
         ],
         "checklist-hardening.md": [
           "L23"
@@ -1742,7 +1751,7 @@
       "merci_explica": "Vigía el camino hacia tu destino, asegurándose de que llegues sin errores.",
       "apariciones": {
         "bitacora-mercedev-epic-02.md": [
-          "L408"
+          "L423"
         ]
       }
     },
@@ -1754,7 +1763,7 @@
       "merci_explica": "Fotografía del instante, marcando el momento preciso.",
       "apariciones": {
         "bitacora-mercedev-epic-02.md": [
-          "L620"
+          "L635"
         ]
       }
     },
@@ -1802,7 +1811,7 @@
       "merci_explica": "Guardián de la puerta, controlando quién puede entrar y salir de la red.",
       "apariciones": {
         "bitacora-mercedev-epic-02.md": [
-          "L404"
+          "L419"
         ]
       }
     },
@@ -1925,10 +1934,10 @@
       "merci_explica": "Duplicado de código para asegurar consistencia visual.",
       "apariciones": {
         "bitacora-mercedev-epic-02.md": [
-          "L594"
+          "L609"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L432"
+          "L446"
         ]
       }
     },
@@ -1979,7 +1988,7 @@
           "L3259"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L88"
+          "L103"
         ],
         "deployment-playbook.md": [
           "L47"
@@ -1997,7 +2006,7 @@
       "merci_explica": "Regla para mantener el software limpio y eficiente.",
       "apariciones": {
         "bitacora-mercedev-epic-02.md": [
-          "L158"
+          "L173"
         ]
       }
     },
@@ -2017,8 +2026,11 @@
         "bitacora-mercedev-epic-07.md": [
           "L33"
         ],
+        "bitacora-mercedev-epic-02.md": [
+          "L46"
+        ],
         "bitacora-mercedev-epic-08.md": [
-          "L188"
+          "L202"
         ],
         "instrucciones.md": [
           "L97"
@@ -2033,7 +2045,7 @@
       "merci_explica": "Puzzle digital que se desbloquea con arrastrar y soltar componentes predefinidos.",
       "apariciones": {
         "bitacora-mercedev-epic-02.md": [
-          "L168"
+          "L183"
         ]
       }
     },
@@ -2045,7 +2057,7 @@
       "merci_explica": "Armadura invisible que se desvanece de repente, dejando al atacante sin protección.",
       "apariciones": {
         "bitacora-mercedev-epic-02.md": [
-          "L106"
+          "L121"
         ]
       }
     },
@@ -2060,7 +2072,7 @@
           "L157"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L912"
+          "L927"
         ]
       }
     },
@@ -2075,7 +2087,7 @@
           "L563"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L910"
+          "L925"
         ],
         "instrucciones.md": [
           "L41"
@@ -2126,7 +2138,7 @@
           "L522"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L1162"
+          "L1177"
         ]
       }
     },
@@ -2177,7 +2189,7 @@
           "L671"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L31"
+          "L45"
         ],
         "instrucciones.md": [
           "L99"
@@ -2231,7 +2243,7 @@
           "L540"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L343"
+          "L357"
         ],
         "checklist-hardening.md": [
           "L7"
@@ -2261,10 +2273,10 @@
           "L99"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L80"
+          "L95"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L337"
+          "L351"
         ],
         "flujo-publicacion-sop.md": [
           "L2"
@@ -2294,7 +2306,7 @@
           "L984"
         ],
         "bitacora-mercedev-epic-02.md": [
-          "L1536"
+          "L1551"
         ],
         "deployment-playbook.md": [
           "L43"
@@ -2366,7 +2378,7 @@
           "L75"
         ],
         "bitacora-mercedev-epic-08.md": [
-          "L264"
+          "L278"
         ]
       }
     },
@@ -2454,6 +2466,42 @@
       "apariciones": {
         "bitacora-mercedev-epic-07.md": [
           "L33"
+        ]
+      }
+    },
+    "CI-CD": {
+      "nombre": "CI-CD",
+      "ingles": "Continuous Integration and Continuous Deployment",
+      "espanol": "Integración y Despliegue Continuo",
+      "definicion": "Práctica de desarrollo de software que automatiza el proceso de integración de cambios en un repositorio centralizado con una compilación y despliegue continuo del código fuente.",
+      "merci_explica": "Cadena de producción rápida, asegurando que los cambios se integren y desplieguen automáticamente.",
+      "apariciones": {
+        "bitacora-mercedev-epic-08.md": [
+          "L105"
+        ]
+      }
+    },
+    "MTTD": {
+      "nombre": "MTTD",
+      "ingles": "Mean Time to Detection",
+      "espanol": "Tiempo Medio de Detección",
+      "definicion": "Medida del tiempo promedio que pasa desde el momento en que ocurre un incidente hasta que se detecta.",
+      "merci_explica": "Cronómetro que mide cuánto tiempo tarda en identificar un problema.",
+      "apariciones": {
+        "bitacora-mercedev-epic-08.md": [
+          "L20"
+        ]
+      }
+    },
+    "UID": {
+      "nombre": "UID",
+      "ingles": "Unique Identifier",
+      "espanol": "Identificador Único",
+      "definicion": "Valor único asignado a un recurso o entidad para su identificación y referencia única dentro de un sistema.",
+      "merci_explica": "Etiqueta única que distingue a cada elemento en una colección.",
+      "apariciones": {
+        "bitacora-mercedev-epic-08.md": [
+          "L15"
         ]
       }
     }

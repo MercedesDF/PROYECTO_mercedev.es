@@ -38,6 +38,21 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-06-12 — Feat: Enrutamiento del IDE al Hybrid Stack (LiteLLM Proxy)
+
+**Contexto:** Ante el fin de soporte de las extensiones clásicas en la nube y para mitigar los límites de tokens (*Context Window Stuffing*), se requería migrar el agente nativo de Antigravity IDE para que utilice nuestra propia infraestructura híbrida sin perder las capacidades de la interfaz visual.
+
+**Hecho:**
+- Se registró explícitamente el paquete `litellm[proxy]==1.83.14` en `requirements.txt` respetando la política Zero-Bloat.
+- Se creó `observabilidad/router.yaml` definiendo un enrutador maestro con *Fallback* entre la nube (Gemini 1.5) y el motor local (Qwen 2.5 Coder en LM Studio).
+- Se configuró el editor (`.vscode/settings.json`) apuntando el tráfico de IA a `http://localhost:4000/v1`.
+
+**Detalle técnico:** La configuración del entorno de trabajo aplica un *Resource Budgeting* estricto de 4096 tokens (alineado con la RAM del servidor local) y desactiva la telemetría nativa. El proxy local intercepta las peticiones de autocompletado y chat del IDE, degradando elegantemente a coste cero si la API principal falla o agota su cuota. Se validó empíricamente con una generación de código exitosa en el chat del editor.
+
+**Motivo / criterio:** *Zero Limits y Single Source of Truth (SSOT)*. Centralizar el "cerebro" del editor de código en el mismo enrutador que usan los scripts DevSecOps en Python unifica la gestión de modelos. Garantiza privacidad absoluta, elimina la fricción operativa por `HTTP 429` y prolonga la vida útil del entorno de desarrollo sin depender de suscripciones externas.
+
+**Siguiente paso o deuda:** Ejecutar `merci total` para empaquetar el commit de infraestructura y continuar con los desarrollos del proyecto bajo el nuevo paradigma de asistencia local.
+
 ### 2026-05-13 — Milestone: Cierre definitivo de Fase 4 (Épica 2) y Validación Final
 
 **Contexto:** Aplicar el Protocolo Estricto de Cierre de Fase (Definition of Done) para la Fase 4. Como dicta el método Agile, el cierre no se produjo al empaquetar la primera Release, sino que engloba todas las depuraciones de seguridad posteriores (parches de Dependabot, sanitización de JSON-LD y corrección del instanciador) ejecutadas tras el primer despliegue.

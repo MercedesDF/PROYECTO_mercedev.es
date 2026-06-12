@@ -15,7 +15,6 @@ import logging
 import os
 import re
 import sys
-import urllib.request
 import warnings
 from pathlib import Path
 
@@ -144,6 +143,9 @@ def main() -> None:
 if __name__ == "__main__":
     try:
         main()
+    except KeyboardInterrupt:
+        print("\n🛑 [Merci SSOT] Ejecución interrumpida por la usuaria. Saliendo limpiamente.")
+        sys.exit(130)
     except Exception as e:
         print(f"❌ [Merci SSOT] Error fatal inesperado: {e}")
         sys.exit(1)

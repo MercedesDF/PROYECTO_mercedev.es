@@ -54,4 +54,4 @@ Se ha diseñado una arquitectura de **Stack Híbrido (Hybrid Stack)**, utilizand
 
 El uso de una capa de abstracción como `LiteLLM` ha sido la clave del éxito. Nos ha permitido aplicar el principio de **Agnosticismo de Modelos**: Python no necesita saber si está hablando con un servidor en China o con el puerto `11434` de nuestra propia placa base. 
 
-Esta topología demuestra que delegar tareas específicas al motor adecuado (Local para privacidad/velocidad, Nube para gran contexto/CI-CD) es el único camino viable para construir un ecosistema DevSecOps verdaderamente resiliente.
+Esta topología demuestra que delegar tareas específicas al motor adecuado (Local para privacidad/velocidad, Nube para gran contexto/Integración y Despliegue Continuo (CI-CD)) es el único camino viable para construir un ecosistema DevSecOps verdaderamente resiliente.

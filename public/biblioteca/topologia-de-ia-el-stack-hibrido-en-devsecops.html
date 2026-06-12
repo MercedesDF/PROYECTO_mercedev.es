@@ -6,7 +6,7 @@
     <title>Topología de IA: El Stack Híbrido en DevSecOps — mercedev.es</title>
     <meta name="description" content="Mapa arquitectónico de cómo se integran y orquestan los agentes de Inteligencia Artificial locales y en la nube a lo largo del pipeline de desarrollo.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/topologia-de-ia-el-stack-hibrido-en-devsecops.html">
-    <link rel="stylesheet" href="/css/main.css?v=1781255636">
+    <link rel="stylesheet" href="/css/main.css?v=1781294802">
     <script src="/js/MerciController.js?v=1779793228" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -23,7 +23,8 @@
     <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     <header class="header" id="top">
         <a href="/" class="header__brand">
-            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="low" decoding="async">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65"
+                fetchpriority="low" decoding="async">
         </a>
         <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
             <span class="header__toggle-icon"></span>
@@ -86,15 +87,18 @@
 </ol>
 <h2>El Aprendizaje / Deuda Técnica</h2>
 <p>El uso de una capa de abstracción como <code>LiteLLM</code> ha sido la clave del éxito. Nos ha permitido aplicar el principio de <strong>Agnosticismo de Modelos</strong>: Python no necesita saber si está hablando con un servidor en China o con el puerto <code>11434</code> de nuestra propia placa base. </p>
-<p>Esta topología demuestra que delegar tareas específicas al motor adecuado (Local para privacidad/velocidad, Nube para gran contexto/CI-CD) es el único camino viable para construir un ecosistema <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr> verdaderamente resiliente.</p>
+<p>Esta topología demuestra que delegar tareas específicas al motor adecuado (Local para privacidad/velocidad, Nube para gran contexto/Integración y Despliegue Continuo (<abbr title="Merci Explica: Cadena de producción rápida, asegurando que los cambios se integren y desplieguen automáticamente." tabindex="0">CI-CD</abbr>)) es el único camino viable para construir un ecosistema <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr> verdaderamente resiliente.</p>
             </div>
         </article>
     </main>
     <footer class="footer">
         <div class="footer__links">
-            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
-            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
-            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer" class="footer__link">Merci Boilerplate</a>
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer"
+                class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer"
+                class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer"
+                class="footer__link">Merci Boilerplate</a>
         </div>
         <div class="footer__text">
             <a href="#top">↑ Volver arriba</a><br>
@@ -110,7 +114,8 @@
         </div>
         <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
         <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
-            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci" width="80" height="80" fetchpriority="low" decoding="async">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci"
+                width="80" height="80" fetchpriority="low" decoding="async">
         </button>
     </aside>
 </body>

@@ -12,7 +12,7 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 **Contexto:** (Desafío) El cuadro de mandos original de Grafana (`mercedev.es`) se limitaba a representar métricas del Roadmap y flujos de contenido, ignorando todas las métricas de rendimiento físico (Core Web Vitals), diagnósticos de red, resiliencia (Chaos Monkey) y auditorías de seguridad que expone el agente SRE local.
 
 **Hecho:** (Maniobra)
-- Se inyectó `deleteDatasources` en el provisionamiento de base de datos para evitar colisiones de UID y se configuró un identificador determinista (`uid: prometheus`).
+- Se inyectó `deleteDatasources` en el provisionamiento de base de datos para evitar colisiones de Identificador Único (UID) y se configuró un identificador determinista (`uid: prometheus`).
 - Se rediseñó el archivo [merci-dashboard.json](file:///home/hildegahr/Escritorio/PROYECTO_mercedev.es/observabilidad/dashboards/merci-dashboard.json) añadiendo 16 nuevos paneles orientados a calidad de código, Core Web Vitals (LCP, TBT, CLS), latencias, fallbacks de IA y resiliencia del Chaos Monkey.
 - Se reestructuró la visualización en 4 filas temáticas expandidas por defecto para una lectura clara del estado del ecosistema.
 - Se validó el aprovisionamiento correcto reiniciando el contenedor de Grafana y realizando peticiones directas de telemetría a la API.
@@ -102,7 +102,7 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 **Siguiente paso o deuda:** Sellar los cambios en Git y actualizar el Roadmap maestro para dar por concluida la Fase 2.
 
-### 2026-06-12 — Release/CI-CD: Publicación no interactiva de Merci Boilerplate v1.18.0
+### 2026-06-12 — Release/Integración y Despliegue Continuo (CI-CD): Publicación no interactiva de Merci Boilerplate v1.18.0
 
 **Contexto:** (Desafío) El orquestador de exportación `merci-release.py` exigía interacción por teclado por parte del usuario y disparaba `merci-init.py` en caliente, provocando excepciones fatales de fin de archivo (`EOFError`) cuando se ejecutaba en entornos desatendidos o automatizados de manera asíncrona.
 

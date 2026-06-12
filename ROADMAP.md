@@ -328,6 +328,7 @@
 - [x] `merci-hardening.py` Validador continuo de políticas de seguridad.
 - [x] `merci-linkcheck.py` Rastreador de enlaces rotos y linter WCAG/WAI-ARIA.
 - [x] `merci-chaos.py` Simulador de fallos de Chaos Engineering.
+- [x] Enriquecimiento y reestructuración del Dashboard de Grafana con métricas DevSecOps, SRE (Core Web Vitals) y Caos (IaC).
 
 ### Fase 5: Del resto de scripts
 - [x] `merci-watcher.py` Vigilante y recompilador de archivos SASS.
