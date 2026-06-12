@@ -7,6 +7,21 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-12 — Refactor/QA: PEP 8, tipado, docstrings e higiene de imports en merci-init.py
+
+**Contexto:** (Desafío) El inicializador del Boilerplate `merci-init.py` contenía importaciones internas prohibidas por la regla 16 de `instrucciones.md` (importación de `time` en medio del cuerpo de una función) y carecía de una declaración ordenada de imports, anotaciones de tipo estático y docstrings estructurados según las directrices del proyecto. Asimismo, errores imprevistos de I/O en la purga de directorios podían lanzar volcados de pila sin una salida controlada.
+
+**Hecho:** (Maniobra)
+- Se movió la importación del módulo `time` de la función `main()` al bloque superior del archivo y se ordenaron alfabéticamente todas las importaciones de la biblioteca estándar de Python.
+- Se inyectó tipado estático a las firmas de todas las funciones (ej. `list[str] | None`, `bool`, `Path`, `None`).
+- Se ampliaron y estructuraron los docstrings explicativos (*QUÉ HACE* y *POR QUÉ*) para las funciones que carecían de ellos (`configure_ai_module()`, `main()`).
+- Se introdujo un capturador genérico de excepciones `except Exception as e` en el bloque de inicio de la aplicación para reportar de forma legible fallos destructivos (como permisos de escritura en la purga de carpetas) antes de salir con código `1`.
+- Se validó la sintaxis del script mediante compilación estática y auditoría local sin detectar incidencias bloqueantes.
+
+**Motivo / criterio:** (Aprendizaje) *Higiene PEP 8 y Prevención de Colapsos Silentes*. Evitar importaciones en caliente reduce el riesgo de errores de importación en tiempo de ejecución. El control elegante de excepciones al final de la aplicación previene la exposición de tracebacks innecesarios durante fallos operativos de I/O.
+
+**Siguiente paso o deuda:** Continuar con la refactorización de `merci-completo.py` (el orquestador supremo DevSecOps) en la Fase 1 de la Épica 8.
+
 ### 2026-06-12 — Refactor/QA: Tipado, docstrings y robustez en merci-commit.py
 
 **Contexto:** (Desafío) El script de commits atómicos `merci-commit.py` carecía de anotaciones de tipo estático y docstrings estructurados bajo la metodología del proyecto. Además, las llamadas a Git para comprobar cambios podían arrojar tracebacks no controlados si `git` no estaba disponible en el sistema.
