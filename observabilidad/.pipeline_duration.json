@@ -1,20 +1,20 @@
 {
-  "duration_seconds": 8.209707975387573,
+  "duration_seconds": 8.339634895324707,
   "breakdown": {
-    "merci-optimizer.py": 0.0697031021118164,
-    "merci-styles.py": 0.05833601951599121,
-    "merci-glosario.py": 0.08157730102539062,
-    "merci-publish.py": 0.023024559020996094,
-    "merci-wp.py": 0.03669548034667969,
-    "merci-shop.py": 0.5716366767883301,
-    "merci-sync-pages.py": 0.017393112182617188,
-    "merci-extract-metrics.py": 0.03546929359436035,
-    "merci-telemetry.py": 0.10593938827514648,
-    "merci-brain.py": 0.03657197952270508,
-    "merci-sitemap.py": 0.018365859985351562,
-    "merci-drift.py": 0.017100095748901367,
-    "merci-audit.py": 4.762158632278442,
-    "merci-hardening.py": 0.018633365631103516,
-    "merci-linkcheck.py": 2.356043577194214
+    "merci-optimizer.py": 0.06827974319458008,
+    "merci-styles.py": 0.05865168571472168,
+    "merci-glosario.py": 0.08890247344970703,
+    "merci-publish.py": 0.028421878814697266,
+    "merci-wp.py": 0.04298138618469238,
+    "merci-shop.py": 0.5759799480438232,
+    "merci-sync-pages.py": 0.017252445220947266,
+    "merci-extract-metrics.py": 0.03812265396118164,
+    "merci-telemetry.py": 0.11165118217468262,
+    "merci-brain.py": 0.03940415382385254,
+    "merci-sitemap.py": 0.018813133239746094,
+    "merci-drift.py": 0.01750946044921875,
+    "merci-audit.py": 4.817688226699829,
+    "merci-hardening.py": 0.01906871795654297,
+    "merci-linkcheck.py": 2.3957598209381104
   }
 }

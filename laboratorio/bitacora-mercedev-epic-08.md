@@ -7,6 +7,20 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-12 — Ops/IaC: Enriquecimiento del Dashboard de Grafana con métricas DevSecOps y SRE
+
+**Contexto:** (Desafío) El cuadro de mandos original de Grafana (`mercedev.es`) se limitaba a representar métricas del Roadmap y flujos de contenido, ignorando todas las métricas de rendimiento físico (Core Web Vitals), diagnósticos de red, resiliencia (Chaos Monkey) y auditorías de seguridad que expone el agente SRE local.
+
+**Hecho:** (Maniobra)
+- Se inyectó `deleteDatasources` en el provisionamiento de base de datos para evitar colisiones de UID y se configuró un identificador determinista (`uid: prometheus`).
+- Se rediseñó el archivo [merci-dashboard.json](file:///home/hildegahr/Escritorio/PROYECTO_mercedev.es/observabilidad/dashboards/merci-dashboard.json) añadiendo 16 nuevos paneles orientados a calidad de código, Core Web Vitals (LCP, TBT, CLS), latencias, fallbacks de IA y resiliencia del Chaos Monkey.
+- Se reestructuró la visualización en 4 filas temáticas expandidas por defecto para una lectura clara del estado del ecosistema.
+- Se validó el aprovisionamiento correcto reiniciando el contenedor de Grafana y realizando peticiones directas de telemetría a la API.
+
+**Motivo / criterio:** (Aprendizaje) *Observabilidad Holística en el Orquestador*. Un ingeniero DevSecOps y SRE requiere una visibilidad de 360 grados de la infraestructura. Agrupar las métricas en capas lógicas (Rendimiento, Seguridad, Caos y Contenido) reduce el tiempo medio de detección (MTTD) ante derivas en pre-producción.
+
+**Siguiente paso o deuda:** Sellar los cambios con `merci-commit.py` e iniciar la Fase 6 de la Épica 8.
+
 ### 2026-06-12 — Ops/IaC: Corrección del aprovisionamiento automático y reubicación de archivos de Grafana
 
 **Contexto:** (Desafío) La pila de observabilidad (Prometheus y Grafana) presentaba problemas de persistencia y carga automática de la configuración en su arranque (IaC) al tener archivos de aprovisionamiento duplicados o en rutas incorrectas en el anfitrión, además de problemas de permisos (`root:root`) en directorios auto-generados por el demonio Docker.

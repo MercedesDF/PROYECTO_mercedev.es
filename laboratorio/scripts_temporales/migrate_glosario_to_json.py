@@ -3,9 +3,10 @@ import re
 import json
 from pathlib import Path
 
-GLOSSARY_MD = Path('/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/biblioteca/glosario-tecnico.md')
-GLOSSARY_JSON = Path('/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/biblioteca/glosario-tecnico.json')
-IGNORE_FILE = Path('/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/biblioteca/.glosario_ignore.txt')
+REPO_ROOT = Path(__file__).resolve().parents[2]
+GLOSSARY_MD = REPO_ROOT / 'laboratorio' / 'biblioteca' / 'glosario-tecnico.md'
+GLOSSARY_JSON = REPO_ROOT / 'laboratorio' / 'biblioteca' / 'glosario-tecnico.json'
+IGNORE_FILE = REPO_ROOT / 'laboratorio' / 'biblioteca' / '.glosario_ignore.txt'
 
 def parse_markdown():
     if not GLOSSARY_MD.exists():
