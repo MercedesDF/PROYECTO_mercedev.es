@@ -7,6 +7,22 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-12 — Refactor/QA: Tipado, docstrings y robustez en merci-commit.py
+
+**Contexto:** (Desafío) El script de commits atómicos `merci-commit.py` carecía de anotaciones de tipo estático y docstrings estructurados bajo la metodología del proyecto. Además, las llamadas a Git para comprobar cambios podían arrojar tracebacks no controlados si `git` no estaba disponible en el sistema.
+
+**Hecho:** (Maniobra)
+- Se clasificaron y ordenaron alfabéticamente las importaciones de la biblioteca estándar de Python conforme a PEP 8.
+- Se inyectaron anotaciones de tipo estático (parámetros y retornos como `list[Path]`, `bool`, `tuple[str, str, str]` y `Path | None`) en todas las funciones.
+- Se agregaron docstrings descriptivos con estructura de *QUÉ HACE* y *POR QUÉ*.
+- Se robusteció `check_repo_changes()` envolviendo la llamada a Git en un bloque `try...except` para devolver `False` con seguridad en caso de fallos del subproceso o ausencia de ejecutable.
+- Se añadió un manejador `except Exception as e` genérico al final de `main()` para interceptar y notificar de forma limpia fallos del sistema sin mostrar trazas de error.
+- Se depuró un bloque de ejecución principal (`__main__`) duplicado al final del archivo.
+
+**Motivo / criterio:** (Aprendizaje) *Especificación como Fuente y Resiliencia en Scripts*. Alinear el tipado y documentar sistemáticamente la intención de las rutinas de Git previene fallos silenciosos de integración y facilita la validación estática de tipos en pre-commit.
+
+**Siguiente paso o deuda:** Continuar con la refactorización de `merci-init.py` (instanciador de repositorios) dentro de la Fase 1 de la Épica 8.
+
 ### 2026-06-12 — Refactor/QA: Control de excepciones y PEP 8 en merci-total.py
 
 **Contexto:** (Desafío) El script orquestador `merci-total.py` carecía de control de excepciones genéricas al lanzar subprocesos, lo que podía provocar volcados de pila crudos (tracebacks) en la terminal si ocurrían errores de sistema (como fallos de permisos o archivos no ejecutables), vulnerando la regla de "Fail Gracefully". Además, no contaba con tipado ni docstring estructurado en la función principal.

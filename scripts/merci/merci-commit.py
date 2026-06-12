@@ -8,10 +8,10 @@ Extrae la última entrada cronológica de la bitácora y la utiliza
 para redactar y ejecutar un commit atómico estructurado.
 """
 
-import re
-import sys
 import os
+import re
 import subprocess
+import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -20,29 +20,39 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 TARGET_DIR = Path(os.getcwd()).resolve()
 IS_EXTERNAL = TARGET_DIR != REPO_ROOT
 
-# QUÉ HACE: Autodescubre dinámicamente cualquier bitácora de épica.
-# POR QUÉ: Zero Maintenance. Permite crear nuevas épicas sin modificar el código en Python.
-def obtener_bitacoras_activas():
-    """Busca dinámicamente todas las bitácoras de épicas en el laboratorio."""
+def obtener_bitacoras_activas() -> list[Path]:
+    """
+    QUÉ HACE: Busca y devuelve todas las bitácoras de épicas en el laboratorio.
+    POR QUÉ: Permite autodescubrir bitácoras dinámicamente sin mantenimiento manual de rutas.
+    """
     return list((REPO_ROOT / "laboratorio").glob("bitacora-mercedev-epic-*.md"))
 
-def check_repo_changes(target_dir):
-    """Verifica si hay algún cambio en el repositorio (staged, unstaged o untracked)."""
-    result = subprocess.run(["git", "status", "--porcelain"], cwd=target_dir, capture_output=True, text=True)
-    return len(result.stdout.strip()) > 0
+def check_repo_changes(target_dir: Path) -> bool:
+    """
+    QUÉ HACE: Comprueba si existen cambios pendientes de confirmar en el repositorio Git.
+    POR QUÉ: Evita intentar crear commits vacíos o innecesarios, capturando de forma segura fallos de entorno.
+    """
+    try:
+        result = subprocess.run(["git", "status", "--porcelain"], cwd=target_dir, capture_output=True, text=True)
+        return len(result.stdout.strip()) > 0
+    except (FileNotFoundError, subprocess.SubprocessError):
+        return False
 
-def obtener_bitacora_activa():
-    """Devuelve la bitácora que ha sido modificada físicamente más recientemente."""
+def obtener_bitacora_activa() -> Path | None:
+    """
+    QUÉ HACE: Encuentra y devuelve el archivo de bitácora modificado más recientemente.
+    POR QUÉ: Determina de forma autónoma cuál es el frente de trabajo activo y de dónde extraer metadatos.
+    """
     activas = [b for b in obtener_bitacoras_activas() if b.exists()]
     if not activas:
         return None
     # Compara la fecha de modificación (st_mtime) y devuelve la más reciente
     return max(activas, key=lambda p: p.stat().st_mtime)
 
-def check_bitacora_updated(bitacora_path):
+def check_bitacora_updated(bitacora_path: Path) -> bool:
     """
-    Verifica si la bitácora ha sido modificada desde el último commit.
-    Devuelve True si hay cambios, False si no.
+    QUÉ HACE: Comprueba si la bitácora activa tiene cambios pendientes de registrar en Git.
+    POR QUÉ: Valida que la ingeniera haya justificado técnicamente el trabajo antes del commit.
     """
     # `git diff --quiet` devuelve 0 si no hay cambios, 1 si los hay.
     # Usamos `HEAD` para comparar contra el último commit.
@@ -64,8 +74,11 @@ def check_bitacora_updated(bitacora_path):
         # En ese caso, asumimos que hay cambios (es el primer commit).
         return True
 
-def parse_latest_entry(content: str):
-    """Analiza el texto de la bitácora y extrae los datos de la última entrada."""
+def parse_latest_entry(content: str) -> tuple[str, str, str]:
+    """
+    QUÉ HACE: Extrae el título, contexto y hechos de la última entrada de la bitácora.
+    POR QUÉ: Automatiza la estructuración del mensaje de commit basándose en la documentación de laboratorio.
+    """
     try:
         # Dividimos el texto para quedarnos solo con lo que hay debajo del registro
         _, registro = content.split("## Registro cronológico", 1)
@@ -94,7 +107,11 @@ def parse_latest_entry(content: str):
 
     return title.strip(), context, hecho
 
-def main():
+def main() -> None:
+    """
+    QUÉ HACE: Orquesta el proceso de commit atómico automatizado guiado por la bitácora.
+    POR QUÉ: Estructura los mensajes de Git conforme al estándar de documentación y bloquea si hay inconsistencias.
+    """
     print("Merci revisa el estado técnico...")
     
     # 0. ¿Hay algo que comitear realmente?
@@ -171,6 +188,10 @@ def main():
     except subprocess.CalledProcessError as e:
         # Shift-Left: Captura de errores si Git falla (ej. si pre-commit lo bloquea)
         print(f"\n[Merci Error] La ejecución de Git ha fallado: {e}")
+        sys.exit(1)
+    except Exception as e:
+        # Control genérico de excepciones
+        print(f"\n[Merci Error] Error inesperado en el proceso de commit: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":
