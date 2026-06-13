@@ -7,6 +7,16 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-13 — Docs/QA: Creación de cuadernillo sobre contención visual de código
+
+**Contexto:** Tras solucionar el bug de desbordamiento horizontal en etiquetas pre y code (CSS overflow), era necesario consolidar este aprendizaje arquitectónico para evitar su recurrencia, especialmente dada su implicación dual (web móvil y renderizado a PDF estático).
+
+**Hecho:** Se redactó el activo de conocimiento `laboratorio/incubacion/cuadernillo-resolucion-desbordamiento-css-codigo.md` documentando el desafío, la solución técnica con `white-space: pre-wrap` y el aprendizaje asimilado.
+
+**Motivo / criterio:** *Knowledge Harvesting y Docs-as-Code*. Las resoluciones de bugs estructurales contienen un inmenso valor técnico. Convertirlas en un cuadernillo garantiza que la solución se integre en la Biblioteca como un estándar, evitando que el equipo o la IA futura reincidan en antipatrones de CSS.
+
+**Siguiente paso o deuda:** Sellar la creación del documento con un commit atómico y continuar con la Fase 6.
+
 ### 2026-06-13 — UI/Bug: Resolución del desbordamiento en bloques de código
 
 **Contexto:** (Desafío) Se detectó previamente que los fragmentos de código (`<pre>`, `<code>`) en la Biblioteca desbordaban horizontalmente en el viewport de móviles y se truncaban al exportar a PDF mediante WeasyPrint.
