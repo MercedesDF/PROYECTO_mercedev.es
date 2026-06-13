@@ -7,6 +7,20 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-12 — Ops: Multiplexación de terminales con Tmux (Bootstrapper)
+
+**Contexto:** (Desafío) Levantar y apagar diariamente toda la infraestructura local (Docker, motor de IA local, Proxy enrutador, SRE, Watcher SASS) consumía demasiadas terminales aisladas, generando una alta carga cognitiva y violando la política de Fricción Cero.
+
+**Hecho:** (Maniobra)
+- Se desarrollaron los scripts de orquestación `scripts/merci/merci-boot.sh` y `scripts/merci/merci-down.sh`.
+- Se implementó `tmux` para dividir una única terminal en 3 ventanas lógicas (Matriz, IA-Stack, Servicios), inyectando los comandos de activación del entorno virtual automáticamente.
+- Se habilitó el soporte nativo para ratón (`mouse on`) en Tmux para facilitar la navegación y el *scroll* entre paneles.
+- Se extirpó el servidor local redundante de Python (puerto 8000) ya que Nginx resuelve nativamente el `localhost`.
+
+**Motivo / criterio:** (Aprendizaje) *Fricción Cero y Developer Experience (DX)*. Un ecosistema DevSecOps de nivel Enterprise no debe intimidar ni abrumar operativamente a su creadora al arrancar. Encapsular la complejidad de inicialización (Bootstrapping) y apagado (Teardown) en dos simples comandos consolida el entorno como una plataforma ágil y cohesionada.
+
+**Siguiente paso o deuda:** Ejecutar `merci commit` para sellar la orquestación de terminales y el enrutamiento del IDE.
+
 ### 2026-06-12 — Ops/IaC: Enriquecimiento del Dashboard de Grafana con métricas DevSecOps y SRE
 
 **Contexto:** (Desafío) El cuadro de mandos original de Grafana (`mercedev.es`) se limitaba a representar métricas del Roadmap y flujos de contenido, ignorando todas las métricas de rendimiento físico (Core Web Vitals), diagnósticos de red, resiliencia (Chaos Monkey) y auditorías de seguridad que expone el agente SRE local.
