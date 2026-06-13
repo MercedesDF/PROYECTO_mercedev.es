@@ -344,6 +344,7 @@
 - [x] Revisión de cuadernillos para añadir la sección "Merci Explica" y aclarar conceptos técnicos.
 - [x] Eliminación de exceso de anglicismos (Soberanía del Castellano) o enlazado dinámico de términos al Glosario Técnico.
 - [ ] Refinamiento de la presentación visual de la Biblioteca (reestructuración de formatos y layout) para ayudar a procesar la alta densidad de información.
+- [x] Corrección de desbordamiento CSS (overflow) en bloques de código para vistas móviles y PDF (WeasyPrint).
 - [ ] Creación de referencias cruzadas sólidas entre los distintos cuadernillos de la Biblioteca.
 
 ---

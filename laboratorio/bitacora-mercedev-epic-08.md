@@ -7,6 +7,21 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-13 — UI/Bug: Resolución del desbordamiento en bloques de código
+
+**Contexto:** (Desafío) Se detectó previamente que los fragmentos de código (`<pre>`, `<code>`) en la Biblioteca desbordaban horizontalmente en el viewport de móviles y se truncaban al exportar a PDF mediante WeasyPrint.
+
+**Hecho:** (Maniobra)
+- Se inyectaron reglas globales en `src/scss/base/_typography.scss` para los elementos `pre` y `code`.
+- Se implementó `white-space: pre-wrap` y `word-break: break-word` para garantizar el salto de línea en strings largos y PDFs.
+- Se configuró `overflow-x: auto` y un `max-width: 100%` en `<pre>` para asegurar un desplazamiento seguro en vistas móviles si el texto aún desborda de forma natural.
+- Se estandarizó el aspecto visual con fuente `monospace`, fondo suave de contraste (`#f1f5f9`), espaciados internos y bordes redondeados.
+- Se compiló el código SASS (`merci-styles.py`) exitosamente hacia `public/css/main.css`.
+
+**Motivo / criterio:** (Aprendizaje) *Responsive Web Design y Spec as Source*. Evitar que el contenido quiebre el viewport es crítico para la puntuación en Core Web Vitals (CLS y usabilidad móvil). Proveer estilos agnósticos que cubran tanto web como renderizado a PDF (WeasyPrint) consolida la dualidad de los cuadernillos de la biblioteca sin añadir scripts o dependencias externas.
+
+**Siguiente paso o deuda:** Sellar los cambios en Git y continuar con el resto de tareas de la Fase 6.
+
 ### 2026-06-12 — Ops: Multiplexación de terminales con Tmux (Bootstrapper)
 
 **Contexto:** (Desafío) Levantar y apagar diariamente toda la infraestructura local (Docker, motor de IA local, Proxy enrutador, SRE, Watcher SASS) consumía demasiadas terminales aisladas, generando una alta carga cognitiva y violando la política de Fricción Cero.
