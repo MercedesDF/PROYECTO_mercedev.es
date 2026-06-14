@@ -7,6 +7,17 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — UI/UX: Índice Temático Minimalista y Artículos Destacados
+
+**Contexto:** La barra lateral (índice temático) de la Biblioteca se extendía verticalmente de manera inmanejable al renderizar la lista completa de cuadernillos dentro de estanterías muy pobladas (como DevSecOps).
+
+**Hecho:** 
+1. Se ha refactorizado el bucle del menú lateral en `merci-publish.py` para que, por defecto, **oculte** la lista completa de artículos y en su lugar el índice salte directamente a los Subtemas.
+2. Se ha añadido la lógica condicional de **"Artículos Destacados"**. El generador buscará el atributo `destacado: "true"` en el Frontmatter y, de encontrarlo, renderizará en el menú lateral un máximo de 3 artículos destacados por subcategoría acompañados de una estrella (★).
+3. Se actualizó la `plantilla-cuadernillo.md` para incluir el metadato `destacado: "false"` de fábrica.
+
+**Motivo / criterio:** *Reducción de Carga Cognitiva*. El índice vuelve a su propósito original: mostrar el esqueleto taxonómico a alto nivel. El usuario que desee ver el catálogo completo de un subtema simplemente pinchará en él desde el menú para saltar al *Grid* central, evitando el colapso visual del menú de navegación.
+
 ### 2026-06-14 — Hotfix: Extracción de Subtema en SSG
 
 **Contexto:** Tras el commit de la reestructuración jerárquica de la Biblioteca, se observó que todas las agrupaciones de segundo nivel aparecían con el título "General" a pesar de que el Frontmatter de los Markdown tenía el subtema correcto.

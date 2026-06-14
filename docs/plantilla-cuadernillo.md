@@ -4,6 +4,7 @@ descripcion: "Descripción breve y directa del problema y la solución para el S
 tipo: "cuadernillo"
 tema: "DevSecOps e Infraestructura"
 subtema: "Gobernanza"
+destacado: "false"
 fecha: "2026-05-01"
 fase: "Epic X - Fase Y"
 estado: "incubacion"

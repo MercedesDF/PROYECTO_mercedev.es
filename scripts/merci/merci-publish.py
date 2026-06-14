@@ -321,6 +321,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
         "fecha": meta.get("fecha", "1970-01-01"),
         "tema": tema,
         "subtema": meta.get("subtema", "General").strip().strip('"\''),
+        "destacado": meta.get("destacado", "false").strip().lower() == "true",
         "fase": fase,
         "out_html_path": out_path,
         "out_pdf_path": out_pdf_path,
@@ -390,17 +391,22 @@ def generar_indice(
 
         sub_temas_ordenados = sorted(estanterias[tema_principal].keys())
         for sub_tema in sub_temas_ordenados:
+            sub_tema_slug = f"{tema_slug}-{slugify(sub_tema)}"
             sub_tema_html = html.escape(sub_tema)
-            enlaces_indice_html += f'                        <li class="library-nav__sub-theme">{sub_tema_html}</li>\n'
-
+            
+            # El subtema enlaza a la sección principal
+            enlaces_indice_html += f'                        <li class="library-nav__sub-theme"><a href="#{sub_tema_slug}" class="library-nav__theme-title library-nav__theme-title--sub">{sub_tema_html}</a></li>\n'
+            
+            # Filtramos solo los destacados, máximo 3
             pubs_sub_tema = sorted(estanterias[tema_principal][sub_tema], key=lambda x: (x["tipo"].lower() == "compendio", x["fecha"]), reverse=True)
-            for pub in pubs_sub_tema:
+            pubs_destacados = [p for p in pubs_sub_tema if p.get("destacado")]
+            
+            for pub in pubs_destacados[:3]:
                 pub_slug = pub.get("slug", slugify(pub["titulo"]))
                 pub_titulo_html = html.escape(pub["titulo"])
-                pub_fecha_html = html.escape(str(pub["fecha"]))
-
+                
                 enlaces_indice_html += f'                        <li class="library-nav__article-item">\n'
-                enlaces_indice_html += f'                            <a href="#{pub_slug}" class="library-nav__article-link" aria-label="Ir al resumen de: {pub_titulo_html} ({pub_fecha_html})">{pub_titulo_html}</a>\n'
+                enlaces_indice_html += f'                            <a href="#{pub_slug}" class="library-nav__article-link" aria-label="Ir al resumen de: {pub_titulo_html}">★ {pub_titulo_html}</a>\n'
                 enlaces_indice_html += f'                        </li>\n'
 
         enlaces_indice_html += f'                    </ul>\n                </li>\n'
@@ -414,8 +420,9 @@ def generar_indice(
 
         secciones_html += '\n            <div class="library-grid">'
         for sub_tema in sub_temas_ordenados:
+            sub_tema_slug = f"{tema_slug}-{slugify(sub_tema)}"
             sub_tema_html = html.escape(sub_tema)
-            secciones_html += f'\n                <h3 class="library-subsection__title">{sub_tema_html}</h3>'
+            secciones_html += f'\n                <h3 class="library-subsection__title" id="{sub_tema_slug}">{sub_tema_html}</h3>'
 
             pubs_sub_tema = sorted(estanterias[tema_principal][sub_tema], key=lambda x: (x["tipo"].lower() == "compendio", x["fecha"]), reverse=True)
             for pub in pubs_sub_tema:
