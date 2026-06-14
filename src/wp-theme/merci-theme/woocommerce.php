@@ -17,8 +17,7 @@ $js_main_v = time();
     <?php wp_head(); ?>
 </head>
 <body id="page-tienda" <?php body_class('theme-body page'); ?>>
-    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
-    <header class="header">
+    <header class="header" id="top">
         <a href="/" class="header__brand">
             <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="low" decoding="async">
         </a>
@@ -42,6 +41,7 @@ $js_main_v = time();
             <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
             <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
             <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/proyectos/" class="nav__link">Proyectos</a>
             <a href="/blog/tienda/" class="nav__link">Tienda</a>
             <a href="<?php echo function_exists('wc_get_cart_url') ? esc_url(wc_get_cart_url()) : '/blog/carrito/'; ?>" class="nav__link">🛒 Carrito</a>
             <a href="/contacto/" class="nav__link">Contacto</a>
@@ -74,6 +74,7 @@ $js_main_v = time();
         </section>
     </main>
 
+    <a href="#top" class="floating-back-to-top" aria-label="Volver arriba">↑</a>
     <footer class="footer">
         <div class="footer__links">
             <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>

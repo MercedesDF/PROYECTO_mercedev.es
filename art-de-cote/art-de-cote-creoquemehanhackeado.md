@@ -2,7 +2,7 @@
 titulo: "El incidente de las ventanas emergentes"
 estado: "publicado"
 tema: "Reflexiones"
-subtema: "General"
+subtema: "Ciberseguridad"
 destacado: "false"
 tipo: "cuadernillo"
 descripcion: "Registro de la experiencia de pérdida de control del navegador y la importancia de la configuración de privacidad."

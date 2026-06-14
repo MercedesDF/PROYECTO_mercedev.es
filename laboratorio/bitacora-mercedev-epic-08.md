@@ -7,6 +7,19 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — Arquitectura Híbrida: Sincronización del Tema Headless WP y Categorización Art de Coté
+
+**Contexto:** Se identificaron dos discrepancias en la paridad DevProd: 1) Los cuadernillos de "Art de Coté" aparecían agrupados genéricamente en su índice en lugar de por subtemas. 2) La navegación global (botón flotante "Volver Arriba" y enlace a "Proyectos") funcionaba en la capa estática pero no se había propagado a Producción ni al Blog/Tienda en WordPress. El orquestador `merci completo` abortó de forma segura al no detectar esta justificación técnica en la bitácora.
+
+**Hecho:**
+- **Taxonomía Markdown:** Se inyectó metadata específica de `subtema` en los 5 archivos Markdown del directorio `art-de-cote/` (ej. "Arquitectura Base", "Ciberseguridad") forzando al orquestador a agrupar el índice de forma semántica y granular.
+- **Sincronización del Tema WordPress:** Se localizaron las plantillas estáticas del CMS dentro del repositorio (`src/wp-theme/merci-theme/index.php` y `woocommerce.php`). Se parchearon inyectando manualmente el ancla WAI-ARIA `id="top"`, el enlace `/proyectos/` en el `<nav>` y el botón flotante `#top` para mantener el ecosistema 100% cohesionado con la portada.
+- **Revisión del Bloqueo CI/CD:** Se validó que el orquestador `merci-commit.py` bloqueó el despliegue al faltar esta entrada, demostrando la eficacia del patrón Fail-Fast.
+
+**Motivo / criterio:** *Paridad de Entornos y Trazabilidad*. En un modelo Headless híbrido, las plantillas del gestor de contenidos actúan como islas de renderizado que deben imitar al SSG. Obligar a documentar cada parche (incluso un menú) evita desajustes silenciosos y mantiene la deuda técnica a raya.
+
+**Siguiente paso o deuda:** Ejecutar `merci completo` para sellar la versión y sincronizar todo a producción (incluyendo el tema WP), y comenzar la inyección multimedia en Showcase.
+
 ### 2026-06-14 — Arquitectura Híbrida: Proyectos Satélite y Native Media Injection
 
 **Contexto:**

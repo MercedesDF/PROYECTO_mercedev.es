@@ -31,9 +31,7 @@ if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
 ?>
 <body id="<?php echo $body_id; ?>" <?php body_class('theme-body page'); ?>>
 
-    <!-- Ancla invisible WAI-ARIA para Volver Arriba -->
-    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
-    <header class="header">
+    <header class="header" id="top">
         <a href="/" class="header__brand">
             <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="low" decoding="async">
         </a>
@@ -47,6 +45,7 @@ if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
             <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
             <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
             <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/proyectos/" class="nav__link">Proyectos</a>
             <a href="/blog/tienda/" class="nav__link">Tienda</a>
             <a href="/contacto/" class="nav__link">Contacto</a>
         </nav>
@@ -142,6 +141,7 @@ if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
         ?>
         </section>
     </main>
+    <a href="#top" class="floating-back-to-top" aria-label="Volver arriba">↑</a>
     <footer class="footer">
         <div class="footer__links">
             <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
