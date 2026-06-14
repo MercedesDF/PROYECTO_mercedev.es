@@ -57,6 +57,9 @@ Este documento consolida las medidas de seguridad aplicadas en la arquitectura h
   - Bloqueo arquitectónico: Detección de estilos en línea (`style="..."`) para proteger la metodología BEM.
   - Detección de "PHP (Hypertext Preprocessor - Preprocesador de Hipertexto) Smells" (Advertencias por uso de funciones peligrosas como `eval()`, `exec()`, `shell_exec()`).
   - Detección de "JS Smells" (Uso de `eval` o `new Function`).
+- [x] **Auditoría de Accesibilidad WAI-ARIA (`merci-linkcheck.py`):**
+  - Validación automatizada de toda la red de enlaces estáticos generados.
+  - Bloqueo automático del Pipeline si se detectan enlaces con la misma etiqueta semántica apuntando a destinos diferentes (Violación WCAG AAA).
 - [x] **Auditoría Estandarizada Pre-Merge:**
   - Obligatoriedad de ejecutar `python3 scripts/merci/merci-audit.py --strict-json-ld` para garantizar la presencia de datos estructurados antes de pasar a producción.
 - [x] **Blindaje Supply Chain (Cadena de Suministro) — `audit_python_imports`:**

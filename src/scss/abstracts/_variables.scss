@@ -39,9 +39,15 @@ $bp-large: 1024px;
 
 // Mapa de Colores por Estantería (Wayfinding Semántico)
 $theme-colors: (
+    // --- Estanterías de La Biblioteca ---
     "desarrollo-y-arquitectura": #4f46e5, // Índigo (Lógica y Código)
     "devsecops-e-infraestructura": #dc2626, // Rojo (Seguridad y Ops)
     "productividad-y-gobernanza": #ea580c, // Naranja (Negocio y Metodología)
     "inteligencia-artificial-y-agentes": #059669, // Esmeralda/Verde (IA y Automatización)
-    "varios": #475569 // Slate (Neutral)
+    "varios": #475569, // Slate (Neutral)
+    
+    // --- Estanterías de Art de Coté ---
+    "art-de-cote": #0ea5e9, // Sky Blue (Exploración, aire libre, creatividad)
+    "boilerplate-historico": #d97706, // Amber oscuro (Archivos dorados, historia)
+    "reflexiones": #db2777 // Rosa intenso (Pensamiento y opinión personal)
 );

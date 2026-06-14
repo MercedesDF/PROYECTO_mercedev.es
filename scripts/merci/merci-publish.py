@@ -396,7 +396,7 @@ def generar_indice(
             sub_tema_html = html.escape(f"{sub_tema} ({num_articulos})")
             
             # El subtema enlaza a la sección principal
-            enlaces_indice_html += f'                        <li class="library-nav__sub-theme"><a href="#{sub_tema_slug}" class="library-nav__theme-title library-nav__theme-title--sub">{sub_tema_html}</a></li>\n'
+            enlaces_indice_html += f'                        <li class="library-nav__sub-theme"><a href="#{sub_tema_slug}" class="library-nav__theme-title library-nav__theme-title--sub" aria-label="{sub_tema_html} en {tema_html}">{sub_tema_html}</a></li>\n'
             
             # Filtramos solo los destacados, máximo 3
             pubs_sub_tema = sorted(estanterias[tema_principal][sub_tema], key=lambda x: (x["tipo"].lower() == "compendio", x["fecha"]), reverse=True)

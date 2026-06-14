@@ -7,6 +7,21 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — Gobernanza: Art de Coté Temático y Refuerzo Documental SOP
+
+**Contexto:**
+1. Los artículos de la sección "Art de Coté" carecían de soporte semántico completo (no tenían asignados subtemas ni colores propios en el mapa `$theme-colors`), por lo que caían en estilos por defecto y dificultaban la jerarquización visual.
+2. Era necesario actualizar los documentos operativos (SOP) para reflejar las nuevas reglas inquebrantables descubiertas durante la iteración actual (ej. ejecución mandatoria de `merci total` antes de cada commit).
+
+**Hecho:**
+1. Se han añadido variables de color exclusivas para las estanterías de Art de Coté en `_variables.scss` (`art-de-cote` -> Sky Blue, `boilerplate-historico` -> Amber, `reflexiones` -> Rosa Intenso).
+2. Se ha modificado `plantilla-art-de-cote.md` para incluir los metadatos `subtema: "General"` y `destacado: "false"`.
+3. Se han inyectado estos metadatos faltantes mediante un script de saneamiento a los 5 artículos `.md` existentes en `art-de-cote/`.
+4. Se ha actualizado `docs/flujo-publicacion-sop.md` introduciendo la "Regla de Integridad Pre-Commit" exigiendo que nadie (ni humano ni agente IA) selle un commit sin pasar antes por `merci total`.
+5. Se ha documentado la presencia y capacidad bloqueante de `merci-linkcheck.py` (WAI-ARIA AAA) en `docs/checklist-hardening.md`.
+
+**Motivo / criterio:** *Coherencia transversal y Documentación como Código*. Asegurarnos de que "Art de Coté" disfruta de las mismas bondades de Wayfinding Semántico que La Biblioteca, y mantener las reglas de la Arquitectura siempre al día en la fuente de verdad (docs) para evitar desviación sistémica (*drift*).
+
 ### 2026-06-14 — UX/UI: Consolidación de Legibilidad en Lectura Individual y Truncamientos
 
 **Contexto:** Existían dos defectos severos en la experiencia de lectura:
