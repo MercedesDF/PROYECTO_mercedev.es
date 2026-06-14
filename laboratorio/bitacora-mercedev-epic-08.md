@@ -7,6 +7,18 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — Observabilidad: Validación de Latencia en PageSpeed API y Caché SRE
+
+**Contexto:** Durante la ejecución del pipeline local se reportó una anomalía percibida de rendimiento (`10.87s`) en el agente autónomo `merci-extract-metrics.py`.
+
+**Hecho:**
+- **Investigación de trazas:** Se auditó el código del script y el sistema de ficheros, confirmándose que los ~11 segundos corresponden a un comportamiento completamente normal (Cache Miss). Este es el tiempo físico que requiere la API oficial de Google PageSpeed Insights para levantar una instancia Headless en la nube, navegar, emular red 4G y auditar los Core Web Vitals en tiempo real.
+- **Validación del Escudo SRE:** Se comprobó que la estrategia de protección del pipeline local está operativa. Las peticiones a Google se almacenan en `.metrics_cache` y `pagespeed_response.json` con un TTL de 24 horas (`CACHE_TTL_SECONDS = 86400`). Ejecuciones posteriores se resuelven en `~0.05s` al impactar en caché.
+
+**Motivo / criterio:** Documentar el comportamiento asíncrono y los tiempos esperados de los agentes externos para evitar falsas alarmas de degradación de rendimiento durante la construcción de la Épica.
+
+**Siguiente paso o deuda:** Lanzar la orquestación global (`merci completo`) tras validar todos los tests.
+
 ### 2026-06-14 — Gobernanza BEM: Refactorización de Estilos en Línea y Limpieza del Pipeline
 
 **Contexto:** El orquestador `merci completo` abortó la ejecución porque el auditor estricto (`merci-audit.py`) detectó el uso del estilo en línea `style="aspect-ratio: 1/1;"` en el HTML generado del showcase multimedia, violando las políticas de arquitectura SASS/BEM. Además, detectó la presencia temporal del archivo `scratch/check_image.html` con faltas SEO estructurales.

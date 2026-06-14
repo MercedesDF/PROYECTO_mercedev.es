@@ -95,8 +95,8 @@ def main() -> None:
         return
 
     for target_path in target_pages:
-        # Obtenemos el nombre de la carpeta contenedora para el log, o el nombre del archivo si está en la raíz
-        page_name = target_path.parent.name if target_path.parent.name != "public" else target_path.name
+        # Obtenemos la ruta relativa para el log, así queda claro qué archivo exacto se sincroniza
+        rel_path = target_path.relative_to(PUBLIC_DIR)
         
         target_html = target_path.read_text(encoding="utf-8")
 
@@ -108,7 +108,7 @@ def main() -> None:
         nuevo_html = replace_block(nuevo_html, jsm_pattern, jsm_content, "JS Main Cache")
         
         target_path.write_text(nuevo_html, encoding="utf-8")
-        print(f"✅ {page_name.capitalize()} sincronizado con la portada.")
+        print(f"✅ {rel_path} sincronizado con la portada.")
 
 
 if __name__ == "__main__":
