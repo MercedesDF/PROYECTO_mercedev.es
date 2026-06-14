@@ -7,6 +7,23 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — Gobernanza de Contenidos: Documentación de Estrategia Fallback WebM/MP4 y Prevención de Duplicate Content
+
+**Contexto:** Tras revisar el peso y la compresión extrema de los *assets* de vídeo (Showcase), se decidió documentar oficialmente la arquitectura del "Patrón Fallback" (WebM vs MP4) en la Biblioteca. Durante la publicación, se detectó una deriva en los metadatos YAML y la generación de un post de blog calcado (Duplicate Content).
+
+**Hecho:**
+- **Creación de Cuadernillo:** Se redactó y publicó `cuadernillo-estrategia-video-webm-mp4.md` detallando la implementación HTML5 y la optimización de Core Web Vitals (`preload="none"` y `aspect-ratio`).
+- **Alineación Taxonómica SSG:** Se corrigió manualmente el frontmatter del cuadernillo para cumplir estrictamente con el esquema del pipeline (`tipo: "cuadernillo"`, `subtema`, `alt_portada` y `fase`).
+- **Reescritura DevRel (Blog):** Se reescribió por completo el borrador automático del blog. Se transformó de un "copy-paste" perjudicial para el SEO a un verdadero *Teaser* narrativo diseñado para redirigir tráfico hacia la biblioteca, asegurando el valor del ecosistema.
+- **Micro-parche de UX:** Se actualizó `merci-sync-pages.py` para que los logs por consola muestren la ruta relativa del archivo en lugar del nombre de la carpeta (evitando confusión por logs "duplicados").
+
+**Motivo / criterio:** Garantizar la pureza del SSOT (Single Source of Truth), evitar penalizaciones SEO por contenido duplicado y mantener la taxonomía estricta exigida por los orquestadores (WP y SSG).
+
+**Siguiente paso o deuda:** 
+1. Lanzar el `merci completo` final de la jornada. 
+2. En la próxima sesión, ejecutar el cierre oficial de la Fase y de la Épica 8.
+3. **[ESTUDIO PARA MAÑANA]:** Revisión a fondo de los prompts y viabilidad de aplicar la orquestación local para eludir los límites de tokens de Google (es decir, conseguir correr Gemini a nivel local e integrarlo directamente en el proyecto).
+
 ### 2026-06-14 — Observabilidad: Validación de Latencia en PageSpeed API y Caché SRE
 
 **Contexto:** Durante la ejecución del pipeline local se reportó una anomalía percibida de rendimiento (`10.87s`) en el agente autónomo `merci-extract-metrics.py`.

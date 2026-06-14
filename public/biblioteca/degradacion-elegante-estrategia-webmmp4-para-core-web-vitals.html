@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Degradación Elegante: Estrategia WebM/MP4 para C... — mercedev.es</title>
+    <meta name="description" content="Cómo implementar el patrón Fallback en HTML5 para maximizar el rendimiento con WebM sin romper la compatibilidad con el ecosistema de Apple (MP4).">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/degradacion-elegante-estrategia-webmmp4-para-core-web-vitals.html">
+    <link rel="stylesheet" href="/css/main.css?v=1781474021">
+    <script src="/js/MerciController.js?v=1779793228" defer></script>
+    <script src="/js/main.js?v=1779435201" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Degradaci\u00f3n Elegante: Estrategia WebM/MP4 para Core Web Vitals",
+      "description": "C\u00f3mo implementar el patr\u00f3n Fallback en HTML5 para maximizar el rendimiento con WebM sin romper la compatibilidad con el ecosistema de Apple (MP4).",
+      "url": "https://mercedev.es/biblioteca/degradacion-elegante-estrategia-webmmp4-para-core-web-vitals.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header" id="top">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65"
+                fetchpriority="low" decoding="async">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Portada</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/proyectos/" class="nav__link">Proyectos</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Degradación Elegante: Estrategia WebM/MP4 para Core Web Vitals</h1>
+                <a href="/descargas/degradacion-elegante-estrategia-webmmp4-para-core-web-vitals.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h1>Degradación Elegante: Estrategia WebM/MP4 para Core Web Vitals</h1>
+<p>Optimizar el peso de los <em>assets</em> multimedia es uno de los mayores desafíos para superar con nota las auditorías de rendimiento y mantener un SEO saludable. En la web moderna, no basta con comprimir un vídeo; hay que servir el formato correcto al dispositivo adecuado, manteniendo un plan de respaldo para ecosistemas restrictivos.</p>
+<p>A esta estrategia se la conoce como <strong>Degradación Elegante</strong> (Graceful Degradation) o patrón <em>Fallback</em>.</p>
+<h2>El Conflicto: Google vs Apple</h2>
+<p>El desarrollo web a menudo se encuentra atrapado en el fuego cruzado entre los estándares abiertos y los ecosistemas cerrados:</p>
+<ol>
+<li><strong>El Formato WebM (<code>.webm</code>):</strong></li>
+<li><strong>Naturaleza:</strong> Formato de código abierto impulsado fuertemente por Google (usualmente basado en los códecs VP8 o <abbr title="Merci Explica: Codificador de vídeo avanzado para optimizar el almacenamiento y la transmisión." tabindex="0">VP9</abbr>).</li>
+<li><strong>Superpoder:</strong> Compresión brutal. Puede reducir el peso de un vídeo entre un 20% y un 40% respecto a MP4 manteniendo una calidad visual idéntica. Además, soporta canal alfa (transparencias).</li>
+<li>
+<p><strong>Kryptonita:</strong> Apple se resistió durante años a darle soporte. Navegadores Safari antiguos y dispositivos iOS de generaciones previas simplemente arrojarán un error o una pantalla negra si intentas servirles este formato.</p>
+</li>
+<li>
+<p><strong>El Formato MP4 (<code>.mp4</code>):</strong></p>
+</li>
+<li><strong>Naturaleza:</strong> El estándar rey de la industria tradicional (basado en el códec H.264 o H.265).</li>
+<li><strong>Superpoder:</strong> Compatibilidad absoluta y universal. Funciona en el 100% de los navegadores, smartphones, smart TVs y consolas. El hardware de Apple está diseñado para acelerar y decodificar este formato de forma nativa e hipereficiente.</li>
+<li><strong>Kryptonita:</strong> El algoritmo es propietario y suele generar archivos notablemente más pesados que WebM para la misma calidad.</li>
+</ol>
+<h2>Implementación del Patrón Fallback en HTML5</h2>
+<p>Para resolver este conflicto sin romper la experiencia de ningún usuario ni penalizar la cuota de datos de los navegadores modernos, la etiqueta <code>&lt;video&gt;</code> de HTML5 nos permite inyectar múltiples fuentes en cascada.</p>
+<p>El navegador leerá las etiquetas de arriba hacia abajo y <strong>descargará únicamente la primera que sea capaz de interpretar</strong>.</p>
+<pre><code class="language-html">&lt;video controls preload=&quot;none&quot; poster=&quot;/assets/images/poster-video.webp&quot;&gt;
+    &lt;!-- 1. La opción óptima (Menor peso, solo ecosistemas modernos) --&gt;
+    &lt;source src=&quot;/assets/videos/demo.webm&quot; type=&quot;video/webm&quot;&gt;
+
+    &lt;!-- 2. La red de seguridad (Mayor peso, compatibilidad 100%) --&gt;
+    &lt;source src=&quot;/assets/videos/demo.mp4&quot; type=&quot;video/mp4&quot;&gt;
+
+    &lt;!-- 3. Último recurso (Navegadores obsoletos o sin soporte de vídeo) --&gt;
+    &lt;p&gt;Tu navegador no soporta vídeo HTML5. &lt;a href=&quot;/assets/videos/demo.mp4&quot;&gt;Descargar MP4&lt;/a&gt;.&lt;/p&gt;
+&lt;/video&gt;
+</code></pre>
+<h3>¿Cómo funciona en la práctica?</h3>
+<ul>
+<li><strong>Un usuario en Google Chrome (Android o PC):</strong> El motor lee la primera línea, reconoce el tipo <code>video/webm</code>, ignora el resto del bloque HTML y comienza a descargar el vídeo ligero. Has ahorrado decenas de megabytes de transferencia.</li>
+<li><strong>Un usuario en Safari antiguo (iPhone):</strong> El motor lee la primera línea, no reconoce el códec VP9/WebM, descarta la primera etiqueta de forma limpia, y pasa a la segunda línea. Al encontrar <code>video/mp4</code>, lo descarga y lo reproduce de forma nativa.</li>
+</ul>
+<h2>Blindaje de Core Web Vitals (Performance)</h2>
+<p>Tener el formato correcto es solo la mitad de la batalla. Un vídeo insertado incorrectamente puede destruir tu puntuación de <em>Largest Contentful Paint</em> (<abbr title="Merci Explica: El tiempo que tarda en aparecer en pantalla el elemento visual más grande de tu página web, como el título principal o una gran foto." tabindex="0">LCP</abbr>) o causar <em>Cumulative Layout Shift</em> (<abbr title="Merci Explica: Mide cuánto saltan los textos o imágenes mientras la página web termina de cargar." tabindex="0">CLS</abbr>).</p>
+<p>Para un rendimiento impecable en Lighthouse, aplica siempre este escudo:</p>
+<ol>
+<li><strong><code>preload="none"</code>:</strong> Nunca dejes que el vídeo empiece a precargar metadatos o fragmentos de vídeo de forma silenciosa en la carga inicial de la página. El atributo <code>none</code> bloquea la descarga hasta que el usuario hace clic activo en Play. Impacto de red CERO en el renderizado inicial.</li>
+<li><strong><code>poster="..."</code>:</strong> Al usar <code>preload="none"</code>, el reproductor se verá como un rectángulo negro estático. Usa el atributo <code>poster</code> apuntando a una imagen <code>.webp</code> minúscula y ultra-optimizada que servirá como carátula temporal.</li>
+<li><strong>Control de Aspect Ratio (CSS):</strong> Al igual que con las imágenes, envuelve el vídeo en un contenedor o dale una directiva matemática estricta (<code>aspect-ratio: 16/9;</code>) para que el navegador reserve el espacio vertical perfecto antes de que el usuario interactúe, erradicando el CLS.</li>
+</ol>
+<hr />
+<p><em>Estrategia implementada y validada exitosamente en el proyecto base de merci.</em></p>
+            </div>
+        </article>
+    </main>
+    <a href="#top" class="floating-back-to-top" aria-label="Volver arriba">↑</a>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer"
+                class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer"
+                class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer"
+                class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci"
+                width="80" height="80" fetchpriority="low" decoding="async">
+        </button>
+    </aside>
+</body>
+</html>
