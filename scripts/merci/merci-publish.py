@@ -199,9 +199,9 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     # QUÉ HACE: Sanitiza los campos menores del Frontmatter antes de inyectarlos al generador de PDF.
     # POR QUÉ: Evita inyecciones XSS y errores de compilación en WeasyPrint por caracteres malformados.
     fase_html = html.escape(str(fase))
-    fase_pdf_text = f" | Fase {fase_html}" if fase else ""
-    tipo_html = html.escape(str(tipo)).capitalize()
-    volumen_html = html.escape(str(meta.get('volumen', 1)))
+    fase_pdf_text = f" | {fase_html}" if fase else ""
+    tema_html = html.escape(str(tema))
+    subtema_html = html.escape(str(meta.get("subtema", "General")))
     fecha_html = html.escape(str(meta.get('fecha', '')))
     
     pdf_html_content = f"""<!DOCTYPE html>
@@ -215,6 +215,8 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
         .portada {{ text-align: center; page-break-after: always; padding-top: 30%; }}
         .portada h1 {{ font-size: 2.5em; color: #ea580c; margin-bottom: 0.2em; }}
         .portada p {{ font-size: 1.2em; color: #64748b; }}
+        .portada ul {{ list-style: none; padding: 0; color: #64748b; font-size: 1.1em; margin-top: 1em; }}
+        .portada ul li {{ margin-bottom: 0.3em; }}
         h2 {{ color: #ea580c; margin-top: 2em; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5em; }}
         pre {{ background: #f1f5f9; padding: 1em; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; font-size: 0.9em; }}
         code {{ font-family: monospace; background: #f1f5f9; padding: 0.2em 0.4em; border-radius: 3px; font-size: 0.9em; }}
@@ -226,7 +228,10 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
 <body>
     <div class="portada">
         <h1>{titulo_html}</h1>
-        <p>{tipo_html} | Vol. {volumen_html}</p>
+        <ul>
+            <li><strong>Estantería:</strong> {tema_html}</li>
+            <li><strong>Subtema:</strong> {subtema_html}</li>
+        </ul>
         <p><strong>mercedev.es</strong> — {fecha_html}{fase_pdf_text}</p>
     </div>
     <div class="contenido">

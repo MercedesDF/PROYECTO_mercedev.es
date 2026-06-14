@@ -7,6 +7,14 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — Refactorización de Portada en Generación de PDFs
+
+**Contexto:** Los documentos exportados a PDF mantenían un subtítulo *hardcoded* heredado de versiones anteriores (`Cuadernillo | Vol. 1`) y la etiqueta de fase redundaba al imprimir el prefijo ("Fase Epic X - Fase Y" imprimía "Fase Fase Epic X...").
+
+**Hecho:** Se ha modificado el template de `WeasyPrint` dentro del motor de publicación `merci-publish.py`. Se ha eliminado la cadena de Volumen estática y, en su lugar, se inyectan las variables `tema_html` y `subtema_html` formateadas como una lista sin viñetas (`list-style: none;`). Adicionalmente, se purgó la redundancia en el campo de Fase (`fase_pdf_text = f" | {fase_html}"`).
+
+**Motivo / criterio:** *Coherencia de Datos*. Alineamos el diseño de los documentos descargables a la nueva taxonomía (Estanterías / Subtemas) recién instaurada, asegurando que un lector en modo offline sepa exactamente a qué rama del árbol de conocimiento pertenece el escrito. Se forzó una regeneración global purgando el caché de la carpeta `descargas`.
+
 ### 2026-06-14 — UI/UX: Refinamiento Visual de Subtemas en Índice
 
 **Contexto:** Tras la implementación del índice temático minimalista, las subcategorías compartían los estilos visuales (subrayado y color) de las estanterías principales, dificultando su diferenciación jerárquica.
