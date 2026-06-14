@@ -15,6 +15,8 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 - **Atributos de Imagen (CLS):** Se habilitó la extensión `attr_list` en el compilador estático (`merci-publish.py`) y se inyectaron explícitamente las dimensiones y el modo `loading="lazy"` a la imagen de prueba en Markdown.
 - **Reproductor de Vídeo HTML5:** Se modificó la inyección por expresiones regulares para incluir la etiqueta `<track kind="captions">` vacía (satisfaciendo a WAI-ARIA) y se sustituyó el `preload="metadata"` por `preload="none"` para evitar bloqueos por tiempo de espera en el emulador de red.
 - Se recompilaron exitosamente las páginas estáticas del entorno satélite.
+- **Saneamiento de Metadatos (WP Headless):** Se ejecutó un script de purga masiva para eliminar la taxonomía por defecto `tema: "Varios"` en 20 cuadernillos del blog, evitando la creación de categorías fantasma durante la sincronización a WordPress.
+- **Gobernanza de la Biblioteca (Taxonomía Estricta):** Se actualizaron las biblias de arquitectura (`instrucciones.md` e `instrucciones-merci.md`) para forzar que los futuros cuadernillos usen exclusivamente las 4 macro-categorías aprobadas. Además, se sanearon retroactivamente 2 cuadernillos mal categorizados ("Desarrollo y Productividad" y "DevSecOps y Gobernanza").
 
 **Motivo / criterio:** *Puntuación Perfecta en Core Web Vitals*. Implementar estos escudos a nivel de compilador SSG erradica la deuda técnica de raíz y asegura un 100/100 en Performance y Accesibilidad de forma autónoma. Evitar la carga del pre-metadata del vídeo salva el pipeline de falsos positivos en conexiones emuladas inestables.
 

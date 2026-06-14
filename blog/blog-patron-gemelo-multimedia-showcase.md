@@ -4,7 +4,6 @@ descripcion: "Estrategia DevSecOps para instanciar repositorios y demos (Showcas
 estado: "publicado"
 estado_social: "aprobado"
 orden_social: 2
-tema: "Varios"
 subtema: "Blog"
 fecha: "2026-05-28"
 fase: "Epic 7 - Fase 1"

@@ -4,7 +4,6 @@ descripción: "Evolución del agente autónomo hacia una arquitectura JSON (SSOT
 estado: "publicado"
 estado_social: "aprobado"
 orden_social: 1
-tema: "Varios"
 subtema: "Blog"
 fase: "Epic 3 - Fase 2"
 fecha: "2026-05-21"

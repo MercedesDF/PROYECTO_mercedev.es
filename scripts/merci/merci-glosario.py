@@ -156,7 +156,7 @@ def compile_markdown(state_data: dict) -> None:
     md = "---\n"
     md += "titulo: \"Glosario Técnico\"\n"
     md += "descripcion: \"Diccionario Data-Driven compilado automáticamente por el Agente Glosario.\"\n"
-    md += "tema: \"DevSecOps y Gobernanza\"\n"
+    md += "tema: \"DevSecOps e Infraestructura\"\n"
     md += "estado: \"publicado\"\n"
     md += f"alt_portada: \"Diccionario técnico automatizado {fecha_hoy}\"\n"
     md += f"fecha: \"{fecha_hoy}\"\n"

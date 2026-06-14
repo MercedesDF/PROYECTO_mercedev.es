@@ -4,7 +4,6 @@ descripcion: "Descubre cómo se orquestó la Épica 5 para desplegar una demostr
 tipo: "articulo"
 estado: "publicado"
 estado_social: "aprobado"
-tema: "Varios"
 subtema: "Blog"
 fase: "Epic 5 - Fase 1"
 fecha: "2026-05-23"
