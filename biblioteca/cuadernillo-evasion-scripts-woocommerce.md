@@ -1,5 +1,6 @@
 ---
 titulo: "Domando a WooCommerce: Evasión de Hooks y Rastreo Fantasma"
+tipo: "cuadernillo"
 descripcion: "Cómo neutralizar la inyección tardía de scripts de rastreo y evitar el colapso del TTFB en arquitecturas Zero-JS."
 estado: "publicado"
 tema: "DevSecOps e Infraestructura"

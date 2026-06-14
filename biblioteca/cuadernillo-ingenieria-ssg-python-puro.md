@@ -1,7 +1,7 @@
 ---
 titulo: "Ingeniería de Interfaz Estática (SSG): Python Puro"
 descripcion: "Patrones de rendimiento, SEO técnico, accesibilidad WAI-ARIA y compilación con cero dependencias."
-tipo: "compendio"
+tipo: "cuadernillo"
 tema: "Desarrollo y Arquitectura"
 subtema: "Frontend"
 estado: "publicado"

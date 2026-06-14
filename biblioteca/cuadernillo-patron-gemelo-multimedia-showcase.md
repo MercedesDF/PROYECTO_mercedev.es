@@ -1,5 +1,6 @@
 ---
 titulo: "El Patrón Gemelo Multimedia: Cero Fugas y Cero Latencia"
+tipo: "cuadernillo"
 descripcion: "Estrategia DevSecOps para instanciar repositorios y demos (Showcases) aplicando prevención de pérdida de datos sin provocar errores 404 ni penalizaciones en Core Web Vitals."
 estado: "publicado"
 tema: "DevSecOps e Infraestructura"

@@ -7,6 +7,16 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — Limpieza de Metadatos y Corrección de Tipos (Cuadernillo vs Compendio)
+
+**Contexto:** Se detectaron incongruencias en 7 archivos cuyo nombre indicaba ser un cuadernillo (`cuadernillo-*.md`) pero su Frontmatter interno (`tipo:`) declaraba que era un compendio o no existía. Además, las tarjetas HTML seguían mostrando la palabra "Fase" por duplicado de manera redundante.
+
+**Hecho:** 
+1. Se ha ejecutado un script de validación (`fix_tipos.py`) que ha analizado todos los archivos `.md`. Se han auto-corregido los campos `tipo:` en el Frontmatter de los 7 archivos afectados para forzar una consistencia 1:1 entre el nombre físico del archivo y su tipo semántico (Cuadernillo = Cuadernillo / Compendio = Compendio).
+2. Se ha modificado `merci-publish.py` para eliminar el prefijo "Fase " del renderizador HTML de las tarjetas (`<span class="card__meta">`).
+
+**Motivo / criterio:** *Single Source of Truth y Consistencia de Datos*. Prevenir la desincronización entre la nomenclatura local de la usuaria y el renderizado final, y eliminar ruido semántico (Fase Fase) de las etiquetas en pantalla.
+
 ### 2026-06-14 — UI/UX: Reajuste de Paleta Temática 
 
 **Contexto:** La paleta de colores inicial generaba confusión entre el azul y el violeta (usados en Arquitectura e IA respectivamente). Además, se requería reservar el violeta exclusivamente como color de contraste para textos globales (Homenaje) y reasignar colores más representativos a la estantería de Seguridad.

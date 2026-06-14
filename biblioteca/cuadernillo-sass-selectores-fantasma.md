@@ -1,5 +1,6 @@
 ---
 titulo: "Selectores Fantasma y la Guerra de Especificidad CSS en SASS"
+tipo: "cuadernillo"
 descripcion: "Cómo un espacio en blanco en el anidamiento SASS puede generar código muerto y cómo vencer la especificidad impuesta por CMS pesados."
 estado: "publicado"
 tema: "Desarrollo y Arquitectura"

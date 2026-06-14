@@ -437,7 +437,7 @@ def generar_indice(
                 pub_desc_html = html.escape(pub["descripcion"])
                 pub_fecha_html = html.escape(str(pub["fecha"]))
                 badge_html = html.escape(str(pub["tipo"])).capitalize()
-                fase_badge_html = f" &middot; Fase {html.escape(str(pub['fase']))}" if pub.get("fase") else ""
+                fase_badge_html = f" &middot; {html.escape(str(pub['fase']))}" if pub.get("fase") else ""
                 clase_css = "card--booklet" if pub["tipo"].lower() == "cuadernillo" else "card--book"
 
                 secciones_html += f"""

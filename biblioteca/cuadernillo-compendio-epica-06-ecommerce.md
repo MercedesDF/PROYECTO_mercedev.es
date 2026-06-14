@@ -1,5 +1,6 @@
 ---
 titulo: "Compendio Estratégico: E-commerce Híbrido Extremo (Zero-JS)"
+tipo: "cuadernillo"
 descripcion: "Resumen arquitectónico de la Épica 6: Inyección Headless de catálogo y Carrito Zero-JS con TBT 0ms."
 estado: "publicado"
 tema: "DevSecOps e Infraestructura"

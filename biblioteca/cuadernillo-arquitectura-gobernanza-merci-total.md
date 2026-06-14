@@ -1,7 +1,7 @@
 ---
 titulo: "Arquitectura y Gobernanza: merci-total.py como SSOT"
 descripcion: "Consolidación del pipeline DevSecOps local, el patrón Fail-Fast y la orquestación como Única Fuente de Verdad."
-tipo: "compendio"
+tipo: "cuadernillo"
 tema: "DevSecOps e Infraestructura"
 subtema: "Gobernanza"
 estado: "publicado"

@@ -1,7 +1,7 @@
 ---
 titulo: "Estrategias de Integración Headless: WP y WooCommerce"
 descripcion: "Resolución de ceguera de proxy, paridad Dev/Prod y sincronización bidireccional en un ecosistema CMS aislado."
-tipo: "compendio"
+tipo: "cuadernillo"
 tema: "Desarrollo y Arquitectura"
 subtema: "Backend"
 estado: "publicado"
