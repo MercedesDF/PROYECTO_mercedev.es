@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Contacto - Merci Boilerplate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto — mercedev.es</title>
-    <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon">
+    <title>Proyectos Satélite — mercedev.es</title>
+    <meta name="description" content="Índice de otros proyectos y experimentos multimedia.">
+    <link rel="canonical" href="https://mercedev.es/proyectos/">
     <link rel="stylesheet" href="/css/main.css?v=1781429363">
     <script src="/js/MerciController.js?v=1779793228" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
-    <link rel="canonical" href="https://mercedev.es/contacto">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ContactPage",
-      "name": "Contacto - mercedev.es"
+      "@type": "CollectionPage",
+      "name": "Proyectos Sat\u00e9lite - mercedev.es",
+      "description": "\u00cdndice de otros proyectos y experimentos multimedia.",
+      "url": "https://mercedev.es/proyectos/"
     }
     </script>
 </head>
-
-<body class="page" id="page-contacto">
-
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
     <header class="header" id="top">
         <a href="/" class="header__brand">
             <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65"
@@ -45,34 +44,51 @@
         </nav>
     </header>
     <main class="main" id="main">
+        <!-- QUÉ HACE: Sección Hero unificada con el resto del ecosistema -->
         <section class="hero">
-            <h1 class="hero__title">con<span class="hero__highlight">tacto</span></h1>
-            <p class="hero__subtitle">Comunicación directa y sin intermediarios. Cero formularios, cero rastreadores y
-                máxima privacidad.</p>
+            <h1 class="hero__title">proyectos <span class="hero__highlight">satélite</span></h1>
+            <p class="hero__subtitle">Pruebas de inyección multimedia y despliegue de contenido interactivo.</p>
+            
         </section>
-
-        <section class="home-section">
-            <h2 class="home-section__title">Canales Operativos</h2>
-
-            <h3>Correo Electrónico</h3>
-            <p>Para propuestas de arquitectura, auditorías DevSecOps, consultoría técnica o simplemente charlar puedes
-                escribirme directamente a:</p>
-            <p><strong><a href="mailto:mercedev@mercedev.es"
-                        aria-label="Enviar un correo electrónico a Mercedes">mercedev@mercedev.es</a></strong></p>
-
-            <br>
-
-            <h3>Comunicaciones Cifradas (PGP)</h3>
-            <p>Si necesitas transmitir información sensible o reportar una vulnerabilidad en la infraestructura, por
-                favor cifra tu mensaje utilizando mi clave pública:</p>
-            <p><strong><a href="/llave-publica.asc" aria-label="Descargar clave pública PGP de Mercedes">Descargar Clave
-                        Pública PGP</a></strong> (Huella:
-                <code>9198 EDF7 40BD 027C 6746  62DB 7D76 23BE 599F D138</code>)</p>
-            <p><small><em>¿No estás familiarizado con PGP? 👉 <a
-                            href="/biblioteca/tutorial-como-enviar-correos-cifrados-con-pgp.html"><strong>Lee la guía
-                                paso a paso para cifrar tus mensajes</strong></a>.</em></small></p>
+        
+        <!-- QUÉ HACE: Índice Curado (Table of Contents) autogenerado -->
+        <!-- POR QUÉ: Mejora la UX permitiendo navegación intra-página sin scroll excesivo. -->
+        <nav class="library-nav" aria-label="Índice de estanterías">
+            <h2 class="library-nav__title">Estanterías Temáticas</h2>
+            <ul class="library-nav__list">
+                <li class="library-nav__item theme--proyectos-satelite">
+                    <a href="#proyectos-satelite" class="library-nav__theme-title" aria-label="Explorar estantería: Proyectos Satélite">Proyectos Satélite</a>
+                    <ul class="library-nav__article-list">
+                        <li class="library-nav__sub-theme"><a href="#proyectos-satelite-pruebas-de-estres" class="library-nav__theme-title library-nav__theme-title--sub" aria-label="Pruebas de Estrés (1) en Proyectos Satélite">Pruebas de Estrés (1)</a></li>
+                        <li class="library-nav__article-item">
+                            <a href="#showcase-inyeccion-multimedia" class="library-nav__article-link" aria-label="Ir al resumen de: Showcase: Inyección Multimedia">★ Showcase: Inyección Multimedia</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        
+        
+        <section class="library-section theme--proyectos-satelite" id="proyectos-satelite">
+            <div class="library-section__header">
+                <h2 class="library-section__title home-card__title--highlight"><a href="#proyectos-satelite" aria-label="Ver sección: Proyectos Satélite">Proyectos Satélite</a></h2>
+                
+            </div>
+            <div class="library-grid">
+                <h3 class="library-subsection__title" id="proyectos-satelite-pruebas-de-estres">Pruebas de Estrés</h3>
+                <article class="card card--book" id="showcase-inyeccion-multimedia">
+                    <header>
+                        <span class="card__meta">2026-06-14 — Proyecto</span>
+                        <h2 class="card__title"><a href="/proyectos/showcase-inyeccion-multimedia.html" aria-label="Leer artículo completo: Showcase: Inyección Multimedia (2026-06-14)">Showcase: Inyección Multimedia</a></h2>
+                    </header>
+                    <div class="card__content">
+                        <p>Prueba de renderizado nativo de imágenes responsivas y vídeos HTML5 en la arquitectura estática.</p>
+                    </div>
+                </article>
+            </div>
         </section>
     </main>
+    <a href="#top" class="floating-back-to-top" aria-label="Volver arriba">↑</a>
     <footer class="footer">
         <div class="footer__links">
             <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer"
@@ -100,7 +116,5 @@
                 width="80" height="80" fetchpriority="low" decoding="async">
         </button>
     </aside>
-
 </body>
-
 </html>

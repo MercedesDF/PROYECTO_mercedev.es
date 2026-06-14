@@ -30,8 +30,10 @@ except ImportError:
 REPO_ROOT = Path(__file__).resolve().parents[2]
 BIBLIOTECA_DIR = REPO_ROOT / "biblioteca"
 ART_DE_COTE_DIR = REPO_ROOT / "art-de-cote"
+PROYECTOS_DIR = REPO_ROOT / "proyectos-satelite"
 PUBLIC_BIBLIOTECA = REPO_ROOT / "public" / "biblioteca"
 PUBLIC_ART_DE_COTE = REPO_ROOT / "public" / "art-de-cote"
+PUBLIC_PROYECTOS = REPO_ROOT / "public" / "proyectos"
 PUBLIC_DESCARGAS = REPO_ROOT / "public" / "descargas"
 
 def slugify(texto: str) -> str:
@@ -57,7 +59,7 @@ def limpiar_archivos_zombis(archivos_validos: set[Path]) -> None:
     archivos zombis si la autora renombra o elimina un documento.
     """
     zombis = 0
-    for directorio in [PUBLIC_BIBLIOTECA, PUBLIC_ART_DE_COTE, PUBLIC_DESCARGAS]:
+    for directorio in [PUBLIC_BIBLIOTECA, PUBLIC_ART_DE_COTE, PUBLIC_PROYECTOS, PUBLIC_DESCARGAS]:
         if not directorio.exists():
             continue
         for item in directorio.iterdir():
@@ -118,9 +120,20 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     out_pdf_filename = slug + ".pdf"
     
     is_art = "art-de-cote" in filepath.parts
-    out_base_dir = PUBLIC_ART_DE_COTE if is_art else PUBLIC_BIBLIOTECA
-    base_url_path = "/art-de-cote/" if is_art else "/biblioteca/"
-    back_text = "← Volver a Art de Coté" if is_art else "← Volver a la Biblioteca"
+    is_proy = "proyectos-satelite" in filepath.parts
+    
+    if is_art:
+        out_base_dir = PUBLIC_ART_DE_COTE
+        base_url_path = "/art-de-cote/"
+        back_text = "← Volver a Art de Coté"
+    elif is_proy:
+        out_base_dir = PUBLIC_PROYECTOS
+        base_url_path = "/proyectos/"
+        back_text = "← Volver a Otros Proyectos"
+    else:
+        out_base_dir = PUBLIC_BIBLIOTECA
+        base_url_path = "/biblioteca/"
+        back_text = "← Volver a la Biblioteca"
     
     html_target = out_base_dir / out_filename
     pdf_target = PUBLIC_DESCARGAS / out_pdf_filename
@@ -260,7 +273,12 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     # QUÉ HACE: Asigna la clase CSS BEM dinámicamente basándose en el atributo 'tipo'.
     # POR QUÉ: Respeta la decisión del autor en el YAML Frontmatter, aplicando degradación elegante.
     clase_css = "card--booklet" if tipo.lower() == "cuadernillo" else "card--book"
-    page_id = "page-art-de-cote" if is_art else "page-biblioteca"
+    if is_art:
+        page_id = "page-art-de-cote"
+    elif is_proy:
+        page_id = "page-proyectos"
+    else:
+        page_id = "page-biblioteca"
     
     html_final = f"""<!DOCTYPE html>
 <html lang="es">
@@ -351,6 +369,8 @@ def generar_indice(
         title_html = 'la biblio<span class="hero__highlight">teca</span>'
     elif title == "Art de Coté":
         title_html = 'art de <span class="hero__highlight">coté</span>'
+    elif title == "Proyectos Satélite":
+        title_html = 'proyectos <span class="hero__highlight">satélite</span>'
     else:
         title_html = html.escape(title)
         
@@ -571,10 +591,12 @@ def main() -> None:
 
     publicaciones_bib = []
     publicaciones_art = []
+    publicaciones_proy = []
 
     # Añadimos los índices principales a la lista de archivos válidos
     archivos_validos.add((PUBLIC_BIBLIOTECA / "index.html").resolve())
     archivos_validos.add((PUBLIC_ART_DE_COTE / "index.html").resolve())
+    archivos_validos.add((PUBLIC_PROYECTOS / "index.html").resolve())
 
     # QUÉ HACE: Lee recursivamente todos los archivos .md en la biblioteca y sus subcarpetas.
     # POR QUÉ: Permite al autor organizar los archivos fuente en subdirectorios temáticos 
@@ -595,6 +617,14 @@ def main() -> None:
                 archivos_validos.add(meta["out_html_path"].resolve())
                 archivos_validos.add(meta["out_pdf_path"].resolve())
                 
+    if PROYECTOS_DIR.exists():
+        for md_file in PROYECTOS_DIR.rglob("*.md"):
+            meta = procesar_archivo(md_file, header_html, footer_html, css_version, js_controller_version, js_main_version)
+            if meta:
+                publicaciones_proy.append(meta)
+                archivos_validos.add(meta["out_html_path"].resolve())
+                archivos_validos.add(meta["out_pdf_path"].resolve())
+                
     if publicaciones_bib:
         PUBLIC_BIBLIOTECA.mkdir(parents=True, exist_ok=True)
         generar_indice(publicaciones_bib, PUBLIC_BIBLIOTECA / "index.html", "La Biblioteca", "Archivo técnico y documentación oficial. Compendios de arquitectura DevSecOps, automatización Python y metodologías Zero-Bloat.", "El conocimiento inmutable del ecosistema. Documentación técnica, metodología Spec as Source y cuadernillos de ingeniería DevSecOps. Todo lo que el sistema construye, la biblioteca lo preserva.", "https://mercedev.es/biblioteca/", header_html, footer_html, css_version, js_controller_version, js_main_version)
@@ -602,8 +632,12 @@ def main() -> None:
     if publicaciones_art:
         PUBLIC_ART_DE_COTE.mkdir(parents=True, exist_ok=True)
         generar_indice(publicaciones_art, PUBLIC_ART_DE_COTE / "index.html", "Art de Coté", "Índice de scripts experimentales, andamiajes y código colateral.", "Scripts, flujos de automatización y código experimental preservado bajo la filosofía Zero Waste (Cero Desperdicio).", "https://mercedev.es/art-de-cote/", header_html, footer_html, css_version, js_controller_version, js_main_version)
+        
+    if publicaciones_proy:
+        PUBLIC_PROYECTOS.mkdir(parents=True, exist_ok=True)
+        generar_indice(publicaciones_proy, PUBLIC_PROYECTOS / "index.html", "Proyectos Satélite", "Índice de otros proyectos y experimentos multimedia.", "Pruebas de inyección multimedia y despliegue de contenido interactivo.", "https://mercedev.es/proyectos/", header_html, footer_html, css_version, js_controller_version, js_main_version)
             
-    total_pubs = len(publicaciones_bib) + len(publicaciones_art)
+    total_pubs = len(publicaciones_bib) + len(publicaciones_art) + len(publicaciones_proy)
     limpiar_archivos_zombis(archivos_validos)
     print(f"  ✅ {total_pubs} documentos estáticos compilados y publicados exitosamente.")
     print("🚀 [Merci Publish] Pipeline de conversión finalizado.")

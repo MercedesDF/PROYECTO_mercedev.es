@@ -7,6 +7,19 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — Arquitectura Híbrida: Proyectos Satélite y Native Media Injection
+
+**Contexto:**
+1. Era necesario abrir un nuevo flujo en la arquitectura (Proyectos Satélite) y exponerlo en la portada, permitiendo probar la inyección multimedia sin alterar el núcleo purista de La Biblioteca.
+2. Al apostar por la vía SSG (Option B), conseguimos que la nueva sección comparta todo el diseño, jerarquía, BEM y Wayfinding Cromático que ya teníamos sin tener que picar HTML duro.
+
+**Hecho:**
+1. Botón "Otros proyectos" inyectado en `public/index.html`.
+2. Reescritura del orquestador `merci-publish.py` para procesar la nueva carpeta `proyectos-satelite/` hacia `public/proyectos/`, generando su propio índice.
+3. Creación del documento `showcase-multimedia.md` para testear la inyección inteligente por expresiones regulares (`.mp4` a `<video>`).
+
+**Motivo / criterio:** *Single Source of Truth (SSOT)*. Manteniendo todo el contenido centralizado en Markdown, ganamos escalabilidad absoluta. La lógica introducida en `merci-publish.py` para transformar la sintaxis de imagen `![alt](video.mp4)` en una etiqueta `<video>` HTML5 válida (con su clase responsiva y fallback para PDF) protege al autor de ensuciar sus archivos `.md` con código HTML crudo.
+
 ### 2026-06-14 — Gobernanza: Art de Coté Temático y Refuerzo Documental SOP
 
 **Contexto:**
