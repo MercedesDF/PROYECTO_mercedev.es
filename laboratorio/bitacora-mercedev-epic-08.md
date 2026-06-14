@@ -7,6 +7,19 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — UI/UX: Alta Densidad en Biblioteca y Refinamientos en WooCommerce
+
+**Contexto:** Se detectaron múltiples oportunidades de mejora en la experiencia de usuario (UX). La Biblioteca sufría de fragmentación visual por exceso de subtemas y falta de aprovechamiento del espacio (densidad informativa). En paralelo, WooCommerce presentaba redundancias de accesibilidad ('Llavero Merci... cantidad' visible en pantalla) y carecía de una variable centralizada para la tipografía de sus botones.
+
+**Hecho:**
+1. **Biblioteca Mobile-First:** Se refactorizó `merci-publish.py` para agrupar publicaciones exclusivamente por Tema Principal. Se introdujo `_library-grid.scss` con CSS Grid dinámico (`auto-fill, minmax(280px, 1fr)`) y tarjetas ultracompactas, incrementando la densidad informativa sin sacrificar legibilidad.
+2. **Hardening de Accesibilidad:** Se reimplementó la clase `.screen-reader-text` en `_reset.scss` para ocultar visualmente el texto para lectores de pantalla. Adicionalmente, se inyectó un hook en `functions.php` para vaciar el nombre del producto en los inputs de cantidad.
+3. **Escalabilidad del Sistema de Diseño:** Se inyectó la variable `$font-size-button` en `_variables.scss` y se aplicó a todos los botones unificados (`button.button, a.button`, etc.) en `_woocommerce.scss`.
+
+**Motivo / criterio:** *Design System Scalability y Mobile-First*. Desacoplar la cuadrícula de la biblioteca de la portada permite evolucionar ambas de forma independiente. Limpiar la interfaz de la tienda de repeticiones redundantes y encapsular variables CSS asegura un mantenimiento 'Zero-Bloat' a futuro.
+
+**Siguiente paso o deuda:** Compilar los cambios, sellar mediante 'merci commit' y continuar con la integración de Proyectos Satélite o revisión de copywriting.
+
 ### 2026-06-13 — Docs/QA: Creación de cuadernillo sobre contención visual de código
 
 **Contexto:** Tras solucionar el bug de desbordamiento horizontal en etiquetas pre y code (CSS overflow), era necesario consolidar este aprendizaje arquitectónico para evitar su recurrencia, especialmente dada su implicación dual (web móvil y renderizado a PDF estático).

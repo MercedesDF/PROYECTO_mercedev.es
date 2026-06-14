@@ -1,0 +1,13 @@
+@use '../abstracts' as *;
+
+// Layout de alta densidad para la Biblioteca
+// Enfoque Mobile-First: apila por defecto si el ancho es menor a 280px
+
+.library-grid {
+  display: grid;
+  // gap más compacto para condensar el scroll vertical
+  gap: 1rem;
+  
+  // Utiliza auto-fill con minmax para llenar todo el espacio con columnas de al menos 280px
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}

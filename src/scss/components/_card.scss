@@ -100,6 +100,40 @@
     letter-spacing: 0.05em;
   }
 
+  // Modificadores de alta densidad para la Biblioteca
+  &--booklet, &--book {
+    padding: 1.25rem;
+    gap: 0.5rem;
+    
+    @media (max-width: 767px) {
+      padding: 1rem;
+    }
+
+    .card__title {
+      font-size: 1.15rem;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card__meta {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card__content p {
+      font-size: 0.875rem;
+      line-height: 1.5;
+      margin-bottom: 0;
+      
+      // Truncar descripción a 2 líneas para primar densidad
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+
   // Modificador BEM para Cuadernillos (Blog cronológico)
   &--booklet {
     border-top: 3px solid $color-primary; // Acento naranja
