@@ -5,7 +5,7 @@ $color-bg-base: #ffffff; // Blanco puro
 $color-surface: #f8fafc; // Slate 50 (Fondo sutil para tarjetas y bloques)
 $color-border: #e2e8f0; // Slate 200 (Bordes finos premium)
 $color-text-base: #0f172a; // Slate 900 (Negro/Azul muy oscuro)
-$color-text-muted: #64748b; // Slate 500 (Gris pizarra para meta-datos)
+$color-text-muted: #334155; // Slate 700 (Gris muy oscuro para meta-datos, pasa WCAG AAA)
 $color-primary: #ea580c; // Naranja oscuro (Orange 600)
 $color-secondary: #10b981; // Emerald 500
 $color-accent: #f59e0b; // Amber 500
@@ -40,14 +40,14 @@ $bp-large: 1024px;
 // Mapa de Colores por Estantería (Wayfinding Semántico)
 $theme-colors: (
     // --- Estanterías de La Biblioteca ---
-    "desarrollo-y-arquitectura": #4f46e5, // Índigo (Lógica y Código)
-    "devsecops-e-infraestructura": #dc2626, // Rojo (Seguridad y Ops)
-    "productividad-y-gobernanza": #ea580c, // Naranja (Negocio y Metodología)
-    "inteligencia-artificial-y-agentes": #059669, // Esmeralda/Verde (IA y Automatización)
-    "varios": #475569, // Slate (Neutral)
+    "desarrollo-y-arquitectura": #4338ca, // Índigo 700 (Lógica y Código)
+    "devsecops-e-infraestructura": #b91c1c, // Rojo 700 (Seguridad y Ops)
+    "productividad-y-gobernanza": #9a3412, // Naranja 800 (WCAG AAA pass)
+    "inteligencia-artificial-y-agentes": #065f46, // Esmeralda 800 (WCAG AAA pass)
+    "varios": #334155, // Slate 700 (Neutral)
     
     // --- Estanterías de Art de Coté ---
-    "art-de-cote": #0ea5e9, // Sky Blue (Exploración, aire libre, creatividad)
-    "boilerplate-historico": #d97706, // Amber oscuro (Archivos dorados, historia)
-    "reflexiones": #db2777 // Rosa intenso (Pensamiento y opinión personal)
+    "art-de-cote": #075985, // Sky Blue 800 (WCAG AAA pass)
+    "boilerplate-historico": #92400e, // Amber 800 (Archivos dorados, historia)
+    "reflexiones": #be185d // Rosa 700 (Pensamiento y opinión personal)
 );

@@ -677,3 +677,18 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 **Motivo / criterio:** *Developer Experience (DX) y Zero Maintenance*. Solventar los desajustes de enrutamiento y purgar los 79 avisos de SEO directamente en el orquestador SSG (`merci-publish.py`) erradica el problema de raíz para cualquier documento futuro, sin añadir deuda técnica. Asegurar que los blogs actúen como embudos hacia la biblioteca técnica respeta el principio *Create Once, Publish Everywhere* (COPE).
 
 **Siguiente paso o deuda:** Iniciar las pruebas de inyección multimedia (vídeos e imágenes) en la página estática de Proyectos Satélite (Showcase) y proceder con el sellado de la versión (`merci completo`).
+
+### 2026-06-14 — UI/Accessibility: Fuerza Bruta de Contraste (WCAG AAA) en Estanterías y Metadatos
+
+**Contexto:** Tras la auditoría visual de PageSpeed Insights (Lighthouse), saltaron avisos persistentes de bajo contraste (menos de `4.5:1`) en los enlaces temáticos de la Biblioteca (colores asignados vía `$theme-colors`) y en los metadatos de las tarjetas (`card__meta`), dificultando la lectura a usuarios con discapacidades visuales o pantallas con bajo brillo.
+
+**Hecho:** Se refactorizaron las variables de color en `src/scss/abstracts/_variables.scss`, descendiendo los tonos base problemáticos de las series 500 y 600 a los niveles 700 y 800 de la paleta Tailwind:
+- `productividad-y-gobernanza`: Naranja 800 (`#9a3412`)
+- `inteligencia-artificial-y-agentes`: Esmeralda 800 (`#065f46`)
+- `art-de-cote`: Sky 800 (`#075985`)
+- `$color-text-muted` (usado en metadatos y sub-elementos): Slate 700 (`#334155`)
+- Se recompiló el frontend completo con `merci-total`.
+
+**Motivo / criterio:** *Accesibilidad Universal (A11y) y Tolerancia Cero al Warning*. Al transferir el peso semántico del color directamente al texto (y sobre fondos muy claros), los tonos medios no son suficientes. Forzar el nivel estricto WCAG AAA (contraste > `7:1`) elimina permanentemente los fallos de accesibilidad en auditorías, respetando el Wayfinding visual sin degradar la experiencia de usuario.
+
+**Siguiente paso o deuda:** Iniciar el showcase de inyección de contenido multimedia (vídeos/imágenes) en "Proyectos Satélite".
