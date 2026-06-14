@@ -109,12 +109,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     # QUÉ HACE: Trunca metadatos para SEO técnico (Shift-Left SEO)
     # POR QUÉ: Evita advertencias del linter y truncamientos en buscadores (SERPs).
     titulo_seo = f"{titulo_html} — mercedev.es"
-    if len(titulo_seo) > 65:
-        titulo_seo = f"{titulo_html[:60]}..." if len(titulo_html) > 60 else titulo_html
-        
     desc_seo = descripcion_html
-    if len(desc_seo) > 150:
-        desc_seo = desc_seo[:147] + "..."
 
     # QUÉ HACE: Genera los nombres de salida basándose en el título del YAML, no en el archivo.
     # POR QUÉ: Desacopla el sistema de archivos del routing web (Auto-nombrado).

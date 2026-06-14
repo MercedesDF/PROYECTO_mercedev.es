@@ -7,6 +7,19 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — UX/UI: Consolidación de Legibilidad en Lectura Individual y Truncamientos
+
+**Contexto:** Existían dos defectos severos en la experiencia de lectura:
+1. El generador `merci-publish.py` truncaba de manera agresiva (`...`) los títulos SEO a 60 caracteres y descripciones, lo cual impactaba la pestaña del navegador y fragmentaba títulos largos.
+2. Al reusar las clases de densidad extrema de la cuadrícula (`.card--booklet`), las reglas de limitación de líneas (`-webkit-line-clamp: 2`) y letra pequeña (`0.875rem`) se colaban en la vista del artículo individual completo, destrozando la experiencia de lectura y los tamaños de encabezados.
+
+**Hecho:** 
+1. Se ha eliminado por completo la lógica de *hard-truncation* de Python en metadatos, delegando al navegador y a los motores de búsqueda el desbordamiento visual.
+2. En SASS (`_card.scss`), se ha aislado la regla del truncado a dos líneas exclusivamente para el contexto del muro (`.library-grid & { ... }`).
+3. Se han inyectado variables tipográficas ricas (`font-size: 1.125rem`, saltos generosos, diferenciación de `h2/h3`) directamente al selector `.card__content` global. 
+
+**Motivo / criterio:** *Accesibilidad y Ergonomía de Lectura*. Un artículo técnico necesita respirar. Al aislar las reglas CSS, conseguimos que la cuadrícula siga siendo densa y compacta, pero que la lectura inmersiva se comporte como un libro digital de alta legibilidad.
+
 ### 2026-06-14 — Limpieza de Metadatos y Corrección de Tipos (Cuadernillo vs Compendio)
 
 **Contexto:** Se detectaron incongruencias en 7 archivos cuyo nombre indicaba ser un cuadernillo (`cuadernillo-*.md`) pero su Frontmatter interno (`tipo:`) declaraba que era un compendio o no existía. Además, las tarjetas HTML seguían mostrando la palabra "Fase" por duplicado de manera redundante.
