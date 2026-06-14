@@ -7,6 +7,14 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — UI/UX: Conteo Dinámico de Publicaciones en el Índice Temático
+
+**Contexto:** Con la contracción del índice temático (ocultando los artículos por defecto), la usuaria perdía visibilidad sobre la densidad de cada categoría sin hacer scroll hasta ella.
+
+**Hecho:** Se ha inyectado una línea en `merci-publish.py` (`num_articulos = len(estanterias[tema_principal][sub_tema])`) que calcula en tiempo real la cantidad de cuadernillos o compendios que residen bajo cada subtema, y lo imprime entre paréntesis en el índice lateral (Ej: `Backend (12)`).
+
+**Motivo / criterio:** *Transparencia de Datos / UX*. Proporciona al lector un resumen analítico instantáneo del peso de cada área de conocimiento sin recargar la interfaz gráfica.
+
 ### 2026-06-14 — Refactorización de Portada en Generación de PDFs
 
 **Contexto:** Los documentos exportados a PDF mantenían un subtítulo *hardcoded* heredado de versiones anteriores (`Cuadernillo | Vol. 1`) y la etiqueta de fase redundaba al imprimir el prefijo ("Fase Epic X - Fase Y" imprimía "Fase Fase Epic X...").

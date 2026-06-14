@@ -397,7 +397,8 @@ def generar_indice(
         sub_temas_ordenados = sorted(estanterias[tema_principal].keys())
         for sub_tema in sub_temas_ordenados:
             sub_tema_slug = f"{tema_slug}-{slugify(sub_tema)}"
-            sub_tema_html = html.escape(sub_tema)
+            num_articulos = len(estanterias[tema_principal][sub_tema])
+            sub_tema_html = html.escape(f"{sub_tema} ({num_articulos})")
             
             # El subtema enlaza a la sección principal
             enlaces_indice_html += f'                        <li class="library-nav__sub-theme"><a href="#{sub_tema_slug}" class="library-nav__theme-title library-nav__theme-title--sub">{sub_tema_html}</a></li>\n'
