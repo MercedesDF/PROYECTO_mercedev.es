@@ -7,6 +7,17 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — UI/UX: Modificación a Títulos Temáticos (Accesibilidad WCAG)
+
+**Contexto:** La línea lateral izquierda en las tarjetas interfería visualmente con la línea superior (borde naranja) que ya distingue entre Compendios y Cuadernillos. La usuaria solicitó transferir el peso del color temático directamente al título del artículo, garantizando la accesibilidad.
+
+**Hecho:** 
+1. Se ha eliminado el borde lateral izquierdo de las tarjetas (`.card`).
+2. Se ha transferido la variable de color dinámico (`$color`) a la clase `.card__title a` en cada rama del bucle SASS.
+3. Se han implementado estrategias nativas (cero JavaScript y cero warnings obsoletos de SASS) usando `filter: brightness(0.85)` al hacer `:hover` y `:focus`, y respetando la variable global `$color-visited` para indicar enlaces ya leídos, cumpliendo así con las directivas AAA del W3C (WAI-ARIA).
+
+**Motivo / criterio:** *Limpieza Visual y Carga Cognitiva*. Transferir el color a la tipografía principal del componente ahorra *ruido* de bordes extraños en el grid y hace que el mapeo visual sea instantáneo.
+
 ### 2026-06-14 — UI/UX: Wayfinding Semántico por Estantería y Botón 'Volver Arriba' Global
 
 **Contexto:** La arquitectura de información requería una forma visual pasiva de orientar a la usuaria sin importar el tamaño de la pantalla, asignando un color identitario a cada macro-tema. Además, faltaba una forma ergonómica de hacer scroll inverso (Back to Top) sin colisionar con el asistente virtual Merci.

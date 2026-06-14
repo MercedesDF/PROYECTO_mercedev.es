@@ -163,7 +163,7 @@
             color: $color;
             border-bottom-color: rgba($color, 0.3);
             &:hover {
-                color: darken($color, 10%);
+                filter: brightness(0.85);
                 border-bottom-color: $color;
             }
             &--sub {
@@ -194,12 +194,25 @@
             border-bottom-color: rgba($color, 0.2);
         }
         
-        // Estilos para las tarjetas de los cuadernillos de ese tema
-        .card {
-            border-left: 4px solid $color;
-            &:hover {
-                border-left-color: darken($color, 10%);
-                box-shadow: 0 10px 15px -3px rgba($color, 0.1), 0 4px 6px -2px rgba($color, 0.05);
+        // Coloreamos los títulos de los artículos para priorizar la legibilidad y el escaneo
+        .card__title {
+            a {
+                color: $color;
+                // WCAG AAA: El subrayado transparente ayuda a indicar interactividad sin saturar visualmente
+                text-decoration: underline;
+                text-decoration-color: transparent;
+                transition: all 0.2s ease;
+                
+                &:hover, &:focus {
+                    text-decoration-color: $color;
+                    // Oscurecemos ligeramente usando CSS nativo para evitar warnings de SASS
+                    filter: brightness(0.85);
+                }
+                
+                &:visited {
+                    // UX Estándar: Indicar enlaces visitados
+                    color: $color-visited;
+                }
             }
         }
     }
