@@ -358,20 +358,15 @@ def generar_indice(
     # Agrupar publicaciones por tema (Estanterías)
     estanterias = {}
     for pub in publicaciones:
-        # QUÉ HACE: Implementa agrupación jerárquica (Tema / Subtema).
-        # POR QUÉ: Permite una arquitectura de la información más limpia y escalable.
+        # QUÉ HACE: Implementa agrupación por Tema principal (sin subtemas para máxima densidad).
         tema_raw = pub.get("tema") or "General"
         tema_completo = str(tema_raw).split('/')
         tema_principal = tema_completo[0].strip().casefold()
-        sub_tema = tema_completo[1].strip().casefold() if len(tema_completo) > 1 else "General"
 
         if tema_principal not in estanterias:
-            estanterias[tema_principal] = {}
-        
-        if sub_tema not in estanterias[tema_principal]:
-            estanterias[tema_principal][sub_tema] = []
-            
-        estanterias[tema_principal][sub_tema].append(pub)
+            estanterias[tema_principal] = []
+
+        estanterias[tema_principal].append(pub)
         
     secciones_html = ""
     enlaces_indice_html = ""
@@ -390,21 +385,15 @@ def generar_indice(
         enlaces_indice_html += f'                    <a href="#{tema_slug}" class="library-nav__theme-title" aria-label="Explorar estantería: {tema_html}">{tema_html}</a>\n'
         enlaces_indice_html += f'                    <ul class="library-nav__article-list">\n'
 
-        sub_temas_ordenados = sorted(estanterias[tema_principal].keys())
-        for sub_tema in sub_temas_ordenados:
-            sub_tema_html = html.escape(sub_tema)
-            enlaces_indice_html += f'                        <li class="library-nav__sub-theme">{sub_tema_html}</li>\n'
-            
-            pubs_sub_tema = sorted(estanterias[tema_principal][sub_tema], key=lambda x: (x["tipo"].lower() == "compendio", x["fecha"]), reverse=True)
-            for pub in pubs_sub_tema:
-                pub_slug = pub.get("slug", slugify(pub["titulo"]))
-                pub_titulo_html = html.escape(pub["titulo"])
-                pub_fecha_html = html.escape(str(pub["fecha"]))
-                
-                enlaces_indice_html += f'                        <li class="library-nav__article-item">\n'
-                enlaces_indice_html += f'                            <a href="#{pub_slug}" class="library-nav__article-link" aria-label="Ir al resumen de: {pub_titulo_html} ({pub_fecha_html})">{pub_titulo_html}</a>\n'
-                enlaces_indice_html += f'                        </li>\n'
+        pubs_tema = sorted(estanterias[tema_principal], key=lambda x: (x["tipo"].lower() == "compendio", x["fecha"]), reverse=True)
+        for pub in pubs_tema:
+            pub_slug = pub.get("slug", slugify(pub["titulo"]))
+            pub_titulo_html = html.escape(pub["titulo"])
+            pub_fecha_html = html.escape(str(pub["fecha"]))
 
+            enlaces_indice_html += f'                        <li class="library-nav__article-item">\n'
+            enlaces_indice_html += f'                            <a href="#{pub_slug}" class="library-nav__article-link" aria-label="Ir al resumen de: {pub_titulo_html} ({pub_fecha_html})">{pub_titulo_html}</a>\n'
+            enlaces_indice_html += f'                        </li>\n'
         enlaces_indice_html += f'                    </ul>\n                </li>\n'
                 
         # QUÉ HACE: Inyecta el ID para el ancla, 'scroll-margin-top' y un contenedor flex para alinear el botón "Volver arriba" a la derecha.
@@ -416,36 +405,29 @@ def generar_indice(
                 <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
             </div>"""
 
-        for sub_tema in sub_temas_ordenados:
-            sub_tema_html = html.escape(sub_tema)
-            secciones_html += f'\n            <h3 class="library-subsection__title">{sub_tema_html}</h3>'
-            secciones_html += '\n            <div class="home-grid">'
-            
-            pubs_sub_tema = sorted(estanterias[tema_principal][sub_tema], key=lambda x: (x["tipo"].lower() == "compendio", x["fecha"]), reverse=True)
-            cards_html = ""
-            for pub in pubs_sub_tema:
-                pub_slug = pub.get("slug", slugify(pub["titulo"]))
-                pub_titulo_html = html.escape(pub["titulo"])
-                pub_desc_html = html.escape(pub["descripcion"])
-                pub_fecha_html = html.escape(str(pub["fecha"]))
-                badge_html = html.escape(str(pub["tipo"])).capitalize()
-                fase_badge_html = f" &middot; Fase {html.escape(str(pub['fase']))}" if pub.get("fase") else ""
-                clase_css = "card--booklet" if pub["tipo"].lower() == "cuadernillo" else "card--book"
-                
-                cards_html += f"""
-                <article class="card {clase_css}" id="{pub_slug}">
-                    <header>
-                        <span class="card__meta">{pub_fecha_html} — {badge_html}{fase_badge_html}</span>
-                        <h2 class="card__title"><a href="{pub["url"]}" aria-label="Leer artículo completo: {pub_titulo_html} ({pub_fecha_html})">{pub_titulo_html}</a></h2>
-                    </header>
-                    <div class="card__content">
-                        <p>{pub_desc_html}</p>
-                    </div>
-                </article>"""
-            secciones_html += cards_html
-            secciones_html += '\n            </div>'
+        secciones_html += '\n            <div class="library-grid">'
+        cards_html = ""
+        for pub in pubs_tema:
+            pub_slug = pub.get("slug", slugify(pub["titulo"]))
+            pub_titulo_html = html.escape(pub["titulo"])
+            pub_desc_html = html.escape(pub["descripcion"])
+            pub_fecha_html = html.escape(str(pub["fecha"]))
+            badge_html = html.escape(str(pub["tipo"])).capitalize()
+            fase_badge_html = f" &middot; Fase {html.escape(str(pub['fase']))}" if pub.get("fase") else ""
+            clase_css = "card--booklet" if pub["tipo"].lower() == "cuadernillo" else "card--book"
 
-        secciones_html += '\n        </section>'
+            cards_html += f"""
+            <article class="card {clase_css}" id="{pub_slug}">
+                <header>
+                    <span class="card__meta">{pub_fecha_html} — {badge_html}{fase_badge_html}</span>
+                    <h2 class="card__title"><a href="{pub["url"]}" aria-label="Leer artículo completo: {pub_titulo_html} ({pub_fecha_html})">{pub_titulo_html}</a></h2>
+                </header>
+                <div class="card__content">
+                    <p>{pub_desc_html}</p>
+                </div>
+            </article>"""
+        secciones_html += cards_html
+        secciones_html += '\n            </div>\n        </section>'
                 
     # QUÉ HACE: Inyecta el "Announcement Badge" dinámicamente en las portadas
     badge_html = ""
