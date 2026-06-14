@@ -6,7 +6,7 @@
     <title>Showcase: Inyección Multimedia — mercedev.es</title>
     <meta name="description" content="Prueba de renderizado nativo de imágenes responsivas y vídeos HTML5 en la arquitectura estática.">
     <link rel="canonical" href="https://mercedev.es/proyectos/showcase-inyeccion-multimedia.html">
-    <link rel="stylesheet" href="/css/main.css?v=1781455887">
+    <link rel="stylesheet" href="/css/main.css?v=1781456448">
     <script src="/js/MerciController.js?v=1779793228" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -55,10 +55,10 @@
                 <p>Esta es la primera publicación dentro del nuevo ecosistema <strong>Proyectos Satélite</strong>. El objetivo principal de este documento es poner a prueba las reglas de preprocesado multimedia definidas en <code>merci-publish.py</code> y las clases <abbr title="Merci Explica: Sistema de nomenclatura para clases CSS que facilita la organización y mantenimiento del código." tabindex="0">BEM</abbr> responsivas (<code>multimedia-video</code>).</p>
 <h2>Prueba 1: Imagen Responsiva</h2>
 <p>A continuación, una imagen tradicional. WeasyPrint la convertirá al PDF y el HTML la mostrará sin problemas.</p>
-<p><img alt="Camiseta DevSecOps con logos" src="/assets/images/camiseta-devsecops.webp" /></p>
+<p><img alt="Camiseta DevSecOps con logos" height="2048" loading="lazy" src="/assets/images/camiseta-devsecops.webp" width="2048" /></p>
 <h2>Prueba 2: Reproductor de Vídeo HTML5 (<abbr title="Merci Explica: Construir una casa con lo mínimo e indispensable en lugar de comprar electrodomésticos enormes que gastan energía y nunca se usan." tabindex="0">Zero-Bloat</abbr>)</h2>
 <p>Markdown no soporta vídeos de manera nativa, pero nuestro conversor en <code>merci-publish.py</code> está programado para detectar enlaces a <code>.mp4</code> y <code>.webm</code> disfrazados de imágenes e inyectar el código HTML5 con la clase <code>.multimedia-video</code>, añadiendo un <em>fallback</em> automático para el PDF (que no puede reproducir vídeo).</p>
-<video controls width="100%" preload="metadata" aria-label="Demostración del Agente Merci" class="multimedia-video"><source src="/assets/videos/funcionamiento-merci-bibliotecario.mp4">Tu navegador no soporta video.</video>
+<video controls width="100%" preload="none" aria-label="Demostración del Agente Merci" class="multimedia-video"><source src="/assets/videos/funcionamiento-merci-bibliotecario.mp4"><track kind="captions" src="" srclang="es" label="Español">Tu navegador no soporta video.</video>
 <div class="video-fallback">[Vídeo: Demostración del Agente Merci] <em>(Disponible en la versión web)</em></div>
 
 <hr />

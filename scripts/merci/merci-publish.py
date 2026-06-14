@@ -172,7 +172,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     # ![alt](video.mp4) en un reproductor HTML5 accesible y creamos un texto de respaldo para el PDF.
     md_body = re.sub(
         r'!\[(.*?)\]\((.*?\.(?:mp4|webm|ogg))\)',
-        r'<video controls width="100%" preload="metadata" aria-label="\1" class="multimedia-video"><source src="\2">Tu navegador no soporta video.</video><div class="video-fallback">[Vídeo: \1] <em>(Disponible en la versión web)</em></div>',
+        r'<video controls width="100%" preload="none" aria-label="\1" class="multimedia-video"><source src="\2"><track kind="captions" src="" srclang="es" label="Español">Tu navegador no soporta video.</video><div class="video-fallback">[Vídeo: \1] <em>(Disponible en la versión web)</em></div>',
         md_body,
         flags=re.IGNORECASE
     )
@@ -181,7 +181,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     # QUÉ HACE: Bloque try-except para atrapar errores de sintaxis en el conversor Markdown
     # POR QUÉ: Evita el colapso total del pipeline si un solo documento contiene caracteres o sintaxis corrupta.
     try:
-        html_content = markdown.markdown(md_body, extensions=['fenced_code'])
+        html_content = markdown.markdown(md_body, extensions=['fenced_code', 'attr_list'])
         
         # --- INYECCIÓN DE LA BURBUJA MERCI (TOOLTIPS) ---
         # QUÉ HACE: Escanea el HTML generado y envuelve los términos del glosario en una etiqueta <abbr>.

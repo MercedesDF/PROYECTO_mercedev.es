@@ -340,10 +340,10 @@
 - [x] Refactorizar `merci-styles.py` para compilación SASS universal.
 
 ### Fase 6: Refinamiento de Textos y Experiencia Documental
-- [ ] Revisión, reescritura y mejora de los textos en todas las páginas del ecosistema (portada, sobre mí, contacto, biblioteca, art de coté, tienda).
+- [x] Revisión, reescritura y mejora de los textos en todas las páginas del ecosistema (portada, sobre mí, contacto, biblioteca, art de coté, tienda).
 - [x] Revisión de cuadernillos para añadir la sección "Merci Explica" y aclarar conceptos técnicos.
 - [x] Eliminación de exceso de anglicismos (Soberanía del Castellano) o enlazado dinámico de términos al Glosario Técnico.
-- [ ] Refinamiento de la presentación visual de la Biblioteca (reestructuración de formatos y layout) para ayudar a procesar la alta densidad de información.
+- [x] Refinamiento de la presentación visual de la Biblioteca (reestructuración de formatos y layout) para ayudar a procesar la alta densidad de información.
 - [x] Corrección de desbordamiento CSS (overflow) en bloques de código para vistas móviles y PDF (WeasyPrint).
 - [ ] Creación de referencias cruzadas sólidas entre los distintos cuadernillos de la Biblioteca.
 

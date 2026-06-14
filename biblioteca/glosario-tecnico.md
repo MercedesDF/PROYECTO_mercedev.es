@@ -10,7 +10,7 @@ fecha: "2026-06-14"
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 142 términos consolidados (Última actualización de datos: 2026-06-14 18:51).
+> **Versión de control:** 142 términos consolidados (Última actualización de datos: 2026-06-14 19:00).
 
 ## Índice Alfabético
 
@@ -101,7 +101,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-05.md: L62
 - bitacora-mercedev-epic-06.md: L284
 - bitacora-mercedev-epic-07.md: L414
-- bitacora-mercedev-epic-08.md: L27
+- bitacora-mercedev-epic-08.md: L40
 - checklist-hardening.md: L57
 - ciclo-de-vida-contenidos.md: L9
 - instrucciones.md: L25
@@ -133,7 +133,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-04.md: L120
 - bitacora-mercedev-epic-06.md: L309
 - bitacora-mercedev-epic-07.md: L223
-- bitacora-mercedev-epic-08.md: L17
+- bitacora-mercedev-epic-08.md: L30
 - checklist-hardening.md: L80
 
 ---
@@ -145,7 +145,7 @@ fecha: "2026-06-14"
 💡 **Merci Explica:** *Cadena de producción rápida, asegurando que los cambios se integren y desplieguen automáticamente.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-08.md: L324
+- bitacora-mercedev-epic-08.md: L337
 
 ---
 ### CLI-First
@@ -171,7 +171,7 @@ fecha: "2026-06-14"
 - README.md: L48
 - bitacora-mercedev-epic-01.md: L160
 - bitacora-mercedev-epic-07.md: L548
-- bitacora-mercedev-epic-08.md: L211
+- bitacora-mercedev-epic-08.md: L12
 
 ---
 ### CMS
@@ -189,7 +189,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-05.md: L266
 - bitacora-mercedev-epic-06.md: L97
 - bitacora-mercedev-epic-07.md: L464
-- bitacora-mercedev-epic-08.md: L16
+- bitacora-mercedev-epic-08.md: L29
 - deployment-playbook.md: L34
 - flujo-publicacion-sop.md: L92
 - instrucciones.md: L96
@@ -235,7 +235,7 @@ fecha: "2026-06-14"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-03.md: L1531
-- bitacora-mercedev-epic-08.md: L688
+- bitacora-mercedev-epic-08.md: L701
 
 ---
 ### CRF
@@ -353,7 +353,7 @@ fecha: "2026-06-14"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-06.md: L75
-- bitacora-mercedev-epic-08.md: L497
+- bitacora-mercedev-epic-08.md: L510
 
 ---
 ### DevSecOps
@@ -371,7 +371,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-04.md: L79
 - bitacora-mercedev-epic-06.md: L470
 - bitacora-mercedev-epic-07.md: L237
-- bitacora-mercedev-epic-08.md: L83
+- bitacora-mercedev-epic-08.md: L96
 - bitacora-merci-boilerplate.md: L17
 - checklist-hardening.md: L49
 - ciclo-de-vida-contenidos.md: L16
@@ -393,7 +393,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-03.md: L189
 - bitacora-mercedev-epic-05.md: L74
 - bitacora-mercedev-epic-07.md: L65
-- bitacora-mercedev-epic-08.md: L299
+- bitacora-mercedev-epic-08.md: L312
 - checklist-hardening.md: L54
 - flujo-publicacion-sop.md: L72
 - instrucciones.md: L68
@@ -411,7 +411,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-03.md: L215
 - bitacora-mercedev-epic-06.md: L284
 - bitacora-mercedev-epic-07.md: L528
-- bitacora-mercedev-epic-08.md: L576
+- bitacora-mercedev-epic-08.md: L589
 - checklist-hardening.md: L7
 - instrucciones.md: L26
 
@@ -464,7 +464,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-05.md: L98
 - bitacora-mercedev-epic-06.md: L57
 - bitacora-mercedev-epic-07.md: L703
-- bitacora-mercedev-epic-08.md: L225
+- bitacora-mercedev-epic-08.md: L238
 
 ---
 ### E2EE
@@ -640,7 +640,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-01.md: L142
 - bitacora-mercedev-epic-02.md: L41
 - bitacora-mercedev-epic-03.md: L1985
-- bitacora-mercedev-epic-08.md: L227
+- bitacora-mercedev-epic-08.md: L240
 
 ---
 ### IEEE
@@ -728,7 +728,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-04.md: L130
 - bitacora-mercedev-epic-06.md: L77
 - bitacora-mercedev-epic-07.md: L185
-- bitacora-mercedev-epic-08.md: L235
+- bitacora-mercedev-epic-08.md: L248
 
 ---
 ### LEMP
@@ -835,7 +835,7 @@ fecha: "2026-06-14"
 💡 **Merci Explica:** *Cronómetro que mide cuánto tiempo tarda en identificar un problema.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-08.md: L239
+- bitacora-mercedev-epic-08.md: L252
 
 ---
 ### MVP
@@ -945,7 +945,7 @@ fecha: "2026-06-14"
 **Apariciones en Bitácoras:**
 - README.md: L250
 - bitacora-mercedev-epic-07.md: L671
-- bitacora-mercedev-epic-08.md: L264
+- bitacora-mercedev-epic-08.md: L277
 - instrucciones.md: L99
 
 ---
@@ -1005,7 +1005,7 @@ fecha: "2026-06-14"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L566
 - bitacora-mercedev-epic-02.md: L221
-- bitacora-mercedev-epic-08.md: L269
+- bitacora-mercedev-epic-08.md: L282
 
 ---
 ### PR
@@ -1052,7 +1052,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-05.md: L81
 - bitacora-mercedev-epic-06.md: L53
 - bitacora-mercedev-epic-07.md: L86
-- bitacora-mercedev-epic-08.md: L175
+- bitacora-mercedev-epic-08.md: L188
 - flujo-publicacion-sop.md: L21
 - instrucciones.md: L52
 - mantenimiento-boilerplate-sop.md: L48
@@ -1125,7 +1125,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-01.md: L1203
 - bitacora-mercedev-epic-02.md: L1177
 - bitacora-mercedev-epic-03.md: L1531
-- bitacora-mercedev-epic-08.md: L560
+- bitacora-mercedev-epic-08.md: L573
 
 ---
 ### RPM
@@ -1188,7 +1188,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-04.md: L98
 - bitacora-mercedev-epic-06.md: L113
 - bitacora-mercedev-epic-07.md: L269
-- bitacora-mercedev-epic-08.md: L59
+- bitacora-mercedev-epic-08.md: L72
 - instrucciones.md: L25
 
 ---
@@ -1204,7 +1204,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-01.md: L3501
 - bitacora-mercedev-epic-02.md: L263
 - bitacora-mercedev-epic-03.md: L61
-- bitacora-mercedev-epic-08.md: L484
+- bitacora-mercedev-epic-08.md: L497
 - instrucciones.md: L31
 
 ---
@@ -1257,7 +1257,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-03.md: L61
 - bitacora-mercedev-epic-06.md: L454
 - bitacora-mercedev-epic-07.md: L116
-- bitacora-mercedev-epic-08.md: L320
+- bitacora-mercedev-epic-08.md: L333
 - instrucciones.md: L4
 
 ---
@@ -1335,7 +1335,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-05.md: L156
 - bitacora-mercedev-epic-06.md: L46
 - bitacora-mercedev-epic-07.md: L560
-- bitacora-mercedev-epic-08.md: L36
+- bitacora-mercedev-epic-08.md: L49
 - flujo-publicacion-sop.md: L2
 - mantenimiento-boilerplate-sop.md: L1
 
@@ -1353,7 +1353,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-03.md: L347
 - bitacora-mercedev-epic-04.md: L46
 - bitacora-mercedev-epic-07.md: L159
-- bitacora-mercedev-epic-08.md: L217
+- bitacora-mercedev-epic-08.md: L10
 - deployment-playbook.md: L51
 
 ---
@@ -1416,7 +1416,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-03.md: L325
 - bitacora-mercedev-epic-06.md: L173
 - bitacora-mercedev-epic-07.md: L522
-- bitacora-mercedev-epic-08.md: L34
+- bitacora-mercedev-epic-08.md: L47
 - ciclo-de-vida-contenidos.md: L49
 - instrucciones.md: L38
 - mantenimiento-boilerplate-sop.md: L5
@@ -1449,7 +1449,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-05.md: L77
 - bitacora-mercedev-epic-06.md: L48
 - bitacora-mercedev-epic-07.md: L135
-- bitacora-mercedev-epic-08.md: L235
+- bitacora-mercedev-epic-08.md: L248
 - checklist-hardening.md: L23
 - integracion-wordpress.md: L69
 
@@ -1533,7 +1533,7 @@ fecha: "2026-06-14"
 💡 **Merci Explica:** *Etiqueta única que distingue a cada elemento en una colección.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-08.md: L234
+- bitacora-mercedev-epic-08.md: L247
 
 ---
 ### URI
@@ -1591,7 +1591,7 @@ fecha: "2026-06-14"
 💡 **Merci Explica:** *Coordinador global que asegura que todos los componentes de Internet funcionen juntos de manera consistente.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-08.md: L100
+- bitacora-mercedev-epic-08.md: L113
 
 ---
 ### WAF
@@ -1648,7 +1648,7 @@ fecha: "2026-06-14"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L609
-- bitacora-mercedev-epic-08.md: L665
+- bitacora-mercedev-epic-08.md: L678
 
 ---
 ### WLW
@@ -1725,7 +1725,7 @@ fecha: "2026-06-14"
 - bitacora-mercedev-epic-03.md: L125
 - bitacora-mercedev-epic-06.md: L125
 - bitacora-mercedev-epic-07.md: L33
-- bitacora-mercedev-epic-08.md: L186
+- bitacora-mercedev-epic-08.md: L199
 - instrucciones.md: L97
 
 ---

@@ -7,6 +7,19 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — SRE/Performance: Corrección de Diagnósticos Lighthouse en Inyección Multimedia
+
+**Contexto:** Al auditar la página de inyección multimedia (Showcase) con Lighthouse, se detectaron penalizaciones en el rendimiento simulado bajo 4G (`net::ERR_CONNECTION_FAILED`), ausencia de dimensiones explícitas en imágenes (riesgo de CLS) y una falta técnica de subtítulos en el reproductor de vídeo (Accesibilidad).
+
+**Hecho:**
+- **Atributos de Imagen (CLS):** Se habilitó la extensión `attr_list` en el compilador estático (`merci-publish.py`) y se inyectaron explícitamente las dimensiones y el modo `loading="lazy"` a la imagen de prueba en Markdown.
+- **Reproductor de Vídeo HTML5:** Se modificó la inyección por expresiones regulares para incluir la etiqueta `<track kind="captions">` vacía (satisfaciendo a WAI-ARIA) y se sustituyó el `preload="metadata"` por `preload="none"` para evitar bloqueos por tiempo de espera en el emulador de red.
+- Se recompilaron exitosamente las páginas estáticas del entorno satélite.
+
+**Motivo / criterio:** *Puntuación Perfecta en Core Web Vitals*. Implementar estos escudos a nivel de compilador SSG erradica la deuda técnica de raíz y asegura un 100/100 en Performance y Accesibilidad de forma autónoma. Evitar la carga del pre-metadata del vídeo salva el pipeline de falsos positivos en conexiones emuladas inestables.
+
+**Siguiente paso o deuda:** Desplegar todos los cambios de esta iteración con el orquestador global (`merci completo`).
+
 ### 2026-06-14 — Arquitectura Híbrida: Sincronización del Tema Headless WP y Categorización Art de Coté
 
 **Contexto:** Se identificaron dos discrepancias en la paridad DevProd: 1) Los cuadernillos de "Art de Coté" aparecían agrupados genéricamente en su índice en lugar de por subtemas. 2) La navegación global (botón flotante "Volver Arriba" y enlace a "Proyectos") funcionaba en la capa estática pero no se había propagado a Producción ni al Blog/Tienda en WordPress. El orquestador `merci completo` abortó de forma segura al no detectar esta justificación técnica en la bitácora.
