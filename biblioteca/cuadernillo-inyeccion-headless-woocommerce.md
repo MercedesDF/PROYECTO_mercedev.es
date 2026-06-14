@@ -1,7 +1,8 @@
 ---
 titulo: "Inyección Headless en WooCommerce con Python Puro"
 descripcion: "Cómo publicar productos en la tienda desde la terminal local sin usar el panel de administración de WordPress ni dependencias pesadas."
-tema: "Arquitectura y Rendimiento"
+tema: "Desarrollo y Arquitectura"
+subtema: "Rendimiento"
 estado: "publicado"
 tipo: "cuadernillo"
 alt_portada: "Esquema de inyección de datos Headless hacia la API de WooCommerce."

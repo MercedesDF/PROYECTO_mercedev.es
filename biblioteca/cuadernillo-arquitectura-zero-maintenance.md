@@ -1,7 +1,8 @@
 ---
 titulo: "Arquitectura Zero Maintenance: Compilación Incremental y st_mtime"
 descripcion: "Evolución del pipeline maestro DevSecOps. De la fuerza bruta del Clean Build a la eficiencia del Mark & Sweep y la auditoría física del sistema operativo."
-tema: "DevSecOps y Gobernanza"
+tema: "DevSecOps e Infraestructura"
+subtema: "Gobernanza"
 estado: "publicado"
 tipo: "cuadernillo"
 fecha: "2026-05-20"

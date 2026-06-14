@@ -4,7 +4,8 @@ descripcion: "Optimización de WooCommerce para un Tiempo de Bloqueo Total de 0m
 estado: "publicado"
 estado_social: "publicado_linkedin"
 orden_social: 2
-tema: "Blog"
+tema: "Varios"
+subtema: "Blog"
 alt_portada: "Ejemplo de tienda online híbrida con velocidad instantánea"
 fase: "Epic 6 - Fase 1"
 fecha: "2026-05-26"

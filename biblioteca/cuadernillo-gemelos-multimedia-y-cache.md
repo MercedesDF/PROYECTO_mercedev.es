@@ -1,7 +1,8 @@
 ---
 titulo: "Invalidación Dinámica de Caché y Patrón de Gemelos Multimedia"
 descripcion: "Cómo resolver la persistencia visual de Nginx (max-age=10 años) durante la instanciación de clones efímeros estáticos sin depender de backend."
-tema: "DevSecOps y Gobernanza"
+tema: "DevSecOps e Infraestructura"
+subtema: "Gobernanza"
 estado: "publicado"
 tipo: "cuadernillo"
 alt_portada: "Esquema conceptual de la inyección de timestamps para romper la caché de imágenes estáticas."

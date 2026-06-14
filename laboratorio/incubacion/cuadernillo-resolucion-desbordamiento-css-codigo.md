@@ -1,7 +1,8 @@
 ---
 titulo: "Contención Visual y Desbordamiento en Bloques de Código"
 descripcion: "Resolución del bug de desbordamiento horizontal en etiquetas pre y code para garantizar la usabilidad en dispositivos móviles y la exportación perfecta a PDF."
-tema: "Interfaz de Usuario y Rendimiento"
+tema: "Desarrollo y Arquitectura"
+subtema: "Frontend"
 fecha: "2026-06-13"
 fase: "Epic 8 - Fase 6"
 estado: "incubacion"

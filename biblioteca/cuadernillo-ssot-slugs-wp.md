@@ -1,7 +1,8 @@
 ---
 titulo: "Única Fuente de Verdad: Resolviendo la Deriva de Slugs entre SSG y CMS"
 estado: "publicado"
-tema: "Arquitectura de Software"
+tema: "Desarrollo y Arquitectura"
+subtema: "Arquitectura"
 tipo: "cuadernillo"
 descripcion: "Cómo resolver los conflictos de nomenclatura de URIs cuando se integran generadores estáticos (Python) con motores dinámicos (WordPress)."
 alt_portada: "Esquema conceptual mostrando a Python consultando la API de WordPress antes de generar un archivo físico."

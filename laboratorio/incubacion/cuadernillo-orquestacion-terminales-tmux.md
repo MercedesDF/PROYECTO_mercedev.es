@@ -1,7 +1,8 @@
 ---
 titulo: "Multiplexación de Terminales: Bootstrapper con Tmux"
 descripcion: "Cómo reducir la carga cognitiva al inicializar infraestructuras DevSecOps complejas usando Tmux."
-tema: "DevSecOps y Automatización"
+tema: "Productividad y Gobernanza"
+subtema: "Bootstrapping"
 fecha: "2026-06-12"
 fase: "Epic 8 - Fase 1"
 estado: "incubacion"

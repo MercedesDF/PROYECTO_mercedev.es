@@ -1,7 +1,8 @@
 ---
 titulo: "Gestión de la Protección de Ramas y Force Push"
 descripcion: "Nota preliminar sobre la colisión entre la protección de ramas en GitHub y la estrategia de force push para ramashuérfanas."
-tema: "DevSecOps y Gobernanza"
+tema: "DevSecOps e Infraestructura"
+subtema: "Gobernanza"
 fecha: "2026-05-08"
 fase: "Epic 1 - Fase 11"
 estado: "publicado"

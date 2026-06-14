@@ -4,7 +4,8 @@ descripcion: "La automatización no nace, se construye paso a paso. Análisis de
 estado: "publicado"
 estado_social: "publicado_linkedin"
 orden_social: 1
-tema: "Blog"
+tema: "Varios"
+subtema: "Blog"
 fase: "Epic 7 - Fase 1"
 fecha: "2026-05-27"
 linkedin_id: "urn:li:share:7465673226749136896"

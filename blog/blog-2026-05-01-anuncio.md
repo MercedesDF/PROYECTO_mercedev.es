@@ -1,7 +1,8 @@
 ---
 titulo: "Título de la entrada del Blog"
 estado: "publicado"
-tema: "Blog"
+tema: "Varios"
+subtema: "Blog"
 descripcion: "Demostración en vivo de nuestra nueva arquitectura DevSecOps con publicación Headless automatizada."
 alt_portada: "Captura de pantalla de la terminal ejecutando la automatización Headless hacia LinkedIn."
 fecha: "2026-05-01"

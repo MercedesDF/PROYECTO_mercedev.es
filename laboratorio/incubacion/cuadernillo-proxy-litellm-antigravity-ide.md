@@ -1,7 +1,8 @@
 ---
 titulo: "Enrutamiento Híbrido del IDE con LiteLLM Proxy"
 descripcion: "Implementación del patrón Proxy para dotar al editor de código de IA local ilimitada y contingencia en la nube."
-tema: "Inteligencia Artificial y Gobernanza"
+tema: "Inteligencia Artificial y Agentes"
+subtema: "Gobernanza"
 fecha: "2026-06-12"
 fase: "Epic 2 - Fase 4"
 estado: "incubacion"

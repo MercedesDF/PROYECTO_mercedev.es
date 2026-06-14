@@ -1,7 +1,8 @@
 ---
 titulo: "Prevención de Fuga de Credenciales en Integración Continua Local"
 descripcion: "Por qué un archivo .gitignore no es suficiente cuando automatizas commits y cómo crear un escudo activo."
-tema: "DevSecOps y Gobernanza"
+tema: "DevSecOps e Infraestructura"
+subtema: "Gobernanza"
 estado: "publicado"
 tipo: "cuadernillo"
 alt_portada: "Diagrama ilustrando el bloqueo de un token de seguridad en el control de versiones."

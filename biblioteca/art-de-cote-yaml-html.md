@@ -1,7 +1,8 @@
 ---
 titulo: "El límite del YAML: Comentarios HTML como almacenamiento de metadatos"
 estado: "publicado"
-tema: "Arquitectura de software"
+tema: "Desarrollo y Arquitectura"
+subtema: "Arquitectura"
 tipo: "cuadernillo"
 descripcion: "Cómo superar las limitaciones de parseo en YAML inyectando metadatos multilínea dentro de comentarios HTML nativos."
 alt_portada: "Fragmento de código mostrando un comentario HTML utilizado como almacenamiento de datos."
