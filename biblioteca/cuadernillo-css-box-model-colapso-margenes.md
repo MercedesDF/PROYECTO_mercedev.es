@@ -21,4 +21,4 @@ Se neutralizó el margen superior (`margin-top: 0`) para los encabezados secunda
 
 ## El Aprendizaje / Deuda Técnica
 
-En la especificación del W3C, los márgenes (margin) pueden colapsar entre hermanos adyacentes, pero los rellenos internos (padding) nunca lo hacen. El diseño asimétrico exige una precisión matemática milimétrica; estandarizar los modelos de caja de todos los elementos para que usen `padding` erradica el comportamiento nativo impredecible del navegador, garantizando que los elementos arranquen exactamente en el mismo píxel horizontal independientemente de su etiqueta.
+En la especificación del Consorcio World Wide Web (W3C), los márgenes (margin) pueden colapsar entre hermanos adyacentes, pero los rellenos internos (padding) nunca lo hacen. El diseño asimétrico exige una precisión matemática milimétrica; estandarizar los modelos de caja de todos los elementos para que usen `padding` erradica el comportamiento nativo impredecible del navegador, garantizando que los elementos arranquen exactamente en el mismo píxel horizontal independientemente de su etiqueta.

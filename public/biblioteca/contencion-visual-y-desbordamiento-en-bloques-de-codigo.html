@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fix: Sincronización de DLP en .gitignore para do... — mercedev.es</title>
-    <meta name="description" content="Se añadió explícitamente el directorio &#x27;docs/matriz/&#x27; al archivo &#x27;.gitignore&#x27; para evitar que Git rastreara los archivos automáticamente y bloquear...">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz.html">
+    <title>Contención Visual y Desbordamiento en Bloques de... — mercedev.es</title>
+    <meta name="description" content="Resolución del bug de desbordamiento horizontal en etiquetas pre y code para garantizar la usabilidad en dispositivos móviles y la exportación perf...">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/contencion-visual-y-desbordamiento-en-bloques-de-codigo.html">
     <link rel="stylesheet" href="/css/main.css?v=1781454318">
     <script src="/js/MerciController.js?v=1779793228" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Fix: Sincronizaci\u00f3n de DLP en .gitignore para docs/matriz",
-      "description": "Se a\u00f1adi\u00f3 expl\u00edcitamente el directorio 'docs/matriz/' al archivo '.gitignore' para evitar que Git rastreara los archivos autom\u00e1ticamente y bloqueara el pipeline por DLP.",
-      "url": "https://mercedev.es/biblioteca/fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz.html"
+      "headline": "Contenci\u00f3n Visual y Desbordamiento en Bloques de C\u00f3digo",
+      "description": "Resoluci\u00f3n del bug de desbordamiento horizontal en etiquetas pre y code para garantizar la usabilidad en dispositivos m\u00f3viles y la exportaci\u00f3n perfecta a PDF.",
+      "url": "https://mercedev.es/biblioteca/contencion-visual-y-desbordamiento-en-bloques-de-codigo.html"
     }
     </script>
 </head>
@@ -48,16 +48,22 @@
         <article class="card card--booklet">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                    <h1 class="home-card__title--highlight">Fix: Sincronización de DLP en .gitignore para docs/matriz</h1>
-                <a href="/descargas/fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+                    <h1 class="home-card__title--highlight">Contención Visual y Desbordamiento en Bloques de Código</h1>
+                <a href="/descargas/contencion-visual-y-desbordamiento-en-bloques-de-codigo.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Se detectó un fallo bloqueante en bucle con la carpeta privada <code>docs/matriz</code>. A pesar de purgar la caché de Git con <code>git rm --cached</code>, los archivos volvían a aparecer al hacer el siguiente <code>merci commit</code>, lo que provocaba que el Agente Auditor volviera a saltar bloqueando el pipeline por <abbr title="Merci Explica: Mecanismo de seguridad digital que actúa como un guardián vigilante para evitar la pérdida accidental o intencional de datos críticos." tabindex="0">DLP</abbr>.</p>
+<p>Durante las pruebas de calidad (<abbr title="Merci Explica: Inspector de alta precisión que garantiza que todo funcione como debe." tabindex="0">QA</abbr>) de la Biblioteca de cuadernillos, se detectó que los fragmentos de código, envueltos en las etiquetas semánticas <code>&lt;pre&gt;</code> y <code>&lt;code&gt;</code>, no respetaban los límites del contenedor principal (<code>viewport</code>).</p>
+<p>Esto provocaba un doble problema crítico:
+1. <strong>En dispositivos móviles:</strong> El texto preformateado estiraba el ancho total de la página de forma artificial, forzando la aparición de un incómodo <em>scroll</em> horizontal global, lo que penalizaba las métricas de usabilidad de Core Web Vitals (<abbr title="Merci Explica: Mide cuánto saltan los textos o imágenes mientras la página web termina de cargar." tabindex="0">CLS</abbr> y Mobile Friendliness).
+2. <strong>En la exportación documental:</strong> Al utilizar motores de renderizado como WeasyPrint para generar las versiones PDF del ecosistema, las líneas de código largas se truncaban, ocultando información vital fuera de los márgenes del papel.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se añadió explícitamente el directorio <code>docs/matriz/</code> al archivo <code>.gitignore</code>. Esta acción aseguró que Git no rastreara los archivos automáticamente, lo que evitó que el linter <code>merci-audit.py</code> continuara bloqueando el pipeline con un error <code>BANNED_TRACKED_FILE</code>.</p>
+<p>Se aplicó un parche a nivel arquitectónico en la hoja de estilos base (<code>src/scss/base/_typography.scss</code>), estableciendo reglas de contención rígidas e implacables sobre ambas etiquetas semánticas:</p>
+<p>Se inyectaron las directivas <code>white-space: pre-wrap;</code> y <code>word-break: break-word;</code>. Esta dupla es el corazón de la solución: instruye al navegador (y al motor de renderizado PDF) para que preserve los espacios y sangrías del código original, pero forzando un salto de línea de forma agresiva si la cadena de texto amenaza con romper el margen físico del contenedor.</p>
+<p>Como capa de seguridad adicional (<em>Graceful Degradation</em>), se añadió <code>overflow-x: auto;</code> y <code>max-width: 100%;</code> de forma exclusiva a la etiqueta <code>&lt;pre&gt;</code>. Así, si por alguna limitación estructural el salto de línea fallase, el bloque generaría su propia barra de desplazamiento horizontal independiente, protegiendo la estructura principal del documento móvil.</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Esta solución demuestra la importancia de la Defensa en Profundidad (Defense in Depth). El <code>.gitignore</code> es el escudo pasivo que evita que los archivos sean rastreados accidentalmente, mientras que el linter es el escudo activo que detecta y bloquea posibles fugas de datos. Es crucial que ambos trabajen en tándem para evitar ciclos infinitos de falsos positivos y garantizar la seguridad del flujo de trabajo.</p>
+<p>El Diseño Web Responsivo (<em>Responsive Web Design</em>) a menudo olvida las etiquetas técnicas. Este hallazgo refuerza la metodología de "Especificación como Fuente" (<em>Spec as Source</em>): los estilos CSS no solo deben embellecer el HTML, sino protegerlo bajo cualquier contexto de lectura.</p>
+<p>Proveer reglas CSS agnósticas que cubran tanto las ventanas de los navegadores móviles como el renderizado de impresión física (PDFs estáticos) consolida la dualidad de nuestra documentación. Hemos erradicado un <em>bug</em> silencioso y recurrente sin añadir lógica pesada en JavaScript, manteniendo un rendimiento puro de 100/100.</p>
             </div>
         </article>
     </main>

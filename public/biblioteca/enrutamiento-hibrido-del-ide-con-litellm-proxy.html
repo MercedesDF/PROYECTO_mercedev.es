@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fix: Sincronización de DLP en .gitignore para do... — mercedev.es</title>
-    <meta name="description" content="Se añadió explícitamente el directorio &#x27;docs/matriz/&#x27; al archivo &#x27;.gitignore&#x27; para evitar que Git rastreara los archivos automáticamente y bloquear...">
-    <link rel="canonical" href="https://mercedev.es/biblioteca/fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz.html">
+    <title>Enrutamiento Híbrido del IDE con LiteLLM Proxy — mercedev.es</title>
+    <meta name="description" content="Implementación del patrón Proxy para dotar al editor de código de IA local ilimitada y contingencia en la nube.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/enrutamiento-hibrido-del-ide-con-litellm-proxy.html">
     <link rel="stylesheet" href="/css/main.css?v=1781454318">
     <script src="/js/MerciController.js?v=1779793228" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Fix: Sincronizaci\u00f3n de DLP en .gitignore para docs/matriz",
-      "description": "Se a\u00f1adi\u00f3 expl\u00edcitamente el directorio 'docs/matriz/' al archivo '.gitignore' para evitar que Git rastreara los archivos autom\u00e1ticamente y bloqueara el pipeline por DLP.",
-      "url": "https://mercedev.es/biblioteca/fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz.html"
+      "headline": "Enrutamiento H\u00edbrido del IDE con LiteLLM Proxy",
+      "description": "Implementaci\u00f3n del patr\u00f3n Proxy para dotar al editor de c\u00f3digo de IA local ilimitada y contingencia en la nube.",
+      "url": "https://mercedev.es/biblioteca/enrutamiento-hibrido-del-ide-con-litellm-proxy.html"
     }
     </script>
 </head>
@@ -48,16 +48,21 @@
         <article class="card card--booklet">
             <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
             <header>
-                    <h1 class="home-card__title--highlight">Fix: Sincronización de DLP en .gitignore para docs/matriz</h1>
-                <a href="/descargas/fix-sincronizacion-de-dlp-en-gitignore-para-docsmatriz.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+                    <h1 class="home-card__title--highlight">Enrutamiento Híbrido del IDE con LiteLLM Proxy</h1>
+                <a href="/descargas/enrutamiento-hibrido-del-ide-con-litellm-proxy.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
             </header>
             <div class="card__content">
                 <h2>El Desafío (Síntoma)</h2>
-<p>Se detectó un fallo bloqueante en bucle con la carpeta privada <code>docs/matriz</code>. A pesar de purgar la caché de Git con <code>git rm --cached</code>, los archivos volvían a aparecer al hacer el siguiente <code>merci commit</code>, lo que provocaba que el Agente Auditor volviera a saltar bloqueando el pipeline por <abbr title="Merci Explica: Mecanismo de seguridad digital que actúa como un guardián vigilante para evitar la pérdida accidental o intencional de datos críticos." tabindex="0">DLP</abbr>.</p>
+<p>Ante la transición a Antigravity <abbr title="Merci Explica: Herramienta única para programadores que facilita la creación y mantenimiento de software." tabindex="0">IDE</abbr>, surgió un doble problema. Por un lado, depender exclusivamente de agentes en la nube (como Gemini) generaba fricción por los límites de cuota (Errores HTTP 429 por exceso de peticiones) y saturación de contexto al analizar repositorios enteros (Context Window Stuffing). Por otro lado, forzar un aislamiento 100% local renunciaría a la potencia cognitiva de los grandes modelos de frontera de la nube para tareas complejas.</p>
 <h2>La Maniobra (Lógica)</h2>
-<p>Se añadió explícitamente el directorio <code>docs/matriz/</code> al archivo <code>.gitignore</code>. Esta acción aseguró que Git no rastreara los archivos automáticamente, lo que evitó que el linter <code>merci-audit.py</code> continuara bloqueando el pipeline con un error <code>BANNED_TRACKED_FILE</code>.</p>
+<p>Se adoptó el patrón de <strong>Enrutamiento de Modelos (Model Routing)</strong> utilizando LiteLLM no solo como librería dentro de scripts de Python, sino como un <strong>Servidor Proxy Local</strong> independiente a la escucha en el puerto 4000.</p>
+<p>Se configuró un archivo maestro de infraestructura (<code>router.yaml</code>) que define una lista de prioridades para el tráfico de Inteligencia Artificial:
+1. <strong>Intento Primario:</strong> Interfaz de Programación de Aplicaciones (API) de Gemini (Nube, para máxima inteligencia).
+2. <strong>Plan de Contingencia (Fallback):</strong> Motor local Qwen 2.5 Coder corriendo en LM Studio (<code>localhost:1234</code>).</p>
+<p>Finalmente, se inyectó la configuración en los ajustes de espacio de trabajo del IDE (<code>.vscode/settings.json</code>) para que Antigravity apunte siempre a nuestro proxy local, desactivando la telemetría corporativa y estableciendo un Presupuesto de Recursos estricto (4096 tokens).</p>
 <h2>El Aprendizaje / Deuda Técnica</h2>
-<p>Esta solución demuestra la importancia de la Defensa en Profundidad (Defense in Depth). El <code>.gitignore</code> es el escudo pasivo que evita que los archivos sean rastreados accidentalmente, mientras que el linter es el escudo activo que detecta y bloquea posibles fugas de datos. Es crucial que ambos trabajen en tándem para evitar ciclos infinitos de falsos positivos y garantizar la seguridad del flujo de trabajo.</p>
+<p>Aplicar el Principio de Separación de Responsabilidades (Separation of Concerns) a la IA transforma radicalmente la forma de trabajar. Al extraer la lógica de reintentos y enrutamiento fuera del propio editor de código y delegarlo en LiteLLM (como una "Sala de Máquinas" global), centralizamos la Única Fuente de Verdad (<abbr title="Merci Explica: Establecer una sola ley o un único documento oficial de donde todo el mundo deba sacar la información para que nunca haya datos contradictorios." tabindex="0">SSOT</abbr>). </p>
+<p>La desarrolladora obtiene una experiencia interactiva sin fricciones: si la nube falla o Google agota el saldo, el proxy intercepta el fallo y salta al hardware local en milisegundos de forma totalmente transparente (Degradación Elegante), garantizando la continuidad del proyecto a coste cero.</p>
             </div>
         </article>
     </main>

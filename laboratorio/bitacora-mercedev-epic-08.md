@@ -662,3 +662,18 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 **Hecho:** Se añadió la "Fase 6: Refinamiento de Textos y Experiencia Documental" al Roadmap de la Épica 8.
 
 **Motivo / criterio:** *Accesibilidad Cognitiva y DevRel*. De nada sirve un sistema avanzado si la documentación es impenetrable. Limpiar los anglicismos, enlazar al glosario, reestructurar visualmente la biblioteca y expandir las analogías ("Merci Explica") garantizará que el conocimiento técnico se transmita con claridad a cualquier lector.
+
+### 2026-06-14 — UX/Publishing: Consolidación de UI global, Shift-Left SEO y validación DevRel
+
+**Contexto:** Tras la creación de la nueva sección "Proyectos Satélite", se detectaron varios desajustes en la experiencia de usuario (UX) y en la canalización del ecosistema: la navegación principal iluminaba erróneamente la "Biblioteca" al visitar los proyectos, la auditoría SEO arrojaba casi 80 advertencias por metadatos (títulos y descripciones) excesivamente largos, y faltaban botones de usabilidad básicos (Back to Top). Además, se procedió a revisar la incubadora de blogs generados a partir de los cuadernillos para asegurar que la estrategia de distribución estaba optimizada.
+
+**Hecho:**
+- **Navegación y UX:** Se asignó un ID único (`page-proyectos`) a la página de proyectos y se inyectó el enlace directamente en el `nav` global (`_header.scss` y `index.html`).
+- **Accesibilidad y Navegación Rápida:** Se inyectó globalmente el botón flotante (Zero JS) "Volver arriba" (`↑`) tanto en la plantilla de compilación de `merci-publish.py` como en todas las páginas estáticas maestras.
+- **Shift-Left SEO:** Se implementó una lógica de truncamiento robusta en `merci-publish.py` para asegurar que los metadatos de los artículos no superen los 65 caracteres para títulos y 150 para descripciones antes de compilarse.
+- **Cero Fricción Linter:** Se purgaron las cachés y se recompiló el 100% de la biblioteca para aplicar los cambios SEO, resolviendo las advertencias de acrónimos (expansión del W3C).
+- **Validación DevRel:** Se auditaron 3 nuevos posts para el blog basados en los cuadernillos, ajustando su Frontmatter (`tipo: blog`) y garantizando la presencia del enlace de anclaje (Patrón COPE) hacia la Única Fuente de Verdad.
+
+**Motivo / criterio:** *Developer Experience (DX) y Zero Maintenance*. Solventar los desajustes de enrutamiento y purgar los 79 avisos de SEO directamente en el orquestador SSG (`merci-publish.py`) erradica el problema de raíz para cualquier documento futuro, sin añadir deuda técnica. Asegurar que los blogs actúen como embudos hacia la biblioteca técnica respeta el principio *Create Once, Publish Everywhere* (COPE).
+
+**Siguiente paso o deuda:** Iniciar las pruebas de inyección multimedia (vídeos e imágenes) en la página estática de Proyectos Satélite (Showcase) y proceder con el sellado de la versión (`merci completo`).

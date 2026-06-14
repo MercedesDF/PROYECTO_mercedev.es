@@ -5,11 +5,10 @@ tema: "Productividad y Gobernanza"
 subtema: "Bootstrapping"
 fecha: "2026-06-12"
 fase: "Epic 8 - Fase 1"
-estado: "incubacion"
+estado: "publicado"
 tipo: "cuadernillo"
 alt_portada: "Una pantalla de terminal dividida en múltiples paneles ejecutando diferentes procesos en paralelo."
 ---
-
 ## El Desafío (Síntoma)
 A medida que el ecosistema local creció, arrancar el entorno de desarrollo diario (Bootstrapping) se convirtió en una tarea propensa a errores y generadora de alta "Carga Cognitiva" (Cognitive Load). Levantar la observabilidad (Docker), el motor de Inteligencia Artificial local (LM Studio), el proxy enrutador (LiteLLM), el vigilante de SASS y el agente de Ingeniería de Fiabilidad del Sitio (SRE) exigía abrir y gestionar manualmente media docena de terminales aisladas. Esta fricción operativa violaba frontalmente la directriz de "Cero Fricción".
 

@@ -5,11 +5,10 @@ tema: "Inteligencia Artificial y Agentes"
 subtema: "Gobernanza"
 fecha: "2026-06-12"
 fase: "Epic 2 - Fase 4"
-estado: "incubacion"
+estado: "publicado"
 tipo: "cuadernillo"
 alt_portada: "Esquema de red donde un editor de código envía peticiones a un enrutador central que bifurca hacia la nube o un servidor local."
 ---
-
 ## El Desafío (Síntoma)
 Ante la transición a Antigravity IDE, surgió un doble problema. Por un lado, depender exclusivamente de agentes en la nube (como Gemini) generaba fricción por los límites de cuota (Errores HTTP 429 por exceso de peticiones) y saturación de contexto al analizar repositorios enteros (Context Window Stuffing). Por otro lado, forzar un aislamiento 100% local renunciaría a la potencia cognitiva de los grandes modelos de frontera de la nube para tareas complejas.
 

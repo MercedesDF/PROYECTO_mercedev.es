@@ -427,6 +427,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/multiplexacion-de-terminales-bootstrapper-con-tmux</loc>
+      <lastmod>2026-06-14</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/ingenieria-de-interfaz-estatica-ssg-python-puro</loc>
       <lastmod>2026-06-14</lastmod>
       <changefreq>weekly</changefreq>
@@ -499,7 +505,19 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/contencion-visual-y-desbordamiento-en-bloques-de-codigo</loc>
+      <lastmod>2026-06-14</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/discrepancia-de-entornos-vs-code-vs-terminal-externa-zsh</loc>
+      <lastmod>2026-06-14</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://mercedev.es/biblioteca/enrutamiento-hibrido-del-ide-con-litellm-proxy</loc>
       <lastmod>2026-06-14</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.7</priority>

@@ -110,8 +110,11 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     
     # QUÉ HACE: Trunca metadatos para SEO técnico (Shift-Left SEO)
     # POR QUÉ: Evita advertencias del linter y truncamientos en buscadores (SERPs).
-    titulo_seo = f"{titulo_html} — mercedev.es"
-    desc_seo = descripcion_html
+    titulo_base = titulo[:48] + "..." if len(f"{titulo} — mercedev.es") > 65 else titulo
+    titulo_seo = html.escape(f"{titulo_base} — mercedev.es")
+    
+    desc_base = descripcion[:147] + "..." if len(descripcion) > 150 else descripcion
+    desc_seo = html.escape(desc_base)
 
     # QUÉ HACE: Genera los nombres de salida basándose en el título del YAML, no en el archivo.
     # POR QUÉ: Desacopla el sistema de archivos del routing web (Auto-nombrado).
@@ -315,6 +318,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
             </div>
         </article>
     </main>
+    <a href="#top" class="floating-back-to-top" aria-label="Volver arriba">↑</a>
     {footer_html}
 </body>
 </html>"""
@@ -469,10 +473,8 @@ def generar_indice(
                 
     # QUÉ HACE: Inyecta el "Announcement Badge" dinámicamente en las portadas
     badge_html = ""
-    page_id = "page-biblioteca"
     if title == "Art de Coté":
         page_id = "page-art-de-cote"
-        
         # Búsqueda dinámica de la última versión de la Anatomía del Boilerplate
         docs_anatomia = [p for p in publicaciones if "Anatomía de Merci Boilerplate" in p.get("titulo", "")]
         if docs_anatomia:
@@ -483,10 +485,15 @@ def generar_indice(
             {html.escape(latest_anatomia['titulo'])} →
         </a>"""
     elif title == "La Biblioteca":
+        page_id = "page-biblioteca"
         badge_html = """<a href="/biblioteca/glosario-tecnico.html" class="hero__badge">
             <span class="hero__badge-tag">Diccionario Data-Driven</span>
             Glosario Técnico DevSecOps →
         </a>"""
+    elif title == "Proyectos Satélite":
+        page_id = "page-proyectos"
+    else:
+        page_id = "page-biblioteca"
         
     # QUÉ HACE: Trunca metadatos para el índice
     titulo_seo = f"{title} — mercedev.es"

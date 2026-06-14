@@ -1,15 +1,14 @@
 ---
 titulo: "Contención Visual y Desbordamiento en Bloques de Código"
 descripcion: "Resolución del bug de desbordamiento horizontal en etiquetas pre y code para garantizar la usabilidad en dispositivos móviles y la exportación perfecta a PDF."
-tema: "Desarrollo y Arquitectura"
-subtema: "Frontend"
+tema: "Desarrollo y Productividad"
+subtema: "Estilos"
 fecha: "2026-06-13"
 fase: "Epic 8 - Fase 6"
-estado: "incubacion"
+estado: "publicado"
 tipo: "cuadernillo"
 alt_portada: "Representación visual de un bloque de código técnico contenido y perfectamente alineado dentro de los márgenes de una pantalla de teléfono móvil."
 ---
-
 ## El Desafío (Síntoma)
 Durante las pruebas de calidad (QA) de la Biblioteca de cuadernillos, se detectó que los fragmentos de código, envueltos en las etiquetas semánticas `<pre>` y `<code>`, no respetaban los límites del contenedor principal (`viewport`).
 
