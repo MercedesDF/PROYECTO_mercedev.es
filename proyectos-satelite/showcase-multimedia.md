@@ -16,7 +16,7 @@ Esta es la primera publicación dentro del nuevo ecosistema **Proyectos Satélit
 
 A continuación, una imagen tradicional. WeasyPrint la convertirá al PDF y el HTML la mostrará sin problemas.
 
-![Camiseta DevSecOps con logos](/assets/images/camiseta-devsecops.webp){: width="2048" height="2048" loading="lazy" }
+![Camiseta DevSecOps con logos](/assets/images/camiseta-devsecops.webp){: .aspect-square width="2048" height="2048" loading="lazy" }
 
 ## Prueba 2: Reproductor de Vídeo HTML5 (Zero-Bloat)
 

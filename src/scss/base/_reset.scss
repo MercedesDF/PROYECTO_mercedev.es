@@ -28,6 +28,7 @@ picture,
 video {
     display: block;
     max-width: 100%;
+    height: auto;
 }
 
 /* QUÉ HACE: Compensa el header fijo en todos los saltos de enlaces ancla. */
@@ -49,4 +50,9 @@ video {
     position: absolute !important;
     width: 1px;
     word-wrap: normal !important;
+}
+
+/* Utilidades Globales de Renderizado */
+.aspect-square {
+    aspect-ratio: 1 / 1;
 }

@@ -7,6 +7,19 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — Gobernanza BEM: Refactorización de Estilos en Línea y Limpieza del Pipeline
+
+**Contexto:** El orquestador `merci completo` abortó la ejecución porque el auditor estricto (`merci-audit.py`) detectó el uso del estilo en línea `style="aspect-ratio: 1/1;"` en el HTML generado del showcase multimedia, violando las políticas de arquitectura SASS/BEM. Además, detectó la presencia temporal del archivo `scratch/check_image.html` con faltas SEO estructurales.
+
+**Hecho:**
+- **Purga de basura:** Se eliminó el archivo temporal `scratch/check_image.html` para limpiar el historial de validación del auditor y erradicar los falsos positivos de SEO.
+- **Abstracción CSS (BEM):** Se retiró el atributo en línea y se creó la clase utilitaria global `.aspect-square` (con la regla `aspect-ratio: 1 / 1;`) inyectándola en `_reset.scss`. En el Markdown, se aprovechó la extensión `attr_list` para referenciar la clase (`{: .aspect-square ...}`).
+- Se recompiló todo el SASS y HTML, logrando que el pipeline pase la auditoría a verde.
+
+**Motivo / criterio:** Respetar la política "Zero Inline Styles" (Cero Estilos en Línea) para mantener la separación de responsabilidades y asegurar que todas las reglas visuales pasen por el compilador SASS, tal y como exige el motor de validación local.
+
+**Siguiente paso o deuda:** Desplegar todos los cambios de esta iteración con el orquestador global (`merci completo`).
+
 ### 2026-06-14 — SRE/Performance: Corrección de Diagnósticos Lighthouse en Inyección Multimedia
 
 **Contexto:** Al auditar la página de inyección multimedia (Showcase) con Lighthouse, se detectaron penalizaciones en el rendimiento simulado bajo 4G (`net::ERR_CONNECTION_FAILED`), ausencia de dimensiones explícitas en imágenes (riesgo de CLS) y una falta técnica de subtítulos en el reproductor de vídeo (Accesibilidad).
@@ -17,6 +30,7 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 - Se recompilaron exitosamente las páginas estáticas del entorno satélite.
 - **Saneamiento de Metadatos (WP Headless):** Se ejecutó un script de purga masiva para eliminar la taxonomía por defecto `tema: "Varios"` en 20 cuadernillos del blog, evitando la creación de categorías fantasma durante la sincronización a WordPress.
 - **Gobernanza de la Biblioteca (Taxonomía Estricta):** Se actualizaron las biblias de arquitectura (`instrucciones.md` e `instrucciones-merci.md`) para forzar que los futuros cuadernillos usen exclusivamente las 4 macro-categorías aprobadas. Además, se sanearon retroactivamente 2 cuadernillos mal categorizados ("Desarrollo y Productividad" y "DevSecOps y Gobernanza").
+- **Bugfix CSS (Aspect Ratio en Lighthouse):** Se detectó que la inyección explícita de `width` y `height` en imágenes generaba una distorsión visual y penalización en Lighthouse porque el reset global de CSS (`_reset.scss`) carecía de la propiedad `height: auto;`. Se añadió la propiedad para garantizar que las imágenes escalen proporcionalmente cuando interviene `max-width: 100%`.
 
 **Motivo / criterio:** *Puntuación Perfecta en Core Web Vitals*. Implementar estos escudos a nivel de compilador SSG erradica la deuda técnica de raíz y asegura un 100/100 en Performance y Accesibilidad de forma autónoma. Evitar la carga del pre-metadata del vídeo salva el pipeline de falsos positivos en conexiones emuladas inestables.
 
