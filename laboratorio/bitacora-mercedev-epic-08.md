@@ -7,6 +7,17 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — UI/UX: Reajuste de Paleta Temática 
+
+**Contexto:** La paleta de colores inicial generaba confusión entre el azul y el violeta (usados en Arquitectura e IA respectivamente). Además, se requería reservar el violeta exclusivamente como color de contraste para textos globales (Homenaje) y reasignar colores más representativos a la estantería de Seguridad.
+
+**Hecho:** Se ha actualizado el mapa `$theme-colors` en `_variables.scss`:
+- `devsecops-e-infraestructura` pasa a **Rojo** (`#dc2626`), alertando del factor crítico de la seguridad.
+- `inteligencia-artificial-y-agentes` hereda el **Verde Esmeralda** (`#059669`).
+- El Violeta/Malva se ha retirado completamente de la matriz de categorías, quedando reservado como variable de acento tipográfico puro (`$color-homage`).
+
+**Motivo / criterio:** *Accesibilidad y Semántica*. Diferenciación absoluta entre ramas tecnológicas eliminando colores análogos (azul-violeta) y reforzando la asociación psicológica del Rojo con DevSecOps.
+
 ### 2026-06-14 — Bugfix: Corrección de Slugs en Mapeo de Colores
 
 **Contexto:** Las estanterías "Inteligencia Artificial y Agentes" y "Productividad y Gobernanza" no estaban recibiendo su color semántico, heredando el color por defecto (el mismo para ambas).
