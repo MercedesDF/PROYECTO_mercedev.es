@@ -36,3 +36,12 @@ $spacing-xl: 6rem; // Aumentado para separar los títulos del header
 // Breakpoints
 $bp-medium: 768px;
 $bp-large: 1024px;
+
+// Mapa de Colores por Estantería (Wayfinding Semántico)
+$theme-colors: (
+    "desarrollo-y-arquitectura": #4f46e5, // Índigo (Lógica y Código)
+    "devsecops-e-infraestructura": #059669, // Esmeralda (Terminal y Ops)
+    "estrategia-y-gobernanza": #ea580c, // Naranja (Negocio y Metodología)
+    "ux-ui-y-accesibilidad": #7c3aed, // Violeta/Malva (Diseño y Empatía - Homenaje)
+    "varios": #475569 // Slate (Neutral)
+);

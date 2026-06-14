@@ -389,7 +389,7 @@ def generar_indice(
         tema_html = html.escape(tema_principal)
         
         # Construimos el contenedor principal de la estantería (con diseño de columnas responsivo)
-        enlaces_indice_html += f'                <li class="library-nav__item">\n'
+        enlaces_indice_html += f'                <li class="library-nav__item theme--{tema_slug}">\n'
         # QUÉ HACE: Delega el color a la clase SASS .indice__tema para permitir pseudo-clases interactivas (:visited).
         enlaces_indice_html += f'                    <a href="#{tema_slug}" class="library-nav__theme-title" aria-label="Explorar estantería: {tema_html}">{tema_html}</a>\n'
         enlaces_indice_html += f'                    <ul class="library-nav__article-list">\n'
@@ -418,10 +418,10 @@ def generar_indice(
         enlaces_indice_html += f'                    </ul>\n                </li>\n'
 
         secciones_html += f"""
-        <section class="library-section" id="{tema_slug}">
+        <section class="library-section theme--{tema_slug}" id="{tema_slug}">
             <div class="library-section__header">
                 <h2 class="library-section__title home-card__title--highlight"><a href="#{tema_slug}" aria-label="Ver sección: {tema_html}">{tema_html}</a></h2>
-                <a href="#top" class="library-section__back-link">↑ Volver arriba</a>
+                
             </div>"""
 
         secciones_html += '\n            <div class="library-grid">'
@@ -524,6 +524,7 @@ def generar_indice(
         
         {secciones_html}
     </main>
+    <a href="#top" class="floating-back-to-top" aria-label="Volver arriba">↑</a>
     {footer_html}
 </body>
 </html>"""

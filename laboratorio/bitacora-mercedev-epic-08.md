@@ -7,6 +7,17 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — UI/UX: Wayfinding Semántico por Estantería y Botón 'Volver Arriba' Global
+
+**Contexto:** La arquitectura de información requería una forma visual pasiva de orientar a la usuaria sin importar el tamaño de la pantalla, asignando un color identitario a cada macro-tema. Además, faltaba una forma ergonómica de hacer scroll inverso (Back to Top) sin colisionar con el asistente virtual Merci.
+
+**Hecho:** 
+1. Se ha construido un mapa de variables `$theme-colors` en SASS.
+2. Mediante un bucle `@each`, se han generado dinámicamente clases modificadoras (`.theme--[slug]`) que inyectan el color correspondiente en el índice lateral, el título de la sección y el borde izquierdo de las tarjetas.
+3. Se ha implementado un componente flotante global (`.floating-back-to-top`) inyectado puramente por el orquestador SSG al final de `index.html`. Se ha anclado estratégicamente en la esquina inferior **izquierda** para no solaparse con el asistente Merci (esquina inferior derecha).
+
+**Motivo / criterio:** *Diseño Inclusivo y Mapeo Cognitivo*. Mantenemos la pureza del código mediante preprocesadores CSS sin abusar de estilos *inline*, y proporcionamos orientación cromática para mitigar la carga de memoria a corto plazo del lector.
+
 ### 2026-06-14 — UI/UX: Conteo Dinámico de Publicaciones en el Índice Temático
 
 **Contexto:** Con la contracción del índice temático (ocultando los artículos por defecto), la usuaria perdía visibilidad sobre la densidad de cada categoría sin hacer scroll hasta ella.

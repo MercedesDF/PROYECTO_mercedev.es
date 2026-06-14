@@ -155,3 +155,90 @@
         }
     }
 }
+// Inyección dinámica de colores por Estantería
+@each $theme, $color in $theme-colors {
+    .theme--#{$theme} {
+        // Colores en el menú lateral
+        .library-nav__theme-title {
+            color: $color;
+            border-bottom-color: rgba($color, 0.3);
+            &:hover {
+                color: darken($color, 10%);
+                border-bottom-color: $color;
+            }
+            &--sub {
+                color: $color-text-muted;
+                &:hover {
+                    color: $color;
+                    border-bottom: none;
+                }
+            }
+        }
+        
+        .library-nav__article-item:hover {
+            border-left-color: $color;
+            background-color: rgba($color, 0.05);
+        }
+        
+        .library-nav__article-link:hover {
+            color: $color;
+        }
+
+        // Colores en el cuerpo principal
+        .library-section__title,
+        .library-section__title a {
+            color: $color;
+        }
+        
+        .library-subsection__title {
+            border-bottom-color: rgba($color, 0.2);
+        }
+        
+        // Estilos para las tarjetas de los cuadernillos de ese tema
+        .card {
+            border-left: 4px solid $color;
+            &:hover {
+                border-left-color: darken($color, 10%);
+                box-shadow: 0 10px 15px -3px rgba($color, 0.1), 0 4px 6px -2px rgba($color, 0.05);
+            }
+        }
+    }
+}
+
+// Floating "Back to Top" button (Zero JS)
+.floating-back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    background-color: $color-surface;
+    color: $color-text-muted;
+    border: 2px solid $color-border;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: $shadow-md;
+    transition: all 0.2s ease;
+    z-index: 50;
+    
+    &:hover, &:focus {
+        background-color: $color-primary;
+        color: white;
+        border-color: $color-primary;
+        transform: translateY(-4px);
+        box-shadow: $shadow-hover;
+    }
+    
+    @media (max-width: 768px) {
+        bottom: 1rem;
+        left: 1rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
