@@ -50,6 +50,14 @@
         &--sub {
             font-size: 0.9em;
             text-transform: none;
+            border-bottom: none;
+            color: $color-text-muted;
+            padding-bottom: 0;
+            
+            &:hover {
+                color: $color-primary;
+                border-bottom: none;
+            }
         }
     }
 

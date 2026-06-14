@@ -7,6 +7,14 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — UI/UX: Refinamiento Visual de Subtemas en Índice
+
+**Contexto:** Tras la implementación del índice temático minimalista, las subcategorías compartían los estilos visuales (subrayado y color) de las estanterías principales, dificultando su diferenciación jerárquica.
+
+**Hecho:** Se ha modificado el modificador SASS `.library-nav__theme-title--sub` en `_library-index.scss`. Se eliminó el `border-bottom` (subrayado) y se cambió el color a `$color-text-muted` para que contraste con el `$color-regular` naranja de la estantería padre. 
+
+**Motivo / criterio:** *Accesibilidad y Diseño de Información*. Garantizar que el usuario entienda la jerarquía (Estantería -> Subtema) al primer golpe de vista mediante el peso visual y el color, sin depender de indentaciones excesivas.
+
 ### 2026-06-14 — UI/UX: Índice Temático Minimalista y Artículos Destacados
 
 **Contexto:** La barra lateral (índice temático) de la Biblioteca se extendía verticalmente de manera inmanejable al renderizar la lista completa de cuadernillos dentro de estanterías muy pobladas (como DevSecOps).
