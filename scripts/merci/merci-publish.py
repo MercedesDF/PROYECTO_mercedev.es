@@ -320,6 +320,7 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
         "tipo": tipo,
         "fecha": meta.get("fecha", "1970-01-01"),
         "tema": tema,
+        "subtema": meta.get("subtema", "General").strip().strip('"\''),
         "fase": fase,
         "out_html_path": out_path,
         "out_pdf_path": out_pdf_path,

@@ -7,6 +7,14 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — Hotfix: Extracción de Subtema en SSG
+
+**Contexto:** Tras el commit de la reestructuración jerárquica de la Biblioteca, se observó que todas las agrupaciones de segundo nivel aparecían con el título "General" a pesar de que el Frontmatter de los Markdown tenía el subtema correcto.
+
+**Hecho:** Se identificó que la función `procesar_archivo` en `merci-publish.py` no estaba retornando el atributo `subtema` en su diccionario de salida hacia el orquestador maestro, provocando que la función `generar_indice` usara el valor por defecto ("General"). Se ha parcheado la extracción YAML para arrastrar este atributo al diccionario `pub` del motor SSG.
+
+**Motivo / criterio:** *Consistencia de Datos*. Garantizar que el ciclo de vida del metadato (desde el Markdown puro hasta el renderizado HTML) no se interrumpa en las funciones intersecantes.
+
 ### 2026-06-14 — Arquitectura de Información: 4 Macro-temas y Subtemas
 
 **Contexto:** La categorización de la Biblioteca y el Blog sufría de una fuerte fragmentación. Múltiples temas redundantes dificultaban la navegación lateral y diluían la densidad del contenido.
