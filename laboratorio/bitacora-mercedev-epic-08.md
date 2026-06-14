@@ -7,6 +7,14 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-14 — Bugfix: Corrección de Slugs en Mapeo de Colores
+
+**Contexto:** Las estanterías "Inteligencia Artificial y Agentes" y "Productividad y Gobernanza" no estaban recibiendo su color semántico, heredando el color por defecto (el mismo para ambas).
+
+**Hecho:** Se corrigieron las claves del mapa `$theme-colors` en `_variables.scss` para que coincidan exactamente con los *slugs* de las estanterías reales (`inteligencia-artificial-y-agentes` y `productividad-y-gobernanza`).
+
+**Motivo / criterio:** *Consistencia de Datos*. El bucle `@each` de SASS no encontraba las clases CSS correctas al compilar porque los nombres de las estanterías de la migración diferían de las propuestas inicialmente.
+
 ### 2026-06-14 — UI/UX: Modificación a Títulos Temáticos (Accesibilidad WCAG)
 
 **Contexto:** La línea lateral izquierda en las tarjetas interfería visualmente con la línea superior (borde naranja) que ya distingue entre Compendios y Cuadernillos. La usuaria solicitó transferir el peso del color temático directamente al título del artículo, garantizando la accesibilidad.

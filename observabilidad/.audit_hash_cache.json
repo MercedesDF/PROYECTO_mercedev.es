@@ -110,7 +110,7 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/docs/plantilla-cuadernillo.md": "64c275d857b7175a15d9b8ec29f6bd3b",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/fix_publish2.py": "3b868a99cf1b94f291509546dfe1c333",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/biblioteca/glosario-tecnico.json": "92c14d5dbb835ad8869d14eb97084784",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-08.md": "e4b2e45bc36041d9f366265b93cf3421",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-08.md": "2cb13c0b0a53b74c71d38a6acaa44f53",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/incubacion/cuadernillo-orquestacion-terminales-tmux.md": "90122ae788ad40767dabe3afd47131e7",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/incubacion/cuadernillo-proxy-litellm-antigravity-ide.md": "dcc8f16a5854d4b68bc862e2e183bcda",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/incubacion/cuadernillo-resolucion-desbordamiento-css-codigo.md": "af0ae9d562129bf1653e0fe630886e8f",
@@ -204,7 +204,7 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/biblioteca/unica-fuente-de-verdad-resolviendo-la-deriva-de-slugs-entre-ssg-y-cms.html": "2e760f016c6738b5fd513f5a6df1891c",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/biblioteca/validacion-de-defensas-devsecops-con-chaos-monkey-y-merciauditpy.html": "79a060a03c71dab303453c3741925ac8",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/contacto/index.html": "5c54305167449dd40e3c241a9c83979d",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/css/main.css": "35aac60127a3747c6999738e023a855b",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/css/main.css": "69822aea37825e44b9f11bec3025e7a6",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/index.html": "9f52f93de82e715f9bde8cb26852710e",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/sobre-mi/index.html": "67252dfd7ba933f0d12cbb452622e4b5",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/scss/components/_library-grid.scss": "f490a9ec2801f2b5ceec2eacb3df5dee",
@@ -216,7 +216,7 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/art-de-cote/index.html": "a78aa12097f190788f35429c646c5160",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/biblioteca/index.html": "9bd594b54e5b648cae6dbdf262bfc83b",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/scripts/merci/merci-publish.py": "9388cbc107d6c6e0bf631afb2a5507a0",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/scss/components/_library-index.scss": "6e2e55368724874c63a35eaf4ad36f22",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/scss/components/_library-index.scss": "9dd286d409765bc60ff1839d690d88a4",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/src/scss/abstracts/_variables.scss": "fd872638b03bddee43c427d8825805eb"
   }
 }
