@@ -40,6 +40,25 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-06-15 — Fase 4: Preparación para Chaos Engineering (Hybrid Stack & Tácticas)
+
+**Contexto:**
+Para probar la resiliencia del motor de IA y las defensas contra derivas documentales, necesitábamos asegurar que el entorno utilizaba verdaderamente un "Hybrid Stack" (con Ollama como primario y Gemini como respaldo) y extender el script del Chaos Monkey para inyectar estos fallos específicos de red y gobernanza.
+
+**Hecho:**
+- Se refactorizó `scripts/merci/merci-brain.py` y `scripts/merci/merci-blogger.py` para implementar un bloque `try...except` que intenta llamar a `ollama/qwen2.5-coder` (con timeout de 10s) y realiza el *fallback* al Gemini Proxy (`litellm`) en caso de fallo.
+- Se amplió `scripts/merci/merci-chaos.py` con dos nuevas tácticas: Táctica B (Corte de Red) falsificando el puerto local de Ollama para forzar el fallback; y Táctica C (Deriva Documental) inyectando un script fantasma no registrado.
+- Se refactorizaron las Expresiones Regulares en `scripts/merci/merci-commit.py` haciéndolas robustas y agnósticas para soportar cualquier sintaxis en los títulos de las secciones de la bitácora.
+
+**Detalle técnico:**
+Se actualizaron `merci-brain.py`, `merci-blogger.py` y `merci-chaos.py`. La Táctica B muta dinámicamente `os.environ["OLLAMA_API_BASE"] = "http://localhost:9999"` durante la ejecución para forzar caídas controladas.
+
+**Motivo / criterio:**
+El concepto de "Pila Híbrida" (Hybrid Stack) exige que exista un motor local gratuito como primera opción, utilizando la nube solo como salvavidas. Extender el Chaos Monkey garantiza de forma empírica que esta red de seguridad y el escudo linter de deriva funcionan bajo presión extrema.
+
+**Siguiente paso o deuda:**
+Lanzar la simulación de *Chaos Engineering* (`merci-chaos.py`) tras limpiar el directorio de trabajo, para validar las tres tácticas y hacer la comprobación de auditoría definitiva.
+
 ### 2026-06-15 — Fase 3: Autarquía del Motor de IA ( Antigravity Proxy / LiteLLM )
 
 **Contexto:**

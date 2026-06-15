@@ -52,32 +52,47 @@ except ImportError:
 
 def consultar_ia_local(prompt: str) -> str:
     """
-    QUÉ HACE: Delega la petición a la API de contingencia (Gemini Proxy).
-    POR QUÉ: Sustituye a Ollama y garantiza resiliencia cuando el modelo local no está disponible.
+    QUÉ HACE: Orquesta la Pila Híbrida (Hybrid Stack). Intenta primero el modelo local,
+              y si falla o no está disponible, hace fallback al proxy Gemini (Antigravity).
+    POR QUÉ: Garantiza resiliencia total y gratuidad por defecto.
     """
     try:
-        api_key = os.environ.get("GEMINI_API_KEY")
-        if not api_key:
-            env_path = REPO_ROOT / ".env"
-            if env_path.exists():
-                for line in env_path.read_text(encoding="utf-8").splitlines():
-                    if line.startswith("GEMINI_API_KEY="):
-                        api_key = line.split("=", 1)[1].strip('"\'')
-                        os.environ["GEMINI_API_KEY"] = api_key
-                        break
-                        
-        if not api_key:
-            return "Error: GEMINI_API_KEY no encontrada en .env"
-
+        # Intento 1: Motor Local Primario (Ollama)
+        # Timeout corto (10s) para no bloquear el pipeline si Ollama está caído
         respuesta = completion(
-            model="gemini/gemini-1.5-flash",
+            model="ollama/qwen2.5-coder",
+            api_base=os.environ.get("OLLAMA_API_BASE", "http://localhost:11434"),
             messages=[{"role": "user", "content": prompt}],
-            api_key=api_key,
-            temperature=0.65
+            temperature=0.65,
+            timeout=10
         )
         return respuesta.choices[0].message.content.strip()
-    except Exception as e_cloud:
-        return f"Error HTTP Local: {e_cloud}"
+    except Exception as e_local:
+        print(f"  ⚠️ Ollama no responde ({e_local}). Ejecutando Fallback a Antigravity (Gemini Proxy)...")
+        # Intento 2: Fallback a Antigravity / Gemini Proxy
+        try:
+            api_key = os.environ.get("GEMINI_API_KEY")
+            if not api_key:
+                env_path = REPO_ROOT / ".env"
+                if env_path.exists():
+                    for line in env_path.read_text(encoding="utf-8").splitlines():
+                        if line.startswith("GEMINI_API_KEY="):
+                            api_key = line.split("=", 1)[1].strip('"\'')
+                            os.environ["GEMINI_API_KEY"] = api_key
+                            break
+                            
+            if not api_key:
+                return "Error: GEMINI_API_KEY no encontrada en .env"
+
+            respuesta = completion(
+                model="gemini/gemini-1.5-flash",
+                messages=[{"role": "user", "content": prompt}],
+                api_key=api_key,
+                temperature=0.65
+            )
+            return respuesta.choices[0].message.content.strip()
+        except Exception as e_cloud:
+            return f"Error HTTP Local: {e_cloud}"
 
 def generar_cerebro_estatico(force_clean: bool = False) -> None:
     """
