@@ -6,7 +6,7 @@
     <title>Microinteracciones Zero-JS y Accesibilidad WCAG — mercedev.es</title>
     <meta name="description" content="Cómo implementar animaciones fluidas y cumplir con los estándares de contraste sin sacrificar el rendimiento extremo.">
     <link rel="canonical" href="https://mercedev.es/biblioteca/microinteracciones-zero-js-y-accesibilidad-wcag.html">
-    <link rel="stylesheet" href="/css/main.css?v=1781474021">
+    <link rel="stylesheet" href="/css/main.css?v=1781502839">
     <script src="/js/MerciController.js?v=1779793228" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
     <script type="application/ld+json">
@@ -61,7 +61,13 @@
 <p><strong>El engaño del color primario:</strong> Es un error común de diseño utilizar el color primario de la marca (a menudo tonos vibrantes como naranjas o malvas claros) como fondo de botón con texto blanco. Estos colores vibrantes rara vez superan el ratio 4.5:1 exigido por Lighthouse. La solución arquitectónica es derivar siempre variables específicas (<code>$color-regular</code> o <code>$color-homage-dark</code>) para asegurar la legibilidad en bloques sólidos interactivos.</p>
 <p><strong>El hilo principal es sagrado:</strong> Delegar las animaciones de interfaz al CSS nativo no solo reduce el peso de transferencia (cero dependencias externas), sino que permite que el navegador optimice los cálculos gráficos mediante la Unidad de Procesamiento Gráfico (<abbr title="Merci Explica: Cerebro visual de la computadora." tabindex="0">GPU</abbr>), manteniendo el hilo principal libre de bloqueos y conservando el TBT en unos perfectos 0ms.</p>
 <h3>💡 En resumen (Merci Explica):</h3>
-<p>Imagina que el "hilo principal" del navegador es el único camarero en un restaurante muy ocupado. Si le pedimos que, además de tomar notas y servir platos, se ponga a hacer malabares (usando librerías de animaciones JavaScript), el servicio se bloqueará y los clientes tendrán que esperar. Al delegar estas animaciones a CSS puro, es como contratar a un malabarista profesional independiente (la tarjeta gráfica de tu ordenador). El restaurante luce increíble y dinámico, pero el camarero sigue 100% libre para atender tus pedidos al instante (0ms de latencia).</p>
+<p>El "hilo principal" del navegador funciona como el único camarero de un restaurante abarrotado. Pedirle que haga malabares (animaciones complejas en JavaScript) mientras atiende mesas colapsará el servicio. Al delegar estas transiciones a CSS puro, contratamos a un malabarista independiente (la tarjeta gráfica del dispositivo). La interfaz luce dinámica y premium, pero el camarero sigue 100% libre para procesar interacciones críticas al instante.</p>
+<hr />
+<h2>🔗 Lecturas Recomendadas</h2>
+<ul>
+<li><a href="contencion-visual-y-desbordamiento-en-bloques-de-codigo.html">Resolución del desbordamiento en bloques de código CSS</a></li>
+<li><a href="la-guerra-de-la-especificidad-css.html">La guerra de la especificidad CSS</a></li>
+</ul>
             </div>
         </article>
     </main>

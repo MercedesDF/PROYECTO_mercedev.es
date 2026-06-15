@@ -29,6 +29,10 @@ El mejor código es el que no existe. Al despojar a WooCommerce de su capa inter
 El resultado empírico es un **Total Blocking Time (TBT) de 0ms**, demostrando que es posible tener un flujo de carrito y *checkout* 100% funcional y ultrarrápido si se extirpa implacablemente la dependencia de JavaScript y se confía en los estándares nativos de la web.
 
 ### 💡 En resumen (Merci Explica):
-Imagina que WooCommerce es un enorme y ruidoso camión de mudanzas intentando entrar en una pista de carreras. Su tamaño y lentitud destrozarían el asfalto (el rendimiento de la web). 
+WooCommerce actúa como un pesado camión logístico en una pista de carreras de Fórmula 1 (la web pública). Su tamaño destruiría el asfalto y hundiría el rendimiento. La arquitectura Headless aísla el camión en los boxes (backend), utilizando bólidos aerodinámicos (frontend Zero-JS) para transportar únicamente la carga necesaria al cliente. El resultado es un proceso de compra instantáneo que jamás sacrifica la velocidad por la funcionalidad.
 
-En lugar de dejarle entrar, nuestra solución fue "vaciar el camión" en los boxes (la base de datos aislada). Luego, utilizamos un ágil coche de Fórmula 1 (nuestra web Zero-JS) para llevar exactamente el producto que el cliente quiere al carrito. El resultado: podemos comprar a la velocidad de la luz sin tener que arrastrar el peso del camión por toda la tienda.
+---
+
+## 🔗 Lecturas Recomendadas
+- [Integración Headless WP y WooCommerce](estrategias-de-integracion-headless-wp-y-woocommerce.html)
+- [Domando WooCommerce y dependencias AJAX](domando-a-woocommerce-jerarquia-de-plantillas-en-temas-custom.html)

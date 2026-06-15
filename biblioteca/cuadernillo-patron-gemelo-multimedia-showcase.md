@@ -26,4 +26,10 @@ Se diseñó e implementó el **Patrón Gemelo Multimedia** y la inyección de te
 La Purga de Identidad Agnóstica (DLP) no tiene por qué estar reñida con el rendimiento web. Sustituir recursos en lugar de simplemente amputarlos preserva la integridad estructural del DOM. Aplicar "Gemelos Multimedia" asegura que las pruebas de rendimiento estático (SAST/DAST) del repositorio clonado pasen con un 100/100 desde el commit cero (Out-of-the-Box Experience), logrando anonimato total sin sacrificar la excelencia técnica.
 
 ### 💡 En resumen (Merci Explica):
-Imagina que estás vendiendo tu casa amueblada y organizas una jornada de puertas abiertas. Por privacidad, no quieres que los desconocidos vean tus fotos familiares, así que las quitas. Pero si dejas las paredes con los clavos vacíos y marcas de decoloración, la casa parecerá descuidada (errores 404 y diseño roto en la web). En su lugar, aplicas el "Gemelo Multimedia": cambias tus fotos personales por imágenes genéricas de paisajes que tienen exactamente el mismo tamaño que los marcos originales. La casa sigue luciendo perfectamente decorada e intacta (100/100 de rendimiento), pero tu identidad permanece totalmente a salvo.
+Vender una vivienda amueblada exige retirar las fotografías familiares por privacidad. Si simplemente descolgamos los cuadros, las paredes mostrarán marcas de decoloración y clavos expuestos (errores 404 y DOM roto). El "Gemelo Multimedia" consiste en sustituir esos recuerdos por lienzos genéricos del tamaño exacto del marco original. La infraestructura mantiene su integridad visual perfecta (100/100 Core Web Vitals) asegurando el anonimato absoluto de la propietaria.
+
+---
+
+## 🔗 Lecturas Recomendadas
+- [Compendio de la Épica 05: Showcase](compendio-estrategico-epica-5-showcase-y-distribucion.html)
+- [El Patrón del Clon Efímero](el-patron-del-clon-efimero-despliegues-zero-dlp-sin-ensuciar-la-matriz.html)

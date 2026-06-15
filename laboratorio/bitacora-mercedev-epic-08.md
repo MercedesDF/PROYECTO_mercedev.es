@@ -7,6 +7,19 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-15 — DevRel/Editorial: Refinamiento de la Voz de Merci (Proporción 80/20) y Regla Pre-Commit
+
+**Contexto:** Tras expandir "Merci Explica" a toda la web, se detectó que los bloques generados por la IA local (Ollama) en los cuadernillos técnicos repetían patrones sintácticos predecibles (ej. "Imagina que...", "Es como..."), restando frescura y autoridad al contenido. Adicionalmente, era necesario institucionalizar la protección del historial de Git definiendo el límite de actuación de la IA.
+
+**Hecho:** 
+- Se reescribieron manualmente los textos de "Merci Explica" en la Portada (`public/index.html`) y en 4 cuadernillos principales de la Biblioteca para aplicar la regla editorial del 80/20 (80% técnico y directo, 20% personalidad), eliminando muletillas generativas.
+- Se inyectaron Referencias Cruzadas (enlaces a lecturas recomendadas) al final de los cuadernillos editados para interconectar el conocimiento del ecosistema.
+- Se actualizó el archivo `instrucciones.md` (Constitución), inyectando la Regla 22 (Integridad Pre-Commit), que prohíbe explícitamente a la IA ejecutar comandos de commit y delega el sellado final a la desarrolladora.
+
+**Motivo / criterio:** *Copywriting Orgánico y Zero Trust AI*. La Inteligencia Artificial es una herramienta de curación de datos, no un redactor creativo definitivo. La revisión manual humana garantiza una "Voz de Marca" auténtica y profesional. Establecer un límite duro (prohibición de commit) blinda el repositorio contra automatizaciones destructivas, garantizando que todo cambio pasa por revisión humana antes de su inclusión definitiva en el ecosistema.
+
+**Siguiente paso o deuda:** Ejecutar la validación del ecosistema (`merci total`) en local y proceder con el commit manual.
+
 ### 2026-06-14 — Gobernanza de Contenidos: Documentación de Estrategia Fallback WebM/MP4 y Prevención de Duplicate Content
 
 **Contexto:** Tras revisar el peso y la compresión extrema de los *assets* de vídeo (Showcase), se decidió documentar oficialmente la arquitectura del "Patrón Fallback" (WebM vs MP4) en la Biblioteca. Durante la publicación, se detectó una deriva en los metadatos YAML y la generación de un post de blog calcado (Duplicate Content).

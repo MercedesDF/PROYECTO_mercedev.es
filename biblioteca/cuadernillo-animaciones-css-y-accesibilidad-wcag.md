@@ -23,4 +23,10 @@ En paralelo, se realizó un ajuste quirúrgico de la paleta de colores. Por ejem
 **El hilo principal es sagrado:** Delegar las animaciones de interfaz al CSS nativo no solo reduce el peso de transferencia (cero dependencias externas), sino que permite que el navegador optimice los cálculos gráficos mediante la Unidad de Procesamiento Gráfico (GPU), manteniendo el hilo principal libre de bloqueos y conservando el TBT en unos perfectos 0ms.
 
 ### 💡 En resumen (Merci Explica):
-Imagina que el "hilo principal" del navegador es el único camarero en un restaurante muy ocupado. Si le pedimos que, además de tomar notas y servir platos, se ponga a hacer malabares (usando librerías de animaciones JavaScript), el servicio se bloqueará y los clientes tendrán que esperar. Al delegar estas animaciones a CSS puro, es como contratar a un malabarista profesional independiente (la tarjeta gráfica de tu ordenador). El restaurante luce increíble y dinámico, pero el camarero sigue 100% libre para atender tus pedidos al instante (0ms de latencia).
+El "hilo principal" del navegador funciona como el único camarero de un restaurante abarrotado. Pedirle que haga malabares (animaciones complejas en JavaScript) mientras atiende mesas colapsará el servicio. Al delegar estas transiciones a CSS puro, contratamos a un malabarista independiente (la tarjeta gráfica del dispositivo). La interfaz luce dinámica y premium, pero el camarero sigue 100% libre para procesar interacciones críticas al instante.
+
+---
+
+## 🔗 Lecturas Recomendadas
+- [Resolución del desbordamiento en bloques de código CSS](contencion-visual-y-desbordamiento-en-bloques-de-codigo.html)
+- [La guerra de la especificidad CSS](la-guerra-de-la-especificidad-css.html)

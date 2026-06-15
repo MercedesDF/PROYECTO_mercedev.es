@@ -97,6 +97,10 @@ El siguiente esquema ilustra la orquestación de los agentes y cómo se delegan 
 El éxito de la orquestación masiva de agentes recae en el principio de Separación de Responsabilidades (SRP). Ningún script conoce el funcionamiento interno del otro; solo conocen el formato de entrada (Markdown/YAML) y el estado del sistema de archivos. Si en el futuro es necesario reemplazar el optimizador de imágenes o cambiar el modelo de IA local, el resto de la cadena de montaje permanecerá intacto e inquebrantable.
 
 ### 💡 En resumen (Merci Explica):
-Imagina que nuestro proyecto es una inmensa fábrica de coches. En lugar de tener un solo robot gigantesco que intente ensamblar el coche entero (lo que sería lento y propenso a romperse), tenemos 32 pequeños robots especializados.
+El ecosistema opera como una planta ensambladora automotriz hiper-especializada. En lugar de un frágil autómata monolítico, desplegamos 32 brazos robóticos independientes: uno pinta la carrocería (SASS), otro calibra frenos (Auditor) y un tercero redacta el manual de usuario (IA). La verdadera innovación no reside en los brazos, sino en la "cinta transportadora" (YAML Frontmatter). Este bus de datos asegura el enrutamiento inquebrantable de cada activo a través de las estaciones correctas, garantizando un despliegue seguro a velocidades extremas.
 
-Uno pinta la carrocería (SASS), otro verifica que los frenos funcionen (Auditor), y otro redacta el manual de instrucciones del conductor (Inteligencia Artificial). La verdadera magia no son los robots por separado, sino la **cinta transportadora** (el YAML Frontmatter) que asegura que cada coche pase por las estaciones en el orden perfecto, entregando un producto seguro y ultrarrápido al final de la línea.
+---
+
+## 🔗 Lecturas Recomendadas
+- [Compendio de Orquestación de IA Híbrida](topologia-de-ia-el-stack-hibrido-en-devsecops.html)
+- [Arquitectura de Gobernanza y el orquestador Merci Total](arquitectura-y-gobernanza-merci-totalpy-como-ssot.html)
