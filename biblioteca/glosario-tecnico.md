@@ -10,7 +10,7 @@ fecha: "2026-06-15"
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 146 términos consolidados (Última actualización de datos: 2026-06-15 21:29).
+> **Versión de control:** 146 términos consolidados (Última actualización de datos: 2026-06-15 21:43).
 
 ## Índice Alfabético
 
@@ -61,7 +61,7 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L2685
-- bitacora-mercedev-epic-09.md: L27
+- bitacora-mercedev-epic-09.md: L29
 
 ---
 ### AST
@@ -654,7 +654,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-02.md: L41
 - bitacora-mercedev-epic-03.md: L1985
 - bitacora-mercedev-epic-08.md: L395
-- bitacora-mercedev-epic-09.md: L46
+- bitacora-mercedev-epic-09.md: L48
 
 ---
 ### IEEE
@@ -715,7 +715,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Juego de acertijos donde cada pieza del rompecabezas representa un tipo diferente de conocimiento, y juntas forman la imagen completa.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-09.md: L46
+- bitacora-mercedev-epic-09.md: L48
 
 ---
 ### KISS
@@ -1214,7 +1214,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-06.md: L113
 - bitacora-mercedev-epic-07.md: L298
 - bitacora-mercedev-epic-08.md: L151
-- bitacora-mercedev-epic-09.md: L30
+- bitacora-mercedev-epic-09.md: L32
 - instrucciones.md: L25
 
 ---
@@ -1411,7 +1411,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-06.md: L447
 - bitacora-mercedev-epic-07.md: L308
 - bitacora-mercedev-epic-08.md: L19
-- bitacora-mercedev-epic-09.md: L22
+- bitacora-mercedev-epic-09.md: L24
 - ciclo-de-vida-contenidos.md: L7
 - flujo-publicacion-sop.md: L2
 - instrucciones.md: L37
@@ -1541,7 +1541,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-03.md: L2003
 - bitacora-mercedev-epic-04.md: L112
 - bitacora-mercedev-epic-06.md: L77
-- bitacora-mercedev-epic-09.md: L22
+- bitacora-mercedev-epic-09.md: L24
 
 ---
 ### UFW
@@ -1610,7 +1610,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Reglas que permiten volar cuando se puede ver el terreno y las nubes, como si estuvieras conduciendo un automóvil por una carretera.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-09.md: L19
+- bitacora-mercedev-epic-09.md: L21
 
 ---
 ### VP9
@@ -1767,7 +1767,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-06.md: L125
 - bitacora-mercedev-epic-07.md: L62
 - bitacora-mercedev-epic-08.md: L354
-- bitacora-mercedev-epic-09.md: L43
+- bitacora-mercedev-epic-09.md: L45
 - instrucciones.md: L97
 
 ---

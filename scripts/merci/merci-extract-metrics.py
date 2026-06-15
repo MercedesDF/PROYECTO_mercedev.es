@@ -153,7 +153,7 @@ def extract_metrics_from_data(data: dict) -> dict[str, str]:
         str_bp = f"{s_bp}" + ("*" if s_bp < 100 else "")
         str_seo = f"{s_seo}" + ("*" if s_seo < 100 else "")
         
-        scores_html = f"{str_perf} en Rendimiento | {str_acc} en Accesibilidad | {str_bp} en Mejores Prácticas | {str_seo} en SEO"
+        scores_html = f"⚡ {str_perf} en Rendimiento | ♿ {str_acc} en Accesibilidad | 🛡️ {str_bp} en Mejores Prácticas | 🔍 {str_seo} en SEO"
 
         # Diagnóstico de fallos específicos de accesibilidad
         contrast_errors = count_audit_issues(audits.get("color-contrast", {}))

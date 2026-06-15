@@ -366,7 +366,7 @@
 
 ### Fase 3: Tareas de IA y Resiliencia
 
-- [ ] **Autarquía del Motor de IA (Antigravity Proxy):** Sustituir a Ollama configurando el enrutamiento de agentes (`merci-brain.py`, `merci-blogger.py`) hacia el IDE Antigravity / Gemini Proxy como motor de respaldo definitivo.
+- [x] **Autarquía del Motor de IA (Antigravity Proxy):** Sustituir a Ollama configurando el enrutamiento de agentes (`merci-brain.py`, `merci-blogger.py`) hacia el IDE Antigravity / Gemini Proxy como motor de respaldo definitivo.
 
 ### Fase 4: Tareas de Chaos Engineering
 

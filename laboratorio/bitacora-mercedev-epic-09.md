@@ -16,6 +16,8 @@ Tras la implementación de la telemetría básica, se detectó que el Blog y la 
 - Se amplió `TARGET_URLS` en `merci-extract-metrics.py` para auditar concurrentemente las páginas del Blog (`/blog/`) y la Tienda (`/blog/tienda/`).
 - Se diseñó e implementó la función auxiliar PHP `merci_get_sre_badge_html($url)` en `functions.php` del tema de WordPress y se inyectó en los héroes de `index.php` y `woocommerce.php`.
 - Se reescribió `src/scss/components/_sre-badge.scss` para utilizar un fondo claro sólido y colores corporativos oscurecidos de alta visibilidad para las puntuaciones, garantizando el cumplimiento de la norma **WCAG AA (> 4.5:1)** sobre blanco: Verde (`#065f46`), Naranja (`#9a3412`) y Rojo (`#b91c1c`).
+- Se inyectaron los emoticonos de leyenda (`⚡`, `♿`, `🛡️`, `🔍`) en la frase de puntuaciones de la portada (`index.html`) y se modificó `merci-extract-metrics.py` para mantener su persistencia dinámica.
+- Se eliminaron los botones de volver arriba flotantes (`.floating-back-to-top`) de las páginas cortas del ecosistema (`/index.html`, `/sobre-mi/index.html` y `/contacto/index.html`), al carecer de sentido en vistas sin scroll vertical largo, manteniéndose exclusivamente en las estanterías de la biblioteca, proyectos y art-de-cote.
 - Se ejecutó el pipeline completo de validación y compilación con éxito, registrando la expansión del acrónimo Tasa de Fotogramas Variable (VFR) en esta entrada activa para satisfacer al linter sin modificar registros históricos.
 
 **Motivo / criterio (Aprendizaje):**
@@ -68,3 +70,33 @@ Un script fracasado es una lección arquitectónica valiosa. Mantener el ecosist
 ## Notas Arquitectónicas
 
 *(Espacio para documentar bloqueos o decisiones técnicas durante la ejecución de la épica).*
+
+### 2026-06-15 — Rectificación: Restauración de botones flotantes (UI/UX)
+
+**Contexto (Desafío):**
+Durante la limpieza de la UI en la Fase 2, se eliminaron los botones de volver arriba (`.floating-back-to-top`) de `index.html`, `sobre-mi` y `contacto` bajo la premisa de que no tenían scroll. Sin embargo, esto violaba el principio de consistencia visual del diseño Premium, ya que los botones debían funcionar en todos lados por igual, manteniéndose ocultos hasta hacer scroll y no actuando simplemente como "barras de desplazamiento" fijas. 
+
+**Hecho (Maniobra):**
+- Se han restaurado los botones flotantes (`<a href="#top" class="floating-back-to-top">`) en `public/index.html`.
+- Se implementó la clase JavaScript `BackToTopController` en `public/js/main.js` (Zero dependencias externas) que hace uso de `requestAnimationFrame` y eventos pasivos de scroll para mostrar el botón solo cuando `window.scrollY > 300` px.
+- Se ejecutó `merci-sync-pages.py` para sincronizar `index.html` con las demás páginas estáticas del ecosistema.
+
+**Motivo / criterio (Aprendizaje):**
+No eliminar elementos globales si la interfaz se siente asimétrica. Si un elemento visual molesta en un contexto (como en páginas sin scroll), es preferible modificar su comportamiento (lógica JS/CSS) que amputarlo por completo de algunas plantillas. Todo error arquitectónico debe añadirse como rectificación nueva (append) y nunca reescribiendo la historia pasada.
+
+### 2026-06-15 — Fase 3: Autarquía del Motor de IA (Antigravity Proxy)
+
+**Contexto (Desafío):**
+La arquitectura requería evolucionar más allá de la dependencia exclusiva en modelos locales (Ollama), configurando un enrutamiento seguro hacia el IDE Antigravity / Gemini Proxy como motor de contingencia y respaldo definitivo.
+
+**Hecho (Maniobra):**
+- Se refactorizó `merci-blogger.py` para reemplazar las peticiones directas a `http://localhost:11434` (Ollama) por integraciones usando la librería `litellm`.
+- Se refactorizó `merci-brain.py` inyectando compatibilidad con `litellm` para redirigir la carga cognitiva (saludos y procesamiento contextual) al modelo `gemini/gemini-1.5-flash` a través de la clave `GEMINI_API_KEY` extraída del archivo `.env`.
+- Se validó el aislamiento de la configuración (silenciando la telemetría de LiteLLM para no ensuciar la salida DevSecOps).
+- Se marcó el hito de "Autarquía del Motor de IA" como completado (`[x]`) en el ROADMAP maestro.
+
+**Motivo / criterio (Aprendizaje):**
+Centralizar el motor de IA a través de un proxy agnóstico (`litellm`) aumenta la resiliencia del ecosistema, permitiendo un "Shift-Left AI" que no depende del hardware local para mantenerse operativo al 100%.
+
+**Siguiente Paso:**
+El paso inmediatamente posterior es activar el *Chaos Engineering* e inyectar cortes de red simulados para verificar si la infraestructura recae exitosamente en el Proxy de Gemini bajo condiciones hostiles, así como inyectar derivas documentales para comprobar el linter `merci-drift`.

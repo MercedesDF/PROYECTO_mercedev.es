@@ -182,6 +182,7 @@ ln -sf ../../scripts/merci/pre-commit .git/hooks/pre-commit
 - `merci-init.py`: Instanciador destructivo para nuevos repositorios derivados.
 - `merci-linkedin.py`: Motor de autenticación OIDC (OpenID Connect) y publicación automatizada en LinkedIn.
 - `merci-wp.py`: Publicador Headless para WordPress vía API REST.
+- `merci-shop.py`: Sincronizador y Orquestador Headless para el catálogo simulado de WooCommerce.
 - `merci-deploy.py`: Agente de Despliegue Remoto (CD Local) para sincronización SSH y purga de Varnish.
 - `merci-completo.py`: Orquestador Supremo DevSecOps que encadena QA, commit atómico y despliegue a producción.
 - `merci-showcase.py`: Orquestador de despliegue interactivo para la demo pública del Boilerplate (Clon Efímero).
@@ -245,10 +246,13 @@ El proyecto se organiza en grandes "Épicas" arquitectónicas. El desglose detal
   - Estado: ✅ Completada (2026-05-26)
 
 - **Epic-07: Enriquecimiento Visual y Multimedia** — Evolución de la interfaz de usuario (UI/UX) e integración de vídeos optimizados respetando el rendimiento extremo.
-  - Estado: 🔄 En curso.
+  - Estado: ✅ Completada
 
 - **Epic-08: Refactorización y Limpieza de Código** — Depuración y buenas prácticas (PEP 8) del ecosistema de scripts en Python, inyección de tipado y robustez en la gestión de errores.
-  - Estado: 🔄 En curso.
+  - Estado: ✅ Completada
+
+- **Epic-09: Antigravity SRE, Chaos Engineering & Refinamiento CSS** — Consolidar resiliencia mediante enrutamiento a Gemini Proxy, expandir métricas SRE (Zero-Bloat, Accesibilidad) y refinamiento UI/UX Premium.
+  - Estado: 🔄 En curso
 
 
 ## Licencia

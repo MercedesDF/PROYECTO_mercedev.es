@@ -89,7 +89,7 @@
       "merci_explica": "Etiquetas invisibles que le ponemos al código para que los lectores de pantalla puedan explicarle la web a las personas con discapacidades visuales.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L27"
+          "L29"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L2685"
@@ -746,7 +746,7 @@
       "merci_explica": "Herramienta única para programadores que facilita la creación y mantenimiento de software.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L46"
+          "L48"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L1985"
@@ -1385,7 +1385,7 @@
           "L113"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L30"
+          "L32"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L423"
@@ -1817,7 +1817,7 @@
           "L77"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L22"
+          "L24"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L2003"
@@ -2054,7 +2054,7 @@
           "L125"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L43"
+          "L45"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L125"
@@ -2300,7 +2300,7 @@
           "L447"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L22"
+          "L24"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L476"
@@ -2594,7 +2594,7 @@
       "merci_explica": "Juego de acertijos donde cada pieza del rompecabezas representa un tipo diferente de conocimiento, y juntas forman la imagen completa.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L46"
+          "L48"
         ]
       }
     },
@@ -2606,7 +2606,7 @@
       "merci_explica": "Reglas que permiten volar cuando se puede ver el terreno y las nubes, como si estuvieras conduciendo un automóvil por una carretera.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L19"
+          "L21"
         ]
       }
     }
