@@ -46,7 +46,9 @@ TARGET_URLS = [
     "https://mercedev.es/proyectos/",
     "https://mercedev.es/sobre-mi/",
     "https://mercedev.es/contacto/",
-    "https://mercedev.es/proyectos/showcase-inyeccion-multimedia.html"
+    "https://mercedev.es/proyectos/showcase-inyeccion-multimedia.html",
+    "https://mercedev.es/blog/",
+    "https://mercedev.es/blog/tienda/"
 ]
 
 
@@ -138,7 +140,7 @@ def extract_metrics_from_data(data: dict) -> dict[str, str]:
         if inp_field:
             metrics["INP"] = f"{inp_field} ms"
         else:
-            metrics["INP"] = "<100ms"
+            metrics["INP"] = "&lt;100ms"
 
         # Puntuaciones globales
         s_perf = int(categories.get("performance", {}).get("score", 1.0) * 100)
@@ -213,7 +215,7 @@ def update_index_html(metrics: dict[str, str]) -> None:
     for key, value in metrics.items():
         if value == "N/D":
             continue
-        pattern = rf'(<span class="hero__metric-label">{key}</span>\s*<span class="hero__metric-value">)[^<]+(</span>)'
+        pattern = rf'(<span class="hero__metric-label">{key}</span>\s*<span class="hero__metric-value">).*?(</span>)'
         html_content = re.sub(pattern, rf'\g<1>{value}\g<2>', html_content)
         print(f"  ✅ {key} actualizado a -> {value}")
             

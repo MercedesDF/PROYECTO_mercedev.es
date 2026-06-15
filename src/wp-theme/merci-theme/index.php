@@ -70,6 +70,11 @@ if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
             <section class="hero">
                 <h1 class="hero__title"><?php echo $header_title; ?></h1>
                 <p class="hero__subtitle"><?php echo $header_desc; ?></p>
+                <?php
+                if ( function_exists('merci_get_sre_badge_html') && (is_home() || is_archive()) ) {
+                    echo merci_get_sre_badge_html('https://mercedev.es/blog/');
+                }
+                ?>
             </section>
         <?php endif; ?>
 

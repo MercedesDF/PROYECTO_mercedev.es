@@ -52,6 +52,11 @@ $js_main_v = time();
         <section class="hero">
             <h1 class="hero__title">Merci'<span class="hero__highlight">Shop</span></h1>
             <p class="hero__subtitle"><strong><em>la tienda no tienda</em></strong><br>merchandising oficial del ecosistema Mercí</p>
+            <?php
+            if ( function_exists('merci_get_sre_badge_html') && function_exists('is_shop') && is_shop() ) {
+                echo merci_get_sre_badge_html('https://mercedev.es/blog/tienda/');
+            }
+            ?>
             <?php if ( function_exists('is_shop') && is_shop() ) : ?>
                 <div class="woocommerce">
                     <div class="woocommerce-notices-wrapper">

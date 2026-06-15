@@ -1,11 +1,5 @@
 {
-  "https://mercedev.es/contacto/": {
-    "performance": 100,
-    "accessibility": 100,
-    "best-practices": 100,
-    "seo": 100
-  },
-  "https://mercedev.es/proyectos/": {
+  "https://mercedev.es/art-de-cote/": {
     "performance": 100,
     "accessibility": 100,
     "best-practices": 100,
@@ -17,10 +11,10 @@
     "best-practices": 100,
     "seo": 100
   },
-  "https://mercedev.es/art-de-cote/": {
+  "https://mercedev.es/blog/tienda/": {
     "performance": 100,
     "accessibility": 100,
-    "best-practices": 100,
+    "best-practices": 92,
     "seo": 100
   },
   "https://mercedev.es/proyectos/showcase-inyeccion-multimedia.html": {
@@ -29,13 +23,31 @@
     "best-practices": 100,
     "seo": 100
   },
-  "https://mercedev.es/biblioteca/": {
+  "https://mercedev.es/proyectos/": {
     "performance": 100,
     "accessibility": 100,
     "best-practices": 100,
     "seo": 100
   },
   "https://mercedev.es/sobre-mi/": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "https://mercedev.es/blog/": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "https://mercedev.es/contacto/": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "https://mercedev.es/biblioteca/": {
     "performance": 100,
     "accessibility": 100,
     "best-practices": 100,

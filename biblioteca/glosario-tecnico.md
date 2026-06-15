@@ -10,7 +10,7 @@ fecha: "2026-06-15"
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 144 términos consolidados (Última actualización de datos: 2026-06-15 20:28).
+> **Versión de control:** 146 términos consolidados (Última actualización de datos: 2026-06-15 21:16).
 
 ## Índice Alfabético
 
@@ -61,6 +61,7 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L2685
+- bitacora-mercedev-epic-09.md: L13
 
 ---
 ### AST
@@ -653,6 +654,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-02.md: L41
 - bitacora-mercedev-epic-03.md: L1985
 - bitacora-mercedev-epic-08.md: L395
+- bitacora-mercedev-epic-09.md: L32
 
 ---
 ### IEEE
@@ -703,6 +705,17 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L1283
+
+---
+### KI
+**Inglés:** Knowledge Integration | **Español:** Integración de Conocimiento
+
+**Definición:** Proceso de combinación y fusión de diferentes fuentes de información y conocimientos para crear una representación coherente que pueda ser utilizada en decisiones o acciones.
+
+💡 **Merci Explica:** *Juego de acertijos donde cada pieza del rompecabezas representa un tipo diferente de conocimiento, y juntas forman la imagen completa.*
+
+**Apariciones en Bitácoras:**
+- bitacora-mercedev-epic-09.md: L32
 
 ---
 ### KISS
@@ -1201,6 +1214,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-06.md: L113
 - bitacora-mercedev-epic-07.md: L298
 - bitacora-mercedev-epic-08.md: L151
+- bitacora-mercedev-epic-09.md: L16
 - instrucciones.md: L25
 
 ---
@@ -1586,6 +1600,17 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-03.md: L131
 
 ---
+### VFR
+**Inglés:** Visual Flight Rules | **Español:** Reglas de Vuelo Visual
+
+**Definición:** Conjunto de reglas que guían el vuelo aéreo en condiciones visibles, donde los pilotos dependen del viento y la visibilidad para navegar.
+
+💡 **Merci Explica:** *Reglas que permiten volar cuando se puede ver el terreno y las nubes, como si estuvieras conduciendo un automóvil por una carretera.*
+
+**Apariciones en Bitácoras:**
+- bitacora-mercedev-epic-09.md: L48
+
+---
 ### VP9
 **Inglés:** Video Processing Unit 9th Generation | **Español:** Unidad de Procesamiento de Video 9ª Generación
 
@@ -1740,7 +1765,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-06.md: L125
 - bitacora-mercedev-epic-07.md: L62
 - bitacora-mercedev-epic-08.md: L354
-- bitacora-mercedev-epic-09.md: L22
+- bitacora-mercedev-epic-09.md: L29
 - instrucciones.md: L97
 
 ---

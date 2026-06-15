@@ -402,3 +402,60 @@ add_filter( 'wp_robots', function( $robots ) {
     }
     return $robots;
 }, 999 );
+
+// =========================================================================
+// 11. TELEMETRÍA SRE: Renderizado del Micro-sello SRE desde Caché JSON
+// =========================================================================
+function merci_get_sre_badge_html($url) {
+    // Localizamos la ruta del archivo de caché subiendo niveles desde la base de WordPress (ABSPATH)
+    $cache_path = dirname(dirname(ABSPATH)) . '/observabilidad/.lighthouse_pages_cache.json';
+    if (!file_exists($cache_path)) {
+        $cache_path = dirname(ABSPATH) . '/observabilidad/.lighthouse_pages_cache.json'; // Fallback
+    }
+
+    $scores = array(
+        "performance" => 100,
+        "accessibility" => 100,
+        "best-practices" => 100,
+        "seo" => 100
+    );
+
+    if (file_exists($cache_path)) {
+        $json = file_get_contents($cache_path);
+        $data = json_decode($json, true);
+        if (is_array($data) && isset($data[$url])) {
+            $scores = $data[$url];
+        }
+    }
+
+    $get_color_class = function($val) {
+        if ($val >= 90) return "sre-badge__score--green";
+        if ($val >= 50) return "sre-badge__score--orange";
+        return "sre-badge__score--red";
+    };
+
+    $p_col = $get_color_class($scores["performance"]);
+    $a_col = $get_color_class($scores["accessibility"]);
+    $b_col = $get_color_class($scores["best-practices"]);
+    $s_col = $get_color_class($scores["seo"]);
+
+    return '
+    <div class="sre-badge" role="group" aria-label="Auditoría Lighthouse de esta página">
+        <div class="sre-badge__item" title="Rendimiento">
+            <span class="sre-badge__icon">⚡</span>
+            <span class="sre-badge__score ' . $p_col . '">' . $scores["performance"] . '</span>
+        </div>
+        <div class="sre-badge__item" title="Accesibilidad">
+            <span class="sre-badge__icon">♿</span>
+            <span class="sre-badge__score ' . $a_col . '">' . $scores["accessibility"] . '</span>
+        </div>
+        <div class="sre-badge__item" title="Buenas Prácticas">
+            <span class="sre-badge__icon">🛡️</span>
+            <span class="sre-badge__score ' . $b_col . '">' . $scores["best-practices"] . '</span>
+        </div>
+        <div class="sre-badge__item" title="SEO">
+            <span class="sre-badge__icon">🔍</span>
+            <span class="sre-badge__score ' . $s_col . '">' . $scores["seo"] . '</span>
+        </div>
+    </div>';
+}

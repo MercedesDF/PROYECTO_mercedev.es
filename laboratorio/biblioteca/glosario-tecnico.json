@@ -88,6 +88,9 @@
       "definicion": "Conjunto de prácticas y tecnologías utilizadas para crear contenido web que sea accesible a personas con discapacidades visuales, auditivas o motoras.",
       "merci_explica": "Etiquetas invisibles que le ponemos al código para que los lectores de pantalla puedan explicarle la web a las personas con discapacidades visuales.",
       "apariciones": {
+        "bitacora-mercedev-epic-09.md": [
+          "L13"
+        ],
         "bitacora-mercedev-epic-01.md": [
           "L2685"
         ]
@@ -742,6 +745,9 @@
       "definicion": "Software que proporciona un conjunto completo de herramientas y funcionalidades necesarias para desarrollar, depurar y gestionar proyectos de software en una sola interfaz.",
       "merci_explica": "Herramienta única para programadores que facilita la creación y mantenimiento de software.",
       "apariciones": {
+        "bitacora-mercedev-epic-09.md": [
+          "L32"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L1985"
         ],
@@ -1377,6 +1383,9 @@
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
           "L113"
+        ],
+        "bitacora-mercedev-epic-09.md": [
+          "L16"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L423"
@@ -2042,7 +2051,7 @@
           "L125"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L22"
+          "L29"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L125"
@@ -2568,6 +2577,30 @@
         ],
         "instrucciones.md": [
           "L131"
+        ]
+      }
+    },
+    "KI": {
+      "nombre": "KI",
+      "ingles": "Knowledge Integration",
+      "espanol": "Integración de Conocimiento",
+      "definicion": "Proceso de combinación y fusión de diferentes fuentes de información y conocimientos para crear una representación coherente que pueda ser utilizada en decisiones o acciones.",
+      "merci_explica": "Juego de acertijos donde cada pieza del rompecabezas representa un tipo diferente de conocimiento, y juntas forman la imagen completa.",
+      "apariciones": {
+        "bitacora-mercedev-epic-09.md": [
+          "L32"
+        ]
+      }
+    },
+    "VFR": {
+      "nombre": "VFR",
+      "ingles": "Visual Flight Rules",
+      "espanol": "Reglas de Vuelo Visual",
+      "definicion": "Conjunto de reglas que guían el vuelo aéreo en condiciones visibles, donde los pilotos dependen del viento y la visibilidad para navegar.",
+      "merci_explica": "Reglas que permiten volar cuando se puede ver el terreno y las nubes, como si estuvieras conduciendo un automóvil por una carretera.",
+      "apariciones": {
+        "bitacora-mercedev-epic-09.md": [
+          "L48"
         ]
       }
     }
