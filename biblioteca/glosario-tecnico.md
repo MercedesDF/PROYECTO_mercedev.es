@@ -10,7 +10,7 @@ fecha: "2026-06-15"
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 144 términos consolidados (Última actualización de datos: 2026-06-15 11:24).
+> **Versión de control:** 144 términos consolidados (Última actualización de datos: 2026-06-15 13:52).
 
 ## Índice Alfabético
 
@@ -1366,6 +1366,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-04.md: L46
 - bitacora-mercedev-epic-07.md: L23
 - bitacora-mercedev-epic-08.md: L69
+- bitacora-mercedev-epic-09.md: L1
 - deployment-playbook.md: L51
 - instrucciones.md: L54
 

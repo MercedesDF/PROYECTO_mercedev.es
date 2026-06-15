@@ -346,7 +346,21 @@
 
 - [x] **Métricas Vivas en el Copy (Data-Driven Copywriting):** Introducir las métricas reales del proyecto (ej. tiempo de despliegue en segundos, TBT, etc.) directamente en los textos estáticos cada vez que se actualicen, extrayéndolos del SRE/Dashboard. Por ejemplo: si en portada se mencionan "53 segundos" pero el último despliegue bajó a "47.38sg", la automatización o inyección debe actualizarlo siempre respetando el mejor resultado histórico.
 
-- [x] Cierre de épica
+- [x] Cierre de la Épica 8
+
+---
+
+## Épica 9: Antigravity SRE, Chaos Engineering & Refinamiento CSS
+
+**Objetivo:** Consolidar la resiliencia del ecosistema eliminando la dependencia de modelos de IA locales mediante enrutamiento a Antigravity, expandir la telemetría SRE hacia el paradigma Anti-Bloat, fortalecer el Chaos Monkey, y aplicar un refinamiento estructural CSS (UI/UX Premium).
+
+- [ ] **Telemetría SRE Granular por URL:** Diseñar e inyectar micro-sellos visuales Zero-JS en los artículos con el rendimiento exacto (100/100) auditado por Lighthouse, implementando una caché inteligente (`st_mtime`) para no hundir el tiempo del pipeline `merci total`.
+- [ ] **Autarquía del Motor de IA (Antigravity Proxy):** Sustituir a Ollama configurando el enrutamiento de agentes (`merci-brain.py`, `merci-blogger.py`) hacia el IDE Antigravity / Gemini Proxy como motor de respaldo definitivo.
+- [ ] **Expansión SRE (Anti-Bloat):** Trackear el tamaño en Megabytes de la carpeta `/public` y la deuda de Accesibilidad para exponerlo en el Dashboard de Grafana.
+- [ ] **Evolución del Chaos Engineering:** Simular caídas de IA (cortes de API) para probar el fallback a Antigravity, e inyectar Deriva Documental aleatoria para validar el bloqueo del linter `merci-drift`.
+- [ ] **Refinamiento Estructural CSS:** Repaso holístico a la arquitectura de diseño (variables SCSS, micro-animaciones, alineación de botones) para asegurar un acabado *Premium* y consistente.
+
+- [ ] Cierre de la Épica 9
 
 ---
 
@@ -354,6 +368,4 @@
 
 Iniciativas documentadas para futuras iteraciones que actualmente no pertenecen a las épicas activas:
 
-- [ ] **Sellos de Rendimiento Granulares por URL:** Inyectar un *micro-badge* visual Zero-JS en los metadatos de los artículos (Biblioteca/Blog) o al final del texto con el resultado individual de rendimiento (100/100).
-  - *Deuda Técnica (CI/CD):* Auditar múltiples URLs dinámicas penalizaría drásticamente el tiempo del pipeline. Requiere diseñar previamente un sistema de "Muestra Representativa" (auditar solo la plantilla genérica) o una caché de validación en GitHub Actions basada en fechas físicas (`st_mtime`).
-- [ ] **Integración de esta IA (Antigravity/Proxy) como Motor Interno:** Estudiar la viabilidad técnica de enrutar las peticiones de los agentes del proyecto (`merci-brain`, `merci-blogger`, etc.) a través de la arquitectura y el proxy local de esta misma IA (Antigravity IDE / Gemini proxy ejecutado vía Tmux). El objetivo es usar esta inteligencia superior como motor de respaldo cuando se agoten los tokens de la API gratuita de Google, sustituyendo así a las IAs locales más limitadas (Ollama).
+- [ ] **Épica 10: Boilerplate Completamente Configurable (Modularidad):** Modificar el instalador (`merci-release.py`) para que el usuario pueda elegir qué módulos instalar (Tienda, Biblioteca, Art de Coté), permitiendo habilitar o deshabilitar piezas enteras de la arquitectura estática más allá de pequeños toggles.

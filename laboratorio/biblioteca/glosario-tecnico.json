@@ -1579,6 +1579,9 @@
       "definicion": "Área dentro de DevOps que se encarga de mejorar la confiabilidad, el rendimiento y la disponibilidad de los servicios digitales a través de prácticas de ingeniería.",
       "merci_explica": "Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo.",
       "apariciones": {
+        "bitacora-mercedev-epic-09.md": [
+          "L1"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L347"
         ],
