@@ -127,6 +127,12 @@
       <priority>0.7</priority>
    </url>
    <url>
+      <loc>https://mercedev.es/biblioteca/seo-vs-privacidad-el-mito-de-la-directiva-noindex-en-carritos-e-commerce</loc>
+      <lastmod>2026-06-15</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
       <loc>https://mercedev.es/biblioteca/selectores-fantasma-y-la-guerra-de-especificidad-css-en-sass</loc>
       <lastmod>2026-06-15</lastmod>
       <changefreq>weekly</changefreq>

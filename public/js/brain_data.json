@@ -87,5 +87,6 @@
   "/biblioteca/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.html": "README.md como única fuente de verdad: Evita la desincronización documental, reduce la deuda técnica y restaura la confianza en el repositorio.",
   "/biblioteca/consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.html": "Refactorización limpia delegando resaltado de enlaces activos exclusivamente a Body IDs, eliminando mutaciones del DOM.",
   "/biblioteca/compendio-estrategico-epica-7-enriquecimiento-visual-y-multimedia.html": "Optimización ágil de Core Web Vitals mediante inyección de GIFs ultraligeros y gamificación DevRel eficiente.",
-  "/biblioteca/compendio-estrategico-epica-8-refactorizacion-y-deuda-cero.html": "Refactorización y deuda cero: optimizando procesos, reduciendo riesgos y mejorando la evolución sostenible del software."
+  "/biblioteca/compendio-estrategico-epica-8-refactorizacion-y-deuda-cero.html": "Refactorización y deuda cero: optimizando procesos, reduciendo riesgos y mejorando la evolución sostenible del software.",
+  "/biblioteca/seo-vs-privacidad-el-mito-de-la-directiva-noindex-en-carritos-e-commerce.html": "El bloqueo 'noindex' en carritos E-commerce es una técnica de Crawl Budget, no de seguridad."
 }

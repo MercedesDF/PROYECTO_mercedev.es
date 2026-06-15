@@ -57,7 +57,7 @@ $js_main_v = time();
                     <div class="woocommerce-notices-wrapper">
                         <div class="woocommerce-info woocommerce-info--store-notice">
                             ℹ️ <strong>Economía Simulada:</strong> <br>Este catálogo es una demostración técnica (E-commerce Zero-JS).<br>
-                            Los precios están en <em>Merci-coins</em> <img src="/favicon.ico" alt="Llama" width="16" height="16" class="merci-coin-icon"><br>
+                            Los precios están en <em>Merci-coins</em> <img src="/assets/images/tu_logo-80w.webp" alt="Llama" width="16" height="16" class="merci-coin-icon"><br>
                             ¡Añade al carrito sin miedo!
                         </div>
                     </div>
