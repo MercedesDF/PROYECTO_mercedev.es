@@ -360,8 +360,9 @@
 
 ### Fase 2: Tareas de SRE y Anti-Bloat
 
-- [ ] **Telemetría SRE Granular por URL:** Diseñar e inyectar micro-sellos visuales Zero-JS en los artículos con el rendimiento exacto (100/100) auditado por Lighthouse, implementando una caché inteligente (`st_mtime`) para no hundir el tiempo del pipeline `merci total`.
-- [ ] **Expansión SRE (Anti-Bloat):** Trackear el tamaño en Megabytes de la carpeta `/public` y la deuda de Accesibilidad para exponerlo en el Dashboard de Grafana.
+- [x] **Telemetría SRE Granular por URL:** Diseñar e inyectar micro-sellos visuales Zero-JS en las páginas principales (portada, índices, sobre mí, contacto) y la prueba de proyecto con el rendimiento exacto (100/100) auditado por Lighthouse, implementando una caché inteligente local para no hundir el tiempo del pipeline.
+- [x] **Expansión SRE (Anti-Bloat):** Trackear el tamaño en Megabytes de la carpeta `/public` para exponerlo en el Dashboard de Grafana.
+- [x] **Expansión SRE (Accesibilidad):** Trackear la deuda de Accesibilidad (auditoría Lighthouse, especificando errores de contraste y ARIA) para exponerla en el Dashboard de Grafana.
 
 ### Fase 3: Tareas de IA y Resiliencia
 

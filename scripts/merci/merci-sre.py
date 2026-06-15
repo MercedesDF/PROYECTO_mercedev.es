@@ -47,6 +47,13 @@ CWV_TBT = Gauge('merci_cwv_tbt_ms', 'Total Blocking Time en ms')
 CWV_LCP = Gauge('merci_cwv_lcp_ms', 'Largest Contentful Paint en ms')
 CWV_CLS = Gauge('merci_cwv_cls', 'Cumulative Layout Shift')
 
+# Métricas de Deuda de Accesibilidad (A11y)
+LH_A11Y_CONTRAST = Gauge('merci_lighthouse_accessibility_contrast_errors', 'Errores de contraste de color en accesibilidad')
+LH_A11Y_ARIA = Gauge('merci_lighthouse_accessibility_aria_errors', 'Errores de ARIA en accesibilidad')
+
+# Métrica de peso del ecosistema (Anti-Bloat)
+PUBLIC_FOLDER_SIZE = Gauge('merci_public_folder_size_bytes', 'Tamaño total de la carpeta estática /public en Bytes')
+
 
 def actualizar_metricas_pipeline() -> None:
     """
@@ -147,6 +154,8 @@ def actualizar_metricas_lighthouse() -> None:
             CWV_TBT.set(data.get("cwv_tbt_ms", 0))
             CWV_LCP.set(data.get("cwv_lcp_ms", 0))
             CWV_CLS.set(data.get("cwv_cls", 0.0))
+            LH_A11Y_CONTRAST.set(data.get("lighthouse_accessibility_contrast_errors", 0))
+            LH_A11Y_ARIA.set(data.get("lighthouse_accessibility_aria_errors", 0))
         except Exception:
             pass
 
@@ -227,6 +236,18 @@ def actualizar_estado_documental() -> None:
                 except Exception:
                     pass
     LINKEDIN_QUEUE.set(en_cola_social)
+def actualizar_metrica_peso_publico() -> None:
+    """
+    QUÉ HACE: Calcula recursivamente el tamaño en Bytes de todos los archivos en /public.
+    POR QUÉ: Vigilancia activa de la filosofía Zero-Bloat del proyecto (Épica 9).
+    """
+    public_dir = REPO_ROOT / "public"
+    if public_dir.exists() and public_dir.is_dir():
+        try:
+            total_bytes = sum(f.stat().st_size for f in public_dir.rglob('*') if f.is_file())
+            PUBLIC_FOLDER_SIZE.set(total_bytes)
+        except Exception:
+            pass
 
 
 def main() -> None:
@@ -245,6 +266,7 @@ def main() -> None:
         actualizar_metricas_chaos()
         actualizar_metricas_ia_y_auditoria()
         actualizar_metricas_lighthouse()
+        actualizar_metrica_peso_publico()
         time.sleep(1)
 
 
