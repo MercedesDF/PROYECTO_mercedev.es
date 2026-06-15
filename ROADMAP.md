@@ -354,10 +354,21 @@
 
 **Objetivo:** Consolidar la resiliencia del ecosistema eliminando la dependencia de modelos de IA locales mediante enrutamiento a Antigravity, expandir la telemetría SRE hacia el paradigma Anti-Bloat, fortalecer el Chaos Monkey, y aplicar un refinamiento estructural CSS (UI/UX Premium).
 
+### Fase 1: Tareas de Preservación
+
 - [x] **Preservación de Herramientas Estériles:** Creación del silo `scripts/temporales/` y documentación histórica de utilidades fallidas (ej. `merci-mpdecimate-fastforward.sh`).
+
+### Fase 2: Tareas de SRE y Anti-Bloat
+
 - [ ] **Telemetría SRE Granular por URL:** Diseñar e inyectar micro-sellos visuales Zero-JS en los artículos con el rendimiento exacto (100/100) auditado por Lighthouse, implementando una caché inteligente (`st_mtime`) para no hundir el tiempo del pipeline `merci total`.
-- [ ] **Autarquía del Motor de IA (Antigravity Proxy):** Sustituir a Ollama configurando el enrutamiento de agentes (`merci-brain.py`, `merci-blogger.py`) hacia el IDE Antigravity / Gemini Proxy como motor de respaldo definitivo.
 - [ ] **Expansión SRE (Anti-Bloat):** Trackear el tamaño en Megabytes de la carpeta `/public` y la deuda de Accesibilidad para exponerlo en el Dashboard de Grafana.
+
+### Fase 3: Tareas de IA y Resiliencia
+
+- [ ] **Autarquía del Motor de IA (Antigravity Proxy):** Sustituir a Ollama configurando el enrutamiento de agentes (`merci-brain.py`, `merci-blogger.py`) hacia el IDE Antigravity / Gemini Proxy como motor de respaldo definitivo.
+
+### Fase 4: Tareas de Chaos Engineering
+
 - [ ] **Evolución del Chaos Engineering:** Simular caídas de IA (cortes de API) para probar el fallback a Antigravity, e inyectar Deriva Documental aleatoria para validar el bloqueo del linter `merci-drift`.
 - [ ] **Refinamiento Estructural CSS:** Repaso holístico a la arquitectura de diseño (variables SCSS, micro-animaciones, alineación de botones) para asegurar un acabado *Premium* y consistente.
 

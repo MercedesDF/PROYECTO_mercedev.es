@@ -15,6 +15,7 @@ Se necesitaba automatizar la purga de tiempos muertos ("congelación de terminal
 **Hecho (Maniobra):**
 - Se generó el script `scripts/temporales/merci-mpdecimate-fastforward.sh`.
 - El script cumplió técnicamente su función de compresión extrema (de 272MB a 62MB), pero generó un efecto "Hyper-Timelapse" epiléptico inasumible para la visualización humana.
+- Se experimentó alternativamente con `auto-editor` (Python) para recortar fotogramas inactivos manteniendo un "padding" humano (`--margin 0.5s`), pero el intento falló debido a la falta de metadatos de fotogramas constantes (`time_base=0/0`, VFR) en la grabación de pantalla cruda.
 - En lugar de desechar el código, se confinó en el nuevo directorio `scripts/temporales/` y se documentó explícitamente en su cabecera el motivo de su fracaso y las alternativas humanas recomendadas (CapCut, auto-editor), cumpliendo las normas de gobernanza.
 
 **Motivo / criterio (Aprendizaje):**
