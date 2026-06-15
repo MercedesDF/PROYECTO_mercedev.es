@@ -42,13 +42,13 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-05-08 — Docs: Estandarización de Rutas de Archivo en Bitácora
 
-**Contexto (Desafío):** Se detectó una inconsistencia en el registro de rutas de archivo dentro de la bitácora, incluyendo el prefijo absoluto del sistema (`/home/hildegahr/Escritorio/`), lo que comprometía la legibilidad, la portabilidad y la agnositicidad del registro.
+**Contexto:** Se detectó una inconsistencia en el registro de rutas de archivo dentro de la bitácora, incluyendo el prefijo absoluto del sistema (`/home/hildegahr/Escritorio/`), lo que comprometía la legibilidad, la portabilidad y la agnositicidad del registro.
 
-**Hecho (Maniobra):** Se ha establecido una nueva convención para la documentación de rutas. A partir de ahora, todas las rutas de archivo mencionadas en la bitácora serán relativas a la raíz del proyecto, comenzando con `PROYECTO_mercedev.es/`.
+**Hecho:** Se ha establecido una nueva convención para la documentación de rutas. A partir de ahora, todas las rutas de archivo mencionadas en la bitácora serán relativas a la raíz del proyecto, comenzando con `PROYECTO_mercedev.es/`.
 
 **Detalle técnico:** La bitácora `laboratorio/bitacora-mercedev.md` ha sido actualizada con esta nueva directriz en la sección "Cómo mantenerlo (acuerdo simple)".
 
-**Motivo / criterio (Aprendizaje):** *Legibilidad y Portabilidad*. Mantener una convención estricta en el registro de rutas es crucial para que la bitácora actúe como una Única Fuente de Verdad (SSOT) agnóstica a la ubicación física del repositorio. Esto facilita su comprensión y reutilización por parte de futuros colaboradores o en diferentes entornos.
+**Motivo / criterio:** *Legibilidad y Portabilidad*. Mantener una convención estricta en el registro de rutas es crucial para que la bitácora actúe como una Única Fuente de Verdad (SSOT) agnóstica a la ubicación física del repositorio. Esto facilita su comprensión y reutilización por parte de futuros colaboradores o en diferentes entornos.
 
 **Siguiente paso o deuda:** Asegurar la aplicación de esta nueva convención en futuras entradas de la bitácora.
 
@@ -3442,7 +3442,7 @@ Plantilla base para el registro de sesiones.
 - Se sustituyó el condicional `is_ssl()` por una URL relativa al protocolo (`//`).
 - Se unificaron y corrigieron las entradas malformadas previas en la bitácora que interrumpían el flujo de `merci-commit.py`.
 
-**Detalle técnico:** Una URL que empieza por `//` instruye al navegador a utilizar el mismo protocolo que la página actual. Esto sortea la "ceguera" de PHP frente al estado SSL cuando la terminación TLS se realiza en capas superiores (Nginx). Además, se corrigieron las etiquetas en el registro histórico para asegurar que las expresiones regulares (RegEx) de `merci-commit.py` encuentren exactamente los delimitadores de inicio (ej. `**Contexto:**` en lugar de `**Contexto (Desafío):**`).
+**Detalle técnico:** Una URL que empieza por `//` instruye al navegador a utilizar el mismo protocolo que la página actual. Esto sortea la "ceguera" de PHP frente al estado SSL cuando la terminación TLS se realiza en capas superiores (Nginx). Además, se corrigieron las etiquetas en el registro histórico para asegurar que las expresiones regulares (RegEx) de `merci-commit.py` encuentren exactamente los delimitadores de inicio (ej. `**Contexto:**` en lugar de `**Contexto:**`).
 
 **Motivo / criterio:** Resiliencia arquitectónica en DevSecOps. Delegar la resolución del protocolo al cliente (navegador) es más seguro y eficiente que intentar adivinar la topología del servidor desde el backend. Mantener la estructura estricta en el Markdown es vital para la automatización atómica.
 
@@ -3465,380 +3465,380 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-04-21 — Chore: Resolución de linter de acrónimos para AJAX
 
-**Contexto (Desafío):** Al ejecutar el orquestador `merci-total`, el auditor (`merci-audit.py`) reportó una advertencia (WARN) por el acrónimo "AJAX" sin expandir en el nuevo documento `biblioteca/auditoria-rendimiento.md`.
+**Contexto:** Al ejecutar el orquestador `merci-total`, el auditor (`merci-audit.py`) reportó una advertencia (WARN) por el acrónimo "AJAX" sin expandir en el nuevo documento `biblioteca/auditoria-rendimiento.md`.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se expandió el acrónimo AJAX (Asynchronous JavaScript and XML - JavaScript Asíncrono y XML) en el archivo correspondiente.
 
 **Detalle técnico:** Para cumplir con el estándar de `0 errores, 0 advertencias` impuesto por el pipeline de integración local, se aplicó la convención de expansión de acrónimos a la documentación técnica recién creada.
 
-**Motivo / criterio (Aprendizaje):** Disciplina documental y cero fricción técnica. Ningún aviso del linter debe ignorarse si se busca la excelencia técnica absoluta. Expandir los acrónimos facilita la comprensión del documento a cualquier nivel, respetando la filosofía pedagógica del proyecto.
+**Motivo / criterio:** Disciplina documental y cero fricción técnica. Ningún aviso del linter debe ignorarse si se busca la excelencia técnica absoluta. Expandir los acrónimos facilita la comprensión del documento a cualquier nivel, respetando la filosofía pedagógica del proyecto.
 
 **Siguiente paso o deuda:** Ejecutar `merci-total` por última vez para confirmar la ausencia total de advertencias y realizar el commit final de despliegue.
 
 ### 2026-04-21 — Docs: Elaboración del reporte de Core Web Vitals (100/100)
 
-**Contexto (Desafío):** Tras completar el despliegue en producción de la arquitectura híbrida (Núcleo estático + WordPress + WooCommerce), se realizaron las auditorías en Google PageSpeed Insights obteniendo puntuación perfecta (100/100) en todos los pilares. Era necesario documentar este hito traduciendo las métricas a un activo de conocimiento.
+**Contexto:** Tras completar el despliegue en producción de la arquitectura híbrida (Núcleo estático + WordPress + WooCommerce), se realizaron las auditorías en Google PageSpeed Insights obteniendo puntuación perfecta (100/100) en todos los pilares. Era necesario documentar este hito traduciendo las métricas a un activo de conocimiento.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se creó el documento didáctico `biblioteca/auditoria-rendimiento.md`.
 - Se explicaron los 4 pilares auditados: Rendimiento (LCP/INP/CLS), Accesibilidad (WAI-ARIA/Contraste), Mejores Prácticas (CSP/WebP/HTTPS) y SEO (JSON-LD/Canónicas).
 - Se marcaron como completados los hitos de la Fase 6.4 en `README.md`.
 
 **Detalle técnico:** El informe vincula empíricamente las decisiones arquitectónicas "Shift-Left" (Vanilla JS, SASS sin frameworks, desencolado de scripts en WooCommerce) con el resultado positivo en herramientas de auditoría externa. Sirve como validación definitiva del *Aislamiento Dinámico*.
 
-**Motivo / criterio (Aprendizaje):** Gestión del Conocimiento. Los números perfectos no tienen valor a largo plazo si el equipo no comprende por qué se obtuvieron. Documentar el éxito cierra el ciclo DevSecOps y asienta las bases pedagógicas del proyecto (Regla de la Biblioteca).
+**Motivo / criterio:** Gestión del Conocimiento. Los números perfectos no tienen valor a largo plazo si el equipo no comprende por qué se obtuvieron. Documentar el éxito cierra el ciclo DevSecOps y asienta las bases pedagógicas del proyecto (Regla de la Biblioteca).
 
 **Siguiente paso o deuda:** Iniciar la Fase 6.3 (Verificación SEO Final) y preparar la transición hacia la Fase 7 (Automatización y Clasificación).
 
 ### 2026-04-21 — Feat: Orquestador maestro de pipeline (merci-total)
 
-**Contexto (Desafío):** Ejecutar individualmente los scripts de optimización, compilación y auditoría antes de cada pase a producción generaba fricción operativa y riesgo de omisión de pasos críticos.
+**Contexto:** Ejecutar individualmente los scripts de optimización, compilación y auditoría antes de cada pase a producción generaba fricción operativa y riesgo de omisión de pasos críticos.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se creó el script `scripts/merci/merci-total.py` para orquestar la ejecución secuencial de todas las herramientas.
 - Se inyectó el alias `merci-total` en el entorno local.
 
 **Detalle técnico:** El script define un pipeline lógico: `merci-optimizer.py` (Assets) -> `merci-styles.py` (CSS) -> `merci-sitemap.py` (SEO - Search Engine Optimization) -> `merci-audit.py` (SAST - Static Application Security Testing) -> `merci-linkcheck.py` (DAST - Dynamic Application Security Testing). Implementa un patrón "Fail-Fast", deteniendo la ejecución si algún subproceso falla. Excluye explícitamente procesos interactivos (`merci-commit.py`) o demonios (`merci-watcher.py`).
 
-**Motivo / criterio (Aprendizaje):** CI/CD (Continuous Integration / Continuous Deployment - Integración Continua / Despliegue Continuo) Local. Consolidar la cadena de suministro en un único comando garantiza que el código siempre se optimice y audite antes de integrarse, coronando la arquitectura de automatización del proyecto.
+**Motivo / criterio:** CI/CD (Continuous Integration / Continuous Deployment - Integración Continua / Despliegue Continuo) Local. Consolidar la cadena de suministro en un único comando garantiza que el código siempre se optimice y audite antes de integrarse, coronando la arquitectura de automatización del proyecto.
 
 **Siguiente paso o deuda:** Validar la orquestación total y ejecutar el commit final.
 
 ### 2026-04-21 — Chore: Adición de alias faltantes y resolución de linter de acrónimos
 
-**Contexto (Desafío):** Durante la preparación para el despliegue final, se constató que comandos como `merci-linkcheck` o `merci-sitemap` no tenían alias configurados en zsh, y el auditor de Markdown reportó el acrónimo "CPU" sin expandir en el análisis de Copilot.
+**Contexto:** Durante la preparación para el despliegue final, se constató que comandos como `merci-linkcheck` o `merci-sitemap` no tenían alias configurados en zsh, y el auditor de Markdown reportó el acrónimo "CPU" sin expandir en el análisis de Copilot.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se inyectaron los alias faltantes (`merci-linkcheck`, `merci-sitemap`) en el archivo `~/.zshrc`.
 - Se expandió el acrónimo CPU (Central Processing Unit - Unidad Central de Procesamiento) en `docs/Analisi-exhaustivo-antes-de-produccion-copilot-github.md`.
 
 **Detalle técnico:** Mantener los alias actualizados para todas las herramientas del ecosistema en el perfil de la terminal (zsh) elimina la fricción de tener que recordar las extensiones `.py` o las rutas absolutas, homogeneizando el flujo DevSecOps.
 
-**Motivo / criterio (Aprendizaje):** Higiene de terminal y estricto cumplimiento de convenciones. Responder inmediatamente a los avisos no bloqueantes del auditor (WARN) previene la acumulación de deuda técnica documental, asegurando un pase a producción impecable sin advertencias.
+**Motivo / criterio:** Higiene de terminal y estricto cumplimiento de convenciones. Responder inmediatamente a los avisos no bloqueantes del auditor (WARN) previene la acumulación de deuda técnica documental, asegurando un pase a producción impecable sin advertencias.
 
 **Siguiente paso o deuda:** Ejecutar el último commit atómico y proceder con el test real final en producción.
 
 ### 2026-04-21 — Fix: Prevención de Fatal Error por ausencia de dependencias (WooCommerce)
 
-**Contexto (Desafío):** Al cargar la tienda en el entorno local (donde el plugin de WooCommerce no está instalado), la plantilla no renderizaba el catálogo y devolvía la vista genérica de artículo, además de presentar riesgo de colapso si se forzaba su ejecución.
+**Contexto:** Al cargar la tienda en el entorno local (donde el plugin de WooCommerce no está instalado), la plantilla no renderizaba el catálogo y devolvía la vista genérica de artículo, además de presentar riesgo de colapso si se forzaba su ejecución.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se envolvió la llamada principal en `src/wp-theme/merci-theme/woocommerce.php` con un escudo de seguridad (`if ( function_exists( 'woocommerce_content' ) )`).
 
 **Detalle técnico:** La asimetría de entornos (Dev-Prod Parity) implica que no siempre existirán las mismas dependencias de base de datos o plugins. Sin WooCommerce, WordPress ignora `woocommerce.php` por defecto. Si forzara su carga, invocar `woocommerce_content()` provocaría un *Fatal Error* de PHP. El escudo condicional permite fallar con elegancia (Fail Gracefully).
 
-**Motivo / criterio (Aprendizaje):** Resiliencia del código. El código fuente nunca debe asumir ciegamente que un plugin de terceros estará siempre activo. Proteger las llamadas externas garantiza que el núcleo del tema sobreviva a desactivaciones accidentales en producción o a entornos de desarrollo locales austeros.
+**Motivo / criterio:** Resiliencia del código. El código fuente nunca debe asumir ciegamente que un plugin de terceros estará siempre activo. Proteger las llamadas externas garantiza que el núcleo del tema sobreviva a desactivaciones accidentales en producción o a entornos de desarrollo locales austeros.
 
 **Siguiente paso o deuda:** Finalizar el ciclo de despliegue a producción, donde el plugin sí reside, y ejecutar la auditoría de Core Web Vitals en PageSpeed.
 
 ### 2026-04-21 — Fix: Inyección de Favicon dinámico y restauración de symlink local
 
-**Contexto (Desafío):** El `favicon.ico` no se mostraba en las páginas de WordPress (`/blog`), y los cambios en los archivos `.php` locales no tenían efecto en el navegador, evidenciando una desconexión del entorno de desarrollo. No se han realizado modificaciones sobre el logotipo.
+**Contexto:** El `favicon.ico` no se mostraba en las páginas de WordPress (`/blog`), y los cambios en los archivos `.php` locales no tenían efecto en el navegador, evidenciando una desconexión del entorno de desarrollo. No se han realizado modificaciones sobre el logotipo.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se inyectó explícitamente la etiqueta `<link rel="icon" href="/favicon.ico?v=3" type="image/x-icon">` en el `<head>` de `src/wp-theme/merci-theme/index.php`.
 - Se eliminó la copia huérfana en `/var/www/wordpress/wp-content/themes/merci-theme` y se restauró el enlace simbólico local (`ln -s`) apuntando al repositorio.
 
 **Detalle técnico:** WordPress no emite un favicon por defecto a menos que se configure en su base de datos. Al inyectarlo directamente en el `index.php` del Child Theme, se garantiza que el CMS utilice el mismo archivo físico de la raíz estática. La restauración del symlink soluciona el "falso negativo" del entorno local causado por purgas anteriores.
 
-**Motivo / criterio (Aprendizaje):** Control estricto de la UI en entornos híbridos y paridad Dev-Prod. Confiar en que el CMS herede comportamientos visuales por defecto suele fallar. Además, el entorno de desarrollo local debe mantener exactamente la misma arquitectura de enlaces simbólicos que producción.
+**Motivo / criterio:** Control estricto de la UI en entornos híbridos y paridad Dev-Prod. Confiar en que el CMS herede comportamientos visuales por defecto suele fallar. Además, el entorno de desarrollo local debe mantener exactamente la misma arquitectura de enlaces simbólicos que producción.
 
 **Siguiente paso o deuda:** Comitear los cambios, desplegar a producción y ejecutar la auditoría de rendimiento final.
 
 ### 2026-04-21 — Aprovisionamiento manual de dependencias del CMS (WooCommerce)
 
-**Contexto (Desafío):** Tras el despliegue del código y la configuración del entorno de producción, surgió la duda sobre el estado operativo de la "Tienda" y la presencia del motor de WooCommerce en el servidor.
+**Contexto:** Tras el despliegue del código y la configuración del entorno de producción, surgió la duda sobre el estado operativo de la "Tienda" y la presencia del motor de WooCommerce en el servidor.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se constató que el plugin de WooCommerce no viaja a través del control de versiones (Git).
 - Se instruyó la instalación y activación manual del plugin desde el panel de administración de WordPress en producción, omitiendo el asistente de configuración.
 
 **Detalle técnico:** En una arquitectura de aislamiento, el repositorio Git gobierna el código propietario y la configuración del proxy. Las carpetas de dependencias de terceros (`wp-content/plugins/`) quedan excluidas explícitamente. Las reglas de optimización inyectadas en `functions.php` permanecen latentes hasta que el plugin es activado.
 
-**Motivo / criterio (Aprendizaje):** Inmutabilidad selectiva. Permitir que los plugins se gestionen visualmente en producción mientras el tema se gestiona estrictamente por código garantiza la operabilidad sin romper el escudo de rendimiento.
+**Motivo / criterio:** Inmutabilidad selectiva. Permitir que los plugins se gestionen visualmente en producción mientras el tema se gestiona estrictamente por código garantiza la operabilidad sin romper el escudo de rendimiento.
 
 **Siguiente paso o deuda:** Auditar la ruta de la tienda (`/blog/tienda`) en PageSpeed Insights.
 
 ### 2026-04-21 — Fix: Resolución de error NXDOMAIN en emisión de certificado SSL
 
-**Contexto (Desafío):** Al intentar emitir el certificado Let's Encrypt desde CloudPanel, el sistema devolvió un error de validación DNS (`NXDOMAIN`) para el subdominio `www.mercedev.es`.
+**Contexto:** Al intentar emitir el certificado Let's Encrypt desde CloudPanel, el sistema devolvió un error de validación DNS (`NXDOMAIN`) para el subdominio `www.mercedev.es`.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se eliminó el subdominio `www.mercedev.es` de la lista de dominios solicitados (SANs) en la interfaz de CloudPanel.
 - Se emitió el certificado SSL/TLS exclusivamente para el dominio raíz (apex domain): `mercedev.es`.
 
 **Detalle técnico:** Let's Encrypt exige que todos los nombres de dominio de la solicitud resuelvan hacia la IP del servidor. Al carecer la Zona DNS de un registro 'A' o Nombre Canónico (CNAME) explícito para el `www`, el desafío HTTP-01 fracasa.
 
-**Motivo / criterio (Aprendizaje):** Austeridad técnica y URLs canónicas. El prefijo `www` es un artefacto de la web clásica. Renunciar a él reduce la complejidad de la Zona DNS y se alinea con la filosofía minimalista.
+**Motivo / criterio:** Austeridad técnica y URLs canónicas. El prefijo `www` es un artefacto de la web clásica. Renunciar a él reduce la complejidad de la Zona DNS y se alinea con la filosofía minimalista.
 
 **Siguiente paso o deuda:** Comprobar la emisión exitosa del certificado para el dominio raíz y ejecutar la auditoría de rendimiento.
 
 ### 2026-04-21 — Fix: Emisión de Certificado SSL nativo en CloudPanel
 
-**Contexto (Desafío):** El dominio en producción mostraba la advertencia de "Sitio no seguro" (HTTP). Se planteó la duda de si utilizar la herramienta tradicional `certbot` por terminal para instalar el certificado Let's Encrypt.
+**Contexto:** El dominio en producción mostraba la advertencia de "Sitio no seguro" (HTTP). Se planteó la duda de si utilizar la herramienta tradicional `certbot` por terminal para instalar el certificado Let's Encrypt.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se descartó el uso manual de `certbot` vía CLI (Command Line Interface - Interfaz de Línea de Comandos).
 - Se emitió el certificado SSL/TLS (Secure Sockets Layer / Transport Layer Security) directamente desde la pestaña nativa de CloudPanel (Actions > New Let's Encrypt Certificate).
 
 **Detalle técnico:** CloudPanel gestiona sus propios bloques `server` en Nginx mediante plantillas. Emitir el certificado desde su GUI asegura que las directivas `listen 443 ssl` y las rutas a las llaves criptográficas se inyecten limpiamente sin sobreescribir nuestro enrutamiento híbrido personalizado (Fase 4 del Playbook).
 
-**Motivo / criterio (Aprendizaje):** Respeto por la abstracción del IaaS (Infrastructure as a Service). Mezclar herramientas de bajo nivel de sistema operativo con paneles de gestión genera conflictos de configuración (Configuration Drift). La integración nativa garantiza además la renovación automática del certificado sin necesidad de configurar *cronjobs* manuales.
+**Motivo / criterio:** Respeto por la abstracción del IaaS (Infrastructure as a Service). Mezclar herramientas de bajo nivel de sistema operativo con paneles de gestión genera conflictos de configuración (Configuration Drift). La integración nativa garantiza además la renovación automática del certificado sin necesidad de configurar *cronjobs* manuales.
 
 **Siguiente paso o deuda:** Comprobar que la web carga bajo el protocolo HTTPS y ejecutar, ahora sí, la auditoría final de rendimiento.
 
 ### 2026-04-21 — Fix: Sincronización de estado (Páginas y Taxonomías) en producción
 
-**Contexto (Desafío):** Tras el despliegue exitoso a producción, se detectó que el *hero* de la página "Tienda" no se renderizaba en el entorno público, a pesar de funcionar correctamente en local.
+**Contexto:** Tras el despliegue exitoso a producción, se detectó que el *hero* de la página "Tienda" no se renderizaba en el entorno público, a pesar de funcionar correctamente en local.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se diagnosticó una asimetría de estado en la base de datos: la condición lógica `is_page('tienda')` fallaba silenciosamente porque la página física aún no existía en el WordPress de producción.
 - Se instruyó la creación manual de las páginas base (Tienda) y categorías taxonómicas (Art de Coté) en el panel de administración de producción.
 
 **Detalle técnico:** El control de versiones (Git) transporta código inmutable y lógica condicional, pero no el estado de la base de datos. Las funciones de enrutamiento interno de WordPress (`is_page()`, `is_category()`) requieren que las entidades existan físicamente en las tablas `wp_posts` y `wp_terms` del entorno actual para que las sentencias `if` se resuelvan como verdaderas.
 
-**Motivo / criterio (Aprendizaje):** Paridad Dev-Prod (Código vs. Datos). En despliegues de arquitecturas CMS, inyectar la plantilla (Child Theme) es solo la primera mitad de la integración. Siempre se requiere un proceso de aprovisionamiento de datos (Data Seeding) en producción para recrear las anclas de contenido sobre las que pivota el diseño condicional.
+**Motivo / criterio:** Paridad Dev-Prod (Código vs. Datos). En despliegues de arquitecturas CMS, inyectar la plantilla (Child Theme) es solo la primera mitad de la integración. Siempre se requiere un proceso de aprovisionamiento de datos (Data Seeding) en producción para recrear las anclas de contenido sobre las que pivota el diseño condicional.
 
 **Siguiente paso o deuda:** Validar la aparición del componente *hero* tras crear la página y proceder con la auditoría final de PageSpeed.
 
 ### 2026-04-21 — Fix: Inyección de Favicon dinámico y restauración de symlink local
 
-**Contexto (Desafío):** El `favicon.ico` no se mostraba en las páginas de WordPress (`/blog`), y los cambios en los archivos `.php` locales no tenían efecto en el navegador, evidenciando una desconexión del entorno de desarrollo.
+**Contexto:** El `favicon.ico` no se mostraba en las páginas de WordPress (`/blog`), y los cambios en los archivos `.php` locales no tenían efecto en el navegador, evidenciando una desconexión del entorno de desarrollo.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se inyectó explícitamente la etiqueta `<link rel="icon" href="/favicon.ico?v=3" type="image/x-icon">` en el `<head>` de `src/wp-theme/merci-theme/index.php`.
 - Se eliminó la copia huérfana en `/var/www/wordpress/wp-content/themes/merci-theme` y se restauró el enlace simbólico local (`ln -s`) apuntando al repositorio.
 
 **Detalle técnico:** WordPress no emite un favicon por defecto a menos que se configure en su base de datos. Al inyectarlo directamente en el `index.php` del Child Theme, se garantiza que el CMS (Content Management System - Sistema de Gestión de Contenidos) utilice el mismo archivo físico de la raíz estática. La restauración del symlink soluciona el "falso negativo" del entorno local causado por purgas anteriores.
 
-**Motivo / criterio (Aprendizaje):** Control estricto de la UI en entornos híbridos y paridad Dev-Prod. Confiar en que el CMS herede comportamientos visuales por defecto suele fallar. Además, el entorno de desarrollo local debe mantener exactamente la misma arquitectura de enlaces simbólicos que producción para asegurar que el código que se edita en el IDE es el que el servidor local ejecuta.
+**Motivo / criterio:** Control estricto de la UI en entornos híbridos y paridad Dev-Prod. Confiar en que el CMS herede comportamientos visuales por defecto suele fallar. Además, el entorno de desarrollo local debe mantener exactamente la misma arquitectura de enlaces simbólicos que producción para asegurar que el código que se edita en el IDE es el que el servidor local ejecuta.
 
 **Siguiente paso o deuda:** Comitear los cambios, desplegar a producción (push/pull) y ejecutar la auditoría de rendimiento final (PageSpeed).
 
 ### 2026-04-21 — Fix: Caché y MIME Type del Favicon
 
-**Contexto (Desafío):** A pesar de haber estandarizado el formato a `.ico` y corregido las rutas, los navegadores se negaban a renderizar el nuevo favicon. Se diagnosticó un problema combinado de tipo MIME incorrecto y caché agresiva del navegador.
+**Contexto:** A pesar de haber estandarizado el formato a `.ico` y corregido las rutas, los navegadores se negaban a renderizar el nuevo favicon. Se diagnosticó un problema combinado de tipo MIME incorrecto y caché agresiva del navegador.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se corrigió el atributo `type` de `image/ico` a `image/x-icon` (el estándar oficial).
 - Se añadió la cadena de consulta `?v=2` (Cache Buster) a las referencias de `favicon.ico` en `public/index.html` y `public/biblioteca/index.html`.
 
 **Detalle técnico:** Los navegadores web aplican la caché más agresiva posible a los archivos `favicon.ico`. Añadir un parámetro de versión (`?v=2`) en la URL obliga al navegador a considerar la petición como un recurso nuevo, ignorando la caché local. Además, `image/x-icon` es el tipo MIME universalmente reconocido para este formato.
 
-**Motivo / criterio (Aprendizaje):** Control de Caché en Assets. Siempre que se sustituya un archivo estático crítico sin cambiar su nombre, se debe forzar la invalidación de la caché local del usuario (Cache Busting) para asegurar que los cambios visuales se propaguen inmediatamente a producción.
+**Motivo / criterio:** Control de Caché en Assets. Siempre que se sustituya un archivo estático crítico sin cambiar su nombre, se debe forzar la invalidación de la caché local del usuario (Cache Busting) para asegurar que los cambios visuales se propaguen inmediatamente a producción.
 
 **Siguiente paso o deuda:** Desplegar el parche, validar la aparición del icono y ejecutar la auditoría de rendimiento.
 
 ### 2026-04-21 — Fix: Estandarización definitiva del Favicon a formato .ico
 
-**Contexto (Desafío):** Se había introducido manualmente el archivo físico `favicon.ico` en el servidor y actualizado la portada (`index.html`), pero sin registrar la maniobra en el repositorio. Esto generó desincronización con las rutas previas y confusión en el diagnóstico del error 404.
+**Contexto:** Se había introducido manualmente el archivo físico `favicon.ico` en el servidor y actualizado la portada (`index.html`), pero sin registrar la maniobra en el repositorio. Esto generó desincronización con las rutas previas y confusión en el diagnóstico del error 404.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se oficializa el uso de `favicon.ico` como formato estándar para el icono del sitio.
 - Se actualizó la referencia en `public/biblioteca/index.html` para que coincida con la portada (`href="/favicon.ico"`).
 
 **Detalle técnico:** El formato `.ico` es el estándar histórico y es solicitado automáticamente por los navegadores en la raíz del dominio. Utilizar este formato físicamente en la raíz pública evita peticiones redundantes, errores 404 de rastreadores y la necesidad de mantener múltiples formatos base.
 
-**Motivo / criterio (Aprendizaje):** Trazabilidad de activos (Assets). Cualquier cambio manual en los archivos estáticos o en el servidor debe ser registrado en el control de versiones. Asentar el `.ico` como estándar simplifica la arquitectura y se alinea con la web clásica.
+**Motivo / criterio:** Trazabilidad de activos (Assets). Cualquier cambio manual en los archivos estáticos o en el servidor debe ser registrado en el control de versiones. Asentar el `.ico` como estándar simplifica la arquitectura y se alinea con la web clásica.
 
 **Siguiente paso o deuda:** Desplegar el HTML sincronizado y proceder a la auditoría de PageSpeed Insights.
 
 
 ### 2026-04-21 — Validación: Compilación SASS exitosa tras refactorización
 
-**Contexto (Desafío):** Tras una serie de intentos, los estilos de padding del componente `.section` seguían sin aplicarse, indicando un problema profundo en la cadena de compilación de SASS.
+**Contexto:** Tras una serie de intentos, los estilos de padding del componente `.section` seguían sin aplicarse, indicando un problema profundo en la cadena de compilación de SASS.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se confirmó que la causa raíz era una combinación de una regla `.section` duplicada y conflictiva en `_home.scss` y la omisión de la importación de la carpeta `components` en el `main.scss`.
 - Se eliminó la regla duplicada de `_home.scss`, se creó el componente atómico `_section.scss` y se aseguró que la cadena de importación (`@use`/`@forward`) estuviera completa.
 - Se recompiló el CSS con éxito, aplicando correctamente los márgenes en el navegador.
 
 **Detalle técnico:** La arquitectura SASS 7-1 depende de una cadena de importación sin ambigüedades. Un componente (`_section.scss`) debe ser reexportado por su índice local (`components/_index.scss`), y ese índice debe ser importado por el punto de entrada principal (`main.scss`).
 
-**Motivo / criterio (Aprendizaje):** La depuración de SASS requiere seguir la cadena de compilación desde el componente hasta el `main.scss`. Un estilo ausente en el CSS de salida casi siempre se debe a un `@forward` u `@use` omitido. La atomización de componentes previene estos conflictos.
+**Motivo / criterio:** La depuración de SASS requiere seguir la cadena de compilación desde el componente hasta el `main.scss`. Un estilo ausente en el CSS de salida casi siempre se debe a un `@forward` u `@use` omitido. La atomización de componentes previene estos conflictos.
 
 **Siguiente paso o deuda:** Con la integridad visual restaurada, proceder inmediatamente con la auditoría de Core Web Vitals (Fase 6.2) en el entorno de producción.
 
 ### 2026-04-21 — Fix: Conexión de índice de componentes en SASS 7-1
 
-**Contexto (Desafío):** Tras la refactorización del componente `.section` a su propio archivo, los estilos de padding seguían sin aplicarse en el navegador. Un análisis del `main.css` compilado reveló la ausencia total de la regla.
+**Contexto:** Tras la refactorización del componente `.section` a su propio archivo, los estilos de padding seguían sin aplicarse en el navegador. Un análisis del `main.css` compilado reveló la ausencia total de la regla.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se eliminó la regla `.section` duplicada que persistía en `_home.scss`.
 - Se verificó y aseguró que el archivo `main.scss` (punto de entrada) incluyera la directiva `@use 'components';` para importar el índice de la carpeta de componentes.
 
 **Detalle técnico:** La arquitectura SASS 7-1 es explícita. Si el archivo `main.scss` no importa el índice de un directorio (`components/_index.scss`), todos los componentes declarados en ese índice (`@forward 'section'`) son ignorados por el compilador.
 
-**Motivo / criterio (Aprendizaje):** Depuración de la cadena de compilación. Cuando un estilo no se aplica, el primer paso es verificar el CSS de salida. Si la regla no está presente, el fallo reside en la cadena de importación (`@use`/`@forward`) del preprocesador, no en el HTML o en la especificidad.
+**Motivo / criterio:** Depuración de la cadena de compilación. Cuando un estilo no se aplica, el primer paso es verificar el CSS de salida. Si la regla no está presente, el fallo reside en la cadena de importación (`@use`/`@forward`) del preprocesador, no en el HTML o en la especificidad.
 
 **Siguiente paso o deuda:** Validar la correcta visualización de los márgenes en todas las páginas y proceder con la auditoría de rendimiento.
 
 ### 2026-04-21 — Fix: Resolución de omisiones en índices de SASS 7-1
 
-**Contexto (Desafío):** Pese a refactorizar las clases en el HTML y el SASS, los estilos (como el padding de `.section` o el grid de `.home-card`) no se aplicaban en el navegador. Se diagnosticó que el archivo `src/scss/components/_index.scss` no estaba reexportando (`@forward`) los módulos recientes.
+**Contexto:** Pese a refactorizar las clases en el HTML y el SASS, los estilos (como el padding de `.section` o el grid de `.home-card`) no se aplicaban en el navegador. Se diagnosticó que el archivo `src/scss/components/_index.scss` no estaba reexportando (`@forward`) los módulos recientes.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se actualizó el archivo `_index.scss` para incluir las directivas `@forward` de los componentes faltantes (`card`, `home` y `section`).
 
 **Detalle técnico:** En la arquitectura SASS 7-1, el archivo principal (`main.scss`) solo lee los índices de cada subdirectorio. Si un archivo parcial (ej. `_section.scss`) no está declarado explícitamente en su índice local, el compilador lo ignora silenciosamente y sus reglas CSS no se inyectan en el binario final.
 
-**Motivo / criterio (Aprendizaje):** Trazabilidad del compilador. Al crear un nuevo archivo `.scss` (especialmente tras aislar componentes BEM), el primer paso innegociable debe ser registrarlo en su índice correspondiente. Esto previene "fugas de estilos" o falsos positivos durante el desarrollo.
+**Motivo / criterio:** Trazabilidad del compilador. Al crear un nuevo archivo `.scss` (especialmente tras aislar componentes BEM), el primer paso innegociable debe ser registrarlo en su índice correspondiente. Esto previene "fugas de estilos" o falsos positivos durante el desarrollo.
 
 **Siguiente paso o deuda:** Recompilar el CSS maestro, validar los márgenes en el navegador y proceder con la auditoría de los Core Web Vitals en producción.
 
 ### 2026-04-21 — Fix: Desacoplamiento de padding y atomización de .section
 
-**Contexto (Desafío):** Al aplicar la etiqueta semántica `<section>` con la clase heredada `.main--padded`, los márgenes no se renderizaban en el navegador. Se diagnosticó que la clase SASS estaba fuertemente acoplada a su etiqueta original y no funcionaba como componente transversal.
+**Contexto:** Al aplicar la etiqueta semántica `<section>` con la clase heredada `.main--padded`, los márgenes no se renderizaban en el navegador. Se diagnosticó que la clase SASS estaba fuertemente acoplada a su etiqueta original y no funcionaba como componente transversal.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se estableció definitivamente la clase atómica `.section` en la etiqueta `<section>` de `src/wp-theme/merci-theme/index.php`.
 - Se trasladó la responsabilidad del espaciado (`padding`) directamente a la clase `.section` en la arquitectura SASS, purgando el modificador obsoleto `.main--padded`.
 
 **Detalle técnico:** Desacoplar las clases CSS de las etiquetas HTML específicas permite que el diseño sobreviva a las refactorizaciones semánticas (cambio de divs a sections). Ahora `.section` actúa como un Layout universal.
 
-**Motivo / criterio (Aprendizaje):** Especificidad y modularidad SASS. Los modificadores BEM atados a contextos específicos rompen la reusabilidad. Al centralizar el padding en `.section`, se cumple el principio DRY (Don't Repeat Yourself) y se garantiza coherencia absoluta en todas las vistas, sean servidas por Nginx o por el motor de PHP.
+**Motivo / criterio:** Especificidad y modularidad SASS. Los modificadores BEM atados a contextos específicos rompen la reusabilidad. Al centralizar el padding en `.section`, se cumple el principio DRY (Don't Repeat Yourself) y se garantiza coherencia absoluta en todas las vistas, sean servidas por Nginx o por el motor de PHP.
 
 **Siguiente paso o deuda:** Validar los márgenes tras recompilar el SASS y proceder a la auditoría de los Core Web Vitals en producción.
 
 ### 2026-04-21 — Fix: Restauración de modificador de padding en sección dinámica
 
-**Contexto (Desafío):** Al sustituir la clase `.main--padded` por `.section` en `index.php` para unificar estilos, se perdió el espaciado (padding) interno. En la arquitectura SASS actual, el padding de las vistas de contenido está explícitamente vinculado al modificador `.main--padded` y no a la clase estructural `.section`.
+**Contexto:** Al sustituir la clase `.main--padded` por `.section` en `index.php` para unificar estilos, se perdió el espaciado (padding) interno. En la arquitectura SASS actual, el padding de las vistas de contenido está explícitamente vinculado al modificador `.main--padded` y no a la clase estructural `.section`.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se restauró la clase `.main--padded` en la etiqueta `<section>` del archivo `src/wp-theme/merci-theme/index.php`.
 
 **Detalle técnico:** Se mantiene la mejora semántica de usar `<section>` (HTML5) introducida anteriormente, pero se le devuelve la clase CSS que controla físicamente los márgenes (`4rem 2rem`) en el diseño base, asegurando que se visualice correctamente en `localhost`.
 
-**Motivo / criterio (Aprendizaje):** Conocimiento del estado del SASS. Reemplazar clases asumiendo comportamientos genéricos (como que `.section` tiene padding universal) sin verificar las reglas compiladas genera regresiones visuales. El modificador `.main--padded` debe mantenerse hasta que se decida refactorizar el SASS globalmente.
+**Motivo / criterio:** Conocimiento del estado del SASS. Reemplazar clases asumiendo comportamientos genéricos (como que `.section` tiene padding universal) sin verificar las reglas compiladas genera regresiones visuales. El modificador `.main--padded` debe mantenerse hasta que se decida refactorizar el SASS globalmente.
 
 **Siguiente paso o deuda:** Validar la vista en local, comitear y auditar los Core Web Vitals en producción.
 
 ### 2026-04-21 — Atomización de estilos en secciones dinámicas
 
-**Contexto (Desafío):** Los textos de la capa dinámica (WordPress) aparecían pegados al borde izquierdo sin margen. Esto se debía a que las plantillas usaban la clase modificadora antigua `.main--padded` en lugar de heredar los estilos atómicos estructurales de la portada.
+**Contexto:** Los textos de la capa dinámica (WordPress) aparecían pegados al borde izquierdo sin margen. Esto se debía a que las plantillas usaban la clase modificadora antigua `.main--padded` en lugar de heredar los estilos atómicos estructurales de la portada.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se reemplazó la clase `.main--padded` por la clase atómica `.section` en `src/wp-theme/merci-theme/index.php`.
 - (Nota: Esta misma convención atómica debe replicarse en las vistas estáticas como la Biblioteca).
 
 **Detalle técnico:** Al igual que se hizo con `.hero`, el uso de `.section` centraliza el padding responsivo y la alineación. Cualquier ajuste en SASS sobre el componente `_section.scss` se propagará automáticamente al contenido dinámico.
 
-**Motivo / criterio (Aprendizaje):** Principio DRY (Don't Repeat Yourself). La atomización evita incoherencias visuales (como saltos de márgenes entre páginas) y elimina la necesidad de mantener modificadores CSS redundantes para el mismo propósito estructural.
+**Motivo / criterio:** Principio DRY (Don't Repeat Yourself). La atomización evita incoherencias visuales (como saltos de márgenes entre páginas) y elimina la necesidad de mantener modificadores CSS redundantes para el mismo propósito estructural.
 
 **Siguiente paso o deuda:** Replicar esta clase `.section` en las páginas estáticas que lo requieran y validar los Core Web Vitals en producción.
 
 ### 2026-04-21 — Refactorización semántica en plantillas dinámicas (HTML5)
 
-**Contexto (Desafío):** Se detectó una inconsistencia semántica entre la portada estática y las vistas dinámicas de WordPress. Mientras la portada utiliza etiquetas `<section>` para agrupar bloques temáticos de contenido, el archivo `index.php` del CMS envolvía los listados de artículos en un `<div>` genérico (`<div class="main--padded">`).
+**Contexto:** Se detectó una inconsistencia semántica entre la portada estática y las vistas dinámicas de WordPress. Mientras la portada utiliza etiquetas `<section>` para agrupar bloques temáticos de contenido, el archivo `index.php` del CMS envolvía los listados de artículos en un `<div>` genérico (`<div class="main--padded">`).
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se reemplazó el contenedor `<div>` por una etiqueta `<section>` en `src/wp-theme/merci-theme/index.php`.
 
 **Detalle técnico:** Las etiquetas `<section>` introducen un nuevo nodo en el "outline" (esquema) del documento HTML5, lo cual es interpretado correctamente por tecnologías de asistencia y crawlers (SEO) para identificar bloques de contenido autónomos (como el loop de posts o productos).
 
-**Motivo / criterio (Aprendizaje):** Coherencia arquitectónica y accesibilidad estricta. Un `<div>` carece de valor semántico. Envolver el contenido dinámico dentro de un `<section>` respeta la política de semántica HTML5 del proyecto y asegura que la calidad técnica no se degrade al transicionar del núcleo estático al dinámico.
+**Motivo / criterio:** Coherencia arquitectónica y accesibilidad estricta. Un `<div>` carece de valor semántico. Envolver el contenido dinámico dentro de un `<section>` respeta la política de semántica HTML5 del proyecto y asegura que la calidad técnica no se degrade al transicionar del núcleo estático al dinámico.
 
 **Siguiente paso o deuda:** Desplegar la corrección estructural y continuar con la medición del rendimiento en producción.
 
 ### 2026-04-21 — Fix: Resolución de enrutamiento de assets en producción
 
-**Contexto (Desafío):** Tras el despliegue, los assets (como el logotipo) devolvían un error 404. La causa era que el `Document Root` de Nginx apuntaba a `/public`, pero la carpeta `/assets` residía fuera de ella, haciéndola inaccesible para el servidor web.
+**Contexto:** Tras el despliegue, los assets (como el logotipo) devolvían un error 404. La causa era que el `Document Root` de Nginx apuntaba a `/public`, pero la carpeta `/assets` residía fuera de ella, haciéndola inaccesible para el servidor web.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se ha creado un tercer enlace simbólico para proyectar la carpeta `/assets` dentro de `/public`.
 - Se ha actualizado el `deployment-playbook.md` para incluir este nuevo paso.
 
 **Detalle técnico:** El comando `ln -s /home/mercedev-php/htdocs/mercedev.es/assets /home/mercedev-php/htdocs/mercedev.es/public/assets` resuelve el problema de rutas sin necesidad de reestructurar el repositorio ni de añadir directivas `alias` complejas en la configuración de Nginx de CloudPanel.
 
-**Motivo / criterio (Aprendizaje):** Consistencia arquitectónica. El uso de enlaces simbólicos es la estrategia unificada de este proyecto para conectar componentes desacoplados. Cualquier recurso que deba ser servido por la web debe residir (o aparentar residir) bajo el `Document Root`.
+**Motivo / criterio:** Consistencia arquitectónica. El uso de enlaces simbólicos es la estrategia unificada de este proyecto para conectar componentes desacoplados. Cualquier recurso que deba ser servido por la web debe residir (o aparentar residir) bajo el `Document Root`.
 
 **Siguiente paso o deuda:** Validar la correcta visualización del logotipo en la portada y en el blog, y proceder con la auditoría de rendimiento de la Fase 6.2.
 
 ### 2026-04-21 — Docs: Actualización del Deployment Playbook para CloudPanel
 
-**Contexto (Desafío):** El manual de despliegue (`docs/deployment-playbook.md`) poseía instrucciones genéricas de enrutamiento y carecía del paso del puente del Child Theme. Era vital alinear el "Runbook" con la ejecución real realizada en el servidor de producción.
+**Contexto:** El manual de despliegue (`docs/deployment-playbook.md`) poseía instrucciones genéricas de enrutamiento y carecía del paso del puente del Child Theme. Era vital alinear el "Runbook" con la ejecución real realizada en el servidor de producción.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se precisaron las rutas absolutas (`mercedev-php`, `mercedev.es`) en la Fase 3 y se incluyó el comando del segundo enlace simbólico para el Child Theme.
 - Se refactorizó la Fase 4 para reflejar el proceso nativo de CloudPanel: modificación del *Document Root* vía UI, edición específica del VHost en el bloque del puerto 8080 y la activación de Enlaces Permanentes.
 
 **Detalle técnico:** Detallar que el enrutamiento de Nginx en CloudPanel se inyecta en el bloque `server` que escucha en el puerto `8080` (procesamiento PHP/Varnish) previene romper la configuración de los servidores públicos de los puertos 80 y 443.
 
-**Motivo / criterio (Aprendizaje):** Reproducibilidad. Un playbook debe ser un guión ejecutable sin ambigüedades. Incorporar el aprovisionamiento post-instalación (Enlaces permanentes) en el manual asegura que la base de datos y Nginx queden sincronizados en futuros despliegues o reconstrucciones de la infraestructura.
+**Motivo / criterio:** Reproducibilidad. Un playbook debe ser un guión ejecutable sin ambigüedades. Incorporar el aprovisionamiento post-instalación (Enlaces permanentes) en el manual asegura que la base de datos y Nginx queden sincronizados en futuros despliegues o reconstrucciones de la infraestructura.
 
 **Siguiente paso o deuda:** Iniciar la Fase 6.2 (Auditoría de rendimiento y accesibilidad) con herramientas externas para validar los Web Vitals.
 
 ### 2026-04-21 — Docs: Refactorización de documento de integración para CloudPanel
 
-**Contexto (Desafío):** El documento `docs/integracion-wordpress.md` reflejaba la configuración del entorno local (LEMP nativo en `/var/www/`). Tras el despliegue en producción, existía una deuda documental ("Drift" o deriva de configuración) respecto a la arquitectura real en CloudPanel.
+**Contexto:** El documento `docs/integracion-wordpress.md` reflejaba la configuración del entorno local (LEMP nativo en `/var/www/`). Tras el despliegue en producción, existía una deuda documental ("Drift" o deriva de configuración) respecto a la arquitectura real en CloudPanel.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se actualizaron las rutas absolutas a `/home/mercedev-php/htdocs/`.
 - Se incluyó el segundo enlace simbólico destinado al *Child Theme*.
 - Se reemplazó el Virtual Host completo por la metodología de CloudPanel (modificación de `Document Root` vía UI e inyección de reglas `location` en el bloque 8080).
 
 **Detalle técnico:** Adaptar la documentación a las variables `{{root}}` de CloudPanel es vital para que las reglas inyectadas en el VHost no entren en conflicto con el IaaS (Infrastructure as a Service - Infraestructura como Servicio).
 
-**Motivo / criterio (Aprendizaje):** Single Source of Truth (Única Fuente de Verdad). La documentación arquitectónica no puede ser un artefacto teórico fosilizado. Si la infraestructura en producción se adapta a un panel de control, los documentos del repositorio deben actualizarse para que cualquier réplica futura sea exacta.
+**Motivo / criterio:** Single Source of Truth (Única Fuente de Verdad). La documentación arquitectónica no puede ser un artefacto teórico fosilizado. Si la infraestructura en producción se adapta a un panel de control, los documentos del repositorio deben actualizarse para que cualquier réplica futura sea exacta.
 
 **Siguiente paso o deuda:** Iniciar la Fase 6.2 (Auditoría de rendimiento y accesibilidad) con herramientas externas para validar los Web Vitals del entorno real.
 
 ### 2026-04-21 — Docs: Actualización de la arquitectura de integración de WordPress
 
-**Contexto (Desafío):** El documento `docs/integracion-wordpress.md` contenía el plan teórico de despliegue. Tras la implementación exitosa en producción (CloudPanel), era imperativo actualizar la documentación para que reflejara la arquitectura real y los comandos ejecutados.
+**Contexto:** El documento `docs/integracion-wordpress.md` contenía el plan teórico de despliegue. Tras la implementación exitosa en producción (CloudPanel), era imperativo actualizar la documentación para que reflejara la arquitectura real y los comandos ejecutados.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se ha reescrito por completo el documento `docs/integracion-wordpress.md`.
 - La nueva versión detalla el proceso específico para un entorno gestionado con CloudPanel.
 
 **Detalle técnico:** El documento ahora incluye la arquitectura de "carpetas hermanas", la creación de los dos enlaces simbólicos (para `/blog` y para el `merci-theme`), y la configuración VHost adaptada al motor de plantillas de CloudPanel (modificación del Document Root vía UI y del enrutador PHP en el bloque del puerto 8080).
 
-**Motivo / criterio (Aprendizaje):** La documentación debe ser un reflejo fiel de la infraestructura en producción, no un artefacto teórico. Este documento actualizado sirve ahora como un "Runbook" fiable para futuras reinstalaciones o para la depuración de la arquitectura híbrida.
+**Motivo / criterio:** La documentación debe ser un reflejo fiel de la infraestructura en producción, no un artefacto teórico. Este documento actualizado sirve ahora como un "Runbook" fiable para futuras reinstalaciones o para la depuración de la arquitectura híbrida.
 
 **Siguiente paso o deuda:** Iniciar la Fase 6.2 (Auditoría de rendimiento y accesibilidad) para medir los Core Web Vitals en el entorno de producción real.
 
 ### 2026-04-21 — Fase 4.2: Enlace simbólico del Child Theme en producción
 
-**Contexto (Desafío):** Tras inicializar la base de datos de producción, el "Merci Theme" no aparecía en el panel de WordPress porque el código reside en el repositorio Git inmutable (`mercedev.es/src/...`) y el CMS está enjaulado en un directorio hermano (`wordpress/`).
+**Contexto:** Tras inicializar la base de datos de producción, el "Merci Theme" no aparecía en el panel de WordPress porque el código reside en el repositorio Git inmutable (`mercedev.es/src/...`) y el CMS está enjaulado en un directorio hermano (`wordpress/`).
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se trazó un enlace simbólico físico (`ln -s`) desde el código del tema en el repositorio hacia el directorio `wp-content/themes/merci-theme` de la instalación asilada de WordPress.
 - Se verificó y activó el tema en el panel de administración en producción.
 
 **Detalle técnico:** Este puente lógico bidireccional garantiza que cualquier actualización de diseño (CSS/PHP) que ingrese vía `git pull` se refleje inmediatamente en el CMS sin necesidad de mover o copiar archivos manualmente.
 
-**Motivo / criterio (Aprendizaje):** Aislamiento con automatización cero-fricción. El motor PHP de WordPress y los plugins de terceros viven fuera del control de versiones, pero nuestra capa visual a medida (Child Theme) permanece estrictamente gobernada por Git, respetando la filosofía "Single Source of Truth".
+**Motivo / criterio:** Aislamiento con automatización cero-fricción. El motor PHP de WordPress y los plugins de terceros viven fuera del control de versiones, pero nuestra capa visual a medida (Child Theme) permanece estrictamente gobernada por Git, respetando la filosofía "Single Source of Truth".
 
 **Siguiente paso o deuda:** Resolver la deuda técnica visual (rutas de assets y menú rotos en el frontend dinámico) derivada de la diferencia de la URI base entre la raíz estática y la subruta `/blog`.
 
 ### 2026-04-21 — Aprovisionamiento de base de datos y separación Código/Estado
 
-**Contexto (Desafío):** Tras configurar el enrutamiento Nginx, se requería inicializar el CMS en producción. Se constató la necesidad de clarificar por qué es obligatorio repetir la configuración web (creación de admin, etc.) que ya se hizo en local. Asimismo, se observó que el Child Theme "Merci" no estaba disponible para activación en el panel de WordPress.
+**Contexto:** Tras configurar el enrutamiento Nginx, se requería inicializar el CMS en producción. Se constató la necesidad de clarificar por qué es obligatorio repetir la configuración web (creación de admin, etc.) que ya se hizo en local. Asimismo, se observó que el Child Theme "Merci" no estaba disponible para activación en el panel de WordPress.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se completó la instalación web (aprovisionamiento) alimentando la nueva base de datos `mercedev_wp_prod`.
 - Se sincronizó el enrutamiento configurando los Enlaces Permanentes a "Nombre de la entrada".
 - Se documentó la lección arquitectónica sobre la asimetría de Git: transporta código inmutable, no estado.
 
 **Detalle técnico:** Un CMS desplegado en una nueva infraestructura nace en blanco. La configuración de Permalinks (`/%postname%/`) es crítica para que el proxy inverso de Nginx (`/blog/index.php?$args`) interprete correctamente la URI dinámica. La ausencia del Child Theme se debe a que este reside en el repositorio inmutable (`src/wp-theme/merci-theme`) y requiere ser enlazado explícitamente a la instalación asilada del CMS.
 
-**Motivo / criterio (Aprendizaje):** Principio de Separación de Responsabilidades. La base de datos nunca se sube mediante control de versiones para evitar colisiones de URLs (`localhost` vs producción), credenciales débiles y fugas de seguridad (Shift-Left). Mantener ambas piezas separadas obliga a un aprovisionamiento seguro desde cero.
+**Motivo / criterio:** Principio de Separación de Responsabilidades. La base de datos nunca se sube mediante control de versiones para evitar colisiones de URLs (`localhost` vs producción), credenciales débiles y fugas de seguridad (Shift-Left). Mantener ambas piezas separadas obliga a un aprovisionamiento seguro desde cero.
 
 **Siguiente paso o deuda:** Trazar el enlace simbólico del Child Theme desde el repositorio Git hacia el directorio `wp-content/themes/` del WordPress aislado y activarlo.
 
 ### 2026-04-20 — Fix: Adaptación de enrutamiento Nginx a plantillas de CloudPanel
 
-**Contexto (Desafío):** Al configurar el enrutamiento Nginx (VHost) para separar la capa estática de la dinámica, se detectó que CloudPanel utiliza un motor de plantillas (variable `{{root}}`). Reemplazar estas variables manualmente por rutas absolutas en el editor de texto amenazaba con romper la integración del panel.
+**Contexto:** Al configurar el enrutamiento Nginx (VHost) para separar la capa estática de la dinámica, se detectó que CloudPanel utiliza un motor de plantillas (variable `{{root}}`). Reemplazar estas variables manualmente por rutas absolutas en el editor de texto amenazaba con romper la integración del panel.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se actualizó el *Document Root* desde la interfaz visual de CloudPanel (pestaña Settings) añadiendo `/public` al final, lo que propagó el cambio de forma segura a todas las variables `{{root}}`.
 - En la configuración VHost (pestaña VHost), dentro del bloque `server` del puerto 8080 (procesamiento interno de PHP), se eliminó la regla global `try_files` y se aislaron los tráficos usando dos bloques `location` dedicados (`/` y `/blog`).
 
 **Detalle técnico:**
 El bloque estático `location /` devuelve un error 404 de coste cero si el archivo no existe, protegiendo la raíz de ejecución de scripts no autorizados. El bloque dinámico `location /blog` atrapa el tráfico hacia el CMS aislado pasándolo por `/blog/index.php?$args`.
 
-**Motivo / criterio (Aprendizaje):**
+**Motivo / criterio:**
 Respetar la capa de abstracción del proveedor (IaaS/Panel). Forzar modificaciones estáticas sobre un entorno gobernado por plantillas dinámicas genera deuda técnica y fragilidad ante actualizaciones del sistema. Separar el ajuste del "Document Root" (vía UI) del "Enrutador PHP" (vía VHost) es la práctica DevOps correcta.
 
 **Siguiente paso o deuda:**
@@ -3876,15 +3876,15 @@ Validar en el navegador la carga de la página estática y la aparición de la i
 
 ### 2026-04-17 — Fix: Regeneración de Deploy Key SSH para el usuario correcto
 
-**Contexto (Desafío):** Al ejecutar el `git clone` en el servidor de producción, GitHub devolvió un error `Permission denied (publickey)`, bloqueando la descarga del repositorio.
+**Contexto:** Al ejecutar el `git clone` en el servidor de producción, GitHub devolvió un error `Permission denied (publickey)`, bloqueando la descarga del repositorio.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se generó un nuevo par de claves SSH (`ssh-keygen -t ed25519`) bajo el usuario `mercedev-php`.
 - Se sustituyó la Deploy Key obsoleta en los ajustes del repositorio de GitHub por la nueva clave pública.
 
 **Detalle técnico:** Las claves SSH están vinculadas estrictamente al directorio `$HOME/.ssh/` del usuario que las ejecuta. La clave generada inicialmente pertenecía al usuario incorrecto (`mercedev`), por lo que el proceso de Git bajo `mercedev-php` carecía de credenciales válidas para la autenticación criptográfica contra GitHub.
 
-**Motivo / criterio (Aprendizaje):** Autenticación estricta de Linux. En arquitecturas IaaS y paneles como CloudPanel, la identidad del proceso (quién ejecuta el comando) define qué anillo de claves se utiliza. Emparejar correctamente el usuario del sistema de archivos web con su propia clave SSH es vital para un despliegue CI/CD sin fricciones.
+**Motivo / criterio:** Autenticación estricta de Linux. En arquitecturas IaaS y paneles como CloudPanel, la identidad del proceso (quién ejecuta el comando) define qué anillo de claves se utiliza. Emparejar correctamente el usuario del sistema de archivos web con su propia clave SSH es vital para un despliegue CI/CD sin fricciones.
 
 **Siguiente paso o deuda:** Confirmar la clonación exitosa del código e iniciar la Fase 3 (Aislamiento de WordPress en CloudPanel).
 
@@ -3976,14 +3976,14 @@ Validar en el navegador la carga de la página estática y la aparición de la i
 
 ### 2026-04-17 — Fix: Variables obsoletas en CSS Reset
 
-**Contexto (Desafío):** Al compilar el SASS tras la migración al Light Mode, el compilador devolvía un error de variables no definidas en `_reset.scss`, deteniendo la ejecución de `merci-watcher.py`.
+**Contexto:** Al compilar el SASS tras la migración al Light Mode, el compilador devolvía un error de variables no definidas en `_reset.scss`, deteniendo la ejecución de `merci-watcher.py`.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se actualizaron las variables en `src/scss/base/_reset.scss` a `$color-bg-base` y `$color-text-base`.
 
 **Detalle técnico:** Se sustituyeron las antiguas variables del modo oscuro que habían quedado huérfanas tras la refactorización de `_variables.scss` en la sesión anterior.
 
-**Motivo / criterio (Aprendizaje):** En refactorizaciones globales de sistemas de diseño (Design Systems), es común que algún archivo base mantenga dependencias obsoletas. El compilador SASS actúa de forma estricta, protegiendo la integridad del CSS final e impidiendo que llegue código roto a producción.
+**Motivo / criterio:** En refactorizaciones globales de sistemas de diseño (Design Systems), es común que algún archivo base mantenga dependencias obsoletas. El compilador SASS actúa de forma estricta, protegiendo la integridad del CSS final e impidiendo que llegue código roto a producción.
 
 **Siguiente paso o deuda:** Verificar que el compilador finalice con éxito y volver al enfoque de despliegue en producción (Fase 6).
 
@@ -4030,56 +4030,56 @@ Validar en el navegador la carga de la página estática y la aparición de la i
 
 ### 2026-04-17 — Fix: Resolución de advertencias de deprecación en Dart Sass
 
-**Contexto (Desafío):** Al compilar los estilos SASS, el compilador emitía advertencias (Deprecation Warnings) indicando que las funciones globales de color (`scale-color`) serán eliminadas en Dart Sass 3.0.0.
+**Contexto:** Al compilar los estilos SASS, el compilador emitía advertencias (Deprecation Warnings) indicando que las funciones globales de color (`scale-color`) serán eliminadas en Dart Sass 3.0.0.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se migró el uso de `scale-color` al módulo moderno `color.scale`.
 - Se añadió la importación `@use 'sass:color';` en los archivos `_typography.scss`, `_footer.scss` y `_hero.scss`.
 
 **Detalle técnico:** Dart Sass está abandonando las funciones globales en favor de un sistema de módulos integrados (built-in modules). El uso de `color.scale()` previene que el compilador rompa la compilación en futuras actualizaciones del binario standalone de SASS.
 
-**Motivo / criterio (Aprendizaje):** Mantenibilidad a largo plazo. Un Boilerplate no debe generar advertencias (warnings) de compilación "out of the box". Atender las deprecaciones a tiempo es una práctica fundamental de higiene técnica.
+**Motivo / criterio:** Mantenibilidad a largo plazo. Un Boilerplate no debe generar advertencias (warnings) de compilación "out of the box". Atender las deprecaciones a tiempo es una práctica fundamental de higiene técnica.
 
 **Siguiente paso o deuda:** Migrar el esquema de colores a variables agnósticas (Light Mode) en los archivos `abstracts` y eliminar colores quemados (hardcoded).
 
 ### 2026-04-17 — Corrección de usuario y ruta web en CloudPanel
 
-**Contexto (Desafío):** Al intentar acceder al directorio del sitio vía SSH para clonar el repositorio, la navegación fallaba debido a que la ruta teórica no coincidía con la generada por el panel de control.
+**Contexto:** Al intentar acceder al directorio del sitio vía SSH para clonar el repositorio, la navegación fallaba debido a que la ruta teórica no coincidía con la generada por el panel de control.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se verificó la ruta absoluta real desde la interfaz web de CloudPanel, resultando ser `/home/mercedev-php/htdocs/mercedev.es`.
 - Se actualizaron las referencias en `docs/deployment-playbook.md` para utilizar rutas absolutas explícitas.
 
 **Detalle técnico:** CloudPanel genera automáticamente usuarios de sistema anexando sufijos (como `-php`) dependiendo del tipo de aplicación seleccionada (PHP Site) para evitar colisiones de nombres. La asunción de que el usuario del sitio era exactamente el ingresado en el formulario causó el error de navegación.
 
-**Motivo / criterio (Aprendizaje):** Verificación empírica. La interfaz de gestión (GUI) del panel expone la configuración final del servidor (Document Root absoluto). Es prioritario confiar en los datos de la plataforma IaaS o Panel de Control por encima de las asunciones teóricas al interactuar con el CLI.
+**Motivo / criterio:** Verificación empírica. La interfaz de gestión (GUI) del panel expone la configuración final del servidor (Document Root absoluto). Es prioritario confiar en los datos de la plataforma IaaS o Panel de Control por encima de las asunciones teóricas al interactuar con el CLI.
 
 **Siguiente paso o deuda:** Iniciar sesión como `mercedev-php` y ejecutar `git clone` en la carpeta web correcta (Fase 2).
 
 ### 2026-04-17 — Corrección de rutas absolutas a relativas (Home) en manual de despliegue
 
-**Contexto (Desafío):** Al intentar navegar y listar archivos (`ls`) en el servidor de producción bajo el usuario del sitio de CloudPanel, el sistema devolvía "Permission denied" debido a una confusión en las rutas documentadas en el manual.
+**Contexto:** Al intentar navegar y listar archivos (`ls`) en el servidor de producción bajo el usuario del sitio de CloudPanel, el sistema devolvía "Permission denied" debido a una confusión en las rutas documentadas en el manual.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se actualizaron las rutas en `docs/deployment-playbook.md` cambiando `/htdocs/...` por `~/htdocs/...`.
 
 **Detalle técnico:** CloudPanel aísla (chroot/jail) a los usuarios de los sitios. Intentar acceder a `/htdocs` desde la raíz absoluta del servidor de Ubuntu interfiere con los permisos de `root`. La ruta correcta del directorio web reside dentro del `$HOME` del usuario (`~` que se traduce en `/home/usuario/htdocs/dominio.com`).
 
-**Motivo / criterio (Aprendizaje):** Seguridad de sistema operativo (Linux). Los aislamientos en jaulas evitan que un sitio web comprometido acceda a los archivos de otro sitio en el mismo servidor. Respetar el uso del directorio `$HOME` (`~`) es vital en arquitecturas multi-tenant o paneles de control.
+**Motivo / criterio:** Seguridad de sistema operativo (Linux). Los aislamientos en jaulas evitan que un sitio web comprometido acceda a los archivos de otro sitio en el mismo servidor. Respetar el uso del directorio `$HOME` (`~`) es vital en arquitecturas multi-tenant o paneles de control.
 
 **Siguiente paso o deuda:** Completar la clonación del repositorio en la carpeta del sitio.
 
 ### 2026-04-17 — Fix: Preservación de transparencia (Canal Alpha) en Merci Optimizer
 
-**Contexto (Desafío):** Al procesar imágenes originales con fondos transparentes (ej. logos en formato PNG), la salida WebP resultante inyectaba un fondo opaco, rompiendo el diseño de la UI en el Frontend.
+**Contexto:** Al procesar imágenes originales con fondos transparentes (ej. logos en formato PNG), la salida WebP resultante inyectaba un fondo opaco, rompiendo el diseño de la UI en el Frontend.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se añadió una validación del espacio de color (`img.mode`) en `merci-optimizer.py` antes del proceso de guardado y redimensionado.
 - Se actualizó el archivo de pruebas `test_optimizer.py` para mockear el objeto resultante de la conversión.
 
 **Detalle técnico:** Las imágenes guardadas en paleta indexada (Modo `P`) o con alpha explícito (`RGBA`, `LA`) pierden sus propiedades de transparencia al ser procesadas directamente a WebP por Pillow si no se convierten antes a un modo compatible. El bloque `img = img.convert('RGBA')` soluciona esto en memoria, preservando el canal de opacidad para el binario final.
 
-**Motivo / criterio (Aprendizaje):** Fiabilidad de la herramienta local. Una herramienta de optimización multimedia no puede degradar el aspecto visual (UX/UI) a expensas del tamaño. Gestionar los modos de color garantiza que las imágenes transparentes se empaqueten correctamente en WebP.
+**Motivo / criterio:** Fiabilidad de la herramienta local. Una herramienta de optimización multimedia no puede degradar el aspecto visual (UX/UI) a expensas del tamaño. Gestionar los modos de color garantiza que las imágenes transparentes se empaqueten correctamente en WebP.
 
 **Siguiente paso o deuda:** Re-ejecutar el optimizador para recuperar el logotipo sin fondo y continuar el despliegue con CloudPanel.
 
@@ -4112,29 +4112,29 @@ Validar en el navegador la carga de la página estática y la aparición de la i
 
 ### 2026-04-17 — Diagnóstico de enrutamiento DNS y evaluación de proveedores IaaS
 
-**Contexto (Desafío):** Pérdida de conectividad con el dominio `mercedev.es` tras el reaprovisionamiento del servidor, sumado al deseo de explorar alternativas a DigitalOcean para el alojamiento del entorno de producción.
+**Contexto:** Pérdida de conectividad con el dominio `mercedev.es` tras el reaprovisionamiento del servidor, sumado al deseo de explorar alternativas a DigitalOcean para el alojamiento del entorno de producción.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se diagnosticó una desincronización en la Zona DNS: el Registro 'A' del dominio apuntaba a la IP del Droplet destruido (Singapur) en lugar del nuevo nodo europeo.
 - Se propusieron proveedores IaaS (Infrastructure as a Service) alternativos (Hetzner, Linode, Vultr) compatibles con el `deployment-playbook.md`.
 
 **Detalle técnico:** Al destruir y recrear máquinas virtuales, la dirección IPv4 pública cambia. Es imperativo actualizar el registro 'A' (y 'AAAA' si se usa IPv6) en el registrador del dominio y esperar el tiempo de propagación (TTL). La arquitectura basada en Ubuntu + LEMP nativo garantiza cero *vendor lock-in*.
 
-**Motivo / criterio (Aprendizaje):** Separación entre Dominio (Registrador) e Infraestructura (Hosting). La resolución DNS es independiente del estado del servidor. Elegir un proveedor IaaS "Bare Metal" o VPS puro (como Hetzner) permite aplicar la Fase 6.1 de despliegue de forma estandarizada y universal.
+**Motivo / criterio:** Separación entre Dominio (Registrador) e Infraestructura (Hosting). La resolución DNS es independiente del estado del servidor. Elegir un proveedor IaaS "Bare Metal" o VPS puro (como Hetzner) permite aplicar la Fase 6.1 de despliegue de forma estandarizada y universal.
 
 **Siguiente paso o deuda:** Actualizar la IP en los registros DNS, elegir el proveedor VPS definitivo y ejecutar el aprovisionamiento LEMP de la Fase 6.
 
 ### 2026-04-17 — Diagnóstico de latencia y reaprovisionamiento de infraestructura
 
-**Contexto (Desafío):** Al iniciar la conexión al servidor de producción (Droplet), se detectó una latencia inaceptable y constante de ~290 ms mediante un test de `ping`, lo que imposibilitaba un trabajo fluido por SSH y amenazaba el rendimiento final del sitio.
+**Contexto:** Al iniciar la conexión al servidor de producción (Droplet), se detectó una latencia inaceptable y constante de ~290 ms mediante un test de `ping`, lo que imposibilitaba un trabajo fluido por SSH y amenazaba el rendimiento final del sitio.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se diagnosticó un error en la elección geográfica del Datacenter durante la creación del Droplet (posiblemente ubicado en Asia/Oceanía).
 - Se decidió destruir la máquina virtual actual y reaprovisionar una nueva en una región europea cercana (Frankfurt/Ámsterdam).
 
 **Detalle técnico:** Latencias sostenidas cercanas a los 300ms sin pérdida de paquetes (packet loss) son un síntoma inequívoco de distancia transcontinental debido a las limitaciones físicas de la fibra óptica, no de saturación de red local.
 
-**Motivo / criterio (Aprendizaje):** Física de redes y Core Web Vitals. Por mucho que se optimice el código (Shift-Left) y el tamaño de los assets (WebP), la ubicación física del servidor dicta el TTFB (Time to First Byte) base. Seleccionar la región Edge adecuada es el primer paso innegociable de un despliegue.
+**Motivo / criterio:** Física de redes y Core Web Vitals. Por mucho que se optimice el código (Shift-Left) y el tamaño de los assets (WebP), la ubicación física del servidor dicta el TTFB (Time to First Byte) base. Seleccionar la región Edge adecuada es el primer paso innegociable de un despliegue.
 
 **Siguiente paso o deuda:** Recrear el Droplet, obtener la nueva IP, validar la latencia y proceder con la Fase 1 del Deployment Playbook.
 
@@ -4222,16 +4222,16 @@ Validar en el navegador la carga de la página estática y la aparición de la i
 
 ### 2026-04-16 — Reestructuración de enrutamiento Nginx y resolución de API REST WP
 
-**Contexto (Desafío):** Persistían errores 404 en rutas dinámicas y la API de WordPress (`wp-json`), impidiendo guardar páginas en el editor de bloques ("La respuesta no es una respuesta JSON válida"). El origen era un conflicto al combinar la directiva `alias` con el motor PHP en Nginx.
+**Contexto:** Persistían errores 404 en rutas dinámicas y la API de WordPress (`wp-json`), impidiendo guardar páginas en el editor de bloques ("La respuesta no es una respuesta JSON válida"). El origen era un conflicto al combinar la directiva `alias` con el motor PHP en Nginx.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se sustituyó la directiva `alias` por un enlace simbólico físico (`ln -s /var/www/wordpress public/blog`).
 - Se simplificó drásticamente el bloque `location` en el Virtual Host de Nginx (`mercedev-local`).
 - Se forzó el reseteo de los Enlaces Permanentes en WP.
 
 **Detalle técnico:** El bloque `location /blog` pasó de usar `alias` a confiar en la resolución natural del `root` a través del symlink en `public/blog`. Esto repara variables globales vitales para el enrutamiento interno de WP (como `$_SERVER['REQUEST_URI']`). Tras recargar Nginx (`sudo systemctl reload nginx`) y guardar permalinks, la API REST volvió a operar con normalidad.
 
-**Motivo / criterio (Aprendizaje):** Robustez de infraestructura. Los alias en Nginx con PHP generan "bugs" históricos de enrutamiento. Un enlace simbólico es una solución nativa del sistema operativo, completamente transparente para el servidor web, resolviendo la raíz arquitectónica del problema en lugar de aplicar parches en el código.
+**Motivo / criterio:** Robustez de infraestructura. Los alias en Nginx con PHP generan "bugs" históricos de enrutamiento. Un enlace simbólico es una solución nativa del sistema operativo, completamente transparente para el servidor web, resolviendo la raíz arquitectónica del problema en lugar de aplicar parches en el código.
 
 **Siguiente paso o deuda:** Corregir el último enlace roto (`/tienda`) en el Child Theme detectado por el rastreador local.
 
@@ -4250,30 +4250,30 @@ Validar en el navegador la carga de la página estática y la aparición de la i
 
 ### 2026-04-16 — Purga manual y definitiva del bucle de enlaces (Symlink Loop)
 
-**Contexto (Desafío):** Al utilizar `git restore` para recuperar la carpeta `merci-theme`, el bucle infinito reapareció, revelando que el enlace simbólico erróneo había quedado registrado en un commit anterior en el historial de Git.
+**Contexto:** Al utilizar `git restore` para recuperar la carpeta `merci-theme`, el bucle infinito reapareció, revelando que el enlace simbólico erróneo había quedado registrado en un commit anterior en el historial de Git.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se extrajeron temporalmente los archivos críticos (`index.php`, `functions.php`, `style.css`).
 - Se eliminó y recreó manualmente el directorio `src/wp-theme/merci-theme/`.
 - Se devolvieron los archivos a la carpeta limpia para forzar la actualización del índice.
 
 **Detalle técnico:** La secuencia de comandos `mv`, `rm -rf` y `mkdir` permitió destruir físicamente el enlace recursivo a nivel de sistema operativo. Al realizar el commit posterior, se sobrescribe el estado del árbol en Git, purgando permanentemente la referencia al enlace simbólico fantasma.
 
-**Motivo / criterio (Aprendizaje):** `git restore` recupera fielmente el historial, incluyendo los errores. La cirugía manual de directorios es la intervención más segura y pragmática para romper dependencias circulares (filesystem loops) antes de conciliar el estado limpio con el control de versiones.
+**Motivo / criterio:** `git restore` recupera fielmente el historial, incluyendo los errores. La cirugía manual de directorios es la intervención más segura y pragmática para romper dependencias circulares (filesystem loops) antes de conciliar el estado limpio con el control de versiones.
 
 **Siguiente paso o deuda:** Finalizar el commit atómico y arrancar con la Fase 6 (Despliegue y Auditoría Final).
 
 ### 2026-04-16 — Resolución de bucle infinito (Symlink Loop) en Child Theme
 
-**Contexto (Desafío):** El directorio `src/wp-theme/merci-theme/` mostraba una recursividad de subcarpetas aparentemente infinitas, provocando confusión y amenazando con bloquear el escaneo del editor de código o de Git.
+**Contexto:** El directorio `src/wp-theme/merci-theme/` mostraba una recursividad de subcarpetas aparentemente infinitas, provocando confusión y amenazando con bloquear el escaneo del editor de código o de Git.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se ha identificado la presencia de un bucle de enlaces simbólicos (symlink loop).
 - Se han eliminado las subcarpetas/enlaces erróneos dentro del directorio del tema mediante los comandos `rm -rf src/wp-theme/merci-theme/*/` y `find -type l -delete`.
 
 **Detalle técnico:** Este fenómeno óptico del sistema de archivos ocurre cuando un enlace simbólico se crea accidentalmente dentro de la misma ruta a la que apunta (o a su padre), creando una referencia circular. El tamaño real en disco es cero, pero los indexadores (como VS Code o Git) pueden colgarse intentando seguir el "pasillo infinito".
 
-**Motivo / criterio (Aprendizaje):** Mantener el aislamiento absoluto de los componentes. El directorio `merci-theme` solo debe albergar la tríada de archivos planos (`index.php`, `functions.php`, `style.css`). Cualquier directorio anidado ahí dentro es, por definición de esta arquitectura, un residuo que debe ser purgado.
+**Motivo / criterio:** Mantener el aislamiento absoluto de los componentes. El directorio `merci-theme` solo debe albergar la tríada de archivos planos (`index.php`, `functions.php`, `style.css`). Cualquier directorio anidado ahí dentro es, por definición de esta arquitectura, un residuo que debe ser purgado.
 
 **Siguiente paso o deuda:** Comprobar la estabilidad del árbol de directorios y avanzar hacia la Fase 6 de despliegue.
 
@@ -4434,9 +4434,9 @@ Validar en el navegador la carga de la página estática y la aparición de la i
 
 ### 2026-04-16 — Ajuste en auditoría para excepción de Favicon
 
-**Contexto (Desafío):** Se detectó que la nueva regla de auditoría `IMG_FORMAT` bloquearía incorrectamente el commit del archivo `public/favicon.png`, que debe permanecer en formato no optimizado por razones de compatibilidad.
+**Contexto:** Se detectó que la nueva regla de auditoría `IMG_FORMAT` bloquearía incorrectamente el commit del archivo `public/favicon.png`, que debe permanecer en formato no optimizado por razones de compatibilidad.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se ha modificado la función `audit_image_path` en `merci-audit.py`.
 
 **Detalle técnico:** Se ha añadido una condición de salida temprana (`return`) que ignora la validación si el archivo se llama `favicon.png` y reside directamente en la carpeta `public/`.
@@ -4477,14 +4477,14 @@ Validar en el navegador la carga de la página estática y la aparición de la i
 
 ### 2026-04-16 — Lección de TDD: Corrección de `AttributeError` en `unittest.mock`
 
-**Contexto (Desafío):** Al ejecutar el test para `merci-optimizer.py`, se produjo un `AttributeError: 'PosixPath' object attribute 'glob' is read-only`, bloqueando la validación.
+**Contexto:** Al ejecutar el test para `merci-optimizer.py`, se produjo un `AttributeError: 'PosixPath' object attribute 'glob' is read-only`, bloqueando la validación.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se ha refactorizado `scripts/merci/tests/test_optimizer.py` para corregir el objetivo de los decoradores `@patch`.
 
 **Detalle técnico:** El error se debía a que se intentaba parchear un método (`.glob`, `.mkdir`) en una *instancia* de un objeto `Path` (`SOURCE_DIR`), lo cual no está permitido. La solución correcta es parchear el método en la *clase* `Path` dentro del espacio de nombres del módulo que se está probando. Los decoradores se cambiaron a `@patch("merci_optimizer.Path.glob")` y `@patch("merci_optimizer.Path.mkdir")`.
 
-**Motivo / criterio (Aprendizaje):** Lección fundamental de `unittest.mock`: se debe parchear el objeto "donde se busca" (`where it's looked up`), no "donde se define". Al parchear la clase, cualquier instancia creada dentro del test usará la versión simulada del método, respetando la inmutabilidad de los objetos `pathlib`.
+**Motivo / criterio:** Lección fundamental de `unittest.mock`: se debe parchear el objeto "donde se busca" (`where it's looked up`), no "donde se define". Al parchear la clase, cualquier instancia creada dentro del test usará la versión simulada del método, respetando la inmutabilidad de los objetos `pathlib`.
 
 **Siguiente paso o deuda:** Re-ejecutar el test para confirmar el éxito y proceder con la optimización de assets.
 
@@ -4675,15 +4675,15 @@ Validar en el navegador la carga de la página estática y la aparición de la i
 
 ### 2026-04-16 — Lección de Flujo: Reparación de historial Git y parcheo manual
 
-**Contexto (Desafío):** Tras un commit exitoso, se intentó corregir una advertencia del linter (`WARN MD_ACRONYM`) con un commit manual. El comando `git add` falló por un error de ruta relativa y un posterior `merci-commit` generó un commit duplicado con un mensaje incorrecto.
+**Contexto:** Tras un commit exitoso, se intentó corregir una advertencia del linter (`WARN MD_ACRONYM`) con un commit manual. El comando `git add` falló por un error de ruta relativa y un posterior `merci-commit` generó un commit duplicado con un mensaje incorrecto.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se ha reparado el historial de Git fusionando los dos últimos commits con `git rebase -i HEAD~2`.
 - Se ha definido el flujo correcto para parches menores: navegar a la raíz del proyecto y usar `git add <archivo>` y `git commit -m "prefijo: mensaje"` manualmente.
 
 **Detalle técnico:** El error de `git add` se debió a ejecutarlo desde una subcarpeta. El commit duplicado ocurrió porque `merci-commit` re-leyó la última entrada de la bitácora. La solución `fixup` en el rebase interactivo fusiona los cambios y descarta el mensaje del commit secundario.
 
-**Motivo / criterio (Aprendizaje):** Las herramientas de automatización como `merci-commit` son para hitos principales justificados por la bitácora. Los parches de documentación o correcciones menores deben gestionarse con comandos manuales de Git desde la raíz del proyecto para mantener un historial limpio y semántico.
+**Motivo / criterio:** Las herramientas de automatización como `merci-commit` son para hitos principales justificados por la bitácora. Los parches de documentación o correcciones menores deben gestionarse con comandos manuales de Git desde la raíz del proyecto para mantener un historial limpio y semántico.
 
 **Siguiente paso o deuda:** Retomar la elección de la siguiente fase del roadmap (Fase 3 o 5.3).
 

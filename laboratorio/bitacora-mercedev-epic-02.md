@@ -950,365 +950,365 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-05-08 — Arch: Pivote de Merci Brain a motor 100% local (Ollama)
 
-**Contexto (Desafío):** El asistente `merci-brain.py` dependía de la API de Gemini en la nube, lo cual introducía latencia artificial de 15 segundos entre peticiones para evitar agotar la cuota (HTTP 429), y complejidad innecesaria en la lógica de autodescubrimiento y fallbacks. Tras el brillante desempeño de `qwen2.5-coder` en local, mantener la dependencia cloud carece de sentido.
+**Contexto:** El asistente `merci-brain.py` dependía de la API de Gemini en la nube, lo cual introducía latencia artificial de 15 segundos entre peticiones para evitar agotar la cuota (HTTP 429), y complejidad innecesaria en la lógica de autodescubrimiento y fallbacks. Tras el brillante desempeño de `qwen2.5-coder` en local, mantener la dependencia cloud carece de sentido.
 
-**Hecho (Maniobra):** Se refactorizó `scripts/merci/merci-brain.py` erradicando por completo el código de conexión a Gemini, el autodescubridor de modelos y el cargador de variables de entorno de API Keys. Se unificó toda la orquestación de red hacia la nueva función `consultar_ia_local()` apuntando de forma exclusiva a Ollama.
+**Hecho:** Se refactorizó `scripts/merci/merci-brain.py` erradicando por completo el código de conexión a Gemini, el autodescubridor de modelos y el cargador de variables de entorno de API Keys. Se unificó toda la orquestación de red hacia la nueva función `consultar_ia_local()` apuntando de forma exclusiva a Ollama.
 
-**Motivo / criterio (Aprendizaje):** *Zero Dependencies & Cloud Independence*. Operar la generación de metadatos estáticos con un modelo SLM local elimina las barreras de *Rate Limiting*. Esto permite compilar la base de conocimientos a la máxima velocidad del hardware anfitrión, logrando un entorno verdaderamente autónomo y privado.
+**Motivo / criterio:** *Zero Dependencies & Cloud Independence*. Operar la generación de metadatos estáticos con un modelo SLM local elimina las barreras de *Rate Limiting*. Esto permite compilar la base de conocimientos a la máxima velocidad del hardware anfitrión, logrando un entorno verdaderamente autónomo y privado.
 
 **Siguiente paso o deuda:** Iniciar el diseño de la Fase 4: Observabilidad y SRE IA (Dashboard de Confianza).
 
 ### 2026-05-08 — Fix: Alucinación de inercia (Checkbox Hallucination) en Qwen y silenciamiento de LiteLLM
 
-**Contexto (Desafío):** Al ejecutar el Agente SSOT con Qwen 2.5 Coder, el modelo actualizó correctamente la Fase 3, pero sufrió una "alucinación por inercia" (Pattern Inertia), marcando prematuramente las tareas de la Fase 4 al seguir el patrón visual de casillas marcadas. Además, la capa de abstracción LiteLLM ensuciaba la terminal con avisos de depuración al realizar la Degradación Elegante.
+**Contexto:** Al ejecutar el Agente SSOT con Qwen 2.5 Coder, el modelo actualizó correctamente la Fase 3, pero sufrió una "alucinación por inercia" (Pattern Inertia), marcando prematuramente las tareas de la Fase 4 al seguir el patrón visual de casillas marcadas. Además, la capa de abstracción LiteLLM ensuciaba la terminal con avisos de depuración al realizar la Degradación Elegante.
 
-**Hecho (Maniobra):** Se revirtió la modificación en el Roadmap, desmarcando las casillas de la Fase 4. Se inyectó `litellm.suppress_debug_info = True` en los agentes SSOT y Auditor para silenciar el ruido de la librería. Se revisaron los comentarios descriptivos en `merci-audit.py`.
+**Hecho:** Se revirtió la modificación en el Roadmap, desmarcando las casillas de la Fase 4. Se inyectó `litellm.suppress_debug_info = True` en los agentes SSOT y Auditor para silenciar el ruido de la librería. Se revisaron los comentarios descriptivos en `merci-audit.py`.
 
-**Motivo / criterio (Aprendizaje):** *Human-in-the-Loop y Clean DX*. Los Small Language Models (SLMs) son muy susceptibles a continuar patrones visuales repetitivos. La revisión humana final es obligatoria en tareas de gobernanza documental. Ocultar los avisos de soporte de dependencias externas protege la Experiencia del Desarrollador (DX) y el enfoque en consola.
+**Motivo / criterio:** *Human-in-the-Loop y Clean DX*. Los Small Language Models (SLMs) son muy susceptibles a continuar patrones visuales repetitivos. La revisión humana final es obligatoria en tareas de gobernanza documental. Ocultar los avisos de soporte de dependencias externas protege la Experiencia del Desarrollador (DX) y el enfoque en consola.
 
 **Siguiente paso o deuda:** Iniciar el diseño arquitectónico de la Fase 4 (Observabilidad y SRE IA).
 
 ### 2026-05-08 — Fix: Barrera interactiva (Gatekeeper) en automatización de LinkedIn
 
-**Contexto (Desafío):** Al probar el publicador social, el script funcionó *demasiado* bien. Escaneó el repositorio y encontró cuadernillos y artículos antiguos que estaban "publicados" y tenían la plantilla HTML de LinkedIn, pero carecían del sello `linkedin_id`. Esto provocó la publicación automática y simultánea de tres posts antiguos en la red profesional (Spam accidental).
+**Contexto:** Al probar el publicador social, el script funcionó *demasiado* bien. Escaneó el repositorio y encontró cuadernillos y artículos antiguos que estaban "publicados" y tenían la plantilla HTML de LinkedIn, pero carecían del sello `linkedin_id`. Esto provocó la publicación automática y simultánea de tres posts antiguos en la red profesional (Spam accidental).
 
-**Hecho (Maniobra):** Se refactorizó `merci-linkedin.py` implementando un "Gatekeeper" interactivo. El script ahora detecta el post, muestra una previsualización en la terminal y exige confirmación humana explícita (`s/N`) antes de disparar la petición a la API de LinkedIn.
+**Hecho:** Se refactorizó `merci-linkedin.py` implementando un "Gatekeeper" interactivo. El script ahora detecta el post, muestra una previsualización en la terminal y exige confirmación humana explícita (`s/N`) antes de disparar la petición a la API de LinkedIn.
 
-**Motivo / criterio (Aprendizaje):** *Human-in-the-Loop y AI Governance*. La automatización ciega sobre canales públicos es un riesgo crítico. La máquina debe hacer el trabajo pesado (buscar, extraer, formatear y conectarse a la API), pero el humano siempre debe retener la autorización final del disparo para evitar incidentes en producción.
+**Motivo / criterio:** *Human-in-the-Loop y AI Governance*. La automatización ciega sobre canales públicos es un riesgo crítico. La máquina debe hacer el trabajo pesado (buscar, extraer, formatear y conectarse a la API), pero el humano siempre debe retener la autorización final del disparo para evitar incidentes en producción.
 
 **Siguiente paso o deuda:** Ejecutar el Agente SSOT para que detecte la finalización del publicador social, marcando la última casilla y sellando definitivamente la Fase 3 del Roadmap.
 
 ### 2026-05-08 — Feat: Resurrección del Fallback Local en Agente SSOT (Qwen 2.5 Coder)
 
-**Contexto (Desafío):** El Agente de sincronización documental (SSOT) había sido relegado a "Cloud puro" porque los modelos locales anteriores (Llama 3, Phi-3) sufrían del "Síndrome de la Fotocopiadora" (Photocopier Syndrome), limitándose a copiar el Roadmap íntegro sin procesar los cambios lógicos descritos en la bitácora.
+**Contexto:** El Agente de sincronización documental (SSOT) había sido relegado a "Cloud puro" porque los modelos locales anteriores (Llama 3, Phi-3) sufrían del "Síndrome de la Fotocopiadora" (Photocopier Syndrome), limitándose a copiar el Roadmap íntegro sin procesar los cambios lógicos descritos en la bitácora.
 
-**Hecho (Maniobra):** Se reintrodujo la Degradación Elegante en `merci-ssot.py` delegando el fallback local al modelo `ollama/qwen2.5-coder`. Se reescribió el *System Prompt* implementando "Chain of Thought" (Cadena de Pensamiento), obligando al modelo a deducir en texto plano qué tareas `[ ]` debían mutar a `[x]` antes de imprimir el código Markdown.
+**Hecho:** Se reintrodujo la Degradación Elegante en `merci-ssot.py` delegando el fallback local al modelo `ollama/qwen2.5-coder`. Se reescribió el *System Prompt* implementando "Chain of Thought" (Cadena de Pensamiento), obligando al modelo a deducir en texto plano qué tareas `[ ]` debían mutar a `[x]` antes de imprimir el código Markdown.
 
-**Motivo / criterio (Aprendizaje):** *Prompt Engineering y Local Resilience*. Los modelos especializados en código (SLMs) son brillantes en lógica deductiva, pero necesitan "pensar en voz alta" para no entrar en piloto automático al formatear. Combinar esto con la extracción estricta de Markdown (`text.find("# 🗺️ ROADMAP")`) salva el *Hybrid Stack* y permite que el orquestador vuelva a auto-sanarse sin conexión a Internet.
+**Motivo / criterio:** *Prompt Engineering y Local Resilience*. Los modelos especializados en código (SLMs) son brillantes en lógica deductiva, pero necesitan "pensar en voz alta" para no entrar en piloto automático al formatear. Combinar esto con la extracción estricta de Markdown (`text.find("# 🗺️ ROADMAP")`) salva el *Hybrid Stack* y permite que el orquestador vuelva a auto-sanarse sin conexión a Internet.
 
 **Siguiente paso o deuda:** Validar el pipeline de automatización social publicando un post de prueba en LinkedIn para cerrar la cuarta y última tarea pendiente de la Fase 3.
 
 ### 2026-05-08 — Fix: Refactorización de automatización social (LinkedIn) y resolución de Code Drift
 
-**Contexto (Desafío):** El script de LinkedIn (`merci-linkedin.py`) sufría de Deriva de Código (Code Drift). Seguía exigiendo el campo `wp_id:` en el YAML Frontmatter para poder publicar, el cual fue eliminado del ecosistema en la versión 1.3.1 cuando el orquestador pivotó a la resolución dinámica por *slug*.
+**Contexto:** El script de LinkedIn (`merci-linkedin.py`) sufría de Deriva de Código (Code Drift). Seguía exigiendo el campo `wp_id:` en el YAML Frontmatter para poder publicar, el cual fue eliminado del ecosistema en la versión 1.3.1 cuando el orquestador pivotó a la resolución dinámica por *slug*.
 
-**Hecho (Maniobra):** Se refactorizó `merci-linkedin.py` erradicando la dependencia estricta de `wp_id`. Se amplió el escaneo al directorio `biblioteca/` (para permitir la promoción de cuadernillos estáticos) y se implementó el borrado automático del token OIDC cuando la API devuelve un HTTP 401 por caducidad.
+**Hecho:** Se refactorizó `merci-linkedin.py` erradicando la dependencia estricta de `wp_id`. Se amplió el escaneo al directorio `biblioteca/` (para permitir la promoción de cuadernillos estáticos) y se implementó el borrado automático del token OIDC cuando la API devuelve un HTTP 401 por caducidad.
 
-**Motivo / criterio (Aprendizaje):** *Single Source of Truth y Fail-Fast*. Los scripts satélite deben evolucionar en paralelo con el núcleo. Eliminar el rastreo de `wp_id` alinea el orquestador social con la Única Fuente de Verdad actual (que basa la publicación en el `estado: "publicado"`). Auto-destruir un token caducado reduce la fricción operativa y obliga a la re-autenticación de forma elegante.
+**Motivo / criterio:** *Single Source of Truth y Fail-Fast*. Los scripts satélite deben evolucionar en paralelo con el núcleo. Eliminar el rastreo de `wp_id` alinea el orquestador social con la Única Fuente de Verdad actual (que basa la publicación en el `estado: "publicado"`). Auto-destruir un token caducado reduce la fricción operativa y obliga a la re-autenticación de forma elegante.
 
 **Siguiente paso o deuda:** Ejecutar el script y validar la publicación automática en LinkedIn con un post de prueba para sellar la Fase 8.
 
 ### 2026-05-08 — Docs: Cierre de Fase 3 y marcado rojo en Roadmap (Límites IA Local)
 
-**Contexto (Desafío):** Tras confirmar empíricamente la incapacidad de los modelos locales (<14B) para gobernar documentos complejos, era necesario reflejar en el Roadmap el fracaso estratégico de los tres agentes generativos propuestos para la Fase 3.
+**Contexto:** Tras confirmar empíricamente la incapacidad de los modelos locales (<14B) para gobernar documentos complejos, era necesario reflejar en el Roadmap el fracaso estratégico de los tres agentes generativos propuestos para la Fase 3.
 
-**Hecho (Maniobra):** Se actualizaron las tareas de la Fase 3 en `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`, marcando con `[x] 🔴` el Agente Bibliotecario (deprecado), Sync SSOT (relegado a Cloud puro) y AI-Changelog (descartado).
+**Hecho:** Se actualizaron las tareas de la Fase 3 en `ROADMAP-AI-ORQUESTACION-SELF-HEALING-SYSTEM.md`, marcando con `[x] 🔴` el Agente Bibliotecario (deprecado), Sync SSOT (relegado a Cloud puro) y AI-Changelog (descartado).
 
-**Motivo / criterio (Aprendizaje):** *Visualización de la Deuda Técnica y Fail-Fast*. Marcar visualmente en rojo las iniciativas fallidas sirve como recordatorio arquitectónico (Tombstone) de los límites tecnológicos actuales. Evita que en el futuro se intente retomar estas automatizaciones sin un cambio sustancial en el hardware o en la capacidad de los modelos locales.
+**Motivo / criterio:** *Visualización de la Deuda Técnica y Fail-Fast*. Marcar visualmente en rojo las iniciativas fallidas sirve como recordatorio arquitectónico (Tombstone) de los límites tecnológicos actuales. Evita que en el futuro se intente retomar estas automatizaciones sin un cambio sustancial en el hardware o en la capacidad de los modelos locales.
 
 **Siguiente paso o deuda:** Iniciar el desarrollo del pipeline de automatización social para LinkedIn, conectando `merci-wp.py` con `merci-linkedin.py`.
 
 ### 2026-05-08 — Docs: Creación del Compendio Estratégico (Cierre de Fase 3)
 
-**Contexto (Desafío):** Tras los continuos fallos y refactorizaciones en los agentes `merci-librarian.py` y `merci-ssot.py` al intentar utilizar modelos de Inteligencia Artificial locales (Llama 3, Qwen), era imperativo extraer una lección de arquitectura y evitar el síndrome de los costes hundidos.
+**Contexto:** Tras los continuos fallos y refactorizaciones en los agentes `merci-librarian.py` y `merci-ssot.py` al intentar utilizar modelos de Inteligencia Artificial locales (Llama 3, Qwen), era imperativo extraer una lección de arquitectura y evitar el síndrome de los costes hundidos.
 
-**Hecho (Maniobra):** Se redactó el activo de conocimiento `laboratorio/compendio-fase-3-gobernanza-ia.md`. El documento consolida las lecciones aprendidas sobre *Context Window Stuffing*, monitorización de red (*tcpdump*), y las limitaciones cognitivas de los Small Language Models (SLMs) en tareas de gobernanza documental.
+**Hecho:** Se redactó el activo de conocimiento `laboratorio/compendio-fase-3-gobernanza-ia.md`. El documento consolida las lecciones aprendidas sobre *Context Window Stuffing*, monitorización de red (*tcpdump*), y las limitaciones cognitivas de los Small Language Models (SLMs) en tareas de gobernanza documental.
 
-**Motivo / criterio (Aprendizaje):** *Knowledge Harvesting & Strategic Pivot*. Transformar el fracaso de una automatización en un compendio estratégico aporta más valor a largo plazo que el propio código descartado. Cierra formalmente el debate sobre el *Hybrid Stack*: los modelos locales se limitarán a auditoría de código (Sintaxis) y las APIs en la nube gobernarán los documentos y orquestación de contenidos (Semántica densa).
+**Motivo / criterio:** *Knowledge Harvesting & Strategic Pivot*. Transformar el fracaso de una automatización en un compendio estratégico aporta más valor a largo plazo que el propio código descartado. Cierra formalmente el debate sobre el *Hybrid Stack*: los modelos locales se limitarán a auditoría de código (Sintaxis) y las APIs en la nube gobernarán los documentos y orquestación de contenidos (Semántica densa).
 
 **Siguiente paso o deuda:** Promover el compendio a la biblioteca estática (`merci promote`), validar con `merci total` y avanzar a la siguiente tarea pendiente del Roadmap (Automatización Social en LinkedIn).
 
 ### 2026-05-08 — QA: Diagnóstico profundo de red local con tcpdump
 
-**Contexto (Desafío):** Era necesario inspeccionar el tráfico exacto entre el orquestador Python y el motor de IA local (LM Studio) para entender por qué los modelos fallan devolviendo respuestas vacías o truncadas a pesar de los ajustes en el código.
+**Contexto:** Era necesario inspeccionar el tráfico exacto entre el orquestador Python y el motor de IA local (LM Studio) para entender por qué los modelos fallan devolviendo respuestas vacías o truncadas a pesar de los ajustes en el código.
 
-**Hecho (Maniobra):** Se utilizó el comando de rastreo de paquetes de red: `sudo tcpdump -i lo -A port 1234`.
+**Hecho:** Se utilizó el comando de rastreo de paquetes de red: `sudo tcpdump -i lo -A port 1234`.
 
-**Motivo / criterio (Aprendizaje):** *Deep Observability*. El comando `tcpdump` escuchando en la interfaz *loopback* (`lo`) en formato texto (`-A`) es la herramienta forense definitiva. Al analizar el payload, reveló que el modelo Qwen 3.5 9B agotaba el límite de contexto físico de 4096 tokens (1785 prompt + 2311 completion = 4096). Además, demostró que la IA ignoraba la orden de "no razonar", gastando 2310 tokens en un monólogo interno (`reasoning_tokens`) y dejando 0 tokens para escribir el documento real.
+**Motivo / criterio:** *Deep Observability*. El comando `tcpdump` escuchando en la interfaz *loopback* (`lo`) en formato texto (`-A`) es la herramienta forense definitiva. Al analizar el payload, reveló que el modelo Qwen 3.5 9B agotaba el límite de contexto físico de 4096 tokens (1785 prompt + 2311 completion = 4096). Además, demostró que la IA ignoraba la orden de "no razonar", gastando 2310 tokens en un monólogo interno (`reasoning_tokens`) y dejando 0 tokens para escribir el documento real.
 
 **Siguiente paso o deuda:** Aceptar que los modelos locales con razonamiento interno forzado no son aptos para tareas de reescritura de documentos largos bajo restricciones severas de RAM (4096 tokens). Asumir la dependencia de Gemini Flash para el Agente SSOT.
 
 ### 2026-05-08 — Test: Evaluación de Qwen 3.5 (9B) como motor local para SSOT
 
-**Contexto (Desafío):** En la búsqueda del motor local óptimo para tareas lógicas complejas (como la sincronización del Roadmap) que no agote la memoria del sistema anfitrión, se seleccionó el modelo `qwen/qwen3.5-9b`.
+**Contexto:** En la búsqueda del motor local óptimo para tareas lógicas complejas (como la sincronización del Roadmap) que no agote la memoria del sistema anfitrión, se seleccionó el modelo `qwen/qwen3.5-9b`.
 
-**Hecho (Maniobra):** Se cargó el modelo en LM Studio mediante CLI asegurando el límite estricto de contexto (`lms load qwen/qwen3.5-9b -c 4096`) para compensar el mayor peso de sus 9 billones de parámetros en la RAM.
+**Hecho:** Se cargó el modelo en LM Studio mediante CLI asegurando el límite estricto de contexto (`lms load qwen/qwen3.5-9b -c 4096`) para compensar el mayor peso de sus 9 billones de parámetros en la RAM.
 
-**Motivo / criterio (Aprendizaje):** *Agnosticismo de Modelos*. Gracias a la capa de abstracción de LiteLLM configurada con el alias universal `"openai/local-model"`, el ecosistema puede pivotar entre diferentes motores de IA locales al instante sin requerir refactorización de código en los scripts de Python. El modelo de 9B ofrece un salto cualitativo en razonamiento deductivo manteniendo la viabilidad en hardware local gracias al *Resource Budgeting* previo.
+**Motivo / criterio:** *Agnosticismo de Modelos*. Gracias a la capa de abstracción de LiteLLM configurada con el alias universal `"openai/local-model"`, el ecosistema puede pivotar entre diferentes motores de IA locales al instante sin requerir refactorización de código en los scripts de Python. El modelo de 9B ofrece un salto cualitativo en razonamiento deductivo manteniendo la viabilidad en hardware local gracias al *Resource Budgeting* previo.
 
 **Siguiente paso o deuda:** Ejecutar `merci ssot` para certificar que el modelo de 9B es capaz de actualizar el Roadmap respetando las reglas de formato sin saturar el sistema.
 
 ### 2026-05-08 — Perf: Prevención de OOM (Out of Memory) en inferencia local
 
-**Contexto (Desafío):** Forzar el tamaño de contexto de LM Studio a 8192 tokens para evitar truncamientos provocaba que el ordenador anfitrión se colgara (OOM - Out of Memory) por agotamiento de RAM/VRAM con el modelo Qwen 7B.
+**Contexto:** Forzar el tamaño de contexto de LM Studio a 8192 tokens para evitar truncamientos provocaba que el ordenador anfitrión se colgara (OOM - Out of Memory) por agotamiento de RAM/VRAM con el modelo Qwen 7B.
 
-**Hecho (Maniobra):** Se instruyó cargar el modelo localmente vía CLI con un contexto conservador (`lms load <modelo> -c 4096`). En `scripts/merci/merci-ssot.py`, se redujo el parámetro `max_tokens` de 4000 a 2500.
+**Hecho:** Se instruyó cargar el modelo localmente vía CLI con un contexto conservador (`lms load <modelo> -c 4096`). En `scripts/merci/merci-ssot.py`, se redujo el parámetro `max_tokens` de 4000 a 2500.
 
-**Motivo / criterio (Aprendizaje):** *Resource Budgeting*. El tamaño de la ventana de contexto exige reserva de RAM inmediata. Si la memoria requerida por los pesos del modelo + el contexto excede la física disponible, el sistema operativo usa *swap* y colapsa. Balancear `max_tokens` en el script (2500 es suficiente para el Roadmap) libera tokens para el prompt dentro de un límite de contexto seguro (4096), evitando que el PC se congele.
+**Motivo / criterio:** *Resource Budgeting*. El tamaño de la ventana de contexto exige reserva de RAM inmediata. Si la memoria requerida por los pesos del modelo + el contexto excede la física disponible, el sistema operativo usa *swap* y colapsa. Balancear `max_tokens` en el script (2500 es suficiente para el Roadmap) libera tokens para el prompt dentro de un límite de contexto seguro (4096), evitando que el PC se congele.
 
 **Siguiente paso o deuda:** Levantar el servidor con 4096 tokens, ejecutar `merci ssot` y validar la actualización sin bloqueos de sistema.
 
 ### 2026-05-08 — QA: Diagnóstico profundo con tcpdump (Token Limits y Reasoning)
 
-**Contexto (Desafío):** El Agente SSOT con IA local seguía siendo bloqueado por el Escudo Anti-Destrucción. La salida de consola no daba suficiente información sobre la causa raíz del fallo en la API de LM Studio.
+**Contexto:** El Agente SSOT con IA local seguía siendo bloqueado por el Escudo Anti-Destrucción. La salida de consola no daba suficiente información sobre la causa raíz del fallo en la API de LM Studio.
 
-**Hecho (Maniobra):** Se ejecutó una captura de red (`sudo tcpdump -i lo -A port 1234`) para interceptar el tráfico HTTP entre el script y el servidor local de IA. Se actualizó el *System Prompt* en `merci-ssot.py` para prohibir explícitamente las cadenas de pensamiento (*Chain of Thought*).
+**Hecho:** Se ejecutó una captura de red (`sudo tcpdump -i lo -A port 1234`) para interceptar el tráfico HTTP entre el script y el servidor local de IA. Se actualizó el *System Prompt* en `merci-ssot.py` para prohibir explícitamente las cadenas de pensamiento (*Chain of Thought*).
 
 **Detalle técnico:** El comando de monitorización `sudo tcpdump -i lo -A port 1234` intercepta en texto plano (`-A`) todo el tráfico de la interfaz *loopback* (`lo`) en el puerto especificado. Es la herramienta definitiva para auditar el payload JSON exacto (entradas y salidas) que viaja entre los scripts de Python y los motores locales (LM Studio/Ollama) cuando los logs estándar no son suficientes.
 
-**Motivo / criterio (Aprendizaje):** *Deep Observability*. El volcado de red reveló datos espectaculares: el modelo agotó el límite duro de la ventana de contexto (1797 prompt + 2299 completion = 4096 `total_tokens`), abortando por `"finish_reason": "length"`. Además, los 2298 tokens generados fueron consumidos enteramente por el monólogo interno de la IA (`reasoning_tokens`), devolviendo un `content` vacío (`""`). Combinar la ampliación estricta de memoria en la terminal/GUI de LM Studio (8192) con una prohibición de razonamiento en el prompt asegura la entrega íntegra del documento.
+**Motivo / criterio:** *Deep Observability*. El volcado de red reveló datos espectaculares: el modelo agotó el límite duro de la ventana de contexto (1797 prompt + 2299 completion = 4096 `total_tokens`), abortando por `"finish_reason": "length"`. Además, los 2298 tokens generados fueron consumidos enteramente por el monólogo interno de la IA (`reasoning_tokens`), devolviendo un `content` vacío (`""`). Combinar la ampliación estricta de memoria en la terminal/GUI de LM Studio (8192) con una prohibición de razonamiento en el prompt asegura la entrega íntegra del documento.
 
 **Siguiente paso o deuda:** Recargar el modelo en LM Studio con el nuevo límite de contexto y ejecutar `merci ssot` para validar la escritura del Roadmap.
 
 ### 2026-05-08 — Fix: Reducción de contexto y Timeout extendido para IA Local
 
-**Contexto (Desafío):** Al ejecutar el Agente SSOT contra LM Studio (Qwen), el modelo devolvió un texto truncado (activando el escudo anti-destrucción) o generó un `ReadTimeoutError`. Esto ocurrió porque el contexto enviado (Roadmap + 5 entradas de bitácora) saturó la "Context Length" por defecto de LM Studio, y el tiempo de inferencia local superó el tiempo de espera de LiteLLM.
+**Contexto:** Al ejecutar el Agente SSOT contra LM Studio (Qwen), el modelo devolvió un texto truncado (activando el escudo anti-destrucción) o generó un `ReadTimeoutError`. Esto ocurrió porque el contexto enviado (Roadmap + 5 entradas de bitácora) saturó la "Context Length" por defecto de LM Studio, y el tiempo de inferencia local superó el tiempo de espera de LiteLLM.
 
-**Hecho (Maniobra):** Se refactorizó `scripts/merci/merci-ssot.py` para limitar la extracción de la bitácora a únicamente las 2 últimas entradas (`entradas[1:3]`). Se inyectó el parámetro `timeout=600` (10 minutos) en las llamadas a `completion()` para soportar hardware más lento.
+**Hecho:** Se refactorizó `scripts/merci/merci-ssot.py` para limitar la extracción de la bitácora a únicamente las 2 últimas entradas (`entradas[1:3]`). Se inyectó el parámetro `timeout=600` (10 minutos) en las llamadas a `completion()` para soportar hardware más lento.
 
-**Motivo / criterio (Aprendizaje):** *Context Window Management*. Enviar exceso de historial a modelos locales satura su memoria de trabajo (RAM/VRAM), provocando truncamientos catastróficos. Reducir la carga de entrada otorga margen para que el modelo genere la salida completa. Extender los *timeouts* adapta el orquestador a la latencia real de la inferencia local.
+**Motivo / criterio:** *Context Window Management*. Enviar exceso de historial a modelos locales satura su memoria de trabajo (RAM/VRAM), provocando truncamientos catastróficos. Reducir la carga de entrada otorga margen para que el modelo genere la salida completa. Extender los *timeouts* adapta el orquestador a la latencia real de la inferencia local.
 
 **Siguiente paso o deuda:** Validar la escritura completa del Roadmap por parte de Qwen y compilar el proyecto.
 
 ### 2026-05-08 — Fix: Prevención de truncamiento y resúmenes en LM Studio
 
-**Contexto (Desafío):** Al ejecutar el Agente SSOT contra LM Studio usando el modelo Qwen 2.5 Coder, el escudo anti-alucinaciones detuvo la ejecución porque la respuesta devuelta por la IA era un resumen o estaba incompleta (`< 50%` del original).
+**Contexto:** Al ejecutar el Agente SSOT contra LM Studio usando el modelo Qwen 2.5 Coder, el escudo anti-alucinaciones detuvo la ejecución porque la respuesta devuelta por la IA era un resumen o estaba incompleta (`< 50%` del original).
 
-**Hecho (Maniobra):** Se inyectaron los parámetros `temperature=0.0` y `max_tokens=4000` en las llamadas a `completion()` en `scripts/merci/merci-ssot.py`. Además, se reforzó el *System Prompt* con la instrucción explícita: "COPIA EL ROADMAP ORIGINAL DE PRINCIPIO A FIN Y APLICA LOS CAMBIOS. NO RESUMAS."
+**Hecho:** Se inyectaron los parámetros `temperature=0.0` y `max_tokens=4000` en las llamadas a `completion()` en `scripts/merci/merci-ssot.py`. Además, se reforzó el *System Prompt* con la instrucción explícita: "COPIA EL ROADMAP ORIGINAL DE PRINCIPIO A FIN Y APLICA LOS CAMBIOS. NO RESUMAS."
 
-**Motivo / criterio (Aprendizaje):** *Determinismo y Límites de Inferencia*. Los modelos locales cargados a través de endpoints compatibles con OpenAI a menudo asumen límites de tokens muy bajos por defecto (ej. 256 o 512 tokens), cortando la generación de documentos largos. Forzar el límite máximo (`4000`) asegura la extracción del documento completo, y la temperatura `0.0` anula la "creatividad" destructiva del modelo obligándole a ceñirse al formato.
+**Motivo / criterio:** *Determinismo y Límites de Inferencia*. Los modelos locales cargados a través de endpoints compatibles con OpenAI a menudo asumen límites de tokens muy bajos por defecto (ej. 256 o 512 tokens), cortando la generación de documentos largos. Forzar el límite máximo (`4000`) asegura la extracción del documento completo, y la temperatura `0.0` anula la "creatividad" destructiva del modelo obligándole a ceñirse al formato.
 
 **Siguiente paso o deuda:** Validar nuevamente la reescritura del Roadmap con `merci ssot` y proceder al `merci total`.
 
 ### 2026-05-08 — Fix: Resolución de artefactos GGUF en LM Studio (Hugging Face)
 
-**Contexto (Desafío):** Al intentar descargar el modelo Qwen 2.5 Coder con el ID `lmstudio-community/Qwen2.5-Coder-7B-Instruct-GGUF`, el CLI de LM Studio devolvió el error `Failed to resolve artifact`. Esto ocurre porque el CLI exige una correspondencia exacta con un repositorio existente en Hugging Face, y el repositorio sugerido no existía o había sido renombrado.
+**Contexto:** Al intentar descargar el modelo Qwen 2.5 Coder con el ID `lmstudio-community/Qwen2.5-Coder-7B-Instruct-GGUF`, el CLI de LM Studio devolvió el error `Failed to resolve artifact`. Esto ocurre porque el CLI exige una correspondencia exacta con un repositorio existente en Hugging Face, y el repositorio sugerido no existía o había sido renombrado.
 
-**Hecho (Maniobra):** Se instruyó utilizar los repositorios oficiales o los repositorios de cuantizadores verificados en Hugging Face (ej. `Qwen/Qwen2.5-Coder-7B-Instruct-GGUF`).
+**Hecho:** Se instruyó utilizar los repositorios oficiales o los repositorios de cuantizadores verificados en Hugging Face (ej. `Qwen/Qwen2.5-Coder-7B-Instruct-GGUF`).
 
-**Motivo / criterio (Aprendizaje):** *Supply Chain & Dependency Resolution*. Cuando se operan motores de inferencia locales (Headless), la cadena de suministro de modelos es tan crítica como la de paquetes Python (PyPI). Depender de repositorios comunitarios genéricos puede causar fallos de resolución (404). Apuntar directamente a los repositorios oficiales (Qwen) o cuantizadores consolidados garantiza la disponibilidad inmutable del artefacto.
+**Motivo / criterio:** *Supply Chain & Dependency Resolution*. Cuando se operan motores de inferencia locales (Headless), la cadena de suministro de modelos es tan crítica como la de paquetes Python (PyPI). Depender de repositorios comunitarios genéricos puede causar fallos de resolución (404). Apuntar directamente a los repositorios oficiales (Qwen) o cuantizadores consolidados garantiza la disponibilidad inmutable del artefacto.
 
 **Siguiente paso o deuda:** Descargar el modelo oficial, arrancar el servidor `lms` y verificar que el comando `merci ssot` se ejecute en la raíz del proyecto.
 
 ### 2026-05-08 — Fix: Corrección de comando fantasma en LM Studio (Alucinación)
 
-**Contexto (Desafío):** Al intentar descargar un modelo de IA en modo *Headless*, el CLI devolvió el error `unknown command 'download'`. Se constató que el comando `lms download` sugerido previamente era una alucinación (tanto de Gemini Web como asimilada erróneamente en esta misma bitácora).
+**Contexto:** Al intentar descargar un modelo de IA en modo *Headless*, el CLI devolvió el error `unknown command 'download'`. Se constató que el comando `lms download` sugerido previamente era una alucinación (tanto de Gemini Web como asimilada erróneamente en esta misma bitácora).
 
-**Hecho (Maniobra):** Se corrigió la instrucción operativa al comando oficial y real de LM Studio: `lms get <modelo>`. Adicionalmente, se constató que si el alias corto no es un "staff pick", se debe proveer el ID exacto del repositorio (ej. `lmstudio-community/Qwen2.5-Coder-7B-Instruct-GGUF`) o usar `lms search` previamente. Se ha enmendado retrospectivamente la entrada inferior de la bitácora para purgar el comando fantasma.
+**Hecho:** Se corrigió la instrucción operativa al comando oficial y real de LM Studio: `lms get <modelo>`. Adicionalmente, se constató que si el alias corto no es un "staff pick", se debe proveer el ID exacto del repositorio (ej. `lmstudio-community/Qwen2.5-Coder-7B-Instruct-GGUF`) o usar `lms search` previamente. Se ha enmendado retrospectivamente la entrada inferior de la bitácora para purgar el comando fantasma.
 
-**Motivo / criterio (Aprendizaje):** *Verificación Empírica vs. LLM Output*. Las IAs generativas comerciales a menudo alucinan comandos basándose en patrones lógicos (`download`) en lugar de leer la documentación real. En LM Studio CLI, el comando de adquisición sigue el estándar POSIX `get` (como `apt-get`). Confiar ciegamente en un output de chat sin validación empírica en terminal genera deuda de documentación.
+**Motivo / criterio:** *Verificación Empírica vs. LLM Output*. Las IAs generativas comerciales a menudo alucinan comandos basándose en patrones lógicos (`download`) en lugar de leer la documentación real. En LM Studio CLI, el comando de adquisición sigue el estándar POSIX `get` (como `apt-get`). Confiar ciegamente en un output de chat sin validación empírica en terminal genera deuda de documentación.
 
 **Siguiente paso o deuda:** Descargar el modelo con su ID exacto (ej. `lms get lmstudio-community/Qwen2.5-Coder-7B-Instruct-GGUF`) y levantar el servidor con `lms server start`.
 
 ### 2026-05-08 — Conf: Despliegue de LM Studio en modo Headless (CLI-first)
 
-**Contexto (Desafío):** Al migrar a LM Studio, se constató que la versión instalada en el entorno era exclusivamente de terminal (`lms`), sin Interfaz Gráfica de Usuario (GUI). Esto requería adaptar el flujo de trabajo para aprovisionar y servir modelos de IA de forma completamente desatendida.
+**Contexto:** Al migrar a LM Studio, se constató que la versión instalada en el entorno era exclusivamente de terminal (`lms`), sin Interfaz Gráfica de Usuario (GUI). Esto requería adaptar el flujo de trabajo para aprovisionar y servir modelos de IA de forma completamente desatendida.
 
-**Hecho (Maniobra):** Se estandarizó el uso de LM Studio CLI para el ecosistema. Los comandos operativos son: `lms get <modelo>` para descargar el binario, y `lms server start` para levantar el *endpoint* compatible con OpenAI en el puerto 1234.
+**Hecho:** Se estandarizó el uso de LM Studio CLI para el ecosistema. Los comandos operativos son: `lms get <modelo>` para descargar el binario, y `lms server start` para levantar el *endpoint* compatible con OpenAI en el puerto 1234.
 
-**Motivo / criterio (Aprendizaje):** *Headless Operations & CLI-First*. Depender de una GUI rompe la automatización. Operar el motor de inferencia local exclusivamente a través de la terminal certifica que el entorno DevSecOps puede ser portado en el futuro a servidores remotos (VPS) sin entorno de escritorio, garantizando la resiliencia de la infraestructura.
+**Motivo / criterio:** *Headless Operations & CLI-First*. Depender de una GUI rompe la automatización. Operar el motor de inferencia local exclusivamente a través de la terminal certifica que el entorno DevSecOps puede ser portado en el futuro a servidores remotos (VPS) sin entorno de escritorio, garantizando la resiliencia de la infraestructura.
 
 **Siguiente paso o deuda:** Mantener el servidor `lms` corriendo en una terminal en segundo plano y ejecutar `merci ssot` para validar la corrección del Roadmap.
 
 ### 2026-05-08 — Feat: Migración de motor local a LM Studio y restauración de Fallback
 
-**Contexto (Desafío):** La dependencia de la API de Gemini (nube) bloqueaba el pipeline por frecuentes errores de cuota (404/429). El uso previo de Ollama limitaba la flexibilidad para intercambiar modelos de forma visual. Se necesitaba un motor de inferencia local más robusto para tareas de redacción y código sin límites.
+**Contexto:** La dependencia de la API de Gemini (nube) bloqueaba el pipeline por frecuentes errores de cuota (404/429). El uso previo de Ollama limitaba la flexibilidad para intercambiar modelos de forma visual. Se necesitaba un motor de inferencia local más robusto para tareas de redacción y código sin límites.
 
-**Hecho (Maniobra):** Se adoptó LM Studio como motor de inferencia local. Se restauró la lógica de Degradación Elegante (Fallback) en `scripts/merci/merci-ssot.py`, configurando LiteLLM para enrutar las peticiones al servidor compatible con OpenAI de LM Studio (`http://localhost:1234/v1`).
+**Hecho:** Se adoptó LM Studio como motor de inferencia local. Se restauró la lógica de Degradación Elegante (Fallback) en `scripts/merci/merci-ssot.py`, configurando LiteLLM para enrutar las peticiones al servidor compatible con OpenAI de LM Studio (`http://localhost:1234/v1`).
 
-**Motivo / criterio (Aprendizaje):** *Infrastructure Flexibility*. LM Studio levanta una API nativa de OpenAI, lo que encaja perfectamente con nuestra capa de abstracción LiteLLM sin necesidad de reescribir los scripts. Esto permite al usuario cambiar de modelo gráficamente (ej. Qwen para código, Mistral para cuadernillos) dependiendo de la tarea, devolviendo la operatividad local al ecosistema DevSecOps.
+**Motivo / criterio:** *Infrastructure Flexibility*. LM Studio levanta una API nativa de OpenAI, lo que encaja perfectamente con nuestra capa de abstracción LiteLLM sin necesidad de reescribir los scripts. Esto permite al usuario cambiar de modelo gráficamente (ej. Qwen para código, Mistral para cuadernillos) dependiendo de la tarea, devolviendo la operatividad local al ecosistema DevSecOps.
 
 **Siguiente paso o deuda:** Mantener el servidor local de LM Studio encendido al ejecutar los agentes y evaluar la recuperación del Agente Bibliotecario con modelos locales más avanzados.
 
 ### 2026-05-08 — Chore: Auditoría y trazabilidad de scripts temporales (Deuda Técnica)
 
-**Contexto (Desafío):** El directorio `laboratorio/scripts_temporales/` almacenaba scripts experimentales o deprecados (`merci-wc-mock.py`, `merci_ingestor.py`, `merci_sitemap.py`, `pre-commit.sh`) que carecían de trazabilidad formal, convirtiéndose en "código zombi" sin contexto de por qué fueron descartados.
+**Contexto:** El directorio `laboratorio/scripts_temporales/` almacenaba scripts experimentales o deprecados (`merci-wc-mock.py`, `merci_ingestor.py`, `merci_sitemap.py`, `pre-commit.sh`) que carecían de trazabilidad formal, convirtiéndose en "código zombi" sin contexto de por qué fueron descartados.
 
-**Hecho (Maniobra):** Se inyectaron cabeceras `# TODO(Fase X):...` en la primera línea de los 4 scripts temporales, justificando su estado actual y el motivo de su preservación (Art de Coté) o deprecación.
+**Hecho:** Se inyectaron cabeceras `# TODO(Fase X):...` en la primera línea de los 4 scripts temporales, justificando su estado actual y el motivo de su preservación (Art de Coté) o deprecación.
 
-**Motivo / criterio (Aprendizaje):** *Code Provenance* (Procedencia del Código). Nunca se debe almacenar código sin documentar su propósito o el motivo de su rechazo. Al etiquetarlos explícitamente, se salda la deuda técnica de mantenimiento y se asegura que futuros desarrolladores no intenten integrarlos por error en el orquestador principal.
+**Motivo / criterio:** *Code Provenance* (Procedencia del Código). Nunca se debe almacenar código sin documentar su propósito o el motivo de su rechazo. Al etiquetarlos explícitamente, se salda la deuda técnica de mantenimiento y se asegura que futuros desarrolladores no intenten integrarlos por error en el orquestador principal.
 
 **Siguiente paso o deuda:** Ejecutar `merci total` para validar la estabilidad del repositorio y empaquetar el commit de cierre de sesión.
 
 ### 2026-05-08 — Arch: Erradicación del Fallback Local en Agentes de Gobernanza
 
-**Contexto (Desafío):** Al ejecutar el Agente SSOT con Llama 3 (8B) como fallback, el modelo superó el "Escudo Anti-Destrucción" (Sanity Checks) devolviendo el Roadmap entero, pero falló en el razonamiento semántico: no marcó ninguna tarea como completada y añadió una nota conversacional en inglés al final del documento (`Note: No changes were made...`).
+**Contexto:** Al ejecutar el Agente SSOT con Llama 3 (8B) como fallback, el modelo superó el "Escudo Anti-Destrucción" (Sanity Checks) devolviendo el Roadmap entero, pero falló en el razonamiento semántico: no marcó ninguna tarea como completada y añadió una nota conversacional en inglés al final del documento (`Note: No changes were made...`).
 
-**Hecho (Maniobra):** Se editó manualmente el Roadmap para marcar las tareas completadas y eliminar el ruido del bot. Se eliminó por completo el bloque `try-except` de Degradación Elegante en `scripts/merci/merci-ssot.py`, forzando a que el agente solo opere con Gemini Flash en la nube o falle bloqueando la ejecución.
+**Hecho:** Se editó manualmente el Roadmap para marcar las tareas completadas y eliminar el ruido del bot. Se eliminó por completo el bloque `try-except` de Degradación Elegante en `scripts/merci/merci-ssot.py`, forzando a que el agente solo opere con Gemini Flash en la nube o falle bloqueando la ejecución.
 
-**Motivo / criterio (Aprendizaje):** *Cloud-Only for Governance*. Tareas de sincronización documental (SSOT) exigen inferencia lógica precisa (conectar "deprecación" en bitácora con `[x]` en roadmap). Los modelos locales pequeños no sirven para gobernanza documental. Fallar estrepitosamente deteniendo el pipeline (Fail-Fast) es infinitamente superior a que un agente "tonto" contamine archivos oficiales creyendo que está ayudando.
+**Motivo / criterio:** *Cloud-Only for Governance*. Tareas de sincronización documental (SSOT) exigen inferencia lógica precisa (conectar "deprecación" en bitácora con `[x]` en roadmap). Los modelos locales pequeños no sirven para gobernanza documental. Fallar estrepitosamente deteniendo el pipeline (Fail-Fast) es infinitamente superior a que un agente "tonto" contamine archivos oficiales creyendo que está ayudando.
 
 **Siguiente paso o deuda:** Mantener `merci-ssot.py` exclusivamente dependiente de la API y auditar los scripts temporales pendientes.
 
 ### 2026-05-08 — Fix: Escudo anti-destrucción (Sanity Checks) en Agente SSOT
 
-**Contexto (Desafío):** Al ejecutar el Agente SSOT en local, Llama 3 (8B) sufrió de "Chatbot Syndrome". En lugar de devolver el documento Markdown completo, generó un resumen conversacional en inglés (`After evaluating...`). Como el script carecía de validación de longitud, sobrescribió y destruyó físicamente el Roadmap.
+**Contexto:** Al ejecutar el Agente SSOT en local, Llama 3 (8B) sufrió de "Chatbot Syndrome". En lugar de devolver el documento Markdown completo, generó un resumen conversacional en inglés (`After evaluating...`). Como el script carecía de validación de longitud, sobrescribió y destruyó físicamente el Roadmap.
 
-**Hecho (Maniobra):** Se restauró el archivo mediante Git. Se inyectó un "Escudo Anti-Alucinaciones" en `scripts/merci/merci-ssot.py` que bloquea la escritura en disco si la salida de la IA es inferior al 50% del tamaño original o si carece del formato Markdown (`# `). Se endureció el prompt para prohibir frases de relleno.
+**Hecho:** Se restauró el archivo mediante Git. Se inyectó un "Escudo Anti-Alucinaciones" en `scripts/merci/merci-ssot.py` que bloquea la escritura en disco si la salida de la IA es inferior al 50% del tamaño original o si carece del formato Markdown (`# `). Se endureció el prompt para prohibir frases de relleno.
 
-**Motivo / criterio (Aprendizaje):** *Fail-Safe File I/O*. Ningún agente de Inteligencia Artificial debe tener permisos de escritura ciegos sobre el sistema de archivos. Validar matemáticamente que el *output* mantiene proporciones y firmas estructurales similares al *input* es la barrera DevSecOps definitiva contra la destrucción de datos por alucinaciones.
+**Motivo / criterio:** *Fail-Safe File I/O*. Ningún agente de Inteligencia Artificial debe tener permisos de escritura ciegos sobre el sistema de archivos. Validar matemáticamente que el *output* mantiene proporciones y firmas estructurales similares al *input* es la barrera DevSecOps definitiva contra la destrucción de datos por alucinaciones.
 
 **Siguiente paso o deuda:** Validar que el agente no destruya el archivo y delegar tareas SSOT complejas exclusivamente a modelos de frontera si Llama 3 persiste en resumir.
 
 ### 2026-05-08 — Fix: Fallback a Llama 3 y sanitización en Agente SSOT
 
-**Contexto (Desafío):** Al ejecutar el Agente SSOT, Gemini devolvió un error `HTTP 404`, bloqueando la sincronización del Roadmap. Además, el script carecía de un fallback local (Degradación Elegante) y presentaba un bug en la lectura de la respuesta de LiteLLM (`choices.message` en lugar de `choices[0].message`).
+**Contexto:** Al ejecutar el Agente SSOT, Gemini devolvió un error `HTTP 404`, bloqueando la sincronización del Roadmap. Además, el script carecía de un fallback local (Degradación Elegante) y presentaba un bug en la lectura de la respuesta de LiteLLM (`choices.message` en lugar de `choices[0].message`).
 
-**Hecho (Maniobra):** Se refactorizó `scripts/merci/merci-ssot.py` para implementar un bloque `try-except` que delega la tarea a `llama3` local si Gemini falla. Se corrigió el acceso al array de respuestas (`choices[0]`) y se robusteció `clean_markdown()` para amputar el texto conversacional de los modelos locales.
+**Hecho:** Se refactorizó `scripts/merci/merci-ssot.py` para implementar un bloque `try-except` que delega la tarea a `llama3` local si Gemini falla. Se corrigió el acceso al array de respuestas (`choices[0]`) y se robusteció `clean_markdown()` para amputar el texto conversacional de los modelos locales.
 
-**Motivo / criterio (Aprendizaje):** *Resiliencia de Agentes*. Todo agente autónomo debe tener una vía de escape local si la nube falla. Una tarea simple como cambiar un `[ ]` por un `[x]` está perfectamente dentro de las capacidades lógicas de Llama 3 (8B), haciendo innecesario el bloqueo operativo por caídas de API.
+**Motivo / criterio:** *Resiliencia de Agentes*. Todo agente autónomo debe tener una vía de escape local si la nube falla. Una tarea simple como cambiar un `[ ]` por un `[x]` está perfectamente dentro de las capacidades lógicas de Llama 3 (8B), haciendo innecesario el bloqueo operativo por caídas de API.
 
 **Siguiente paso o deuda:** Ejecutar `merci ssot` para validar que Llama 3 sincroniza el Roadmap con éxito.
 
 ### 2026-05-08 — Feat: Creación del Agente Sync SSOT (Self-Healing Docs)
 
-**Contexto (Desafío):** Al avanzar rápido en el desarrollo, a menudo se documentan logros o deprecaciones en la bitácora, pero se olvida marcar la casilla `[x]` correspondiente en el Roadmap, generando "Deriva Documental" (Document Drift) y pérdida de la Única Fuente de Verdad (SSOT).
+**Contexto:** Al avanzar rápido en el desarrollo, a menudo se documentan logros o deprecaciones en la bitácora, pero se olvida marcar la casilla `[x]` correspondiente en el Roadmap, generando "Deriva Documental" (Document Drift) y pérdida de la Única Fuente de Verdad (SSOT).
 
-**Hecho (Maniobra):** Se desarrolló `scripts/merci/merci-ssot.py`. El agente extrae los últimos registros de la bitácora y el estado actual del Roadmap, enviándolos a Gemini Flash con la orden estricta de auto-completar las tareas logradas o deprecadas reescribiendo el archivo Markdown.
+**Hecho:** Se desarrolló `scripts/merci/merci-ssot.py`. El agente extrae los últimos registros de la bitácora y el estado actual del Roadmap, enviándolos a Gemini Flash con la orden estricta de auto-completar las tareas logradas o deprecadas reescribiendo el archivo Markdown.
 
-**Motivo / criterio (Aprendizaje):** *Document as Code & Self-Healing*. La sincronización de estados no debe depender de la memoria humana ni de scripts locales limitados. Delegar el análisis semántico a un modelo de frontera garantiza que nuestro plan de proyecto refleje fielmente la realidad del código en todo momento, curando la documentación automáticamente.
+**Motivo / criterio:** *Document as Code & Self-Healing*. La sincronización de estados no debe depender de la memoria humana ni de scripts locales limitados. Delegar el análisis semántico a un modelo de frontera garantiza que nuestro plan de proyecto refleje fielmente la realidad del código en todo momento, curando la documentación automáticamente.
 
 **Siguiente paso o deuda:** Ejecutar el Agente SSOT para que detecte la deprecación del Bibliotecario y actualice el Roadmap.
 
 ### 2026-05-08 — Arch: Deprecación del Agente Bibliotecario (RAG Local) a Art de Coté
 
-**Contexto (Desafío):** A pesar de la agresiva sanitización de salida y la optimización del contexto, el modelo local Llama 3 (8B) continuaba fallando en la generación consistente de cuadernillos con formato YAML estricto (*Context Window Stuffing* y *Recency Bias*). El esfuerzo de domar la IA local añadía más fricción operativa que la redacción manual.
+**Contexto:** A pesar de la agresiva sanitización de salida y la optimización del contexto, el modelo local Llama 3 (8B) continuaba fallando en la generación consistente de cuadernillos con formato YAML estricto (*Context Window Stuffing* y *Recency Bias*). El esfuerzo de domar la IA local añadía más fricción operativa que la redacción manual.
 
-**Hecho (Maniobra):** Se decidió abortar el uso del Agente Bibliotecario en local. El script `scripts/merci/merci-librarian.py` fue modificado con un marcador `TODO` y desplazado a `laboratorio/scripts_temporales/merci-librarian.py`. Se redactó el cuadernillo explicativo en `laboratorio/art-de-cote/`.
+**Hecho:** Se decidió abortar el uso del Agente Bibliotecario en local. El script `scripts/merci/merci-librarian.py` fue modificado con un marcador `TODO` y desplazado a `laboratorio/scripts_temporales/merci-librarian.py`. Se redactó el cuadernillo explicativo en `laboratorio/art-de-cote/`.
 
-**Motivo / criterio (Aprendizaje):** *Fail-Fast y ROI*. Si una herramienta diseñada para eliminar fricción se convierte en un sumidero de tiempo de depuración, debe ser descartada. Los modelos locales <14B aún no poseen la atención sostenida para combinar RAG denso y *Zero-Shot formatting* simultáneamente. Preservar el script como *Art de Coté* guarda las lecciones de Prompt Engineering sin contaminar el núcleo operativo.
+**Motivo / criterio:** *Fail-Fast y ROI*. Si una herramienta diseñada para eliminar fricción se convierte en un sumidero de tiempo de depuración, debe ser descartada. Los modelos locales <14B aún no poseen la atención sostenida para combinar RAG denso y *Zero-Shot formatting* simultáneamente. Preservar el script como *Art de Coté* guarda las lecciones de Prompt Engineering sin contaminar el núcleo operativo.
 
 **Siguiente paso o deuda:** Auditar los scripts en `laboratorio/scripts_temporales/` para añadir notas de estado y proceder con el Agente Sync SSOT.
 
 ### 2026-05-08 — Fix: Extracción quirúrgica de YAML y neutralización de Recency Bias
 
-**Contexto (Desafío):** El modelo Llama 3 generaba archivos rotos al inyectar relleno conversacional (`Here is the output:`) antes del YAML. Además, sufría de *Recency Bias* (Sesgo de Recencia): al leer la bitácora en el RAG local, ignoraba la nota del usuario y se dedicaba a resumir la última entrada histórica que encontraba.
+**Contexto:** El modelo Llama 3 generaba archivos rotos al inyectar relleno conversacional (`Here is the output:`) antes del YAML. Además, sufría de *Recency Bias* (Sesgo de Recencia): al leer la bitácora en el RAG local, ignoraba la nota del usuario y se dedicaba a resumir la última entrada histórica que encontraba.
 
-**Hecho (Maniobra):** Se refactorizó `clean_markdown` en `merci-librarian.py` usando `text.find("---\n")` para amputar matemáticamente cualquier texto previo al Frontmatter. Se invirtió la estructura del Prompt, colocando la nota cruda como "Tema Principal" y la bitácora como "Apoyo Secundario" con instrucciones estrictas de exclusión.
+**Hecho:** Se refactorizó `clean_markdown` en `merci-librarian.py` usando `text.find("---\n")` para amputar matemáticamente cualquier texto previo al Frontmatter. Se invirtió la estructura del Prompt, colocando la nota cruda como "Tema Principal" y la bitácora como "Apoyo Secundario" con instrucciones estrictas de exclusión.
 
-**Motivo / criterio (Aprendizaje):** *Aggressive Output Sanitization*. No se puede confiar en que los LLMs (especialmente los entrenados para chat) respeten el formato *Zero-Shot* de forma consistente. La validación no debe ser pasiva (comprobar si empieza por "```"), sino activa (buscar la firma del código y destruir el resto). Controlar el foco de atención mitigando el sesgo de recencia salva la viabilidad del RAG local.
+**Motivo / criterio:** *Aggressive Output Sanitization*. No se puede confiar en que los LLMs (especialmente los entrenados para chat) respeten el formato *Zero-Shot* de forma consistente. La validación no debe ser pasiva (comprobar si empieza por "```"), sino activa (buscar la firma del código y destruir el resto). Controlar el foco de atención mitigando el sesgo de recencia salva la viabilidad del RAG local.
 
 **Siguiente paso o deuda:** Limpiar el archivo corrupto y validar que Llama 3 ahora obedece y redacta sobre el *bug* del linter.
 
 ### 2026-05-08 — Feat: Optimización de RAG (Filtrado Semántico) para LLM Local
 
-**Contexto (Desafío):** El sistema RAG anterior enviaba 6000 caracteres ciegos de historial al modelo local (Llama 3), saturando su ventana de atención (*Context Window Stuffing*) y provocando alucinaciones. Un modelo ligero no puede gestionar un contexto masivo al mismo nivel que un modelo de frontera en la nube (Gemini 1.5 Flash).
+**Contexto:** El sistema RAG anterior enviaba 6000 caracteres ciegos de historial al modelo local (Llama 3), saturando su ventana de atención (*Context Window Stuffing*) y provocando alucinaciones. Un modelo ligero no puede gestionar un contexto masivo al mismo nivel que un modelo de frontera en la nube (Gemini 1.5 Flash).
 
-**Hecho (Maniobra):** Se refactorizó `get_bitacora_context` en `merci-librarian.py`. El script ahora extrae palabras clave (>4 letras) de la nota cruda y las utiliza para escanear y enviar únicamente las entradas de bitácora que contengan esas palabras, limitando el tamaño a 3000 caracteres.
+**Hecho:** Se refactorizó `get_bitacora_context` en `merci-librarian.py`. El script ahora extrae palabras clave (>4 letras) de la nota cruda y las utiliza para escanear y enviar únicamente las entradas de bitácora que contengan esas palabras, limitando el tamaño a 3000 caracteres.
 
-**Motivo / criterio (Aprendizaje):** *Garbage In, Garbage Out*. Extraer solo las "páginas exactas" en lugar de enviar "toda la estantería" desbloquea la capacidad del RAG en hardware local modesto. Esto robustece el comportamiento de contingencia (Fallback) cuando la IA en la nube no está disponible.
+**Motivo / criterio:** *Garbage In, Garbage Out*. Extraer solo las "páginas exactas" en lugar de enviar "toda la estantería" desbloquea la capacidad del RAG en hardware local modesto. Esto robustece el comportamiento de contingencia (Fallback) cuando la IA en la nube no está disponible.
 
 **Siguiente paso o deuda:** Validar la promoción del cuadernillo generado por Gemini y avanzar al Agente Sync SSOT.
 
 ### 2026-05-08 — Test: Evaluación de Context Window Stuffing y RAG con Gemini
 
-**Contexto (Desafío):** Al ejecutar el RAG local inyectando 6000 caracteres de bitácora + plantillas + nota corta en el modelo local Llama 3 (8B), el modelo colapsó por exceso de contexto (*Context Window Stuffing*), alucinando una reescritura de las instrucciones de la bitácora en inglés.
+**Contexto:** Al ejecutar el RAG local inyectando 6000 caracteres de bitácora + plantillas + nota corta en el modelo local Llama 3 (8B), el modelo colapsó por exceso de contexto (*Context Window Stuffing*), alucinando una reescritura de las instrucciones de la bitácora en inglés.
 
-**Hecho (Maniobra):** Se delegó la misma carga cognitiva al modelo de frontera en la nube (Gemini 1.5 Flash), el cual procesó el RAG de forma inmaculada, conectando los puntos entre la nota corta y el log histórico, redactando un cuadernillo impecable. Se purgó la alucinación del laboratorio.
+**Hecho:** Se delegó la misma carga cognitiva al modelo de frontera en la nube (Gemini 1.5 Flash), el cual procesó el RAG de forma inmaculada, conectando los puntos entre la nota corta y el log histórico, redactando un cuadernillo impecable. Se purgó la alucinación del laboratorio.
 
-**Motivo / criterio (Aprendizaje):** *Model Routing & Cognitive Load*. Los modelos locales ligeros (<14B) son excelentes para tareas de formato Zero-Shot o código delimitado, pero su atención se degrada catastróficamente al saturar su ventana de contexto (RAG denso). El enrutamiento de agentes debe derivar tareas de "compresión semántica densa" hacia modelos de frontera (Cloud), reservando el modelo local solo para contingencias simples o análisis de sintaxis corta.
+**Motivo / criterio:** *Model Routing & Cognitive Load*. Los modelos locales ligeros (<14B) son excelentes para tareas de formato Zero-Shot o código delimitado, pero su atención se degrada catastróficamente al saturar su ventana de contexto (RAG denso). El enrutamiento de agentes debe derivar tareas de "compresión semántica densa" hacia modelos de frontera (Cloud), reservando el modelo local solo para contingencias simples o análisis de sintaxis corta.
 
 **Siguiente paso o deuda:** Validar este cuadernillo perfecto con `merci promote` y avanzar al siguiente Agente del Roadmap: Sync SSOT.
 
 ### 2026-05-08 — Feat: Inyección de contexto histórico (RAG Local) en Agente Bibliotecario
 
-**Contexto (Desafío):** El modelo local (Llama 3) estructuraba bien las notas cortas gracias a las plantillas (*One-Shot Prompting*), pero el contenido redactado carecía de profundidad técnica. La IA no podía expandir una nota de tres líneas sin inventar datos, ya que desconocía los detalles técnicos subyacentes del incidente.
+**Contexto:** El modelo local (Llama 3) estructuraba bien las notas cortas gracias a las plantillas (*One-Shot Prompting*), pero el contenido redactado carecía de profundidad técnica. La IA no podía expandir una nota de tres líneas sin inventar datos, ya que desconocía los detalles técnicos subyacentes del incidente.
 
-**Hecho (Maniobra):** Se implementó un sistema RAG (Retrieval-Augmented Generation) primitivo en `scripts/merci/merci-librarian.py`. El script ahora lee los primeros 6000 caracteres de las bitácoras activas y los inyecta en el prompt, instruyendo a la IA a cruzar la nota cruda con el registro histórico para extraer el contexto técnico ampliado.
+**Hecho:** Se implementó un sistema RAG (Retrieval-Augmented Generation) primitivo en `scripts/merci/merci-librarian.py`. El script ahora lee los primeros 6000 caracteres de las bitácoras activas y los inyecta en el prompt, instruyendo a la IA a cruzar la nota cruda con el registro histórico para extraer el contexto técnico ampliado.
 
-**Motivo / criterio (Aprendizaje):** *Context Enrichment & Single Source of Truth*. Una IA redactora sin contexto solo puede parafrasear. Al alimentar a Llama 3 con el historial de desarrollo reciente, le otorgamos la "memoria" del proyecto. Esto permite que el flujo DevSecOps fluya: la autora anota un recordatorio mínimo y la IA usa la bitácora para redactar el documento técnico definitivo, logrando fricción cero.
+**Motivo / criterio:** *Context Enrichment & Single Source of Truth*. Una IA redactora sin contexto solo puede parafrasear. Al alimentar a Llama 3 con el historial de desarrollo reciente, le otorgamos la "memoria" del proyecto. Esto permite que el flujo DevSecOps fluya: la autora anota un recordatorio mínimo y la IA usa la bitácora para redactar el documento técnico definitivo, logrando fricción cero.
 
 **Siguiente paso o deuda:** Re-ejecutar `merci librarian` para validar que Llama 3 es capaz de relacionar la nota corta del linter con su entrada detallada en la bitácora.
 
 ### 2026-05-08 — Fix: Inyección de plantillas (One-Shot Prompting) en Agente Bibliotecario
 
-**Contexto (Desafío):** Al escalar al modelo local Llama 3 (8B), se constató que, si bien es excelente en compresión semántica y redacción deductiva, tiende a "relajarse" con las instrucciones de formato puro (omitiendo etiquetas YAML o inventando estructuras) cuando opera en modo *Zero-Shot* (sin ejemplos previos).
+**Contexto:** Al escalar al modelo local Llama 3 (8B), se constató que, si bien es excelente en compresión semántica y redacción deductiva, tiende a "relajarse" con las instrucciones de formato puro (omitiendo etiquetas YAML o inventando estructuras) cuando opera en modo *Zero-Shot* (sin ejemplos previos).
 
-**Hecho (Maniobra):** Se refactorizó `scripts/merci/merci-librarian.py` para que lea físicamente el contenido de los archivos de plantilla (`docs/plantilla-cuadernillo.md`, `plantilla-proyecto.md` y `plantilla-art-de-cote.md`) e inyecte su estructura directamente en el prompt del usuario como una "Regla Estricta de Formato".
+**Hecho:** Se refactorizó `scripts/merci/merci-librarian.py` para que lea físicamente el contenido de los archivos de plantilla (`docs/plantilla-cuadernillo.md`, `plantilla-proyecto.md` y `plantilla-art-de-cote.md`) e inyecte su estructura directamente en el prompt del usuario como una "Regla Estricta de Formato".
 
-**Motivo / criterio (Aprendizaje):** *In-Context Learning*. Los modelos LLM locales de menos de 70B de parámetros rinden infinitamente mejor si se les proporciona un molde rígido a rellenar ("enseña, no cuentes"). Inyectar la plantilla real en tiempo de compilación garantiza que Llama 3 no tenga margen para la improvisación estructural, blindando la integridad del parser YAML.
+**Motivo / criterio:** *In-Context Learning*. Los modelos LLM locales de menos de 70B de parámetros rinden infinitamente mejor si se les proporciona un molde rígido a rellenar ("enseña, no cuentes"). Inyectar la plantilla real en tiempo de compilación garantiza que Llama 3 no tenga margen para la improvisación estructural, blindando la integridad del parser YAML.
 
 **Siguiente paso o deuda:** Re-ejecutar `merci librarian` con la nota corta para validar que ahora genera la deducción correcta pero encapsulada en el YAML estricto.
 
 ### 2026-05-08 — Test: Evaluación de Llama 3 con notas de bajo contexto
 
-**Contexto (Desafío):** Tras validar que Llama 3 respeta (en su mayoría) la estructura de los 3 átomos, se plantea la duda de si es capaz de inferir y redactar un cuadernillo completo a partir de una nota extremadamente breve y con muy bajo contexto, actuando como un verdadero agente de expansión de conocimiento.
+**Contexto:** Tras validar que Llama 3 respeta (en su mayoría) la estructura de los 3 átomos, se plantea la duda de si es capaz de inferir y redactar un cuadernillo completo a partir de una nota extremadamente breve y con muy bajo contexto, actuando como un verdadero agente de expansión de conocimiento.
 
-**Hecho (Maniobra):** Se creó una nota minimalista (`nota-corta-linter.md`) en `laboratorio/notas_rapidas/` sobre un incidente menor (ausencia de `.py` en `TEXT_SUFFIXES`) para forzar al Agente Bibliotecario a deducir el Desafío, la Maniobra y el Aprendizaje con apenas tres líneas de texto crudo.
+**Hecho:** Se creó una nota minimalista (`nota-corta-linter.md`) en `laboratorio/notas_rapidas/` sobre un incidente menor (ausencia de `.py` en `TEXT_SUFFIXES`) para forzar al Agente Bibliotecario a deducir el Desafío, la Maniobra y el Aprendizaje con apenas tres líneas de texto crudo.
 
-**Motivo / criterio (Aprendizaje):** *Stress Testing the Prompt*. Un buen agente redactor no solo formatea texto, sino que "descomprime" ideas. Si Llama 3 logra estructurar un cuadernillo coherente infiriendo el aprendizaje arquitectónico a partir de un apunte apresurado, se confirmará que la arquitectura del System Prompt compensa la falta de locuacidad humana.
+**Motivo / criterio:** *Stress Testing the Prompt*. Un buen agente redactor no solo formatea texto, sino que "descomprime" ideas. Si Llama 3 logra estructurar un cuadernillo coherente infiriendo el aprendizaje arquitectónico a partir de un apunte apresurado, se confirmará que la arquitectura del System Prompt compensa la falta de locuacidad humana.
 
 **Siguiente paso o deuda:** Ejecutar `merci librarian` sobre la nota corta y evaluar el nivel de abstracción del modelo.
 
 ### 2026-05-08 — Feat: Escalado del modelo local a Llama 3 (8B) en Agente Bibliotecario
 
-**Contexto (Desafío):** La API gratuita de Google (Gemini) sigue devolviendo errores `HTTP 404` intermitentes para los alias de la rama `1.5-flash` debido a restricciones regionales o cambios no documentados. Al aplicar la Degradación Elegante, el modelo local `phi3` volvía a alucinar, demostrando ser incapaz de seguir el *System Prompt* estructural.
+**Contexto:** La API gratuita de Google (Gemini) sigue devolviendo errores `HTTP 404` intermitentes para los alias de la rama `1.5-flash` debido a restricciones regionales o cambios no documentados. Al aplicar la Degradación Elegante, el modelo local `phi3` volvía a alucinar, demostrando ser incapaz de seguir el *System Prompt* estructural.
 
-**Hecho (Maniobra):** Se sustituyó el modelo local de contingencia `phi3` por `llama3` (8B de parámetros) en `scripts/merci/merci-librarian.py`. Se instruyó la descarga del modelo mediante `ollama pull llama3`.
+**Hecho:** Se sustituyó el modelo local de contingencia `phi3` por `llama3` (8B de parámetros) en `scripts/merci/merci-librarian.py`. Se instruyó la descarga del modelo mediante `ollama pull llama3`.
 
-**Motivo / criterio (Aprendizaje):** *Local AI Resilience*. `phi3` es demasiado pequeño (3.8B) para seguir instrucciones de formato estricto (Zero-Shot YAML Frontmatter). Escalar a `llama3` (8B) proporciona capacidades de razonamiento muy superiores y soporte nativo para seguimiento de instrucciones en español, convirtiendo el *fallback* en una alternativa local verdaderamente operativa y no en un parche que genera más ruido. Liberarse de la tiranía de las APIs de terceros justifica el uso de recursos locales.
+**Motivo / criterio:** *Local AI Resilience*. `phi3` es demasiado pequeño (3.8B) para seguir instrucciones de formato estricto (Zero-Shot YAML Frontmatter). Escalar a `llama3` (8B) proporciona capacidades de razonamiento muy superiores y soporte nativo para seguimiento de instrucciones en español, convirtiendo el *fallback* en una alternativa local verdaderamente operativa y no en un parche que genera más ruido. Liberarse de la tiranía de las APIs de terceros justifica el uso de recursos locales.
 
 **Siguiente paso o deuda:** Descargar el modelo en Ollama, limpiar el cuadernillo residual y relanzar el Agente Bibliotecario.
 
 ### 2026-05-08 — Fix: Eliminación de fallback dinámico engañoso y blindaje de merci-brain
 
-**Contexto (Desafío):** Google introdujo un nuevo modelo súper experimental (`gemini-2.5-computer-use-preview-10-2025`) al final de la lista de su API, con límite de cuota 0. La lógica de *fallback* del autodescubridor (`validos[-1]`) lo seleccionó erróneamente, rompiendo nuevamente a `merci-librarian.py`. Además, `merci-brain.py` seguía expuesto a estos mismos fallos y a la contaminación de consola por `FutureWarning`.
+**Contexto:** Google introdujo un nuevo modelo súper experimental (`gemini-2.5-computer-use-preview-10-2025`) al final de la lista de su API, con límite de cuota 0. La lógica de *fallback* del autodescubridor (`validos[-1]`) lo seleccionó erróneamente, rompiendo nuevamente a `merci-librarian.py`. Además, `merci-brain.py` seguía expuesto a estos mismos fallos y a la contaminación de consola por `FutureWarning`.
 
-**Hecho (Maniobra):** Se eliminó la lógica `validos[-1]` en favor del alias estricto `"gemini-1.5-flash"` en ambos agentes. Se replicaron las políticas de silenciamiento de advertencias (`warnings`) y la exclusión de la familia `2.0-flash` en `scripts/merci/merci-brain.py`.
+**Hecho:** Se eliminó la lógica `validos[-1]` en favor del alias estricto `"gemini-1.5-flash"` en ambos agentes. Se replicaron las políticas de silenciamiento de advertencias (`warnings`) y la exclusión de la familia `2.0-flash` en `scripts/merci/merci-brain.py`.
 
-**Motivo / criterio (Aprendizaje):** *Fail-Safe Default*. Asumir que el último elemento de una API de terceros es una opción segura es un antipatrón. El *fallback* definitivo debe ser siempre un anclaje absoluto a la versión de producción que garantiza cuota. Mantener la paridad de parches entre todos los agentes que consumen la misma API asegura la estabilidad del ecosistema en bloque.
+**Motivo / criterio:** *Fail-Safe Default*. Asumir que el último elemento de una API de terceros es una opción segura es un antipatrón. El *fallback* definitivo debe ser siempre un anclaje absoluto a la versión de producción que garantiza cuota. Mantener la paridad de parches entre todos los agentes que consumen la misma API asegura la estabilidad del ecosistema en bloque.
 
 **Siguiente paso o deuda:** Limpiar el archivo residual, re-ejecutar `merci librarian` y auditar la orquestación global con `merci total`.
 
 ### 2026-05-08 — Fix: Exclusión de Gemini 2.0 (Límite 0) y silenciamiento de warnings
 
-**Contexto (Desafío):** Al ejecutar el Agente Bibliotecario, el autodescubridor seleccionó el modelo experimental `gemini-2.0-flash`. Sin embargo, Google impone una cuota de 0 peticiones (Free Tier) para este modelo en nuestra región, provocando un `HTTP 429` inmediato y forzando una degradación inútil a `phi3`. Además, la terminal se ensució con un `FutureWarning` de `litellm`.
+**Contexto:** Al ejecutar el Agente Bibliotecario, el autodescubridor seleccionó el modelo experimental `gemini-2.0-flash`. Sin embargo, Google impone una cuota de 0 peticiones (Free Tier) para este modelo en nuestra región, provocando un `HTTP 429` inmediato y forzando una degradación inútil a `phi3`. Además, la terminal se ensució con un `FutureWarning` de `litellm`.
 
-**Hecho (Maniobra):** Se eliminó `2.0-flash` de la matriz de preferencias en `scripts/merci/merci-librarian.py` para anclar la resolución a la rama estable `1.5-flash`. Se inyectó el módulo `warnings` nativo de Python para silenciar las alertas inofensivas de la librería.
+**Hecho:** Se eliminó `2.0-flash` de la matriz de preferencias en `scripts/merci/merci-librarian.py` para anclar la resolución a la rama estable `1.5-flash`. Se inyectó el módulo `warnings` nativo de Python para silenciar las alertas inofensivas de la librería.
 
-**Motivo / criterio (Aprendizaje):** *Estabilidad sobre Novedad & Clean DX*. Consumir el último modelo disponible es un antipatrón si el proveedor no garantiza cuota operativa. Forzar la rama 1.5 asegura las 1500 peticiones diarias. Ocultar los *warnings* de librerías de terceros (Supply Chain) protege la experiencia de desarrollo (DX) manteniendo la salida de la terminal enfocada en los procesos del proyecto.
+**Motivo / criterio:** *Estabilidad sobre Novedad & Clean DX*. Consumir el último modelo disponible es un antipatrón si el proveedor no garantiza cuota operativa. Forzar la rama 1.5 asegura las 1500 peticiones diarias. Ocultar los *warnings* de librerías de terceros (Supply Chain) protege la experiencia de desarrollo (DX) manteniendo la salida de la terminal enfocada en los procesos del proyecto.
 
 **Siguiente paso o deuda:** Limpiar el cuadernillo alucinado y re-ejecutar el Agente Bibliotecario.
 
 ### 2026-05-08 — Fix: Resolución de alias 404 en modelo Gemini (Agente Bibliotecario)
 
-**Contexto (Desafío):** Al ejecutar el Agente Bibliotecario, LiteLLM devolvió un error `HTTP 404 (Not Found)` al intentar conectar con `gemini-1.5-flash`. Google AI Studio no reconocía este alias base en la versión `v1beta` de la API requerida por la librería. Se produjo también un `FutureWarning` inofensivo sobre la librería subyacente.
+**Contexto:** Al ejecutar el Agente Bibliotecario, LiteLLM devolvió un error `HTTP 404 (Not Found)` al intentar conectar con `gemini-1.5-flash`. Google AI Studio no reconocía este alias base en la versión `v1beta` de la API requerida por la librería. Se produjo también un `FutureWarning` inofensivo sobre la librería subyacente.
 
-**Hecho (Maniobra):** Se parcheó `scripts/merci/merci-librarian.py` cambiando el modelo objetivo a `gemini/gemini-1.5-flash-latest`.
+**Hecho:** Se parcheó `scripts/merci/merci-librarian.py` cambiando el modelo objetivo a `gemini/gemini-1.5-flash-latest`.
 
-**Motivo / criterio (Aprendizaje):** *API Resilience & Alias Routing*. Las plataformas de IA en la nube rotan o exigen sufijos explícitos (`-latest`, `-001`) para sus modelos más recientes. Anclar el orquestador al alias `latest` garantiza la resolución del *endpoint* sin importar los cambios en la nomenclatura base de la capa gratuita, estabilizando el *Hybrid Stack*.
+**Motivo / criterio:** *API Resilience & Alias Routing*. Las plataformas de IA en la nube rotan o exigen sufijos explícitos (`-latest`, `-001`) para sus modelos más recientes. Anclar el orquestador al alias `latest` garantiza la resolución del *endpoint* sin importar los cambios en la nomenclatura base de la capa gratuita, estabilizando el *Hybrid Stack*.
 
 **Siguiente paso o deuda:** Re-ejecutar el Agente Bibliotecario para generar definitivamente el cuadernillo.
 
 ### 2026-05-08 — Fix: Resolución de dependencia faltante para Gemini (google-generativeai)
 
-**Contexto (Desafío):** Al ejecutar el Agente Bibliotecario, el script falló al intentar conectar con `gemini-1.5-flash` debido a la falta de la librería nativa de Google (`Importing google.generativeai failed`). La Degradación Elegante funcionó, pero el modelo local (`phi3`) sufrió una alucinación severa, inventando contenido sobre Docker, GoLang y Token Web JSON (JWT) al final del documento.
+**Contexto:** Al ejecutar el Agente Bibliotecario, el script falló al intentar conectar con `gemini-1.5-flash` debido a la falta de la librería nativa de Google (`Importing google.generativeai failed`). La Degradación Elegante funcionó, pero el modelo local (`phi3`) sufrió una alucinación severa, inventando contenido sobre Docker, GoLang y Token Web JSON (JWT) al final del documento.
 
-**Hecho (Maniobra):** Se añadió la dependencia `google-generativeai` al archivo `requirements.txt` para que LiteLLM pueda interactuar correctamente con la API de Google en futuras ejecuciones.
+**Hecho:** Se añadió la dependencia `google-generativeai` al archivo `requirements.txt` para que LiteLLM pueda interactuar correctamente con la API de Google en futuras ejecuciones.
 
-**Motivo / criterio (Aprendizaje):** *Supply Chain & Fallback Testing*. LiteLLM es una capa de abstracción, pero requiere los SDKs nativos de los proveedores para funcionar. Este fallo validó empíricamente que nuestra lógica de `try/except` (Fail Gracefully) funciona, protegiendo el orquestador de colapsos absolutos, pero también re-confirmó la falta de fiabilidad de los modelos locales pequeños para tareas de redacción complejas.
+**Motivo / criterio:** *Supply Chain & Fallback Testing*. LiteLLM es una capa de abstracción, pero requiere los SDKs nativos de los proveedores para funcionar. Este fallo validó empíricamente que nuestra lógica de `try/except` (Fail Gracefully) funciona, protegiendo el orquestador de colapsos absolutos, pero también re-confirmó la falta de fiabilidad de los modelos locales pequeños para tareas de redacción complejas.
 
 **Siguiente paso o deuda:** Instalar la dependencia en el entorno virtual, borrar el cuadernillo alucinado y re-ejecutar `merci librarian`.
 
 ### 2026-05-08 — Fix: Migración del Agente Bibliotecario a Gemini Flash (Calidad vs. Rendimiento)
 
-**Contexto (Desafío):** La evaluación empírica del Agente Bibliotecario con el modelo local `phi3` reveló una "caída de atención" significativa, resultando en alucinaciones, incumplimiento de la estructura de los 3 átomos y errores en el Frontmatter YAML. Esto comprometía la calidad del conocimiento de la Biblioteca.
+**Contexto:** La evaluación empírica del Agente Bibliotecario con el modelo local `phi3` reveló una "caída de atención" significativa, resultando en alucinaciones, incumplimiento de la estructura de los 3 átomos y errores en el Frontmatter YAML. Esto comprometía la calidad del conocimiento de la Biblioteca.
 
-**Hecho (Maniobra):** Se ha decidido modificar `scripts/merci/merci-librarian.py` para que utilice el modelo de frontera `gemini-1.5-flash` a través de LiteLLM como modelo por defecto para la generación de cuadernillos.
+**Hecho:** Se ha decidido modificar `scripts/merci/merci-librarian.py` para que utilice el modelo de frontera `gemini-1.5-flash` a través de LiteLLM como modelo por defecto para la generación de cuadernillos.
 
 **Detalle técnico:** Esta decisión prioriza la calidad del output sobre la latencia mínima. Aunque `gemini-1.5-flash` es una API en la nube (lo que introduce latencia de red), ofrece una capacidad superior para seguir instrucciones complejas y adherirse a formatos estrictos. Las cuotas gratuitas de 1500 peticiones diarias y 15 RPM son significativamente más generosas que las de modelos experimentales anteriores, mitigando el riesgo de bloqueos por consumo de tokens para un uso normal. No obstante, se mantendrá la Degradación Elegante ante posibles `HTTP 429`.
 
-**Motivo / criterio (Aprendizaje):** *Quality over Latency & Strategic Model Selection*. En tareas de redacción técnica que exigen alta fidelidad a la estructura y contenido, la calidad del output es innegociable. La experiencia previa con `merci-brain.py` demostró que `gemini-1.5-flash` ofrece un equilibrio óptimo entre coste (gratuito para límites razonables) y rendimiento cognitivo, siendo la mejor opción para la "Cosecha de Conocimiento". El Agnosticismo de Modelos de LiteLLM nos permite pivotar con fricción cero.
+**Motivo / criterio:** *Quality over Latency & Strategic Model Selection*. En tareas de redacción técnica que exigen alta fidelidad a la estructura y contenido, la calidad del output es innegociable. La experiencia previa con `merci-brain.py` demostró que `gemini-1.5-flash` ofrece un equilibrio óptimo entre coste (gratuito para límites razonables) y rendimiento cognitivo, siendo la mejor opción para la "Cosecha de Conocimiento". El Agnosticismo de Modelos de LiteLLM nos permite pivotar con fricción cero.
 
 **Siguiente paso o deuda:** Implementar el cambio en `merci-librarian.py` y validar la calidad de los cuadernillos generados.
 
 ### 2026-05-08 — Test: Evaluación empírica de capacidades del Agente Bibliotecario (phi3)
 
-**Contexto (Desafío):** Al revisar el resultado de `merci-librarian.py` (`cuadernillo-borrador-nota-gobernanza-ramas-force-push.md`), se constató que el modelo local (`phi3`) falló en la ejecución del *System Prompt*. Ignoró la estructura Markdown de los 3 átomos, colapsó el texto en párrafos planos y alucinó conceptos técnicos peligrosos (ej. requerir "SSH con credenciales OAuth" para proteger ramas).
+**Contexto:** Al revisar el resultado de `merci-librarian.py` (`cuadernillo-borrador-nota-gobernanza-ramas-force-push.md`), se constató que el modelo local (`phi3`) falló en la ejecución del *System Prompt*. Ignoró la estructura Markdown de los 3 átomos, colapsó el texto en párrafos planos y alucinó conceptos técnicos peligrosos (ej. requerir "SSH con credenciales OAuth" para proteger ramas).
 
-**Hecho (Maniobra):** Se eliminó el archivo generado por el modelo local. Se reemplazó por la versión curada previamente por el modelo de frontera de Google (Gemini) en el laboratorio, renombrándola a su archivo definitivo (`cuadernillo-gobernanza-ramas-force-push.md`).
+**Hecho:** Se eliminó el archivo generado por el modelo local. Se reemplazó por la versión curada previamente por el modelo de frontera de Google (Gemini) en el laboratorio, renombrándola a su archivo definitivo (`cuadernillo-gobernanza-ramas-force-push.md`).
 
-**Motivo / criterio (Aprendizaje):** *LLM Limitations & Prompt Engineering*. Modelos locales pequeños (como `phi3` con 3.8B parámetros) sufren de "Attention Drop" (caída de atención) cuando se enfrentan a *Prompts* densos con reglas de formato estricto (Zero-Shot formatting). Si el agente carece de la capacidad cognitiva para estructurar el documento sin inventar datos técnicos, se deberá escalar el modelo local, implementar una "Cadena de Pensamiento" (Chain of Thought), o delegar la tarea de redacción a la API de contingencia (Fallback a Gemini).
+**Motivo / criterio:** *LLM Limitations & Prompt Engineering*. Modelos locales pequeños (como `phi3` con 3.8B parámetros) sufren de "Attention Drop" (caída de atención) cuando se enfrentan a *Prompts* densos con reglas de formato estricto (Zero-Shot formatting). Si el agente carece de la capacidad cognitiva para estructurar el documento sin inventar datos técnicos, se deberá escalar el modelo local, implementar una "Cadena de Pensamiento" (Chain of Thought), o delegar la tarea de redacción a la API de contingencia (Fallback a Gemini).
 
 **Siguiente paso o deuda:** Evaluar si modificamos `merci-librarian.py` para que use el modelo `gemini-1.5-flash` a través de LiteLLM para tareas complejas de redacción, asegurando la calidad del contenido de la Biblioteca.
 

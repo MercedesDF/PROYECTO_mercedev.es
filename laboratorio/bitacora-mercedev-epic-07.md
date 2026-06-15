@@ -59,76 +59,76 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-06-15 — Gestión/Arquitectura: Traslado de Tareas a la Épica 8
 
-**Contexto (Desafío):** Mantener la pulcritud y trazabilidad en el Roadmap. Algunas tareas de la Épica 7 (Gamificación UX como "Merci Explica" y Multimedia Avanzada) se completaron o solaparon mientras ya se trabajaba activamente en la Épica 8.
+**Contexto:** Mantener la pulcritud y trazabilidad en el Roadmap. Algunas tareas de la Épica 7 (Gamificación UX como "Merci Explica" y Multimedia Avanzada) se completaron o solaparon mientras ya se trabajaba activamente en la Épica 8.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se eliminaron del backlog de la Épica 7 las tareas "Diseñar e integrar visualmente las intervenciones de Merci Explica" y la "Integración de soporte para videos optimizados".
 - Se añadieron a la Épica 8 bajo la sección "Fase 7: Tareas Rescatadas de Épicas Anteriores", marcándolas como completadas.
 
-**Motivo / criterio (Aprendizaje):** *Lean Management y Zero Bloat*. Al mover las tareas a la épica activa donde realmente se ejecutaron, evitamos arrastrar el cierre de la Épica 7 artificialmente o realizar cierres duplicados consecutivos.
+**Motivo / criterio:** *Lean Management y Zero Bloat*. Al mover las tareas a la épica activa donde realmente se ejecutaron, evitamos arrastrar el cierre de la Épica 7 artificialmente o realizar cierres duplicados consecutivos.
 
 **Siguiente paso o deuda:** Ejecutar el "Protocolo Estricto de Cierre" para la Épica 7.
 
 ### 2026-06-06 — Arquitectura/Rendimiento: Implementación del patrón "Video-as-GIF"
 
-**Contexto (Desafío):** Reducir drásticamente el peso de las grabaciones de terminal (screencasts) y vídeos de la interfaz para emular el comportamiento de un GIF, ya que el formato `.gif` real es altamente ineficiente en términos de rendimiento (impacto negativo en Core Web Vitals).
+**Contexto:** Reducir drásticamente el peso de las grabaciones de terminal (screencasts) y vídeos de la interfaz para emular el comportamiento de un GIF, ya que el formato `.gif` real es altamente ineficiente en términos de rendimiento (impacto negativo en Core Web Vitals).
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se modificaron las directivas de FFmpeg en el script `scripts/merci/merci-optimizer.py`.
 - Se implementó la bandera `-an` para amputar completamente la pista de audio de los archivos WebM y MP4 resultantes.
 - Se fijó la tasa a 15 fotogramas por segundo (`-r 15`) para reducir severamente la carga de procesamiento y peso del archivo.
 - Se incluyeron comentarios explicativos en español en el script detallando el qué y el porqué de la maniobra arquitectónica ("Video-as-GIF").
 
-**Motivo / criterio (Aprendizaje):** *Zero-Bloat & Performance*. Servir un vídeo sin audio y a bajos Fotogramas Por Segundo (FPS) mediante las etiquetas HTML `<video autoplay loop muted playsinline>` logra exactamente la misma función visual que un GIF animado, pero pesando una mínima fracción de su tamaño, asegurando la retención del objetivo de 100/100 en Core Web Vitals.
+**Motivo / criterio:** *Zero-Bloat & Performance*. Servir un vídeo sin audio y a bajos Fotogramas Por Segundo (FPS) mediante las etiquetas HTML `<video autoplay loop muted playsinline>` logra exactamente la misma función visual que un GIF animado, pero pesando una mínima fracción de su tamaño, asegurando la retención del objetivo de 100/100 en Core Web Vitals.
 
 **Siguiente paso o deuda:** Siguiente paso: Integrar el soporte multimedia en la maquetación HTML de la portada utilizando las etiquetas `<video>` correspondientes y documentar el uso en la Biblioteca.
 
 ### 2026-06-06 — Pruebas: Validación empírica de compresión de vídeo y caché
 
-**Contexto (Desafío):** Comprobar la tasa de compresión del pipeline local, el tiempo necesario de procesamiento y validar que la caché incremental evita retrasos repetitivos de codificación en el flujo diario.
+**Contexto:** Comprobar la tasa de compresión del pipeline local, el tiempo necesario de procesamiento y validar que la caché incremental evita retrasos repetitivos de codificación en el flujo diario.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se copió un vídeo de sesión de 35.8 megabytes (MB) (`test_evidencia.webm`) a la carpeta de crudos y se ejecutó la compresión.
 - Se obtuvo una reducción de peso del 58% en formato WebM usando la Unidad de Procesamiento de Video 9ª Generación (VP9), con un peso de 15.0 MB tras 5 minutos y 26 segundos de procesamiento, y un archivo MP4 (H.264, 35.7 MB) de respaldo.
 - Se validó que la segunda ejecución del optimizador se salta el archivo por caché en 0.07 segundos basándose en la fecha de modificación (`st_mtime`).
 
-**Motivo / criterio (Aprendizaje):** *Zero-Bloat*. La validación empírica confirma que la compresión es altamente efectiva y que la caché impide retrasos innecesarios en la ejecución de la auditoría completa (`merci total`).
+**Motivo / criterio:** *Zero-Bloat*. La validación empírica confirma que la compresión es altamente efectiva y que la caché impide retrasos innecesarios en la ejecución de la auditoría completa (`merci total`).
 
 **Siguiente paso o deuda:** Siguiente paso: Integrar el soporte multimedia en la maquetación HTML de la portada y documentar el uso en la Biblioteca.
 
 ### 2026-06-06 — Implementación: Integración de compresión de vídeo en el optimizador de activos
 (A partir de aquí, se prueba Antigravity en la terminal).
 
-**Contexto (Desafío):** Habilitar procesamiento de vídeo local utilizando FFmpeg sin depender de scripts pesados de terceros para la Fase 3 de la Épica 7.
+**Contexto:** Habilitar procesamiento de vídeo local utilizando FFmpeg sin depender de scripts pesados de terceros para la Fase 3 de la Épica 7.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se amplió el script **[scripts/merci/merci-optimizer.py](./scripts/merci/merci-optimizer.py)** para detectar y comprimir vídeos (`.mp4`, `.mov`, `.avi`, `.webm`) de la carpeta de crudos hacia `assets/videos/`.
 - Se adaptó el vigilante **[scripts/merci/merci-assets-watcher.py](./scripts/merci/merci-assets-watcher.py)** para que monitorice extensiones de vídeo en tiempo real.
 - Se gestionó la interrupción por teclado (`KeyboardInterrupt`) para salir de forma elegante con código de estado `130`.
 - Se probó la ejecución local con éxito bajo el entorno virtual.
 
-**Motivo / criterio (Aprendizaje):** *Zero-Dependency Assets*. Consolidación de herramientas multimedia en un único optimizador.
+**Motivo / criterio:** *Zero-Dependency Assets*. Consolidación de herramientas multimedia en un único optimizador.
 
 **Siguiente paso o deuda:** Siguiente paso: Realizar pruebas de rendimiento con vídeos de evidencias reales.
 
 ### 2026-06-01 — Fix/DLP: Fuga de identidad en Hero de la matriz hacia el Showcase
 
-**Contexto (Desafío):** Al ejecutar el Showcase o instanciar un nuevo Boilerplate, se filtraban los textos personales del Hero de la matriz ("proyecto vivo...", "Un solo comando...") y los bloques de "Merci Explica", arruinando la experiencia de "lienzo en blanco".
+**Contexto:** Al ejecutar el Showcase o instanciar un nuevo Boilerplate, se filtraban los textos personales del Hero de la matriz ("proyecto vivo...", "Un solo comando...") y los bloques de "Merci Explica", arruinando la experiencia de "lienzo en blanco".
 
-**Hecho (Maniobra):** Se refactorizó la función `anonimizar_portada()` en `merci-init.py`. Se flexibilizó la expresión regular `explica_pattern` para atrapar tanto `<aside>` como `<div>`, purgando todos los bloques de la IA. Se añadieron reemplazos Regex para sobrescribir `<h2 class="hero__statement">` y `<p class="hero__subtitle">` con textos genéricos.
+**Hecho:** Se refactorizó la función `anonimizar_portada()` en `merci-init.py`. Se flexibilizó la expresión regular `explica_pattern` para atrapar tanto `<aside>` como `<div>`, purgando todos los bloques de la IA. Se añadieron reemplazos Regex para sobrescribir `<h2 class="hero__statement">` y `<p class="hero__subtitle">` con textos genéricos.
 
-**Motivo / criterio (Aprendizaje):** *Data Leak Prevention (DLP)*. La guillotina de instanciación debe ser implacable. Depender de etiquetas HTML fijas (como `<aside>` en vez de `<div>`) o ignorar el subtítulo genera puntos ciegos. Endurecer el purgado asegura un Showcase y Boilerplate 100% agnósticos.
+**Motivo / criterio:** *Data Leak Prevention (DLP)*. La guillotina de instanciación debe ser implacable. Depender de etiquetas HTML fijas (como `<aside>` en vez de `<div>`) o ignorar el subtítulo genera puntos ciegos. Endurecer el purgado asegura un Showcase y Boilerplate 100% agnósticos.
 
 ### 2026-06-01 — Fix: Aislamiento de contexto en Showcase (Fuga de Datos)
 
-**Contexto (Desafío):** Se detectó una fuga de datos y de contexto en la demo pública (`boilerplate.mercedev.es`). La portada del Showcase conservaba el bloque "Merci Explica" de la matriz y, lo que es más grave, inyectaba las métricas de rendimiento reales de `mercedev.es` en lugar de las métricas ideales del Boilerplate.
+**Contexto:** Se detectó una fuga de datos y de contexto en la demo pública (`boilerplate.mercedev.es`). La portada del Showcase conservaba el bloque "Merci Explica" de la matriz y, lo que es más grave, inyectaba las métricas de rendimiento reales de `mercedev.es` en lugar de las métricas ideales del Boilerplate.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se parcheó `merci-init.py` para que purgue el bloque `<aside class="hero__explica">` del `index.html` durante la anonimización.
 - Se refactorizó `merci-extract-metrics.py` para que su ruta raíz (`REPO_ROOT`) pueda ser controlada por una variable de entorno (`MERCI_PROJECT_ROOT`), desacoplándolo de su ubicación física.
 - Se actualizó el orquestador `merci-showcase.py` para que copie la plantilla de métricas del Boilerplate, purgue la caché del clon y ejecute el extractor de métricas en el contexto del directorio efímero.
 
-**Motivo / criterio (Aprendizaje):** *Context-Awareness y Aislamiento de Entornos*. Un script de automatización no debe asumir que siempre se ejecuta sobre su propio proyecto. Al hacerlo "consciente del contexto" mediante variables de entorno, permitimos que los orquestadores lo invoquen sobre copias temporales, garantizando que el Showcase sea un reflejo 100% fiel y agnóstico del Boilerplate, sin fugas de datos ni de identidad.
+**Motivo / criterio:** *Context-Awareness y Aislamiento de Entornos*. Un script de automatización no debe asumir que siempre se ejecuta sobre su propio proyecto. Al hacerlo "consciente del contexto" mediante variables de entorno, permitimos que los orquestadores lo invoquen sobre copias temporales, garantizando que el Showcase sea un reflejo 100% fiel y agnóstico del Boilerplate, sin fugas de datos ni de identidad.
 
 **Siguiente paso o deuda:** Re-ejecutar `merci showcase` para validar el entorno purgado, y continuar con la Fase 3 de la Épica 7 (Integración Multimedia Avanzada).
 
@@ -574,7 +574,7 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-05-28 — Fix/QA: Resolución definitiva de Aspect Ratio en marcadores (100/100)
 
-**Contexto (Desafío):** A pesar de los recortes previos, la auditoría de PageSpeed (28 de mayo, 20:17) devolvía un 96/100 en Recomendaciones (Best Practices) alertando que `tu_avatar.webp` tenía una "relación de aspecto incorrecta". Las dimensiones físicas seguían sin ser exactamente 1:1 (eran 406x389), entrando en conflicto con el `width="80" height="80"` del DOM.
+**Contexto:** A pesar de los recortes previos, la auditoría de PageSpeed (28 de mayo, 20:17) devolvía un 96/100 en Recomendaciones (Best Practices) alertando que `tu_avatar.webp` tenía una "relación de aspecto incorrecta". Las dimensiones físicas seguían sin ser exactamente 1:1 (eran 406x389), entrando en conflicto con el `width="80" height="80"` del DOM.
 
 **Maniobra:**
 - Se redimensionó mediante Python (Pillow, escalado Lanczos) `tu_avatar.webp` a unas dimensiones precisas de `160x160` (proporción 1:1 estricta, resolucion 2x Retina).
@@ -585,7 +585,7 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-05-28 — Feat/UX: Planificación de Refinamiento Visual para E-Commerce (Fase 2)
 
-**Contexto (Desafío):** Al revisar la integración de la tienda (WooCommerce) desplegada en fases anteriores, se identificó que la maquetación visual actual, especialmente el flujo y diseño del carrito de compra, no alcanza los estándares de experiencia de usuario (UX) ni el nivel estético premium exigido por la Fase 2 de esta Épica.
+**Contexto:** Al revisar la integración de la tienda (WooCommerce) desplegada en fases anteriores, se identificó que la maquetación visual actual, especialmente el flujo y diseño del carrito de compra, no alcanza los estándares de experiencia de usuario (UX) ni el nivel estético premium exigido por la Fase 2 de esta Épica.
 
 **Maniobra:**
 - Se documentó formalmente la deuda de diseño en el `ROADMAP.md` (Épica 7, Fase 2), blindando el requisito innegociable de rediseñar el carrito y la tienda sin comprometer el rendimiento base (Zero-Bloat).
@@ -594,7 +594,7 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-05-28 — Feat/SRE: Cierre de Fase 1 - Rendimiento Perfecto (100/100) y Hardening de Despliegue
 
-**Contexto (Desafío):** Para cerrar la Fase 1 de la Épica 7 (Enriquecimiento Visual), quedaban dos flecos bloqueantes. 1) La auditoría de PageSpeed del *Boilerplate* devolvía un 98 en Rendimiento debido a un *Cumulative Layout Shift (CLS) de 0.095*, provocado porque las imágenes agnósticas de reemplazo (`tu_logo.webp`, `tu_avatar.webp`) no coincidían con la relación de aspecto estricta reservada en el HTML (`263x65` y `80x80`). 2) El despliegue automatizado (`merci deploy`) fallaba en el servidor de producción porque Git intentaba sobreescribir el enlace simbólico físico de infraestructura (`public/assets`).
+**Contexto:** Para cerrar la Fase 1 de la Épica 7 (Enriquecimiento Visual), quedaban dos flecos bloqueantes. 1) La auditoría de PageSpeed del *Boilerplate* devolvía un 98 en Rendimiento debido a un *Cumulative Layout Shift (CLS) de 0.095*, provocado porque las imágenes agnósticas de reemplazo (`tu_logo.webp`, `tu_avatar.webp`) no coincidían con la relación de aspecto estricta reservada en el HTML (`263x65` y `80x80`). 2) El despliegue automatizado (`merci deploy`) fallaba en el servidor de producción porque Git intentaba sobreescribir el enlace simbólico físico de infraestructura (`public/assets`).
 
 **Maniobra:**
 - **Zero-Shift Rendering:** En lugar de ensuciar el HTML o inyectar JavaScript, se utilizó `ImageMagick` (`convert`) directamente desde terminal para recortar (crop) y redimensionar milimétricamente las imágenes agnósticas de reemplazo a `263x65` y `80x80`. El navegador ahora reserva la caja exacta que necesita la imagen al descargarse, eliminando cualquier recálculo de CSS (`height: auto`) y logrando la aniquilación del salto visual (CLS = 0).
@@ -614,7 +614,7 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-05-28 — Feat/SRE: Ajustes Quirúrgicos en el Ecosistema Showcase y Boilerplate
 
-**Contexto (Desafío):** Durante la auditoría del Clon Efímero (Showcase) se detectaron discrepancias visuales y arquitectónicas: el Asistente Merci (`<aside>`) no renderizaba en las páginas autogeneradas, el Hero de portada perdía el diseño bicolor en el título, la página `art-de-cote` se colaba en el boilerplate, y la navegación persistía en el F5 para cargar la nueva caché.
+**Contexto:** Durante la auditoría del Clon Efímero (Showcase) se detectaron discrepancias visuales y arquitectónicas: el Asistente Merci (`<aside>`) no renderizaba en las páginas autogeneradas, el Hero de portada perdía el diseño bicolor en el título, la página `art-de-cote` se colaba en el boilerplate, y la navegación persistía en el F5 para cargar la nueva caché.
 
 **Maniobra:**
 - **Inyección de Dependencias:** Se refactorizó la llamada de `merci-showcase.py` a `merci-init.py` forzando el argumento explícito `--ia`, evitando que la guillotina del boilerplate amputase el código fuente de Merci antes de la clonación de páginas de contingencia.
@@ -629,7 +629,7 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-05-28 — Feat/SRE: Inyección de Telemetría Aislada y Gemelos Multimedia en el Showcase
 
-**Contexto (Desafío):** Al instanciar el *Boilerplate* (Clon Efímero) para el Showcase en vivo, este heredaba la última telemetría de `mercedev.es` o fallaba en la auditoría inicial de Lighthouse con errores 404 porque el inicializador (`merci-init.py`) purgaba las imágenes personales del autor original sin proveer *placeholders*. Además, las métricas vivas de Git (Commits, Líneas) se reseteaban a "N/D", dando una impresión de proyecto vacío.
+**Contexto:** Al instanciar el *Boilerplate* (Clon Efímero) para el Showcase en vivo, este heredaba la última telemetría de `mercedev.es` o fallaba en la auditoría inicial de Lighthouse con errores 404 porque el inicializador (`merci-init.py`) purgaba las imágenes personales del autor original sin proveer *placeholders*. Además, las métricas vivas de Git (Commits, Líneas) se reseteaban a "N/D", dando una impresión de proyecto vacío.
 
 **Maniobra:**
 - **Roadmap:** Se reestructuró la Épica 7 en el archivo `ROADMAP.md` para segmentar claramente la Fase 1 (Telemetría y Activos), Fase 2 (UI/UX y Estilos) y Fase 3 (Multimedia).
@@ -641,7 +641,7 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-05-28 — Fix: Resolución de Caché Huérfana en Showcase (Cache Busting)
 
-**Contexto (Desafío):** Al compilar el Clon Efímero (Showcase) con `merci-showcase.py`, el botón de retorno flotante solo aparecía visible en la Portada y en *Sobre Mí*. En el resto de páginas (Biblioteca, Blog), el usuario tenía que pulsar F5 para verlo. El problema era un error de caché huérfana introducido por `merci-init.py`.
+**Contexto:** Al compilar el Clon Efímero (Showcase) con `merci-showcase.py`, el botón de retorno flotante solo aparecía visible en la Portada y en *Sobre Mí*. En el resto de páginas (Biblioteca, Blog), el usuario tenía que pulsar F5 para verlo. El problema era un error de caché huérfana introducido por `merci-init.py`.
 
 **Maniobra:**
 - El script destructivo `merci-init.py` generaba las páginas secundarias de contingencia con una versión *hardcodeada* de los *assets* (`href="/css/main.css?v=1"`). Al cargarse la página en el navegador del usuario, este detectaba el `v=1` e inmediatamente servía una versión de CSS antigua (de antes de que creáramos la clase `.showcase-return`).
@@ -652,7 +652,7 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-05-28 — QA/SRE: Resolución de Deuda de Accesibilidad (Contrastes WCAG AA)
 
-**Contexto (Desafío):** Se detectó que el estado `:hover` de varios botones secundarios no superaba el umbral de contraste requerido por Lighthouse (WCAG AA ratio > 4.5:1), lo que ponía en riesgo la calificación de 100/100 en Accesibilidad.
+**Contexto:** Se detectó que el estado `:hover` de varios botones secundarios no superaba el umbral de contraste requerido por Lighthouse (WCAG AA ratio > 4.5:1), lo que ponía en riesgo la calificación de 100/100 en Accesibilidad.
 
 **Maniobra:**
 - **Showcase:** En `src/scss/components/_showcase.scss` y `merci-showcase.py`, se rediseñó por completo el botón flotante para que emule el aspecto del componente `.hero__badge` de la portada (con la etiqueta lateral "Matriz"). Además, se inyectó explícitamente la regla `&:visited { color: $color-text-base; }` para neutralizar el comportamiento nativo del navegador que teñía las letras de naranja una vez que el usuario había visitado el enlace, arruinando el contraste sobre fondos oscuros.
@@ -663,7 +663,7 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-05-28 — QA/SRE: Resolución del Catch-22 en Sincronización Estricta (Zero Trust)
 
-**Contexto (Desafío):** Al restaurar la expresión regular estricta (`<header class="header" id="top">`) en `merci-sync-pages.py`, el script extrajo correctamente el bloque de la portada (SSOT), pero colapsó al intentar inyectarlo en las páginas secundarias (`contacto/index.html` y `sobre-mi/index.html`).
+**Contexto:** Al restaurar la expresión regular estricta (`<header class="header" id="top">`) en `merci-sync-pages.py`, el script extrajo correctamente el bloque de la portada (SSOT), pero colapsó al intentar inyectarlo en las páginas secundarias (`contacto/index.html` y `sobre-mi/index.html`).
 
 **Maniobra:**
 - Se analizó el flujo de reemplazo: el orquestador usaba la **misma expresión regular estricta** para extraer de la portada y para buscar qué bloque reemplazar en el destino.
@@ -674,7 +674,7 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-05-28 — QA/SRE: Resolución de colapso en el Pipeline SSG (Regex Drift)
 
-**Contexto (Desafío):** Al ejecutar el pipeline maestro (`merci total`), el orquestador `merci-sync-pages.py` colapsó con el error `No se pudo extraer el bloque Header de la portada`, deteniendo todo el proceso de compilación estática.
+**Contexto:** Al ejecutar el pipeline maestro (`merci total`), el orquestador `merci-sync-pages.py` colapsó con el error `No se pudo extraer el bloque Header de la portada`, deteniendo todo el proceso de compilación estática.
 
 **Maniobra:**
 - Se detectó que la causa raíz fue la corrección de accesibilidad (WAI-ARIA) realizada en la auditoría anterior, donde se asignó el atributo `id="top"` directamente a la etiqueta `<header class="header">`.

@@ -10,7 +10,7 @@ fecha: "2026-06-15"
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 146 términos consolidados (Última actualización de datos: 2026-06-15 21:43).
+> **Versión de control:** 146 términos consolidados (Última actualización de datos: 2026-06-15 22:17).
 
 ## Índice Alfabético
 
@@ -22,8 +22,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Es como el diario o acta de decisiones del proyecto. Apuntamos el 'porqué' elegimos una tecnología o camino para no olvidarlo meses después.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L621
-- bitacora-mercedev-epic-03.md: L45
+- bitacora-mercedev-epic-02.md: L623
+- bitacora-mercedev-epic-03.md: L47
 
 ---
 ### AI-Changelog
@@ -34,8 +34,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Un historial específico donde anotamos qué le hemos enseñado o modificado a la Inteligencia Artificial del proyecto.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L1003
-- bitacora-mercedev-epic-06.md: L634
+- bitacora-mercedev-epic-02.md: L1005
+- bitacora-mercedev-epic-06.md: L638
 
 ---
 ### AJAX
@@ -46,9 +46,9 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *El mecanismo que permite que una página web cargue o envíe datos en segundo plano sin que tengas que actualizar la pestaña.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L3315
-- bitacora-mercedev-epic-06.md: L244
-- bitacora-mercedev-epic-07.md: L387
+- bitacora-mercedev-epic-01.md: L3316
+- bitacora-mercedev-epic-06.md: L248
+- bitacora-mercedev-epic-07.md: L407
 - integracion-wordpress.md: L69
 
 ---
@@ -60,8 +60,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Etiquetas invisibles que le ponemos al código para que los lectores de pantalla puedan explicarle la web a las personas con discapacidades visuales.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L2685
-- bitacora-mercedev-epic-09.md: L29
+- bitacora-mercedev-epic-01.md: L2686
+- bitacora-mercedev-epic-09.md: L92
 
 ---
 ### AST
@@ -72,7 +72,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Es como un mapa mental que usan los compiladores para entender y desglosar el código de programación que escribimos.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-06.md: L735
+- bitacora-mercedev-epic-06.md: L739
 - checklist-hardening.md: L66
 - instrucciones.md: L100
 
@@ -85,7 +85,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Los robots de Recursos Humanos que leen los currículums antes de que lleguen a una persona real.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L232
+- bitacora-mercedev-epic-01.md: L233
 
 ---
 ### BEM
@@ -96,13 +96,13 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Sistema de nomenclatura para clases CSS que facilita la organización y mantenimiento del código.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L105
-- bitacora-mercedev-epic-03.md: L741
-- bitacora-mercedev-epic-04.md: L98
-- bitacora-mercedev-epic-05.md: L62
-- bitacora-mercedev-epic-06.md: L284
-- bitacora-mercedev-epic-07.md: L443
-- bitacora-mercedev-epic-08.md: L149
+- bitacora-mercedev-epic-01.md: L106
+- bitacora-mercedev-epic-03.md: L743
+- bitacora-mercedev-epic-04.md: L102
+- bitacora-mercedev-epic-05.md: L66
+- bitacora-mercedev-epic-06.md: L288
+- bitacora-mercedev-epic-07.md: L463
+- bitacora-mercedev-epic-08.md: L182
 - checklist-hardening.md: L57
 - ciclo-de-vida-contenidos.md: L9
 - instrucciones.md: L25
@@ -116,7 +116,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Conjunto de objetos y métodos que permiten a los scripts JavaScript controlar y manipular el comportamiento del navegador.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L1648
+- bitacora-mercedev-epic-01.md: L1649
 
 ---
 ### CI
@@ -128,13 +128,13 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L88
-- bitacora-mercedev-epic-01.md: L206
-- bitacora-mercedev-epic-02.md: L499
-- bitacora-mercedev-epic-03.md: L115
-- bitacora-mercedev-epic-04.md: L120
-- bitacora-mercedev-epic-06.md: L309
-- bitacora-mercedev-epic-07.md: L252
-- bitacora-mercedev-epic-08.md: L185
+- bitacora-mercedev-epic-01.md: L207
+- bitacora-mercedev-epic-02.md: L501
+- bitacora-mercedev-epic-03.md: L117
+- bitacora-mercedev-epic-04.md: L124
+- bitacora-mercedev-epic-06.md: L313
+- bitacora-mercedev-epic-07.md: L272
+- bitacora-mercedev-epic-08.md: L218
 - checklist-hardening.md: L80
 
 ---
@@ -146,7 +146,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Cadena de producción rápida, asegurando que los cambios se integren y desplieguen automáticamente.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-08.md: L492
+- bitacora-mercedev-epic-08.md: L525
 
 ---
 ### CLI-First
@@ -157,8 +157,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Método orientado al usuario final que se centra en proporcionar herramientas y utilidades accesibles a través de comandos directos en el sistema operativo.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L1237
-- bitacora-mercedev-epic-02.md: L1101
+- bitacora-mercedev-epic-01.md: L1238
+- bitacora-mercedev-epic-02.md: L1103
 
 ---
 ### CLS
@@ -170,9 +170,9 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L48
-- bitacora-mercedev-epic-01.md: L160
-- bitacora-mercedev-epic-07.md: L577
-- bitacora-mercedev-epic-08.md: L164
+- bitacora-mercedev-epic-01.md: L161
+- bitacora-mercedev-epic-07.md: L597
+- bitacora-mercedev-epic-08.md: L197
 
 ---
 ### CMS
@@ -183,14 +183,14 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida.*
 
 **Apariciones en Bitácoras:**
-- README.md: L207
-- bitacora-mercedev-epic-01.md: L177
-- bitacora-mercedev-epic-02.md: L835
-- bitacora-mercedev-epic-03.md: L111
-- bitacora-mercedev-epic-05.md: L266
-- bitacora-mercedev-epic-06.md: L97
-- bitacora-mercedev-epic-07.md: L493
-- bitacora-mercedev-epic-08.md: L184
+- README.md: L208
+- bitacora-mercedev-epic-01.md: L178
+- bitacora-mercedev-epic-02.md: L837
+- bitacora-mercedev-epic-03.md: L113
+- bitacora-mercedev-epic-05.md: L270
+- bitacora-mercedev-epic-06.md: L101
+- bitacora-mercedev-epic-07.md: L513
+- bitacora-mercedev-epic-08.md: L217
 - deployment-playbook.md: L34
 - flujo-publicacion-sop.md: L92
 - instrucciones.md: L96
@@ -203,7 +203,7 @@ fecha: "2026-06-15"
 **Definición:** Tipo de registro DNS que apunta un nombre de dominio a otro nombre de dominio. Se utiliza comúnmente para redirigir tráfico web a diferentes servidores o servicios.
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L3570
+- bitacora-mercedev-epic-01.md: L3571
 
 ---
 ### COEP
@@ -212,7 +212,7 @@ fecha: "2026-06-15"
 **Definición:** Seguridad de contenido que controla cómo un documento puede cargar recursos desde otros orígenes. Proporciona una capa adicional de protección contra ataques de embeudo.
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L3369
+- bitacora-mercedev-epic-01.md: L3370
 - checklist-hardening.md: L44
 
 ---
@@ -222,7 +222,7 @@ fecha: "2026-06-15"
 **Definición:** Seguridad de contenido que controla cómo un documento puede abrir nuevas ventanas o pestañas. Ayuda a prevenir la abertura accidental de ventanas no confiables.
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L3362
+- bitacora-mercedev-epic-01.md: L3363
 - checklist-hardening.md: L44
 - deployment-playbook.md: L47
 
@@ -235,8 +235,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Escribes un artículo una sola vez y el sistema se encarga de enviarlo a tu blog, redes sociales y boletines.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L1531
-- bitacora-mercedev-epic-08.md: L99
+- bitacora-mercedev-epic-03.md: L1533
+- bitacora-mercedev-epic-08.md: L132
 
 ---
 ### CRF
@@ -247,7 +247,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Control de calidad de video que le dice al compresor que use más espacio solo en escenas complejas para mantener la imagen nítida.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L5382
+- bitacora-mercedev-epic-01.md: L5383
 
 ---
 ### CRLF
@@ -258,7 +258,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Combinación que indica el final de una línea en un texto impreso o digital.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L1654
+- bitacora-mercedev-epic-01.md: L1655
 
 ---
 ### CSP
@@ -269,7 +269,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Política de seguridad que actúa como un guardián del contenido web.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L119
+- bitacora-mercedev-epic-01.md: L120
 - checklist-hardening.md: L8
 - deployment-playbook.md: L47
 
@@ -293,7 +293,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Botón mágico que insta a la persona a tomar una decisión.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-05.md: L108
+- bitacora-mercedev-epic-05.md: L112
 
 ---
 ### CTR
@@ -304,8 +304,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Porcentaje de personas que hacen clic en una publicidad después de verla.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L1593
-- bitacora-mercedev-epic-06.md: L707
+- bitacora-mercedev-epic-03.md: L1595
+- bitacora-mercedev-epic-06.md: L711
 
 ---
 ### CVE
@@ -316,7 +316,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Número de identificación para cada fallo de seguridad conocido, como un número de serie para los productos.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L2966
+- bitacora-mercedev-epic-01.md: L2967
 
 ---
 ### CWV
@@ -327,7 +327,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Las notas del examen que te pone Google sobre qué tan rápida y cómoda es de usar tu página web.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L1767
+- bitacora-mercedev-epic-03.md: L1769
 
 ---
 ### DAST
@@ -339,9 +339,9 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L180
-- bitacora-mercedev-epic-01.md: L177
-- bitacora-mercedev-epic-03.md: L61
-- bitacora-mercedev-epic-06.md: L231
+- bitacora-mercedev-epic-01.md: L178
+- bitacora-mercedev-epic-03.md: L63
+- bitacora-mercedev-epic-06.md: L235
 - instrucciones.md: L36
 
 ---
@@ -353,8 +353,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Caja fuerte digital donde se guardan todos los datos importantes de una organización.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-06.md: L75
-- bitacora-mercedev-epic-08.md: L665
+- bitacora-mercedev-epic-06.md: L79
+- bitacora-mercedev-epic-08.md: L698
 
 ---
 ### DevSecOps
@@ -366,13 +366,14 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L5
-- bitacora-mercedev-epic-01.md: L59
-- bitacora-mercedev-epic-02.md: L52
-- bitacora-mercedev-epic-03.md: L103
-- bitacora-mercedev-epic-04.md: L79
-- bitacora-mercedev-epic-06.md: L470
-- bitacora-mercedev-epic-07.md: L266
-- bitacora-mercedev-epic-08.md: L171
+- bitacora-mercedev-epic-01.md: L60
+- bitacora-mercedev-epic-02.md: L54
+- bitacora-mercedev-epic-03.md: L105
+- bitacora-mercedev-epic-04.md: L83
+- bitacora-mercedev-epic-06.md: L474
+- bitacora-mercedev-epic-07.md: L286
+- bitacora-mercedev-epic-08.md: L204
+- bitacora-mercedev-epic-09.md: L51
 - bitacora-merci-boilerplate.md: L17
 - checklist-hardening.md: L49
 - ciclo-de-vida-contenidos.md: L16
@@ -389,12 +390,12 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Mecanismo de seguridad digital que actúa como un guardián vigilante para evitar la pérdida accidental o intencional de datos críticos.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L409
-- bitacora-mercedev-epic-02.md: L311
-- bitacora-mercedev-epic-03.md: L189
-- bitacora-mercedev-epic-05.md: L74
-- bitacora-mercedev-epic-07.md: L94
-- bitacora-mercedev-epic-08.md: L20
+- bitacora-mercedev-epic-01.md: L410
+- bitacora-mercedev-epic-02.md: L313
+- bitacora-mercedev-epic-03.md: L191
+- bitacora-mercedev-epic-05.md: L78
+- bitacora-mercedev-epic-07.md: L114
+- bitacora-mercedev-epic-08.md: L53
 - checklist-hardening.md: L54
 - flujo-publicacion-sop.md: L72
 - instrucciones.md: L68
@@ -408,11 +409,11 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Mapa mental de las partes de una página web que puede ser modificado por JavaScript.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L540
-- bitacora-mercedev-epic-03.md: L215
-- bitacora-mercedev-epic-06.md: L284
-- bitacora-mercedev-epic-07.md: L32
-- bitacora-mercedev-epic-08.md: L744
+- bitacora-mercedev-epic-01.md: L541
+- bitacora-mercedev-epic-03.md: L217
+- bitacora-mercedev-epic-06.md: L288
+- bitacora-mercedev-epic-07.md: L52
+- bitacora-mercedev-epic-08.md: L777
 - checklist-hardening.md: L7
 - instrucciones.md: L26
 
@@ -425,7 +426,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Función en programación que permite a la expresión regular capturar cualquier carácter, incluso los saltos de línea.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L1945
+- bitacora-mercedev-epic-01.md: L1946
 
 ---
 ### DPR
@@ -436,7 +437,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *El multiplicador que le indica al navegador cuántos píxeles físicos usar para dibujar algo súper nítido en pantallas modernas.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L251
+- bitacora-mercedev-epic-03.md: L253
 
 ---
 ### DR
@@ -447,7 +448,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Respaldo rápido como una repisa para evitar el colapso ante una catástrofe.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L1123
+- bitacora-mercedev-epic-03.md: L1125
 
 ---
 ### DX
@@ -458,14 +459,14 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *La comodidad y felicidad del programador al trabajar con el código y las herramientas de un proyecto.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L439
-- bitacora-mercedev-epic-02.md: L223
-- bitacora-mercedev-epic-03.md: L49
-- bitacora-mercedev-epic-04.md: L56
-- bitacora-mercedev-epic-05.md: L98
-- bitacora-mercedev-epic-06.md: L57
-- bitacora-mercedev-epic-07.md: L732
-- bitacora-mercedev-epic-08.md: L101
+- bitacora-mercedev-epic-01.md: L440
+- bitacora-mercedev-epic-02.md: L225
+- bitacora-mercedev-epic-03.md: L51
+- bitacora-mercedev-epic-04.md: L60
+- bitacora-mercedev-epic-05.md: L102
+- bitacora-mercedev-epic-06.md: L61
+- bitacora-mercedev-epic-07.md: L752
+- bitacora-mercedev-epic-08.md: L134
 
 ---
 ### E2E
@@ -476,7 +477,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Vía directa desde origen hasta destino, garantizando que todo funcione como debe.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-08.md: L19
+- bitacora-mercedev-epic-08.md: L52
 - instrucciones.md: L54
 
 ---
@@ -488,8 +489,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Enviar una conversación dentro de una caja fuerte sellada de modo que ni el servicio de correos ni la operadora de internet tienen la llave para leerla.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L1403
-- bitacora-mercedev-epic-03.md: L393
+- bitacora-mercedev-epic-01.md: L1404
+- bitacora-mercedev-epic-03.md: L395
 
 ---
 ### FCP
@@ -500,9 +501,9 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *El tiempo exacto que tarda el navegador en mostrarte el primer texto o imagen en la pantalla.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L158
-- bitacora-mercedev-epic-03.md: L199
-- bitacora-mercedev-epic-07.md: L617
+- bitacora-mercedev-epic-01.md: L159
+- bitacora-mercedev-epic-03.md: L201
+- bitacora-mercedev-epic-07.md: L637
 
 ---
 ### FIFO
@@ -513,7 +514,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Cola de supermercado, donde la persona que llega primero es la primera en salir.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-07.md: L723
+- bitacora-mercedev-epic-07.md: L743
 
 ---
 ### FPS
@@ -524,7 +525,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Ritmo a lo largo del cual se refresca visualmente un video o juego.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-07.md: L62
+- bitacora-mercedev-epic-07.md: L82
 
 ---
 ### GC
@@ -535,7 +536,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Servicio de limpieza invisible que vacía la memoria de tu computadora eliminando datos que el programa ya no necesita.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-05.md: L54
+- bitacora-mercedev-epic-05.md: L58
 
 ---
 ### GCP
@@ -546,7 +547,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Ordenadores inmensos alquilados por Google a los desarrolladores para ejecutar aplicaciones súper rápidas en servidores conectados por todo el mundo.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L5533
+- bitacora-mercedev-epic-01.md: L5534
 
 ---
 ### GDPR
@@ -557,7 +558,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Norma legal para cuidar tus datos como si fueran tu propiedad.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L1403
+- bitacora-mercedev-epic-01.md: L1404
 
 ---
 ### GGUF
@@ -568,7 +569,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Archivo empaquetado que contiene el cerebro de una inteligencia artificial para que puedas ejecutarla en tu propia computadora.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L1081
+- bitacora-mercedev-epic-02.md: L1083
 
 ---
 ### GPU
@@ -579,8 +580,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Cerebro visual de la computadora.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L2685
-- bitacora-mercedev-epic-02.md: L799
+- bitacora-mercedev-epic-01.md: L2686
+- bitacora-mercedev-epic-02.md: L801
 
 ---
 ### GSAP
@@ -602,9 +603,9 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Ventana donde interactúas con el ordenador.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L986
-- bitacora-mercedev-epic-02.md: L1057
-- bitacora-mercedev-epic-06.md: L441
+- bitacora-mercedev-epic-01.md: L987
+- bitacora-mercedev-epic-02.md: L1059
+- bitacora-mercedev-epic-06.md: L445
 
 ---
 ### HASH
@@ -615,7 +616,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Clave única que identifica de manera segura la integridad de los datos.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-06.md: L445
+- bitacora-mercedev-epic-06.md: L449
 
 ---
 ### HSTS
@@ -626,7 +627,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Regla estricta que asegura que todo lo que sale de tu navegador sea seguro.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L3219
+- bitacora-mercedev-epic-01.md: L3220
 - checklist-hardening.md: L43
 - deployment-playbook.md: L47
 
@@ -639,7 +640,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Mejoramiento continuo del sistema mediante correcciones inteligentes.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L1421
+- bitacora-mercedev-epic-02.md: L1423
 
 ---
 ### IDE
@@ -650,11 +651,11 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Herramienta única para programadores que facilita la creación y mantenimiento de software.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L142
-- bitacora-mercedev-epic-02.md: L41
-- bitacora-mercedev-epic-03.md: L1985
-- bitacora-mercedev-epic-08.md: L395
-- bitacora-mercedev-epic-09.md: L48
+- bitacora-mercedev-epic-01.md: L143
+- bitacora-mercedev-epic-02.md: L43
+- bitacora-mercedev-epic-03.md: L1987
+- bitacora-mercedev-epic-08.md: L428
+- bitacora-mercedev-epic-09.md: L46
 
 ---
 ### IEEE
@@ -665,7 +666,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Entidad que standardiza prácticas y tecnologías en el ámbito de la electricidad y la electrónica.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L635
+- bitacora-mercedev-epic-03.md: L637
 
 ---
 ### INP
@@ -676,9 +677,9 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *El retraso o lentitud que sientes cuando haces clic en un botón y esperas a que la página reaccione.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L160
-- bitacora-mercedev-epic-03.md: L43
-- bitacora-mercedev-epic-04.md: L73
+- bitacora-mercedev-epic-01.md: L161
+- bitacora-mercedev-epic-03.md: L45
+- bitacora-mercedev-epic-04.md: L77
 
 ---
 ### JSON-LD
@@ -689,9 +690,9 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Una tarjeta de presentación secreta oculta en el código de tu web que los robots de Google leen para entender de qué va exactamente tu página.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L233
-- bitacora-mercedev-epic-02.md: L58
-- bitacora-mercedev-epic-03.md: L447
+- bitacora-mercedev-epic-01.md: L234
+- bitacora-mercedev-epic-02.md: L60
+- bitacora-mercedev-epic-03.md: L449
 - ciclo-de-vida-contenidos.md: L8
 - instrucciones.md: L8
 
@@ -704,7 +705,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *JWT es como una cédula de identidad digital, que permite a los sistemas verificar la autenticidad y la integridad de la información sin necesidad de almacenarla.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L1283
+- bitacora-mercedev-epic-02.md: L1285
 
 ---
 ### KI
@@ -715,7 +716,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Juego de acertijos donde cada pieza del rompecabezas representa un tipo diferente de conocimiento, y juntas forman la imagen completa.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-09.md: L48
+- bitacora-mercedev-epic-09.md: L111
 
 ---
 ### KISS
@@ -726,7 +727,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *El KISS es como un planificador que dice: 'Si no lo necesitas, no lo hagas.'*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L229
+- bitacora-mercedev-epic-03.md: L231
 
 ---
 ### LA
@@ -737,7 +738,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Formato de imagen en blanco y negro que además guarda información sobre qué partes son transparentes.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L4079
+- bitacora-mercedev-epic-01.md: L4080
 
 ---
 ### LCP
@@ -748,12 +749,12 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *El tiempo que tarda en aparecer en pantalla el elemento visual más grande de tu página web, como el título principal o una gran foto.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L160
-- bitacora-mercedev-epic-03.md: L163
-- bitacora-mercedev-epic-04.md: L130
-- bitacora-mercedev-epic-06.md: L77
-- bitacora-mercedev-epic-07.md: L214
-- bitacora-mercedev-epic-08.md: L403
+- bitacora-mercedev-epic-01.md: L161
+- bitacora-mercedev-epic-03.md: L165
+- bitacora-mercedev-epic-04.md: L134
+- bitacora-mercedev-epic-06.md: L81
+- bitacora-mercedev-epic-07.md: L234
+- bitacora-mercedev-epic-08.md: L436
 
 ---
 ### LEMP
@@ -764,8 +765,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Pila de herramientas que permite construir aplicaciones web robustas y escalables.*
 
 **Apariciones en Bitácoras:**
-- README.md: L206
-- bitacora-mercedev-epic-01.md: L3773
+- README.md: L207
+- bitacora-mercedev-epic-01.md: L3774
 - checklist-hardening.md: L28
 - deployment-playbook.md: L15
 - integracion-wordpress.md: L18
@@ -779,7 +780,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *El código invisible que le dice a la computadora que baje a la siguiente línea al leer un texto.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L1654
+- bitacora-mercedev-epic-01.md: L1655
 
 ---
 ### LLM
@@ -790,9 +791,9 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Máquina que aprende a procesar y generar texto humano de manera autónoma.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L237
-- bitacora-mercedev-epic-03.md: L441
-- bitacora-mercedev-epic-06.md: L514
+- bitacora-mercedev-epic-02.md: L239
+- bitacora-mercedev-epic-03.md: L443
+- bitacora-mercedev-epic-06.md: L518
 
 ---
 ### LTS
@@ -814,8 +815,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *El moderador es como el conductor de un tren, guiando a todos hacia su destino con calma y eficiencia.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-06.md: L438
-- bitacora-mercedev-epic-07.md: L469
+- bitacora-mercedev-epic-06.md: L442
+- bitacora-mercedev-epic-07.md: L489
 
 ---
 ### MD5
@@ -826,7 +827,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Sumario digital que garantiza la inalterabilidad de los datos originales.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-06.md: L450
+- bitacora-mercedev-epic-06.md: L454
 
 ---
 ### MIME
@@ -837,7 +838,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Etiqueta digital que identifica el tipo de contenido, como 'texto/html' para páginas web.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L3618
+- bitacora-mercedev-epic-01.md: L3619
 - checklist-hardening.md: L46
 
 ---
@@ -849,7 +850,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Juega a adivinar el tipo de archivo basándose en su contenido, como si fuera un detective.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L3374
+- bitacora-mercedev-epic-01.md: L3375
 
 ---
 ### MTTD
@@ -860,7 +861,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Cronómetro que mide cuánto tiempo tarda en identificar un problema.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-08.md: L407
+- bitacora-mercedev-epic-08.md: L440
 
 ---
 ### MVP
@@ -871,8 +872,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Prototipo básico que muestra lo esencial para probar una idea.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L1197
-- bitacora-mercedev-epic-02.md: L1423
+- bitacora-mercedev-epic-01.md: L1198
+- bitacora-mercedev-epic-02.md: L1425
 
 ---
 ### NAS
@@ -883,7 +884,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Caja de seguridad en la nube para tus documentos.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L5596
+- bitacora-mercedev-epic-01.md: L5597
 
 ---
 ### NAT
@@ -894,7 +895,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Portero virtual que protege tu hogar mientras te conectas a la web.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L409
+- bitacora-mercedev-epic-02.md: L411
 
 ---
 ### NFKD
@@ -905,8 +906,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Limpia y organiza el texto para que se vea limpio y coherente.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L2498
-- bitacora-mercedev-epic-03.md: L912
+- bitacora-mercedev-epic-01.md: L2499
+- bitacora-mercedev-epic-03.md: L914
 
 ---
 ### OG
@@ -917,7 +918,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Código QR para compartir contenido*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L1562
+- bitacora-mercedev-epic-03.md: L1564
 
 ---
 ### OIDC
@@ -929,8 +930,8 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L97
-- bitacora-mercedev-epic-01.md: L118
-- bitacora-mercedev-epic-02.md: L993
+- bitacora-mercedev-epic-01.md: L119
+- bitacora-mercedev-epic-02.md: L995
 - instrucciones.md: L47
 
 ---
@@ -942,10 +943,10 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Manual del usuario digital*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L425
-- bitacora-mercedev-epic-04.md: L44
-- bitacora-mercedev-epic-05.md: L50
-- bitacora-mercedev-epic-06.md: L44
+- bitacora-mercedev-epic-03.md: L427
+- bitacora-mercedev-epic-04.md: L48
+- bitacora-mercedev-epic-05.md: L54
+- bitacora-mercedev-epic-06.md: L48
 
 ---
 ### OOM
@@ -956,8 +957,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Cuando un libro se llena y no hay espacio adicional para escribir más.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L2693
-- bitacora-mercedev-epic-02.md: L1039
+- bitacora-mercedev-epic-01.md: L2694
+- bitacora-mercedev-epic-02.md: L1041
 
 ---
 ### PEP
@@ -968,9 +969,9 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Guía detallada para implementar mejoras en Python.*
 
 **Apariciones en Bitácoras:**
-- README.md: L250
-- bitacora-mercedev-epic-07.md: L700
-- bitacora-mercedev-epic-08.md: L432
+- README.md: L251
+- bitacora-mercedev-epic-07.md: L720
+- bitacora-mercedev-epic-08.md: L465
 - instrucciones.md: L99
 
 ---
@@ -982,8 +983,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Como si fuera un cierre fuerte que protege tu maletín de robar.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L1355
-- bitacora-mercedev-epic-03.md: L235
+- bitacora-mercedev-epic-01.md: L1356
+- bitacora-mercedev-epic-03.md: L237
 
 ---
 ### PHP-FPM
@@ -994,7 +995,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Como si fuera un conductor que maneja eficientemente el tráfico en una carretera, asegurando que todos lleguen a su destino sin problemas.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L4106
+- bitacora-mercedev-epic-01.md: L4107
 
 ---
 ### PII
@@ -1005,7 +1006,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Claves para la privacidad, como los datos con los que uno puede ser reconocido.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L478
+- bitacora-mercedev-epic-01.md: L479
 
 ---
 ### POO
@@ -1016,8 +1017,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Diseñar programas creando piezas o 'bloques' de código independientes que interactúan entre sí, parecido a construir con piezas de Lego.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L2088
-- bitacora-mercedev-epic-02.md: L617
+- bitacora-mercedev-epic-01.md: L2089
+- bitacora-mercedev-epic-02.md: L619
 
 ---
 ### POSIX
@@ -1028,9 +1029,9 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Base común para sistemas operativos Unix y Linux.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L566
-- bitacora-mercedev-epic-02.md: L221
-- bitacora-mercedev-epic-08.md: L437
+- bitacora-mercedev-epic-01.md: L567
+- bitacora-mercedev-epic-02.md: L223
+- bitacora-mercedev-epic-08.md: L470
 
 ---
 ### PR
@@ -1042,11 +1043,14 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L29
-- bitacora-mercedev-epic-02.md: L28
-- bitacora-mercedev-epic-03.md: L28
-- bitacora-mercedev-epic-04.md: L26
-- bitacora-mercedev-epic-05.md: L26
-- bitacora-mercedev-epic-06.md: L26
+- bitacora-mercedev-epic-02.md: L29
+- bitacora-mercedev-epic-03.md: L29
+- bitacora-mercedev-epic-04.md: L29
+- bitacora-mercedev-epic-05.md: L29
+- bitacora-mercedev-epic-06.md: L29
+- bitacora-mercedev-epic-07.md: L29
+- bitacora-mercedev-epic-08.md: L29
+- bitacora-mercedev-epic-09.md: L29
 
 ---
 ### PSD
@@ -1058,7 +1062,7 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L69
-- bitacora-mercedev-epic-01.md: L5590
+- bitacora-mercedev-epic-01.md: L5591
 
 ---
 ### QA
@@ -1070,14 +1074,14 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L80
-- bitacora-mercedev-epic-01.md: L171
-- bitacora-mercedev-epic-02.md: L597
-- bitacora-mercedev-epic-03.md: L85
-- bitacora-mercedev-epic-04.md: L52
-- bitacora-mercedev-epic-05.md: L81
-- bitacora-mercedev-epic-06.md: L53
-- bitacora-mercedev-epic-07.md: L115
-- bitacora-mercedev-epic-08.md: L10
+- bitacora-mercedev-epic-01.md: L172
+- bitacora-mercedev-epic-02.md: L599
+- bitacora-mercedev-epic-03.md: L87
+- bitacora-mercedev-epic-04.md: L56
+- bitacora-mercedev-epic-05.md: L85
+- bitacora-mercedev-epic-06.md: L57
+- bitacora-mercedev-epic-07.md: L135
+- bitacora-mercedev-epic-08.md: L43
 - flujo-publicacion-sop.md: L21
 - instrucciones.md: L52
 - mantenimiento-boilerplate-sop.md: L48
@@ -1091,7 +1095,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Mecanismo que le da a la Inteligencia Artificial un libro abierto con tus documentos para que busque la respuesta real antes de intentar adivinarla.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L1171
+- bitacora-mercedev-epic-02.md: L1173
 
 ---
 ### RAW
@@ -1103,7 +1107,7 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L69
-- bitacora-mercedev-epic-01.md: L5590
+- bitacora-mercedev-epic-01.md: L5591
 
 ---
 ### RCE
@@ -1114,9 +1118,9 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Es como si alguien pudiera usar tu computadora para hacer cosas que no quieres, porque te han hackeado.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L4663
-- bitacora-mercedev-epic-02.md: L137
-- bitacora-mercedev-epic-03.md: L73
+- bitacora-mercedev-epic-01.md: L4664
+- bitacora-mercedev-epic-02.md: L139
+- bitacora-mercedev-epic-03.md: L75
 - checklist-hardening.md: L67
 
 ---
@@ -1129,10 +1133,10 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L184
-- bitacora-mercedev-epic-01.md: L799
-- bitacora-mercedev-epic-03.md: L641
-- bitacora-mercedev-epic-06.md: L423
-- bitacora-mercedev-epic-07.md: L234
+- bitacora-mercedev-epic-01.md: L800
+- bitacora-mercedev-epic-03.md: L643
+- bitacora-mercedev-epic-06.md: L427
+- bitacora-mercedev-epic-07.md: L254
 - ciclo-de-vida-contenidos.md: L41
 - flujo-publicacion-sop.md: L34
 - instrucciones.md: L48
@@ -1147,10 +1151,10 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Calculo que determina cuánto dinero se ha ganado o perdido en relación con el dinero invertido.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L1203
-- bitacora-mercedev-epic-02.md: L1177
-- bitacora-mercedev-epic-03.md: L1531
-- bitacora-mercedev-epic-08.md: L728
+- bitacora-mercedev-epic-01.md: L1204
+- bitacora-mercedev-epic-02.md: L1179
+- bitacora-mercedev-epic-03.md: L1533
+- bitacora-mercedev-epic-08.md: L761
 
 ---
 ### RPM
@@ -1161,8 +1165,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *El límite de velocidad que impone un servidor sobre cuántas preguntas puedes hacerle en un minuto sin que te bloquee.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L142
-- bitacora-mercedev-epic-02.md: L1297
+- bitacora-mercedev-epic-01.md: L143
+- bitacora-mercedev-epic-02.md: L1299
 
 ---
 ### RSA
@@ -1173,7 +1177,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Llave pública como llave de entrada, llave privada como llave de salida.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L381
+- bitacora-mercedev-epic-03.md: L383
 
 ---
 ### RSD
@@ -1195,7 +1199,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Mecanismo eficiente para mantener dos conjuntos de archivos actualizados automáticamente.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-07.md: L688
+- bitacora-mercedev-epic-07.md: L708
 
 ---
 ### SASS
@@ -1207,14 +1211,14 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L48
-- bitacora-mercedev-epic-01.md: L105
-- bitacora-mercedev-epic-02.md: L1539
-- bitacora-mercedev-epic-03.md: L423
-- bitacora-mercedev-epic-04.md: L98
-- bitacora-mercedev-epic-06.md: L113
-- bitacora-mercedev-epic-07.md: L298
-- bitacora-mercedev-epic-08.md: L151
-- bitacora-mercedev-epic-09.md: L32
+- bitacora-mercedev-epic-01.md: L106
+- bitacora-mercedev-epic-02.md: L1541
+- bitacora-mercedev-epic-03.md: L425
+- bitacora-mercedev-epic-04.md: L102
+- bitacora-mercedev-epic-06.md: L117
+- bitacora-mercedev-epic-07.md: L318
+- bitacora-mercedev-epic-08.md: L184
+- bitacora-mercedev-epic-09.md: L95
 - instrucciones.md: L25
 
 ---
@@ -1227,10 +1231,10 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L77
-- bitacora-mercedev-epic-01.md: L3501
-- bitacora-mercedev-epic-02.md: L263
-- bitacora-mercedev-epic-03.md: L61
-- bitacora-mercedev-epic-08.md: L652
+- bitacora-mercedev-epic-01.md: L3502
+- bitacora-mercedev-epic-02.md: L265
+- bitacora-mercedev-epic-03.md: L63
+- bitacora-mercedev-epic-08.md: L685
 - instrucciones.md: L31
 
 ---
@@ -1242,8 +1246,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Sistema que se cura por sí mismo, como una planta que recupera las heridas.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L118
-- bitacora-mercedev-epic-02.md: L659
+- bitacora-mercedev-epic-01.md: L119
+- bitacora-mercedev-epic-02.md: L661
 
 ---
 ### SHA
@@ -1254,7 +1258,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Doblado de un libro para verificar que no se ha alterado.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L940
+- bitacora-mercedev-epic-03.md: L942
 
 ---
 ### SHA-256
@@ -1265,7 +1269,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Código postal único para verificar la dirección exacta de una casa.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L3225
+- bitacora-mercedev-epic-01.md: L3226
 - checklist-hardening.md: L42
 
 ---
@@ -1278,12 +1282,13 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L17
-- bitacora-mercedev-epic-01.md: L413
-- bitacora-mercedev-epic-02.md: L253
-- bitacora-mercedev-epic-03.md: L61
-- bitacora-mercedev-epic-06.md: L454
-- bitacora-mercedev-epic-07.md: L145
-- bitacora-mercedev-epic-08.md: L90
+- bitacora-mercedev-epic-01.md: L414
+- bitacora-mercedev-epic-02.md: L255
+- bitacora-mercedev-epic-03.md: L63
+- bitacora-mercedev-epic-06.md: L458
+- bitacora-mercedev-epic-07.md: L165
+- bitacora-mercedev-epic-08.md: L123
+- bitacora-mercedev-epic-09.md: L55
 - instrucciones.md: L4
 
 ---
@@ -1295,7 +1300,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Evaluar la seguridad y la experiencia del usuario analizando el comportamiento de la página web una vez que el público real ya la está utilizando.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L4246
+- bitacora-mercedev-epic-01.md: L4247
 
 ---
 ### SI
@@ -1306,7 +1311,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Un cálculo de qué tan rápido siente el usuario que la página carga mientras mira la pantalla llenarse de colores y texto.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L158
+- bitacora-mercedev-epic-01.md: L159
 
 ---
 ### SLM
@@ -1317,10 +1322,10 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Un cerebro artificial compacto que puede pensar y hablar directamente en tu ordenador sin necesidad de conectarse a servidores en la nube gigantescos.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L173
-- bitacora-mercedev-epic-03.md: L753
-- bitacora-mercedev-epic-06.md: L725
-- bitacora-mercedev-epic-07.md: L117
+- bitacora-mercedev-epic-02.md: L175
+- bitacora-mercedev-epic-03.md: L755
+- bitacora-mercedev-epic-06.md: L729
+- bitacora-mercedev-epic-07.md: L137
 
 ---
 ### SMTP
@@ -1331,7 +1336,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Entregador de paquetes*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L1039
+- bitacora-mercedev-epic-03.md: L1041
 
 ---
 ### SOLID
@@ -1342,8 +1347,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Reglas para construir una casa sólida: cada muro tiene su propia función, las puertas se pueden cambiar sin afectar el resto del edificio, etc.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L3184
-- bitacora-mercedev-epic-03.md: L1833
+- bitacora-mercedev-epic-01.md: L3185
+- bitacora-mercedev-epic-03.md: L1835
 - instrucciones.md: L26
 
 ---
@@ -1355,13 +1360,13 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Manual de instrucciones para cocinar un plato, asegurando que cada paso sea claro y siga las mismas reglas cada vez.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L97
-- bitacora-mercedev-epic-02.md: L547
-- bitacora-mercedev-epic-03.md: L339
-- bitacora-mercedev-epic-05.md: L156
-- bitacora-mercedev-epic-06.md: L46
-- bitacora-mercedev-epic-07.md: L589
-- bitacora-mercedev-epic-08.md: L204
+- bitacora-mercedev-epic-01.md: L98
+- bitacora-mercedev-epic-02.md: L549
+- bitacora-mercedev-epic-03.md: L341
+- bitacora-mercedev-epic-05.md: L160
+- bitacora-mercedev-epic-06.md: L50
+- bitacora-mercedev-epic-07.md: L609
+- bitacora-mercedev-epic-08.md: L237
 - flujo-publicacion-sop.md: L2
 - mantenimiento-boilerplate-sop.md: L1
 
@@ -1375,11 +1380,11 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L13
-- bitacora-mercedev-epic-02.md: L63
-- bitacora-mercedev-epic-03.md: L347
-- bitacora-mercedev-epic-04.md: L46
-- bitacora-mercedev-epic-07.md: L23
-- bitacora-mercedev-epic-08.md: L69
+- bitacora-mercedev-epic-02.md: L65
+- bitacora-mercedev-epic-03.md: L349
+- bitacora-mercedev-epic-04.md: L50
+- bitacora-mercedev-epic-07.md: L43
+- bitacora-mercedev-epic-08.md: L102
 - bitacora-mercedev-epic-09.md: L1
 - deployment-playbook.md: L51
 - instrucciones.md: L54
@@ -1393,7 +1398,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Garantiza que cada componente del sistema tenga un propósito específico y no dependa de otros por más allá de lo necesario.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L1312
+- bitacora-mercedev-epic-03.md: L1314
 
 ---
 ### SSG
@@ -1405,13 +1410,13 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L178
-- bitacora-mercedev-epic-01.md: L99
-- bitacora-mercedev-epic-02.md: L95
-- bitacora-mercedev-epic-03.md: L476
-- bitacora-mercedev-epic-06.md: L447
-- bitacora-mercedev-epic-07.md: L308
-- bitacora-mercedev-epic-08.md: L19
-- bitacora-mercedev-epic-09.md: L24
+- bitacora-mercedev-epic-01.md: L100
+- bitacora-mercedev-epic-02.md: L97
+- bitacora-mercedev-epic-03.md: L478
+- bitacora-mercedev-epic-06.md: L451
+- bitacora-mercedev-epic-07.md: L328
+- bitacora-mercedev-epic-08.md: L52
+- bitacora-mercedev-epic-09.md: L87
 - ciclo-de-vida-contenidos.md: L7
 - flujo-publicacion-sop.md: L2
 - instrucciones.md: L37
@@ -1425,9 +1430,9 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Cerradura digital que asegura las conversaciones entre tu navegador y el sitio web.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L984
-- bitacora-mercedev-epic-02.md: L1551
-- bitacora-mercedev-epic-05.md: L179
+- bitacora-mercedev-epic-01.md: L985
+- bitacora-mercedev-epic-02.md: L1553
+- bitacora-mercedev-epic-05.md: L183
 - deployment-playbook.md: L43
 
 ---
@@ -1440,12 +1445,12 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L10
-- bitacora-mercedev-epic-01.md: L50
-- bitacora-mercedev-epic-02.md: L52
-- bitacora-mercedev-epic-03.md: L325
-- bitacora-mercedev-epic-06.md: L173
-- bitacora-mercedev-epic-07.md: L551
-- bitacora-mercedev-epic-08.md: L19
+- bitacora-mercedev-epic-01.md: L51
+- bitacora-mercedev-epic-02.md: L54
+- bitacora-mercedev-epic-03.md: L327
+- bitacora-mercedev-epic-06.md: L177
+- bitacora-mercedev-epic-07.md: L571
+- bitacora-mercedev-epic-08.md: L52
 - ciclo-de-vida-contenidos.md: L49
 - instrucciones.md: L38
 - mantenimiento-boilerplate-sop.md: L5
@@ -1459,7 +1464,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Cuando un pirata engaña a tu servidor para que abra puertas internas de la base de datos de tu empresa como si fuera un empleado autorizado.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L137
+- bitacora-mercedev-epic-02.md: L139
 
 ---
 ### TBT
@@ -1471,14 +1476,14 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L48
-- bitacora-mercedev-epic-01.md: L160
-- bitacora-mercedev-epic-02.md: L627
-- bitacora-mercedev-epic-03.md: L203
-- bitacora-mercedev-epic-04.md: L52
-- bitacora-mercedev-epic-05.md: L77
-- bitacora-mercedev-epic-06.md: L48
-- bitacora-mercedev-epic-07.md: L164
-- bitacora-mercedev-epic-08.md: L403
+- bitacora-mercedev-epic-01.md: L161
+- bitacora-mercedev-epic-02.md: L629
+- bitacora-mercedev-epic-03.md: L205
+- bitacora-mercedev-epic-04.md: L56
+- bitacora-mercedev-epic-05.md: L81
+- bitacora-mercedev-epic-06.md: L52
+- bitacora-mercedev-epic-07.md: L184
+- bitacora-mercedev-epic-08.md: L436
 - checklist-hardening.md: L23
 - integracion-wordpress.md: L69
 
@@ -1491,7 +1496,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Vigía el camino hacia tu destino, asegurándose de que llegues sin errores.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L423
+- bitacora-mercedev-epic-02.md: L425
 
 ---
 ### TIMESTAMP
@@ -1502,7 +1507,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Fotografía del instante, marcando el momento preciso.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L635
+- bitacora-mercedev-epic-02.md: L637
 
 ---
 ### TL
@@ -1513,8 +1518,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Vigilante del tiempo, asegurando que los recursos no queden obsoletos.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L1123
-- bitacora-mercedev-epic-06.md: L519
+- bitacora-mercedev-epic-03.md: L1125
+- bitacora-mercedev-epic-06.md: L523
 
 ---
 ### TLS
@@ -1525,7 +1530,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Cerradura digital que protege tus conversaciones en línea.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L3444
+- bitacora-mercedev-epic-01.md: L3445
 - deployment-playbook.md: L44
 
 ---
@@ -1537,11 +1542,11 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Primer contacto, indicando cuánto tiempo espera el usuario antes de recibir su primera reacción.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L2070
-- bitacora-mercedev-epic-03.md: L2003
-- bitacora-mercedev-epic-04.md: L112
-- bitacora-mercedev-epic-06.md: L77
-- bitacora-mercedev-epic-09.md: L24
+- bitacora-mercedev-epic-01.md: L2071
+- bitacora-mercedev-epic-03.md: L2005
+- bitacora-mercedev-epic-04.md: L116
+- bitacora-mercedev-epic-06.md: L81
+- bitacora-mercedev-epic-09.md: L87
 
 ---
 ### UFW
@@ -1552,7 +1557,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Guardián de la puerta, controlando quién puede entrar y salir de la red.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L419
+- bitacora-mercedev-epic-02.md: L421
 
 ---
 ### UID
@@ -1563,7 +1568,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Etiqueta única que distingue a cada elemento en una colección.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-08.md: L402
+- bitacora-mercedev-epic-08.md: L435
 
 ---
 ### URI
@@ -1574,9 +1579,9 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Etiqueta única para ubicar y acceder a recursos en la web.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L1215
-- bitacora-mercedev-epic-03.md: L912
-- bitacora-mercedev-epic-06.md: L646
+- bitacora-mercedev-epic-01.md: L1216
+- bitacora-mercedev-epic-03.md: L914
+- bitacora-mercedev-epic-06.md: L650
 
 ---
 ### UTF-8
@@ -1587,8 +1592,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Código universal para codificar texto, asegurando que cualquier carácter se pueda representar correctamente.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L4498
-- bitacora-mercedev-epic-06.md: L506
+- bitacora-mercedev-epic-01.md: L4499
+- bitacora-mercedev-epic-06.md: L510
 
 ---
 ### VCL
@@ -1599,7 +1604,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *El idioma en el que se escriben las normas de tráfico para un servidor ultra rápido, decidiendo a quién deja pasar y a quién le da una copia guardada.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L131
+- bitacora-mercedev-epic-03.md: L133
 
 ---
 ### VFR
@@ -1610,7 +1615,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Reglas que permiten volar cuando se puede ver el terreno y las nubes, como si estuvieras conduciendo un automóvil por una carretera.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-09.md: L21
+- bitacora-mercedev-epic-09.md: L84
 
 ---
 ### VP9
@@ -1621,7 +1626,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Codificador de vídeo avanzado para optimizar el almacenamiento y la transmisión.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-07.md: L72
+- bitacora-mercedev-epic-07.md: L92
 
 ---
 ### W3C
@@ -1632,7 +1637,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Coordinador global que asegura que todos los componentes de Internet funcionen juntos de manera consistente.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-08.md: L98
+- bitacora-mercedev-epic-08.md: L131
 
 ---
 ### WAF
@@ -1643,7 +1648,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *El guardia de seguridad en la puerta de tu web que cachea y expulsa a los visitantes con intenciones maliciosas antes de que pisen tu servidor.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L952
+- bitacora-mercedev-epic-01.md: L953
 
 ---
 ### WAI-ARIA
@@ -1654,11 +1659,11 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Herramienta para hacer que las aplicaciones web sean más fáciles de usar para todos.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L406
-- bitacora-mercedev-epic-03.md: L558
-- bitacora-mercedev-epic-06.md: L385
-- bitacora-mercedev-epic-07.md: L139
-- bitacora-mercedev-epic-08.md: L168
+- bitacora-mercedev-epic-01.md: L407
+- bitacora-mercedev-epic-03.md: L560
+- bitacora-mercedev-epic-06.md: L389
+- bitacora-mercedev-epic-07.md: L159
+- bitacora-mercedev-epic-08.md: L201
 - checklist-hardening.md: L60
 - ciclo-de-vida-contenidos.md: L26
 - flujo-publicacion-sop.md: L66
@@ -1675,8 +1680,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *El programa que añade un carrito de compras y pasarela de pago para convertir tu página web normal en una tienda online.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L1207
-- bitacora-mercedev-epic-06.md: L113
+- bitacora-mercedev-epic-01.md: L1208
+- bitacora-mercedev-epic-06.md: L117
 - checklist-hardening.md: L24
 
 ---
@@ -1688,8 +1693,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Duplicado de código para asegurar consistencia visual.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L609
-- bitacora-mercedev-epic-08.md: L833
+- bitacora-mercedev-epic-02.md: L611
+- bitacora-mercedev-epic-08.md: L866
 
 ---
 ### WLW
@@ -1711,8 +1716,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Comando mágico para administrar WordPress sin interfaz gráfica.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L982
-- bitacora-mercedev-epic-03.md: L127
+- bitacora-mercedev-epic-01.md: L983
+- bitacora-mercedev-epic-03.md: L129
 
 ---
 ### XML-RPC
@@ -1723,7 +1728,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Comunicación entre sistemas a través de llamadas de funciones distantes.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L4598
+- bitacora-mercedev-epic-01.md: L4599
 - checklist-hardening.md: L15
 
 ---
@@ -1735,10 +1740,10 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Cuerda para la protección contra ataques de inyección de código.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-01.md: L3259
-- bitacora-mercedev-epic-02.md: L103
-- bitacora-mercedev-epic-03.md: L79
-- bitacora-mercedev-epic-06.md: L472
+- bitacora-mercedev-epic-01.md: L3260
+- bitacora-mercedev-epic-02.md: L105
+- bitacora-mercedev-epic-03.md: L81
+- bitacora-mercedev-epic-06.md: L476
 - checklist-hardening.md: L42
 - deployment-playbook.md: L47
 
@@ -1751,7 +1756,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Regla para mantener el software limpio y eficiente.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L173
+- bitacora-mercedev-epic-02.md: L175
 
 ---
 ### Zero-Bloat
@@ -1762,12 +1767,13 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Construir una casa con lo mínimo e indispensable en lugar de comprar electrodomésticos enormes que gastan energía y nunca se usan.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L46
-- bitacora-mercedev-epic-03.md: L125
-- bitacora-mercedev-epic-06.md: L125
-- bitacora-mercedev-epic-07.md: L62
-- bitacora-mercedev-epic-08.md: L354
-- bitacora-mercedev-epic-09.md: L45
+- README.md: L254
+- bitacora-mercedev-epic-02.md: L48
+- bitacora-mercedev-epic-03.md: L127
+- bitacora-mercedev-epic-06.md: L129
+- bitacora-mercedev-epic-07.md: L82
+- bitacora-mercedev-epic-08.md: L387
+- bitacora-mercedev-epic-09.md: L108
 - instrucciones.md: L97
 
 ---
@@ -1779,7 +1785,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Puzzle digital que se desbloquea con arrastrar y soltar componentes predefinidos.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L183
+- bitacora-mercedev-epic-02.md: L185
 
 ---
 ### Zero-Day
@@ -1790,7 +1796,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Armadura invisible que se desvanece de repente, dejando al atacante sin protección.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L121
+- bitacora-mercedev-epic-02.md: L123
 
 ---
 ### Zero-Dependency
@@ -1801,7 +1807,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Software autónomo que opera sin necesidad de plugins o complementos adicionales.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-07.md: L90
+- bitacora-mercedev-epic-07.md: L110
 
 ---
 ### Zero-Friction
@@ -1812,8 +1818,8 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Bicicleta sin frenos que se mueve con solo el pedaleo.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L927
-- bitacora-mercedev-epic-03.md: L157
+- bitacora-mercedev-epic-02.md: L929
+- bitacora-mercedev-epic-03.md: L159
 
 ---
 ### Zero-Hallucination
@@ -1825,8 +1831,8 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - README.md: L87
-- bitacora-mercedev-epic-02.md: L925
-- bitacora-mercedev-epic-06.md: L563
+- bitacora-mercedev-epic-02.md: L927
+- bitacora-mercedev-epic-06.md: L567
 - instrucciones.md: L41
 
 ---
@@ -1838,7 +1844,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Sistema que se limpia solo, como una casa limpiada por sí misma.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-03.md: L988
+- bitacora-mercedev-epic-03.md: L990
 
 ---
 ### Zero-Risk
@@ -1849,7 +1855,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Seguridad como una caja fuerte inalcanzable, sin posibilidad de robar nada.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-06.md: L695
+- bitacora-mercedev-epic-06.md: L699
 
 ---
 ### Zero-Shift
@@ -1860,7 +1866,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Apagón cero para el sistema.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-07.md: L580
+- bitacora-mercedev-epic-07.md: L600
 
 ---
 ### Zero-Shot
@@ -1871,10 +1877,10 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Modelo que aprende a responder preguntas o realizar tareas con solo una observación, como si fuera un mago que sabe todo sin haber visto nada antes.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-02.md: L1177
-- bitacora-mercedev-epic-03.md: L656
-- bitacora-mercedev-epic-06.md: L571
-- bitacora-mercedev-epic-07.md: L551
+- bitacora-mercedev-epic-02.md: L1179
+- bitacora-mercedev-epic-03.md: L658
+- bitacora-mercedev-epic-06.md: L575
+- bitacora-mercedev-epic-07.md: L571
 
 ---
 ### Zero-Stale
@@ -1885,7 +1891,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Caja fuerte segura para almacenar recuerdos frescos y actualizados.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-07.md: L604
+- bitacora-mercedev-epic-07.md: L624
 - flujo-publicacion-sop.md: L77
 
 ---
@@ -1897,7 +1903,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Seguridad sin excepciones, donde cada solicitud de acceso se evalúa individualmente.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-08.md: L19
+- bitacora-mercedev-epic-08.md: L52
 - instrucciones.md: L131
 
 ---

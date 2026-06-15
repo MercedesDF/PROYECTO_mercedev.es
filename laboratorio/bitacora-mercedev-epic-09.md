@@ -42,16 +42,16 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-06-15 — Fase 3: Autarquía del Motor de IA (Antigravity Proxy)
 
-**Contexto (Desafío):**
+**Contexto:**
 La arquitectura requería evolucionar más allá de la dependencia exclusiva en modelos locales (Ollama), configurando un enrutamiento seguro hacia el IDE Antigravity / Gemini Proxy como motor de contingencia y respaldo definitivo.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se refactorizó `merci-blogger.py` para reemplazar las peticiones directas a `http://localhost:11434` (Ollama) por integraciones usando la librería `litellm`.
 - Se refactorizó `merci-brain.py` inyectando compatibilidad con `litellm` para redirigir la carga cognitiva (saludos y procesamiento contextual) al modelo `gemini/gemini-1.5-flash` a través de la clave `GEMINI_API_KEY` extraída del archivo `.env`.
 - Se validó el aislamiento de la configuración (silenciando la telemetría de LiteLLM para no ensuciar la salida DevSecOps).
 - Se marcó el hito de "Autarquía del Motor de IA" como completado (`[x]`) en el ROADMAP maestro.
 
-**Motivo / criterio (Aprendizaje):**
+**Motivo / criterio:**
 Centralizar el motor de IA a través de un proxy agnóstico (`litellm`) aumenta la resiliencia del ecosistema, permitiendo un "Shift-Left AI" que no depende del hardware local para mantenerse operativo al 100%.
 
 **Siguiente Paso:**
@@ -59,23 +59,23 @@ El paso inmediatamente posterior es activar el *Chaos Engineering* e inyectar co
 
 ### 2026-06-15 — Rectificación: Restauración de botones flotantes (UI/UX)
 
-**Contexto (Desafío):**
+**Contexto:**
 Durante la limpieza de la UI en la Fase 2, se eliminaron los botones de volver arriba (`.floating-back-to-top`) de `index.html`, `sobre-mi` y `contacto` bajo la premisa de que no tenían scroll. Sin embargo, esto violaba el principio de consistencia visual del diseño Premium, ya que los botones debían funcionar en todos lados por igual, manteniéndose ocultos hasta hacer scroll y no actuando simplemente como "barras de desplazamiento" fijas. 
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se han restaurado los botones flotantes (`<a href="#top" class="floating-back-to-top">`) en `public/index.html`.
 - Se implementó la clase JavaScript `BackToTopController` en `public/js/main.js` (Zero dependencias externas) que hace uso de `requestAnimationFrame` y eventos pasivos de scroll para mostrar el botón solo cuando `window.scrollY > 300` px.
 - Se ejecutó `merci-sync-pages.py` para sincronizar `index.html` con las demás páginas estáticas del ecosistema.
 
-**Motivo / criterio (Aprendizaje):**
+**Motivo / criterio:**
 No eliminar elementos globales si la interfaz se siente asimétrica. Si un elemento visual molesta en un contexto (como en páginas sin scroll), es preferible modificar su comportamiento (lógica JS/CSS) que amputarlo por completo de algunas plantillas. Todo error arquitectónico debe añadirse como rectificación nueva (append) y nunca reescribiendo la historia pasada.
 
 ### 2026-06-15 — Fase 2: Soporte SRE para Blog, Tienda y Rediseño de Accesibilidad
 
-**Contexto (Desafío):**
+**Contexto:**
 Tras la implementación de la telemetría básica, se detectó que el Blog y la Tienda dinámica (servidas dinámicamente por WordPress/WooCommerce en PHP) carecían de los micro-sellos visuales SRE. Además, se constató que la combinación de colores traslúcidos original sobre fondos claros violaba las directrices de accesibilidad (contraste insuficiente en texto y puntuaciones).
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se amplió `TARGET_URLS` en `merci-extract-metrics.py` para auditar concurrentemente las páginas del Blog (`/blog/`) y la Tienda (`/blog/tienda/`).
 - Se diseñó e implementó la función auxiliar PHP `merci_get_sre_badge_html($url)` en `functions.php` del tema de WordPress y se inyectó en los héroes de `index.php` y `woocommerce.php`.
 - Se reescribió `src/scss/components/_sre-badge.scss` para utilizar un fondo claro sólido y colores corporativos oscurecidos de alta visibilidad para las puntuaciones, garantizando el cumplimiento de la norma **WCAG AA (> 4.5:1)** sobre blanco: Verde (`#065f46`), Naranja (`#9a3412`) y Rojo (`#b91c1c`).
@@ -83,15 +83,15 @@ Tras la implementación de la telemetría básica, se detectó que el Blog y la 
 - Se eliminaron los botones de volver arriba flotantes (`.floating-back-to-top`) de las páginas cortas del ecosistema (`/index.html`, `/sobre-mi/index.html` y `/contacto/index.html`), al carecer de sentido en vistas sin scroll vertical largo, manteniéndose exclusivamente en las estanterías de la biblioteca, proyectos y art-de-cote.
 - Se ejecutó el pipeline completo de validación y compilación con éxito, registrando la expansión del acrónimo Tasa de Fotogramas Variable (VFR) en esta entrada activa para satisfacer al linter sin modificar registros históricos.
 
-**Motivo / criterio (Aprendizaje):**
+**Motivo / criterio:**
 El principio de inmutabilidad histórica de la bitácora obliga a registrar de forma incremental tanto los aciertos como las rectificaciones de diseño. Integrar capas dinámicas de PHP mediante lectura local de caché en disco preserva las ventajas de velocidad del ecosistema SSG sin deteriorar el TTFB. La gobernanza de accesibilidad (a11y) debe primar sobre los caprichos estéticos, adaptando la UI para ser leída por cualquier usuario.
 
 ### 2026-06-15 — Fase 2: Expansión de Telemetría SRE (Accesibilidad & URL Granular)
 
-**Contexto (Desafío):**
+**Contexto:**
 Se necesitaba ampliar la telemetría SRE para incorporar la deuda técnica de accesibilidad (cuantificando problemas de contraste de color y ARIA) en Grafana, así como inyectar micro-sellos visuales Zero-JS con las puntuaciones reales de Lighthouse en las 7 páginas principales del ecosistema, evitando degradar la velocidad del pipeline local.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se diseñó el componente visual `sre-badge` con estilos CSS/SASS glassmorphic y se registró en `src/scss/components/_sre-badge.scss`.
 - Se configuró el extractor para solicitar todos los ámbitos de Lighthouse a la API de PageSpeed e implementó la cuantificación detallada de errores de contraste y ARIA en `merci-extract-metrics.py`.
 - Se implementó la resolución y caché paralela (`ThreadPoolExecutor`) de las 7 páginas principales del sitio en `observabilidad/.lighthouse_pages_cache.json` con un TTL de 24 horas.
@@ -99,35 +99,35 @@ Se necesitaba ampliar la telemetría SRE para incorporar la deuda técnica de ac
 - Se añadieron los Gauges `merci_lighthouse_accessibility_contrast_errors` y `merci_lighthouse_accessibility_aria_errors` en el agente `merci-sre.py` y se crearon los paneles 27 y 28 en el dashboard JSON de Grafana.
 - Se actualizaron el ROADMAP, el Walkthrough y el listado de tareas del proyecto.
 
-**Motivo / criterio (Aprendizaje):**
+**Motivo / criterio:**
 La ejecución concurrente multihilo minimiza el tiempo de red a un único ciclo de llamadas API (~12s) que solo se activa al expirar la caché de 24h. Mantener los badges libres de Javascript preserva el rendimiento óptimo del frontend, garantizando el 100/100 Core Web Vitals en producción.
 
 ### 2026-06-15 — Fase 2: Implementación de Telemetría SRE (Anti-Bloat) y Gobernanza
 
-**Contexto (Desafío):**
+**Contexto:**
 Se requería vigilar activamente que el crecimiento del ecosistema no rompa la filosofía "Zero-Bloat". Además, se detectó un truncamiento accidental en el archivo que dicta el perfil operativo de la IA (`.privado/gemini.md`).
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se reconstruyó en su totalidad el archivo `gemini.md` y se promocionó a la base de conocimiento oficial (KI) del IDE Antigravity.
 - Se inyectó en `scripts/merci/merci-sre.py` the new Gauge `merci_public_folder_size_bytes` y una función recursiva para auditar el tamaño de la carpeta estática.
 - Se inyectó programáticamente en `observabilidad/dashboards/merci-dashboard.json` el panel visual "Peso Estático (/public)".
 - *Hotfix (Grafana Schema):* Se corrigió una infracción de esquema en el JSON del Dashboard. La API de Grafana v13.0 descartaba silenciosamente el panel porque la propiedad `element` esperaba un objeto `{"kind": "ElementReference", "name": "panel-26"}` y no un *String* plano.
 
-**Motivo / criterio (Aprendizaje):**
+**Motivo / criterio:**
 Monitorear físicamente el peso del ecosistema permite anticipar la deuda técnica y degradaciones en Core Web Vitals antes de que sucedan. Reparar las reglas de la IA asegura el rigor arquitectónico a futuro.
 
 ### 2026-06-15 — Investigación: Preservación de Herramientas Estériles (FFmpeg)
 
-**Contexto (Desafío):**
+**Contexto:**
 Se necesitaba automatizar la purga de tiempos muertos ("congelación de terminal") en los vídeos de demostración del proyecto (showcase). Se experimentó con la vía de bajo nivel usando `FFmpeg` y el filtro `mpdecimate`.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - Se generó el script `scripts/temporales/merci-mpdecimate-fastforward.sh`.
 - El script cumplió técnicamente su función de compresión extrema (de 272MB a 62MB), pero generó un efecto "Hyper-Timelapse" epiléptico inasumible para la visualización humana.
 - Se experimentó alternativamente con `auto-editor` (Python) para recortar fotogramas inactivos manteniendo un "padding" humano (`--margin 0.5s`), pero el intento falló debido a la falta de metadatos de fotogramas constantes (`time_base=0/0`, Tasa de Fotogramas Variable (VFR)) en la grabación de pantalla cruda.
 - En lugar de desechar el código, se confinó en el nuevo directorio `scripts/temporales/` y se documentó explícitamente en su cabecera el motivo de su fracaso y las alternativas humanas recomendadas (CapCut, auto-editor), cumpliendo las normas de gobernanza.
 
-**Motivo / criterio (Aprendizaje):**
+**Motivo / criterio:**
 Un script fracasado es una lección arquitectónica valiosa. Mantener el ecosistema Zero-Bloat también implica no saturar la carpeta principal de `scripts/` con utilidades estériles, derivándolas a un silo de cuarentena/histórico debidamente comentado.
 
 ## Notas Arquitectónicas

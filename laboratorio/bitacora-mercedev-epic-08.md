@@ -42,10 +42,10 @@ Plantilla base para el registro de sesiones.
 
 ### 2026-06-15 — Gobernanza y QA: Ejecución del Protocolo Estricto de Cierre (Definition of Done)
 
-**Contexto (Desafío):**
+**Contexto:**
 Se ha finalizado el desarrollo activo de la Épica 8 ("Refactorización y Deuda Cero"). Para clausurar oficialmente esta épica y autorizar el paso a la Épica 9, es preceptivo ejecutar el checklist de cierre (DoD) de 7 pasos, asegurando la higiene del repositorio y la consistencia documental.
 
-**Hecho (Maniobra):**
+**Hecho:**
 Se validó paso a paso el Protocolo Estricto de Cierre de Fase:
 - `[x]` **1. Conciliación de Deuda Técnica:** Se resolvieron y documentaron las tareas funcionales arrastradas desde la Épica 7 (Gamificación UX y Multimedia) integrándolas orgánicamente en el ciclo de refactorización.
 - `[x]` **2. Cosecha de Conocimiento:** Se curaron y empaquetaron los cuadernillos técnicos publicándolos en la Biblioteca Estática (Compendios Épicas 7 y 8) y generando las notas asociadas en el Blog a través del Agente DevRel.
@@ -55,7 +55,7 @@ Se validó paso a paso el Protocolo Estricto de Cierre de Fase:
 - `[x]` **6. Snapshot (Backup Local):** El ecosistema y la arquitectura se encuentran en un estado basal sólido, probado y listo para su instantánea.
 - `[x]` **7. Sello Definitivo:** Se da luz verde a la tríada de despliegue y empaquetado para cerrar la iteración.
 
-**Motivo / criterio (Aprendizaje):**
+**Motivo / criterio:**
 La ejecución dogmática del DoD (Definition of Done) previene la deuda técnica silenciosa y la Deriva de Configuración (Configuration Drift). Nos ha permitido cazar la vulnerabilidad de DLP del tiempo E2E antes de clonarlo en el Boilerplate público.
 
 **Siguiente paso o deuda:**
@@ -64,18 +64,18 @@ La ejecución dogmática del DoD (Definition of Done) previene la deuda técnica
 
 ### 2026-06-15 — Gobernanza y DevRel: Purga de tono IA y resolución de enlaces SSG
 
-**Contexto (Desafío):**
+**Contexto:**
 Durante la preparación de las publicaciones finales de la Épica 7 y 8, saltaron tres alarmas de calidad:
 1. Las notas de blog generadas por la IA local utilizaban un tono plural y corporativo ("nuestro equipo", "hemos"), contradiciendo la Regla 80/20 del proyecto.
 2. El agente `merci-blogger.py` inyectaba metadatos YAML erróneos (ej. `tipo: "compendio"`) y filtraba directrices del prompt a los campos finales.
 3. El linter `merci-linkcheck.py` detectó múltiples errores HTTP 404. Los enlaces internos de las nuevas publicaciones apuntaban a los nombres físicos de los archivos Markdown (`.md`) en lugar de a los *slugs* HTML autogenerados por el SSG.
 
-**Hecho (Maniobra):**
+**Hecho:**
 - **Purga Editorial:** Se reescribieron los blogs en estricta tercera persona neutral y voz pasiva.
 - **Refuerzo Zero-Trust AI (Prompt Engineering):** Se actualizó `prompt-blogger.md` implementando el enfoque "Few-Shot", detallando explícitamente ejemplos de ❌ INCORRECTO ("Nuestro equipo...") y ✅ CORRECTO ("El ecosistema..."). Además, se blindó la estructura YAML para forzar la inyección de `tipo: "blog"`.
 - **Resolución de Enlaces SSG:** Se alinearon todos los hipervínculos internos de los compendios y blogs para que utilicen el formato slugificado generado por `merci-publish.py` (ej. `degradacion-elegante-estrategia-webmmp4-para-core-web-vitals.html`), extirpando las referencias estáticas `.md`.
 
-**Motivo / criterio (Aprendizaje):**
+**Motivo / criterio:**
 - La IA tiende a adoptar tonos corporativos por defecto. El uso de enfoques *Few-Shot* en los prompts es imperativo para forzar un tono divulgativo e impersonal.
 - En arquitecturas estáticas acopladas, nunca se debe enlazar asumiendo que el nombre del archivo `.md` equivale a la URL final, ya que el motor SSG genera las rutas basándose en la slugificación SEO de sus títulos.
 
