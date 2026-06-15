@@ -2,10 +2,8 @@
 
 ## Para qué sirve este archivo
 
-Bitácora activa a partir del cierre arquitectónico fundacional (Épica 1, selladas el 2026-05-06).
-Registra exclusivamente las decisiones, experimentos y aprendizajes de la Épica 2 (Orquestación con Inteligencia Artificial) documentada en el `ROADMAP.md` maestro.
-
-El historial anterior (Épica 1) vive íntegramente en `laboratorio/bitacora-mercedev-epic-01.md`.
+- **Yo futuro:** recuperar en minutos qué se decidió, por qué, y cómo se ejecutó algo técnico sin rebuscar en el chat o en commits sueltos.
+- **Biblioteca (al cerrar el proyecto):** aquí vive el borrador narrativo y técnico; luego se depura y se traslada a `biblioteca/` como piezas definitivas (por estantería o tema), siguiendo la idea de “activo de conocimiento” del proyecto.
 
 No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa el día a día con **hechos, comandos y lecciones**.
 
@@ -13,12 +11,15 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Cómo mantenerlo (acuerdo simple)
 
-1. **Añadir entradas al principio** de la sección "Registro cronológico" (orden cronológico inverso: lo más reciente arriba).
-2. **Una entrada por sesión o por tema cerrado**.
-3. Si algo fue un error o una vulnerabilidad evitada, usar los **tres átomos** del proyecto (Desafío → Maniobra → Aprendizaje/Deuda).
-4. **Correcciones excepcionales**: editar solo el fragmento necesario; no borrar entradas sin motivo documentado.
+1. **Añadir entradas al principio** de la sección “Registro cronológico”, con la plantilla de abajo. El registro es **acumulativo**: lo ya escrito forma parte del historial y **no se reemplaza** por nuevas sesiones (así no se pierde contexto ni fechas).
+2. **Una entrada por sesión o por tema cerrado** (lo que resulte más claro al escribir).
+3. Si algo fue un error o una vulnerabilidad evitada, opcionalmente usar los **tres átomos** del proyecto (Desafío → Maniobra → Aprendizaje/Deuda) en el cuerpo de la entrada.
+4. **Convención de Rutas:** Al hacer referencia a archivos o directorios, usar rutas relativas a la raíz del proyecto, comenzando con `PROYECTO_mercedev.es/` (ej. `PROYECTO_mercedev.es/laboratorio/archivo.md`). No incluir el prefijo absoluto del sistema operativo (ej. `/home/tu_usuario/ruta_al_proyecto/`).
+5. **Correcciones excepcionales** (typo, dato incorrecto, redacción de un solo párrafo, retirada de información sensible): editar solo el fragmento necesario o añadir una línea aclaratoria bajo la entrada; evitar reescribir todo el archivo o borrar entradas enteras sin motivo documentado.
 
 ### Plantilla para nuevas entradas
+
+Plantilla base para el registro de sesiones.
 
 ```markdown
 ### AAAA-MM-DD — Título corto del cambio o sesión
@@ -35,6 +36,7 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 ```
 
 ---
+
 
 ## Registro cronológico
 

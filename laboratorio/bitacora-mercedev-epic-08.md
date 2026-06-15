@@ -1,9 +1,42 @@
 # Bitácora del proyecto mercedev.es — Épica 8: Refactorización y Buenas Prácticas
 
 ## Para qué sirve este archivo
-Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de código correspondientes a la Épica 8 del Roadmap maestro (Refactorización, mejora y revisión de buenas prácticas de los scripts).
+
+- **Yo futuro:** recuperar en minutos qué se decidió, por qué, y cómo se ejecutó algo técnico sin rebuscar en el chat o en commits sueltos.
+- **Biblioteca (al cerrar el proyecto):** aquí vive el borrador narrativo y técnico; luego se depura y se traslada a `biblioteca/` como piezas definitivas (por estantería o tema), siguiendo la idea de “activo de conocimiento” del proyecto.
+
+No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa el día a día con **hechos, comandos y lecciones**.
 
 ---
+
+## Cómo mantenerlo (acuerdo simple)
+
+1. **Añadir entradas al principio** de la sección “Registro cronológico”, con la plantilla de abajo. El registro es **acumulativo**: lo ya escrito forma parte del historial y **no se reemplaza** por nuevas sesiones (así no se pierde contexto ni fechas).
+2. **Una entrada por sesión o por tema cerrado** (lo que resulte más claro al escribir).
+3. Si algo fue un error o una vulnerabilidad evitada, opcionalmente usar los **tres átomos** del proyecto (Desafío → Maniobra → Aprendizaje/Deuda) en el cuerpo de la entrada.
+4. **Convención de Rutas:** Al hacer referencia a archivos o directorios, usar rutas relativas a la raíz del proyecto, comenzando con `PROYECTO_mercedev.es/` (ej. `PROYECTO_mercedev.es/laboratorio/archivo.md`). No incluir el prefijo absoluto del sistema operativo (ej. `/home/tu_usuario/ruta_al_proyecto/`).
+5. **Correcciones excepcionales** (typo, dato incorrecto, redacción de un solo párrafo, retirada de información sensible): editar solo el fragmento necesario o añadir una línea aclaratoria bajo la entrada; evitar reescribir todo el archivo o borrar entradas enteras sin motivo documentado.
+
+### Plantilla para nuevas entradas
+
+Plantilla base para el registro de sesiones.
+
+```markdown
+### AAAA-MM-DD — Título corto del cambio o sesión
+
+**Contexto:** (objetivo a lograr o problema surgido)
+
+**Hecho:** (lista breve: archivos, fases del roadmap, PR/commit si aplica)
+
+**Detalle técnico:** (comandos, rutas, flags; datos necesarios para el registro)
+
+**Motivo / criterio:** (justificación de la decisión arquitectónica tomada)
+
+**Siguiente paso o deuda:** (acciones pendientes o próximos hitos)
+```
+
+---
+
 
 ## Registro cronológico
 

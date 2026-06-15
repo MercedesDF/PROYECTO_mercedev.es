@@ -37,6 +37,7 @@ Plantilla base para el registro de sesiones.
 
 ---
 
+
 ## Registro cronológico
 
 ### 2026-05-08 — Docs: Estandarización de Rutas de Archivo en Bitácora
