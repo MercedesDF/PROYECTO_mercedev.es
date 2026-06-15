@@ -40,6 +40,24 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-06-15 — Fase 4: Descubrimiento de Fallo en Producción por Chaos Engineering
+
+**Contexto:**
+Al probar el *Chaos Monkey* con la nueva Táctica B (Corte de Red), confirmamos el inmenso valor de las prácticas de *Chaos Engineering*. La simulación inyectó un fallo catastrófico en Ollama, obligando al sistema a realizar un *fallback* automático hacia el proxy de Gemini. Sin embargo, el fallback falló inesperadamente porque el modelo `gemini-1.5-flash` había quedado obsoleto y ya no era soportado por la API de Google (v1beta).
+
+**Hecho:**
+- El experimento de caos abortó limpiamente, dejando un archivo residual `brain_data.json` que detuvo futuras simulaciones por seguridad (ensuciando Git).
+- Se ejecutó un script de *debug* (`test_gemini.py`) que iteró sobre modelos alternativos soportados.
+- Se descubrió que la API aceptaba el modelo `gemini-2.5-flash`.
+- Se actualizó el modelo en los agentes `merci-brain.py` y `merci-blogger.py` a `gemini/gemini-2.5-flash`.
+- Se limpió el entorno de trabajo y el *Chaos Monkey* recuperó su estado de operatividad seguro.
+
+**Motivo / criterio:**
+Las APIs externas son un componente de alto riesgo en la cadena de suministro (*Supply Chain*). El hecho de que el modelo `1.5-flash` fuera descontinuado habría provocado una caída total silenciosa de nuestros agentes si el nodo local de Ollama hubiera fallado en producción. El *Chaos Monkey* ha demostrado su valor al sacar a la luz este fallo oculto antes de que afectara a los flujos reales.
+
+**Siguiente paso o deuda:**
+Realizar el commit de estos cambios e iniciar una nueva simulación de *Chaos Engineering* (`merci chaos`) para comprobar que ahora sí, las tres tácticas y el escudo funcionan perfectamente.
+
 ### 2026-06-15 — Fase 4: Preparación para Chaos Engineering (Hybrid Stack & Tácticas)
 
 **Contexto:**

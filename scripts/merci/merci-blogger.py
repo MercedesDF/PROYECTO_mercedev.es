@@ -164,7 +164,7 @@ def main() -> None:
                 sys.exit(1)
 
             respuesta = completion(
-                model="gemini/gemini-1.5-flash",
+                model="gemini/gemini-2.5-flash",
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": nota_contenido}

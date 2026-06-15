@@ -85,7 +85,7 @@ def consultar_ia_local(prompt: str) -> str:
                 return "Error: GEMINI_API_KEY no encontrada en .env"
 
             respuesta = completion(
-                model="gemini/gemini-1.5-flash",
+                model="gemini/gemini-2.5-flash",
                 messages=[{"role": "user", "content": prompt}],
                 api_key=api_key,
                 temperature=0.65
