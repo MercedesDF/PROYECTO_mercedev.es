@@ -272,17 +272,15 @@
 - [x] Revisar el nivel de contraste y adaptar los colores de los botones de la portada (hover) para cumplir con accesibilidad WCAG.
 - [x] Diseñar e implementar mejoras visuales avanzadas (espaciados, tipografía, paleta extendida) sin comprometer el 100/100 de rendimiento.
 - [x] Refinar las animaciones (CSS) y microinteracciones del ecosistema.
-- [x] Cierre de fase
 
 ### Fase 3: Telemetría Autónoma (PageSpeed API)
 - [x] Refactorizar `merci-extract-metrics.py` para integrarse con la API de Google PageSpeed Insights (eliminando los JSON manuales).
 - [x] Añadir `PAGESPEED_API_KEY` al `.env` y ajustar el parseo a la estructura `.lighthouseResult`.
-- [x] Cierre de fase
 - [x] Cierre de épica
 
 --- 
 
-## ÉPICA 8: Refactorización, mejora y revisión de buenas prácticas de los scripts. Limpieza de código.
+## ÉPICA 8: Refactorización, mejora y revisión de buenas prácticas de los scripts. Limpieza de código. (Concluida)
 
 ### Fase 1: De los scripts Core Pipeline
 
@@ -347,6 +345,8 @@
 ### Fase 8: Tareas del Backlog Completadas
 
 - [x] **Métricas Vivas en el Copy (Data-Driven Copywriting):** Introducir las métricas reales del proyecto (ej. tiempo de despliegue en segundos, TBT, etc.) directamente en los textos estáticos cada vez que se actualicen, extrayéndolos del SRE/Dashboard. Por ejemplo: si en portada se mencionan "53 segundos" pero el último despliegue bajó a "47.38sg", la automatización o inyección debe actualizarlo siempre respetando el mejor resultado histórico.
+
+- [x] Cierre de épica
 
 ---
 

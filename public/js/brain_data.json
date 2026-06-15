@@ -85,5 +85,7 @@
   "/biblioteca/normalizacion-robusta-de-cadenas-el-poder-de-casefold.html": "Casefold ofrece una solución técnica eficiente para normalizar cadenas y resolver duplicidades en estanterías del SSG, garantizando consistencia independientemente de la capitalización.",
   "/biblioteca/enrutamiento-hibrido-del-ide-con-litellm-proxy.html": "El enrutamiento híbrido del IDE con LiteLLM Proxy ofrece una solución eficiente para combinar las ventajas de un editor de código local con el poder de la nube, proporcionando ilimitada IA y contingencia robusta.",
   "/biblioteca/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.html": "README.md como única fuente de verdad: Evita la desincronización documental, reduce la deuda técnica y restaura la confianza en el repositorio.",
-  "/biblioteca/consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.html": "Refactorización limpia delegando resaltado de enlaces activos exclusivamente a Body IDs, eliminando mutaciones del DOM."
+  "/biblioteca/consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.html": "Refactorización limpia delegando resaltado de enlaces activos exclusivamente a Body IDs, eliminando mutaciones del DOM.",
+  "/biblioteca/compendio-estrategico-epica-7-enriquecimiento-visual-y-multimedia.html": "Optimización ágil de Core Web Vitals mediante inyección de GIFs ultraligeros y gamificación DevRel eficiente.",
+  "/biblioteca/compendio-estrategico-epica-8-refactorizacion-y-deuda-cero.html": "Refactorización y deuda cero: optimizando procesos, reduciendo riesgos y mejorando la evolución sostenible del software."
 }

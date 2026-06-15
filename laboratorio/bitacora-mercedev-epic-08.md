@@ -7,6 +7,25 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-15 — Gobernanza y DevRel: Purga de tono IA y resolución de enlaces SSG
+
+**Contexto (Desafío):**
+Durante la preparación de las publicaciones finales de la Épica 7 y 8, saltaron tres alarmas de calidad:
+1. Las notas de blog generadas por la IA local utilizaban un tono plural y corporativo ("nuestro equipo", "hemos"), contradiciendo la Regla 80/20 del proyecto.
+2. El agente `merci-blogger.py` inyectaba metadatos YAML erróneos (ej. `tipo: "compendio"`) y filtraba directrices del prompt a los campos finales.
+3. El linter `merci-linkcheck.py` detectó múltiples errores HTTP 404. Los enlaces internos de las nuevas publicaciones apuntaban a los nombres físicos de los archivos Markdown (`.md`) en lugar de a los *slugs* HTML autogenerados por el SSG.
+
+**Hecho (Maniobra):**
+- **Purga Editorial:** Se reescribieron los blogs en estricta tercera persona neutral y voz pasiva.
+- **Refuerzo Zero-Trust AI (Prompt Engineering):** Se actualizó `prompt-blogger.md` implementando el enfoque "Few-Shot", detallando explícitamente ejemplos de ❌ INCORRECTO ("Nuestro equipo...") y ✅ CORRECTO ("El ecosistema..."). Además, se blindó la estructura YAML para forzar la inyección de `tipo: "blog"`.
+- **Resolución de Enlaces SSG:** Se alinearon todos los hipervínculos internos de los compendios y blogs para que utilicen el formato slugificado generado por `merci-publish.py` (ej. `degradacion-elegante-estrategia-webmmp4-para-core-web-vitals.html`), extirpando las referencias estáticas `.md`.
+
+**Motivo / criterio (Aprendizaje):**
+- La IA tiende a adoptar tonos corporativos por defecto. El uso de enfoques *Few-Shot* en los prompts es imperativo para forzar un tono divulgativo e impersonal.
+- En arquitecturas estáticas acopladas, nunca se debe enlazar asumiendo que el nombre del archivo `.md` equivale a la URL final, ya que el motor SSG genera las rutas basándose en la slugificación SEO de sus títulos.
+
+**Siguiente paso o deuda:**
+- Proceder con el `merci commit` y el cierre definitivo de la sesión.
 ### 2026-06-15 — Gestión/Gobernanza: Migración de Tareas y Saneamiento Documental
 
 **Contexto:** Varias tareas funcionales documentadas originalmente en la Épica 7 ("Gamificación UX" e "Integración Multimedia") se resolvieron de manera orgánica durante el ciclo de vida de la Épica 8. Además, se detectó una inconsistencia en el orden cronológico de esta misma bitácora (registros de días anteriores inyectados por error al final del archivo).

@@ -51,7 +51,7 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
   - `merci-release.py`: Orquestador de exportación para empaquetar y sincronizar el Boilerplate localmente.
   - `merci-completo.py`: Orquestador Supremo DevSecOps que encadena QA, commit atómico y despliegue a producción.
   - `merci-extract-metrics.py`: Extractor autónomo de métricas Core Web Vitals (API PageSpeed Insights).
-  - `merci-telemetry.py`: Inyector dinámico de telemetría del proyecto (Commits, Agentes, Docs).
+  - `merci-telemetry.py`: Inyector dinámico de telemetría y Data-Driven Copywriting SRE (Commits, Agentes, tiempo E2E).
   - `merci-sre.py`: Demonio de telemetría pasiva para la ingesta de datos en Prometheus y Grafana.
   - `merci-hardening.py`: Agente de auditoría continua de seguridad pasiva e infraestructura.
   - `merci-chaos.py`: Agente de Chaos Engineering con IA local para inyección y validación de vulnerabilidades.
@@ -102,7 +102,8 @@ La autora mantiene un repositorio aislado (`~/auditorias/`) protegido por reglas
 19. **Nomenclatura Estricta de Archivos Markdown (Prefijos Taxonómicos):** Para evitar colisiones y pérdida de información entre publicaciones cruzadas, todos los archivos `*.md` DEBEN llevar siempre por delante en su nombre la carpeta a la que pertenecen (ej. `art-de-cote-X.md`, `blog-X.md`). Queda prohibido que un archivo en `art-de-cote/` o `blog/` empiece por `cuadernillo-`. Esta regla garantiza la organización física y visual de la Única Fuente de Verdad (SSOT).
 20. **Taxonomía Estricta de la Biblioteca (4 Macro-temas):** Cada vez que se cree un nuevo cuadernillo para la Biblioteca (`biblioteca/cuadernillo-*.md`), el atributo `tema` en el frontmatter YAML DEBE pertenecer estricta y exclusivamente a una de estas 4 categorías principales: "Desarrollo y Arquitectura", "DevSecOps e Infraestructura", "Inteligencia Artificial y Agentes", o "Productividad y Gobernanza". Queda terminantemente prohibido inventar o combinar categorías (ej. "Desarrollo y Productividad" o "DevSecOps y Gobernanza"). Los subtemas deben encajar lógicamente dentro del macro-tema elegido.
 104: 21. **Catch-22 de Sincronización Estricta (Zero Trust):** El orquestador `merci-sync-pages.py` utiliza validación estricta (expresiones regulares exactas) para propagar el SSOT. Si se altera estructuralmente la firma de un bloque (por ejemplo, añadiendo un `id` o un atributo `aria-` a etiquetas base como `<header>` o `<footer>`) en la portada, dicha alteración **debe replicarse manualmente una primera vez** en el resto de los `index.html` estáticos (ej. `/contacto`). De lo contrario, el script no reconocerá los bloques obsoletos de destino y bloqueará el pipeline para prevenir inyecciones silenciosas.
-22. **Regla de Integridad Pre-Commit:** Antes de realizar un commit, es obligatorio ejecutar `merci total` en local para validar el ecosistema completo. La IA debe reflejar los pasos clave y las modificaciones en la bitácora (`laboratorio/bitacora-mercedev-epic-NN.md`), pero **nunca debe ejecutar el comando de commit (`git commit` o `merci commit`) por sí misma**. El sellado y confirmación en el control de versiones es responsabilidad exclusiva de la desarrolladora.
+22. **Enrutamiento SSG Estricto:** Al enlazar documentos internos (como cuadernillos de la Biblioteca o compendios) en archivos Markdown, nunca se debe enlazar al nombre del archivo físico (`.md`). Se debe utilizar el *slug* HTML generado dinámicamente por el SSG a partir del título del documento (ej. `[Enlace](slug-del-titulo.html)`). Esto previene errores 404 detectados por `merci-linkcheck.py`.
+23. **Regla de Integridad Pre-Commit:** Antes de realizar un commit, es obligatorio ejecutar `merci total` en local para validar el ecosistema completo. La IA debe reflejar los pasos clave y las modificaciones en la bitácora (`laboratorio/bitacora-mercedev-epic-NN.md`), pero **nunca debe ejecutar el comando de commit (`git commit` o `merci commit`) por sí misma**. El sellado y confirmación en el control de versiones es responsabilidad exclusiva de la desarrolladora.
 
 ## 5. Hoja de Ruta (Roadmap Activo)
 
@@ -127,6 +128,7 @@ Objetivo: redactar textos claros, humanos y directos, manteniendo rigor técnico
 5. **Usar tono impersonal y en infinitivo** en documentación técnica (`README.md`, `docs/`, `laboratorio/`).
 6. **Reservar voz de Merci** para UI y microcopys puntuales, sin invadir toda la página.
 7. **Idioma estricto:** Redactar exclusivamente en Castellano (Español de España), evitando el uso del inglés salvo en expresiones propias del sector editorial en programación.
+8. **Gobernanza AI (Zero-Trust):** Todos los *prompts* maestros de agentes redactores (ej. `prompt-blogger.md`) deben aplicar esta regla 80/20 apoyándose en el enfoque *Few-Shot* (incluyendo ejemplos ❌ INCORRECTOS y ✅ CORRECTOS) para extirpar la deriva corporativa nativa de los LLMs.
 
 ### 6.3. Plantilla breve por bloque de contenido
 - **Qué es:** definir en una frase.
