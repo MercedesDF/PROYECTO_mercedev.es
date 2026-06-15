@@ -40,6 +40,23 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-06-15 — Fase 4: Debug y Parcheo del Chaos Monkey (Táctica C)
+
+**Contexto:**
+Durante las rondas de pruebas de Chaos Engineering saltó la Táctica C (Deriva Documental), en la que el Monkey inyecta un script falso o "fantasma" sin documentar para verificar que las defensas SSOT bloquean el pipeline. Sin embargo, el Chaos Monkey informó de una vulnerabilidad: "El código/archivo pasó indetectado".
+
+**Hecho:**
+- Se analizó el flujo de inyección y detección en `merci-chaos.py`.
+- Se detectó que el Chaos Monkey estaba invocando el linter general de higiene (`merci-audit.py`) para validar la deriva documental.
+- Puesto que `merci-audit.py` audita sintaxis, SEO y secretos pero *no* la gobernanza SSOT (responsabilidad delegada a `merci-drift.py`), el archivo fantasma era validado como "código Python perfecto" y pasaba.
+- Se refactorizó la estructura `try/except` de la Táctica C en `merci-chaos.py` para que lance específicamente el binario correcto (`merci-drift.py`).
+
+**Motivo / criterio:**
+El testing es tan frágil como la asunción del programador sobre el test. En este caso, el ecosistema DevSecOps funcionaba y estaba bien diseñado (Separation of Concerns entre higiene y deriva), pero el orquestador del test usaba el instrumento equivocado. Corregirlo certifica que la matriz de validación cubre realmente los vectores de ataque previstos.
+
+**Siguiente paso o deuda:**
+Lanzar otra ronda de Chaos Engineering para verificar que la Táctica C y el detector de deriva documental se conectan y bloquean la intrusión con éxito.
+
 ### 2026-06-15 — Fase 4: Éxito del Chaos Monkey y Activación del Circuit Breaker
 
 **Contexto:**

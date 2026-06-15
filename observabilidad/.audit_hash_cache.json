@@ -167,7 +167,7 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-06.md": "a06ef8a6151546935137c975667ff220",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-07.md": "b201cbb27231927d3e8e38c9e3913c94",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-08.md": "5b82d80aa32506cbc5d82aea20e77aed",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-09.md": "58391bd525a2c5ae295e791a626661ab",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-09.md": "d9f952a1e0862caf978d88c37dd43df1",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-merci-boilerplate.md": "f21cf94e737161495419a8d71ef56fa0",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/notas_rapidas/_procesadas/agente-hardening.txt": "9d54ba5de4bdf89048a52ef257e0c8d9",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/notas_rapidas/_procesadas/bug-footer.txt": "09a58e535f2af56724c577e6a5584f36",
@@ -308,7 +308,7 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/css/main.css": "96da7b5736979e457049ee03e197080d",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/index.html": "6864844a11107249c4b72ec8dbeb8fe2",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/js/MerciController.js": "64b08f665cbf458081d245cb715739ec",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/js/brain_data.json": "55ffdb0af002d209e5975744f69de970",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/js/brain_data.json": "a975c4dd779110710b5cc78905492b90",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/js/main.js": "cdb00fda7600ede6397276b27de06c80",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/proyectos/index.html": "832b22aa598a52daf06aaf9455e4a88f",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/public/proyectos/showcase-inyeccion-multimedia.html": "567fb559c2c1b3165f4a0dbc104be3da",
@@ -392,6 +392,9 @@
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/tienda/llavero-merci-token.md": "9ad6ff498e3b95a8a478d2759a638aa9",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/tienda/taza-merci-nube.md": "e611d3361021cfaa67a9fa06957f3197",
     "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/scripts_temporales/merci-fix-artdecote.py": "3e7a5c28c365f436f664cb2205a45453",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/scripts_temporales/merci-test-gemini.py": "588e39d61bf400db394f29f4458631ff"
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/scripts_temporales/merci-test-gemini.py": "588e39d61bf400db394f29f4458631ff",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/incubacion/cuadernillo-chaos-hybrid-stack.md": "f7464a633a1929b9d5548c7f58e49917",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/scripts_temporales/merci-mpdecimate-fastforward.sh": "2f2afee09f9313d8a90ee131f714e23a",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/scripts/merci/merci-fantasma-chaos.py": "42b84a12a57493c746be7f62497ff020"
   }
 }

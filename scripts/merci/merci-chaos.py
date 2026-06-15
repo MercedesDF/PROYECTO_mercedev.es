@@ -120,7 +120,7 @@ def main() -> None:
         inyeccion_texto = "Script fantasma (merci-fantasma-chaos.py) inyectado"
 
     try:
-        if tactica == "A" or tactica == "C":
+        if tactica == "A":
             print("\n  🛡️ Lanzando Auditoría DevSecOps para medir defensas...")
             env_aislado = os.environ.copy()
             env_aislado["MERCI_SKIP_AI"] = "1"
@@ -129,8 +129,22 @@ def main() -> None:
             salida = resultado.stdout.strip()
             fue_detectado = False
             
-            if resultado.returncode != 0 or "WARN" in salida or "ERROR" in salida or "Deriva Documental" in salida: 
+            if resultado.returncode != 0 or "WARN" in salida or "ERROR" in salida: 
                 print(f"\n  ✅ [ÉXITO DEL CAOS] El sistema detectó la anomalía.\n\n{salida}")
+                fue_detectado = True
+            else: 
+                print(f"\n  ❌ [VULNERABILIDAD] El escudo falló. El código/archivo pasó indetectado.\n\n{salida}")
+
+        elif tactica == "C":
+            print("\n  🛡️ Lanzando Detector de Deriva Documental para medir defensas...")
+            env_aislado = os.environ.copy()
+            resultado = subprocess.run([sys.executable, str(REPO_ROOT / "scripts" / "merci" / "merci-drift.py")], cwd=REPO_ROOT, capture_output=True, text=True, env=env_aislado)
+            
+            salida = resultado.stdout.strip()
+            fue_detectado = False
+            
+            if resultado.returncode != 0 or "Deriva Documental" in salida: 
+                print(f"\n  ✅ [ÉXITO DEL CAOS] El sistema detectó el script fantasma.\n\n{salida}")
                 fue_detectado = True
             else: 
                 print(f"\n  ❌ [VULNERABILIDAD] El escudo falló. El código/archivo pasó indetectado.\n\n{salida}")
