@@ -1,23 +1,25 @@
 ---
-titulo: "Anatomía de Merci Boilerplate (v1.19.0)"
+titulo: "Anatomía de Merci Boilerplate v1.18.0 (Obsoleto)"
 descripcion: "Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 32 agentes Python y 100/100 Core Web Vitals."
 estado: "publicado"
-tema: "Art de Coté"
-subtema: "Arquitectura Base"
+tema: "Boilerplate: Histórico"
+subtema: "Versiones 1.18.x"
 destacado: "false"
 tipo: "cuadernillo"
-alt_portada: "Esquema conceptual de la arquitectura DevSecOps de Merci Boilerplate v1.19.0."
+alt_portada: "Esquema conceptual de la arquitectura DevSecOps de Merci Boilerplate v1.18.0."
 fase: "Epic 8 - Fase 1"
-fecha: "2026-06-15"
-slug: "anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat"
+fecha: "2026-06-12"
+slug: "anatomia-de-merci-boilerplate-v1180"
 ---
 La mayoría de plantillas web (boilerplates) actuales entregan un sitio funcional a costa de inyectar megabytes de librerías en el navegador, oscurecer la infraestructura y acumular deuda técnica desde el commit cero. 
 
-**Merci Boilerplate v1.19.0 es el antídoto.** Lo que comenzó como un proyecto de investigación DevSecOps, ha madurado en un ecosistema operacional extremo y autónomo. 
+> ⚠️ **Aviso de obsolescencia:** Este documento relata la arquitectura original (v1.18.0). [**Lee aquí la versión v1.19.0 actualizada**](/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html).
+
+**Merci Boilerplate v1.18.0 es el antídoto.** Lo que comenzó como un proyecto de investigación DevSecOps, ha madurado en un ecosistema operacional extremo y autónomo. 
 
 El sistema surgió del rigor académico y evolucionó bajo el escrutinio de **Chaos Engineering**: una arquitectura segura, 0 dependencias externas en tiempo de ejecución (Zero-Bloat), integrando CMS Headless y aplicando metodologías SRE (Site Reliability Engineering) para garantizar telemetría constante.
 
-## 6 Pilares de la Arquitectura actual
+## 5 Pilares de la Arquitectura actual
 
 **1. Rendimiento Extremo (TBT 0ms Real) y E-commerce Zero-JS**
 El núcleo fragmenta tareas asíncronas de Javascript (*Yielding*) y prioriza la red nativa (`fetchpriority`). La tienda WooCommerce opera como un Catálogo Headless inyectado desde Markdown, con un carrito de compra que funciona mediante formularios nativos (Zero-JS Cart). El resultado: un **Total Blocking Time de 0ms** empírico, incluso en pasarelas transaccionales bajo simulaciones 4G.
@@ -34,11 +36,8 @@ La Inteligencia Artificial está orquestada en local y en la nube creando autén
 **4. Observabilidad SRE & Chaos Engineering**
 La infraestructura incluye un demonio `merci-sre.py` que ingiere telemetría continua hacia Prometheus y Grafana (IaC). Además, un "Mono del Caos" local inyecta vulnerabilidades XSS de forma autónoma para validar empíricamente que el linter `merci-audit.py` es infranqueable, registrando cada ataque en bitácoras privadas encriptadas.
 
-**5. Arquitectura SSG y Robustez del Pipeline**
-Las tres capas operan en paralelo sin contaminarse, y el orquestador principal ahora implementa Caché Semántica y *Mark & Sweep*, manteniendo el tiempo total de compilación en la barrera Sub-10s. Se refactorizó el Core Pipeline para inyectar anotaciones de tipo estático y control robusto de excepciones (KeyboardInterrupt, fallos de subprocesos), garantizando salidas elegantes sin volcados de pila. Todos los enlaces internos se compilan apuntando a los *slugs* de SSG, eliminando el riesgo de errores 404 (Zero 404 Routing).
-
-**6. Gobernanza AI y Data-Driven Copywriting (v1.19.0)**
-El ecosistema aplica una estricta política de *Zero-Trust Prompting* mediante el enfoque *Few-Shot*, erradicando sesgos corporativos y "alucinaciones" del agente DevRel. Además, la infraestructura inyecta en tiempo real la telemetría operativa (tiempo de despliegue E2E medido desde Prometheus/Grafana) directamente en el copy de la portada, cruzando la observabilidad técnica con el marketing.
+**5. Arquitectura SSG de Compilación Incremental y Robustez del Pipeline (v1.18.0)**
+Las tres capas operan en paralelo sin contaminarse, y el orquestador principal ahora implementa Caché Semántica y *Mark & Sweep*, manteniendo el tiempo total de compilación en la barrera Sub-10s. En la v1.18.0, se refactorizó el Core Pipeline para inyectar anotaciones de tipo estático y control robusto de excepciones (KeyboardInterrupt, fallos de subprocesos), garantizando que anomalías en caliente no muestren volcados de pila y se resuelvan con una salida elegante.
 
 ## El Ecosistema de Agentes (32 herramientas)
 

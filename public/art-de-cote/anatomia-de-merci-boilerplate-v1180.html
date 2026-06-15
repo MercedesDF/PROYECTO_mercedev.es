@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anatomía de Merci Boilerplate (v1.19.0) — mercedev.es</title>
+    <title>Anatomía de Merci Boilerplate v1.18.0 (Obsoleto) — mercedev.es</title>
     <meta name="description" content="Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 32 agentes Python y 100/100 Co...">
-    <link rel="canonical" href="https://mercedev.es/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html">
+    <link rel="canonical" href="https://mercedev.es/art-de-cote/anatomia-de-merci-boilerplate-v1180.html">
     <link rel="stylesheet" href="/css/main.css?v=1781515967">
     <script src="/js/MerciController.js?v=1781503814" defer></script>
     <script src="/js/main.js?v=1779435201" defer></script>
@@ -13,9 +13,9 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Anatom\u00eda de Merci Boilerplate (v1.19.0)",
+      "headline": "Anatom\u00eda de Merci Boilerplate v1.18.0 (Obsoleto)",
       "description": "Descubre las entra\u00f1as t\u00e9cnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 32 agentes Python y 100/100 Core Web Vitals.",
-      "url": "https://mercedev.es/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html"
+      "url": "https://mercedev.es/art-de-cote/anatomia-de-merci-boilerplate-v1180.html"
     }
     </script>
 </head>
@@ -48,14 +48,17 @@
         <article class="card card--booklet">
             <a href="/art-de-cote/" class="card__back-link">← Volver a Art de Coté</a>
             <header>
-                    <h1 class="home-card__title--highlight">Anatomía de Merci Boilerplate (v1.19.0)</h1>
-                <a href="/descargas/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+                    <h1 class="home-card__title--highlight">Anatomía de Merci Boilerplate v1.18.0 (Obsoleto)</h1>
+                <a href="/descargas/anatomia-de-merci-boilerplate-v1180.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
             </header>
             <div class="card__content">
                 <p>La mayoría de plantillas web (boilerplates) actuales entregan un sitio funcional a costa de inyectar megabytes de librerías en el navegador, oscurecer la infraestructura y acumular deuda técnica desde el commit cero. </p>
-<p><strong>Merci Boilerplate v1.19.0 es el antídoto.</strong> Lo que comenzó como un proyecto de investigación <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr>, ha madurado en un ecosistema operacional extremo y autónomo. </p>
+<blockquote>
+<p>⚠️ <strong>Aviso de obsolescencia:</strong> Este documento relata la arquitectura original (v1.18.0). <a href="/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html"><strong>Lee aquí la versión v1.19.0 actualizada</strong></a>.</p>
+</blockquote>
+<p><strong>Merci Boilerplate v1.18.0 es el antídoto.</strong> Lo que comenzó como un proyecto de investigación <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr>, ha madurado en un ecosistema operacional extremo y autónomo. </p>
 <p>El sistema surgió del rigor académico y evolucionó bajo el escrutinio de <strong>Chaos Engineering</strong>: una arquitectura segura, 0 dependencias externas en tiempo de ejecución (<abbr title="Merci Explica: Construir una casa con lo mínimo e indispensable en lugar de comprar electrodomésticos enormes que gastan energía y nunca se usan." tabindex="0">Zero-Bloat</abbr>), integrando <abbr title="Merci Explica: Plataforma que permite a los sitios web y aplicaciones gestionar su contenido de manera eficiente y rápida." tabindex="0">CMS</abbr> Headless y aplicando metodologías <abbr title="Merci Explica: Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo." tabindex="0">SRE</abbr> (Site Reliability Engineering) para garantizar telemetría constante.</p>
-<h2>6 Pilares de la Arquitectura actual</h2>
+<h2>5 Pilares de la Arquitectura actual</h2>
 <p><strong>1. Rendimiento Extremo (<abbr title="Merci Explica: El tiempo acumulado en el que el ordenador estuvo tan ocupado calculando cosas que tu ratón o tus toques en la pantalla parecían no responder." tabindex="0">TBT</abbr> 0ms Real) y E-commerce Zero-JS</strong>
 El núcleo fragmenta tareas asíncronas de Javascript (<em>Yielding</em>) y prioriza la red nativa (<code>fetchpriority</code>). La tienda WooCommerce opera como un Catálogo Headless inyectado desde Markdown, con un carrito de compra que funciona mediante formularios nativos (Zero-JS Cart). El resultado: un <strong>Total Blocking Time de 0ms</strong> empírico, incluso en pasarelas transaccionales bajo simulaciones 4G.</p>
 <p><strong>2. Orquestación Autónoma del Release (Clon Efímero)</strong>
@@ -67,10 +70,8 @@ La Inteligencia Artificial está orquestada en local y en la nube creando autén
 *   <strong>Triage Interactivo:</strong> El Agente Glosario expone el contexto de extracción al humano para evitar consumir inferencia de IA en falsos positivos.</p>
 <p><strong>4. Observabilidad SRE &amp; Chaos Engineering</strong>
 La infraestructura incluye un demonio <code>merci-sre.py</code> que ingiere telemetría continua hacia Prometheus y Grafana (IaC). Además, un "Mono del Caos" local inyecta vulnerabilidades <abbr title="Merci Explica: Cuerda para la protección contra ataques de inyección de código." tabindex="0">XSS</abbr> de forma autónoma para validar empíricamente que el linter <code>merci-audit.py</code> es infranqueable, registrando cada ataque en bitácoras privadas encriptadas.</p>
-<p><strong>5. Arquitectura <abbr title="Merci Explica: Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas." tabindex="0">SSG</abbr> y Robustez del Pipeline</strong>
-Las tres capas operan en paralelo sin contaminarse, y el orquestador principal ahora implementa Caché Semántica y <em>Mark &amp; Sweep</em>, manteniendo el tiempo total de compilación en la barrera Sub-10s. Se refactorizó el Core Pipeline para inyectar anotaciones de tipo estático y control robusto de excepciones (KeyboardInterrupt, fallos de subprocesos), garantizando salidas elegantes sin volcados de pila. Todos los enlaces internos se compilan apuntando a los <em>slugs</em> de SSG, eliminando el riesgo de errores 404 (Zero 404 Routing).</p>
-<p><strong>6. Gobernanza AI y Data-Driven Copywriting (v1.19.0)</strong>
-El ecosistema aplica una estricta política de <em><abbr title="Merci Explica: Seguridad sin excepciones, donde cada solicitud de acceso se evalúa individualmente." tabindex="0">Zero-Trust</abbr> Prompting</em> mediante el enfoque <em>Few-Shot</em>, erradicando sesgos corporativos y "alucinaciones" del agente DevRel. Además, la infraestructura inyecta en tiempo real la telemetría operativa (tiempo de despliegue <abbr title="Merci Explica: Vía directa desde origen hasta destino, garantizando que todo funcione como debe." tabindex="0">E2E</abbr> medido desde Prometheus/Grafana) directamente en el copy de la portada, cruzando la observabilidad técnica con el marketing.</p>
+<p><strong>5. Arquitectura <abbr title="Merci Explica: Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas." tabindex="0">SSG</abbr> de Compilación Incremental y Robustez del Pipeline (v1.18.0)</strong>
+Las tres capas operan en paralelo sin contaminarse, y el orquestador principal ahora implementa Caché Semántica y <em>Mark &amp; Sweep</em>, manteniendo el tiempo total de compilación en la barrera Sub-10s. En la v1.18.0, se refactorizó el Core Pipeline para inyectar anotaciones de tipo estático y control robusto de excepciones (KeyboardInterrupt, fallos de subprocesos), garantizando que anomalías en caliente no muestren volcados de pila y se resuelvan con una salida elegante.</p>
 <h2>El Ecosistema de Agentes (32 herramientas)</h2>
 <p>El corazón del Boilerplate son sus 32 agentes programados en Python puro, organizados para gobernar cada aspecto del ciclo de vida:</p>
 <h3>Auditoría, Seguridad y <abbr title="Merci Explica: Inspector de alta precisión que garantiza que todo funcione como debe." tabindex="0">QA</abbr></h3>

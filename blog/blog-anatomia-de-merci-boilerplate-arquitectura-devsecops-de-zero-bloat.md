@@ -1,17 +1,17 @@
 ---
 titulo: "Anatomía de Merci Boilerplate: Arquitectura DevSecOps de Zero-Bloat"
-descripcion: "Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 25 agentes Python y 100/100 Core Web Vitals."
+descripcion: "Descubre las entrañas técnicas de Merci Boilerplate. Un ecosistema DevSecOps construido con 0 dependencias externas, 32 agentes Python y 100/100 Core Web Vitals."
 estado: "publicado"
 estado_social: "publicado_linkedin"
 subtema: "Blog"
 fase: "Epic 1 - Fase 10"
-fecha: "2026-05-17"
+fecha: "2026-06-15"
 linkedin_id: "urn:li:share:7464586061533343744"
 ---
 <!-- linkedin:
 La evolución de la web desde plantillas monolíticas hasta sistemas DevSecOps completos. 🚀💻
 
-Un ecosistema donde la web no es solo funcional, sino segura y ultrarrápida sin dependencias externas. Eso es lo que Merci Boilerplate representa: una arquitectura de 3 capas con más de 25 agentes Python para automatizar tareas críticas. 🌐
+Un ecosistema donde la web no es solo funcional, sino segura y ultrarrápida sin dependencias externas. Eso es lo que Merci Boilerplate representa: una arquitectura de 3 capas con más de 32 agentes Python para automatizar tareas críticas. 🌐
 
 #DevSecOps #Ciberseguridad #Python #WebPerformance #ZeroBloat #Agile #LearningByDoing
 -->
@@ -36,7 +36,7 @@ Hoy, el núcleo de ese proyecto vivo de aprendizaje se ha convertido en **Merci 
 
 Se han liberado las entrañas técnicas y la historia de esta arquitectura en un nuevo "Arte Colateral". 👇
 
-Para saber más sobre cómo funciona cada componente, cómo se integran los 25 agentes Python y cómo aplicar estos principios a otros proyectos, se invita a leer la [documentación completa](/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html).
+Para saber más sobre cómo funciona cada componente, cómo se integran los 32 agentes Python y cómo aplicar estos principios a otros proyectos, se invita a leer la [documentación completa](/art-de-cote/anatomia-de-merci-boilerplate-arquitectura-devsecops-de-zero-bloat.html).
 
 🔗 [Repositorio Oficial de Merci Boilerplate en GitHub](https://github.com/MercedesDF/merci-boilerplate)
 
