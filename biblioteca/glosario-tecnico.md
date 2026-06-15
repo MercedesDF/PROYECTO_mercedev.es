@@ -10,7 +10,7 @@ fecha: "2026-06-15"
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 146 términos consolidados (Última actualización de datos: 2026-06-15 22:17).
+> **Versión de control:** 146 términos consolidados (Última actualización de datos: 2026-06-15 23:15).
 
 ## Índice Alfabético
 
@@ -61,7 +61,7 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-01.md: L2686
-- bitacora-mercedev-epic-09.md: L92
+- bitacora-mercedev-epic-09.md: L175
 
 ---
 ### AST
@@ -135,6 +135,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-06.md: L313
 - bitacora-mercedev-epic-07.md: L272
 - bitacora-mercedev-epic-08.md: L218
+- bitacora-mercedev-epic-09.md: L52
 - checklist-hardening.md: L80
 
 ---
@@ -373,7 +374,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-06.md: L474
 - bitacora-mercedev-epic-07.md: L286
 - bitacora-mercedev-epic-08.md: L204
-- bitacora-mercedev-epic-09.md: L51
+- bitacora-mercedev-epic-09.md: L66
 - bitacora-merci-boilerplate.md: L17
 - checklist-hardening.md: L49
 - ciclo-de-vida-contenidos.md: L16
@@ -716,7 +717,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Juego de acertijos donde cada pieza del rompecabezas representa un tipo diferente de conocimiento, y juntas forman la imagen completa.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-09.md: L111
+- bitacora-mercedev-epic-09.md: L194
 
 ---
 ### KISS
@@ -1218,7 +1219,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-06.md: L117
 - bitacora-mercedev-epic-07.md: L318
 - bitacora-mercedev-epic-08.md: L184
-- bitacora-mercedev-epic-09.md: L95
+- bitacora-mercedev-epic-09.md: L178
 - instrucciones.md: L25
 
 ---
@@ -1288,7 +1289,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-06.md: L458
 - bitacora-mercedev-epic-07.md: L165
 - bitacora-mercedev-epic-08.md: L123
-- bitacora-mercedev-epic-09.md: L55
+- bitacora-mercedev-epic-09.md: L138
 - instrucciones.md: L4
 
 ---
@@ -1416,7 +1417,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-06.md: L451
 - bitacora-mercedev-epic-07.md: L328
 - bitacora-mercedev-epic-08.md: L52
-- bitacora-mercedev-epic-09.md: L87
+- bitacora-mercedev-epic-09.md: L170
 - ciclo-de-vida-contenidos.md: L7
 - flujo-publicacion-sop.md: L2
 - instrucciones.md: L37
@@ -1451,6 +1452,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-06.md: L177
 - bitacora-mercedev-epic-07.md: L571
 - bitacora-mercedev-epic-08.md: L52
+- bitacora-mercedev-epic-09.md: L57
 - ciclo-de-vida-contenidos.md: L49
 - instrucciones.md: L38
 - mantenimiento-boilerplate-sop.md: L5
@@ -1546,7 +1548,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-03.md: L2005
 - bitacora-mercedev-epic-04.md: L116
 - bitacora-mercedev-epic-06.md: L81
-- bitacora-mercedev-epic-09.md: L87
+- bitacora-mercedev-epic-09.md: L170
 
 ---
 ### UFW
@@ -1615,7 +1617,7 @@ fecha: "2026-06-15"
 💡 **Merci Explica:** *Reglas que permiten volar cuando se puede ver el terreno y las nubes, como si estuvieras conduciendo un automóvil por una carretera.*
 
 **Apariciones en Bitácoras:**
-- bitacora-mercedev-epic-09.md: L84
+- bitacora-mercedev-epic-09.md: L167
 
 ---
 ### VP9
@@ -1773,7 +1775,7 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-06.md: L129
 - bitacora-mercedev-epic-07.md: L82
 - bitacora-mercedev-epic-08.md: L387
-- bitacora-mercedev-epic-09.md: L108
+- bitacora-mercedev-epic-09.md: L191
 - instrucciones.md: L97
 
 ---
@@ -1786,6 +1788,7 @@ fecha: "2026-06-15"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L185
+- bitacora-mercedev-epic-09.md: L52
 
 ---
 ### Zero-Day

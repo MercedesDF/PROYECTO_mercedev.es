@@ -40,6 +40,17 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-06-15 — Fase 4: Documentación de la Arquitectura de Enrutamiento Inverso (Art de Coté)
+
+**Contexto:**
+Durante la discusión sobre el comportamiento de la Pila Híbrida y los Fallbacks ante la falta de tokens (HTTP 429), se analizó la diferencia entre el router del IDE (`router.yaml` + `merci-boot.sh`) y el router del compilador (`merci-brain.py`). Ambos usan `litellm` pero con prioridades diametralmente opuestas.
+
+**Hecho:**
+Se documentó esta dicotomía de diseño creando el artículo público `laboratorio/incubacion/art-de-cote-enrutamiento-ia.md`. El artículo expone cómo el IDE utiliza una ruta "Inteligencia Máxima (Cloud) ➔ Supervivencia Local", mientras que el compilador aplica "Ahorro Máximo (Local) ➔ Rescate Cloud ➔ Circuit Breaker Estático".
+
+**Motivo / criterio:**
+*Knowledge Sharing & Transparency*. La decisión de invertir la carga cognitiva dependiendo del entorno (desarrollo vs CI/CD) es un concepto arquitectónico clave que merece ser compartido públicamente, demostrando la madurez del ecosistema Zero-Code. No debe quedar oculto en la documentación interna (`.privado`).
+
 ### 2026-06-15 — Fase 4: Debug y Parcheo del Chaos Monkey (Táctica C)
 
 **Contexto:**

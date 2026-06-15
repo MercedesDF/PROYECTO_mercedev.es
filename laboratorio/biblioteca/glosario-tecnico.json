@@ -89,7 +89,7 @@
       "merci_explica": "Etiquetas invisibles que le ponemos al código para que los lectores de pantalla puedan explicarle la web a las personas con discapacidades visuales.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L92"
+          "L175"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L2686"
@@ -156,6 +156,9 @@
       "apariciones": {
         "bitacora-mercedev-epic-06.md": [
           "L313"
+        ],
+        "bitacora-mercedev-epic-09.md": [
+          "L52"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L117"
@@ -557,7 +560,7 @@
           "L474"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L51"
+          "L66"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L105"
@@ -1397,7 +1400,7 @@
           "L117"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L95"
+          "L178"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L425"
@@ -1651,6 +1654,9 @@
         "bitacora-mercedev-epic-06.md": [
           "L177"
         ],
+        "bitacora-mercedev-epic-09.md": [
+          "L57"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L327"
         ],
@@ -1703,7 +1709,7 @@
           "L458"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L55"
+          "L138"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L63"
@@ -1832,7 +1838,7 @@
           "L81"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L87"
+          "L170"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L2005"
@@ -2069,7 +2075,7 @@
           "L129"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L108"
+          "L191"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L127"
@@ -2098,6 +2104,9 @@
       "definicion": "Tecnología que permite la creación de aplicaciones software sin necesidad de escribir código fuente, utilizando herramientas gráficas o interfaces visuales.",
       "merci_explica": "Puzzle digital que se desbloquea con arrastrar y soltar componentes predefinidos.",
       "apariciones": {
+        "bitacora-mercedev-epic-09.md": [
+          "L52"
+        ],
         "bitacora-mercedev-epic-02.md": [
           "L185"
         ]
@@ -2318,7 +2327,7 @@
           "L451"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L87"
+          "L170"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L478"
@@ -2612,7 +2621,7 @@
       "merci_explica": "Juego de acertijos donde cada pieza del rompecabezas representa un tipo diferente de conocimiento, y juntas forman la imagen completa.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L111"
+          "L194"
         ]
       }
     },
@@ -2624,7 +2633,7 @@
       "merci_explica": "Reglas que permiten volar cuando se puede ver el terreno y las nubes, como si estuvieras conduciendo un automóvil por una carretera.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L84"
+          "L167"
         ]
       }
     }
