@@ -40,6 +40,24 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-06-15 — Fase 4: Éxito del Chaos Monkey y Activación del Circuit Breaker
+
+**Contexto:**
+Tras solucionar el problema de la API de Gemini, se reanudó la simulación de *Chaos Engineering* (Táctica B - Corte de Red). El objetivo era comprobar empíricamente que el entorno de producción puede sobrevivir a un fallo del motor de IA local sin interrupción de servicio y soportar la carga masiva en la nube.
+
+**Hecho:**
+- El *Chaos Monkey* inyectó con éxito una caída catastrófica en Ollama (puerto muerto 9999).
+- El sistema de agentes interceptó el fallo de conexión (`[Errno 111] Connection refused`) y aplicó el *Fallback* a Gemini 2.5 Flash de forma transparente.
+- Tras 8 iteraciones de fallback exitosas, la cuenta gratuita de la API de Google aplicó un *Rate Limit* (Demasiadas peticiones).
+- Lejos de crashear el pipeline, el patrón *Circuit Breaker* diseñado en `merci-brain.py` capturó la excepción, suspendió elegantemente las llamadas a la API, e inyectó automáticamente una cadena de contingencia (`[Fallback]`) en los 84 artículos restantes.
+- La compilación finalizó con código de éxito (Exit 0) y el *Chaos Monkey* aplicó el *Auto-Healing* devolviendo el repositorio a su estado inmaculado.
+
+**Motivo / criterio:**
+El objetivo de SRE (*Site Reliability Engineering*) no es que los componentes nunca fallen, sino que el sistema global nunca colapse cuando lo hacen. La prueba empírica demuestra que el ecosistema cuenta con doble capa de protección: resiliencia ante cortes de red (*Fallback*) y resiliencia ante denegación de servicio o límites de cuota (*Circuit Breaker*).
+
+**Siguiente paso o deuda:**
+Promover el aprendizaje de esta sesión a la biblioteca creando un nuevo cuadernillo sobre la arquitectura de Pila Híbrida y *Chaos Engineering*.
+
 ### 2026-06-15 — Fase 4: Descubrimiento de Fallo en Producción por Chaos Engineering
 
 **Contexto:**
