@@ -7,7 +7,18 @@ Bitácora activa para registrar las decisiones, arquitectura y evolución técni
 
 ## Registro cronológico
 
+### 2026-06-15 — Investigación: Preservación de Herramientas Estériles (FFmpeg)
 
+**Contexto (Desafío):**
+Se necesitaba automatizar la purga de tiempos muertos ("congelación de terminal") en los vídeos de demostración del proyecto (showcase). Se experimentó con la vía de bajo nivel usando `FFmpeg` y el filtro `mpdecimate`.
+
+**Hecho (Maniobra):**
+- Se generó el script `scripts/temporales/merci-mpdecimate-fastforward.sh`.
+- El script cumplió técnicamente su función de compresión extrema (de 272MB a 62MB), pero generó un efecto "Hyper-Timelapse" epiléptico inasumible para la visualización humana.
+- En lugar de desechar el código, se confinó en el nuevo directorio `scripts/temporales/` y se documentó explícitamente en su cabecera el motivo de su fracaso y las alternativas humanas recomendadas (CapCut, auto-editor), cumpliendo las normas de gobernanza.
+
+**Motivo / criterio (Aprendizaje):**
+Un script fracasado es una lección arquitectónica valiosa. Mantener el ecosistema Zero-Bloat también implica no saturar la carpeta principal de `scripts/` con utilidades estériles, derivándolas a un silo de cuarentena/histórico debidamente comentado.
 ## Notas Arquitectónicas
 
 *(Espacio para documentar bloqueos o decisiones técnicas durante la ejecución de la épica).*
