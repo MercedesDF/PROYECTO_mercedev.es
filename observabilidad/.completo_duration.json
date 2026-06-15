@@ -1,8 +1,8 @@
 {
-  "duration_seconds": 54.628339529037476,
+  "duration_seconds": 93.06338620185852,
   "breakdown": {
-    "merci-total.py": 8.360770225524902,
-    "merci-commit.py": 1.5544030666351318,
-    "merci-deploy.py": 44.712907791137695
+    "merci-total.py": 8.449942588806152,
+    "merci-commit.py": 40.37856101989746,
+    "merci-deploy.py": 44.23460531234741
   }
 }
