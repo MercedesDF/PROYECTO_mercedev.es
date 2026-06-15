@@ -40,7 +40,7 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
-### 2026-06-15 — Fase 3: Autarquía del Motor de IA (Antigravity Proxy)
+### 2026-06-15 — Fase 3: Autarquía del Motor de IA ( Antigravity Proxy / LiteLLM )
 
 **Contexto:**
 La arquitectura requería evolucionar más allá de la dependencia exclusiva en modelos locales (Ollama), configurando un enrutamiento seguro hacia el IDE Antigravity / Gemini Proxy como motor de contingencia y respaldo definitivo.
