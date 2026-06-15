@@ -93,7 +93,7 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 2. En la próxima sesión, ejecutar el cierre oficial de la Fase y de la Épica 8.
 3. **[ESTUDIO PARA MAÑANA]:** Revisión a fondo de los prompts y viabilidad de aplicar la orquestación local para eludir los límites de tokens de Google (es decir, conseguir correr Gemini a nivel local e integrarlo directamente en el proyecto).
 
-### 2026-06-14 — Observabilidad: Validación de Latencia en PageSpeed API y Caché SRE
+### 2026-06-14 — Observabilidad: Validación de Latencia en PageSpeed API y Caché SRE 
 
 **Contexto:** Durante la ejecución del pipeline local se reportó una anomalía percibida de rendimiento (`10.87s`) en el agente autónomo `merci-extract-metrics.py`.
 
