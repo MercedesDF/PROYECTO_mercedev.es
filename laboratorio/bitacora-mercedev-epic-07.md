@@ -20,6 +20,35 @@ No sustituye a `instrucciones.md` (directrices y rol del asistente). Complementa
 
 ## Registro cronológico
 
+### 2026-06-15 — Gestión/SRE: Cierre Definitivo de Épica 7
+
+**Contexto:** Aplicación del "Protocolo Estricto de Cierre" para sellar formalmente la Épica 7 (Enriquecimiento Visual y Multimedia) coincidiendo con la actualización del Boilerplate a la versión `v1.18.0`.
+
+**Hecho (Checklist de Cierre):**
+- [x] **1. Conciliación de Deuda Técnica:** Las tareas funcionales y multimedia pendientes se han fusionado y trasladado formalmente a la Épica 8.
+- [x] **2. Cosecha de Conocimiento:** Documentación del patrón "Video-as-GIF" y compendios actualizados en la biblioteca.
+- [x] **3. Auditoría Documental:** `merci-drift.py` validado en verde.
+- [x] **4. Evaluación de Release (Boilerplate):** Actualizado formalmente a `v1.18.0`.
+- [x] **5. Certificación de Rendimiento:** PageSpeed 100/100 mantenido a pesar de las inyecciones de vídeo en el DOM.
+- [x] **6. Snapshot (Backup Local):** Creado en `observabilidad/backups/`.
+- [x] **7. Sello Definitivo:** `merci completo` lanzado y ejecutado con éxito.
+
+**Motivo / criterio:** *End-to-End Automation*. Un repositorio nunca está saneado si su bitácora no se sella. Formalizar este cierre garantiza que la "Única Fuente de Verdad" siga limpia y que no queden hilos documentales sueltos.
+
+**Siguiente paso o deuda:** Centrar todo el flujo de trabajo y registro en la Épica 8.
+
+### 2026-06-15 — Gestión/Arquitectura: Traslado de Tareas a la Épica 8
+
+**Contexto (Desafío):** Mantener la pulcritud y trazabilidad en el Roadmap. Algunas tareas de la Épica 7 (Gamificación UX como "Merci Explica" y Multimedia Avanzada) se completaron o solaparon mientras ya se trabajaba activamente en la Épica 8.
+
+**Hecho (Maniobra):**
+- Se eliminaron del backlog de la Épica 7 las tareas "Diseñar e integrar visualmente las intervenciones de Merci Explica" y la "Integración de soporte para videos optimizados".
+- Se añadieron a la Épica 8 bajo la sección "Fase 7: Tareas Rescatadas de Épicas Anteriores", marcándolas como completadas.
+
+**Motivo / criterio (Aprendizaje):** *Lean Management y Zero Bloat*. Al mover las tareas a la épica activa donde realmente se ejecutaron, evitamos arrastrar el cierre de la Épica 7 artificialmente o realizar cierres duplicados consecutivos.
+
+**Siguiente paso o deuda:** Ejecutar el "Protocolo Estricto de Cierre" para la Épica 7.
+
 ### 2026-06-06 — Arquitectura/Rendimiento: Implementación del patrón "Video-as-GIF"
 
 **Contexto (Desafío):** Reducir drásticamente el peso de las grabaciones de terminal (screencasts) y vídeos de la interfaz para emular el comportamiento de un GIF, ya que el formato `.gif` real es altamente ineficiente en términos de rendimiento (impacto negativo en Core Web Vitals).

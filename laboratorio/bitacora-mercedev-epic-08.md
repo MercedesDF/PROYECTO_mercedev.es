@@ -7,6 +7,32 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 
 ## Registro cronológico
 
+### 2026-06-15 — Gestión/Gobernanza: Migración de Tareas y Saneamiento Documental
+
+**Contexto:** Varias tareas funcionales documentadas originalmente en la Épica 7 ("Gamificación UX" e "Integración Multimedia") se resolvieron de manera orgánica durante el ciclo de vida de la Épica 8. Además, se detectó una inconsistencia en el orden cronológico de esta misma bitácora (registros de días anteriores inyectados por error al final del archivo).
+
+**Hecho:**
+- Se migró formalmente el alcance completado de la Épica 7 hacia la Épica 8 dentro del `ROADMAP.md` (bajo la sección "Fase 7: Tareas Rescatadas de Épicas Anteriores").
+- Se ejecutó el cierre retroactivo de la Épica 7 en su propia bitácora y se marcó como `(Concluida)` en el Roadmap maestro.
+- Se refactorizó esta bitácora (`bitacora-mercedev-epic-08.md`) para cumplir estrictamente con el principio de orden cronológico inverso, trasladando registros huérfanos al principio.
+
+**Motivo / criterio:** *Agile y SSOT*. Unificar el trabajo bajo la épica activa donde realmente se consolidó evita cierres duplicados o vacíos, manteniendo la trazabilidad del proyecto inmaculada. La bitácora debe ser predecible y cumplir invariablemente sus propias reglas de formato.
+
+**Siguiente paso o deuda:** Mantener el rigor en las próximas entradas.
+
+### 2026-06-15 — Observabilidad y Copywriting: Inyección E2E (Data-Driven Copy) y Calibración de Gauges
+
+**Contexto:** El "Data-Driven Copywriting" inyectaba en portada el tiempo del pipeline parcial (`merci total`, ~8s), en lugar del tiempo End-to-End real de la Cadena de Suministro (QA + Commit + Deploy). Por otro lado, el panel "ROADMAP" en Grafana mostraba un fallo visual (aguja saturada al límite) pese a recibir métricas correctas (`229` completadas y `8` pendientes).
+
+**Hecho:**
+- **SRE & Telemetry:** Se actualizó el agente SRE (`merci-sre.py`) para exportar el registro `merci_completo_duration_seconds` a Prometheus. Se redirigió `merci-telemetry.py` para inyectar este nuevo valor en el HTML estático de la portada.
+- **Calibración Grafana:** Se inyectaron límites matemáticos explícitos (`"min": 0, "max": 300`) en el panel Gauge de `merci-dashboard.json` para evitar que el renderizador colapsara al superar el techo ciego por defecto (100).
+- **SSOT Roadmap:** Se marcaron como completadas las tareas correspondientes a "Métricas vivas" y "Referencias cruzadas" en el Roadmap, actualizando dinámicamente los contadores exportados.
+
+**Motivo / criterio:** *Data-Driven Copywriting y Observabilidad Precisa*. Los reclamos de marketing técnico (ej. "Todo en apenas 47 segundos") deben reflejar con extrema pulcritud el peor escenario real (End-to-End) para mantener la autoridad técnica. Asimismo, la calibración estricta de dashboards previene ruidos y falsos positivos en el análisis visual de las operaciones SRE.
+
+**Siguiente paso o deuda:** Lanzar un `merci completo` para que Prometheus ingeste los nuevos récords E2E y despliegue el ecosistema íntegro.
+
 ### 2026-06-15 — DevRel/Editorial: Refinamiento de la Voz de Merci (Proporción 80/20) y Regla Pre-Commit
 
 **Contexto:** Tras expandir "Merci Explica" a toda la web, se detectó que los bloques generados por la IA local (Ollama) en los cuadernillos técnicos repetían patrones sintácticos predecibles (ej. "Imagina que...", "Es como..."), restando frescura y autoridad al contenido. Adicionalmente, era necesario institucionalizar la protección del historial de Git definiendo el límite de actuación de la IA.
@@ -19,6 +45,36 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 **Motivo / criterio:** *Copywriting Orgánico y Zero Trust AI*. La Inteligencia Artificial es una herramienta de curación de datos, no un redactor creativo definitivo. La revisión manual humana garantiza una "Voz de Marca" auténtica y profesional. Establecer un límite duro (prohibición de commit) blinda el repositorio contra automatizaciones destructivas, garantizando que todo cambio pasa por revisión humana antes de su inclusión definitiva en el ecosistema.
 
 **Siguiente paso o deuda:** Ejecutar la validación del ecosistema (`merci total`) en local y proceder con el commit manual.
+
+### 2026-06-14 — UX/Publishing: Consolidación de UI global, Shift-Left SEO y validación DevRel
+
+**Contexto:** Tras la creación de la nueva sección "Proyectos Satélite", se detectaron varios desajustes en la experiencia de usuario (UX) y en la canalización del ecosistema: la navegación principal iluminaba erróneamente la "Biblioteca" al visitar los proyectos, la auditoría SEO arrojaba casi 80 advertencias por metadatos (títulos y descripciones) excesivamente largos, y faltaban botones de usabilidad básicos (Back to Top). Además, se procedió a revisar la incubadora de blogs generados a partir de los cuadernillos para asegurar que la estrategia de distribución estaba optimizada.
+
+**Hecho:**
+- **Navegación y UX:** Se asignó un ID único (`page-proyectos`) a la página de proyectos y se inyectó el enlace directamente en el `nav` global (`_header.scss` y `index.html`).
+- **Accesibilidad y Navegación Rápida:** Se inyectó globalmente el botón flotante (Zero JS) "Volver arriba" (`↑`) tanto en la plantilla de compilación de `merci-publish.py` como en todas las páginas estáticas maestras.
+- **Shift-Left SEO:** Se implementó una lógica de truncamiento robusta en `merci-publish.py` para asegurar que los metadatos de los artículos no superen los 65 caracteres para títulos y 150 para descripciones antes de compilarse.
+- **Cero Fricción Linter:** Se purgaron las cachés y se recompiló el 100% de la biblioteca para aplicar los cambios SEO, resolviendo las advertencias de acrónimos (expansión del W3C).
+- **Validación DevRel:** Se auditaron 3 nuevos posts para el blog basados en los cuadernillos, ajustando su Frontmatter (`tipo: blog`) y garantizando la presencia del enlace de anclaje (Patrón COPE) hacia la Única Fuente de Verdad.
+
+**Motivo / criterio:** *Developer Experience (DX) y Zero Maintenance*. Solventar los desajustes de enrutamiento y purgar los 79 avisos de SEO directamente en el orquestador SSG (`merci-publish.py`) erradica el problema de raíz para cualquier documento futuro, sin añadir deuda técnica. Asegurar que los blogs actúen como embudos hacia la biblioteca técnica respeta el principio *Create Once, Publish Everywhere* (COPE).
+
+**Siguiente paso o deuda:** Iniciar las pruebas de inyección multimedia (vídeos e imágenes) en la página estática de Proyectos Satélite (Showcase) y proceder con el sellado de la versión (`merci completo`).
+
+### 2026-06-14 — UI/Accessibility: Fuerza Bruta de Contraste (WCAG AAA) en Estanterías y Metadatos
+
+**Contexto:** Tras la auditoría visual de PageSpeed Insights (Lighthouse), saltaron avisos persistentes de bajo contraste (menos de `4.5:1`) en los enlaces temáticos de la Biblioteca (colores asignados vía `$theme-colors`) y en los metadatos de las tarjetas (`card__meta`), dificultando la lectura a usuarios con discapacidades visuales o pantallas con bajo brillo.
+
+**Hecho:** Se refactorizaron las variables de color en `src/scss/abstracts/_variables.scss`, descendiendo los tonos base problemáticos de las series 500 y 600 a los niveles 700 y 800 de la paleta Tailwind:
+- `productividad-y-gobernanza`: Naranja 800 (`#9a3412`)
+- `inteligencia-artificial-y-agentes`: Esmeralda 800 (`#065f46`)
+- `art-de-cote`: Sky 800 (`#075985`)
+- `$color-text-muted` (usado en metadatos y sub-elementos): Slate 700 (`#334155`)
+- Se recompiló el frontend completo con `merci-total`.
+
+**Motivo / criterio:** *Accesibilidad Universal (A11y) y Tolerancia Cero al Warning*. Al transferir el peso semántico del color directamente al texto (y sobre fondos muy claros), los tonos medios no son suficientes. Forzar el nivel estricto WCAG AAA (contraste > `7:1`) elimina permanentemente los fallos de accesibilidad en auditorías, respetando el Wayfinding visual sin degradar la experiencia de usuario.
+
+**Siguiente paso o deuda:** Iniciar el showcase de inyección de contenido multimedia (vídeos/imágenes) en "Proyectos Satélite".
 
 ### 2026-06-14 — Gobernanza de Contenidos: Documentación de Estrategia Fallback WebM/MP4 y Prevención de Duplicate Content
 
@@ -746,33 +802,3 @@ Bitácora activa para registrar las decisiones, refactorizaciones y limpiezas de
 **Hecho:** Se añadió la "Fase 6: Refinamiento de Textos y Experiencia Documental" al Roadmap de la Épica 8.
 
 **Motivo / criterio:** *Accesibilidad Cognitiva y DevRel*. De nada sirve un sistema avanzado si la documentación es impenetrable. Limpiar los anglicismos, enlazar al glosario, reestructurar visualmente la biblioteca y expandir las analogías ("Merci Explica") garantizará que el conocimiento técnico se transmita con claridad a cualquier lector.
-
-### 2026-06-14 — UX/Publishing: Consolidación de UI global, Shift-Left SEO y validación DevRel
-
-**Contexto:** Tras la creación de la nueva sección "Proyectos Satélite", se detectaron varios desajustes en la experiencia de usuario (UX) y en la canalización del ecosistema: la navegación principal iluminaba erróneamente la "Biblioteca" al visitar los proyectos, la auditoría SEO arrojaba casi 80 advertencias por metadatos (títulos y descripciones) excesivamente largos, y faltaban botones de usabilidad básicos (Back to Top). Además, se procedió a revisar la incubadora de blogs generados a partir de los cuadernillos para asegurar que la estrategia de distribución estaba optimizada.
-
-**Hecho:**
-- **Navegación y UX:** Se asignó un ID único (`page-proyectos`) a la página de proyectos y se inyectó el enlace directamente en el `nav` global (`_header.scss` y `index.html`).
-- **Accesibilidad y Navegación Rápida:** Se inyectó globalmente el botón flotante (Zero JS) "Volver arriba" (`↑`) tanto en la plantilla de compilación de `merci-publish.py` como en todas las páginas estáticas maestras.
-- **Shift-Left SEO:** Se implementó una lógica de truncamiento robusta en `merci-publish.py` para asegurar que los metadatos de los artículos no superen los 65 caracteres para títulos y 150 para descripciones antes de compilarse.
-- **Cero Fricción Linter:** Se purgaron las cachés y se recompiló el 100% de la biblioteca para aplicar los cambios SEO, resolviendo las advertencias de acrónimos (expansión del W3C).
-- **Validación DevRel:** Se auditaron 3 nuevos posts para el blog basados en los cuadernillos, ajustando su Frontmatter (`tipo: blog`) y garantizando la presencia del enlace de anclaje (Patrón COPE) hacia la Única Fuente de Verdad.
-
-**Motivo / criterio:** *Developer Experience (DX) y Zero Maintenance*. Solventar los desajustes de enrutamiento y purgar los 79 avisos de SEO directamente en el orquestador SSG (`merci-publish.py`) erradica el problema de raíz para cualquier documento futuro, sin añadir deuda técnica. Asegurar que los blogs actúen como embudos hacia la biblioteca técnica respeta el principio *Create Once, Publish Everywhere* (COPE).
-
-**Siguiente paso o deuda:** Iniciar las pruebas de inyección multimedia (vídeos e imágenes) en la página estática de Proyectos Satélite (Showcase) y proceder con el sellado de la versión (`merci completo`).
-
-### 2026-06-14 — UI/Accessibility: Fuerza Bruta de Contraste (WCAG AAA) en Estanterías y Metadatos
-
-**Contexto:** Tras la auditoría visual de PageSpeed Insights (Lighthouse), saltaron avisos persistentes de bajo contraste (menos de `4.5:1`) en los enlaces temáticos de la Biblioteca (colores asignados vía `$theme-colors`) y en los metadatos de las tarjetas (`card__meta`), dificultando la lectura a usuarios con discapacidades visuales o pantallas con bajo brillo.
-
-**Hecho:** Se refactorizaron las variables de color en `src/scss/abstracts/_variables.scss`, descendiendo los tonos base problemáticos de las series 500 y 600 a los niveles 700 y 800 de la paleta Tailwind:
-- `productividad-y-gobernanza`: Naranja 800 (`#9a3412`)
-- `inteligencia-artificial-y-agentes`: Esmeralda 800 (`#065f46`)
-- `art-de-cote`: Sky 800 (`#075985`)
-- `$color-text-muted` (usado en metadatos y sub-elementos): Slate 700 (`#334155`)
-- Se recompiló el frontend completo con `merci-total`.
-
-**Motivo / criterio:** *Accesibilidad Universal (A11y) y Tolerancia Cero al Warning*. Al transferir el peso semántico del color directamente al texto (y sobre fondos muy claros), los tonos medios no son suficientes. Forzar el nivel estricto WCAG AAA (contraste > `7:1`) elimina permanentemente los fallos de accesibilidad en auditorías, respetando el Wayfinding visual sin degradar la experiencia de usuario.
-
-**Siguiente paso o deuda:** Iniciar el showcase de inyección de contenido multimedia (vídeos/imágenes) en "Proyectos Satélite".

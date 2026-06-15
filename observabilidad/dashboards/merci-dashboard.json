@@ -412,11 +412,33 @@
                       "spec": {
                         "editorMode": "code",
                         "expr": "merci_pipeline_duration_seconds{}",
-                        "legendFormat": "__auto",
+                        "legendFormat": "QA (merci total)",
                         "range": true
                       }
                     },
                     "refId": "A",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "type": "prometheus",
+                        "uid": "prometheus"
+                      },
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "merci_completo_duration_seconds{}",
+                        "legendFormat": "E2E (merci completo)",
+                        "range": true
+                      }
+                    },
+                    "refId": "B",
                     "hidden": false
                   }
                 }
@@ -547,6 +569,8 @@
               },
               "fieldConfig": {
                 "defaults": {
+                  "min": 0,
+                  "max": 300,
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [

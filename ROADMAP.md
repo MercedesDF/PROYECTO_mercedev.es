@@ -258,7 +258,7 @@
 
 ---
 
-## ÉPICA 7: ENRIQUECIMIENTO VISUAL Y MULTIMEDIA (En curso)
+## ÉPICA 7: ENRIQUECIMIENTO VISUAL Y MULTIMEDIA (Concluida)
 
 ### Fase 1: Telemetría y Activos del Showcase (Completada)
 - [x] Implementar botón de retorno ("Volver a mercedev.es") en la interfaz del Showcase para evitar fugas de tráfico.
@@ -274,19 +274,11 @@
 - [x] Refinar las animaciones (CSS) y microinteracciones del ecosistema.
 - [x] Cierre de fase
 
-### Fase 3: Integración Multimedia Avanzada
-- [ ] Integrar soporte para videos optimizados y multimedia enriquecida en la portada y Biblioteca (imágenes de alta resolución).
-- [ ] Cierre de fase
-
-### Fase 4: Gamificación UX e Interfaz Conversacional
-- [ ] Diseñar e integrar visualmente las intervenciones de "Merci Explica" y "Easter Eggs" a lo largo de la interfaz (tooltips, bloques semánticos personalizados).
-- [ ] Cierre de fase
-
-### Fase 5: Telemetría Autónoma (PageSpeed API)
+### Fase 3: Telemetría Autónoma (PageSpeed API)
 - [x] Refactorizar `merci-extract-metrics.py` para integrarse con la API de Google PageSpeed Insights (eliminando los JSON manuales).
 - [x] Añadir `PAGESPEED_API_KEY` al `.env` y ajustar el parseo a la estructura `.lighthouseResult`.
-- [ ] Cierre de fase
-- [ ] Cierre de épica
+- [x] Cierre de fase
+- [x] Cierre de épica
 
 --- 
 
@@ -345,7 +337,16 @@
 - [x] Eliminación de exceso de anglicismos (Soberanía del Castellano) o enlazado dinámico de términos al Glosario Técnico.
 - [x] Refinamiento de la presentación visual de la Biblioteca (reestructuración de formatos y layout) para ayudar a procesar la alta densidad de información.
 - [x] Corrección de desbordamiento CSS (overflow) en bloques de código para vistas móviles y PDF (WeasyPrint).
-- [ ] Creación de referencias cruzadas sólidas entre los distintos cuadernillos de la Biblioteca.
+- [x] Creación de referencias cruzadas sólidas entre los distintos cuadernillos de la Biblioteca.
+
+### Fase 7: Tareas Rescatadas de Épicas Anteriores
+
+- [x] **Multimedia Avanzada:** Integrar soporte para videos optimizados y multimedia enriquecida en la portada y Biblioteca (imágenes de alta resolución).
+- [x] **Gamificación UX:** Diseñar e integrar visualmente las intervenciones de "Merci Explica" y "Easter Eggs" a lo largo de la interfaz (tooltips, bloques semánticos personalizados).
+
+### Fase 8: Tareas del Backlog Completadas
+
+- [x] **Métricas Vivas en el Copy (Data-Driven Copywriting):** Introducir las métricas reales del proyecto (ej. tiempo de despliegue en segundos, TBT, etc.) directamente en los textos estáticos cada vez que se actualicen, extrayéndolos del SRE/Dashboard. Por ejemplo: si en portada se mencionan "53 segundos" pero el último despliegue bajó a "47.38sg", la automatización o inyección debe actualizarlo siempre respetando el mejor resultado histórico.
 
 ---
 
@@ -355,5 +356,4 @@ Iniciativas documentadas para futuras iteraciones que actualmente no pertenecen 
 
 - [ ] **Sellos de Rendimiento Granulares por URL:** Inyectar un *micro-badge* visual Zero-JS en los metadatos de los artículos (Biblioteca/Blog) o al final del texto con el resultado individual de rendimiento (100/100).
   - *Deuda Técnica (CI/CD):* Auditar múltiples URLs dinámicas penalizaría drásticamente el tiempo del pipeline. Requiere diseñar previamente un sistema de "Muestra Representativa" (auditar solo la plantilla genérica) o una caché de validación en GitHub Actions basada en fechas físicas (`st_mtime`).
-- [ ] **Evaluación de Fallback Local para LLM (Tokens Google):** Revisar el uso de la IA de forma automática cuando se agoten los tokens de la cuota gratuita, replicando la arquitectura actual del IDE. Cuando se terminan los tokens, se pasa a local (Ollama).
-- [ ] **Métricas Vivas en el Copy (Data-Driven Copywriting):** Introducir las métricas reales del proyecto (ej. tiempo de despliegue en segundos, TBT, etc.) directamente en los textos estáticos cada vez que se actualicen, extrayéndolos del SRE/Dashboard. Por ejemplo: si en portada se mencionan "53 segundos" pero el último despliegue bajó a "47.38sg", la automatización o inyección debe actualizarlo siempre respetando el mejor resultado histórico.
+- [ ] **Integración de esta IA (Antigravity/Proxy) como Motor Interno:** Estudiar la viabilidad técnica de enrutar las peticiones de los agentes del proyecto (`merci-brain`, `merci-blogger`, etc.) a través de la arquitectura y el proxy local de esta misma IA (Antigravity IDE / Gemini proxy ejecutado vía Tmux). El objetivo es usar esta inteligencia superior como motor de respaldo cuando se agoten los tokens de la API gratuita de Google, sustituyendo así a las IAs locales más limitadas (Ollama).
