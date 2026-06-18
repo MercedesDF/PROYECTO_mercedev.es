@@ -96,22 +96,36 @@ def main() -> None:
 
     prompt = f"--- ÚLTIMOS HECHOS EXTRAÍDOS ---\n{bitacora_filtrada}\n\n--- TAREAS PENDIENTES ---\n{pending_list_str}"
 
-    print("  🏠 Consultando a motor local (Ollama - qwen2.5-coder)...")
+    print("  🏠 Consultando a motor en la nube (Antigravity Proxy - Gemini Flash)...")
+    
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        env_path = REPO_ROOT / ".env"
+        if env_path.exists():
+            for line in env_path.read_text().splitlines():
+                if line.startswith("GEMINI_API_KEY="):
+                    api_key = line.split("=", 1)[1].strip('"\'')
+                    os.environ["GEMINI_API_KEY"] = api_key
+                    break
+
+    if not api_key:
+        print("  ❌ [Merci Error] GEMINI_API_KEY no detectada. Cancelando SSOT.")
+        sys.exit(1)
+
     try:
         respuesta = completion(
-            model="ollama/qwen2.5-coder",
-            api_base="http://localhost:11434",
+            model="gemini/gemini-2.5-flash",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt}
             ],
+            api_key=api_key,
             temperature=0.0,
-            max_tokens=4000,
-            timeout=600
+            max_tokens=4000
         )
         raw_response = respuesta.choices[0].message.content
-    except Exception as e_local:
-        print(f"  ❌ [Merci Error] Falló el motor local de Ollama. Detalle: {e_local}")
+    except Exception as e_cloud:
+        print(f"  ❌ [Merci Error] Falló el motor Gemini Flash. Detalle: {e_cloud}")
         sys.exit(1)
 
     try:

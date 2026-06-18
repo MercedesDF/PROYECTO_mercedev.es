@@ -31,7 +31,8 @@ if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
 ?>
 <body id="<?php echo $body_id; ?>" <?php body_class('theme-body page'); ?>>
 
-    <header class="header" id="top">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
         <a href="/" class="header__brand">
             <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65" fetchpriority="low" decoding="async">
         </a>

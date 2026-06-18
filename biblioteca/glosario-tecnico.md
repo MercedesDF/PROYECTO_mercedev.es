@@ -3,14 +3,14 @@ titulo: "Glosario Técnico"
 descripcion: "Diccionario Data-Driven compilado automáticamente por el Agente Glosario."
 tema: "DevSecOps e Infraestructura"
 estado: "publicado"
-alt_portada: "Diccionario técnico automatizado 2026-06-15"
-fecha: "2026-06-15"
+alt_portada: "Diccionario técnico automatizado 2026-06-18"
+fecha: "2026-06-18"
 ---
 
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 146 términos consolidados (Última actualización de datos: 2026-06-15 23:15).
+> **Versión de control:** 147 términos consolidados (Última actualización de datos: 2026-06-18 09:11).
 
 ## Índice Alfabético
 
@@ -1237,6 +1237,17 @@ fecha: "2026-06-15"
 - bitacora-mercedev-epic-03.md: L63
 - bitacora-mercedev-epic-08.md: L685
 - instrucciones.md: L31
+
+---
+### SDK
+**Inglés:** Software Development Kit | **Español:** Kit de Desarrollo de Software
+
+**Definición:** Conjunto de herramientas, bibliotecas y documentación que facilitan el desarrollo de aplicaciones para una plataforma o lenguaje específico.
+
+💡 **Merci Explica:** *Caja mágica con todo lo necesario para construir software sin tener que reinventar la rueda.*
+
+**Apariciones en Bitácoras:**
+- bitacora-mercedev-epic-09.md: L228
 
 ---
 ### SELF-HEALING

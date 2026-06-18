@@ -370,11 +370,11 @@
 
 ### Fase 4: Tareas de Chaos Engineering
 
-- [ ] **Evolución del Chaos Engineering:** Simular caídas de IA (cortes de API) para probar el fallback a Antigravity, e inyectar Deriva Documental aleatoria para validar el bloqueo del linter `merci-drift`.
-- [ ] **Refinamiento Estructural CSS:** Repaso holístico a la arquitectura de diseño (variables SCSS, micro-animaciones, alineación de botones) para asegurar un acabado *Premium* y consistente.
+- [x] **Evolución del Chaos Engineering:** Simular caídas de IA (cortes de API) para probar el fallback a Antigravity, e inyectar Deriva Documental aleatoria para validar el bloqueo del linter `merci-drift`.
+- [x] **Refinamiento Estructural CSS:** Repaso holístico a la arquitectura de diseño (variables SCSS, micro-animaciones, alineación de botones) para asegurar un acabado *Premium* y consistente.
 
 
-- [ ] Cierre de la Épica 9
+- [x] Cierre de la Épica 9
 
 ---
 

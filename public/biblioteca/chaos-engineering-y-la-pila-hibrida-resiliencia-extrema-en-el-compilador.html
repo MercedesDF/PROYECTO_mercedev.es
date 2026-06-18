@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaos Engineering y la Pila Híbrida: Resiliencia... — mercedev.es</title>
+    <meta name="description" content="Cómo el uso combinado del Patrón Fallback y Circuit Breaker, auditados por el Chaos Monkey, lograron que el ecosistema sobreviva a caídas catastróf...">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/chaos-engineering-y-la-pila-hibrida-resiliencia-extrema-en-el-compilador.html">
+    <link rel="stylesheet" href="/css/main.css?v=1781767098">
+    <script src="/js/MerciController.js?v=1781503814" defer></script>
+    <script src="/js/main.js?v=1781552845" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Chaos Engineering y la Pila H\u00edbrida: Resiliencia Extrema en el Compilador",
+      "description": "C\u00f3mo el uso combinado del Patr\u00f3n Fallback y Circuit Breaker, auditados por el Chaos Monkey, lograron que el ecosistema sobreviva a ca\u00eddas catastr\u00f3ficas del motor de Inteligencia Artificial.",
+      "url": "https://mercedev.es/biblioteca/chaos-engineering-y-la-pila-hibrida-resiliencia-extrema-en-el-compilador.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65"
+                fetchpriority="low" decoding="async">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Portada</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/proyectos/" class="nav__link">Proyectos</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Chaos Engineering y la Pila Híbrida: Resiliencia Extrema en el Compilador</h1>
+                <a href="/descargas/chaos-engineering-y-la-pila-hibrida-resiliencia-extrema-en-el-compilador.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h1>Chaos Engineering y la Pila Híbrida: Resiliencia Extrema en el Compilador</h1>
+<p>En el ecosistema <strong>mercedev.es</strong>, el uso de la Inteligencia Artificial (IA) generativa es intensivo pero estrictamente regulado. Los agentes de IA (el "Lóbulo Frontal" o <code>merci-brain</code>) inyectan respuestas dinámicas y generativas en tiempo de compilación para que el sitio público final conserve latencia 0ms (Total Blocking Time 0ms) y cero dependencias de bases de datos.</p>
+<p>Sin embargo, ¿qué sucede cuando la IA falla? </p>
+<h2>El Desafío: El Motor de IA como Punto Único de Fallo (SPOF)</h2>
+<p>La evolución de la arquitectura introdujo un dilema crítico:
+Si el servidor local de IA (Ollama) colapsa, o si la API remota de Google (Gemini) cambia sus políticas, el compilador del sitio (<code>merci-publish</code>) podría quedarse bloqueado esperando respuesta, estrellando todo el pipeline de Despliegue Continuo (<abbr title="Merci Explica: Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano." tabindex="0">CI</abbr>/CD). </p>
+<p>Era inaceptable tener un sistema de despliegue frágil. Se necesitaba certificar empíricamente la robustez.</p>
+<h2>La Maniobra: Pila Híbrida, Circuit Breaker y Chaos Monkey</h2>
+<p>Se diseñó una estrategia de resiliencia dividida en tres frentes tácticos:</p>
+<h3>1. El Patrón "Pila Híbrida" (Hybrid Stack)</h3>
+<p>Los agentes como <code>merci-brain.py</code> y <code>merci-blogger.py</code> se refactorizaron para no depender de un único proveedor. 
+- <strong>Intento Primario:</strong> Se prioriza llamar al motor local y gratuito (Ollama: <code>qwen2.5-coder</code>). Si funciona, el coste es cero y la privacidad es total.
+- <strong>Red de Seguridad (Fallback):</strong> Si el agente detecta que Ollama no responde en un <em>timeout</em> estricto de 10 segundos, asume la caída y redirige inmediatamente el tráfico de red hacia el <abbr title="Merci Explica: Herramienta única para programadores que facilita la creación y mantenimiento de software." tabindex="0">IDE</abbr> Antigravity / Gemini Proxy (la nube) usando <code>litellm</code>. </p>
+<h3>2. El Patrón "Circuit Breaker"</h3>
+<p>La red de seguridad en la nube (Gemini) resolvió las caídas del servidor local, pero las APIs gratuitas imponen límites severos (<em>Rate Limiting</em>). Si el sistema intenta compilar 100 artículos y Gemini bloquea tras 8 peticiones con un error <code>HTTP 429 - Too Many Requests</code>, el pipeline volvería a romperse.</p>
+<p>Para evitarlo, se implementó el <strong>Circuit Breaker</strong> (Cortacircuitos). Cuando <code>merci-brain.py</code> detecta un fallo de conexión persistente (tanto de Ollama como de Gemini), el sistema "corta" la electricidad: suspende las peticiones HTTP y aplica una contingencia silenciosa. Automáticamente inyecta una cadena de escape (<code>[Fallback]</code>) en el resto de artículos. El resultado final: la web se compila hasta el final con <em>Exit Code 0</em> y cero interrupciones de servicio.</p>
+<h3>3. El Juez: Chaos Engineering</h3>
+<p>Para certificar que estas defensas de papel funcionaban en el mundo real, recurrimos a <strong>Chaos Engineering</strong>. 
+El script <code>merci-chaos.py</code> (<em>Chaos Monkey</em>) inyectó un sabotaje de red masivo (Táctica B): modificó dinámicamente las variables de entorno de Ollama para apuntar al puerto 9999 (un puerto muerto).</p>
+<h2>Aprendizaje y Deuda: El Caos como Auditor</h2>
+<p>La simulación de Caos reveló dos hitos clave:</p>
+<ol>
+<li><strong>La revelación de la vulnerabilidad invisible:</strong> En el primer ataque del Chaos Monkey, el <em>Fallback</em> saltó para salvar el sistema conectando con la nube. Sin embargo, falló miserablemente porque Google había obsoleto el modelo <code>gemini-1.5-flash</code> de su API v1beta y nosotros no lo sabíamos. Gracias al <em>Chaos Engineering</em>, este fallo silencioso fue expuesto en el entorno de desarrollo y lo parcheamos inmediatamente actualizando el ecosistema a <code>gemini-2.5-flash</code>.</li>
+<li><strong>Triunfo total de Resiliencia:</strong> Tras el parcheo, repetimos el ataque. El sistema interceptó la caída del motor local, conectó con Gemini, sufrió un estrangulamiento de red por el <em>Rate Limit</em> de Google, activó el <em>Circuit Breaker</em> bloqueando las peticiones, inyectó las medidas de contingencia en 84 artículos, y finalizó con un éxito del 100% (código 0). Todo el repositorio fue auto-curado de vuelta a su estado normal.</li>
+</ol>
+<p>El objetivo de <abbr title="Merci Explica: Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo." tabindex="0">SRE</abbr> no es que el sistema nunca falle; es que cuando todos sus componentes están ardiendo simultáneamente, el resultado para el usuario siga siendo inquebrantable.</p>
+<hr />
+<p><strong>Merci Explica:</strong> <em>En SRE, el Chaos Engineering no se trata de romper cosas a lo loco, sino de orquestar un "incendio controlado" para estudiar cómo actúan los aspersores. Descubrir que tu red de seguridad estaba podrida por un cambio de API antes de que llegue el fallo real en producción, es exactamente el momento en el que el caos demuestra su inmenso valor.</em></p>
+            </div>
+        </article>
+    </main>
+    <a href="#top" class="floating-back-to-top" aria-label="Volver arriba">↑</a>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer"
+                class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer"
+                class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer"
+                class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci"
+                width="80" height="80" fetchpriority="low" decoding="async">
+        </button>
+    </aside>
+</body>
+</html>

@@ -29,7 +29,7 @@
     <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon">
     <!-- QUÉ HACE: Cache Busting dinámico incrementado a v14 -->
     <!-- POR QUÉ: Obliga a Varnish y a navegadores móviles a purgar la caché y descargar la nueva rejilla de 5 columnas. -->
-    <link rel="stylesheet" href="/css/main.css?v=1781558216">
+    <link rel="stylesheet" href="/css/main.css?v=1781767098">
     <script src="/js/MerciController.js?v=1781503814" defer></script>
     <script src="/js/main.js?v=1781552845" defer></script>
     <link rel="canonical" href="https://mercedev.es">
@@ -48,7 +48,8 @@
 <body class="page" id="page-home">
     <!-- QUÉ HACE: Centraliza el foco de "Volver arriba" semánticamente en el header -->
     <!-- POR QUÉ: Elimina el anti-patrón de accesibilidad de usar divs invisibles con tabindex="-1" -->
-    <header class="header" id="top">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
         <a href="/" class="header__brand">
             <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65"
                 fetchpriority="low" decoding="async">
@@ -95,7 +96,7 @@
 
             <div class="hero__cta">
                 <a href="/sobre-mi/" class="hero__btn">¿quieres conocerme?</a>
-                <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer"
+                <a href="https://github.com/MercedesDF/PROYECTO_mercedev.es" target="_blank" rel="noopener noreferrer"
                     class="hero__btn">Ver el código fuente</a>
                 <a href="/proyectos/" class="hero__btn">Otros proyectos</a>
             </div>
@@ -134,7 +135,7 @@
                 </div>
                 <div class="hero__metric">
                     <span class="hero__metric-label">SI</span>
-                    <span class="hero__metric-value">0.8 s</span>
+                    <span class="hero__metric-value">1.4 s</span>
                 </div>
                 <div class="hero__metric">
                     <span class="hero__metric-label">Descarga</span>
@@ -234,7 +235,7 @@
                 width="80" height="80" fetchpriority="low" decoding="async">
         </button>
     </aside>
-    <a href="#top" class="floating-back-to-top" aria-label="Volver arriba" id="back-to-top">↑</a>
+    <a href="#top" class="floating-back-to-top" aria-label="Volver arriba">↑</a>
 </body>
 
 </html>

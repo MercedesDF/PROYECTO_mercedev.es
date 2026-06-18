@@ -2636,6 +2636,18 @@
           "L167"
         ]
       }
+    },
+    "SDK": {
+      "nombre": "SDK",
+      "ingles": "Software Development Kit",
+      "espanol": "Kit de Desarrollo de Software",
+      "definicion": "Conjunto de herramientas, bibliotecas y documentación que facilitan el desarrollo de aplicaciones para una plataforma o lenguaje específico.",
+      "merci_explica": "Caja mágica con todo lo necesario para construir software sin tener que reinventar la rueda.",
+      "apariciones": {
+        "bitacora-mercedev-epic-09.md": [
+          "L228"
+        ]
+      }
     }
   },
   "ignorados": [

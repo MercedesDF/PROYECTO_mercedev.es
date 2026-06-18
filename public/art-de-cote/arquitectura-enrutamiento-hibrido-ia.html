@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Por qué tu IDE y tu Compilador necesitan IAs opu... — mercedev.es</title>
+    <meta name="description" content="Cómo diseñar una estrategia de Fallback en litellm invirtiendo la carga cognitiva entre el entorno de desarrollo y el pipeline de integración conti...">
+    <link rel="canonical" href="https://mercedev.es/art-de-cote/arquitectura-enrutamiento-hibrido-ia.html">
+    <link rel="stylesheet" href="/css/main.css?v=1781767098">
+    <script src="/js/MerciController.js?v=1781503814" defer></script>
+    <script src="/js/main.js?v=1781552845" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Por qu\u00e9 tu IDE y tu Compilador necesitan IAs opuestas: Arquitectura de Enrutamiento H\u00edbrido",
+      "description": "C\u00f3mo dise\u00f1ar una estrategia de Fallback en litellm invirtiendo la carga cognitiva entre el entorno de desarrollo y el pipeline de integraci\u00f3n continua.",
+      "url": "https://mercedev.es/art-de-cote/arquitectura-enrutamiento-hibrido-ia.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-art-de-cote">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65"
+                fetchpriority="low" decoding="async">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Portada</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/proyectos/" class="nav__link">Proyectos</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--book">
+            <a href="/art-de-cote/" class="card__back-link">← Volver a Art de Coté</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Por qué tu IDE y tu Compilador necesitan IAs opuestas: Arquitectura de Enrutamiento Híbrido</h1>
+                <a href="/descargas/arquitectura-enrutamiento-hibrido-ia.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h1>Por qué tu <abbr title="Merci Explica: Herramienta única para programadores que facilita la creación y mantenimiento de software." tabindex="0">IDE</abbr> y tu Compilador necesitan IAs opuestas</h1>
+<p>Cuando integras Inteligencia Artificial Generativa en todo el ciclo de vida de tu software, cometes rápidamente el primer error de novato: usar el mismo proveedor (como OpenAI o Google Gemini) para todo. </p>
+<p>En <strong>mercedev.es</strong>, el ecosistema está gobernado por IA en dos frentes masivos:
+1. <strong>El Entorno de Desarrollo (IDE Antigravity):</strong> Donde programo, refactorizo y debato sobre arquitectura.
+2. <strong>El Pipeline de Compilación (<code>merci-publish</code>):</strong> Donde un ejército de agentes genera metadatos, saludos y resúmenes para decenas de artículos en tiempo de compilación.</p>
+<p>Si usas la API de Google para ambos, te quedarás sin cuota gratuita (Error <code>HTTP 429 - Too Many Requests</code>) antes de terminar el día. ¿La solución? Diseñar dos <strong>Pilas Híbridas de Enrutamiento (Hybrid Stacks)</strong> con reglas de negocio estrictamente invertidas.</p>
+<h2>1. El Router del IDE: Inteligencia Máxima ➔ Supervivencia Local</h2>
+<p>Cuando abro la terminal y escribo mi alias de desarrollo, se levanta un servidor de <code>litellm</code> configurado con una directiva muy clara: <strong>Priorizar el coeficiente intelectual</strong>.</p>
+<p>En programación, un error de contexto de la IA te cuesta horas de depuración. Por tanto, el enrutador del IDE funciona así:
+- <strong>Intento Primario (Cloud):</strong> Todas las consultas van directas a <em>Google Gemini 2.5 Flash</em> (o modelos equivalentes de altísima capacidad). 
+- <strong>Fallback de Emergencia (Local):</strong> Si Google me bloquea por límite de tokens o se cae el internet, <code>litellm</code> intercepta el error HTTP y deriva la consulta silenciosamente a <strong>LM Studio (qwen2.5-coder)</strong> ejecutándose en mi propio hardware (puerto 1234). </p>
+<blockquote>
+<p>[!TIP]
+<strong>El resultado:</strong> Pierdo un porcentaje de inteligencia o contexto, pero sigo programando sin interrupciones y a coste cero. Es pura "Degradación Elegante" (Graceful Degradation).</p>
+</blockquote>
+<h2>2. El Router del Compilador: Ahorro Máximo ➔ Rescate Cloud ➔ Circuit Breaker</h2>
+<p>El pipeline de compilación estática es una bestia muy distinta. Generar 100 meta-descripciones SEO o saludar a los lectores de un artículo no requiere un modelo de 175 mil millones de parámetros. Gastar tokens de la nube en esto es un crimen arquitectónico.</p>
+<p>Por eso, el script <code>merci-brain.py</code> (el Lóbulo Frontal del compilador) invierte las reglas:
+- <strong>Intento Primario (Local):</strong> Todas las peticiones bombardean implacablemente a <strong>Ollama (qwen2.5-coder)</strong> en el puerto 11434. Es rápido, privado y 100% gratuito. Cero desgaste de cuotas.
+- <strong>Red de Seguridad (Cloud):</strong> Si el servidor de Ollama se cae (o si el <em>Chaos Monkey</em> lo sabotea durante las pruebas de <abbr title="Merci Explica: Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano." tabindex="0">CI</abbr>/CD), el sistema redirige el tráfico hacia el proxy de Gemini en la nube para asegurar que la web se pueda desplegar sí o sí.
+- <strong>El Cortacircuitos (Circuit Breaker):</strong> ¿Y si Gemini también falla? A diferencia del IDE, el compilador <em>no sigue buscando alternativas</em>. Activa un Cortacircuitos: suspende las llamadas a la red e inyecta una <strong>Contingencia Estática</strong> (ej. <code>[Fallback] Bienvenido al artículo...</code>) en el resto del sitio web. </p>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>El resultado:</strong> El pipeline de integración continua finaliza con <em>Exit Code 0</em>. La web se publica a tiempo con latencia 0ms, sacrificando personalización dinámica a cambio de resiliencia absoluta.</p>
+</blockquote>
+<h2>Conclusión</h2>
+<p>Una estrategia <abbr title="Merci Explica: El trabajo conjunto de los ingenieros de desarrollo, seguridad y operaciones como una orquesta sin solistas." tabindex="0">DevSecOps</abbr> madura no trata a la IA como un bloque monolítico. Obliga a que cada pieza del engranaje use los recursos de forma asimétrica. </p>
+<ul>
+<li>Tu IDE debe <strong>Gastar Nube para ganar Tiempo</strong>.</li>
+<li>Tu Compilador debe <strong>Gastar Hardware para ganar Resiliencia</strong>. </li>
+</ul>
+<p>Y al final, un buen Cortacircuitos siempre será tu mejor ingeniero de guardia.</p>
+            </div>
+        </article>
+    </main>
+    <a href="#top" class="floating-back-to-top" aria-label="Volver arriba">↑</a>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer"
+                class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer"
+                class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer"
+                class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci"
+                width="80" height="80" fetchpriority="low" decoding="async">
+        </button>
+    </aside>
+</body>
+</html>

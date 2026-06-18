@@ -223,17 +223,19 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
         # QUÉ HACE: Escanea el HTML generado y envuelve los términos del glosario en una etiqueta <abbr>.
         # POR QUÉ: Implementa la "Burbuja Merci" nativa. Muestra la traducción a lenguaje llano al pasar
         # el ratón, con 0 dependencias JavaScript y 100/100 en Accesibilidad (WAI-ARIA).
-        json_path = REPO_ROOT / 'laboratorio' / 'biblioteca' / 'glosario-tecnico.json'
-        if json_path.exists():
-            glosario_data = json.loads(json_path.read_text(encoding='utf-8', errors='ignore'))
-            for term, data in glosario_data.get("terminos", {}).items():
-                explica = data.get("merci_explica")
-                if explica:
-                    # Lookahead negativo (?![^<]*>) evita reemplazar dentro de atributos de etiquetas HTML
-                    pattern = rf'\b({re.escape(term)})\b(?![^<]*>)'
-                    # Reemplazamos solo la primera aparición (count=1) y le damos tabindex de accesibilidad
-                    replacement = rf'<abbr title="Merci Explica: {html.escape(explica)}" tabindex="0">\1</abbr>'
-                    html_content = re.sub(pattern, replacement, html_content, count=1)
+        # EXCEPTUANDO: El glosario en sí mismo, porque la explicación ya está en el cuerpo del texto.
+        if filepath.name != "glosario-tecnico.md":
+            json_path = REPO_ROOT / 'laboratorio' / 'biblioteca' / 'glosario-tecnico.json'
+            if json_path.exists():
+                glosario_data = json.loads(json_path.read_text(encoding='utf-8', errors='ignore'))
+                for term, data in glosario_data.get("terminos", {}).items():
+                    explica = data.get("merci_explica")
+                    if explica:
+                        # Lookahead negativo (?![^<]*>) evita reemplazar dentro de atributos de etiquetas HTML
+                        pattern = rf'\b({re.escape(term)})\b(?![^<]*>)'
+                        # Reemplazamos solo la primera aparición (count=1) y le damos tabindex de accesibilidad
+                        replacement = rf'<abbr title="Merci Explica: {html.escape(explica)}" tabindex="0">\1</abbr>'
+                        html_content = re.sub(pattern, replacement, html_content, count=1)
                     
     except Exception as e:
         print(f"  ❌ Error al compilar Markdown en {filepath.name}: {e}")

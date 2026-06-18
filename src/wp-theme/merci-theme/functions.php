@@ -158,12 +158,13 @@ add_action('init', 'merci_purgar_inyecciones_inline');
 // ha sido extirpada tras cumplir su objetivo de curar la base de datos.
 // Mantener un escaneo de get_posts() masivo en el hook 'init' destruía el TTFB del servidor.
 
-// QUÉ HACE: Intercepta el HTML final y elimina enlaces a PDFs en páginas dinámicas.
-// POR QUÉ: Evita que plantillas genéricas filtren enlaces a recursos PDF inexistentes (404).
+// QUÉ HACE: Intercepta el HTML final, elimina enlaces a PDFs fantasmas y fuerza rutas relativas.
+// POR QUÉ: Evita que plantillas genéricas filtren enlaces 404 y previene Mixed Content (Lighthouse 92/100) al cambiar http://localhost por rutas relativas seguras.
 add_action('template_redirect', function() {
-    if ( is_page() ) {
-        ob_start(function($html) { return preg_replace('|<a[^>]*href="/descargas/[^"]+\.pdf"[^>]*>.*?</a>|is', '', $html); });
-    }
+    ob_start(function($html) { 
+        $html = str_replace('http://localhost/blog', '/blog', $html);
+        return preg_replace('|<a[^>]*href="/descargas/[^"]+\.pdf"[^>]*>.*?</a>|is', '', $html); 
+    });
 }, 0);
 
 // QUÉ HACE: Enruta los enlaces "Volver a la tienda" y "Continuar comprando" del carrito.

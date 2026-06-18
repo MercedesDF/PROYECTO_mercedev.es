@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrategias de Resiliencia: Fallback Automático ... — mercedev.es</title>
+    <meta name="description" content="Un análisis arquitectónico de las diferencias fundamentales entre el manejo de Agentes Autónomos con fallback de LLMs (Antigravity) frente a infrae...">
+    <link rel="canonical" href="https://mercedev.es/art-de-cote/estrategias-resiliencia-fallback-vs-litellm.html">
+    <link rel="stylesheet" href="/css/main.css?v=1781767098">
+    <script src="/js/MerciController.js?v=1781503814" defer></script>
+    <script src="/js/main.js?v=1781552845" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Estrategias de Resiliencia: Fallback Autom\u00e1tico vs Proxy LiteLLM en IA",
+      "description": "Un an\u00e1lisis arquitect\u00f3nico de las diferencias fundamentales entre el manejo de Agentes Aut\u00f3nomos con fallback de LLMs (Antigravity) frente a infraestructuras de proxy locales (LiteLLM).",
+      "url": "https://mercedev.es/art-de-cote/estrategias-resiliencia-fallback-vs-litellm.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-art-de-cote">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65"
+                fetchpriority="low" decoding="async">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Portada</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/proyectos/" class="nav__link">Proyectos</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--book">
+            <a href="/art-de-cote/" class="card__back-link">← Volver a Art de Coté</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Estrategias de Resiliencia: Fallback Automático vs Proxy LiteLLM en IA</h1>
+                <a href="/descargas/estrategias-resiliencia-fallback-vs-litellm.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h1>Estrategias de Resiliencia en Ecosistemas de IA</h1>
+<p>En el despliegue de Agentes Autónomos y asistentes como Merci, garantizar la disponibilidad cuando las cuotas de la API (como los tokens de Google Gemini) se agotan es una prioridad arquitectónica. Actualmente conviven dos filosofías de contingencia en nuestro ecosistema.</p>
+<h2>El Proxy de Capa de Red (LiteLLM)</h2>
+<p>El sistema clásico implementado en el alias de terminal <code>mercedev</code> se basa en un paradigma de <strong>interceptación de red</strong>:</p>
+<ol>
+<li><strong>Transparencia de la Aplicación</strong>: El <abbr title="Merci Explica: Herramienta única para programadores que facilita la creación y mantenimiento de software." tabindex="0">IDE</abbr> (o el script cliente) no sabe que se están usando distintos modelos. Está configurado para apuntar a un <em>endpoint</em> de OpenAI unificado (<code>http://localhost:4000</code>).</li>
+<li><strong>Lógica Centralizada</strong>: Es el servidor LiteLLM el que mantiene la lógica. Cuando recibe un HTTP 429 (Too Many Requests) o un 400 por agotamiento de tokens en Gemini, el propio proxy enruta la petición automáticamente hacia Anthropic (Claude) o Groq (Llama3).</li>
+<li><strong>Ventaja</strong>: Es universal. Cualquier script antiguo o nuevo que se conecte a <code>localhost:4000</code> heredará esta resiliencia sin modificar una sola línea de su código fuente.</li>
+</ol>
+<h2>Fallback Nativo a Nivel de <abbr title="Merci Explica: Caja mágica con todo lo necesario para construir software sin tener que reinventar la rueda." tabindex="0">SDK</abbr> (Google Antigravity)</h2>
+<p>La nueva implementación ("la nueva forma de manejar las IAs") reside en la <strong>Capa de Aplicación</strong> mediante las capacidades avanzadas del SDK de Google Antigravity:</p>
+<ol>
+<li><strong>Consciencia del Agente</strong>: En lugar de ocultarle el error al agente, el SDK captura la excepción de límite de tokens directamente.</li>
+<li><strong>Enrutamiento Determinista</strong>: El código del agente posee una lista ordenada de modelos alternativos. Si el modelo primario (<code>gemini-1.5-flash</code>) falla, el agente sabe instanciar una conexión con el secundario y reintentar la inferencia por su cuenta.</li>
+<li><strong>Observabilidad Nativa</strong>: ¿Cómo sabes que te ha derivado? Al ser una decisión de la aplicación, el SDK de Antigravity (y por extensión, el script de Python) emitirá un log visible en la terminal (ej. <code>[INFO] Fallback triggered: switching to gemini-1.5-pro</code>). Además, la telemetría del propio agente reflejará el cambio de contexto, permitiendo auditorías precisas sobre qué modelo generó cada fragmento de código.</li>
+</ol>
+<h2>Veredicto Arquitectónico</h2>
+<p>Mientras que <strong>LiteLLM</strong> actúa como un escudo protector ciego (excelente para scripts legados y herramientas estándar de terceros), el <strong>Fallback del SDK</strong> permite al Agente Autónomo mantener la consciencia situacional, adaptar su <em>system prompt</em> a las capacidades del modelo secundario, y registrar detalladamente el evento de contingencia en la bitácora del proyecto.</p>
+            </div>
+        </article>
+    </main>
+    <a href="#top" class="floating-back-to-top" aria-label="Volver arriba">↑</a>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer"
+                class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer"
+                class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer"
+                class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci"
+                width="80" height="80" fetchpriority="low" decoding="async">
+        </button>
+    </aside>
+</body>
+</html>

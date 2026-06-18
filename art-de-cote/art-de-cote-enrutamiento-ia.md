@@ -1,15 +1,15 @@
 ---
 titulo: "Por qué tu IDE y tu Compilador necesitan IAs opuestas: Arquitectura de Enrutamiento Híbrido"
 descripcion: "Cómo diseñar una estrategia de Fallback en litellm invirtiendo la carga cognitiva entre el entorno de desarrollo y el pipeline de integración continua."
-estado: "incubacion"
-tema: "Arquitectura DevSecOps"
+estado: "publicado"
+tema: "Art de Coté"
 subtema: "Inteligencia Artificial"
 tipo: "art-de-cote"
 alt_portada: "Diagrama conceptual mostrando dos flujos de datos cruzados entre servidores locales y la nube."
 fecha: "2026-06-15"
 fase: "Epic 9"
+slug: "arquitectura-enrutamiento-hibrido-ia"
 ---
-
 # Por qué tu IDE y tu Compilador necesitan IAs opuestas
 
 Cuando integras Inteligencia Artificial Generativa en todo el ciclo de vida de tu software, cometes rápidamente el primer error de novato: usar el mismo proveedor (como OpenAI o Google Gemini) para todo. 

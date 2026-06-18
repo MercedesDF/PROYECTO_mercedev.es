@@ -215,4 +215,21 @@ Un script fracasado es una lección arquitectónica valiosa. Mantener el ecosist
 
 ## Notas Arquitectónicas
 
+### 2026-06-18 — Resolución de Bugs en UI, Sincronización y Documentación de Fallbacks IA
+
+**Contexto:**
+Se requería unificar la experiencia de usuario con el botón "Volver arriba" que presentaba inconsistencias en diferentes páginas (inexistente en `sobre-mi`, y con scroll irregular en la `portada` y las vistas dinámicas). Además, se solicitó corregir el Glosario Técnico para no aplicar el tooltip a los términos dentro de su propio documento, y subsanar las divergencias de taxonomía en los cuadernillos.
+
+**Hecho:**
+- **Scroll Suave y Accesibilidad:** Se implementó un ancla invisible (`<div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>`) y se eliminó el `id="top"` del `<header>` en `index.html` y en `merci-theme/index.php`. Esto permite que el botón `.floating-back-to-top` realice un scroll absoluto a la posición 0 sin interferencias con elementos de posición `sticky`.
+- **Sincronización:** Se actualizó la expresión regular en `merci-sync-pages.py` para soportar la nueva estructura del ancla sin romper el proceso automatizado de inyección.
+- **Burbuja Merci (Glosario):** Se modificó `merci-publish.py` para que la inyección dinámica de etiquetas `<abbr>` omita explícitamente el archivo madre `glosario-tecnico.md`.
+- **Gobernanza:** Se corrigieron los metadatos YAML (Frontmatter) en los archivos `compendio-epica-07-multimedia-gamificacion.md` y `cuadernillo-resolucion-desbordamiento-css-codigo.md`, ajustándolos a la taxonomía permitida (`Desarrollo y Arquitectura`).
+- **Art de Coté:** Se redactó `art-de-cote-sistemas-fallback-ia.md` documentando las diferencias a nivel arquitectónico entre el modelo de contingencia de LiteLLM y el sistema dinámico de fallback proporcionado por el SDK de Antigravity.
+
+**Motivo / criterio:**
+Estas acciones unifican el UX a través del ecosistema SSG, garantizan la pureza del generador estático y aseguran que el conocimiento sobre los mecanismos de resiliencia ante límites de la API quede materializado y accesible según el principio SSOT.
+
+## Notas Arquitectónicas
+
 *(Espacio para documentar bloqueos o decisiones técnicas durante la ejecución de la épica).*

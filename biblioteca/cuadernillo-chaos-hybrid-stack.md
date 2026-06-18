@@ -1,15 +1,14 @@
 ---
 titulo: "Chaos Engineering y la Pila Híbrida: Resiliencia Extrema en el Compilador"
 descripcion: "Cómo el uso combinado del Patrón Fallback y Circuit Breaker, auditados por el Chaos Monkey, lograron que el ecosistema sobreviva a caídas catastróficas del motor de Inteligencia Artificial."
-estado: "incubacion"
-tema: "Arquitectura y Rendimiento"
+estado: "publicado"
+tema: "DevSecOps e Infraestructura"
 subtema: "Chaos Engineering"
 tipo: "cuadernillo"
 alt_portada: "Un mono del caos desconectando cables mientras un escudo híbrido protege un servidor brillante."
 fecha: "2026-06-15"
 fase: "Epic 9"
 ---
-
 # Chaos Engineering y la Pila Híbrida: Resiliencia Extrema en el Compilador
 
 En el ecosistema **mercedev.es**, el uso de la Inteligencia Artificial (IA) generativa es intensivo pero estrictamente regulado. Los agentes de IA (el "Lóbulo Frontal" o `merci-brain`) inyectan respuestas dinámicas y generativas en tiempo de compilación para que el sitio público final conserve latencia 0ms (Total Blocking Time 0ms) y cero dependencias de bases de datos.

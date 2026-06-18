@@ -2,7 +2,7 @@
 titulo: "Compendio Estratégico: Épica 7 (Enriquecimiento Visual y Multimedia)"
 descripcion: "Síntesis arquitectónica de la Épica 7: Inyección de vídeos ultraligeros, patrón Video-as-GIF y gamificación DevRel sin comprometer Core Web Vitals."
 estado: "publicado"
-tema: "Arquitectura y Rendimiento"
+tema: "Desarrollo y Arquitectura"
 subtema: "Optimización Multimedia"
 tipo: "compendio"
 alt_portada: "Representación conceptual de la conversión de formatos pesados a vídeos ultraligeros optimizados para web."
