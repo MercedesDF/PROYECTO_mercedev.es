@@ -205,10 +205,25 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
 
     # QUÉ HACE: Pre-procesador de multimedia. Busca sintaxis de imagen que apunte a un vídeo.
     # POR QUÉ: Markdown nativo no soporta la etiqueta <video>. Usamos expresiones regulares para transformar 
-    # ![alt](video.mp4) en un reproductor HTML5 accesible y creamos un texto de respaldo para el PDF.
+    # ![alt](video.mp4) en un reproductor HTML5 de doble fuente (WebM primario y MP4 de fallback) accesible,
+    # y creamos un texto de respaldo para el PDF.
+    def _repl_video(match):
+        alt = match.group(1)
+        src = match.group(2)
+        base_path = str(Path(src).with_suffix(''))
+        return (
+            f'<video controls width="100%" preload="none" aria-label="{alt}" class="multimedia-video">'
+            f'<source src="{base_path}.webm" type="video/webm">'
+            f'<source src="{base_path}.mp4" type="video/mp4">'
+            f'<track kind="captions" src="" srclang="es" label="Español">'
+            f'Tu navegador no soporta video.'
+            f'</video>'
+            f'<div class="video-fallback">[Vídeo: {alt}] <em>(Disponible en la versión web)</em></div>'
+        )
+
     md_body = re.sub(
         r'!\[(.*?)\]\((.*?\.(?:mp4|webm|ogg))\)',
-        r'<video controls width="100%" preload="none" aria-label="\1" class="multimedia-video"><source src="\2"><track kind="captions" src="" srclang="es" label="Español">Tu navegador no soporta video.</video><div class="video-fallback">[Vídeo: \1] <em>(Disponible en la versión web)</em></div>',
+        _repl_video,
         md_body,
         flags=re.IGNORECASE
     )

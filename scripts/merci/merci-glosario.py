@@ -232,11 +232,24 @@ def main() -> None:
     
     if not use_ai:
         # MODO COMPILACIÓN: Ultra rápido para el pipeline CI/CD (merci total)
-        print("⚡ [Merci Glosario] Modo Compilación. Construyendo Markdown desde JSON...")
+        print("⚡ [Merci Glosario] Modo Compilación. Construyendo Markdown desde JSON...", flush=True)
         
+        pending_file = REPO_ROOT / "observabilidad" / ".pending_glossary_terms"
         if new_terms:
-            print(f"  ⚠️ [Info] Tienes {len(new_terms)} término(s) nuevo(s) en la bitácora sin definir.")
-            print(f"            Ejecuta 'merci glosario --ai' para revisarlos.")
+            print(f"  ⚠️ [Info] Tienes {len(new_terms)} término(s) nuevo(s) en la bitácora sin definir.", flush=True)
+            print(f"            Ejecuta 'merci glosario --ai' para revisarlos.", flush=True)
+            try:
+                # Asegurar existencia de carpeta de observabilidad antes de escribir
+                pending_file.parent.mkdir(exist_ok=True)
+                pending_file.write_text(str(len(new_terms)), encoding="utf-8")
+            except Exception:
+                pass
+        else:
+            if pending_file.exists():
+                try:
+                    pending_file.unlink()
+                except Exception:
+                    pass
             
         compile_markdown(state)
         sys.exit(0)

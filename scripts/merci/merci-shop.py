@@ -177,7 +177,14 @@ def main(argv: list[str] | None = None) -> None:
         }
         
         if imagen:
-            payload["images"] = [{"src": f"{domain_root}/assets/images/{imagen}"}]
+            # Preferimos la versión -400w para el catálogo (thumbnail óptimo para WooCommerce).
+            # Evita servir imágenes originales 2048px en thumbnails de 129px (ahorra ~480KB por producto).
+            imagen_stem = Path(imagen).stem  # ej: "camiseta-devsecops"
+            imagen_ext  = Path(imagen).suffix  # ej: ".webp"
+            imagen_opt  = f"{imagen_stem}-400w{imagen_ext}"  # ej: "camiseta-devsecops-400w.webp"
+            imagen_opt_path = REPO_ROOT / "assets" / "images" / imagen_opt
+            imagen_url = imagen_opt if imagen_opt_path.exists() else imagen
+            payload["images"] = [{"src": f"{domain_root}/assets/images/{imagen_url}"}]
             
         if producto_id:
             if verbose: print(f"  🔄 Actualizando producto: {nombre} (ID: {producto_id})")

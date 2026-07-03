@@ -1,5 +1,5 @@
 {
-  "https://mercedev.es/contacto/": {
+  "https://mercedev.es/proyectos/showcase-inyeccion-multimedia.html": {
     "performance": 100,
     "accessibility": 100,
     "best-practices": 100,
@@ -17,13 +17,13 @@
     "best-practices": 100,
     "seo": 100
   },
-  "https://mercedev.es/": {
+  "https://mercedev.es/contacto/": {
     "performance": 100,
     "accessibility": 100,
     "best-practices": 100,
     "seo": 100
   },
-  "https://mercedev.es/proyectos/showcase-inyeccion-multimedia.html": {
+  "https://mercedev.es/": {
     "performance": 100,
     "accessibility": 100,
     "best-practices": 100,
@@ -41,16 +41,16 @@
     "best-practices": 100,
     "seo": 100
   },
-  "https://mercedev.es/biblioteca/": {
-    "performance": 100,
-    "accessibility": 100,
-    "best-practices": 100,
-    "seo": 100
-  },
   "https://mercedev.es/blog/tienda/": {
     "performance": 100,
     "accessibility": 100,
     "best-practices": 92,
+    "seo": 100
+  },
+  "https://mercedev.es/biblioteca/": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
     "seo": 100
   }
 }

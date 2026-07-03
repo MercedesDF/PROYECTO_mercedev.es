@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cierre Estratégico de Épica 9: Antigravity SRE, ... — mercedev.es</title>
+    <meta name="description" content="Compendio de decisiones arquitectónicas clave para el cierre de la Épica 9, abarcando la sustitución de Ollama, la evolución del Chaos Engineering,...">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/cierre-estrategico-de-epica-9-antigravity-sre-chaos-engineering-y-refinamiento-css.html">
+    <link rel="stylesheet" href="/css/main.css?v=1783064890">
+    <script src="/js/MerciController.js?v=1781503814" defer></script>
+    <script src="/js/main.js?v=1781552845" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Cierre Estrat\u00e9gico de \u00c9pica 9: Antigravity SRE, Chaos Engineering y Refinamiento CSS",
+      "description": "Compendio de decisiones arquitect\u00f3nicas clave para el cierre de la \u00c9pica 9, abarcando la sustituci\u00f3n de Ollama, la evoluci\u00f3n del Chaos Engineering, la expansi\u00f3n SRE y la preservaci\u00f3n de herramientas est\u00e9riles.",
+      "url": "https://mercedev.es/biblioteca/cierre-estrategico-de-epica-9-antigravity-sre-chaos-engineering-y-refinamiento-css.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65"
+                fetchpriority="low" decoding="async">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Portada</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/proyectos/" class="nav__link">Proyectos</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--book">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Cierre Estratégico de Épica 9: Antigravity SRE, Chaos Engineering y Refinamiento CSS</h1>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>Se detectó la necesidad de consolidar y formalizar las decisiones arquitectónicas clave tomadas durante la Épica 9, la cual se centró en la fiabilidad avanzada del sistema (<abbr title="Merci Explica: Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo." tabindex="0">SRE</abbr> - Site Reliability Engineering), la resiliencia mediante Chaos Engineering y la optimización del front-end a través del refinamiento de CSS (Cascading Style Sheets - Hojas de Estilo en Cascada). El objetivo era destilar las lecciones aprendidas y las implementaciones estratégicas para asegurar un cierre de epic coherente y documentado.</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Para abordar el desafío, se ejecutaron varias maniobras arquitectónicas fundamentales:</p>
+<ul>
+<li><strong>Sustitución de Ollama por Enrutamiento Híbrido hacia Gemini Proxy (Antigravity):</strong> Se implementó una estrategia de enrutamiento híbrido para las capacidades de inteligencia artificial, migrando la dependencia de Ollama hacia Gemini Proxy. Esta decisión se tomó para optimizar la gestión de recursos de IA, mejorar la flexibilidad y aumentar la resiliencia del sistema, alineándose con los principios de Antigravity SRE.</li>
+<li><strong>Evolución del Chaos Engineering y Validación del Fallback:</strong> Se expandió la aplicación de técnicas de Chaos Engineering para someter el sistema a pruebas de estrés controladas. Se puso un énfasis particular en la validación exhaustiva de los mecanismos de fallback, asegurando que el sistema pudiera recuperarse de fallos simulados de manera predecible y eficiente, minimizando el impacto en la disponibilidad.</li>
+<li><strong>Expansión SRE (<abbr title="Merci Explica: Construir una casa con lo mínimo e indispensable en lugar de comprar electrodomésticos enormes que gastan energía y nunca se usan." tabindex="0">Zero-Bloat</abbr> en el peso de <code>public/</code> y Métricas de Accesibilidad):</strong> Se llevó a cabo una expansión de las prácticas de SRE, con un enfoque primordial en la optimización del rendimiento y la reducción del "bloat" (exceso de peso) en el directorio <code>public/</code>. Paralelamente, se establecieron y monitorearon métricas estrictas de accesibilidad para garantizar una experiencia de usuario inclusiva y de alto rendimiento.</li>
+<li><strong>Preservación de Herramientas Estériles:</strong> Se identificaron y preservaron aquellas herramientas consideradas "estériles" o de bajo impacto en la huella de dependencia del proyecto. Esta medida se adoptó para mantener la simplicidad del stack tecnológico y evitar la introducción de complejidades innecesarias, contribuyendo a la estrategia de cero dependencias y a la eficiencia operativa.</li>
+</ul>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Se ha consolidado la comprensión de que la resiliencia y la eficiencia de un sistema no solo se logran mediante la implementación de tecnologías avanzadas, sino también a través de una gestión proactiva de las dependencias y una validación continua de los mecanismos de recuperación. La adopción de un enrutamiento híbrido para la IA y la expansión del Chaos Engineering han demostrado ser fundamentales para construir un sistema robusto y adaptable. La atención al "Zero-Bloat" y a las métricas de accesibilidad subraya la importancia de un enfoque holístico en SRE, donde el rendimiento y la experiencia del usuario son tan críticos como la fiabilidad. No se identificó deuda técnica significativa, ya que las decisiones se orientaron a la simplificación y la robustez a largo plazo.</p>
+<h3>💡 En resumen (Merci Explica):</h3>
+<p>Para finalizar una etapa importante del proyecto, se decidió cambiar la forma en que el sistema utiliza la inteligencia artificial, optando por una solución más flexible que puede usar diferentes servicios. También se realizaron pruebas intensivas para ver cómo reacciona el sistema cuando algo falla, asegurándose de que siempre tenga un "plan B" para seguir funcionando sin interrupciones. Además, se trabajó para que la página web cargue muy rápido y sea fácil de usar para todas las personas, eliminando elementos innecesarios y cuidando la accesibilidad. Finalmente, se decidió mantener solo las herramientas esenciales para no complicar el sistema. Todo esto se hizo para que el proyecto sea más fuerte, rápido y fácil de mantener en el futuro.</p>
+            </div>
+        </article>
+    </main>
+    <a href="#top" class="floating-back-to-top" aria-label="Volver arriba">↑</a>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer"
+                class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer"
+                class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer"
+                class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci"
+                width="80" height="80" fetchpriority="low" decoding="async">
+        </button>
+    </aside>
+</body>
+</html>

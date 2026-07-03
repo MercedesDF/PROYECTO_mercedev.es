@@ -89,5 +89,7 @@
   "/biblioteca/enrutamiento-hibrido-del-ide-con-litellm-proxy.html": "Implementación de un patrón Proxy en el IDE para ofrecer una combinación de IA local y nube, garantizando ilimitada capacidad y contingencia.",
   "/biblioteca/documentacion-como-codigo-el-readmemd-como-unica-fuente-de-verdad.html": "README.md como única fuente de verdad: Desincronización documental genera deuda técnica y rompe confianza en repositorio",
   "/biblioteca/consolidacion-del-enrutamiento-zero-js-limpieza-de-clases-legacy.html": "Refactorización optimiza rendimiento, eliminando mutaciones del DOM mediante Body IDs, centralizando estilos de enlace activos.",
-  "/biblioteca/chaos-engineering-y-la-pila-hibrida-resiliencia-extrema-en-el-compilador.html": "El uso de Fallback, Circuit Breaker y Chaos Monkey en una pila híbrida mejoró significativamente la resiliencia del sistema ante fallos catastróficos del motor de IA, demostrando su eficacia técnica."
+  "/biblioteca/chaos-engineering-y-la-pila-hibrida-resiliencia-extrema-en-el-compilador.html": "El uso de Fallback, Circuit Breaker y Chaos Monkey en una pila híbrida mejoró significativamente la resiliencia del sistema ante fallos catastróficos del motor de IA, demostrando su eficacia técnica.",
+  "/biblioteca/cierre-estrategico-de-epica-9-antigravity-sre-chaos-engineering-y-refinamiento-css.html": "Cierre estratégico de Épica 9: Antigravity SRE, Chaos Engineering y Refinamiento CSS. Transición suave hacia un sistema más robusto y resiliente.",
+  "/biblioteca/lighthouse-100100100100-en-woocommerce-optimizacion-extrema-en-tiendas-hibridas.html": "[Fallback] Bienvenido a la lectura de: Lighthouse 100/100/100/100 en WooCommerce: Optimización Extrema en Tiendas Híbridas."
 }

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lighthouse 100/100/100/100 en WooCommerce: Optim... — mercedev.es</title>
+    <meta name="description" content="Cómo erradicar la degradación de rendimiento y SEO inyectada por plugins pesados en WooCommerce para lograr el pleno 100/100/100/100 en las auditor...">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/lighthouse-100100100100-en-woocommerce-optimizacion-extrema-en-tiendas-hibridas.html">
+    <link rel="stylesheet" href="/css/main.css?v=1783064890">
+    <script src="/js/MerciController.js?v=1781503814" defer></script>
+    <script src="/js/main.js?v=1781552845" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Lighthouse 100/100/100/100 en WooCommerce: Optimizaci\u00f3n Extrema en Tiendas H\u00edbridas",
+      "description": "C\u00f3mo erradicar la degradaci\u00f3n de rendimiento y SEO inyectada por plugins pesados en WooCommerce para lograr el pleno 100/100/100/100 en las auditor\u00edas de Lighthouse.",
+      "url": "https://mercedev.es/biblioteca/lighthouse-100100100100-en-woocommerce-optimizacion-extrema-en-tiendas-hibridas.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65"
+                fetchpriority="low" decoding="async">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Portada</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/proyectos/" class="nav__link">Proyectos</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Lighthouse 100/100/100/100 en WooCommerce: Optimización Extrema en Tiendas Híbridas</h1>
+            </header>
+            <div class="card__content">
+                <h1>Lighthouse 100/100/100/100 en WooCommerce: Optimización Extrema en Tiendas Híbridas</h1>
+<h2>El Desafío (Síntoma)</h2>
+<p>Al integrar la tienda en la arquitectura híbrida headless (<code>/blog/tienda/</code>), los análisis iniciales de auditoría arrojaron un rendimiento subóptimo en varias métricas esenciales:
+- <strong>SEO (66/100):</strong> WordPress inyectaba directivas <code>noindex, nofollow</code> heredadas de las configuraciones de exclusión del núcleo estático.
+- <strong>Rendimiento (86/100):</strong> Carga inicial de imágenes sobredimensionadas (resoluciones originales de 2048px en lugar de adaptadas) y retraso por recursos de estilo CSS bloqueantes.
+- <strong>Buenas Prácticas (96/100):</strong> Errores persistentes en la consola de JavaScript (JS) debido al encolado redundante de librerías asociadas a bloques interactivos de WooCommerce, que no se utilizaban en la maquetación clásica de la tienda.</p>
+<p>Para afinar de forma quirúrgica estas métricas, se requería una aproximación basada en datos que aislara cada cambio. De ahí nació la exportación local de las respuestas JSON de Lighthouse (<code>tienda-audit-*.json</code>), utilizadas para comparar de forma precisa el impacto de cada ajuste sin ensuciar el control de versiones de producción.</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>La optimización quirúrgica se estructuró en tres frentes de acción:</p>
+<h3>1. Desencolado Selectivo de Scripts de Bloques (Buenas Prácticas: 96 → 100)</h3>
+<p>Las versiones modernas de WooCommerce encolan por defecto scripts interactivos de bloques (<code>wc-cart-block</code>, <code>wc-checkout-block</code>, <code>wc-blocks</code>, <code>wc-settings</code>). En un frontend clásico minimalista, esto provoca errores de consola críticos. Se inyectó un gancho de control (<em>hook</em>) en <code>functions.php</code> con prioridad 100 para desencolarlos completamente, indicando explícitamente el uso de carrito clásico mediante el filtro <code>woocommerce_blocks_has_classic_checkout/cart</code>.</p>
+<h3>2. Priorización de Carga e Imágenes Responsivas (Rendimiento: 86 → 100)</h3>
+<ul>
+<li><strong>Eliminación del bloqueo de renderizado:</strong> Se inyectaron directivas <code>&lt;link rel="preload"&gt;</code> del archivo principal <code>main.css</code> antes de su carga como stylesheet en <code>woocommerce.php</code>.</li>
+<li><strong>Imágenes a escala:</strong> Se modificó el orquestador Python (<code>merci-shop.py</code>) para que las URLs subidas a la API <abbr title="Merci Explica: Sistema de comunicación entre aplicaciones donde cada mensaje contiene toda la información necesaria para entender el contexto." tabindex="0">REST</abbr> de WooCommerce apunten automáticamente a las versiones reducidas de tamaño y optimizadas en WebP (<code>-400w.webp</code>) generadas previamente por <code>merci-optimizer.py</code>.</li>
+</ul>
+<h3>3. Fuerza en la Directiva de Indexación (SEO: 66 → 100)</h3>
+<p>Para contrarrestar la limitación del núcleo estático y forzar la visibilidad ante los motores de búsqueda, se amplió el filtro de metadatos <code>wp_robots</code> en <code>functions.php</code>. Se le asignó una prioridad máxima (9999) para eliminar de forma inequívoca las directivas restrictivas (<code>noindex, nofollow</code>) e inyectar de forma imperativa <code>index, follow</code> en las páginas comerciales de la tienda.</p>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Lograr puntuaciones perfectas de 100/100 en entornos dinámicos exige erradicar el comportamiento predeterminado de los plugins masivos. El uso de reportes JSON de Lighthouse guardados en local demostró ser un método científico infalible para auditar y resolver problemas de rendimiento, evitando la tentación de realizar cambios a ciegas.</p>
+<p><em>Los archivos detallados del diagnóstico (<code>tienda-audit-*.json</code>) se conservan localmente en <code>observabilidad/audits/</code> para auditoría técnica sin aumentar la deuda de almacenamiento del repositorio en la nube.</em></p>
+            </div>
+        </article>
+    </main>
+    <a href="#top" class="floating-back-to-top" aria-label="Volver arriba">↑</a>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer"
+                class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer"
+                class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer"
+                class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci"
+                width="80" height="80" fetchpriority="low" decoding="async">
+        </button>
+    </aside>
+</body>
+</html>

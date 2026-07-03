@@ -49,3 +49,55 @@
     line-height: 1.6;
   }
 }
+
+/* Paginación nativa de WordPress */
+.pagination {
+  max-width: 800px;
+  margin: 3rem auto 0;
+  text-align: center;
+  border-top: 1px solid rgba($color-text-base, 0.1);
+  padding-top: 2rem;
+
+  .screen-reader-text {
+    display: none;
+  }
+
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .page-numbers {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    padding: 0 0.5rem;
+    text-decoration: none;
+    color: $color-text-base;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+
+    &:hover,
+    &:focus {
+      background-color: rgba($color-primary, 0.1);
+      color: $color-primary;
+    }
+
+    &.current {
+      background-color: $color-primary;
+      color: #ffffff;
+    }
+
+    &.dots {
+      background: transparent;
+      color: $color-text-base;
+      pointer-events: none;
+    }
+  }
+}

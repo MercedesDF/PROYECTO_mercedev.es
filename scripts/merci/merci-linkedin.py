@@ -11,6 +11,7 @@ import os
 import re
 import sys
 import unicodedata
+import urllib.error
 import urllib.parse
 import urllib.request
 import webbrowser
@@ -121,8 +122,12 @@ def autenticar_linkedin() -> None:
     server = HTTPServer(('localhost', 8000), OAuthCallbackHandler)
     server.auth_code = None
     
-    print("👉 Abriendo navegador... Por favor, aprueba la solicitud en LinkedIn.")
-    webbrowser.open(auth_url)
+    print("\n👉 Por favor, abre el siguiente enlace en tu navegador para autorizar la aplicación:")
+    print(f"\n🔗 {auth_url}\n")
+    try:
+        webbrowser.open(auth_url)
+    except Exception:
+        pass
     
     # El script se "pausa" aquí hasta que recibe 1 sola petición web
     server.handle_request() 
@@ -167,6 +172,12 @@ def obtener_urn_usuario(access_token: str) -> str | None:
         with urllib.request.urlopen(req) as response:
             data = json.loads(response.read().decode("utf-8"))
             return f"urn:li:person:{data['sub']}"
+    except urllib.error.HTTPError as e:
+        if e.code == 401:
+            print("  ⚠️ [Merci Warn] Token expirado (HTTP 401). Borrando .linkedin_token.json para forzar re-autenticación.")
+            TOKEN_PATH.unlink(missing_ok=True)
+        print(f"❌ Error al obtener identidad de LinkedIn: {e}")
+        return None
     except Exception as e:
         print(f"❌ Error al obtener identidad de LinkedIn: {e}")
         return None

@@ -271,10 +271,12 @@ def generar_placeholders_directorios(nuevo_dominio: str) -> None:
     if art_cote_dir.exists():
         shutil.rmtree(art_cote_dir, ignore_errors=True)
             
+    # NOTA: "blog/tienda" NO se incluye aquí porque la tienda WooCommerce es un
+    # proyecto satélite específico de la matriz (mercedev.es), no una funcionalidad
+    # genérica del Boilerplate. Un nuevo usuario que quiera WooCommerce la configura por su cuenta.
     rutas = [
         ("biblioteca", "La Biblioteca", "El conocimiento inmutable se almacena aquí. Las páginas estáticas se autogenerarán con el orquestador."),
         ("blog", "El Blog", "Capa dinámica. Si no usas Headless CMS, puedes usar esta ruta para páginas estáticas."),
-        ("blog/tienda", "La Tienda", "Catálogo oficial de productos y demostración e-commerce.")
     ]
     for ruta, titulo, desc in rutas:
         dir_path = REPO_ROOT / "public" / ruta
@@ -357,7 +359,7 @@ def configure_ai_module(include_ai: bool) -> None:
             "public/index.html",
             "public/contacto/index.html",
             "src/wp-theme/merci-theme/index.php",
-            "src/wp-theme/merci-theme/woocommerce.php"
+            # woocommerce.php es del proyecto satélite (mercedev.es), no del boilerplate genérico
         ]
         for ruta in archivos_ui:
             archivo = REPO_ROOT / ruta

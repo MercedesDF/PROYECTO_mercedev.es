@@ -111,6 +111,10 @@ function merci_limpiar_scripts_wc() {
     wp_deregister_script('wc-settings');
     wp_deregister_script('wc-blocks-data-store');
     wp_deregister_script('wc-payment-method-cod');
+    wp_dequeue_script('wc-blocks-registry');
+    wp_deregister_script('wc-blocks-registry');
+    wp_dequeue_script('wc-blocks-middleware');
+    wp_deregister_script('wc-blocks-middleware');
     wp_deregister_script('wp-i18n');
     wp_deregister_script('wp-data');
     wp_deregister_script('wp-components');
@@ -147,6 +151,10 @@ function merci_purgar_inyecciones_inline() {
     // Eliminar filtros SVG de Gutenberg que se inyectan en línea en el body/footer
     remove_action('wp_body_open', 'wp_global_styles_render_svg_filters');
     remove_action('wp_footer', 'wp_global_styles_render_svg_filters');
+    
+    // Eliminar las inyecciones inline de WooCommerce Blocks que causan errores en consola
+    remove_action('wp_enqueue_scripts', 'woocommerce_blocks_settings', 10);
+    wp_dequeue_script('wc-settings');
 }
 add_action('init', 'merci_purgar_inyecciones_inline');
 
@@ -381,7 +389,7 @@ function merci_add_custom_currency($currencies) {
 add_filter('woocommerce_currency_symbol', 'merci_add_custom_currency_symbol', 10, 2);
 function merci_add_custom_currency_symbol($currency_symbol, $currency) {
     if ($currency === 'MC') {
-        $currency_symbol = '<img src="/assets/images/tu_logo-80w.webp" alt="Llama" width="16" height="16" class="merci-coin-icon">';
+        $currency_symbol = '<img src="/favicon.ico" alt="Llama" width="16" height="16" class="merci-coin-icon">';
     }
     return $currency_symbol;
 }
@@ -394,15 +402,17 @@ function merci_force_custom_currency($currency) {
 // =========================================================================
 // 10. SEO FIX: Habilitar indexación en páginas de carrito (Lighthouse 100/100)
 // =========================================================================
-// QUÉ HACE: Elimina la directiva 'noindex' que WooCommerce inyecta por defecto en el carrito.
-// POR QUÉ: Permite que Lighthouse otorgue una puntuación SEO de 100/100 en la auditoría.
+// QUÉ HACE: Elimina la directiva 'noindex' que WooCommerce inyecta por defecto en el carrito,
+// Y la que WordPress Core inyecta cuando la opción "Desanimar motores de búsqueda" (blog_public=0) está activa.
+// POR QUÉ: Permite que Lighthouse otorgue una puntuación SEO de 100/100 en todas las páginas de la tienda.
+// La instalación local de WP tiene blog_public=0 (modo desarrollo), pero el tema fuerza la indexabilidad.
 add_filter( 'wp_robots', function( $robots ) {
-    if ( function_exists('is_cart') && is_cart() ) {
-        unset( $robots['noindex'] );
-        $robots['index'] = true;
-    }
+    unset( $robots['noindex'] );
+    unset( $robots['nofollow'] );
+    $robots['index']  = true;
+    $robots['follow'] = true;
     return $robots;
-}, 999 );
+}, 9999 );
 
 // =========================================================================
 // 11. TELEMETRÍA SRE: Renderizado del Micro-sello SRE desde Caché JSON
@@ -460,3 +470,26 @@ function merci_get_sre_badge_html($url) {
         </div>
     </div>';
 }
+add_filter( 'woocommerce_blocks_has_classic_checkout', '__return_true' );
+add_filter( 'woocommerce_blocks_has_classic_cart', '__return_true' );
+
+// Desencola los scripts de WooCommerce Blocks en el frontend para eliminar el
+// error de consola JS: "Payment gateway deactivated because its dependencies are missing".
+// Este tema usa el checkout CLÁSICO de WooCommerce, no los Bloques de Gutenberg.
+add_action( 'wp_enqueue_scripts', function() {
+    $wc_block_scripts = [
+        'wc-cart-block',
+        'wc-checkout-block',
+        'wc-mini-cart-block',
+        'wc-all-blocks-manifest',
+        'wc-blocks',
+        'wc-blocks-checkout',
+        'wc-blocks-cart',
+        'wc-settings',
+    ];
+    foreach ( $wc_block_scripts as $handle ) {
+        wp_dequeue_script( $handle );
+        wp_deregister_script( $handle );
+    }
+}, 100 );
+

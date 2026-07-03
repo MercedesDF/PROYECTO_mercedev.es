@@ -37,10 +37,10 @@ Arquitectura híbrida diseñada para el aislamiento de procesos:
   - `merci-publish.py` y `merci-promote.py`: Motor SSG y asistente interactivo de enrutamiento contextual.
   - `merci-sync-pages.py`: Sincronizador de estructuras comunes estáticas (SSOT).
   - `merci-brain.py`: Generador de base de conocimientos IA estática (Shift-Left AI).
-  - `merci-ssot.py`: Agente híbrido (Cloud/Local) para auditar y auto-sanar la deriva documental. *(Art de Coláteral: Deprecado del pipeline activo en ADR-04 por latencia de inferencia. Preservado como experimento reutilizable.)*
-  - `merci-librarian.py`: Agente Bibliotecario y formateador estricto local (Zero-Hallucination).
+  - `merci-ssot.py`: Agente híbrido (Proxy Cloud/Fallback) para auditar y auto-sanar la deriva documental garantizando la SSOT.
+  - `merci-librarian.py`: Agente Bibliotecario Híbrido (Pila Híbrida + Circuit Breaker) para el formateo estricto de cuadernillos con contexto ilimitado.
   - `merci-glosario.py`: Compilador de Glosario Autónomo (Data-Driven).
-  - `merci-blogger.py`: Agente Redactor DevRel (Agent Chaining) y creador de Ganchos Sociales.
+  - `merci-blogger.py`: Agente Redactor DevRel híbrido (Agent Chaining) y creador de Ganchos Sociales.
   - `merci-backup.py`: Generador instantáneo de instantáneas locales (ZIP).
   - `merci-init.py`: Inicializador para arrancar nuevos repositorios derivados.
   - `merci-styles.py` y `merci-watcher.py`: Compilador y vigilante de arquitectura SASS 7-1.
@@ -158,8 +158,9 @@ Antes de dar por concluida una Fase del Roadmap y transicionar a la siguiente, e
 
 1. **Conciliación de Deuda Técnica:** ¿Queda algún `TODO` en el código, algún error silenciado temporalmente o una vulnerabilidad asumida? Se deben resolver ahora o quedar explícitamente registrados en la bitácora como deuda técnica justificada.
 2. **Cosecha de Conocimiento:** ¿Están creados todos los cuadernillos de los desafíos superados (incluyendo los aprendizajes extraídos al saldar la deuda técnica del paso 1)? Deben ser curados (`merci promote`) y compilados (`merci total`).
-3. **Auditoría Documental:** ¿Está toda la documentación base correcta? El `README.md` debe tener los hitos marcados (`[x]`) y la biblia (`instrucciones.md`) debe reflejar las nuevas directrices o herramientas creadas. Revisión de documentación en directorio docs/ y revisión de SECURITY.md
-4. **Evaluación de Release (Boilerplate):** ¿Se han modificado scripts del ecosistema (`merci-*.py`), configuraciones base o arquitectura que pertenezcan a la plantilla pública? Si la respuesta es sí, se DEBE registrar en la bitácora, **actualizar el cuadernillo "Anatomía de Merci Boilerplate"**, y ejecutar el *Release Pipeline* para subir una nueva versión de `merci-boilerplate` antes de continuar.
-5. **Certificación de Rendimiento (9 Casos):** Ejecutar las auditorías externas (Catchpoint/PageSpeed) en los 9 escenarios críticos. El agente `merci-extract-metrics.py` interrogará automáticamente a la API de PageSpeed para inyectar las métricas móviles en el dashboard de la web como sello empírico de la release.
-6. **Snapshot (Backup Local):** Generar una copia de seguridad del repositorio en su estado estable (`merci-backup.py`) para tener un punto de restauración garantizado antes de alterar la arquitectura en la siguiente fase.
-7. **Sello Definitivo:** Una vez confirmados los 6 puntos anteriores, se emite la orden explícita de confirmación y se otorga luz verde para iniciar la conceptualización de la siguiente fase lógica.
+3. **Auditoría Documental:** ¿Está toda la documentación base correcta? El `README.md` debe tener los hitos marcados (`[x]`) y la biblia (`instrucciones.md`) debe reflejar las nuevas directrices o herramientas creadas. Revisión de documentación en directorio docs/ y revisión de SECURITY.md.
+4. **Resiliencia de Infraestructura (Fallbacks):** Validar que los Circuit Breakers operen correctamente degradando hacia los modelos *Fallback* establecidos en la Pila Híbrida antes de dar por buena la automatización.
+5. **Evaluación de Release (Boilerplate):** ¿Se han modificado scripts del ecosistema (`merci-*.py`), configuraciones base o arquitectura que pertenezcan a la plantilla pública? Si la respuesta es sí, se DEBE registrar en la bitácora, **actualizar el cuadernillo "Anatomía de Merci Boilerplate"**, y ejecutar el *Release Pipeline* para subir una nueva versión de `merci-boilerplate` antes de continuar.
+6. **Certificación de Rendimiento (9 Casos):** Ejecutar las auditorías externas (Catchpoint/PageSpeed) en los 9 escenarios críticos. El agente `merci-extract-metrics.py` interrogará automáticamente a la API de PageSpeed para inyectar las métricas móviles en el dashboard de la web como sello empírico de la release.
+7. **Snapshot (Backup Local):** Generar una copia de seguridad del repositorio en su estado estable (`merci-backup.py`) para tener un punto de restauración garantizado antes de alterar la arquitectura en la siguiente fase.
+8. **Sello Definitivo:** Una vez confirmados los 7 puntos anteriores, se emite la orden explícita de confirmación y se otorga luz verde para iniciar la conceptualización de la siguiente fase lógica.

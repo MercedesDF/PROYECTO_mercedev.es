@@ -207,8 +207,9 @@
     vertical-align: middle;
     transform: translateY(-2px);
     margin-left: 4px;
-    width: 1.3em !important; /* QUÉ HACE: Escala con el texto y anula el width: 100% de .product img */
-    height: 1.3em !important;
+    height: 1.2em !important;
+    width: auto !important;
+    object-fit: contain;
     margin-bottom: 0 !important;
     box-shadow: none !important;
   }

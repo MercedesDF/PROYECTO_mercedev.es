@@ -39,3 +39,6 @@ scripts/matriz/
 
 # Archivos de intercambio de datos
 contexto-matriz.md
+
+# Diagnósticos y reportes locales de Lighthouse (SRE)
+observabilidad/audits/

@@ -137,6 +137,16 @@ if ( is_page('tienda') || (function_exists('is_shop') && is_shop()) ) {
                         </article>
                     <?php endwhile; ?>
                 </div>
+                
+                <?php
+                // Navegación de paginación (Entradas más antiguas / más recientes)
+                the_posts_pagination( array(
+                    'mid_size'  => 2,
+                    'prev_text' => '← Recientes',
+                    'next_text' => 'Antiguas →',
+                    'screen_reader_text' => 'Navegación de artículos'
+                ) );
+                ?>
             <?php endif; ?>
 
         <?php 

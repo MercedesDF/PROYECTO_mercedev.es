@@ -7,7 +7,7 @@ model_list:
   # 1. Intento Primario: Nube (Máxima capacidad cognitiva para el IDE)
   - model_name: ide-agent
     litellm_params:
-      model: gemini/gemini-1.5-flash-latest
+      model: gemini/gemini-2.5-flash
       api_key: "os.environ/GEMINI_API_KEY"
 
   # 2. Fallback de Contingencia: Local (Hardware propio, latencia cero)

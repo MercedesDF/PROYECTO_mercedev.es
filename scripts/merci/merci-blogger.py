@@ -132,33 +132,21 @@ def main() -> None:
     print(f"\n  🧠 Redactando artículo a partir de '{nota_elegida.name}'...")
     
     try:
-        api_key = os.environ.get("GEMINI_API_KEY")
-        if not api_key:
-            env_path = REPO_ROOT / ".env"
-            if env_path.exists():
-                for line in env_path.read_text().splitlines():
-                    if line.startswith("GEMINI_API_KEY="):
-                        api_key = line.split("=", 1)[1].strip('"\'')
-                        os.environ["GEMINI_API_KEY"] = api_key
-                        break
-        
-        if not api_key:
-            print("  ❌ [Merci Error] GEMINI_API_KEY no detectada. Cancelando Blogger.")
-            sys.exit(1)
-
+        print("  🏠 Delegando redacción al Router del IDE (LiteLLM Proxy en puerto 4000)...")
         respuesta = completion(
-            model="gemini/gemini-2.5-flash",
+            model="ide-agent",
+            api_base="http://localhost:4000",
+            api_key="sk-antigravity", # Llave dummy, el proxy gestiona la real
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": nota_contenido}
             ],
-            api_key=api_key,
             temperature=0.6,
             max_tokens=3000
         )
         respuesta_texto = respuesta.choices[0].message.content
-    except Exception as e_cloud:
-        print(f"  ❌ Error en motor Antigravity Proxy (Gemini Flash): {e_cloud}")
+    except Exception as e_proxy:
+        print(f"  ❌ [Merci Error] Fallo catastrófico en el Router Proxy (Puerto 4000): {e_proxy}")
         sys.exit(1)
             
     # Limpieza de bloque de código Markdown residual

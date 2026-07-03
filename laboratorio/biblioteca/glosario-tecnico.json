@@ -89,7 +89,7 @@
       "merci_explica": "Etiquetas invisibles que le ponemos al código para que los lectores de pantalla puedan explicarle la web a las personas con discapacidades visuales.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L175"
+          "L373"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L2686"
@@ -108,6 +108,9 @@
         ],
         "bitacora-mercedev-epic-05.md": [
           "L66"
+        ],
+        "bitacora-mercedev-epic-09.md": [
+          "L221"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L743"
@@ -158,7 +161,7 @@
           "L313"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L52"
+          "L250"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L117"
@@ -526,6 +529,9 @@
         "bitacora-mercedev-epic-05.md": [
           "L102"
         ],
+        "bitacora-mercedev-epic-09.md": [
+          "L51"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L51"
         ],
@@ -560,7 +566,7 @@
           "L474"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L66"
+          "L159"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L105"
@@ -752,7 +758,7 @@
       "merci_explica": "Herramienta única para programadores que facilita la creación y mantenimiento de software.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L46"
+          "L244"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L1987"
@@ -1039,6 +1045,9 @@
       "definicion": "Protocolo de autenticación basado en OAuth 2.0 que permite a los usuarios iniciar sesión en aplicaciones web utilizando sus cuentas de identidad existentes, como Google o Facebook.",
       "merci_explica": "Candado electrónico para proteger la información de usuario",
       "apariciones": {
+        "bitacora-mercedev-epic-09.md": [
+          "L145"
+        ],
         "bitacora-mercedev-epic-01.md": [
           "L119"
         ],
@@ -1225,6 +1234,9 @@
         "bitacora-mercedev-epic-05.md": [
           "L85"
         ],
+        "bitacora-mercedev-epic-09.md": [
+          "L78"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L87"
         ],
@@ -1400,7 +1412,7 @@
           "L117"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L178"
+          "L376"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L425"
@@ -1435,6 +1447,9 @@
       "definicion": "Técnica que analiza el código fuente o binario de una aplicación sin ejecutarla, para identificar vulnerabilidades y riesgos de seguridad.",
       "merci_explica": "Escaneo del código como si fuera un libro abierto.",
       "apariciones": {
+        "bitacora-mercedev-epic-09.md": [
+          "L145"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L63"
         ],
@@ -1655,7 +1670,7 @@
           "L177"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L57"
+          "L88"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L327"
@@ -1709,7 +1724,7 @@
           "L458"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L138"
+          "L239"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L63"
@@ -1838,7 +1853,7 @@
           "L81"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L170"
+          "L368"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L2005"
@@ -2075,7 +2090,7 @@
           "L129"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L191"
+          "L88"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L127"
@@ -2105,7 +2120,7 @@
       "merci_explica": "Puzzle digital que se desbloquea con arrastrar y soltar componentes predefinidos.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L52"
+          "L250"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L185"
@@ -2151,9 +2166,6 @@
         ],
         "bitacora-mercedev-epic-02.md": [
           "L927"
-        ],
-        "instrucciones.md": [
-          "L41"
         ],
         "README.md": [
           "L87"
@@ -2327,7 +2339,7 @@
           "L451"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L170"
+          "L123"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L478"
@@ -2621,7 +2633,7 @@
       "merci_explica": "Juego de acertijos donde cada pieza del rompecabezas representa un tipo diferente de conocimiento, y juntas forman la imagen completa.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L194"
+          "L392"
         ]
       }
     },
@@ -2633,7 +2645,7 @@
       "merci_explica": "Reglas que permiten volar cuando se puede ver el terreno y las nubes, como si estuvieras conduciendo un automóvil por una carretera.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L167"
+          "L365"
         ]
       }
     },
@@ -2645,7 +2657,19 @@
       "merci_explica": "Caja mágica con todo lo necesario para construir software sin tener que reinventar la rueda.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L228"
+          "L426"
+        ]
+      }
+    },
+    "COD": {
+      "nombre": "COD",
+      "ingles": "Code of Conduct",
+      "espanol": "Código de Conducción",
+      "definicion": "Documentación que establece las reglas y expectativas éticas y profesionales a seguir por los miembros de un equipo o organización, especialmente en entornos digitales como el desarrollo de software.",
+      "merci_explica": "Guía moral para mantener la integridad y el respeto entre los miembros del equipo.",
+      "apariciones": {
+        "bitacora-mercedev-epic-09.md": [
+          "L145"
         ]
       }
     }

@@ -2,7 +2,7 @@
 titulo: "Optimizando la Experiencia del Usuario con Vídeos Ultraligeros y Gamificación DevRel"
 descripcion: "Descubre cómo Merci Explica y la arquitectura de Video-as-GIF transformaron nuestras Core Web Vitals sin sacrificar el dinamismo visual."
 estado: "publicado"
-estado_social: "en_cola"
+estado_social: "aprobado"
 tema: "Blog"
 subtema: "Optimización Multimedia"
 tipo: "blog"

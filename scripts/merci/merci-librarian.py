@@ -38,59 +38,34 @@ NOTES_DIR = REPO_ROOT / "laboratorio" / "notas_rapidas"
 PROCESADAS_DIR = NOTES_DIR / "_procesadas"
 LAB_DIR = REPO_ROOT / "laboratorio"
 PROMPT_PATH = REPO_ROOT / "laboratorio" / "prompts" / "prompt-bibliotecario.md"
-ENV_PATH = REPO_ROOT / ".env"
 
 def consultar_ia_hibrida(prompt: str, system_prompt: str) -> str:
     """
-    QUÉ HACE: Realiza una petición a Gemini Pro mediante LiteLLM, con fallback a Gemini Flash.
-    POR QUÉ: Asegura la máxima capacidad analítica para cerrar la Épica.
+    QUÉ HACE: Delega la petición al Router del IDE (LiteLLM Proxy en puerto 4000).
+    POR QUÉ: Centraliza la resiliencia y el manejo de cuotas en la infraestructura híbrida.
     """
-    api_key = os.environ.get("GEMINI_API_KEY")
-    if not api_key and ENV_PATH.exists():
-        for line in ENV_PATH.read_text().splitlines():
-            if line.startswith("GEMINI_API_KEY="):
-                api_key = line.split("=", 1)[1].strip('"\'')
-                os.environ["GEMINI_API_KEY"] = api_key
-                break
-
-    if not api_key:
-        return "Error: GEMINI_API_KEY no detectada en el entorno ni en .env."
-
     try:
         respuesta = completion(
-            model="gemini/gemini-1.5-pro-latest",
+            model="openai/gemini-1.5-pro-latest",
+            api_base="http://localhost:4000",
+            api_key="sk-antigravity",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt}
             ],
-            api_key=api_key,
             temperature=0.0,
             max_tokens=4000
         )
         return respuesta.choices[0].message.content.strip()
-    except Exception as e_pro:
-        print(f"  ⚠️ Gemini Pro no responde ({e_pro}). Ejecutando Fallback a Gemini Flash...")
-        try:
-            respuesta_flash = completion(
-                model="gemini/gemini-2.5-flash",
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": prompt}
-                ],
-                api_key=api_key,
-                temperature=0.0,
-                max_tokens=4000
-            )
-            return respuesta_flash.choices[0].message.content.strip()
-        except Exception as e_flash:
-            return f"Error HTTP Nube: Falló Pro y Flash. {e_flash}"
+    except Exception as e_proxy:
+        return f"Error HTTP Proxy: Falló el enrutador local. {e_proxy}"
 
 def get_bitacora_context(nota_cruda: str) -> str:
     """
     QUÉ HACE: Extrae palabras clave de la nota y filtra entradas relevantes de la bitácora (RAG Optimizado).
     POR QUÉ: Proporciona contexto histórico a la IA para evitar alucinaciones y mantener la trazabilidad.
     """
-    bitacoras = [LAB_DIR / "bitacora-mercedev-orquestacion-ia.md", LAB_DIR / "bitacora-mercedev.md"]
+    bitacoras = list((REPO_ROOT / "laboratorio").glob("bitacora-mercedev-epic-*.md"))
     contexto = ""
     palabras_clave = [p.lower() for p in re.findall(r'\b[a-zA-Z]{5,}\b', nota_cruda)]
 
@@ -185,7 +160,7 @@ def process_note(note_path: Path) -> None:
     # Inyectamos el tipo de documento dinámicamente en el molde mental (System Prompt)
     system_prompt = get_system_prompt().replace('tipo: "cuadernillo"', f'tipo: "{tipo_doc}"')
     
-    print(f"  🧠 [Merci Librarian] Solicitando redacción a Antigravity (Gemini Pro)...")
+    print(f"  🧠 [Merci Librarian] Delegando redacción al Router del IDE (LiteLLM Proxy en puerto 4000)...")
     respuesta = consultar_ia_hibrida(prompt, system_prompt)
     
     if respuesta.startswith("Error"):

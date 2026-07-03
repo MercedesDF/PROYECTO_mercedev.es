@@ -40,6 +40,204 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-07-03 — Persistencia de Advertencias de Triage en el Orquestador del Glosario
+
+**Contexto:**
+Al ejecutar el orquestador global (`merci-total.py`), los avisos sobre términos pendientes de triage (`merci glosario --ai`) generados por `merci-glosario.py` se imprimían en las primeras etapas y terminaban desplazados o cortados del área visible (viewport) debido al desplazamiento de pantalla (*scrolling*) provocado por las salidas de los subsiguientes scripts. Adicionalmente, el almacenamiento en búfer de salida de terminal en subprocesos causaba renderizados incompletos o desordenados de emojis y textos en ciertos emuladores de terminal.
+
+**Hecho:**
+- Se configuró `PROYECTO_mercedev.es/scripts/merci/merci-glosario.py` en Modo Compilación para forzar el volcado inmediato (`flush=True`) de sus impresiones a la salida estándar (stdout).
+- Se implementó en `merci-glosario.py` la escritura del total de términos pendientes de definir en el archivo de caché local `PROYECTO_mercedev.es/observabilidad/.pending_glossary_terms`.
+- Se modificó `PROYECTO_mercedev.es/scripts/merci/merci-total.py` para leer este indicador y reimprimir el aviso consolidado al final de la ejecución del pipeline, justo antes del bloque interactivo de Experiencia del Desarrollador (DX).
+- Se validó la visualización final del pipeline obteniendo la advertencia al final de la salida con éxito.
+
+**Detalle técnico:**
+- Archivo modificado: `PROYECTO_mercedev.es/scripts/merci/merci-glosario.py` (Líneas 232-255).
+- Archivo modificado: `PROYECTO_mercedev.es/scripts/merci/merci-total.py` (Líneas 112-126).
+- Archivo temporal: `PROYECTO_mercedev.es/observabilidad/.pending_glossary_terms`.
+- Comando ejecutado: `python3 scripts/merci/merci-total.py`.
+
+**Motivo / criterio:**
+Asegurar una Experiencia de Desarrollador (DX) impecable y sin fricciones visuales. La pérdida silenciosa de advertencias sobre términos sin definir por scroll o buffer rompe el bucle de retroalimentación de la gobernanza documental (Spec as Source). Este mecanismo de persistencia garantiza que el triage no quede invisible para el operador.
+
+**Siguiente paso o deuda:**
+- Siguiente paso: Realizar el triage de los términos pendientes ejecutando `merci glosario --ai` de forma interactiva en la terminal de usuario.
+
+---
+
+### 2026-07-03 — Organización de Auditorías de Tienda y Publicación de Cuadernillo Lighthouse
+
+**Contexto:**
+Se identificó acumulación de archivos JSON pesados e informales de auditorías de Lighthouse en la raíz del proyecto (`tienda-audit-*.json`). Estos archivos se generaron durante las pruebas de optimización de la tienda de WooCommerce, pero ensuciaban el árbol de Git y el espacio de trabajo. Se acordó estructurar su almacenamiento local sin versionarlos en la nube y redactar un cuadernillo en la biblioteca para formalizar y documentar el proceso técnico llevado a cabo para lograr el pleno 100/100/100/100 en la tienda comercial.
+
+**Hecho:**
+- Se creó el directorio de diagnósticos `PROYECTO_mercedev.es/observabilidad/audits/` y se trasladaron los informes JSON allí.
+- Se añadió la regla correspondiente en `PROYECTO_mercedev.es/.gitignore` para ignorar la carpeta `observabilidad/audits/`.
+- Se eliminó el archivo duplicado y redundante `PROYECTO_mercedev.es/biblioteca/cuadernillo-cuadernillo-domando-woocommerce.md`.
+- Se redactó y publicó el cuadernillo `PROYECTO_mercedev.es/biblioteca/cuadernillo-optimizacion-lighthouse-woocommerce.md` explicando detalladamente los frentes de optimización (desencolado de scripts de bloques, imágenes responsivas, filtro de robots a nivel de PHP).
+- Se ejecutó el pipeline completo de compilación y QA, validando la integración del nuevo manual y la coherencia del sitemap y el buscador estático.
+
+**Detalle técnico:**
+- Archivo nuevo: `PROYECTO_mercedev.es/biblioteca/cuadernillo-optimizacion-lighthouse-woocommerce.md`.
+- Archivo eliminado: `PROYECTO_mercedev.es/biblioteca/cuadernillo-cuadernillo-domando-woocommerce.md`.
+- Archivo modificado: `PROYECTO_mercedev.es/.gitignore` (Líneas 43-46).
+- Archivos reubicados: `tienda-audit*.json` de la raíz a `observabilidad/audits/`.
+- Comando ejecutado: `python3 scripts/merci/merci-total.py`.
+
+**Motivo / criterio:**
+Mantener el repositorio limpio, ligero y libre de artefactos estáticos redundantes (Zero-Bloat en el control de versiones) sin perder la capacidad de consulta local. El nuevo cuadernillo consolida el conocimiento técnico acumulado, garantizando que el esfuerzo de optimización de WooCommerce quede estructurado como una Única Fuente de Verdad (SSOT) en la biblioteca pública.
+
+**Siguiente paso o deuda:**
+- Siguiente paso: Confirmar los cambios pendientes en el control de versiones local.
+
+---
+
+### 2026-07-03 — Corrección del Enrutamiento Resiliente de Inteligencia Artificial (LiteLLM / LM Studio)
+
+**Contexto:**
+Se identificó una desalineación arquitectónica entre la configuración de resiliencia del enrutador de LiteLLM (`observabilidad/router.yaml`) y el consumo del servicio de Inteligencia Artificial (IA) en los scripts locales (`merci-brain.py` y `merci-blogger.py`). El enrutador tenía como modelo primario una versión obsoleta de Gemini (`gemini-1.5-flash-latest`), y las aplicaciones consultaban directamente nombres de modelo en bruto (`openai/qwen2.5-coder` y `openai/gemini-2.5-flash`) en vez de los alias del proxy (`local-agent` e `ide-agent`), anulando el comportamiento del cortocircuito y degradación elegante (*Circuit Breaker* / *Fallback*).
+
+**Hecho:**
+- Se actualizó el modelo principal en `PROYECTO_mercedev.es/observabilidad/router.yaml` a `gemini/gemini-2.5-flash`.
+- Se modificó `PROYECTO_mercedev.es/scripts/merci/merci-brain.py` para enrutar las peticiones al alias `local-agent` del proxy LiteLLM (puerto 4000).
+- Se modificó `PROYECTO_mercedev.es/scripts/merci/merci-blogger.py` para canalizar las peticiones al alias `ide-agent` del proxy LiteLLM, habilitando la redirección transparente a la nube con contingencia local en LM Studio ante caídas del servicio de red.
+- Se auditó el pipeline completo de compilación estática confirmando 0 avisos del linter y verificación de enlaces exitosa.
+
+**Detalle técnico:**
+- Archivo modificado: `PROYECTO_mercedev.es/observabilidad/router.yaml` (Línea 10).
+- Archivo modificado: `PROYECTO_mercedev.es/scripts/merci/merci-brain.py` (Línea 58).
+- Archivo modificado: `PROYECTO_mercedev.es/scripts/merci/merci-blogger.py` (Línea 137).
+- Comandos ejecutados: `python3 scripts/merci/merci-audit.py` y `python3 scripts/merci/merci-total.py`.
+
+**Motivo / criterio:**
+Restablecer el funcionamiento correcto del patrón Proxy y Resiliencia Híbrida documentado en la biblioteca. Esto asegura que si la conexión a internet cae o falla la cuota de la API de Google, el blog y el motor del compilador puedan realizar la conmutación por error (*failover*) sin errores HTTP.
+
+**Siguiente paso o deuda:**
+- Siguiente paso: Evaluar el estado de los servicios locales y apagar LM Studio si no se requiere redactar nuevos borradores promocionales.
+
+---
+
+### 2026-07-03 — Sincronización de Fuentes de Vídeo y Alineación con el Patrón Gemelo Multimedia
+
+**Contexto:**
+Se identificó una divergencia entre el diseño documentado en la biblioteca (Estrategia Fallback Video WebM/MP4) y la implementación real del preprocesador multimedia en el generador estático (SSG) `merci-publish.py`, el cual solo inyectaba una única etiqueta source basada en la sintaxis de imagen del Markdown.
+
+**Hecho:**
+- Se refactorizó la expresión regular y la lógica de reemplazo de vídeos en `PROYECTO_mercedev.es/scripts/merci/merci-publish.py` para autogenerar el código de doble fuente en cascada (WebM primario y MP4 de fallback) de acuerdo al patrón de Gemelo Multimedia.
+- Se verificó que el archivo `showcase-inyeccion-multimedia.html` compilado genera correctamente las etiquetas en cascada y mantiene el 100/100 en la telemetría SRE.
+- Se ejecutó el pipeline de Aseguramiento de Calidad (QA) con éxito, confirmando la ausencia de hallazgos en la auditoría estática.
+
+**Detalle técnico:**
+- Archivo modificado: `PROYECTO_mercedev.es/scripts/merci/merci-publish.py` (Líneas 205-226) sustituyendo el reemplazo estático por una función auxiliar de conversión dual.
+- Comando ejecutado: `python3 scripts/merci/merci-total.py`.
+
+**Motivo / criterio:**
+Unificar el comportamiento real del generador estático (SSG) con las especificaciones y contratos de rendimiento multimedia del ecosistema, evitando la degradación de Core Web Vitals en navegadores legacy y asegurando la fidelidad de la documentación pública de la biblioteca.
+
+**Siguiente paso o deuda:**
+- Siguiente paso: Confirmar los cambios y sellar la sesión de auditoría del compendio.
+
+---
+
+### 2026-07-03 — Corrección del Linter y Robustez del Flujo de Publicación en LinkedIn
+
+**Contexto:**
+Se detectó una advertencia en el linter de Pruebas de Seguridad de Aplicación Estática (SAST) por el uso del acrónimo `COD` sin expandir. Adicionalmente, se reportó un error de Protocolo de Transferencia de Hipertexto (HTTP) 401 en la ejecución del script de integración social de LinkedIn (`merci-linkedin.py`), quedando el sistema bloqueado al no invalidar el token de acceso expirado de Conexión Abierta de Identidad (OIDC).
+
+**Hecho:**
+- Se expandió el acrónimo `COD` en `PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-09.md` para cumplir con las directrices de soberanía lingüística como "Pago Contra Reembolso (COD)".
+- Se implementó la captura de excepciones HTTP 401 en la obtención del Nombre de Recurso Uniforme (URN) del usuario en `PROYECTO_mercedev.es/scripts/merci/merci-linkedin.py`, realizando el borrado automático del archivo local de credenciales expiradas.
+- Se añadió soporte para imprimir explícitamente el enlace de autenticación interactivo en la terminal en caso de fallo de autenticación o ausencia de token.
+- Se ejecutó el pipeline de Aseguramiento de Calidad (QA) con éxito, confirmando la ausencia de hallazgos en la auditoría estática.
+
+**Detalle técnico:**
+- Archivo modificado: `PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-09.md` (Línea 49).
+- Archivo modificado: `PROYECTO_mercedev.es/scripts/merci/merci-linkedin.py` (Líneas 12-18, 124-127 y 166-173) importando `urllib.error` y controlando errores 401 mediante `TOKEN_PATH.unlink()`.
+- Comandos ejecutados: `python3 scripts/merci/merci-audit.py` y `python3 scripts/merci/merci-total.py`.
+
+**Motivo / criterio:**
+Garantizar la auto-reparación (*Self-Healing*) del flujo DevSecOps y optimizar la Experiencia del Desarrollador (DX) en terminales sin interfaz gráfica activa. La soberanía lingüística y la resolución de alertas en el linter son fundamentales para asegurar la higiene documental del repositorio.
+
+**Siguiente paso o deuda:**
+- Siguiente paso: Confirmar los cambios pendientes en el control de versiones local e iniciar la re-autenticación interactiva en la cuenta de LinkedIn mediante `merci linkedin`.
+
+---
+
+### 2026-06-18 — Fase 4: Tienda WooCommerce a 100/100/100/100 en Lighthouse
+
+**Contexto:**
+La tienda (`/blog/tienda/`) partía de 96/100 en Best Practices, 66/100 en SEO, 86/100 en Performance y 100/100 en Accesibilidad. Objetivo: recuperar el pleno 100/100/100/100 que había tenido antes de los cambios de esta épica.
+
+**Hecho:**
+- **Best Practices (96→100):** Se desencolan los scripts de WooCommerce Blocks en el frontend (`wc-cart-block`, `wc-checkout-block`, `wc-blocks`, `wc-settings`…) mediante un hook `wp_enqueue_scripts` a prioridad 100, eliminando 4 errores de consola JS sobre la pasarela de Pago Contra Reembolso (COD). Se añaden los filtros `woocommerce_blocks_has_classic_checkout/cart` para señalizar el modo clásico.
+- **SEO (66→100):** WordPress tenía activa la opción "Desanimar motores de búsqueda" (`blog_public=0`), inyectando `<meta name="robots" content="noindex, nofollow">` en todas las páginas. Se amplió el filtro `wp_robots` existente para que elimine `noindex`/`nofollow` y fuerce `index, follow` a prioridad 9999, sobrescribiendo tanto WP Core como WooCommerce.
+- **Performance (86→100):** Tres frentes atacados:
+  1. **Render-blocking CSS (−170ms):** Añadido `<link rel="preload">` del `main.css` antes del `<link rel="stylesheet">` en `woocommerce.php`.
+  2. **Imágenes de productos sobredimensionadas (−481KB):** Modificado `merci-shop.py` para que, al subir imágenes a WooCommerce vía API, prefiera automáticamente la versión `-400w.webp` de cada producto (generada por `merci-optimizer.py` desde `.assets-raw/`) en lugar de la imagen original 2048×2048px.
+  3. El optimizer (`merci-optimizer.py`) ya tenía las versiones `-400w` listas en `assets/images/`; bastó con enrutar correctamente la URL en la sincronización con la API de WooCommerce.
+- **Aviso "Economía Simulada":** Corregida la imagen de la llama en `woocommerce.php` de `tu_logo-80w.webp` → `favicon.ico` (16×16), coherente con el símbolo de moneda en `functions.php`.
+- Pipeline completo `merci-total.py` → 💡 Todo en verde.
+
+**Detalle técnico:**
+- `PROYECTO_mercedev.es/src/wp-theme/merci-theme/functions.php`: filtros `wp_robots` (prioridad 9999) y `wp_enqueue_scripts` (prioridad 100) para dequeue de Blocks.
+- `PROYECTO_mercedev.es/src/wp-theme/merci-theme/woocommerce.php`: preload CSS + corrección imagen llama.
+- `PROYECTO_mercedev.es/scripts/merci/merci-shop.py`: lógica de preferencia `-400w` en URLs de imagen de producto.
+
+**Motivo / criterio:**
+El 100/100/100/100 es un contrato de calidad del ecosistema, no un objetivo aspiracional. El optimizer ya existía (`merci-optimizer.py`), el pipeline de imágenes responsivas ya era correcto — solo faltaba cerrar el circuito entre el optimizer y el endpoint de la API de WooCommerce.
+
+**Siguiente paso o deuda:**
+- Backup de la épica.
+- Checklist de cierre de la Épica 9.
+
+### 2026-06-18 — Fase 4: Optimización Best Practices Tienda WooCommerce (96→100)
+
+**Contexto:**
+Lighthouse reportaba 96/100 en Best Practices para la página de la tienda (`/blog/tienda/`) debido a 4 errores de consola repetidos: `Payment gateway 'wc-payment-method-cod' deactivated in Cart and Checkout blocks because its dependencies are missing`. El error era generado por los scripts de WooCommerce Blocks en el frontend, aunque la tienda usa el checkout clásico de WooCommerce (no los bloques de Gutenberg).
+
+**Hecho:**
+- Se sustituyó el símbolo de moneda del gateway personalizado de `tu_logo-80w.webp` → `favicon.ico` (16×16) en `functions.php`, manteniendo el estilo CSS `.merci-coin-icon` con `height: 1.2em; width: auto`.
+- Se añadieron los filtros `woocommerce_blocks_has_classic_checkout` y `woocommerce_blocks_has_classic_cart` con `__return_true` para señalizar a WooCommerce que el tema usa el checkout clásico.
+- Se implementó un hook `wp_enqueue_scripts` con prioridad 100 que desencola y desregistra los scripts de WooCommerce Blocks en el frontend (`wc-cart-block`, `wc-checkout-block`, `wc-blocks`, `wc-settings`, etc.).
+- Se verificó el resultado con varias iteraciones de Lighthouse hasta alcanzar **Best Practices: 100/100** y **Accessibility: 100/100** sin errores de consola.
+- Se sincronizó el pipeline completo con `merci-total.py` (11s, todo en verde).
+
+**Detalle técnico:**
+El error JS no podía resolverse a nivel PHP (hooks de WooCommerce Blocks) porque se producía en el navegador tras la carga de los scripts de bloques. La solución correcta fue desencolar esos scripts a prioridad 100 (posterior al registro de WooCommerce a prioridad 10-20) en `PROYECTO_mercedev.es/src/wp-theme/merci-theme/functions.php`.
+
+**Motivo / criterio:**
+Los errores de consola son evaluados por Lighthouse como fallos de Best Practices con peso directo en la puntuación. Desencolar scripts no usados es, además, un acierto de rendimiento (reduce JS en el critical path), alineado con la filosofía Zero-Bloat del ecosistema.
+
+**Siguiente paso o deuda:**
+SEO (66/100) y Performance (86/100) aún pendientes de optimizar para recuperar el 100/100/100/100.
+
+### 2026-06-18 — Fase 4: Corrección de Paginación Invisible en Blog Cronológico
+
+**Contexto:**
+Durante la refactorización a un blog cronológico vertical (Épica 8), se eliminó la paginación por defecto, dejando todas las entradas anteriores al 14/06 inaccesibles desde la interfaz debido al límite predeterminado de 10 posts por página en WordPress.
+
+**Hecho:**
+- Se inyectó la función `the_posts_pagination()` en `src/wp-theme/merci-theme/index.php`.
+- Se maquetaron los estilos BEM para la paginación nativa de WP en `src/scss/components/_blog-feed.scss` manteniendo la directriz *Zero-Bloat*.
+- Se recompilaron los estilos y plantillas con el orquestador maestro (`merci-total.py`), restaurando el acceso a todo el archivo histórico con resultados de validación perfectos (11.19s).
+
+**Motivo / criterio:**
+La optimización extrema (Anti-Bloat) nunca debe sacrificar la accesibilidad ni la navegabilidad fundamental del contenido.
+
+### 2026-06-18 — Fase 4: Sincronización del Boilerplate, Circuit Breakers y Pila Híbrida
+
+**Contexto:**
+Tras validar el funcionamiento de los Fallbacks y Circuit Breakers (Chaos Engineering), era necesario actualizar la documentación agnóstica (`README-merci.md`, `instrucciones.md`), empaquetar la v1.20.0 y reestructurar el compendio de cierre de la épica según el estándar SEO.
+
+**Hecho:**
+- Alineación del comportamiento "Pila Híbrida / Fallback" en los agentes documentados en `instrucciones.md`.
+- Inclusión del test de resiliencia (Chaos Fallback) como paso innegociable del Protocolo de Cierre de Fase.
+- Lanzamiento de la versión v1.20.0 en el repositorio `merci-boilerplate` usando `merci-release.py --non-interactive` (purgando identidad visual y corporativa en un entorno efímero).
+- Corrección de la taxonomía del compendio a "DevSecOps e Infraestructura", cambio a estado borrador y promoción limpia a la Biblioteca mediante `merci promote`.
+
+**Motivo / criterio:**
+El Boilerplate debe reflejar siempre el estado del arte de la matriz `mercedev.es`. La nueva arquitectura "Shift-Left AI" con fallback en la nube eleva la resiliencia del pipeline a un grado de confiabilidad ininterrumpida.
+
 ### 2026-06-15 — Fase 4: Documentación de la Arquitectura de Enrutamiento Inverso (Art de Coté)
 
 **Contexto:**

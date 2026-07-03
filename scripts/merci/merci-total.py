@@ -112,6 +112,16 @@ def main() -> None:
         print(f"  {s_name:<25} : {s_time:>5.2f}s")
     print("-" * 40)
     
+    # Comprobar si hay términos de glosario pendientes para que la advertencia no se pierda al hacer scroll
+    pending_file = obs_dir / ".pending_glossary_terms"
+    if pending_file.exists():
+        try:
+            count = pending_file.read_text(encoding="utf-8").strip()
+            print(f"\n⚠️  [Merci Glosario] Tienes {count} término(s) nuevo(s) en la bitácora sin definir.")
+            print("            Ejecuta 'merci glosario --ai' para revisarlos.")
+        except Exception:
+            pass
+            
     if not os.environ.get("MERCI_IS_COMPLETO"):
         print("\n💡 [Merci DX] Todo en verde. Si tu iteración ha finalizado, ejecuta 'merci completo' para sellar y subir a producción.\n")
 

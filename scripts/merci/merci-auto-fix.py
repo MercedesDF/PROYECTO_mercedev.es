@@ -66,12 +66,13 @@ NO uses bloques de markdown (ni ```python ni similares). Solo devuelve el códig
 
 {contenido_actual}"""
 
-    print(f"🤖 [Merci Brain Cloud] Solicitando parche a Gemini para {error['file']}...")
+    print(f"🤖 [Merci Brain] Delegando parche al Router del IDE (LiteLLM Proxy en puerto 4000) para {error['file']}...")
     try:
         respuesta = completion(
-            model="gemini/gemini-1.5-flash",
+            model="openai/gemini-1.5-flash",
+            api_base="http://localhost:4000",
+            api_key="sk-antigravity",
             messages=[{"role": "user", "content": prompt}],
-            api_key=os.environ.get("GEMINI_API_KEY")
         )
         nuevo_contenido = respuesta.choices[0].message.content.strip()
         
@@ -88,10 +89,6 @@ NO uses bloques de markdown (ni ```python ni similares). Solo devuelve el códig
 
 if __name__ == "__main__":
     try:
-        if not os.environ.get("GEMINI_API_KEY"):
-            print("❌ [Merci AI] GEMINI_API_KEY no detectada. Cancelando Auto-Fix.")
-            sys.exit(1)
-            
         error_detectado = obtener_error_linter()
         if error_detectado:
             exito = aplicar_parche_ia(error_detectado)
