@@ -383,9 +383,9 @@
 **Objetivo:** Reconversión del ecosistema hacia el modelo de Inteligencia Artificial (IA / AI - Artificial Intelligence) basado en agentes de Antigravity IDE (Entorno de Desarrollo Integrado / Integrated Development Environment). Implementación de habilidades (Skills) y reglas (Rules) para la optimización de código y mantenimiento autónomo, manteniendo la filosofía minimalista y sin dependencias innecesarias.
 
 ### Fase 1: Arquitectura de Agentes y Gobernanza
-- [ ] **Diseñar la topología de agentes.** Definir responsabilidades atómicas (Zero-Bloat) para cada agente: p.ej., un agente especializado en refactorización de código, otro en auditoría SRE (Site Reliability Engineering / Ingeniería de Confiabilidad del Sitio).
-- [ ] **Desplegar la estructura `.agents/`.** Inicializar el directorio de configuración del espacio de trabajo con sus subdirectorios estándar (`skills/`, `rules/`, `plugins/`).
-- [ ] **Definir el marco de reglas (Rules).** Crear los archivos Markdown (`AGENTS.md` o dentro de `rules/`) que aseguren que los agentes respeten la única fuente de verdad (`instrucciones.md`) y las convenciones del repositorio (comentarios en español, sin frameworks pesados).
+- [x] **Diseñar la topología de agentes.** Definir responsabilidades atómicas (Zero-Bloat) para cada agente: p.ej., un agente especializado en refactorización de código, otro en auditoría SRE (Site Reliability Engineering / Ingeniería de Confiabilidad del Sitio).
+- [x] **Desplegar la estructura `.agents/`.** Inicializar el directorio de configuración del espacio de trabajo con sus subdirectorios estándar (`skills/`, `rules/`, `plugins/`).
+- [x] **Definir el marco de reglas (Rules).** Crear los archivos Markdown (`AGENTS.md` o dentro de `rules/`) que aseguren que los agentes respeten la única fuente de verdad (`instrucciones.md`) y las convenciones del repositorio (comentarios en español, sin frameworks pesados).
 
 ### Fase 2: Implementación de Habilidades (Skills)
 - [ ] **Desarrollar Skills Fundamentales.** Crear las carpetas de skills con sus respectivos `SKILL.md` (instrucciones con YAML frontmatter) para dotar a los agentes de capacidades específicas de optimización y creación de scripts.
