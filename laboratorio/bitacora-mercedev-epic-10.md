@@ -39,6 +39,24 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-09-04 - Parche de Habilidad: Expansión de ámbito del Auditor Documental
+
+**Contexto:** Necesidad de alinear al agente Auditor con la filosofía de documentación viva del proyecto.
+
+**Hecho:** 
+- Se rectificó la habilidad en `.agents/skills/auditor-docs/SKILL.md`. El Auditor ahora asume la responsabilidad explícita de mantener vivos y sincronizados: la carpeta `docs/`, el `README.md`, el `ROADMAP.md` y la documentación del ecosistema `merci-boilerplate`.
+
+**Detalle técnico:** 
+- Archivo editado: `.agents/skills/auditor-docs/SKILL.md`
+
+**Motivo / criterio:** La documentación no es un ente estático. Crece y muta con el proyecto, por lo que el agente no debe limitarse, sino vigilar todo el espectro documental maestro.
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 de la Épica 10.
+
+---
+
+
+
 ### 2026-09-04 - Parche de Habilidad: Límite de ámbito en Auditor Documental
 
 **Contexto:** Evitar que el agente Auditor modifique archivos fuera de su dominio real.
