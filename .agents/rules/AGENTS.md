@@ -29,3 +29,6 @@ Cualquier agente que actúe como redactor (DevRel, Publisher, etc.) y deba gener
 
 ## 8. Zero-Trust en Resultados (QA Autónomo)
 El Orquestador (IDE) y los Agentes **tienen prohibido** dar por válido el trabajo de los scripts de generación de contenido local (Librarian, Blogger, etc.) basándose únicamente en el éxito de la terminal (Exit Code 0). Tras delegar una tarea de generación, el Orquestador **debe obligatoriamente abrir, leer y auditar** el documento resultante para confirmar que cumple con la plantilla, la longitud, y la integridad de los datos (ausencia de truncamiento o alucinaciones) **ANTES** de notificárselo a la desarrolladora humana. El humano debe recibir certezas, no deberes de revisión.
+
+## 9. Optimización de Activos (Zero-Bloat Assets)
+Cualquier imagen, vídeo o archivo multimedia generado o descargado por el IDE o los Agentes **debe depositarse obligatoriamente en el directorio de ingesta `.assets-raw/`**. Está terminantemente prohibido alojar o enlazar archivos crudos (PNG, JPG, MP4) directamente en directorios de documentación (`docs/`) o producción (`public/`). Todos los *assets* deben pasar forzosamente por el pipeline `merci-optimizer.py` para su conversión a formatos de ultra-rendimiento (WebP/WebM) y ser enlazados posteriormente desde su ubicación optimizada (ej. `assets/images/`).

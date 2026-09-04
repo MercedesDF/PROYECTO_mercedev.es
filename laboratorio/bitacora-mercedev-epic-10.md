@@ -39,6 +39,23 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-09-04 - Zero-Bloat Assets y Estandarización Multimedia (Regla #9)
+
+**Contexto:** Se generó una imagen (diagrama Mermaid renderizado) para la documentación y se depositó erróneamente en formato crudo (PNG) directamente en `docs/img/`, saltándose el flujo de optimización establecido en la Fase 3.4.
+
+**Hecho:**
+- Se movió la imagen infractora a `.assets-raw/` y se procesó con `merci-optimizer.py`.
+- Se enlazó la versión optimizada hipercomprimida (WebP) en `docs/arquitectura-agentes.md`.
+- Inyección de la **Regla #9 (Optimización de Activos)** en `AGENTS.md`.
+
+**Detalle técnico:** Queda estrictamente prohibido alojar o enlazar imágenes o vídeos crudos en todo el repositorio. Todos los *assets* multimedia generados por agentes o por la usuaria deben entrar por la carpeta de ingesta `.assets-raw/` para que el optimizador los procese y garantice un Core Web Vitals de 100/100.
+
+**Motivo / criterio:** Sellar un hueco en la gobernanza. Los agentes no tenían por escrito la obligación de pasar las imágenes por el pipeline SRE. Al convertirlo en regla global, se previene que la IA degrade el rendimiento del proyecto inyectando archivos pesados.
+
+**Siguiente paso o deuda:** Ninguna pendiente en esta iteración.
+
+---
+
 ### 2026-09-04 - Implementación de Zero-Trust QA (Regla #8)
 
 **Contexto:** Tras la delegación de tareas al agente Blogger, se detectó un fallo sistémico en el rol del Orquestador: se dio por válido un documento generado por el LLM basándose únicamente en el código de éxito del script, ignorando que el archivo estaba truncado y carecía de texto válido.

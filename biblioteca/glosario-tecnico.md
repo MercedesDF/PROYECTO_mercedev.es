@@ -10,7 +10,7 @@ fecha: "2026-09-04"
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 149 términos consolidados (Última actualización de datos: 2026-09-04 15:16).
+> **Versión de control:** 149 términos consolidados (Última actualización de datos: 2026-09-04 22:36).
 
 ## Índice Alfabético
 
@@ -49,7 +49,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-01.md: L3316
 - bitacora-mercedev-epic-06.md: L248
 - bitacora-mercedev-epic-07.md: L407
-- bitacora-mercedev-epic-10.md: L111
+- bitacora-mercedev-epic-10.md: L128
 - integracion-wordpress.md: L69
 
 ---
@@ -130,6 +130,7 @@ fecha: "2026-09-04"
 
 **Apariciones en Bitácoras:**
 - README.md: L88
+- arquitectura-agentes.md: L31
 - bitacora-mercedev-epic-01.md: L207
 - bitacora-mercedev-epic-02.md: L501
 - bitacora-mercedev-epic-03.md: L117
@@ -138,7 +139,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L272
 - bitacora-mercedev-epic-08.md: L218
 - bitacora-mercedev-epic-09.md: L297
-- bitacora-mercedev-epic-10.md: L77
+- bitacora-mercedev-epic-10.md: L94
 - checklist-hardening.md: L80
 
 ---
@@ -389,7 +390,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L286
 - bitacora-mercedev-epic-08.md: L204
 - bitacora-mercedev-epic-09.md: L206
-- bitacora-mercedev-epic-10.md: L138
+- bitacora-mercedev-epic-10.md: L155
 - bitacora-merci-boilerplate.md: L17
 - checklist-hardening.md: L49
 - ciclo-de-vida-contenidos.md: L16
@@ -406,6 +407,7 @@ fecha: "2026-09-04"
 💡 **Merci Explica:** *Mecanismo de seguridad digital que actúa como un guardián vigilante para evitar la pérdida accidental o intencional de datos críticos.*
 
 **Apariciones en Bitácoras:**
+- arquitectura-agentes.md: L89
 - bitacora-mercedev-epic-01.md: L410
 - bitacora-mercedev-epic-02.md: L313
 - bitacora-mercedev-epic-03.md: L191
@@ -484,7 +486,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L752
 - bitacora-mercedev-epic-08.md: L134
 - bitacora-mercedev-epic-09.md: L98
-- bitacora-mercedev-epic-10.md: L157
+- bitacora-mercedev-epic-10.md: L174
 
 ---
 ### E2E
@@ -669,6 +671,7 @@ fecha: "2026-09-04"
 💡 **Merci Explica:** *Herramienta única para programadores que facilita la creación y mantenimiento de software.*
 
 **Apariciones en Bitácoras:**
+- arquitectura-agentes.md: L12
 - bitacora-mercedev-epic-01.md: L143
 - bitacora-mercedev-epic-02.md: L43
 - bitacora-mercedev-epic-03.md: L1987
@@ -810,10 +813,11 @@ fecha: "2026-09-04"
 💡 **Merci Explica:** *Máquina que aprende a procesar y generar texto humano de manera autónoma.*
 
 **Apariciones en Bitácoras:**
+- arquitectura-agentes.md: L13
 - bitacora-mercedev-epic-02.md: L239
 - bitacora-mercedev-epic-03.md: L443
 - bitacora-mercedev-epic-06.md: L518
-- bitacora-mercedev-epic-10.md: L44
+- bitacora-mercedev-epic-10.md: L61
 
 ---
 ### LTS
@@ -1096,6 +1100,7 @@ fecha: "2026-09-04"
 
 **Apariciones en Bitácoras:**
 - README.md: L80
+- arquitectura-agentes.md: L12
 - bitacora-mercedev-epic-01.md: L172
 - bitacora-mercedev-epic-02.md: L599
 - bitacora-mercedev-epic-03.md: L87
@@ -1105,7 +1110,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L135
 - bitacora-mercedev-epic-08.md: L43
 - bitacora-mercedev-epic-09.md: L51
-- bitacora-mercedev-epic-10.md: L42
+- bitacora-mercedev-epic-10.md: L59
 - flujo-publicacion-sop.md: L21
 - instrucciones.md: L52
 - mantenimiento-boilerplate-sop.md: L48
@@ -1131,6 +1136,7 @@ fecha: "2026-09-04"
 
 **Apariciones en Bitácoras:**
 - README.md: L69
+- arquitectura-agentes.md: L34
 - bitacora-mercedev-epic-01.md: L5591
 
 ---
@@ -1416,13 +1422,14 @@ fecha: "2026-09-04"
 
 **Apariciones en Bitácoras:**
 - README.md: L13
+- arquitectura-agentes.md: L85
 - bitacora-mercedev-epic-02.md: L65
 - bitacora-mercedev-epic-03.md: L349
 - bitacora-mercedev-epic-04.md: L50
 - bitacora-mercedev-epic-07.md: L43
 - bitacora-mercedev-epic-08.md: L102
 - bitacora-mercedev-epic-09.md: L1
-- bitacora-mercedev-epic-10.md: L57
+- bitacora-mercedev-epic-10.md: L53
 - deployment-playbook.md: L51
 - instrucciones.md: L54
 
@@ -1436,7 +1443,7 @@ fecha: "2026-09-04"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-03.md: L1314
-- bitacora-mercedev-epic-10.md: L392
+- bitacora-mercedev-epic-10.md: L409
 
 ---
 ### SSG
@@ -1448,6 +1455,7 @@ fecha: "2026-09-04"
 
 **Apariciones en Bitácoras:**
 - README.md: L178
+- arquitectura-agentes.md: L87
 - bitacora-mercedev-epic-01.md: L100
 - bitacora-mercedev-epic-02.md: L97
 - bitacora-mercedev-epic-03.md: L478
@@ -1455,7 +1463,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L328
 - bitacora-mercedev-epic-08.md: L52
 - bitacora-mercedev-epic-09.md: L170
-- bitacora-mercedev-epic-10.md: L67
+- bitacora-mercedev-epic-10.md: L84
 - ciclo-de-vida-contenidos.md: L7
 - flujo-publicacion-sop.md: L2
 - instrucciones.md: L37
@@ -1484,6 +1492,7 @@ fecha: "2026-09-04"
 
 **Apariciones en Bitácoras:**
 - README.md: L10
+- arquitectura-agentes.md: L3
 - bitacora-mercedev-epic-01.md: L51
 - bitacora-mercedev-epic-02.md: L54
 - bitacora-mercedev-epic-03.md: L327
@@ -1819,6 +1828,7 @@ fecha: "2026-09-04"
 
 **Apariciones en Bitácoras:**
 - README.md: L254
+- arquitectura-agentes.md: L101
 - bitacora-mercedev-epic-02.md: L48
 - bitacora-mercedev-epic-03.md: L127
 - bitacora-mercedev-epic-06.md: L129
@@ -1873,7 +1883,7 @@ fecha: "2026-09-04"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L929
 - bitacora-mercedev-epic-03.md: L159
-- bitacora-mercedev-epic-10.md: L177
+- bitacora-mercedev-epic-10.md: L194
 
 ---
 ### Zero-Hallucination
@@ -1885,6 +1895,7 @@ fecha: "2026-09-04"
 
 **Apariciones en Bitácoras:**
 - README.md: L87
+- arquitectura-agentes.md: L3
 - bitacora-mercedev-epic-02.md: L927
 - bitacora-mercedev-epic-06.md: L567
 
@@ -1956,8 +1967,9 @@ fecha: "2026-09-04"
 💡 **Merci Explica:** *Seguridad sin excepciones, donde cada solicitud de acceso se evalúa individualmente.*
 
 **Apariciones en Bitácoras:**
+- arquitectura-agentes.md: L19
 - bitacora-mercedev-epic-08.md: L52
-- bitacora-mercedev-epic-10.md: L42
+- bitacora-mercedev-epic-10.md: L59
 - instrucciones.md: L131
 
 ---

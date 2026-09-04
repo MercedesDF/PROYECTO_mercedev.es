@@ -41,7 +41,7 @@
           "L248"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L111"
+          "L128"
         ],
         "bitacora-mercedev-epic-07.md": [
           "L407"
@@ -167,7 +167,7 @@
           "L297"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L77"
+          "L94"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L117"
@@ -189,6 +189,9 @@
         ],
         "checklist-hardening.md": [
           "L80"
+        ],
+        "arquitectura-agentes.md": [
+          "L31"
         ],
         "README.md": [
           "L88"
@@ -481,6 +484,9 @@
         "checklist-hardening.md": [
           "L54"
         ],
+        "arquitectura-agentes.md": [
+          "L89"
+        ],
         "instrucciones.md": [
           "L68"
         ]
@@ -539,7 +545,7 @@
           "L98"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L157"
+          "L174"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L51"
@@ -578,7 +584,7 @@
           "L206"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L138"
+          "L155"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L105"
@@ -786,6 +792,9 @@
         ],
         "bitacora-mercedev-epic-08.md": [
           "L428"
+        ],
+        "arquitectura-agentes.md": [
+          "L12"
         ]
       }
     },
@@ -953,13 +962,16 @@
           "L518"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L44"
+          "L61"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L443"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L239"
+        ],
+        "arquitectura-agentes.md": [
+          "L13"
         ]
       }
     },
@@ -1259,7 +1271,7 @@
           "L51"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L42"
+          "L59"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L87"
@@ -1281,6 +1293,9 @@
         ],
         "flujo-publicacion-sop.md": [
           "L21"
+        ],
+        "arquitectura-agentes.md": [
+          "L12"
         ],
         "mantenimiento-boilerplate-sop.md": [
           "L48"
@@ -1314,6 +1329,9 @@
       "apariciones": {
         "bitacora-mercedev-epic-01.md": [
           "L5591"
+        ],
+        "arquitectura-agentes.md": [
+          "L34"
         ],
         "README.md": [
           "L69"
@@ -1646,7 +1664,7 @@
           "L1"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L57"
+          "L53"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L349"
@@ -1666,6 +1684,9 @@
         "deployment-playbook.md": [
           "L51"
         ],
+        "arquitectura-agentes.md": [
+          "L85"
+        ],
         "instrucciones.md": [
           "L54"
         ],
@@ -1682,7 +1703,7 @@
       "merci_explica": "Garantiza que cada componente del sistema tenga un propósito específico y no dependa de otros por más allá de lo necesario.",
       "apariciones": {
         "bitacora-mercedev-epic-10.md": [
-          "L392"
+          "L409"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L1314"
@@ -1719,6 +1740,9 @@
         ],
         "ciclo-de-vida-contenidos.md": [
           "L49"
+        ],
+        "arquitectura-agentes.md": [
+          "L3"
         ],
         "mantenimiento-boilerplate-sop.md": [
           "L5"
@@ -2137,6 +2161,9 @@
         "bitacora-mercedev-epic-08.md": [
           "L387"
         ],
+        "arquitectura-agentes.md": [
+          "L101"
+        ],
         "instrucciones.md": [
           "L97"
         ],
@@ -2180,7 +2207,7 @@
       "merci_explica": "Bicicleta sin frenos que se mueve con solo el pedaleo.",
       "apariciones": {
         "bitacora-mercedev-epic-10.md": [
-          "L177"
+          "L194"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L159"
@@ -2202,6 +2229,9 @@
         ],
         "bitacora-mercedev-epic-02.md": [
           "L927"
+        ],
+        "arquitectura-agentes.md": [
+          "L3"
         ],
         "README.md": [
           "L87"
@@ -2378,7 +2408,7 @@
           "L170"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L67"
+          "L84"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L478"
@@ -2400,6 +2430,9 @@
         ],
         "ciclo-de-vida-contenidos.md": [
           "L7"
+        ],
+        "arquitectura-agentes.md": [
+          "L87"
         ],
         "instrucciones.md": [
           "L37"
@@ -2657,10 +2690,13 @@
       "merci_explica": "Seguridad sin excepciones, donde cada solicitud de acceso se evalúa individualmente.",
       "apariciones": {
         "bitacora-mercedev-epic-10.md": [
-          "L42"
+          "L59"
         ],
         "bitacora-mercedev-epic-08.md": [
           "L52"
+        ],
+        "arquitectura-agentes.md": [
+          "L19"
         ],
         "instrucciones.md": [
           "L131"
