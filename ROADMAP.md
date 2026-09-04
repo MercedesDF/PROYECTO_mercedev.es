@@ -388,8 +388,8 @@
 - [x] **Definir el marco de reglas (Rules).** Crear los archivos Markdown (`AGENTS.md` o dentro de `rules/`) que aseguren que los agentes respeten la única fuente de verdad (`instrucciones.md`) y las convenciones del repositorio (comentarios en español, sin frameworks pesados).
 
 ### Fase 2: Implementación de Habilidades (Skills)
-- [ ] **Desarrollar Skills Fundamentales.** Crear las carpetas de skills con sus respectivos `SKILL.md` (instrucciones con YAML frontmatter) para dotar a los agentes de capacidades específicas de optimización y creación de scripts.
-- [ ] **Validar contexto y trazabilidad.** Asegurar que cada skill instruya al agente a registrar su avance cronológicamente en la bitácora (`laboratorio/bitacora-mercedev.md`).
+- [x] **Desarrollar Skills Fundamentales.** Crear las carpetas de skills con sus respectivos `SKILL.md` (instrucciones con YAML frontmatter) para dotar a los agentes de capacidades específicas de optimización y creación de scripts.
+- [x] **Validar contexto y trazabilidad.** Asegurar que cada skill instruya al agente a registrar su avance cronológicamente en la bitácora (`laboratorio/bitacora-mercedev.md`).
 
 ### Fase 3: Pruebas y Optimización (Ejecución)
 - [ ] **Delegar tareas de optimización.** Ejecutar pruebas controladas donde los agentes optimicen componentes del proyecto bajo supervisión.
