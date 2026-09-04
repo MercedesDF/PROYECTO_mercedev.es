@@ -1,13 +1,21 @@
 {
   "globals": {
     "script": "45658c5315053c946690e4d2891d0f2b",
-    "req": "c2a5d2b69ff22107292b80cebebb30b3",
+    "req": "e06e59cfaac3957f9b5864322f4b7a88",
     "glos": "8f718d9b10a515bb541b262a6150a04e",
     "strict": false
   },
   "files": {
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-10.md": "9166bfc061a58d187d7ad5a8421b7a97",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/.agents/rules/AGENTS.md": "abcfda110a7aa594f3c56cd94cd475f6",
-    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/ROADMAP.md": "525658909456088ee683f353586d8d2c"
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/.agents/skills/auditor-docs/SKILL.md": "01654a69d6f248b16e347cb2ae90a21c",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/.agents/skills/chaos/SKILL.md": "0b67904010358bec3547e6f01c689b0e",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/.agents/skills/devrel/SKILL.md": "ff98ccbcbf4f36e0eaf67a39e1c17eb5",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/.agents/skills/lexicografo/SKILL.md": "8aa45591b548be30ef63778cf5764ff2",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/.agents/skills/orquestador/SKILL.md": "7950dd1d01b5722aab93bfa0875f05cf",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/.agents/skills/publisher/SKILL.md": "12876c8dd3f80c574594d40196a8969b",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/.agents/skills/qa/SKILL.md": "55d7d59c14a06dc39da7bcae9fb4222c",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/.agents/skills/release-manager/SKILL.md": "fc35b6ba7a10a7333bc7616ab82b4527",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/.agents/skills/sre/SKILL.md": "d202f909e30baf855305eab67b2f4824",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/ROADMAP.md": "a45002d7e878ff87543ac0749949f74b",
+    "/home/hildegahr/Escritorio/PROYECTO_mercedev.es/laboratorio/bitacora-mercedev-epic-10.md": "7dd1bfc8c8138802f624cf9c0e51cec8"
   }
 }

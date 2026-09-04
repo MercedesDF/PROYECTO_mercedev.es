@@ -39,6 +39,24 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-09-04 - Parche de Habilidad: Límite de ámbito en Auditor Documental
+
+**Contexto:** Evitar que el agente Auditor modifique archivos fuera de su dominio real.
+
+**Hecho:** 
+- Se actualizó el archivo `.agents/skills/auditor-docs/SKILL.md` para focalizar los parches documentales exclusivamente en la carpeta `docs/`.
+
+**Detalle técnico:** 
+- Archivo editado: `.agents/skills/auditor-docs/SKILL.md`
+
+**Motivo / criterio:** Delimitar el Single Source of Truth estático (`docs/`) frente a otras piezas del ecosistema para no generar sobreescrituras en otros Markdown ajenos a la documentación de usuario final.
+
+**Siguiente paso o deuda:** Continuar hacia la Fase 3 de la Épica 10.
+
+---
+
+
+
 ### 2026-09-04 - Parche de Habilidad: Arquitectura Sass 7-1 en Agente SRE
 
 **Contexto:** Evitar que el agente SRE rompa la estructura de estilos al refactorizar CSS.
