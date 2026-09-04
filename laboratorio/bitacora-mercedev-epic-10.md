@@ -39,6 +39,26 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-09-04 - Parche de Seguridad (OpSec): Censura de Vulnerabilidades
+
+**Contexto:** Evitar la exposición pública de vectores de ataque en la bitácora cuando los agentes QA y Chaos interactúan con el código.
+
+**Hecho:** 
+- Se actualizaron las directrices en `.agents/skills/chaos/SKILL.md` y `.agents/skills/qa/SKILL.md`.
+- Ahora tienen **estrictamente prohibido** registrar detalles de vulnerabilidades (CVEs, exploits, inyecciones) en la bitácora pública. 
+- Los detalles técnicos exhaustivos deben volcarse de forma silenciosa en la carpeta `.privado/` (ej. `.privado/chaos-audit.json`). En la bitácora solo se dejará un aviso genérico ("Se parcheó/inyectó un fallo").
+
+**Detalle técnico:** 
+- Archivos editados: `chaos/SKILL.md`, `qa/SKILL.md`
+
+**Motivo / criterio:** Protección de la superficie de ataque (OpSec). El repositorio es un documento vivo y público/compartido; detallar cómo romper el sistema es dar un manual de instrucciones a un atacante.
+
+**Siguiente paso o deuda:** Continuar hacia la Fase 3 de la Épica 10.
+
+---
+
+
+
 ### 2026-09-04 - Parche de Habilidad: Expansión de ámbito del Auditor Documental
 
 **Contexto:** Necesidad de alinear al agente Auditor con la filosofía de documentación viva del proyecto.

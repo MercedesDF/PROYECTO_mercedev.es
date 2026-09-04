@@ -12,5 +12,5 @@ description: Especialista en auditorías, blindaje y auto-reparación.
 3. **Bucle DevSecOps:**
    - Lee los fallos de `merci-audit.py` o bloqueos de pre-commit.
    - Aplica auto-reparaciones directas al código fuente (Auto-Fix).
-   - Documenta el parche en la bitácora cronológica.
+   - Documenta el parche de forma genérica en la bitácora cronológica ("Se parcheó una vulnerabilidad de código"). **PROHIBIDO chivar los vectores de ataque (CVEs exactos, inyecciones) en abierto.** Los detalles sensibles deben ir al registro de `.privado/`.
    - Pide al Orquestador Supremo que ejecute `merci total` para revalidar el código.
