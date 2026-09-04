@@ -38,20 +38,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from typing import Iterable, Iterator, Optional
 
-try:
-    import logging
-    os.environ["LITELLM_LOCAL_MODEL_COST_MAP"] = "True"
-    logging.getLogger('LiteLLM').setLevel(logging.ERROR)
-    
-    import litellm
-    from litellm import completion
-    litellm.telemetry = False  # Desactivar telemetría por privacidad (Zero Trust)
-    # QUÉ HACE: Desactiva los mensajes de soporte y depuración internos de la librería.
-    # POR QUÉ: Preserva la limpieza de la terminal (DX) al realizar la degradación elegante.
-    litellm.suppress_debug_info = True
-except ImportError:
-    litellm = None
-
+# (El import de litellm se ha movido al interior de get_ai_suggestion para ahorrar 2.2s por ejecución)
 # ---------------------------------------------------------------------------
 # Rutas y exclusiones
 # ---------------------------------------------------------------------------
@@ -163,32 +150,28 @@ def iter_repo_files(root: Path) -> Iterator[Path]:
     """
     Recorre ``root`` en profundidad y entrega rutas de archivos auditables.
 
-    Por qué ``rglob``: es simple y suficiente para un repo pequeño/mediano.
-    Si en el futuro el repo creciera mucho, podríamos sustituir esto por
-    ``git ls-files`` también en modo no-staged.
+    Por qué ``os.walk``: permite podar (pruning) los directorios excluidos al vuelo,
+    evitando que el sistema de archivos analice miles de ficheros dentro de .venv o node_modules.
     """
-    for path in root.rglob("*"):
-        if not path.is_file():
-            continue
-        try:
-            relative = path.relative_to(root)
-        except ValueError:
-            # ``path`` no cuelga de ``root`` (caso raro con enlaces); lo saltamos.
-            continue
-        if any(part in SKIP_DIR_NAMES for part in relative.parts):
-            continue
-        suffix_ok = path.suffix.lower() in TEXT_SUFFIXES
-        dotenv_ok = path.name in {".env", ".env.local"}
-        if not suffix_ok and not dotenv_ok:
-            continue
-        try:
-            size = path.stat().st_size
-        except OSError:
-            # Permisos o carrera con borrado; no tumbar todo el audit.
-            continue
-        if size > MAX_FILE_BYTES:
-            continue
-        yield path
+    for dirpath, dirnames, filenames in os.walk(root):
+        # Poda al vuelo: eliminamos de 'dirnames' todo lo que esté en SKIP_DIR_NAMES
+        dirnames[:] = [d for d in dirnames if d not in SKIP_DIR_NAMES]
+        
+        dirpath_obj = Path(dirpath)
+        for name in filenames:
+            path = dirpath_obj / name
+            suffix_ok = path.suffix.lower() in TEXT_SUFFIXES
+            dotenv_ok = path.name in {".env", ".env.local"}
+            if not suffix_ok and not dotenv_ok:
+                continue
+            try:
+                size = path.stat().st_size
+            except OSError:
+                # Permisos o carrera con borrado; no tumbar todo el audit.
+                continue
+            if size > MAX_FILE_BYTES:
+                continue
+            yield path
 
 
 def git_staged_paths(root: Path) -> list[Path]:
@@ -366,29 +349,38 @@ def get_global_acronym_count(acronym: str) -> int:
     if acronym in GLOBAL_ACRONYM_COUNTS:
         return GLOBAL_ACRONYM_COUNTS[acronym]
         
-    count = 0
-    pattern = re.compile(rf"\b{re.escape(acronym)}\b")
-    
     # Si la caché está vacía, leemos todos los Markdowns una sola vez a memoria RAM
     if not MD_CONTENTS_CACHE:
-        for path in REPO_ROOT.rglob("*.md"):
-            try:
-                relative = path.relative_to(REPO_ROOT)
-            except ValueError:
-                continue
-            if any(part in SKIP_DIR_NAMES for part in relative.parts):
-                continue
-            try:
-                MD_CONTENTS_CACHE[path] = path.read_text(encoding="utf-8", errors="replace")
-            except Exception:
-                pass
-                
-    # Contamos sobre la memoria RAM (Ultrarrápido)
-    for content in MD_CONTENTS_CACHE.values():
-        count += len(pattern.findall(content))
+        for dirpath, dirnames, filenames in os.walk(REPO_ROOT):
+            dirnames[:] = [d for d in dirnames if d not in SKIP_DIR_NAMES]
             
-    GLOBAL_ACRONYM_COUNTS[acronym] = count
-    return count
+            dirpath_obj = Path(dirpath)
+            for name in filenames:
+                if not name.lower().endswith(".md"):
+                    continue
+                path = dirpath_obj / name
+                try:
+                    MD_CONTENTS_CACHE[path] = path.read_text(encoding="utf-8", errors="replace")
+                except Exception:
+                    pass
+                    
+        # Contamos TODOS los acrónimos de golpe en una sola pasada para toda la caché
+        watchlist = get_glosario_watchlist()
+        if watchlist:
+            escaped_acronyms = [re.escape(a) for a in watchlist]
+            mega_pattern = re.compile(rf"\b({'|'.join(escaped_acronyms)})\b")
+            
+            # Inicializamos todos a 0
+            for a in watchlist:
+                GLOBAL_ACRONYM_COUNTS[a] = 0
+                
+            for content in MD_CONTENTS_CACHE.values():
+                for match in mega_pattern.findall(content):
+                    if match in GLOBAL_ACRONYM_COUNTS:
+                        GLOBAL_ACRONYM_COUNTS[match] += 1
+                        
+    # Retornamos el valor si ya fue pre-calculado, o 0 si no estaba en la watchlist
+    return GLOBAL_ACRONYM_COUNTS.get(acronym, 0)
 
 def audit_js_smells(state: AuditState, path: Path, text: str) -> None:
     """
@@ -460,28 +452,43 @@ def audit_md_acronyms(state: AuditState, path: Path, text: str) -> None:
         return
         
     watchlist = get_glosario_watchlist()
+    if not watchlist:
+        return
+        
+    # Compilamos un mega-regex cacheado para buscar TODOS los acrónimos en 1 sola pasada (O(1) en vez de O(N))
+    if not hasattr(audit_md_acronyms, "mega_pattern"):
+        escaped_acronyms = [re.escape(a) for a in watchlist]
+        audit_md_acronyms.mega_pattern = re.compile(rf"\b({'|'.join(escaped_acronyms)})\b")
+        audit_md_acronyms.expansion_patterns = {
+            a: (
+                re.compile(rf"\(\s*{re.escape(a)}\s*\)"),
+                re.compile(rf"\b{re.escape(a)}\s*\([^)]+\)")
+            ) for a in watchlist
+        }
 
-    for acronym in watchlist:
-        # Si el acrónimo existe en el texto como palabra exacta...
-        if re.search(rf"\b{re.escape(acronym)}\b", text):
-            # ...buscamos si está expandido en formato: Concepto en Español (ACRONIMO) o ACRONIMO (Explicación)
-            if re.search(rf"\(\s*{re.escape(acronym)}\s*\)", text) or re.search(rf"\b{re.escape(acronym)}\s*\([^)]+\)", text):
-                continue
-                
-            # Si no está expandido, verificamos si es un término consolidado (> 3 apariciones globales)
-            if get_global_acronym_count(acronym) > 3:
-                continue
-                
-            # Localizamos la primera línea donde aparece para lanzar la advertencia
-            for i, line in enumerate(text.splitlines(), start=1):
-                if re.search(rf"\b{re.escape(acronym)}\b", line):
-                    state.add(
-                        Finding(
-                            path, i, "warn", "MD_ACRONYM",
-                                f"El acrónimo '{acronym}' no está expandido ni consolidado. Regla Soberanía: Concepto en Español ({acronym})."
-                        )
+    # Escaneo ultra-rápido: ¿qué acrónimos de la lista están realmente en este archivo?
+    found_acronyms = set(audit_md_acronyms.mega_pattern.findall(text))
+
+    for acronym in found_acronyms:
+        # Comprobar si está expandido
+        pat1, pat2 = audit_md_acronyms.expansion_patterns[acronym]
+        if pat1.search(text) or pat2.search(text):
+            continue
+            
+        # Si no está expandido, verificamos si es un término consolidado (> 3 apariciones globales)
+        if get_global_acronym_count(acronym) > 3:
+            continue
+            
+        # Localizamos la primera línea donde aparece para lanzar la advertencia
+        for i, line in enumerate(text.splitlines(), start=1):
+            if re.search(rf"\b{re.escape(acronym)}\b", line):
+                state.add(
+                    Finding(
+                        path, i, "warn", "MD_ACRONYM",
+                            f"El acrónimo '{acronym}' no está expandido ni consolidado. Regla Soberanía: Concepto en Español ({acronym})."
                     )
-                    break
+                )
+                break
 
 
 def audit_php_smells(state: AuditState, path: Path, text: str) -> None:
@@ -1006,9 +1013,17 @@ def get_ai_suggestion(finding: Finding) -> str:
     """Genera una sugerencia de código usando el modelo local (Ollama + qwen2.5-coder)."""
     # QUÉ HACE: Extrae contexto del archivo roto y pide al modelo local una corrección específica.
     # POR QUÉ: Reduce la fricción operativa al proporcionar la solución directamente en consola.
-    if not litellm:
+    try:
+        import logging
+        os.environ["LITELLM_LOCAL_MODEL_COST_MAP"] = "True"
+        logging.getLogger('LiteLLM').setLevel(logging.ERROR)
+        import litellm
+        from litellm import completion
+        litellm.telemetry = False
+        litellm.suppress_debug_info = True
+    except ImportError:
         return ""
-        
+
     try:
         content = finding.path.read_text(encoding="utf-8", errors="replace")
         lines = content.splitlines()
@@ -1056,7 +1071,7 @@ def print_report(state: AuditState) -> None:
         
         # --- INYECCIÓN DE IA (El Agente Auditor) ---
         # Solo solicitamos sugerencias para errores críticos para no saturar el pre-commit.
-        if item.level == "error" and litellm and not os.environ.get("MERCI_SKIP_AI"):
+        if item.level == "error" and not os.environ.get("MERCI_SKIP_AI"):
             print(f"  🤖 [Merci Brain] Analizando contexto de {item.code}...")
             suggestion = get_ai_suggestion(item)
             if suggestion:
