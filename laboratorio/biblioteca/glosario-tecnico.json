@@ -163,6 +163,9 @@
         "bitacora-mercedev-epic-09.md": [
           "L297"
         ],
+        "bitacora-mercedev-epic-10.md": [
+          "L128"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L117"
         ],
@@ -567,6 +570,9 @@
         ],
         "bitacora-mercedev-epic-09.md": [
           "L206"
+        ],
+        "bitacora-mercedev-epic-10.md": [
+          "L122"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L105"
@@ -1243,6 +1249,9 @@
         "bitacora-mercedev-epic-09.md": [
           "L51"
         ],
+        "bitacora-mercedev-epic-10.md": [
+          "L44"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L87"
         ],
@@ -1627,6 +1636,9 @@
         "bitacora-mercedev-epic-09.md": [
           "L1"
         ],
+        "bitacora-mercedev-epic-10.md": [
+          "L98"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L349"
         ],
@@ -1660,6 +1672,9 @@
       "definicion": "Regla de diseño que establece que una clase o módulo debe tener solo un motivo para cambiar, lo que facilita su mantenimiento y escalabilidad.",
       "merci_explica": "Garantiza que cada componente del sistema tenga un propósito específico y no dependa de otros por más allá de lo necesario.",
       "apariciones": {
+        "bitacora-mercedev-epic-10.md": [
+          "L170"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L1314"
         ]
@@ -2820,7 +2835,9 @@
     "ESTUDIO",
     "CORRECTO",
     "CORRECTOS",
-    "INCORRECTO"
+    "INCORRECTO",
+    "AGENTS",
+    "SKILL"
   ],
   "rechazos": {
     "CPU": 1,

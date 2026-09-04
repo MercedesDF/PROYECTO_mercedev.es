@@ -10,7 +10,7 @@ fecha: "2026-09-04"
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 149 términos consolidados (Última actualización de datos: 2026-09-04 08:48).
+> **Versión de control:** 149 términos consolidados (Última actualización de datos: 2026-09-04 10:16).
 
 ## Índice Alfabético
 
@@ -137,6 +137,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L272
 - bitacora-mercedev-epic-08.md: L218
 - bitacora-mercedev-epic-09.md: L297
+- bitacora-mercedev-epic-10.md: L128
 - checklist-hardening.md: L80
 
 ---
@@ -387,6 +388,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L286
 - bitacora-mercedev-epic-08.md: L204
 - bitacora-mercedev-epic-09.md: L206
+- bitacora-mercedev-epic-10.md: L122
 - bitacora-merci-boilerplate.md: L17
 - checklist-hardening.md: L49
 - ciclo-de-vida-contenidos.md: L16
@@ -1100,6 +1102,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L135
 - bitacora-mercedev-epic-08.md: L43
 - bitacora-mercedev-epic-09.md: L51
+- bitacora-mercedev-epic-10.md: L44
 - flujo-publicacion-sop.md: L21
 - instrucciones.md: L52
 - mantenimiento-boilerplate-sop.md: L48
@@ -1416,6 +1419,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L43
 - bitacora-mercedev-epic-08.md: L102
 - bitacora-mercedev-epic-09.md: L1
+- bitacora-mercedev-epic-10.md: L98
 - deployment-playbook.md: L51
 - instrucciones.md: L54
 
@@ -1429,6 +1433,7 @@ fecha: "2026-09-04"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-03.md: L1314
+- bitacora-mercedev-epic-10.md: L170
 
 ---
 ### SSG

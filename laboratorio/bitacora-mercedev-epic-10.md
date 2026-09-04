@@ -39,6 +39,25 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-09-04 - Parche de Habilidad: Sinergia DevRel - Publisher
+
+**Contexto:** Evitar que los cuadernillos técnicos de alto valor divulgativo se queden aislados en la biblioteca sin distribución externa.
+
+**Hecho:** 
+- Se inyectó una nueva directriz en `.agents/skills/devrel/SKILL.md` dotando al Bibliotecario de capacidad de delegación.
+- Ahora, si el cuadernillo generado es interesante, el Bibliotecario avisará directamente al Agente Publisher para que redacte y publique una reseña adaptada en el Blog (WordPress) y en LinkedIn.
+
+**Detalle técnico:** 
+- Archivo editado: `.agents/skills/devrel/SKILL.md`
+
+**Motivo / criterio:** Crear sinergias inter-agente. Maximizar el impacto del conocimiento técnico (Regla 80/20) convirtiéndolo automáticamente en activos de marca personal y profesional.
+
+**Siguiente paso o deuda:** Continuar hacia la Fase 3 de la Épica 10.
+
+---
+
+
+
 ### 2026-09-04 - Parche de Seguridad (OpSec): Censura de Vulnerabilidades
 
 **Contexto:** Evitar la exposición pública de vectores de ataque en la bitácora cuando los agentes QA y Chaos interactúan con el código.

@@ -12,4 +12,5 @@ description: Bibliotecario redactor bajo la regla 80/20 (sin jerga comercial).
    - Lee la bitácora activa (`laboratorio/bitacora-mercedev-epic-NN.md`).
    - Usa `merci-librarian.py` o `merci-brain.py` para generar o actualizar los cuadernillos en `/biblioteca`.
    - Registra tu trabajo en la bitácora.
+   - Evalúa si el cuadernillo generado tiene valor divulgativo. Si es así, delega al **Agente Publisher** la redacción y publicación de una reseña adaptada para el Blog (WordPress) y LinkedIn.
    - Pide al Orquestador Supremo que ejecute `merci total` para verificar que la sintaxis Markdown es impecable.
