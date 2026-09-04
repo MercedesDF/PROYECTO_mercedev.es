@@ -9,13 +9,13 @@
 weasyprint==69.0
 
 # Optimización de imágenes a WebP responsivo (merci-optimizer.py)
-Pillow==12.2.0
+Pillow==12.3.0
 
 # Librería de conversión Markdown a HTML (merci-publish.py, merci-wp.py)
 markdown>=3.8.1
 
 # Orquestador unificado de IA (Ollama local / Gemini de contingencia)
-litellm[proxy]==1.83.14
+litellm[proxy]==1.93.0
 
 # SDK nativo de Google (requerido por LiteLLM para usar Gemini)
 google-generativeai>=0.5.2
