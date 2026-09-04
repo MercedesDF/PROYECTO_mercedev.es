@@ -21,12 +21,6 @@ except ImportError:
     print("ℹ️ [Merci Info] Falta la librería 'markdown' (pip install markdown). Omitiendo compilación SSG estática.")
     sys.exit(0)
 
-try:
-    from weasyprint import HTML
-except ImportError:
-    HTML = None
-    print("ℹ️ [Merci Info] Falta la librería 'weasyprint' (pip install weasyprint). No se generarán PDFs.")
-
 REPO_ROOT = Path(__file__).resolve().parents[2]
 BIBLIOTECA_DIR = REPO_ROOT / "biblioteca"
 ART_DE_COTE_DIR = REPO_ROOT / "art-de-cote"
@@ -309,21 +303,27 @@ def procesar_archivo(filepath: Path, header_html: str, footer_html: str, css_v: 
     # POR QUÉ: Sin el base_url, WeasyPrint no puede resolver rutas absolutas como /assets/images/... 
     # y las imágenes del Markdown aparecerían rotas o invisibles en el PDF descargable.
     # CONTROL DE ERRORES: WeasyPrint es propenso a fallar si las imágenes anidadas están corruptas.
-    if HTML:
-            pdf_generado = False
-            # Caché Incremental: Solo compilamos si el PDF no existe o el Markdown fuente es más reciente
-            if out_pdf_path.exists() and out_pdf_path.stat().st_mtime >= filepath.stat().st_mtime:
+    pdf_generado = False
+    # Caché Incremental: Solo compilamos si el PDF no existe o el Markdown fuente es más reciente
+    if out_pdf_path.exists() and out_pdf_path.stat().st_mtime >= filepath.stat().st_mtime:
+        pdf_generado = True
+    else:
+        try:
+            # Lazy Loading: WeasyPrint añade ~0.45s fijos al tiempo de importación en Python.
+            # Solo lo importamos si realmente hay que re-compilar un PDF porque no está en caché.
+            from weasyprint import HTML
+            HTML(string=pdf_html_content, base_url=str(REPO_ROOT / "public")).write_pdf(out_pdf_path)
+            if out_pdf_path.exists():
                 pdf_generado = True
-            else:
-                try:
-                    HTML(string=pdf_html_content, base_url=str(REPO_ROOT / "public")).write_pdf(out_pdf_path)
-                    if out_pdf_path.exists():
-                        pdf_generado = True
-                except Exception as e:
-                    print(f"  ❌ Error crítico al generar PDF para {filepath.name}: {e}")
-                    
-            if pdf_generado:
-                pdf_download_link = f'\n                <a href="/descargas/{out_pdf_filename}" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>'
+        except ImportError:
+            if not hasattr(procesar_archivo, "weasyprint_warned"):
+                print("ℹ️ [Merci Info] Falta la librería 'weasyprint' (pip install weasyprint). No se generarán PDFs.")
+                procesar_archivo.weasyprint_warned = True
+        except Exception as e:
+            print(f"  ❌ Error crítico al generar PDF para {filepath.name}: {e}")
+            
+    if pdf_generado:
+        pdf_download_link = f'\n                <a href="/descargas/{out_pdf_filename}" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>'
 
     # 5. Generar el HTML final inyectando las clases BEM estructurales
     # QUÉ HACE: Asigna la clase CSS BEM dinámicamente basándose en el atributo 'tipo'.

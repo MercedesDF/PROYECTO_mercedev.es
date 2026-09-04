@@ -41,7 +41,7 @@
           "L248"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L47"
+          "L78"
         ],
         "bitacora-mercedev-epic-07.md": [
           "L407"
@@ -167,7 +167,7 @@
           "L297"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L64"
+          "L44"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L117"
@@ -539,7 +539,7 @@
           "L98"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L93"
+          "L124"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L51"
@@ -578,7 +578,7 @@
           "L206"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L74"
+          "L105"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L105"
@@ -1256,7 +1256,7 @@
           "L51"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L202"
+          "L233"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L87"
@@ -1643,7 +1643,7 @@
           "L1"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L256"
+          "L287"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L349"
@@ -1679,7 +1679,7 @@
       "merci_explica": "Garantiza que cada componente del sistema tenga un propósito específico y no dependa de otros por más allá de lo necesario.",
       "apariciones": {
         "bitacora-mercedev-epic-10.md": [
-          "L328"
+          "L359"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L1314"
@@ -2177,7 +2177,7 @@
       "merci_explica": "Bicicleta sin frenos que se mueve con solo el pedaleo.",
       "apariciones": {
         "bitacora-mercedev-epic-10.md": [
-          "L113"
+          "L144"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L159"
@@ -2373,6 +2373,9 @@
         ],
         "bitacora-mercedev-epic-09.md": [
           "L170"
+        ],
+        "bitacora-mercedev-epic-10.md": [
+          "L42"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L478"
@@ -2651,7 +2654,7 @@
       "merci_explica": "Seguridad sin excepciones, donde cada solicitud de acceso se evalúa individualmente.",
       "apariciones": {
         "bitacora-mercedev-epic-10.md": [
-          "L168"
+          "L199"
         ],
         "bitacora-mercedev-epic-08.md": [
           "L52"

@@ -39,6 +39,37 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-09-04 - Carga Diferida (Lazy Loading) en Publicador SSG
+
+**Contexto:** `merci-publish.py` consumía unos ~2.47s en el dashboard de CI de forma constante, independientemente de si se generaban nuevos documentos o no.
+**Hecho:** Se aplicó Lazy Loading. La pesada librería `weasyprint` (conversor HTML a PDF) se importaba de forma global. Ahora solo se importa dentro del bloque `else` donde el caché dicta que el PDF *debe* ser reconstruido.
+**Detalle técnico:** 
+- Archivo: `scripts/merci/merci-publish.py`.
+- El tiempo de ejecución bajó de ~2.47s a **0.72s**.
+**Motivo / criterio:** *Zero-Bloat*. Si los PDFs están cacheados, el motor Python no tiene por qué sufrir el peaje de I/O y memoria que supone arrancar los binarios (Pango/Cairo) incrustados en `weasyprint`.
+
+**Siguiente paso o deuda:** Iniciar tareas funcionales de Fase 3 o Fase 4.
+
+---
+
+### 2026-09-04 - Concurrencia de Red: Parallel Link Checking
+
+**Contexto:** Tras limpiar `merci-audit.py`, el nuevo cuello de botella del pipeline era `merci-linkcheck.py` (3.73s). El perfilado indicó que el 90% del tiempo se perdía esperando pasivamente (I/O Blocking) las respuestas HTTP secuenciales de Nginx.
+
+**Hecho:** 
+- Se importó `ThreadPoolExecutor` (nativo, cumpliendo *Zero-Bloat*).
+- Se desacopló la lógica recursiva (`while to_visit`) para encolar "ráfagas" de validación URL en un *pool* de 50 hilos.
+
+**Detalle técnico:** 
+- Archivo editado: `scripts/merci/merci-linkcheck.py`
+- El tiempo real de escaneo de los ~324 enlaces del proyecto ha bajado de unos 4.15s (en terminal) a **1.26s**. Al explotar concurrencia masiva, el tiempo de espera por I/O se solapa.
+
+**Motivo / criterio:** En herramientas de red (Network-bound), el procesamiento secuencial desperdicia el 99% del tiempo de CPU. Introducir hilos (Threads) es obligatorio si el servidor de destino (Nginx local) lo permite sin penalización.
+
+**Siguiente paso o deuda:** Analizar `merci-publish.py`.
+
+---
+
 ### 2026-09-04 - Optimización Algorítmica: Mega-Regex y Pre-cálculo Global
 
 **Contexto:** Tras el *Tree Pruning*, el escaneo desde cero (Cold Cache) de `merci-audit.py` aún tardaba 4.63s debido a que el chequeo de acrónimos Markdown en `audit_md_acronyms` hacía una iteración O(N*M), compilando y lanzando una búsqueda RegExp por cada uno de los 120 acrónimos del glosario sobre los 410 archivos `.md`.

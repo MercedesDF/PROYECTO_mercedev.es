@@ -392,8 +392,8 @@
 - [x] **Validar contexto y trazabilidad.** Asegurar que cada skill instruya al agente a registrar su avance cronológicamente en la bitácora (`laboratorio/bitacora-mercedev.md`).
 
 ### Fase 3: Pruebas y Optimización (Ejecución)
-- [ ] **Delegar tareas de optimización.** Ejecutar pruebas controladas donde los agentes optimicen componentes del proyecto bajo supervisión.
-- [ ] **Delegar creación de scripts IA.** Instanciar la creación de nuevas herramientas DevSecOps (Desarrollo, Seguridad y Operaciones) mediante los agentes.
+- `[x]` **Delegar tareas de optimización.** Ejecutar pruebas controladas donde los agentes optimicen componentes del proyecto bajo supervisión.
+- `[ ]` **Delegar creación de scripts IA.** Instanciar la creación de nuevas herramientas DevSecOps (Desarrollo, Seguridad y Operaciones) mediante los agentes.
 - [ ] **Auditoría Documental.** Validar que las acciones de los agentes están documentadas y que los acrónimos utilizados estén definidos (Inglés/Español).
 
 ### Fase 4: Cierre y Empaquetado

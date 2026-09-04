@@ -13,6 +13,7 @@ import urllib.error
 import urllib.request
 from html.parser import HTMLParser
 from urllib.parse import urljoin, urlparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 class LinkParser(HTMLParser):
@@ -83,6 +84,53 @@ class LinkParser(HTMLParser):
                 self.a_tags.append((accessible_name, self.current_href))
 
 
+def fetch_and_parse(url_info: tuple[str, str], base_url: str):
+    clean_url, source_url = url_info
+    new_urls = []
+    wcag_errors = []
+    broken_link = None
+    
+    try:
+        req = urllib.request.Request(clean_url, headers={'User-Agent': 'Merci-Bot/1.0'})
+        with urllib.request.urlopen(req) as response:
+            content_type = response.headers.get('Content-Type', '')
+            if 'text/html' in content_type:
+                html = response.read().decode('utf-8', errors='ignore')
+                parser = LinkParser()
+                parser.feed(html)
+                
+                name_to_hrefs = {}
+                for name, href in parser.a_tags:
+                    if not name:
+                        continue
+                    full_href = urljoin(clean_url, href)
+                    if name not in name_to_hrefs:
+                        name_to_hrefs[name] = set()
+                    name_to_hrefs[name].add(full_href)
+                    
+                for name, hrefs in name_to_hrefs.items():
+                    if len(hrefs) > 1:
+                        wcag_errors.append((clean_url, name, hrefs))
+                        
+                for link in parser.links:
+                    full_url = urljoin(clean_url, link)
+                    parsed_full = urlparse(full_url)
+                    parsed_base = urlparse(base_url)
+                    
+                    if parsed_full.netloc == parsed_base.netloc:
+                        new_clean = parsed_full._replace(fragment="").geturl()
+                        new_urls.append((new_clean, clean_url))
+                        
+    except urllib.error.HTTPError as e:
+        broken_link = (clean_url, source_url, str(e.code))
+    except urllib.error.URLError as e:
+        broken_link = (clean_url, source_url, str(e.reason))
+    except Exception as e:
+        broken_link = (clean_url, source_url, str(e))
+        
+    return clean_url, new_urls, wcag_errors, broken_link
+
+
 def main() -> None:
     """
     QUÉ HACE: Escanea de forma recursiva (vía HTTP) todas las páginas internas a partir del localhost o URL indicada.
@@ -94,71 +142,45 @@ def main() -> None:
     if len(sys.argv) > 1:
         base_url = sys.argv[1].rstrip('/')
 
-    # Cola de URLs por visitar: lista de tuplas (url_destino, url_origen_donde_se_encontro)
-    to_visit = [(base_url, "Punto de entrada (Manual)")]
+    # Cola de URLs por visitar (set de tuplas)
+    to_visit = {(base_url, "Punto de entrada (Manual)")}
     visited = set()
     broken_links = []
     wcag_errors = []
     
     print(f"🚀 [Merci LinkCheck] Iniciando rastreo profundo en: {base_url}")
     
-    while to_visit:
-        current_url, source_url = to_visit.pop(0)
-        
-        # Limpiar fragmentos (#) para no procesar anclas internas de la misma página como URLs distintas
-        clean_url = urlparse(current_url)._replace(fragment="").geturl()
-        
-        if clean_url in visited or clean_url.startswith(('mailto:', 'tel:', 'javascript:')):
-            continue
-            
-        visited.add(clean_url)
-        
-        try:
-            # Fingimos ser el Bot de Merci para evitar bloqueos
-            req = urllib.request.Request(clean_url, headers={'User-Agent': 'Merci-Bot/1.0'})
-            with urllib.request.urlopen(req) as response:
-                # Solo parseamos HTML en busca de nuevos enlaces. Ignoramos binarios o CSS
-                content_type = response.headers.get('Content-Type', '')
-                if 'text/html' in content_type:
-                    html = response.read().decode('utf-8', errors='ignore')
-                    parser = LinkParser()
-                    parser.feed(html)
+    # 50 trabajadores es un número seguro para un Nginx local sin riesgo de denegación de servicio.
+    with ThreadPoolExecutor(max_workers=50) as executor:
+        while to_visit:
+            futures = []
+            for url_info in to_visit:
+                clean_url = urlparse(url_info[0])._replace(fragment="").geturl()
+                
+                if clean_url in visited or clean_url.startswith(('mailto:', 'tel:', 'javascript:')):
+                    continue
+                visited.add(clean_url)
+                futures.append(executor.submit(fetch_and_parse, (clean_url, url_info[1]), base_url))
+                
+            to_visit = set()
+            for future in as_completed(futures):
+                clean_url, new_urls, errors, broken = future.result()
+                
+                if broken:
+                    broken_links.append(broken)
+                    c_url, s_url, reason = broken
+                    if reason.isdigit():
+                        print(f"❌ Roto: {c_url} (HTTP {reason})\n   ↳ Encontrado en: {s_url}\n")
+                    else:
+                        print(f"❌ Error conexión: {c_url}\n   ↳ {reason}\n")
+                        
+                for err in errors:
+                    wcag_errors.append(err)
+                    print(f"♿❌ Error WCAG: {err[0]}\n   ↳ El enlace con texto/label '{err[1]}' apunta a múltiples destinos distintos.\n")
                     
-                    # Mapea los Nombres Accesibles contra sus URLs de destino.
-                    # Detecta mecánicamente el antipatrón WCAG "Identical links have the same purpose".
-                    name_to_hrefs = {}
-                    for name, href in parser.a_tags:
-                        if not name:
-                            continue
-                        # Resolvemos la URL absoluta para que comparar "#seccion" y "/ruta#seccion" sea exacto
-                        full_href = urljoin(clean_url, href)
-                        if name not in name_to_hrefs:
-                            name_to_hrefs[name] = set()
-                        name_to_hrefs[name].add(full_href)
-                        
-                    for name, hrefs in name_to_hrefs.items():
-                        if len(hrefs) > 1:
-                            wcag_errors.append((clean_url, name, hrefs))
-                            print(f"♿❌ Error WCAG: {clean_url}\n   ↳ El enlace con texto/label '{name}' apunta a múltiples destinos distintos.\n")
-
-                    for link in parser.links:
-                        full_url = urljoin(clean_url, link)
-                        parsed_full = urlparse(full_url)
-                        parsed_base = urlparse(base_url)
-                        
-                        # Regla estricta: Solo encolar y rastrear enlaces internos del mismo dominio
-                        if parsed_full.netloc == parsed_base.netloc:
-                            to_visit.append((full_url, clean_url))
-                            
-        except urllib.error.HTTPError as e:
-            broken_links.append((clean_url, source_url, str(e.code)))
-            print(f"❌ Roto: {clean_url} (HTTP {e.code})\n   ↳ Encontrado en: {source_url}\n")
-        except urllib.error.URLError as e:
-            broken_links.append((clean_url, source_url, str(e.reason)))
-            print(f"❌ Error conexión: {clean_url}\n   ↳ {e.reason}\n")
-        except Exception as e:
-            broken_links.append((clean_url, source_url, str(e)))
-            print(f"❌ Error inesperado: {clean_url} ({e})\n")
+                for n_url, source in new_urls:
+                    if n_url not in visited:
+                        to_visit.add((n_url, source))
             
     print("--- Resumen del Rastreo ---")
     print(f"🔗 URLs únicas validadas: {len(visited)}")

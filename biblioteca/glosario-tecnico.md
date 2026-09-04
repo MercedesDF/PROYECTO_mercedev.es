@@ -10,7 +10,7 @@ fecha: "2026-09-04"
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 149 términos consolidados (Última actualización de datos: 2026-09-04 14:18).
+> **Versión de control:** 149 términos consolidados (Última actualización de datos: 2026-09-04 14:30).
 
 ## Índice Alfabético
 
@@ -49,7 +49,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-01.md: L3316
 - bitacora-mercedev-epic-06.md: L248
 - bitacora-mercedev-epic-07.md: L407
-- bitacora-mercedev-epic-10.md: L47
+- bitacora-mercedev-epic-10.md: L78
 - integracion-wordpress.md: L69
 
 ---
@@ -138,7 +138,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L272
 - bitacora-mercedev-epic-08.md: L218
 - bitacora-mercedev-epic-09.md: L297
-- bitacora-mercedev-epic-10.md: L64
+- bitacora-mercedev-epic-10.md: L44
 - checklist-hardening.md: L80
 
 ---
@@ -389,7 +389,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L286
 - bitacora-mercedev-epic-08.md: L204
 - bitacora-mercedev-epic-09.md: L206
-- bitacora-mercedev-epic-10.md: L74
+- bitacora-mercedev-epic-10.md: L105
 - bitacora-merci-boilerplate.md: L17
 - checklist-hardening.md: L49
 - ciclo-de-vida-contenidos.md: L16
@@ -484,7 +484,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L752
 - bitacora-mercedev-epic-08.md: L134
 - bitacora-mercedev-epic-09.md: L98
-- bitacora-mercedev-epic-10.md: L93
+- bitacora-mercedev-epic-10.md: L124
 
 ---
 ### E2E
@@ -1104,7 +1104,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L135
 - bitacora-mercedev-epic-08.md: L43
 - bitacora-mercedev-epic-09.md: L51
-- bitacora-mercedev-epic-10.md: L202
+- bitacora-mercedev-epic-10.md: L233
 - flujo-publicacion-sop.md: L21
 - instrucciones.md: L52
 - mantenimiento-boilerplate-sop.md: L48
@@ -1421,7 +1421,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L43
 - bitacora-mercedev-epic-08.md: L102
 - bitacora-mercedev-epic-09.md: L1
-- bitacora-mercedev-epic-10.md: L256
+- bitacora-mercedev-epic-10.md: L287
 - deployment-playbook.md: L51
 - instrucciones.md: L54
 
@@ -1435,7 +1435,7 @@ fecha: "2026-09-04"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-03.md: L1314
-- bitacora-mercedev-epic-10.md: L328
+- bitacora-mercedev-epic-10.md: L359
 
 ---
 ### SSG
@@ -1454,6 +1454,7 @@ fecha: "2026-09-04"
 - bitacora-mercedev-epic-07.md: L328
 - bitacora-mercedev-epic-08.md: L52
 - bitacora-mercedev-epic-09.md: L170
+- bitacora-mercedev-epic-10.md: L42
 - ciclo-de-vida-contenidos.md: L7
 - flujo-publicacion-sop.md: L2
 - instrucciones.md: L37
@@ -1871,7 +1872,7 @@ fecha: "2026-09-04"
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-02.md: L929
 - bitacora-mercedev-epic-03.md: L159
-- bitacora-mercedev-epic-10.md: L113
+- bitacora-mercedev-epic-10.md: L144
 
 ---
 ### Zero-Hallucination
@@ -1955,7 +1956,7 @@ fecha: "2026-09-04"
 
 **Apariciones en Bitácoras:**
 - bitacora-mercedev-epic-08.md: L52
-- bitacora-mercedev-epic-10.md: L168
+- bitacora-mercedev-epic-10.md: L199
 - instrucciones.md: L131
 
 ---
