@@ -164,7 +164,7 @@
           "L297"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L128"
+          "L246"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L117"
@@ -535,6 +535,9 @@
         "bitacora-mercedev-epic-09.md": [
           "L98"
         ],
+        "bitacora-mercedev-epic-10.md": [
+          "L53"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L51"
         ],
@@ -572,7 +575,7 @@
           "L206"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L122"
+          "L73"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L105"
@@ -1250,7 +1253,7 @@
           "L51"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L44"
+          "L162"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L87"
@@ -1637,7 +1640,7 @@
           "L1"
         ],
         "bitacora-mercedev-epic-10.md": [
-          "L98"
+          "L216"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L349"
@@ -1673,7 +1676,7 @@
       "merci_explica": "Garantiza que cada componente del sistema tenga un propósito específico y no dependa de otros por más allá de lo necesario.",
       "apariciones": {
         "bitacora-mercedev-epic-10.md": [
-          "L170"
+          "L288"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L1314"
@@ -2170,6 +2173,9 @@
       "definicion": "Proceso o sistema que es extremadamente simple y eficiente, minimizando los obstáculos y facilitando la realización de tareas.",
       "merci_explica": "Bicicleta sin frenos que se mueve con solo el pedaleo.",
       "apariciones": {
+        "bitacora-mercedev-epic-10.md": [
+          "L73"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L159"
         ],
@@ -2641,6 +2647,9 @@
       "definicion": "Modelo de seguridad que impone una revisión rigurosa y continua de las identidades y el acceso a los recursos, independientemente del origen o la ubicación del dispositivo.",
       "merci_explica": "Seguridad sin excepciones, donde cada solicitud de acceso se evalúa individualmente.",
       "apariciones": {
+        "bitacora-mercedev-epic-10.md": [
+          "L128"
+        ],
         "bitacora-mercedev-epic-08.md": [
           "L52"
         ],
@@ -2837,7 +2846,8 @@
     "CORRECTOS",
     "INCORRECTO",
     "AGENTS",
-    "SKILL"
+    "SKILL",
+    "PATH"
   ],
   "rechazos": {
     "CPU": 1,

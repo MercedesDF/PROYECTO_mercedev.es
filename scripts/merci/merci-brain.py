@@ -17,6 +17,7 @@ import unicodedata
 import urllib.error
 import urllib.request
 import warnings
+import socket
 from pathlib import Path
 
 # Silenciamos advertencias de deprecación de librerías de terceros (ej. google.generativeai) para mantener la consola limpia
@@ -68,6 +69,26 @@ def consultar_ia_local(prompt: str) -> str:
         return respuesta.choices[0].message.content.strip()
     except Exception as e_proxy:
         return f"Error HTTP Local: {e_proxy}"
+def is_proxy_up() -> bool:
+    """
+    QUÉ HACE: Realiza un ping ultrarrápido (1s) al motor de inferencia real de forma silenciosa.
+    POR QUÉ: Evita falsos positivos y oculta los molestos logs de error de litellm.
+    """
+    import contextlib
+    import io
+    try:
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            completion(
+                model="openai/local-agent",
+                api_base="http://localhost:4000",
+                api_key="sk-antigravity",
+                messages=[{"role": "user", "content": "ping"}],
+                max_tokens=1,
+                timeout=1
+            )
+        return True
+    except Exception:
+        return False
 
 def generar_cerebro_estatico(force_clean: bool = False) -> None:
     """
@@ -95,7 +116,9 @@ def generar_cerebro_estatico(force_clean: bool = False) -> None:
         except Exception:
             pass
     
-    fallo_local = False
+    fallo_local = not is_proxy_up()
+    if fallo_local:
+        print("  ⚡ [Fail-Fast] El motor de IA local no responde (timeout 1s). Activando contingencia (0ms)...")
     
     for md_file in biblioteca_dir.rglob("*.md"):
         content = md_file.read_text(encoding="utf-8")
@@ -117,13 +140,21 @@ def generar_cerebro_estatico(force_clean: bool = False) -> None:
         url = f"/biblioteca/{slugify(titulo)}.html"
         
         # Si ya existe una respuesta válida generada por IA, la conservamos y saltamos en silencio
-        if url in brain_data and not brain_data[url].startswith("Error HTTP") and not brain_data[url].startswith("[Fallback]"):
+        if url in brain_data and not brain_data[url].startswith("Error HTTP") and not brain_data[url].startswith("🌟 [Offline]"):
             continue
             
-        # Circuit Breaker: Si el servidor local falló en esta ejecución, mantenemos/creamos el fallback en silencio
+        import random
+        frases_offline = [
+            f"¡Hola! Espero que este artículo sobre {titulo} te resulte muy útil.",
+            f"Te doy la bienvenida a la biblioteca. Hoy exploraremos {titulo}.",
+            f"Una excelente elección de lectura. Sumérgete en los detalles de {titulo}.",
+            f"Saludos. Aquí tienes todos los apuntes clave sobre {titulo}."
+        ]
+        
+        # Circuit Breaker: Si el servidor local falló en esta ejecución, asignamos una frase offline aleatoria
         if fallo_local:
             if url not in brain_data or brain_data[url].startswith("Error HTTP"):
-                brain_data[url] = f"[Fallback] Bienvenido a la lectura de: {titulo}."
+                brain_data[url] = f"🌟 [Offline] {random.choice(frases_offline)}"
             continue
         
         print(f"  🧠 Pensando saludo para: {titulo}...")
@@ -135,7 +166,7 @@ def generar_cerebro_estatico(force_clean: bool = False) -> None:
         if respuesta.startswith("Error HTTP Local"):
             print(f"  ⚠️ Error de conexión con el enrutador local. Suspendiendo peticiones y aplicando contingencia...")
             fallo_local = True
-            brain_data[url] = f"[Fallback] Bienvenido a la lectura de: {titulo}."
+            brain_data[url] = f"🌟 [Offline] {random.choice(frases_offline)}"
         else:
             brain_data[url] = respuesta.replace('"', '').strip()
 
@@ -145,9 +176,9 @@ def generar_cerebro_estatico(force_clean: bool = False) -> None:
     print(f"\n✅ ¡Cerebro estático generado! Guardado en {output_json.relative_to(REPO_ROOT)}")
     
     # Reporte final de contingencias
-    fallbacks_count = sum(1 for v in brain_data.values() if v.startswith("[Fallback]"))
+    fallbacks_count = sum(1 for v in brain_data.values() if v.startswith("🌟 [Offline]"))
     if fallbacks_count > 0:
-        print(f"  ℹ️  Info: Quedan {fallbacks_count} artículos pendientes de IA por fallo de conexión local. Verifica el Proxy (puerto 4000).")
+        print(f"  ℹ️  Info: {fallbacks_count} artículos usan frases offline. ¿Has ejecutado 'mercedev' en tu consola, despistada? 😉")
 
 if __name__ == "__main__":
     try:

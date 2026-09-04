@@ -22,7 +22,8 @@ if [ $? != 0 ]; then
     
     # 3. Ventana 1: Stack IA (LM Studio + LiteLLM divididos a la mitad)
     tmux new-window -t $SESSION:1 -n "IA-Stack"
-    tmux send-keys -t $SESSION:1 "lms server start" C-m
+    # Añadimos la ruta explícita y forzamos la carga del modelo 9B en memoria
+    tmux send-keys -t $SESSION:1 "export PATH=\$PATH:~/.lmstudio/bin && lms server start && lms load qwen/qwen3.5-9b" C-m
     
     tmux split-window -h -t $SESSION:1
     tmux send-keys -t $SESSION:1 "source .venv/bin/activate && litellm --config observabilidad/router.yaml --port 4000" C-m

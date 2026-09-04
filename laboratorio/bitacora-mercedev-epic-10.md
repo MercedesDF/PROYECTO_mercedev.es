@@ -39,6 +39,85 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-09-04 - Refinamiento UX: Mensaje Antidespistes (`merci-brain.py`)
+
+**Contexto:** Evitar horas de *troubleshooting* fantasma si la desarrolladora simplemente olvida levantar el proxy antes de generar la web.
+
+**Hecho:** 
+- Se editó el mensaje final de contingencia de `merci-brain.py`.
+- Ahora, si el motor está apagado, la consola pregunta explícitamente: *¿Has ejecutado 'mercedev' en tu consola? 😉*
+
+**Detalle técnico:** 
+- Archivo editado: `scripts/merci/merci-brain.py`
+
+**Motivo / criterio:** *Developer Experience (DX)*. Un buen sistema no solo captura los errores, sino que guía al humano de forma amigable hacia la solución más probable sin causarle fatiga mental.
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 de la Épica 10.
+
+---
+
+
+
+### 2026-09-04 - Parche de Infraestructura: Orquestación del Stack IA (LM Studio)
+
+**Contexto:** El proxy LiteLLM (puerto 4000) arrojaba un error de inicialización debido a que LM Studio no arrancaba mediante el script `merci-boot.sh` y, por consiguiente, ningún modelo local estaba cargado en RAM.
+
+**Hecho:** 
+- Se resolvió un problema de *PATH* en `scripts/merci/merci-boot.sh`, inyectando la ruta absoluta del ejecutable (`~/.lmstudio/bin/lms`) y forzando el comando `lms load` al inicio de la sesión.
+- Se auditó el entorno local y se actualizó `observabilidad/router.yaml` para alinear el `local-agent` con el modelo real disponible en la máquina: `openai/qwen/qwen3.5-9b` en lugar del predeterminado.
+
+**Detalle técnico:** 
+- Archivo editado 1: `scripts/merci/merci-boot.sh` (Inyección de export PATH y `lms load`).
+- Archivo editado 2: `observabilidad/router.yaml` (Re-mapeo del fallback de contingencia).
+
+**Motivo / criterio:** Garantizar la autonomía local (*Zero-Friction*). El Bucle DevSecOps requiere que la infraestructura en segundo plano se levante limpia, completa y sin intervención manual de la desarrolladora.
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 de la Épica 10.
+
+---
+
+
+
+### 2026-09-04 - Parche UX: Silenciado de Logs y Contingencia Natural (Offline)
+
+**Contexto:** El sistema generaba falsos avisos de error (logs residuales de LiteLLM) y obligaba a Merci a usar un saludo robótico (`[Fallback]`) cuando no había IA local disponible.
+
+**Hecho:** 
+- Se encapsuló la petición `ping` a LiteLLM dentro de una redirección segura de `stdout/stderr` (vía `contextlib` de Python) para ocultar sus trazas de depuración de GitHub.
+- Se ha diseñado un surtido de saludos predefinidos y naturales (ej. *"Te doy la bienvenida a la biblioteca. Hoy exploraremos {titulo}."*) que se eligen al azar.
+- La etiqueta de la consola y JSON ha pasado de `[Fallback]` a una más amigable y técnica: `🌟 [Offline]`.
+
+**Detalle técnico:** 
+- Archivo editado: `scripts/merci/merci-brain.py`
+
+**Motivo / criterio:** Limpieza de Interfaz (UX) y Preservación de la Inmersión. Incluso degradado, el asistente debe mantener su tono educado, y el desarrollador no debe recibir ruido visual en su terminal si sabe que está trabajando offline.
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 de la Épica 10.
+
+---
+
+
+
+### 2026-09-04 - Optimización Fail-Fast: Latencia de `merci-brain.py`
+
+**Contexto:** El script `merci-brain.py` bloqueaba el pipeline `merci total` durante más de 16 segundos si el motor de IA local no estaba disponible.
+
+**Hecho:** 
+- Se refactorizó la función de contingencia para inyectar un *ping de inferencia real* con 1 segundo de *timeout* y 1 *max_token* antes de iniciar el escaneo masivo de Markdown.
+- Si el motor de IA no responde en 1 segundo, el sistema entra instantáneamente en modo contingencia (Fallback) reduciendo la latencia de 16.25s a ~1s.
+
+**Detalle técnico:** 
+- Archivo editado: `scripts/merci/merci-brain.py`
+- Función editada: `is_proxy_up()` usando `litellm.completion()` con timeout estricto.
+
+**Motivo / criterio:** Respetar la regla de rendimiento extremo. Si un servicio auxiliar falla, debe degradarse elegantemente (*Graceful Degradation*) y liberar el pipeline sin penalizar la experiencia de desarrollo.
+
+**Siguiente paso o deuda:** Validar el pipeline completo y arrancar la interacción pura con los agentes (Fase 3).
+
+---
+
+
+
 ### 2026-09-04 - Parche de Habilidad: Integración de `merci completo`
 
 **Contexto:** Necesidad de que los agentes entiendan la diferencia entre guardar código (commit) y el pase a producción maestro que ejecuta la desarrolladora.
