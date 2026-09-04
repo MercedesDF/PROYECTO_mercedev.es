@@ -2,10 +2,11 @@
 titulo: "Arquitectura Zero Maintenance: Compilación Incremental y st_mtime"
 descripcion: "La transformación de nuestro pipeline maestro DevSecOps desde la fuerza bruta del Clean Build a la eficiencia del Mark & Sweep y la auditoría física del sistema operativo."
 estado: "publicado"
-estado_social: "aprobado"
+estado_social: "publicado_linkedin"
 subtema: "Blog"
 fase: "Epic 2 - Fase 4"
 fecha: "2026-05-21"
+linkedin_id: "urn:li:share:7492489924676349952"
 ---
 <!-- linkedin:
 El rendimiento de un equipo de desarrollo no se optimiza comprando ordenadores más potentes, sino diseñando arquitecturas más inteligentes. El pipeline DevSecOps en mercedev.es empezaba a asfixiarse, tardando casi 10 segundos en compilar porque borraba y recreaba cada archivo desde cero en cada guardado.

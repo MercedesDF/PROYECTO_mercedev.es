@@ -57,11 +57,12 @@ def consultar_ia_local(prompt: str) -> str:
     """
     try:
         respuesta = completion(
-            model="local-agent",
+            model="openai/local-agent",
             api_base="http://localhost:4000",
             api_key="sk-antigravity",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.65,
+            max_tokens=100,
             timeout=10
         )
         return respuesta.choices[0].message.content.strip()

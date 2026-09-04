@@ -2,11 +2,12 @@
 titulo: "Resolución de 404s Headless y Enlaces Ambiguos WAI-ARIA"
 descripción: "Cómo erradicar enlaces rotos en PDFs mediante un patrón de publicación en dos pasos y prevenir colisiones de accesibilidad WCAG inyectando dimensión temporal."
 estado: "publicado"
-estado_social: "aprobado"
+estado_social: "publicado_linkedin"
 subtema: "Blog"
 fase: "Epic 3 - Fase 2"
 fecha: "2026-05-19"
 descripcion: "Cómo erradicar enlaces rotos en PDFs mediante un patrón de publicación en dos pasos y prevenir colisiones de accesibilidad WCAG inyectando dimensión temporal."
+linkedin_id: "urn:li:share:7485604562771476480"
 ---
 <!-- linkedin:
 Durante la auditoría del pipeline de publicación automatizada de mercedev.es, el rastreador local 'merci-linkcheck.py' detectó descargas "zombi" y colisiones severas de accesibilidad en los lectores de pantalla debido a enlaces ambiguos.

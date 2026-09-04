@@ -2,12 +2,13 @@
 titulo: "La Vida Oculta detrás de las Comunicaciones Seguras con PGP"
 descripcion: "Un viaje por el mundo de la seguridad sin formularios PHP ni dependencias externas."
 estado: "publicado"
-estado_social: "aprobado"
+estado_social: "publicado_linkedin"
 subtema: "Blog"
 fase: "Epic 3 - Fase 3"
 tipo: "blog"
 alt_portada: "Representación abstracta de un candado criptográfico protegiendo un sobre de correo."
 fecha: "2026-05-21"
+linkedin_id: "urn:li:share:7489228437451161600"
 ---
 <!-- linkedin:
 La seguridad en las comunicaciones es un tema crucial, y mercedev.es ha desplegado una solución innovadora utilizando PGP y GnuPG. Se generó un par de claves criptográficas locales para cifrar mensajes de manera segura, sin necesidad de backend o formularios PHP. Este enfoque protege la integridad de la arquitectura estática y garantiza que solo el destinatario autorizado pueda leer los mensajes recibidos.

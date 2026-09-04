@@ -89,7 +89,7 @@
       "merci_explica": "Etiquetas invisibles que le ponemos al código para que los lectores de pantalla puedan explicarle la web a las personas con discapacidades visuales.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L373"
+          "L420"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L2686"
@@ -110,7 +110,7 @@
           "L66"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L221"
+          "L268"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L743"
@@ -161,7 +161,7 @@
           "L313"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L250"
+          "L297"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L117"
@@ -530,7 +530,7 @@
           "L102"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L51"
+          "L98"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L51"
@@ -566,7 +566,7 @@
           "L474"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L159"
+          "L206"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L105"
@@ -758,7 +758,10 @@
       "merci_explica": "Herramienta única para programadores que facilita la creación y mantenimiento de software.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L244"
+          "L291"
+        ],
+        "bitacora-mercedev-epic-10.md": [
+          "L1"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L1987"
@@ -1046,7 +1049,7 @@
       "merci_explica": "Candado electrónico para proteger la información de usuario",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L145"
+          "L192"
         ],
         "bitacora-mercedev-epic-01.md": [
           "L119"
@@ -1186,6 +1189,9 @@
         "bitacora-mercedev-epic-09.md": [
           "L29"
         ],
+        "bitacora-mercedev-epic-10.md": [
+          "L29"
+        ],
         "bitacora-mercedev-epic-03.md": [
           "L29"
         ],
@@ -1235,7 +1241,7 @@
           "L85"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L78"
+          "L51"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L87"
@@ -1412,7 +1418,7 @@
           "L117"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L376"
+          "L423"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L425"
@@ -1448,7 +1454,7 @@
       "merci_explica": "Escaneo del código como si fuera un libro abierto.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L145"
+          "L192"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L63"
@@ -1670,7 +1676,7 @@
           "L177"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L88"
+          "L135"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L327"
@@ -1724,7 +1730,7 @@
           "L458"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L239"
+          "L286"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L63"
@@ -1853,7 +1859,7 @@
           "L81"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L368"
+          "L415"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L2005"
@@ -2090,7 +2096,10 @@
           "L129"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L88"
+          "L135"
+        ],
+        "bitacora-mercedev-epic-10.md": [
+          "L1"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L127"
@@ -2120,7 +2129,7 @@
       "merci_explica": "Puzzle digital que se desbloquea con arrastrar y soltar componentes predefinidos.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L250"
+          "L297"
         ],
         "bitacora-mercedev-epic-02.md": [
           "L185"
@@ -2339,7 +2348,7 @@
           "L451"
         ],
         "bitacora-mercedev-epic-09.md": [
-          "L123"
+          "L170"
         ],
         "bitacora-mercedev-epic-03.md": [
           "L478"
@@ -2633,7 +2642,7 @@
       "merci_explica": "Juego de acertijos donde cada pieza del rompecabezas representa un tipo diferente de conocimiento, y juntas forman la imagen completa.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L392"
+          "L439"
         ]
       }
     },
@@ -2645,7 +2654,7 @@
       "merci_explica": "Reglas que permiten volar cuando se puede ver el terreno y las nubes, como si estuvieras conduciendo un automóvil por una carretera.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L365"
+          "L412"
         ]
       }
     },
@@ -2657,7 +2666,7 @@
       "merci_explica": "Caja mágica con todo lo necesario para construir software sin tener que reinventar la rueda.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L426"
+          "L66"
         ]
       }
     },
@@ -2669,7 +2678,19 @@
       "merci_explica": "Guía moral para mantener la integridad y el respeto entre los miembros del equipo.",
       "apariciones": {
         "bitacora-mercedev-epic-09.md": [
-          "L145"
+          "L192"
+        ]
+      }
+    },
+    "URN": {
+      "nombre": "URN",
+      "ingles": "Uniform Resource Name",
+      "espanol": "Nombre Uniforme de Recurso",
+      "definicion": "Identificador único que proporciona una referencia a un recurso en Internet o en cualquier otro sistema que utilice la arquitectura URI.",
+      "merci_explica": "Etiqueta única para ubicar y referirse a recursos digitales.",
+      "apariciones": {
+        "bitacora-mercedev-epic-09.md": [
+          "L196"
         ]
       }
     }

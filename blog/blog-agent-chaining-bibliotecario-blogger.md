@@ -2,11 +2,12 @@
 titulo: "Agent Chaining: Encadenamiento Automático entre Agentes de Redacción y Marketing"
 descripción: "Cómo el patrón Agent Chaining elimina la fricción operativa pasando el contexto dinámicamente entre agentes de IA."
 estado: "publicado"
-estado_social: "aprobado"
+estado_social: "publicado_linkedin"
 subtema: "Blog"
 fase: "Epic 3 - Fase 2"
 fecha: "2026-05-21"
 descripcion: "Cómo el patrón Agent Chaining elimina la fricción operativa pasando el contexto dinámicamente entre agentes de IA"
+linkedin_id: "urn:li:share:7491402761037705216"
 ---
 <!-- linkedin:
 Obligar a un modelo de Inteligencia Artificial local a ser ingeniero de software y redactor de marketing al mismo tiempo es la vía rápida hacia las alucinaciones. Para escalar la creación de contenidos en mercedev.es sin depender de la nube, era necesario especializar a los Agentes Autónomos.

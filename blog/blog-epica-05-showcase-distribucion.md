@@ -3,10 +3,11 @@ titulo: "El Arte del Showcase: Despliegues Zero-Friction y Experiencia Out-of-th
 descripcion: "Descubre cómo se orquestó la Épica 5 para desplegar una demostración pública impecable mediante clones efímeros y aislamiento DLP."
 tipo: "articulo"
 estado: "publicado"
-estado_social: "aprobado"
+estado_social: "publicado_linkedin"
 subtema: "Blog"
 fase: "Epic 5 - Fase 1"
 fecha: "2026-05-23"
+linkedin_id: "urn:li:share:7500100072894865408"
 ---
 <!-- linkedin:
 Desplegar código Open Source no sirve de nada si el usuario final recibe un ecosistema roto en su primer clon. La "Out-of-the-Box Experience" (OOBE) lo es todo. 🚀

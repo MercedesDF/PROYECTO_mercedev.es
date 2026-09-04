@@ -2,11 +2,12 @@
 titulo: "Compilación en Frío: La Superioridad del SSG frente al PDF Dinámico"
 descripción: "Análisis arquitectónico sobre por qué asumir la carga computacional gráfica en Build-Time garantiza un ecosistema seguro, de nulo coste y Zero-JS."
 estado: "publicado"
-estado_social: "aprobado"
+estado_social: "publicado_linkedin"
 subtema: "Blog"
 fase: "Epic 3 - Fase 2"
 fecha: "2026-05-21"
 descripcion: ""
+linkedin_id: "urn:li:share:7488866049296146432"
 ---
 <!-- linkedin:
 Sacrificar la seguridad y el rendimiento del servidor para generar un PDF dinámico es un riesgo innecesario cuando el artefacto puede fabricarse en el entorno local. En el ecosistema estático de mercedev.es, se rechaza exponer endpoints dinámicos vulnerables a ataques DoS o forzar al usuario a descargar pesadas librerías JavaScript.

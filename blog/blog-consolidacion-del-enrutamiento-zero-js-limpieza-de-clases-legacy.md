@@ -2,10 +2,11 @@
 titulo: "Consolidación del Enrutamiento Zero-JS: Limpieza de Clases Legacy"
 descripcion: "Refactorización para delegar el resaltado de enlaces activos exclusivamente a la hoja de estilos mediante Body IDs, eliminando mutaciones del DOM."
 estado: "publicado"
-estado_social: "aprobado"
+estado_social: "publicado_linkedin"
 subtema: "Blog"
 fase: ""
 fecha: "2026-05-17"
+linkedin_id: "urn:li:share:7483430229781254147"
 ---
 <!-- linkedin:
 La limpieza estructural Zero-JS Routing ha transformado la experiencia de navegación en las páginas estáticas, eliminando la necesidad de mutaciones del DOM y asegurando un estado de interfaz de usuario consistente. #DesarrolloWeb #DevSecOps

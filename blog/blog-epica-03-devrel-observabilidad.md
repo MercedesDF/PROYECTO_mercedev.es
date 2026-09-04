@@ -2,11 +2,12 @@
 titulo: "Transformando la Web de un Escaparate a un Centro de Mando Con Automatización y Seguridad"
 descripción: "Simplificamos el ecosistema DevSecOps con Agent Chaining, Chaos Engineering y comunicaciones PGP, logrando una observabilidad absoluta y autonomía relacional sin dependencias externas."
 estado: "publicado"
-estado_social: "aprobado"
+estado_social: "publicado_linkedin"
 subtema: "Blog"
 fase: "Epic 3 - Fase 4"
 fecha: "2026-05-21"
 descripcion: "Simplificamos el ecosistema DevSecOps con Agent Chaining, Chaos Engineering y comunicaciones PGP, logrando una observabilidad absoluta y autonomía relacional sin dependencias externas"
+linkedin_id: "urn:li:share:7493577089216921600"
 ---
 <!-- linkedin:
 Automatizar no es suficiente; es necesario saber qué ocurre de forma desatendida. 👁️‍🗨️

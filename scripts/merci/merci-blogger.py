@@ -134,7 +134,7 @@ def main() -> None:
     try:
         print("  🏠 Delegando redacción al Router del IDE (LiteLLM Proxy en puerto 4000)...")
         respuesta = completion(
-            model="ide-agent",
+            model="openai/ide-agent",
             api_base="http://localhost:4000",
             api_key="sk-antigravity", # Llave dummy, el proxy gestiona la real
             messages=[
@@ -142,7 +142,7 @@ def main() -> None:
                 {"role": "user", "content": nota_contenido}
             ],
             temperature=0.6,
-            max_tokens=3000
+            max_tokens=1500
         )
         respuesta_texto = respuesta.choices[0].message.content
     except Exception as e_proxy:

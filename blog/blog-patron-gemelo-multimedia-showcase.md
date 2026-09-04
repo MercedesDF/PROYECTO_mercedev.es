@@ -2,12 +2,13 @@
 titulo: "El Patrón Gemelo Multimedia: Cero Fugas y Cero Latencia"
 descripcion: "Estrategia DevSecOps para instanciar repositorios y demos (Showcases) aplicando prevención de pérdida de datos sin provocar errores 404 ni penalizaciones en Core Web Vitals."
 estado: "publicado"
-estado_social: "aprobado"
+estado_social: "publicado_linkedin"
 orden_social: 2
 subtema: "Blog"
 fecha: "2026-05-28"
 fase: "Epic 7 - Fase 1"
 alt_portada: "Esquema conceptual del reemplazo de imágenes originales por marcadores de posición genéricos."
+linkedin_id: "urn:li:share:7482343065337319426"
 ---
 <!-- linkedin:
 La prevención de pérdida de datos (DLP) en demostraciones públicas no tiene por qué destruir el rendimiento web.

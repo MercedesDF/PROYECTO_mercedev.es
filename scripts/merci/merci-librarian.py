@@ -46,7 +46,7 @@ def consultar_ia_hibrida(prompt: str, system_prompt: str) -> str:
     """
     try:
         respuesta = completion(
-            model="openai/gemini-1.5-pro-latest",
+            model="openai/ide-agent",
             api_base="http://localhost:4000",
             api_key="sk-antigravity",
             messages=[
@@ -54,7 +54,7 @@ def consultar_ia_hibrida(prompt: str, system_prompt: str) -> str:
                 {"role": "user", "content": prompt}
             ],
             temperature=0.0,
-            max_tokens=4000
+            max_tokens=1500
         )
         return respuesta.choices[0].message.content.strip()
     except Exception as e_proxy:

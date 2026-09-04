@@ -2,11 +2,12 @@
 titulo: "Optimización del Dashboard de Grafana para Mejorar la Experiencia del Autor"
 descripción: "Se implementó una solución que reduce el tiempo de respuesta en el dashboard de Grafana al actualizar los estados documentales."
 estado: "publicado"
-estado_social: "aprobado"
+estado_social: "publicado_linkedin"
 subtema: "Blog"
 fase: "Epic 3 - Fase 2"
 fecha: "2026-05-18"
 descripcion: "Se implementó una solución que reduce el tiempo de respuesta en el dashboard de Grafana al actualizar los estados documentales."
+linkedin_id: "urn:li:share:7484517392316977153"
 ---
 <!-- linkedin:
 La eficiencia es clave. Al reducir significativamente el tiempo de respuesta en el dashboard de Grafana, se ha mejorado la experiencia del autor. Conoce cómo se implementó esta solución en merci-sre.py y descubre los beneficios reales. #DevSecOps #DesarrolloWeb

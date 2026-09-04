@@ -2,12 +2,13 @@
 titulo: "Automatización Extendida: Compilador Data-Driven para la Biblioteca"
 descripción: "Evolución del agente autónomo hacia una arquitectura JSON (SSOT) para la compilación determinista del conocimiento."
 estado: "publicado"
-estado_social: "aprobado"
+estado_social: "publicado_linkedin"
 orden_social: 1
 subtema: "Blog"
 fase: "Epic 3 - Fase 2"
 fecha: "2026-05-21"
 descripcion: "Evolución del agente autónomo hacia una arquitectura JSON (SSOT) para la compilación determinista del conocimiento"
+linkedin_id: "urn:li:share:7479081577684279296"
 ---
 <!-- linkedin:
 Dejar que una Inteligencia Artificial edite directamente los archivos en producción es una receta garantizada para el desastre visual. En la arquitectura de mercedev.es, se detectó que el agente autónomo rompía ocasionalmente la página del glosario técnico debido a "alucinaciones de formato".

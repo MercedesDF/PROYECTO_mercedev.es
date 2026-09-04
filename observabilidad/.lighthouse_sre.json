@@ -1,12 +1,12 @@
 {
-  "lighthouse_performance": 100,
+  "lighthouse_performance": 80,
   "lighthouse_accessibility": 100,
   "lighthouse_best_practices": 100,
   "lighthouse_seo": 100,
-  "network_latency_ms": 3,
-  "network_ttfb_ms": 3,
-  "cwv_tbt_ms": 0,
-  "cwv_lcp_ms": 948,
+  "network_latency_ms": 2,
+  "network_ttfb_ms": 2,
+  "cwv_tbt_ms": 698,
+  "cwv_lcp_ms": 1956,
   "cwv_cls": 0.0,
   "lighthouse_accessibility_contrast_errors": 0,
   "lighthouse_accessibility_aria_errors": 0

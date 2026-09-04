@@ -378,8 +378,54 @@
 
 ---
 
+## ÉPICA 10: Orquestación Zero-Bloat con Antigravity IDE (Agentes y Skills)
+
+**Objetivo:** Reconversión del ecosistema hacia el modelo de Inteligencia Artificial (IA / AI - Artificial Intelligence) basado en agentes de Antigravity IDE (Entorno de Desarrollo Integrado / Integrated Development Environment). Implementación de habilidades (Skills) y reglas (Rules) para la optimización de código y mantenimiento autónomo, manteniendo la filosofía minimalista y sin dependencias innecesarias.
+
+### Fase 1: Arquitectura de Agentes y Gobernanza
+- [ ] **Diseñar la topología de agentes.** Definir responsabilidades atómicas (Zero-Bloat) para cada agente: p.ej., un agente especializado en refactorización de código, otro en auditoría SRE (Site Reliability Engineering / Ingeniería de Confiabilidad del Sitio).
+- [ ] **Desplegar la estructura `.agents/`.** Inicializar el directorio de configuración del espacio de trabajo con sus subdirectorios estándar (`skills/`, `rules/`, `plugins/`).
+- [ ] **Definir el marco de reglas (Rules).** Crear los archivos Markdown (`AGENTS.md` o dentro de `rules/`) que aseguren que los agentes respeten la única fuente de verdad (`instrucciones.md`) y las convenciones del repositorio (comentarios en español, sin frameworks pesados).
+
+### Fase 2: Implementación de Habilidades (Skills)
+- [ ] **Desarrollar Skills Fundamentales.** Crear las carpetas de skills con sus respectivos `SKILL.md` (instrucciones con YAML frontmatter) para dotar a los agentes de capacidades específicas de optimización y creación de scripts.
+- [ ] **Validar contexto y trazabilidad.** Asegurar que cada skill instruya al agente a registrar su avance cronológicamente en la bitácora (`laboratorio/bitacora-mercedev.md`).
+
+### Fase 3: Pruebas y Optimización (Ejecución)
+- [ ] **Delegar tareas de optimización.** Ejecutar pruebas controladas donde los agentes optimicen componentes del proyecto bajo supervisión.
+- [ ] **Delegar creación de scripts IA.** Instanciar la creación de nuevas herramientas DevSecOps (Desarrollo, Seguridad y Operaciones) mediante los agentes.
+- [ ] **Auditoría Documental.** Validar que las acciones de los agentes están documentadas y que los acrónimos utilizados estén definidos (Inglés/Español).
+
+### Fase 4: Cierre y Empaquetado
+- [ ] Cierre de fase según Protocolo Estricto: Conciliación de Deuda Técnica, Cosecha de Conocimiento, Evaluación de Release y Snapshot.
+- [ ] Cierre de la Épica 10.
+
+---
+## Épica 11: La Conexión Inter-Artículos y la Biblioteca Total
+
+**Objetivo:** Eliminar la sensación de "páginas sueltas" transformando la web en un ecosistema hiperconectado, y expandir la Biblioteca para abarcar toda la información dispersa del proyecto.
+
+### Fase 1: Arquitectura de Conexiones (El Grafo)
+
+- [ ] **Mapa de Dependencias: El Grafo de Contenidos.** Analizar todas las páginas del sitio y establecer enlaces lógicos: Qué artículos se relacionan entre sí, qué términos técnicos conecta cada uno, y qué cuadernillos se necesitan mutuamente para entender un concepto.
+- [ ] **Enlaces Contextuales Automáticos.** Implementar un sistema (posiblemente via scripts o plugins) para insertar automáticamente enlaces dentro del contenido del cuerpo del artículo. Por ejemplo, si en un artículo de IA se menciona el concepto "Red Neuronal", el texto debería convertirse automáticamente en un enlace a la página correspondiente en la Biblioteca.
+- [ ] **Interconexión de Fases.** Asegurar que los artículos de la Biblioteca (Conceptos) se enlacen a los Cuadernillos (Ciencia Aplicada), y que estos a su vez enlacen a las Herramientas (Scripts/Código). Romper los silos verticales.
+
+### Fase 2: El Catálogo Universal (Unificación de Biblioteca)
+
+- [ ] **Unificación del Catálogo de Biblioteca.** Fusionar todos los índices y listados existentes (ej. `build_catalog.py`, `library_index.html`, `.vitepress/config.ts`) en un único sistema maestro de gestión de contenido (Single Source of Truth) para la Biblioteca.
+- [ ] **Clasificación y Estructura Global.** Reorganizar el contenido en categorías universales (ej. "Ciencia Cognitiva", "Ingeniería de Software", "Ciberseguridad") para facilitar la navegación y la sensación de orden.
+- [ ] **Remediación de Contenido Huérfano.** Auditar el sitio para encontrar artículos o secciones que existen pero no están enlazadas a ningún índice, y conectarlos al nuevo catálogo.
+
+### Fase 3: Mejora de Experiencia de Usuario (UX)
+
+- [ ] **Navegación Dinámica.** Implementar elementos de interfaz que cambien según el contexto. Si el usuario está leyendo un artículo de IA, el menú lateral o los "breadcrumbs" (migas de pan) deberían destacar la sección de Biblioteca de IA.
+- [ ] **Visualización Gráfica (Opcional).** Evaluar la viabilidad de mostrar un pequeño "mapa visual" de relaciones en páginas de alta densidad, para que el usuario pueda ver qué conceptos están conectados.
+
+---
+
 ## 💡 IDEAS FUTURAS (Backlog)
 
 Iniciativas documentadas para futuras iteraciones que actualmente no pertenecen a las épicas activas:
 
-- [ ] **Épica 10: Boilerplate Completamente Configurable (Modularidad):** Modificar el instalador (`merci-release.py`) para que el usuario pueda elegir qué módulos instalar (Tienda, Biblioteca, Art de Coté), permitiendo habilitar o deshabilitar piezas enteras de la arquitectura estática más allá de pequeños toggles.
+- [ ] **Épica: Boilerplate Completamente Configurable (Modularidad):** Modificar el instalador (`merci-release.py`) para que el usuario pueda elegir qué módulos instalar (Tienda, Biblioteca, Art de Coté), permitiendo habilitar o deshabilitar piezas enteras de la arquitectura estática más allá de pequeños toggles.

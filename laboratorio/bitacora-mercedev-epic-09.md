@@ -40,6 +40,53 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-07-03 — Ajuste de Tamaño de Contexto y Unificación de Agentes Locales en LiteLLM
+
+**Contexto:**
+Se detectó un fallo crítico de procesamiento en el servidor local de LM Studio (`OpenAIException - Error code: 400 - Context size has been exceeded`). Esto ocurría porque los límites de tokens de salida de los agentes (`max_tokens=3000` y `max_tokens=4000` en `merci-blogger.py` y `merci-librarian.py` respectivamente) sumados a los tokens del prompt de entrada superaban la ventana de contexto de 4096 tokens configurada por defecto en el modelo cargado en local (`qwen/qwen3.5-9b`). Asimismo, `merci-librarian.py` seguía llamando de forma directa a un modelo de Gemini no tipado en lugar del alias unificado `ide-agent` del proxy.
+
+**Hecho:**
+- Se redujo el parámetro `max_tokens` a un valor conservador de `1500` en `PROYECTO_mercedev.es/scripts/merci/merci-blogger.py` y `PROYECTO_mercedev.es/scripts/merci/merci-librarian.py` para asegurar compatibilidad total con la ventana de contexto de modelos locales.
+- Se refactorizó `merci-librarian.py` para consumir la petición de IA a través del alias `openai/ide-agent` expuesto en el proxy (puerto 4000).
+- Se comprobó mediante `merci-total.py` que la compilación y QA finalizan con éxito en verde.
+
+**Detalle técnico:**
+- Archivo modificado: `PROYECTO_mercedev.es/scripts/merci/merci-blogger.py` (Línea 145).
+- Archivo modificado: `PROYECTO_mercedev.es/scripts/merci/merci-librarian.py` (Línea 49 y 57).
+- Comandos ejecutados: `python3 scripts/merci/merci-total.py` y `python3 scripts/merci/merci-audit.py`.
+
+**Motivo / criterio:**
+Garantizar la estabilidad y consistencia de la pila local de IA. Acotar el tamaño máximo de respuesta a 1500 tokens previene desbordamientos de memoria en el servidor local de inferencia sin menoscabar la calidad del texto técnico o de marketing autogenerado.
+
+**Siguiente paso o deuda:**
+- Siguiente paso: Confirmar los cambios pendientes en el control de versiones local.
+
+---
+
+### 2026-07-03 — Prefijado de Modelos del Proxy para Evasión de Errores del SDK de LiteLLM
+
+**Contexto:**
+Se identificó un fallo de comunicación del lado del cliente en `merci-brain.py` y `merci-blogger.py`. Aunque los puertos locales de LiteLLM (4000) y LM Studio (1234) estaban encendidos y escuchando en la terminal, las llamadas SDK fallaban inmediatamente antes de transmitirse debido a la validación estricta del cliente de LiteLLM, que requiere un prefijo de proveedor conocido (ej. `openai/`) para omitir la inferencia estática de modelos desconocidos (`local-agent` e `ide-agent`). Además, se diagnosticó que el servidor local de LM Studio no tiene ningún modelo cargado en memoria RAM en la sesión actual de la terminal.
+
+**Hecho:**
+- Se modificaron `PROYECTO_mercedev.es/scripts/merci/merci-brain.py` y `PROYECTO_mercedev.es/scripts/merci/merci-blogger.py` para prefijar los nombres de modelo en las llamadas de finalización como `openai/local-agent` y `openai/ide-agent` respectivamente.
+- Se comprobó mediante un script de depuración que la llamada de red ahora atraviesa exitosamente el SDK cliente y se enruta de forma correcta hacia el puerto 4000 del proxy.
+- Se verificó que el pipeline general de compilación estática y auditoría finaliza con éxito en verde.
+
+**Detalle técnico:**
+- Archivo modificado: `PROYECTO_mercedev.es/scripts/merci/merci-brain.py` (Línea 58).
+- Archivo modificado: `PROYECTO_mercedev.es/scripts/merci/merci-blogger.py` (Línea 137).
+- Script efímero creado para pruebas: `/home/hildegahr/.gemini/antigravity-ide/brain/d6d9933e-122a-4840-8d6c-20b5fc4426ed/scratch/test_local_agent.py`.
+- Comandos ejecutados: `ss -tuln`, `lms ps` y `python3 scripts/merci/merci-total.py`.
+
+**Motivo / criterio:**
+Asegurar que los agentes de software se comuniquen correctamente con la pasarela de enrutamiento unificado de la suite de desarrollo, respetando el estándar API de LiteLLM y garantizando el flujo híbrido de resiliencia.
+
+**Siguiente paso o deuda:**
+- Siguiente paso: Si se desea habilitar la contingencia local, el operador debe cargar un modelo en la RAM de LM Studio ejecutando `lms load qwen/qwen3.5-9b` en la terminal.
+
+---
+
 ### 2026-07-03 — Persistencia de Advertencias de Triage en el Orquestador del Glosario
 
 **Contexto:**
