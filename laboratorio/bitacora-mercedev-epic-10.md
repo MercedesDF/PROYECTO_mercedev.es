@@ -39,6 +39,26 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-09-04 - Saneamiento de vulnerabilidades (Dependabot)
+
+**Contexto:** Al subir el código a GitHub, Dependabot interceptó la subida alertando de 16 vulnerabilidades (CVEs) críticas y altas en las dependencias locales (`litellm`, `pillow`, `weasyprint`).
+
+**Hecho:** 
+- Se desanclaron las versiones estrictas (`==`) en `requirements.txt` reemplazándolas por `>=`.
+- Se forzó la actualización del entorno virtual para descargar los parches de seguridad.
+
+**Detalle técnico:** 
+- Archivo editado: `requirements.txt`
+- Comandos: `pip install --upgrade -r requirements.txt`
+
+**Motivo / criterio:** Sanear la cadena de suministro (Supply Chain) y mantener el entorno local seguro antes de iniciar el diseño de los nuevos agentes.
+
+**Siguiente paso o deuda:** Finalizar este parche de seguridad y comenzar con el diseño de la topología de agentes (Fase 1).
+
+---
+
+
+
 ### 2026-09-04 - Inicio de Épica 10 y Revisión Documental
 
 **Contexto:** Arranque formal de la Épica 10 centrada en la reconversión del ecosistema hacia el modelo de Inteligencia Artificial basado en agentes de Antigravity IDE.
