@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingeniería de Rendimiento en CI/CD Local: Zero-B... — mercedev.es</title>
+    <meta name="description" content="Desglose técnico de las optimizaciones implementadas en el pipeline merci total. Tree Pruning, Mega-Regex, Lazy Loading y Concurrencia de Red.">
+    <link rel="canonical" href="https://mercedev.es/biblioteca/ingenieria-de-rendimiento-en-cicd-local-zero-bloat-al-extremo.html">
+    <link rel="stylesheet" href="/css/main.css?v=1788527818">
+    <script src="/js/MerciController.js?v=1781503814" defer></script>
+    <script src="/js/main.js?v=1781552845" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Ingenier\u00eda de Rendimiento en CI/CD Local: Zero-Bloat al Extremo",
+      "description": "Desglose t\u00e9cnico de las optimizaciones implementadas en el pipeline merci total. Tree Pruning, Mega-Regex, Lazy Loading y Concurrencia de Red.",
+      "url": "https://mercedev.es/biblioteca/ingenieria-de-rendimiento-en-cicd-local-zero-bloat-al-extremo.html"
+    }
+    </script>
+</head>
+<body class="page" id="page-biblioteca">
+    <div id="top" tabindex="-1" style="position: absolute; top: 0; left: 0;"></div>
+    <header class="header">
+        <a href="/" class="header__brand">
+            <img src="/assets/images/logo.webp?v=2" alt="mercedev" class="header__logo" width="263" height="65"
+                fetchpriority="low" decoding="async">
+        </a>
+        <button class="header__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span class="header__toggle-icon"></span>
+        </button>
+        <nav class="header__nav nav" id="main-nav" aria-label="Navegación principal">
+            <a href="/" class="nav__link">Portada</a>
+            <a href="/biblioteca/" class="nav__link">Biblioteca</a>
+            <!-- QUÉ HACE: Inyecta la ruta del Perfil Semántico (Anti-ATS). -->
+            <!-- POR QUÉ: Integra la autoridad profesional directamente en el flujo de navegación de infraestructura. -->
+            <a href="/sobre-mi/" class="nav__link">Sobre Mí</a>
+            <!-- QUÉ HACE: Diferencia este enlace del autogenerado por WordPress en las tarjetas. -->
+            <!-- POR QUÉ: Evita el error WAI-ARIA de "Enlaces idénticos con distinto destino". -->
+            <a href="/blog/" class="nav__link" aria-label="Ir a la portada del Blog">Blog</a>
+            <a href="/art-de-cote/" class="nav__link">Art de Coté</a>
+            <a href="/proyectos/" class="nav__link">Proyectos</a>
+            <a href="/blog/tienda/" class="nav__link">Tienda</a>
+            <a href="/contacto/" class="nav__link">Contacto</a>
+        </nav>
+    </header>
+    <main class="main--padded section" id="main">
+        <article class="card card--booklet">
+            <a href="/biblioteca/" class="card__back-link">← Volver a la Biblioteca</a>
+            <header>
+                    <h1 class="home-card__title--highlight">Ingeniería de Rendimiento en CI/CD Local: Zero-Bloat al Extremo</h1>
+                <a href="/descargas/ingenieria-de-rendimiento-en-cicd-local-zero-bloat-al-extremo.pdf" class="card__download" target="_blank" rel="noopener noreferrer">📄 Abrir Edición PDF</a>
+            </header>
+            <div class="card__content">
+                <h2>El Desafío (Síntoma)</h2>
+<p>En el desarrollo de pipelines de <strong>Integración Continua (<abbr title="Merci Explica: Proceso automatizado que permite combinar cambios de múltiples desarrolladores y detectar problemas de incompatibilidad temprano." tabindex="0">CI</abbr>)</strong> locales, la velocidad de ejecución es crítica. El orquestador estático <code>merci total</code> empleaba <strong>16.16 segundos</strong> en ejecutarse debido a graves bloqueos de Entrada/Salida (I/O Blocking), importación global de librerías mastodónticas que no se llegaban a usar, iteraciones secuenciales de red y bucles de <strong>Expresiones Regulares (Regex)</strong> poco optimizados. Esta latencia rompía por completo el estado de flujo (flow) de la desarrolladora en cada guardado.</p>
+<h2>La Maniobra (Lógica)</h2>
+<p>Se aplicaron cuatro técnicas quirúrgicas en los scripts de validación, consiguiendo reducir el tiempo de compilación estático en más del 50% sin añadir ni una sola dependencia externa (<abbr title="Merci Explica: Construir una casa con lo mínimo e indispensable en lugar de comprar electrodomésticos enormes que gastan energía y nunca se usan." tabindex="0">Zero-Bloat</abbr>).</p>
+<p><strong>1. Tree Pruning (Poda de Árboles) en auditoría:</strong>
+En lugar de iterar a ciegas con <code>rglob</code>, forzamos a <code>os.walk</code> a saltarse directorios colosales mediante modificación "in-place". El <em>auditor</em> pasó de escanear 14.000 archivos a solo 400 en milisegundos.</p>
+<pre><code class="language-python">for root, dirs, files in os.walk(root_dir):
+    dirs[:] = [d for d in dirs if d not in {'.venv', 'node_modules', '.git'}]
+</code></pre>
+<p><strong>2. Carga Diferida (Lazy Loading) en publicador:</strong>
+Librerías pesadas como <code>weasyprint</code> (Generación de PDF Estático - <strong><abbr title="Merci Explica: Maestro que toma las plantillas HTML y los datos, y produce páginas web completas listas para ser servidas." tabindex="0">SSG</abbr></strong>) añaden 0.45s solo por importarse. Ahora solo se importan dentro del bloque condicional que requiere forzosamente construir el PDF, saltándose el peaje si hay "Cache Hit".</p>
+<p><strong>3. Patrones Compuestos O(1) (Mega-Regex):</strong>
+En lugar de lanzar 120 acrónimos contra 400 archivos en un bucle O(N×M), se compiló un único gran patrón <code>re.compile(r'\b(API|CI|...)\b')</code>. Se resolvió en una sola pasada.</p>
+<p><strong>4. Native Concurrency (Concurrencia de Red) en Linkcheck:</strong>
+El script de enlaces perdía el 90% del tiempo esperando que el servidor <strong>Nginx</strong> contestase peticiones secuenciales. Al envolver la petición en un <code>ThreadPoolExecutor</code> de 50 hilos nativos, el tiempo bajó de 4.15s a 1.2s solapando toda la latencia.</p>
+<h2>El Aprendizaje / Deuda Técnica</h2>
+<p>Aplicar <strong>Ingeniería de Confiabilidad del Sitio (<abbr title="Merci Explica: Mecanismo para garantizar que un sitio web funcione correctamente y esté disponible todo el tiempo." tabindex="0">SRE</abbr>)</strong> a nivel local, sin recurrir a paquetes NPM, requiere exprimir la biblioteca estándar de Python y domar la asincronía. El resultado ha sido la purga completa de cuellos de botella, cerrando el pipeline en <strong>6.57s</strong>. La deuda técnica pendiente pasa por la observabilidad extrema de futuras regresiones de tiempo.</p>
+<h3>💡 En resumen (Merci Explica):</h3>
+<p>Imagina que para revisar tu casa, en lugar de mirar en cada caja del trastero una por una (16 segundos), le dices al sistema: "Ignora el trastero, abre solo las habitaciones usadas hoy y manda a 50 personas a mirar a la vez". Ahora la revisión tarda 6 segundos y no gasta batería.</p>
+            </div>
+        </article>
+    </main>
+    <a href="#top" class="floating-back-to-top" aria-label="Volver arriba">↑</a>
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="https://www.linkedin.com/in/mercedesdf-ingenieria/" target="_blank" rel="noopener noreferrer"
+                class="footer__link">LinkedIn</a>
+            <a href="https://github.com/MercedesDF" target="_blank" rel="noopener noreferrer"
+                class="footer__link">GitHub</a>
+            <a href="https://github.com/MercedesDF/merci-boilerplate" target="_blank" rel="noopener noreferrer"
+                class="footer__link">Merci Boilerplate</a>
+        </div>
+        <div class="footer__text">
+            <a href="#top">↑ Volver arriba</a><br>
+            &copy; 2026 <strong>mercedev</strong> — Base de código abierto bajo Licencia MIT.
+        </div>
+    </footer>
+
+    <!-- Asistente Merci -->
+    <aside class="merci-ui" id="merci-ui" aria-label="Asistente virtual Merci">
+        <!-- QUÉ HACE: Oculta el globo de mensaje a lectores de pantalla (aria-hidden) hasta que haya texto -->
+        <div class="merci-ui__message-box" id="merci-message" aria-live="polite" aria-hidden="true">
+            <span class="merci-ui__message-text"></span>
+        </div>
+        <!-- QUÉ HACE: Usa un botón nativo (<button>) para atrapar el foco del tabulador (Accesibilidad) -->
+        <button class="merci-ui__trigger" aria-controls="merci-message" aria-expanded="false">
+            <img class="merci-ui__avatar" src="/assets/images/Merci-en-la-nube.webp" alt="Interactuar con Merci"
+                width="80" height="80" fetchpriority="low" decoding="async">
+        </button>
+    </aside>
+</body>
+</html>

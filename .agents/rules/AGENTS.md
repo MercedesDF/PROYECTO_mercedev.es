@@ -23,3 +23,9 @@ Si falla una automatización, el agente SRE/QA debe aplicar **Degradación Elega
 
 ## 6. Prohibición de Commits Autónomos (Zero-Trust)
 Los agentes tienen acceso a la terminal, pero **nunca deben ejecutar `merci commit` ni `git commit` por su cuenta** para enviar código a producción o empaquetar de forma definitiva. Esa acción es responsabilidad y sello exclusivo de la desarrolladora humana (Mercedes). Solo los agentes SRE/QA pueden ejecutar comandos de *testing* y *linting*.
+
+## 7. Uso Obligatorio de Plantillas (Estandarización)
+Cualquier agente que actúe como redactor (DevRel, Publisher, etc.) y deba generar un nuevo documento, está **obligado a consultar el directorio `docs/`** y utilizar la plantilla correspondiente (ej. `plantilla-cuadernillo.md`) como esqueleto inicial. Está estrictamente prohibido inventar estructuras nuevas si ya existe una plantilla oficial, garantizando así la coherencia visual y documental del proyecto.
+
+## 8. Zero-Trust en Resultados (QA Autónomo)
+El Orquestador (IDE) y los Agentes **tienen prohibido** dar por válido el trabajo de los scripts de generación de contenido local (Librarian, Blogger, etc.) basándose únicamente en el éxito de la terminal (Exit Code 0). Tras delegar una tarea de generación, el Orquestador **debe obligatoriamente abrir, leer y auditar** el documento resultante para confirmar que cumple con la plantilla, la longitud, y la integridad de los datos (ausencia de truncamiento o alucinaciones) **ANTES** de notificárselo a la desarrolladora humana. El humano debe recibir certezas, no deberes de revisión.

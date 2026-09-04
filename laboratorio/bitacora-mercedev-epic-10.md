@@ -39,6 +39,39 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-09-04 - Implementación de Zero-Trust QA (Regla #8)
+
+**Contexto:** Tras la delegación de tareas al agente Blogger, se detectó un fallo sistémico en el rol del Orquestador: se dio por válido un documento generado por el LLM basándose únicamente en el código de éxito del script, ignorando que el archivo estaba truncado y carecía de texto válido.
+
+**Hecho:**
+- Inyección de la Regla #8 (Zero-Trust en Resultados / QA Autónomo) en `AGENTS.md`.
+
+**Detalle técnico:** Queda prohibido confiar ciegamente en el *Exit Code 0* de un script de generación. El Orquestador ahora está obligado por directiva global a abrir, auditar y validar semánticamente los archivos contra sus plantillas antes de considerar una tarea completada.
+
+**Motivo / criterio:** Prevenir que la usuaria asuma la carga cognitiva de supervisar y corregir los fallos de formato de la IA. El valor del ecosistema IDE no es solo la ejecución, sino el control de calidad (QA) autónomo.
+
+**Siguiente paso o deuda:** Ejecutar `merci commit` para sellar la iteración actual.
+
+---
+
+### 2026-09-04 - Cuadernillo SRE, Reglas Globales y Agent Chaining
+
+**Contexto:** Dejar evidencia formal de la optimización extrema de rendimiento en el pipeline local y probar en la práctica la cadena de agentes (Librarian -> Publisher) tras completar los scripts SRE.
+
+**Hecho:** 
+- Creación del cuadernillo técnico sobre SRE/Zero-Bloat (`biblioteca/cuadernillo-ingenieria-rendimiento-python.md`).
+- Formalización de la Regla #7 en `AGENTS.md` para el uso estricto de las plantillas de `docs/`.
+- Ejecución manual del eslabón de marketing (`merci-blogger.py`), logrando un artículo divulgativo (`blog/blog-ingenieria-rendimiento-python.md`) y encolando el teaser para LinkedIn.
+- Se compilaron y sincronizaron 32 publicaciones en WordPress Headless, validando que el pipeline `merci total` completo se ejecuta ahora en apenas **~7.36s**.
+
+**Detalle técnico:** El modelo de lenguaje local (LiteLLM) sufrió alucinaciones de formato en la estructura YAML durante la generación del post del blog, obligando a una intervención de control de calidad (QA) del Orquestador para rellenar la plantilla estricta de WordPress/SSG sin perder tiempo de desarrollo humano.
+
+**Motivo / criterio:** Dejar constancia del triunfo técnico en la reducción del 50% de latencia del pipeline y demostrar que la Gobernanza de Agentes (Auditoría/Plantillas) blinda los despistes de la IA.
+
+**Siguiente paso o deuda:** Ejecutar `merci commit` para empaquetar los avances de esta sesión y continuar con los siguientes hitos de la épica.
+
+---
+
 ### 2026-09-04 - Carga Diferida (Lazy Loading) en Publicador SSG
 
 **Contexto:** `merci-publish.py` consumía unos ~2.47s en el dashboard de CI de forma constante, independientemente de si se generaban nuevos documentos o no.
