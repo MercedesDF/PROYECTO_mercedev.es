@@ -39,6 +39,26 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-09-04 - Parche de Habilidad: Integración de `merci completo`
+
+**Contexto:** Necesidad de que los agentes entiendan la diferencia entre guardar código (commit) y el pase a producción maestro que ejecuta la desarrolladora.
+
+**Hecho:** 
+- Se reescribió la Fase de Cierre/Despliegue del `.agents/skills/orquestador/SKILL.md`.
+- El Orquestador ahora reconoce explícitamente el comando maestro `merci completo` como el script final de producción.
+- Se mantiene la regla de Gobernanza Zero-Trust: el Orquestador prepara y valida, pero es la desarrolladora humana quien ejecuta `merci completo` en la terminal.
+
+**Detalle técnico:** 
+- Archivo editado: `.agents/skills/orquestador/SKILL.md`
+
+**Motivo / criterio:** Respetar la autoridad humana en los pases a producción, asegurando que el pipeline `merci completo` es el punto culminante de la Épica.
+
+**Siguiente paso o deuda:** Iniciar la Fase 3 de la Épica 10.
+
+---
+
+
+
 ### 2026-09-04 - Parche de Habilidad: Sinergia DevRel - Publisher
 
 **Contexto:** Evitar que los cuadernillos técnicos de alto valor divulgativo se queden aislados en la biblioteca sin distribución externa.
