@@ -3,14 +3,14 @@ titulo: "Glosario Técnico"
 descripcion: "Diccionario Data-Driven compilado automáticamente por el Agente Glosario."
 tema: "DevSecOps e Infraestructura"
 estado: "publicado"
-alt_portada: "Diccionario técnico automatizado 2026-09-04"
-fecha: "2026-09-04"
+alt_portada: "Diccionario técnico automatizado 2026-10-09"
+fecha: "2026-10-09"
 ---
 
 # Glosario Técnico DevSecOps & Arquitectura
 
 > **Estado del Documento:** Glosario vivo y autónomo. Un agente rastrea continuamente las bitácoras para extraer y definir nueva terminología DevSecOps.
-> **Versión de control:** 149 términos consolidados (Última actualización de datos: 2026-09-04 22:36).
+> **Versión de control:** 149 términos consolidados (Última actualización de datos: 2026-10-09 10:09).
 
 ## Índice Alfabético
 

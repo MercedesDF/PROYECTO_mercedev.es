@@ -1,11 +1,5 @@
 {
-  "https://mercedev.es/": {
-    "performance": 100,
-    "accessibility": 100,
-    "best-practices": 100,
-    "seo": 100
-  },
-  "https://mercedev.es/sobre-mi/": {
+  "https://mercedev.es/contacto/": {
     "performance": 100,
     "accessibility": 100,
     "best-practices": 100,
@@ -17,20 +11,8 @@
     "best-practices": 100,
     "seo": 100
   },
-  "https://mercedev.es/contacto/": {
+  "https://mercedev.es/sobre-mi/": {
     "performance": 100,
-    "accessibility": 100,
-    "best-practices": 100,
-    "seo": 100
-  },
-  "https://mercedev.es/blog/tienda/": {
-    "performance": 99,
-    "accessibility": 100,
-    "best-practices": 92,
-    "seo": 100
-  },
-  "https://mercedev.es/blog/": {
-    "performance": 98,
     "accessibility": 100,
     "best-practices": 100,
     "seo": 100
@@ -41,14 +23,32 @@
     "best-practices": 100,
     "seo": 100
   },
-  "https://mercedev.es/biblioteca/": {
-    "performance": 93,
+  "https://mercedev.es/proyectos/": {
+    "performance": 100,
     "accessibility": 100,
     "best-practices": 100,
     "seo": 100
   },
-  "https://mercedev.es/proyectos/": {
-    "performance": 87,
+  "https://mercedev.es/blog/tienda/": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 92,
+    "seo": 100
+  },
+  "https://mercedev.es/": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "https://mercedev.es/blog/": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "https://mercedev.es/biblioteca/": {
+    "performance": 100,
     "accessibility": 100,
     "best-practices": 100,
     "seo": 100

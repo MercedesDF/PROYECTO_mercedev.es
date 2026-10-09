@@ -2892,7 +2892,12 @@
     "INCORRECTO",
     "AGENTS",
     "SKILL",
-    "PATH"
+    "PATH",
+    "BLOG",
+    "DOC",
+    "LIB",
+    "RULES",
+    "TD"
   ],
   "rechazos": {
     "CPU": 1,
