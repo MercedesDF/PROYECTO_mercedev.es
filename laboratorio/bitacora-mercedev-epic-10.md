@@ -39,6 +39,28 @@ Plantilla base para el registro de sesiones.
 
 ## Registro cronológico
 
+### 2026-10-09 — Recompilación de artefactos estáticos (Sitemap y Métricas)
+
+**Contexto:** 
+Actualización automática de las fechas de modificación y métricas web en la carpeta estática `public/` tras la ejecución rutinaria del orquestador.
+
+**Hecho:**
+- Ejecución de las rutinas de construcción estática (`merci-total.py`).
+- Generación de nuevos valores `<lastmod>` en `public/sitemap.xml` para mantenimiento SEO.
+- Inyección de fechas y telemetría en archivos HTML.
+
+**Detalle técnico:**
+- Archivos modificados: Todo el árbol HTML dentro de `public/` y `sitemap.xml`.
+- No hay alteraciones en el código fuente (scripts), estilos (SCSS), ni manuales del repositorio.
+
+**Motivo / criterio:**
+Garantizar que los rastreadores web (*crawlers*) procesen los metadatos y fechas más recientes sin afectar la arquitectura maestra del entorno. Esta entrada sirve de sello transparente de gobernanza (Zero-Trust QA) ante el linter de commits para justificar la mutación de los artefactos de distribución pública.
+
+**Siguiente paso o deuda:**
+- Ejecutar `merci commit` de nuevo.
+
+---
+
 ### 2026-09-04 - Zero-Bloat Assets y Estandarización Multimedia (Regla #9)
 
 **Contexto:** Se generó una imagen (diagrama Mermaid renderizado) para la documentación y se depositó erróneamente en formato crudo (PNG) directamente en `docs/img/`, saltándose el flujo de optimización establecido en la Fase 3.4.
